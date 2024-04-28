@@ -1,0 +1,16 @@
+
+<div class="dropdown">
+    <input readonly class="inpdrop" type="text" [(ngModel)]="SelectedDisplay" [ngStyle]="{'width':Width}">
+    <button (click)="openDropdown($event)" class="dropdownbtn"> 
+        <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
+    </button>
+    <div id="myDropdown"  (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)" 
+        class="dropdown-content" 
+        [ngStyle]="{'minWidth':DropDownContentWidth}" 
+        [ngClass]="{'show':IsDropDownOpen}">
+
+      <ng-content class="option-content" select="optionTemplate">
+
+      </ng-content>
+    </div>
+  </div>

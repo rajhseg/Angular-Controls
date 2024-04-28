@@ -1,0 +1,71 @@
+
+<div class="rcal">
+<div class="rcalinputdiv">
+    <input readonly class="calendarinput" type="text" [(ngModel)]="Value"/>
+    <div style="position: relative; width: 0px; height: 0px;" (click)="openCal($event)"><b  class="calIcon" >&#9782;</b></div>
+</div>
+<div class="calender" #calmodal *ngIf="IsCalenderOpen">
+    <div class="week">
+        <div>
+            <a (click)="previousMonth()" class="atag previous around">&#8249;</a>
+        </div>
+
+        <div class="mnyr">
+
+            <rdropdown  [IsDropDownOpen]="IsMonthDropdownOpen"
+                        (Closed)="isMonthDropdownClosed($event)"
+                        (Opened)="isMonthDropdownOpened($event)"
+                        [IsChildOfAnotherComponent]="isDropdownChild"                         
+                        (change)="changeMonth($event)" 
+                        [ngModel]="this.monthNames[this.month]" 
+                        (ngModelChange)="this.selectedMonthInString = $event"
+                        [Items]="this.monthNames" 
+                        DropDownContentWidth="92px">
+                <optionTemplate *ngFor="let item of this.monthNames" [Item]="item">
+                  <div>
+                    {{item}}
+                  </div>
+                </optionTemplate>
+            </rdropdown>
+
+        </div>
+        <div class="mnyr">
+            
+            <rdropdown  [IsDropDownOpen]="IsYearDropdownOpen"
+                        [IsChildOfAnotherComponent]="isDropdownChild"    
+                        (change)="changeYear($event)" 
+                        [(ngModel)]="this.year" 
+                        [Items]="this.totalYears" 
+                        DropDownContentWidth="92px">
+                <optionTemplate *ngFor="let item of this.totalYears" [Item]="item">
+                    <div>
+                        {{item}}
+                    </div>
+                </optionTemplate>
+            </rdropdown>
+
+        </div>
+    
+        <div>
+            <a (click)="nextMonth()" class="atag next around">&#8250;</a>
+        </div>
+    </div>
+    <div class="week" >
+        <div class="day dayheader">Sun</div>
+        <div class="day dayheader">Mon</div>
+        <div class="day dayheader">Tue</div>
+        <div class="day dayheader">Wed</div>
+        <div class="day dayheader">Thu</div>
+        <div class="day dayheader">Fri</div>
+        <div class="day dayheader">Sat</div>
+    </div>
+    <div class="week" *ngFor="let week of currentMonth?.weeks">
+        <div (click)="selectDate(day)" class="day" *ngFor="let day of week.days"
+              [ngClass]="{ 'notCurrentMonth': !day.isActiveMonth}">
+           <div [ngClass]="{'selday':day.isSelected, 'notactive': !day.isActiveMonth}">
+            {{day.num}}
+            </div> 
+        </div>
+    </div>
+</div>
+</div>

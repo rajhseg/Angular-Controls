@@ -66,7 +66,7 @@ export class PopupService {
   ClosePopupsOnWindowsClick(instance: IPopupCloseInterface | null, onWindowClick: boolean){
     
     if(instance!=null && instance!=undefined){
-      if(instance.IsChildOfAnotherComponent){
+      if(instance.IsChildOfAnotherControl){
 
         if(instance instanceof DropdownComponent)
             this.CloseDropdown(instance, onWindowClick);
@@ -98,7 +98,7 @@ export class PopupService {
 
 
 export interface IPopupCloseInterface {
-  IsChildOfAnotherComponent: boolean;
+  IsChildOfAnotherControl: boolean;
   ParentComponent:any | undefined;
-  IsChildOfAnotherComponentClicked: boolean;
+  IsChildOfAnotherControlClicked: boolean;
 }

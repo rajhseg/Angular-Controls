@@ -39,9 +39,9 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   } 
 
   @Input()
-  IsChildOfAnotherComponent: boolean = false;
+  IsChildOfAnotherControl: boolean = false;
   
-  IsChildOfAnotherComponentClicked: boolean = false;
+  IsChildOfAnotherControlClicked: boolean = false;
 
   Opened = output<boolean>();
 
@@ -169,7 +169,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     let isClickedAsChild: boolean =false;
 
      this.ddservice.GetAllInstance().forEach(x=>{
-      if(x.IsChildOfAnotherComponentClicked){
+      if(x.IsChildOfAnotherControlClicked){
         isClickedAsChild = true;
       }
      });
@@ -241,7 +241,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   openDropdown(evt: Event){
    
     this.closeAllDropdowns(this);
-    this.IsChildOfAnotherComponentClicked = false;
+    this.IsChildOfAnotherControlClicked = false;
 
    if(this.firstTimeInit){
     this.optionTemps?.forEach(x=>{
@@ -270,8 +270,8 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
 
   SelectItem(item:DropdownModel|string | number){
 
-    if(this.IsChildOfAnotherComponent){
-      this.IsChildOfAnotherComponentClicked = true;
+    if(this.IsChildOfAnotherControl){
+      this.IsChildOfAnotherControlClicked = true;
     }
 
     this.SelectedItem = item;

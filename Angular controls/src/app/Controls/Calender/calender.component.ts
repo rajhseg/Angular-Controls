@@ -50,15 +50,16 @@ onDateSelected = output<Date>();
 @ViewChild('calmodal') calModal!: ElementRef;
 
 @Input()
-IsChildOfAnotherComponent: boolean = false;
+IsChildOfAnotherControl: boolean = false;
 
-IsChildOfAnotherComponentClicked: boolean = false;
+IsChildOfAnotherControlClicked: boolean = false;
 
 @Input()
 ParentComponent: any | undefined = undefined;
 
 private _showCalender: boolean = false;
 
+@Input()
 set IsCalenderOpen(value: boolean){      
 
   if(this._showCalender && !value){
@@ -150,7 +151,7 @@ WindowClick(event:any) {
   let isClickedAsChild: boolean =false;
 
   this.calService.GetAllInstance().forEach(x=>{
-   if(x.IsChildOfAnotherComponentClicked){
+   if(x.IsChildOfAnotherControlClicked){
      isClickedAsChild = true;
    }
   });
@@ -192,7 +193,7 @@ closeAllDropdowns(ins: CalenderComponent | null, onwindowClick: boolean = false)
 }
 
 openCal($evt:Event){
-  this.IsChildOfAnotherComponentClicked = false;
+  this.IsChildOfAnotherControlClicked = false;
   this.closeAllDropdowns(this);
   this.IsCalenderOpen = !this.IsCalenderOpen;
   this.IsMonthDropdownOpen = false;
@@ -213,9 +214,9 @@ loadYears(year:number){
 
 selectDate(day:Day){
 
-  if(this.IsChildOfAnotherComponent)
+  if(this.IsChildOfAnotherControl)
   {
-    this.IsChildOfAnotherComponentClicked = true;
+    this.IsChildOfAnotherControlClicked = true;
   }
 
   this.isSelectDayTriggered = true;
@@ -287,9 +288,9 @@ nextMonth(){
 
 LoadMonth(date: Date, isSelect: boolean = true){
 
-  if(this.IsChildOfAnotherComponent)
+  if(this.IsChildOfAnotherControl)
   {
-    this.IsChildOfAnotherComponentClicked = true;
+    this.IsChildOfAnotherControlClicked = true;
   }
 
   this.isSelectDayTriggered = false;

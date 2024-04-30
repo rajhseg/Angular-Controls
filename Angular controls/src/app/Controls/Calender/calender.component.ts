@@ -101,10 +101,22 @@ constructor(private calService: CalenderService, private popupService: PopupServ
 
  }
 
-  writeValue(obj: any): void {
-    this.selectedDate = new Date(obj);
+  writeValue(obj: string | Date ): void {
+    
+    if(obj!=undefined && obj!=''){
+      if(typeof(obj) === 'string'){
+        this.selectedDate = new Date(obj);
+      } else if(obj instanceof Date){
+        this.selectedDate = obj;
+      } else{
+        this.selectedDate = new Date();
+      }    
+    } else{
+      this.selectedDate = new Date();
+    }
+
     this.loadYears(this.selectedDate.getFullYear());
-    this.LoadMonth(this.selectedDate, true);    
+    this.LoadMonth(this.selectedDate, true);
   }
 
   registerOnChange(fn: any): void {

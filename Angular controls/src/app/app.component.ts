@@ -23,6 +23,7 @@ export class AppComponent {
   selItem: any = null;
   starWidth: number = 40;
   starValue: number = 2.4;
+  curDate!: string;
 
   constructor(){  
     this.items.push(new DropdownModel("0", "Jan"));
@@ -36,5 +37,10 @@ export class AppComponent {
     this.items.push(new DropdownModel("9", "Sep"));
 
     this.selItem = this.items[5];
+    this.curDate = "";
+  }
+
+  dateSelected($evt: any){
+    console.log($evt);
   }
 }

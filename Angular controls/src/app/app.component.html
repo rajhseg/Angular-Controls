@@ -1,5 +1,5 @@
 <div>
-  <rcalender></rcalender>
+  <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
   <rcalender></rcalender>
   <rcalender></rcalender>
   <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
@@ -35,6 +35,6 @@
       </div>
     </optionTemplate>
   </rdropdown>
-<starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating>
+<starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
 <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
 </div>

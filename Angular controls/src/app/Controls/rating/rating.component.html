@@ -1,7 +1,7 @@
 <div>
     <div #starcontainer class="starcontainer">
         <div #starcontrol class="starcontrol">
-            <div #star *ngFor="let item of Items"
+            <div #star *ngFor="let item of Items" 
                 [style.color]="starColor" 
                 [style.width]="starWidth+'px'" 
                 [style.fontSize]="starWidth+'px'" 
@@ -11,7 +11,7 @@
     </div>
     <div #staroutlinecontainer class="staroutlinecontainer">
         <div #staroutlinecontrol class="starcontrol">            
-            <div *ngFor="let item of Items"
+            <div *ngFor="let item of Items" (click)="selected(item)"
                 [style.color]="starColor" 
                 [style.width]="starWidth+'px'"  
                 [style.fontSize]="starWidth+'px'" 

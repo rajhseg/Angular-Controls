@@ -44,8 +44,11 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   }
 
   set ratingValue(value: number) {
-    this._ratingValue = value; 
+    this._ratingValue = value;     
     this.RenderUIAfterRatingValueChanged();   
+    this.onChange(value);
+    this.onTouch(value);
+    this.onRatingValueChanged.emit(value);
   }
   get ratingValue(): number {
     return this._ratingValue;
@@ -140,6 +143,10 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
     if(this.container!=undefined){
       this.renderUI();
     }
+  }
+
+  selected(value:number){
+    this.ratingValue = value;    
   }
 
 }

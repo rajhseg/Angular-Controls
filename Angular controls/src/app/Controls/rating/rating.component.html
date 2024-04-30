@@ -1,0 +1,22 @@
+<div>
+    <div #starcontainer class="starcontainer">
+        <div #starcontrol class="starcontrol">
+            <div #star *ngFor="let item of Items"
+                [style.color]="starColor" 
+                [style.width]="starWidth+'px'" 
+                [style.fontSize]="starWidth+'px'" 
+                class="starclass">
+            </div>       
+        </div>
+    </div>
+    <div #staroutlinecontainer class="staroutlinecontainer">
+        <div #staroutlinecontrol class="starcontrol">            
+            <div *ngFor="let item of Items"
+                [style.color]="starColor" 
+                [style.width]="starWidth+'px'"  
+                [style.fontSize]="starWidth+'px'" 
+                #staroutline class="staroutline">
+            </div>          
+        </div>
+    </div>
+</div>

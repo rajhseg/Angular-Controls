@@ -3,14 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { CalenderComponent } from './Controls/Calender/calender.component';
 import { DropdownComponent } from './Controls/dropdown/dropdown.component';
 import { DropdownModel } from './Controls/dropdown/dropdownmodel';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JsonPipe, NgFor } from '@angular/common';
 import { optionTemplate } from './Controls/dropdown/optiontemplate.component';
+import { RatingComponent } from './Controls/rating/rating.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CalenderComponent, DropdownComponent, FormsModule, NgFor,JsonPipe, optionTemplate],
+  imports: [RouterOutlet, CalenderComponent, DropdownComponent, FormsModule, ReactiveFormsModule,
+    NgFor,JsonPipe, 
+    optionTemplate, RatingComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -18,6 +21,8 @@ export class AppComponent {
   title = 'angularcontrols';
   items: DropdownModel[] = [];
   selItem: any = null;
+  starWidth: number = 40;
+  starValue: number = 2.5;
 
   constructor(){  
     this.items.push(new DropdownModel("0", "Jan"));

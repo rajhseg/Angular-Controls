@@ -1,0 +1,34 @@
+.starclass{    
+    color: red;    
+    display: inline-block;    
+    overflow: hidden;
+}
+
+.starclass::before{
+    content: '★';
+}
+
+.staroutline{
+    color: red;    
+    display: inline-block;    
+    overflow: hidden;
+}
+
+.staroutline::before {
+    content: '☆';
+}
+
+.starcontrol{
+    overflow: hidden;
+    display: inline-block;
+}
+
+.starcontainer{
+    overflow: hidden;
+    display: none;
+}
+
+.staroutlinecontainer {
+    position: relative;
+    display: none;    
+}

@@ -15,7 +15,7 @@
             <rdropdown  [IsDropDownOpen]="IsMonthDropdownOpen"
                         (Closed)="isMonthDropdownClosed($event)"
                         (Opened)="isMonthDropdownOpened($event)"
-                        [IsChildOfAnotherComponent]="isDropdownChild"                         
+                        [IsChildOfAnotherControl]="isDropdownChild"                         
                         (change)="changeMonth($event)" 
                         [ngModel]="this.monthNames[this.month]" 
                         (ngModelChange)="this.selectedMonthInString = $event"
@@ -32,7 +32,7 @@
         <div class="mnyr">
             
             <rdropdown  [IsDropDownOpen]="IsYearDropdownOpen"
-                        [IsChildOfAnotherComponent]="isDropdownChild"    
+                        [IsChildOfAnotherControl]="isDropdownChild"    
                         (change)="changeYear($event)" 
                         [(ngModel)]="this.year" 
                         [Items]="this.totalYears" 

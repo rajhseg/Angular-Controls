@@ -18,7 +18,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
 })
 export class RatingComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   
-  _ratingValue: number = 3.4;
+  _ratingValue: number = 3.7;
   _starwidth: number = 20;
   _starColor: string = 'orange';
   _noOfStars: number = 10;
@@ -91,8 +91,12 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   @ViewChild('staroutlinecontainer') starOutlineContainer!: ElementRef;
 
   getWidth(starWidth: number): number{
-    let wd = Math.round( (starWidth*this.noOfStars) * Math.round(this._ratingValue/this.noOfStars));
+    let wd = Math.round( (starWidth*this.noOfStars) * (this._ratingValue/this.noOfStars));
     return wd;
+  }
+
+  getSingleStarWidth(): number {
+    return this.starWidth*(83.25/100);
   }
   
   writeValue(obj: any): void {
@@ -115,9 +119,9 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   }  
 
   renderUI(){
-
-    let containerWidth= this.getWidth(this._starwidth);
-    this.starControl.nativeElement.style.width = this._starwidth * this.noOfStars + 'px';
+    let _singleStarwidth = this.getSingleStarWidth();
+    let containerWidth= this.getWidth(_singleStarwidth);
+    this.starControl.nativeElement.style.width = _singleStarwidth * this.noOfStars + 'px';
     
     console.log(this._starwidth);
     console.log(this._ratingValue);
@@ -127,7 +131,7 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
     this.container.nativeElement.style.display = 'inline-block';         
     
     this.starOutlineContainer.nativeElement.style.left = -containerWidth + 'px';
-    this.starOutlineContainer.nativeElement.style.top = "0px";
+    this.starOutlineContainer.nativeElement.style.top = "-3px";
     
     this.starOutlineContainer.nativeElement.style.display = 'inline-block';  
   }

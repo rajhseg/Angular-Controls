@@ -1,6 +1,6 @@
 .starclass{    
     color: red;    
-    display: inline-block;    
+    display: inline;    
     overflow: hidden;
 }
 
@@ -10,7 +10,7 @@
 
 .staroutline{
     color: red;    
-    display: inline-block;    
+    display: inline;    
     overflow: hidden;
 }
 

@@ -22,7 +22,7 @@ export class AppComponent {
   items: DropdownModel[] = [];
   selItem: any = null;
   starWidth: number = 40;
-  starValue: number = 2.5;
+  starValue: number = 2.4;
 
   constructor(){  
     this.items.push(new DropdownModel("0", "Jan"));

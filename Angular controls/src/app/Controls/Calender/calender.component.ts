@@ -175,21 +175,6 @@ closeAllDropdowns(ins: CalenderComponent | null, onwindowClick: boolean = false)
 
   this.popupService.ClosePopupsOnWindowsClick(ins, onwindowClick);
 
-  // let drps = document.querySelectorAll('.calender');
-
-  // drps.forEach((x)=>{
-  //   if(x.classList.contains('show'))
-  //     {
-  //       x.classList.toggle('show');
-  //     }
-  // });
-
-  // this.calService.GetAllInstance().forEach((x)=>{
-  //   if(x!==ins){
-  //     x.showCalendar = false; 
-  //   }
-  // });
-
 }
 
 openCal($evt:Event){
@@ -229,9 +214,6 @@ selectDate(day:Day){
       let cdate = new Date(this.year, this.month, day.num);
       this.selectedDate = cdate;
       this.SetDate(this.selectedDate);
-
-      //this.LoadMonth(this.selectedDate);
-      console.log(this.currentMonth, cdate)
     } else{
       day.isSelected = false;
     }
@@ -330,9 +312,6 @@ LoadMonth(date: Date, isSelect: boolean = true){
     let a = new Day(curMonth.getDate(), curMonth.getDay());
     a.isActiveMonth = true;
 
-    // if(dateinNumber==a.num && isSelect)
-    //   a.isSelected = true;
-
     if(this.isDateEqual(curMonth, this.selectedDate!) && isSelect)
         a.isSelected = true;
 
@@ -358,9 +337,6 @@ LoadMonth(date: Date, isSelect: boolean = true){
           let curMonth = new Date(year, monthinNumber, currentDay);
           let a = new Day(curMonth.getDate(), curMonth.getDay());
           a.isActiveMonth = true;
-
-          // if(dateinNumber==a.num && isSelect)
-          //   a.isSelected = true;
 
           if(this.isDateEqual(this.selectedDate!, curMonth) && isSelect)
               a.isSelected = true;

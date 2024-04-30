@@ -182,15 +182,6 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false){
 
     this.popupService.ClosePopupsOnWindowsClick(ins, onwindowClick);
-  
-    // let drps = document.querySelectorAll('.dropdown-content');
-
-    // drps.forEach((x)=>{
-    //   if(x.classList.contains('show'))
-    //     {
-    //       x.classList.toggle('show');
-    //     }
-    // });
 
     this.ddservice.GetAllInstance().forEach((x)=>{
       x.IsDropDownOpen = false;
@@ -234,8 +225,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   }
 
   onBlur($evt:Event){
-    // this.show = false;    
-    // console.log($evt);
+
   }
 
   openDropdown(evt: Event){

@@ -1,11 +1,12 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { AfterContentChecked, AfterContentInit, AfterRenderPhase, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterRenderPhase, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { DropdownModel } from './dropdownmodel';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { optionTemplate } from './optiontemplate.component';
 import { DropdownService } from './dropdownservice.service';
 import { EventEmitter } from 'stream';
 import { IPopupCloseInterface, PopupService } from '../popup.service';
+import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rdropdown',
@@ -89,11 +90,17 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   SelectedDisplay: string | number = '';
   firstTimeInit: boolean = true;
   Id: string = '';
+  private winObj!:Window;
+  private injector = inject(Injector);
 
-  constructor(private ddservice: DropdownService, private popupService: PopupService){
-    this.Id = popupService.GenerateUniqueId();
+  constructor(private ddservice: DropdownService, 
+    private popupService: PopupService,
+    private windowHelper: WindowHelper
+  ){
+    this.Id = windowHelper.GenerateUniqueId();
     this.ddservice.AddInstance(this);   
     this.popupService.AddPopupModalClassName('dropdown-content');
+    this.winObj = inject(WINDOWOBJECT);
   }
 
   FocusItem($evt:Event){
@@ -107,7 +114,12 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   ngAfterContentChecked(): void {
     this.optionTemps?.forEach((x)=>{
       if(x.OptionSelected && !this.isFocusDone) {
-        x.eleRef.nativeElement.scrollIntoView({ block: 'center',  behavior: 'smooth' });        
+        if(x.eleRef 
+          && x.eleRef.nativeElement
+          && typeof x.eleRef.nativeElement.scrollIntoView === 'function'
+        ) {
+            x.eleRef.nativeElement.scrollIntoView({ block: 'center',  behavior: 'smooth' });        
+          }
       }
     })
   }
@@ -158,11 +170,13 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     
   }
 
-  ngOnInit(): void {   
-      if(window && this.popupService.CanAddWindowClickToComponent('rdropdown')){
-        window.addEventListener('click', (evt)=> this.WindowClick(evt), false); 
+  ngOnInit(): void {      
+    if(this.windowHelper.isExecuteInBrowser()){
+      if(this.winObj && this.popupService.CanAddWindowClickToComponent('rdropdown')){
+        this.winObj.addEventListener('click', this.WindowClick.bind(this), false); 
         this.popupService.AddWindowClickToComponent('rdropdown')
-      }       
+      }
+    }        
   }
 
   WindowClick(event:any){
@@ -201,11 +215,12 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   ngOnDestroy(): void {
     this.optionTemps?.forEach(x=>x.clicked.unsubscribe());
     
-    // afterNextRender(()=>{    
-    //   if(window){
-    //     window.removeEventListener('click', this.WindowClick);
-    //   }
-    // },{ injector: inject(Injector), phase:AfterRenderPhase.Write});
+    if(this.windowHelper.isExecuteInBrowser()){
+      if(this.winObj){
+        this.winObj.removeEventListener('click', this.WindowClick.bind(this));
+      }
+    }
+   
   }
 
   ngAfterContentInit(): void {

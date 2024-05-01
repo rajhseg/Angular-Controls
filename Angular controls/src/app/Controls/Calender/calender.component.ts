@@ -1,4 +1,4 @@
-import { AfterRenderPhase, Component, ElementRef, Injector, Input, OnDestroy, OnInit, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterRenderPhase, Component, ElementRef, Inject, Injector, Input, OnDestroy, OnInit, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
 import { NgFor, NgClass, CommonModule, NgIf } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -7,6 +7,7 @@ import { optionTemplate } from '../dropdown/optiontemplate.component';
 import { DropdownService } from '../dropdown/dropdownservice.service';
 import { CalenderService } from './calender.service';
 import { IPopupCloseInterface, PopupService } from '../popup.service';
+import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rcalender',
@@ -33,6 +34,8 @@ month: number  = 0;
 year: number = 0;
 IsMonthDropdownOpen: boolean = false;
 IsYearDropdownOpen: boolean =false;
+
+private injector = inject(Injector);
 
 Value: string = '';
 totalYears : number[]= []; 
@@ -83,13 +86,19 @@ Opened = output<boolean>();
 
 Closed = output<boolean>();
 
-constructor(private calService: CalenderService, private popupService: PopupService){
-  this.Id = this.popupService.GenerateUniqueId();
+private winObj!: Window;
+
+constructor(private calService: CalenderService, 
+  private popupService: PopupService,
+  private windowHelper: WindowHelper){
+
+  this.Id = this.windowHelper.GenerateUniqueId();
   this.selectedDate = new Date();
   this.loadYears(this.selectedDate.getFullYear());
   this.LoadMonth(this.selectedDate, true);
   this.calService.AddInstance(this);
   this.popupService.AddPopupModalClassName('calender');
+  this.winObj = inject(WINDOWOBJECT);
  }  
 
  isMonthDropdownClosed($evt: any){
@@ -132,18 +141,24 @@ constructor(private calService: CalenderService, private popupService: PopupServ
   }
 
   ngOnDestroy(): void {
-    // afterNextRender(()=>{
-    //   if(window){
-    //     window.removeEventListener('click', this.WindowClick);
-    //   }
-    // }, { injector:inject(Injector), phase: AfterRenderPhase.Write});
+    
+    if(this.windowHelper.isExecuteInBrowser()){
+      if(this.winObj){
+        this.winObj.removeEventListener('click', this.WindowClick.bind(this));
+      }
+    }
+
   }
   
 ngOnInit(): void {
-  if(window && this.popupService.CanAddWindowClickToComponent('rcalender')) {
-    window.addEventListener('click', (evt)=> this.WindowClick(evt), false);    
-    this.popupService.AddWindowClickToComponent('rcalender')
+  
+  if(this.windowHelper.isExecuteInBrowser()){
+    if(this.winObj && this.popupService.CanAddWindowClickToComponent('rcalender')) {
+      this.winObj.addEventListener('click', this.WindowClick.bind(this), false);    
+      this.popupService.AddWindowClickToComponent('rcalender')
+    }
   }
+
 }
 
 WindowClick(event:any) {
@@ -287,8 +302,7 @@ LoadMonth(date: Date, isSelect: boolean = true){
     this.IsChildOfAnotherControlClicked = true;
   }
 
-  this.isSelectDayTriggered = false;
-  console.log(this.Id+" ,"+this.isSelectDayTriggered); 
+  this.isSelectDayTriggered = false;  
 
   this.month = date.getMonth();
   let dateinNumber = date.getDate();

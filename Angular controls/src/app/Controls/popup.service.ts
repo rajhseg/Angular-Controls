@@ -13,11 +13,7 @@ export class PopupService {
   private windowClickElementIds: string[] = [];
 
   constructor(private dropdownService: DropdownService, private calendarService: CalenderService) { }
-
-  GenerateUniqueId(){
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
-  }
-
+  
   AddPopupModalClassName(classname: string){
     this.list.push(classname);
   }

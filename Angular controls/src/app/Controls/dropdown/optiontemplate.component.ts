@@ -29,7 +29,11 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
     @Input()
     set OptionSelected(value: boolean){
       this.isSelected = value;
-      this.eleRef.nativeElement.scrollIntoView();      
+      
+      if(this.eleRef && this.eleRef.nativeElement 
+        && typeof this.eleRef.nativeElement.scrollIntoView === 'function') {
+          this.eleRef.nativeElement.scrollIntoView();     
+        }
     }
     get OptionSelected(): boolean{
       return this.isSelected;

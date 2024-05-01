@@ -1,6 +1,7 @@
 import { NgFor } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, forwardRef, output, viewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'starrating',
@@ -72,6 +73,12 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
     return this._starwidth;
   }
 
+  Id: string = '';
+
+  constructor(private winObj: WindowHelper){
+    this.Id = this.winObj.GenerateUniqueId();
+  }
+
   ngOnInit(): void {    
     this.Items = [];
     for(let i=1; i<=this._noOfStars; i++){
@@ -94,6 +101,7 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   @ViewChild('staroutlinecontainer') starOutlineContainer!: ElementRef;
 
   getWidth(starWidth: number): number{
+    if(this._ratingValue!=undefined && this._ratingValue!=null) {
     let intellisenseValue = this._ratingValue;
     let decimalArray = this._ratingValue.toString().split('.');
 
@@ -113,6 +121,10 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
 
     let wd = Math.round( (starWidth*this.noOfStars) * (intellisenseValue/this.noOfStars));
     return wd;
+    
+  }
+
+    return 0;
   }
 
   getSingleStarWidth(): number {

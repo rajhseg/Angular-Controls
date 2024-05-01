@@ -94,7 +94,24 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   @ViewChild('staroutlinecontainer') starOutlineContainer!: ElementRef;
 
   getWidth(starWidth: number): number{
-    let wd = Math.round( (starWidth*this.noOfStars) * (this._ratingValue/this.noOfStars));
+    let intellisenseValue = this._ratingValue;
+    let decimalArray = this._ratingValue.toString().split('.');
+
+    if(decimalArray.length > 1){
+      let val = decimalArray[1][0];
+      let intVal = parseInt(val);
+      if(intVal>0 && intVal<4){
+        intVal = 3
+      }
+
+      if(intVal>6 && intVal<=9){
+        intVal = 6
+      }
+
+      intellisenseValue = parseFloat(decimalArray[0].toString()+'.'+intVal.toString());
+    }
+
+    let wd = Math.round( (starWidth*this.noOfStars) * (intellisenseValue/this.noOfStars));
     return wd;
   }
 
@@ -126,10 +143,6 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
     let containerWidth= this.getWidth(_singleStarwidth);
     this.starControl.nativeElement.style.width = _singleStarwidth * this.noOfStars + 'px';
     
-    console.log(this._starwidth);
-    console.log(this._ratingValue);
-    console.log(containerWidth);
-
     this.container.nativeElement.style.width = containerWidth+'px';
     this.container.nativeElement.style.display = 'inline-block';         
     

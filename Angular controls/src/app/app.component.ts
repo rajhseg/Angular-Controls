@@ -22,7 +22,7 @@ export class AppComponent {
   items: DropdownModel[] = [];
   selItem: any = null;
   starWidth: number = 40;
-  starValue: number = 2.4;
+  starValue: number = 2.7;
   curDate!: string;
 
   constructor(){  

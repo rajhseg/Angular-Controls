@@ -88,6 +88,10 @@ Closed = output<boolean>();
 
 private winObj!: Window;
 
+@ViewChild('monthdropdown', {read: DropdownComponent}) monthDropDownControl!: DropdownComponent;
+
+@ViewChild('yeardropdown', {read: DropdownComponent}) yearDropDownControl!: DropdownComponent;
+
 constructor(private calService: CalenderService, 
   private popupService: PopupService,
   private windowHelper: WindowHelper){
@@ -204,13 +208,42 @@ closeAllDropdowns(ins: CalenderComponent | null, onwindowClick: boolean = false)
 
 }
 
-openCal($evt:Event){
+openCalender($evt:Event){
   this.IsChildOfAnotherControlClicked = false;
   this.closeAllDropdowns(this);
   this.IsCalenderOpen = !this.IsCalenderOpen;
   this.IsMonthDropdownOpen = false;
   this.IsYearDropdownOpen = false;
   $evt.stopPropagation();
+}
+
+closeCalender(){
+
+  if(this.IsChildOfAnotherControl) {
+    this.IsChildOfAnotherControlClicked = true;
+  }
+
+  this.monthDropDownControl.closeDropdown();
+  this.yearDropDownControl.closeDropdown();
+  this.IsCalenderOpen = false;  
+}
+
+addPrevYears($evt:Event){
+  if(this.totalYears.length > 0){
+    let value = this.totalYears[0];
+    for(let i:number = value-1; i>= (value-20); i--){
+      this.totalYears.splice(0, 0, i);
+    }
+  }
+}
+
+addNextYears($evt:Event){
+  if(this.totalYears.length > 0){
+    let value = this.totalYears[this.totalYears.length-1];
+    for(let i:number = value+1; i<= (value+20); i++){
+      this.totalYears.push(i);
+    }
+  }
 }
 
 loadYears(year:number){
@@ -232,8 +265,9 @@ selectDate(day:Day){
   }
 
   this.isSelectDayTriggered = true;
-  this.IsMonthDropdownOpen = false;
-  this.IsYearDropdownOpen = false;
+  
+  this.monthDropDownControl.closeDropdown();
+  this.yearDropDownControl.closeDropdown();
 
   if(day.isActiveMonth) {
     if(!day.isSelected)

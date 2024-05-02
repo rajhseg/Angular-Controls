@@ -28,8 +28,8 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
 
   onChange: any = () => {}
   onTouch: any = () => {}
-  selectedElementRef: ElementRef | undefined = undefined;
-  isFocusDone: boolean = false;
+  private selectedElementRef: ElementRef | undefined = undefined;
+  private isFocusDone: boolean = false;
   
   @ContentChildren(optionTemplate) optionTemps:  QueryList<optionTemplate> | null = null;
 
@@ -88,7 +88,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
 
   SelectedItem: DropdownModel | string | any = '';
   SelectedDisplay: string | number = '';
-  firstTimeInit: boolean = true;
+  private firstTimeInit: boolean = true;
   Id: string = '';
   private winObj!:Window;
   private injector = inject(Injector);
@@ -118,7 +118,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
           && x.eleRef.nativeElement
           && typeof x.eleRef.nativeElement.scrollIntoView === 'function'
         ) {
-            x.eleRef.nativeElement.scrollIntoView({ block: 'center',  behavior: 'smooth' });        
+            //x.eleRef.nativeElement.scrollIntoView({ block: 'center',  behavior: 'smooth' });        
           }
       }
     })
@@ -179,7 +179,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     }        
   }
 
-  WindowClick(event:any){
+  private WindowClick(event:any){
     let isClickedAsChild: boolean =false;
 
      this.ddservice.GetAllInstance().forEach(x=>{
@@ -193,7 +193,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     }
   }
 
-  closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false){
+  private closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false){
 
     this.popupService.ClosePopupsOnWindowsClick(ins, onwindowClick);
 
@@ -241,6 +241,16 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
 
   onBlur($evt:Event){
 
+  }
+
+  closeDropdown(){
+    
+    if(this.IsChildOfAnotherControl) {
+      this.IsChildOfAnotherControlClicked = true;
+    }
+
+    this.IsDropDownOpen = false;    
+    this.bshow = this.IsDropDownOpen;   
   }
 
   openDropdown(evt: Event){

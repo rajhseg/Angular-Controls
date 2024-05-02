@@ -32,7 +32,7 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
       
       if(this.eleRef && this.eleRef.nativeElement 
         && typeof this.eleRef.nativeElement.scrollIntoView === 'function') {
-          this.eleRef.nativeElement.scrollIntoView();     
+          //this.eleRef.nativeElement.scrollIntoView();     
         }
     }
     get OptionSelected(): boolean{
@@ -70,15 +70,16 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
       }
     }
     
-    @HostListener('click', ['$event.target'])
-    onClick(target: any) {       
+    @HostListener('click', ['$event'])
+    onClick(target: any) { 
+      console.log(target);      
       this.eleRef.nativeElement.focus();   
       this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');      
       this.isSelected = true;
       this.clicked.next(this);
     }
 
-    @HostListener('mouseenter',['$event.target'])
+    @HostListener('mouseenter',['$event'])
     onMouseOver(target: any){
       this.backColor = this.eleRef.nativeElement.style.backgroundColor;
       this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');      
@@ -88,7 +89,7 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
       this.eleRef.nativeElement.focus();
     }
 
-    @HostListener('mouseleave',['$event.target'])
+    @HostListener('mouseleave',['$event'])
     onMouseLeave(target: any){
       if(!this.isSelected){
         this.eleRef.nativeElement.firstChild.classList.remove('dropdown-content-selected');         

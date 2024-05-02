@@ -177,3 +177,29 @@ width: fit-content;
 .btncls:active {
   background: #c6c6c6;
 }
+
+.yeararrow {
+  border: 1px solid lightgrey;
+  height: 20px;
+  padding: 2px;
+  font-size: medium;
+  color:#bfbfbf
+}
+
+.arrow {
+  border: solid rgb(206, 204, 204);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}

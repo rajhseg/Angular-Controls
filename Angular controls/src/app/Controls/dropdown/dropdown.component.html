@@ -4,10 +4,9 @@
     <button (click)="openDropdown($event)" class="dropdownbtn"> 
         <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
     </button>
-    <div id="myDropdown"  (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)" 
+    <div id="myDropdown" (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)" 
         class="dropdown-content" 
-        [ngStyle]="{'minWidth':DropDownContentWidth}" 
-        [ngClass]="{'show':IsDropDownOpen}">
+        [ngStyle]="{'minWidth':DropDownContentWidth, 'visibility':IsDropDownOpen ? 'visible': 'collapse' }">
 
       <ng-content class="option-content" select="optionTemplate">
 

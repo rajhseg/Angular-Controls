@@ -276,7 +276,7 @@ selectDate(day:Day){
       this.selectedDate = cdate;
       this.SetDate(this.selectedDate);
     } else{
-      day.isSelected = false;
+      //day.isSelected = false;
     }
   }
 }
@@ -342,6 +342,7 @@ LoadMonth(date: Date, isSelect: boolean = true){
   let dateinNumber = date.getDate();
   let monthinNumber = date.getMonth();
   let year = date.getFullYear();
+  
   this.year = year;
 
   let firstday = new Date(year, monthinNumber, 1);

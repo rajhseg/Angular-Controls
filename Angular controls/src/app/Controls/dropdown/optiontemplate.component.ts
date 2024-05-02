@@ -3,6 +3,7 @@ import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, Directive
 import { FormsModule } from "@angular/forms";
 import { BehaviorSubject, Subject } from "rxjs";
 import { EventEmitter } from "stream";
+import { WindowHelper } from "../windowObject";
 
 @Component({
     selector:'optionTemplate',
@@ -15,7 +16,8 @@ import { EventEmitter } from "stream";
 export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChanges, DoCheck, AfterContentInit
 {
     backColor: string = '';
-     
+    Id: string = '';
+
     @Input()
     Item: any | null;
     
@@ -30,22 +32,23 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
     set OptionSelected(value: boolean){
       this.isSelected = value;
       
-      if(this.eleRef && this.eleRef.nativeElement 
+      if(this.isSelected && this.eleRef && this.eleRef.nativeElement 
         && typeof this.eleRef.nativeElement.scrollIntoView === 'function') {
-          //this.eleRef.nativeElement.scrollIntoView();     
+           this.eleRef.nativeElement.scrollIntoView();     
         }
     }
     get OptionSelected(): boolean{
       return this.isSelected;
     }
 
-    constructor(public eleRef: ElementRef, private renderer: Renderer2){
-
+    constructor(public eleRef: ElementRef, private renderer: Renderer2, private htmlHelper: WindowHelper){
+      this.Id = this.htmlHelper.GenerateUniqueId();
     }
 
-  ngAfterContentInit(): void {
-    this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-template');
-  }
+    ngAfterContentInit(): void {
+      (this.eleRef.nativeElement as HTMLDivElement).id = this.Id;
+      this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-template');
+    }
 
     ngDoCheck(): void {
       if(this.IsInitItem){

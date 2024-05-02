@@ -112,16 +112,16 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   }
 
   ngAfterContentChecked(): void {
-    this.optionTemps?.forEach((x)=>{
-      if(x.OptionSelected && !this.isFocusDone) {
-        if(x.eleRef 
-          && x.eleRef.nativeElement
-          && typeof x.eleRef.nativeElement.scrollIntoView === 'function'
-        ) {
-            //x.eleRef.nativeElement.scrollIntoView({ block: 'center',  behavior: 'smooth' });        
-          }
-      }
-    })
+    // this.optionTemps?.forEach((x)=>{
+    //   if(x.OptionSelected && !this.isFocusDone) {
+    //     if(x.eleRef 
+    //       && x.eleRef.nativeElement
+    //       && typeof x.eleRef.nativeElement.scrollIntoView === 'function'
+    //     ) {
+    //         // x.eleRef.nativeElement.scrollIntoView({ block: 'center',  behavior: 'smooth' });        
+    //       }
+    //   }
+    // })
   }
 
   writeValue(obj: DropdownModel | string | number): void {
@@ -139,7 +139,16 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
       }
 
       this.optionTemps?.forEach((x,index)=>{
-        if(index==indexOfObj){                      
+
+        let isCorrectObject: boolean;
+
+        if(obj instanceof DropdownModel){
+             isCorrectObject = this.ObjEquals(obj, x.Item);
+        } else{
+          isCorrectObject = (obj === x.Item);
+        }
+
+        if(isCorrectObject){                      
          x.OptionSelected = true;
          this.selectedElementRef = x.eleRef;   
          this.selectedElementRef.nativeElement.firstChild.classList.add('dropdown-content-selected');  

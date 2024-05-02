@@ -33,7 +33,7 @@
   }
   
   .dropdown-content {
-    display: none;
+    visibility: collapse;
     position: absolute;
     background-color: #f1f1f1;
     overflow: auto;

@@ -224,7 +224,27 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   }
 
   ngAfterContentInit(): void {
-   this.optionTemps?.forEach(x=>x.clicked.subscribe((z: optionTemplate)=>{
+    this.BindClickEvent();
+
+    this.optionTemps?.changes.forEach((x: QueryList<optionTemplate>) => {
+
+      let arr = x.toArray();
+      
+      for (let index = 0; index < x.length; index++) {
+        const element = arr[index];
+        if(element.clicked.observers.length==0) {
+          element.clicked.subscribe(this.BindOptionTemplateEvent.bind(this));
+        }
+      }             
+    });
+    
+  }
+
+  private BindClickEvent(){    
+    this.optionTemps?.forEach(x=>x.clicked.subscribe(this.BindOptionTemplateEvent.bind(this)));
+  }
+
+  private BindOptionTemplateEvent(z: optionTemplate){
 
     if(this.selectedElementRef!=undefined){
       this.selectedElementRef.nativeElement.firstChild.classList.remove('dropdown-content-selected');
@@ -236,8 +256,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     this.selectedElementRef = z.eleRef;
     
     this.SelectItem(z.Item);
-   }));
-  }
+   }
 
   onBlur($evt:Event){
 

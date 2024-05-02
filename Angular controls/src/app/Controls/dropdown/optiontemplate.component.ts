@@ -71,8 +71,7 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
     }
     
     @HostListener('click', ['$event'])
-    onClick(target: any) { 
-      console.log(target);      
+    onClick(target: any) {            
       this.eleRef.nativeElement.focus();   
       this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');      
       this.isSelected = true;

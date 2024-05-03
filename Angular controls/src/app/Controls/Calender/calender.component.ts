@@ -37,7 +37,19 @@ IsYearDropdownOpen: boolean =false;
 
 private injector = inject(Injector);
 
-Value: string = '';
+_value: string = '';
+IsValueChanged: boolean =false;
+
+set Value(val: string){
+  if(this._value!=val){
+    this.IsValueChanged = true;
+    this._value = val;
+  }
+}
+get Value(): string{
+ return this._value;
+}
+
 totalYears : number[]= []; 
 monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -92,17 +104,19 @@ private winObj!: Window;
 
 @ViewChild('yeardropdown', {read: DropdownComponent}) yearDropDownControl!: DropdownComponent;
 
+dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
+
 constructor(private calService: CalenderService, 
   private popupService: PopupService,
   private windowHelper: WindowHelper){
 
   this.Id = this.windowHelper.GenerateUniqueId();
-  this.selectedDate = new Date();
-  this.loadYears(this.selectedDate.getFullYear());
-  this.LoadMonth(this.selectedDate, true);
+  this.selectedDate = null;
+  this.loadYears(new Date().getFullYear());  
   this.calService.AddInstance(this);
   this.popupService.AddPopupModalClassName('calender');
   this.winObj = inject(WINDOWOBJECT);
+  this.LoadMonth(new Date(), false);
  }  
 
  isMonthDropdownClosed($evt: any){
@@ -114,22 +128,48 @@ constructor(private calService: CalenderService,
 
  }
 
-  writeValue(obj: string | Date ): void {
-    
+  RenderUI(obj: string | Date){    
     if(obj!=undefined && obj!=''){
-      if(typeof(obj) === 'string'){
-        this.selectedDate = new Date(obj);
+      if(typeof(obj) === 'string' && obj.match(this.dateReg)){
+        let dateParts = null;
+
+        dateParts = obj.split('-');
+
+        if(dateParts.length==0)
+          dateParts = obj.split('/');
+
+        if(dateParts.length==0)
+          dateParts = obj.split('.');
+
+        this.selectedDate = new Date(parseInt(dateParts[2]), parseInt(dateParts[1])-1, parseInt(dateParts[0]));
       } else if(obj instanceof Date){
         this.selectedDate = obj;
       } else{
-        this.selectedDate = new Date();
+        this.selectedDate = null;
       }    
     } else{
-      this.selectedDate = new Date();
+      this.selectedDate = null;
     }
 
-    this.loadYears(this.selectedDate.getFullYear());
-    this.LoadMonth(this.selectedDate, true);
+    if(this.selectedDate != null) {
+      let _yr = this.selectedDate.getFullYear();
+      
+      if(this.totalYears.findIndex(x=>x==_yr)!=-1)
+        this.loadYears(_yr);
+
+      this.LoadMonth(this.selectedDate, true);
+    } else{
+      let _yr = new Date().getFullYear();
+      
+      if(this.totalYears.findIndex(x=>x==_yr)!=-1)
+        this.loadYears(_yr);
+            
+      this.LoadMonth(new Date(), false);
+    }
+  }
+
+  writeValue(obj: string | Date ): void {
+    this.RenderUI(obj);
   }
 
   registerOnChange(fn: any): void {
@@ -155,7 +195,10 @@ constructor(private calService: CalenderService,
   }
   
 ngOnInit(): void {
-  
+
+  if(this.selectedDate!=null)
+    this.LoadMonth(this.selectedDate, true);
+
   if(this.windowHelper.isExecuteInBrowser()){
     if(this.winObj && this.popupService.CanAddWindowClickToComponent('rcalender')) {
       this.winObj.addEventListener('click', this.WindowClick.bind(this), false);    
@@ -214,6 +257,13 @@ openCalender($evt:Event){
   this.IsCalenderOpen = !this.IsCalenderOpen;
   this.IsMonthDropdownOpen = false;
   this.IsYearDropdownOpen = false;
+  
+  if(this.IsValueChanged)
+  {
+    this.RenderUI(this.Value);
+    this.IsValueChanged = false;
+  }
+
   $evt.stopPropagation();
 }
 
@@ -276,7 +326,9 @@ selectDate(day:Day){
       this.selectedDate = cdate;
       this.SetDate(this.selectedDate);
     } else{
-      //day.isSelected = false;
+      day.isSelected = false;
+      this.selectedDate = null;
+      this.Value = '';
     }
   }
 }
@@ -456,6 +508,10 @@ LoadMonth(date: Date, isSelect: boolean = true){
  }
 
  isDateEqual(a: Date, b: Date){
-  return a.getDate()==b.getDate() && a.getMonth() == b.getMonth() && a.getFullYear()==b.getFullYear();
+  if(a!=null && b!=null){
+    return a.getDate()==b.getDate() && a.getMonth() == b.getMonth() && a.getFullYear()==b.getFullYear();
+  } else{
+    return false;
+  }
  }
 }

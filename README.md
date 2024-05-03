@@ -9,6 +9,9 @@ This repo is consists of Angular controls like calender, dropdown, starrating et
 -------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/d2a7e0c4-6a6a-4c14-bef2-0484e7c0d8af)
 
+![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/1b6abd7b-cd37-48c3-952b-826766aa89f4)
+
+
  StarRating Control
 ---------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/802c17b4-753a-4dae-8dd1-9c7cefd39f78)

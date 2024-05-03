@@ -1,5 +1,5 @@
 # Angular-Controls
-This repo is consists of Angular controls like calender, dropdown, starrating etc
+This repo is consists of Angular controls like calender, dropdown, starrating, switch etc
 
  Calender Control
 -------------------

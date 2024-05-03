@@ -1,6 +1,6 @@
 <div>
   <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
-  <rcalender></rcalender>
+  <rcalender [SelectedItemBackGroundColor]="'blue'"></rcalender>
   <rcalender></rcalender>
   <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
     <optionTemplate *ngFor="let item of items" [Item]="item">
@@ -20,21 +20,27 @@
 
   <rcalender></rcalender>
   <starrating [starWidth]="starWidth"></starrating>
-  <rdropdown [Items]="items" DropDownContentWidth="122px">
-    <optionTemplate Item="Select all">
-      <div>
-        <input type="checkbox">Select All
-      </div>
-    </optionTemplate>
-    <optionTemplate *ngFor="let item of items" [Item]="item">
-      <div>
-        <input type="checkbox" >        
-      
-          {{item.DisplayValue}}    
-         
-      </div>
-    </optionTemplate>
-  </rdropdown>
+  
 <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
 <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
+
+<rdropdown [Items]="items" Width="112px" DropDownContentWidth="122px">
+  <optionTemplate Item="Select all">
+    <div>
+      <input type="checkbox">Select All
+    </div>
+  </optionTemplate>
+  <optionTemplate *ngFor="let item of items" [Item]="item">
+    <div>
+      <input type="checkbox" >        
+    
+        {{item.DisplayValue}}    
+       
+    </div>
+  </optionTemplate>
+</rdropdown>
+
+<rswitch [DisplayLabel]="'Enable Label'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+
+{{isChecked}}
 </div>

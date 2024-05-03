@@ -7,11 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JsonPipe, NgFor } from '@angular/common';
 import { optionTemplate } from './Controls/dropdown/optiontemplate.component';
 import { RatingComponent } from './Controls/rating/rating.component';
+import { SwitchComponent } from './Controls/switch/switch.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CalenderComponent, DropdownComponent, FormsModule, ReactiveFormsModule,
+  imports: [RouterOutlet, CalenderComponent, SwitchComponent,
+    DropdownComponent, FormsModule, ReactiveFormsModule,
     NgFor,JsonPipe, 
     optionTemplate, RatingComponent],
   templateUrl: './app.component.html',
@@ -24,6 +26,7 @@ export class AppComponent {
   starWidth: number = 40;
   starValue: number = 2.7;
   curDate!: string;
+  isChecked: boolean = true;
 
   constructor(){  
     this.items.push(new DropdownModel("0", "Jan"));
@@ -42,5 +45,9 @@ export class AppComponent {
 
   dateSelected($evt: any){
     console.log($evt);
+  }
+
+  switchChange(val:boolean){
+    console.log(val);
   }
 }

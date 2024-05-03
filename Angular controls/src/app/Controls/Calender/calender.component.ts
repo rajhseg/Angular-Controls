@@ -1,6 +1,6 @@
 import { AfterRenderPhase, Component, ElementRef, Inject, Injector, Input, OnDestroy, OnInit, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
-import { NgFor, NgClass, CommonModule, NgIf } from '@angular/common';
+import { NgFor, NgClass, CommonModule, NgIf, NgStyle } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { optionTemplate } from '../dropdown/optiontemplate.component';
@@ -12,7 +12,7 @@ import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 @Component({
   selector: 'rcalender',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, FormsModule, DropdownComponent, optionTemplate],
+  imports: [NgFor, NgIf, NgClass, NgStyle, FormsModule, DropdownComponent, optionTemplate],
   templateUrl: './calender.component.html',
   styleUrl: './calender.component.css',
   providers:[
@@ -71,6 +71,17 @@ IsChildOfAnotherControlClicked: boolean = false;
 
 @Input()
 ParentComponent: any | undefined = undefined;
+
+private _selectedItemBackColor: string = 'rgb(255 0 104 / 90%)';
+
+@Input()
+set SelectedItemBackGroundColor(color: string){
+  this._selectedItemBackColor = color;
+}
+get SelectedItemBackGroundColor(): string {
+  return this._selectedItemBackColor;
+}
+
 
 private _showCalender: boolean = false;
 

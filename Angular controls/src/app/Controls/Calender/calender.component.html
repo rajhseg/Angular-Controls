@@ -71,7 +71,8 @@
     <div class="week" *ngFor="let week of currentMonth?.weeks">
         <div (click)="selectDate(day)" class="day" *ngFor="let day of week.days"
               [ngClass]="{ 'notCurrentMonth': !day.isActiveMonth}">
-           <div [ngClass]="{'selday':day.isSelected, 'notactive': !day.isActiveMonth}">
+           <div [ngClass]="{'selday':day.isSelected, 'notactive': !day.isActiveMonth}"
+                [ngStyle]="{'backgroundColor': day.isSelected ? SelectedItemBackGroundColor : ''}">
             {{day.num}}
             </div> 
         </div>

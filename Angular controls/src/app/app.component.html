@@ -40,7 +40,15 @@
   </optionTemplate>
 </rdropdown>
 
-<rswitch [DisplayLabel]="'Enable Label'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+<rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
-{{isChecked}}
+<rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)"></rswitch>
+
+<rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"></rswitch>
+
+<rprogressbar [FloatInCenter]="proincenter" 
+              [DisplayType]="progressDisplayType"
+              [Type]="progressType"></rprogressbar>
+
+
 </div>

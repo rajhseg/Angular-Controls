@@ -8,12 +8,14 @@ import { JsonPipe, NgFor } from '@angular/common';
 import { optionTemplate } from './Controls/dropdown/optiontemplate.component';
 import { RatingComponent } from './Controls/rating/rating.component';
 import { SwitchComponent } from './Controls/switch/switch.component';
+import { ProgressbarComponent } from './Controls/progressbar/progressbar.component';
+import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/progressbarType';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, CalenderComponent, SwitchComponent,
-    DropdownComponent, FormsModule, ReactiveFormsModule,
+    DropdownComponent, FormsModule, ReactiveFormsModule, ProgressbarComponent,
     NgFor,JsonPipe, 
     optionTemplate, RatingComponent],
   templateUrl: './app.component.html',
@@ -27,6 +29,9 @@ export class AppComponent {
   starValue: number = 2.7;
   curDate!: string;
   isChecked: boolean = true;
+  proincenter: boolean = false;
+  progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
+  progressType:ProgressBarType = ProgressBarType.Progress;
 
   constructor(){  
     this.items.push(new DropdownModel("0", "Jan"));
@@ -48,6 +53,27 @@ export class AppComponent {
   }
 
   switchChange(val:boolean){
-    console.log(val);
+    this.proincenter =val;
+  }
+
+  movetocenter(){
+    this.proincenter = !this.proincenter;
+  }
+
+  changeToCircle(val:boolean){
+    if(val){
+      this.progressDisplayType = ProgressBarDisplayType.Circle;
+    }
+    else{
+      this.progressDisplayType = ProgressBarDisplayType.StraightLine;
+    }
+  }
+
+  changeToInfinite(val: boolean){
+    if(val){
+      this.progressType = ProgressBarType.Infinite;
+    } else{
+      this.progressType = ProgressBarType.Progress;
+    }
   }
 }

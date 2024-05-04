@@ -21,7 +21,7 @@ export class SwitchComponent implements ControlValueAccessor {
   @Input() 
   DisplayLabel: string = '';
 
-  private _backColor: string = 'rgb(255 0 104 / 90%)';
+  private _backColor: string = 'rgba(27, 81, 199, 0.692)';
 
   @Input()
   set SwitchBackColor(val: string){
@@ -69,8 +69,7 @@ export class SwitchComponent implements ControlValueAccessor {
   }
   
   toggle() {
-    this.isChecked = !this.isChecked;    
-    
+    this.isChecked = !this.isChecked;        
     this.onChange(this.isChecked);
     this.onTouch(this.isChecked);
     this.checked.emit(this.isChecked);

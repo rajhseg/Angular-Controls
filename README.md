@@ -1,5 +1,5 @@
 # Angular-Controls
-This repo is consists of Angular controls like calender, dropdown, starrating etc
+This repo is consists of Angular controls like calender, dropdown, starrating, switch etc
 
  Calender Control
 -------------------
@@ -15,3 +15,9 @@ This repo is consists of Angular controls like calender, dropdown, starrating et
  StarRating Control
 ---------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/802c17b4-753a-4dae-8dd1-9c7cefd39f78)
+
+Switch Control
+--------------------
+![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/51bbbada-3843-4cfe-9bc9-0d67fa97d8b3)
+
+

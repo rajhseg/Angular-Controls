@@ -1,5 +1,5 @@
 # Angular-Controls
-This repo is consists of Angular controls like calender, dropdown, starrating, switch etc
+This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), switch etc
 
  Calender Control
 -------------------
@@ -19,5 +19,16 @@ This repo is consists of Angular controls like calender, dropdown, starrating, s
 Switch Control
 --------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/51bbbada-3843-4cfe-9bc9-0d67fa97d8b3)
+
+ProgressBar Control
+---------------------
+Circle Infinite
+----------------------
+![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/c21e8f0a-1651-4321-9841-42a96cf7be63)
+
+
+StraightLine Infinite
+----------------------
+![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/36481afd-9963-4fc3-8f71-cbe003061d09)
 
 

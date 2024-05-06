@@ -3,7 +3,7 @@
     height:50px;
     border: 10px solid red;
     border-radius: 50%;
-    border-color: rgba(27, 81, 199, 0.692) rgb(214, 214, 219) rgb(214, 214, 219) rgb(214, 214, 219);    
+    /* border-color: rgba(27, 81, 199, 0.692) rgb(214, 214, 219) rgb(214, 214, 219) rgb(214, 214, 219);     */
     animation: progress 3s linear infinite;
     background: transparent;
     z-index: 999999999;
@@ -29,20 +29,32 @@
 
 .progress_flattrack{
     width: 100%;
-    height: 15px;
-    border: 1px solid lightgrey;    
+    height: 12px;
+    /* border: 1px solid lightgrey;     */
+    border: 1px solid #a6abaa;
 }
 
 .progress_flatitem {
     width: 20%;
-    height: 13px;
+    height: 10px;
     background-color: rgba(27, 81, 199, 0.692);
     position: relative;
     top: 1px;
-    animation: moveleft 2s linear infinite;
+    animation: moveleft 2s linear infinite;    
 }
 
 @keyframes moveleft {    
     50%{ transform: translateX(400%);}
     100% { transform: translateX(0%);}
+}
+
+
+.progressbar_backdrop {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: gray;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4
 }

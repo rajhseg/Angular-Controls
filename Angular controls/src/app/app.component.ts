@@ -16,7 +16,7 @@ import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/
   standalone: true,
   imports: [RouterOutlet, CalenderComponent, SwitchComponent,
     DropdownComponent, FormsModule, ReactiveFormsModule, ProgressbarComponent,
-    NgFor,JsonPipe, 
+    NgFor,JsonPipe,
     optionTemplate, RatingComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -30,10 +30,12 @@ export class AppComponent {
   curDate!: string;
   isChecked: boolean = true;
   proincenter: boolean = false;
-  progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
-  progressType:ProgressBarType = ProgressBarType.Progress;
+  IsStraightLineProgressBar: boolean = true;
+  IsInfiniteProgressBar: boolean = true;
+  progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.Circle;
+  progressType:ProgressBarType = ProgressBarType.Infinite;
 
-  constructor(){  
+  constructor(){
     this.items.push(new DropdownModel("0", "Jan"));
     this.items.push(new DropdownModel("1", "Feb"));
     this.items.push(new DropdownModel("2", "Mar"));
@@ -69,7 +71,7 @@ export class AppComponent {
     }
   }
 
-  changeToInfinite(val: boolean){
+  changeToInfinite(val: boolean){    
     if(val){
       this.progressType = ProgressBarType.Infinite;
     } else{

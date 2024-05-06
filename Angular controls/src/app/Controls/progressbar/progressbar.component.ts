@@ -14,6 +14,29 @@ export class ProgressbarComponent {
   @Input()
   FloatInCenter: boolean = false;
 
+  @Input()
+  EnableBackDrop: boolean = false;
+
+  _foreColor: string = 'rgba(27, 81, 199, 0.692)';
+
+  _trackColor: string = 'rgb(214, 214, 219)';
+
+  @Input()
+  set TrackColor(val: string) {
+    this._trackColor = val;
+  }
+  get TrackColor(){
+    return this._trackColor;
+  }
+
+  @Input()
+  set ForeColor(val: string) {
+    this._foreColor = val;
+  }
+  get ForeColor(){
+    return this._foreColor;
+  }
+
   private _width: string = '500px';
 
   private _type: ProgressBarType = ProgressBarType.Infinite;
@@ -47,4 +70,7 @@ export class ProgressbarComponent {
     return this._width;
   }
 
+  get CircleColor(){
+    return this.ForeColor+' '+this.TrackColor+' '+this.TrackColor+' '+this.TrackColor;
+  }
 }

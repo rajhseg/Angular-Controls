@@ -42,13 +42,18 @@
 
 <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
-<rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)"></rswitch>
+<rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsStraightLineProgressBar"></rswitch>
 
-<rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"></rswitch>
+<rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)" 
+            [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
-<rprogressbar [FloatInCenter]="proincenter" 
+<rprogressbar [ForeColor]="'red'"
+              [TrackColor]="'white'"
+              [EnableBackDrop]="true" 
+              [FloatInCenter]="proincenter" 
               [DisplayType]="progressDisplayType"
-              [Type]="progressType"></rprogressbar>
+              [Type]="progressType">
+</rprogressbar>
 
 
 </div>

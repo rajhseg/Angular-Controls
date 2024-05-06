@@ -40,6 +40,7 @@ export class SwitchComponent implements ControlValueAccessor {
   checked = output<boolean>();
 
   writeValue(obj: any): void {
+    
     if(typeof obj === 'boolean'){
       this.isChecked = obj;
     }

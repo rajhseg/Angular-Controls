@@ -1,16 +1,20 @@
-
-<div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.Circle" 
-            [ngClass]="{ 'progress_container': FloatInCenter }">
-    <div class="progressbar_infinite">
-
-    </div>    
+<div [ngClass]="{'progressbar_backdrop': EnableBackDrop }">
 </div>
 
-<div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.StraightLine" 
-    [ngClass]="{ 'progress_flat_container': FloatInCenter }" [ngStyle]="{ 'width': ProgressBarWidth }">
-    <div class="progress_flattrack">
-        <div class="progress_flatitem">
-            
+    <div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.Circle" 
+                [ngClass]="{ 'progress_container': FloatInCenter }">
+        <div class="progressbar_infinite"
+         [ngStyle]="{ 'borderColor': CircleColor} ">
+
+        </div>    
+    </div>
+
+    <div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.StraightLine" 
+        [ngClass]="{ 'progress_flat_container': FloatInCenter }" [ngStyle]="{ 'width': ProgressBarWidth }">
+        <div class="progress_flattrack" [ngStyle]="{ 'backgroundColor': TrackColor }">
+            <div [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem">
+                
+            </div>
         </div>
     </div>
-</div>
+

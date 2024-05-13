@@ -20,7 +20,7 @@
 
   <rcalender></rcalender>
   <starrating [starWidth]="starWidth"></starrating>
-  
+
 <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
 <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
 
@@ -32,28 +32,32 @@
   </optionTemplate>
   <optionTemplate *ngFor="let item of items" [Item]="item">
     <div>
-      <input type="checkbox" >        
-    
-        {{item.DisplayValue}}    
-       
+      <input type="checkbox" >
+
+        {{item.DisplayValue}}
+
     </div>
   </optionTemplate>
 </rdropdown>
 
 <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
-<rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsStraightLineProgressBar"></rswitch>
+<rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar"></rswitch>
 
-<rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)" 
+<rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
             [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
-<rprogressbar [ForeColor]="'red'"
-              [TrackColor]="'white'"
-              [EnableBackDrop]="true" 
-              [FloatInCenter]="proincenter" 
+<rprogressbar [ForeColor]="'blue'"
+              [TrackColor]="'lightgray'"
+              [EnableBackDrop]="false"
+              [FloatInCenter]="proincenter"
               [DisplayType]="progressDisplayType"
+              [StraightLineTrackHeight]="'8px'"
+              [ProgressBarWidth]="'400px'"
+              [Percentage]="perc"
               [Type]="progressType">
 </rprogressbar>
 
-
+<button (click)="updateProgress()">Start</button>
+<button (click)="ResetProgress()">Reset</button>
 </div>

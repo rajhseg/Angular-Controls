@@ -30,10 +30,12 @@ export class AppComponent {
   curDate!: string;
   isChecked: boolean = true;
   proincenter: boolean = false;
-  IsStraightLineProgressBar: boolean = true;
+  IsCircleProgressBar: boolean = false;
   IsInfiniteProgressBar: boolean = true;
-  progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.Circle;
+  progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
   progressType:ProgressBarType = ProgressBarType.Infinite;
+  perc:number = 0;
+  percInterval : NodeJS.Timeout | undefined = undefined;
 
   constructor(){
     this.items.push(new DropdownModel("0", "Jan"));
@@ -47,7 +49,17 @@ export class AppComponent {
     this.items.push(new DropdownModel("9", "Sep"));
 
     this.selItem = this.items[5];
-    this.curDate = "";
+    this.curDate = "";       
+  }
+
+  updateProgress(){
+    this.percInterval = setInterval((obj)=> obj.perc++, 500, this);
+  }
+
+  ResetProgress(){
+    clearInterval(this.percInterval);
+    this.perc = 0;
+    this.updateProgress();
   }
 
   dateSelected($evt: any){

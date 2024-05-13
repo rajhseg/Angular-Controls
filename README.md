@@ -31,4 +31,11 @@ StraightLine Infinite
 ----------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/36481afd-9963-4fc3-8f71-cbe003061d09)
 
+StraightLine Finite
+----------------------
+![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/f429bb04-072f-4b12-af27-bf1fc2636fda)
+
+
+
+
 

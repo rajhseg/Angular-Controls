@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, NgZone } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalenderComponent } from './Controls/Calender/calender.component';
 import { DropdownComponent } from './Controls/dropdown/dropdown.component';
@@ -10,6 +10,8 @@ import { RatingComponent } from './Controls/rating/rating.component';
 import { SwitchComponent } from './Controls/switch/switch.component';
 import { ProgressbarComponent } from './Controls/progressbar/progressbar.component';
 import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/progressbarType';
+import { setInterval } from 'timers';
+import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
 
 @Component({
   selector: 'app-root',
@@ -35,9 +37,9 @@ export class AppComponent {
   progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
   progressType:ProgressBarType = ProgressBarType.Infinite;
   perc:number = 0;
-  percInterval : NodeJS.Timeout | undefined = undefined;
+  percInterval : number | undefined = undefined;
 
-  constructor(){
+  constructor(private winObj: WindowHelper){
     this.items.push(new DropdownModel("0", "Jan"));
     this.items.push(new DropdownModel("1", "Feb"));
     this.items.push(new DropdownModel("2", "Mar"));
@@ -49,15 +51,22 @@ export class AppComponent {
     this.items.push(new DropdownModel("9", "Sep"));
 
     this.selItem = this.items[5];
-    this.curDate = "";       
+    this.curDate = "";
+
+    if(winObj.isExecuteInBrowser()){
+     this.percInterval = window.setInterval((obj: any)=> obj.perc++, 500, this);
+    }
   }
 
   updateProgress(){
-    this.percInterval = setInterval((obj)=> obj.perc++, 500, this);
+    this.percInterval = window.setInterval((obj: any)=> obj.perc++, 500, this);
   }
 
   ResetProgress(){
-    clearInterval(this.percInterval);
+    if(this.winObj.isExecuteInBrowser())
+    {
+        window.clearInterval(this.percInterval);
+    }
     this.perc = 0;
     this.updateProgress();
   }
@@ -83,7 +92,7 @@ export class AppComponent {
     }
   }
 
-  changeToInfinite(val: boolean){    
+  changeToInfinite(val: boolean){
     if(val){
       this.progressType = ProgressBarType.Infinite;
     } else{

@@ -27,5 +27,18 @@
 
             </div>
         </div>
-        <span class="disperc">{{Percentage}} %</span>
+        <span class="disperc">{{Percentage}}</span>
+    </div>
+
+
+
+    <div *ngIf="Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.Circle"
+        [ngClass]="{ 'progress_container': FloatInCenter }">
+        <canvas style="position: absolute;" #procan width="{{ProgressBarWidth.split('px')[0]}}" height="{{ProgressBarWidth.split('px')[0]}}" class="canvasCenter">
+
+        </canvas>
+
+        <canvas #textcan width="{{ProgressBarWidth.split('px')[0]}}" height="{{ProgressBarWidth.split('px')[0]}}" class="canvasCenter">
+
+        </canvas>
     </div>

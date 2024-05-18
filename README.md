@@ -35,6 +35,13 @@ StraightLine Finite
 ----------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/f429bb04-072f-4b12-af27-bf1fc2636fda)
 
+Circular Finite
+-----------------------
+![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/b5e76ad3-cfca-4fd4-999a-f8a68c544537)
+
+
+
+
 
 
 

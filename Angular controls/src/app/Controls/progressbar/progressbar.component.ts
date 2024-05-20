@@ -1,6 +1,7 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ProgressBarDisplayType, ProgressBarType } from './progressbarType';
+import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rprogressbar',
@@ -45,6 +46,19 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
   }
 
   _circularLineWidth: string = '0px';
+
+  get LeftPosition(): number {
+
+    if(this.winobj.isExecuteInBrowser()){
+      let _w = parseInt(this.ProgressBarWidth.split('px')[0]);
+      let adjustLength = _w/2;
+      let middlevalue = document.body.clientWidth/2;
+      let left = middlevalue-adjustLength;
+      return left;
+    }
+
+    return 0;
+  }
 
   @Input()
   set CircularLineWidth(val: string){
@@ -212,7 +226,10 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
     let _w = parseInt(this.ProgressBarWidth.split('px')[0]);
     let _linewidth = parseInt(this.CircularLineWidth.split('px')[0]);
 
-    let radius = (_w/2) - _linewidth;;
+    let radius = 0;
+
+    radius = (_w/2) - _linewidth;;
+
     let a = this.progressCanvas.nativeElement.width/2;
     let b = this.progressCanvas.nativeElement.height/2;
 
@@ -243,7 +260,7 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
       this.context.closePath();
 
       this.progressCanvas.nativeElement.style.transform = "rotate(-90deg)";
-      this.progressCanvas.nativeElement.style.opacity = "0.8";
+      this.progressCanvas.nativeElement.style.opacity = "0.7";
 
       if(this.textCanvas!=undefined){
         let txtctx = this.textCanvas.nativeElement.getContext('2d');
@@ -290,7 +307,7 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
     }
   }
 
-  constructor(){
+  constructor(private winobj: WindowHelper){
 
   }
 
@@ -302,6 +319,18 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
     }
 
     this.isTypeInit = false;
+  }
+
+  get InfiniteWidth(): string{
+    let _pw = parseInt(this.ProgressBarWidth.split('px')[0]);
+
+    let _w =  _pw - parseInt(this.CircularLineWidth.split('px')[0]);
+
+    if(_pw > 75) {
+      _w = _w - 50;
+    }
+
+    return (_w) + 'px';
   }
 
 }

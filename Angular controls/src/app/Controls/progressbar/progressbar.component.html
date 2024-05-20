@@ -4,13 +4,15 @@
     <div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.Circle"
         [ngClass]="{ 'progress_container': FloatInCenter }">
         <div class="progressbar_infinite"
-         [ngStyle]="{ 'borderColor': CircleColor, 'width': ProgressBarWidth, 'height': ProgressBarWidth} ">
+         [ngStyle]="{'borderWidth': CircularLineWidth, 'borderColor': CircleColor,
+                      'width': InfiniteWidth, 'height': InfiniteWidth} ">
 
         </div>
     </div>
 
     <div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.StraightLine"
         [ngClass]="{ 'progress_flat_container': FloatInCenter }"
+        [style.left.px]="LeftPosition"
         [ngStyle]="{ 'width': ProgressBarWidth}">
         <div class="progress_flattrack" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight }">
             <div [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem">
@@ -20,7 +22,9 @@
     </div>
 
 
-    <div [ngClass]="{ 'progress_flat_container': FloatInCenter, 'hide': !(Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.StraightLine) }"
+    <div [ngClass]="{ 'progress_flat_container': FloatInCenter,
+          'hide': !(Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.StraightLine) }"
+        [style.left.px]="LeftPosition"
         [ngStyle]="{ 'width': ProgressBarWidth, 'display': DisplayType == allDisplayTypes.StraightLine && Type==allProgressBarTypes.Progress ? 'table' : 'none'}">
         <div class="progress_flattrack_finite" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight }">
             <div #flatitemProgress [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem_Progress">
@@ -38,7 +42,7 @@
 
         </canvas>
 
-        <canvas #textcan width="{{ProgressBarWidth.split('px')[0]}}" height="{{ProgressBarWidth.split('px')[0]}}" class="canvasCenter">
+        <canvas #textcan width="{{ProgressBarWidth.split('px')[0]}}" height="{{ProgressBarWidth.split('px')[0]}}">
 
         </canvas>
     </div>

@@ -54,12 +54,29 @@ export class AppComponent {
     this.curDate = "";
 
     if(winObj.isExecuteInBrowser()){
-     this.percInterval = window.setInterval((obj: any)=> obj.perc++, 500, this);
+     this.percInterval = window.setInterval((obj: any)=>
+      {
+        if(obj.perc==100) {
+          window.clearInterval(this.percInterval);
+          // return;
+        }
+
+        obj.perc++
+
+      }, 500, this);
     }
   }
 
   updateProgress(){
-    this.percInterval = window.setInterval((obj: any)=> obj.perc++, 500, this);
+    this.percInterval = window.setInterval((obj: any)=> {
+
+      if(obj.perc==100) {
+        window.clearInterval(this.percInterval);
+        //return;
+      }
+
+      obj.perc++
+    }, 500, this);
   }
 
   ResetProgress(){

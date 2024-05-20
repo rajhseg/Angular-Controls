@@ -25,16 +25,16 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
   isTypeInit: boolean = false;
 
   @Input()
-  FloatInCenter: boolean = false;
+  FloatInCenter: boolean = true;
 
   @Input()
   EnableBackDrop: boolean = false;
 
-  _foreColor: string = 'rgba(27, 81, 199, 0.692)';
+  _foreColor: string = 'blue';
 
-  _trackColor: string = 'rgb(214, 214, 219)';
+  _trackColor: string = 'lightgray';
 
-  _straightLineHeight: string = '12px';
+  _straightLineHeight: string = '16px';
 
   @Input()
   set StraightLineTrackHeight(val: string) {
@@ -45,7 +45,7 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
     return this._straightLineHeight;
   }
 
-  _circularLineWidth: string = '0px';
+  _circularLineWidth: string = '15px';
 
   get LeftPosition(): number {
 
@@ -110,9 +110,9 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
     return this._type;
   }
 
-  private _displayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
+  private _displayType: ProgressBarDisplayType = ProgressBarDisplayType.Circle;
 
-  private _width: string = '100px';
+  private _width: string = '';
 
   @Input()
   set DisplayType(val: ProgressBarDisplayType){
@@ -139,6 +139,11 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
     this._width =val;
   }
   get ProgressBarWidth(): string {
+
+    if(this._width==''){
+      return this.DisplayType==this.allDisplayTypes.Circle ? '150px' : '250px';
+    }
+
     return this._width;
   }
 

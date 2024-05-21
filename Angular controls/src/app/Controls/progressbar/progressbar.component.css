@@ -1,9 +1,6 @@
 .progressbar_infinite {
-    /* width: 50px;
-    height:50px; */
     border: 10px solid red;
     border-radius: 50%;
-    /* border-color: rgba(27, 81, 199, 0.692) rgb(214, 214, 219) rgb(214, 214, 219) rgb(214, 214, 219);     */
     animation: progress 3s linear infinite;
     background: transparent;
     z-index: 999999999;
@@ -29,7 +26,6 @@
 .progress_flattrack{
     width: 100%;
     height: 12px;
-    /* border: 1px solid lightgrey;     */
     border: 1px solid #a6abaa;
     padding: 1px;
     z-index: 999999999;
@@ -37,13 +33,11 @@
 
 
 .progress_flattrack_finite {
-  width: 88%;
-  display: table-cell;
-  /* height: 12px; */
-  /* border: 1px solid lightgrey;     */
+  width: 100%;
   border: 1px solid #a6abaa;
   padding: 1px;
   z-index: 999999999;
+  position: absolute;
 }
 
 .progress_flatitem {
@@ -51,8 +45,6 @@
     height: 100%;
     background-color: rgba(27, 81, 199, 0.692);
     position: relative;
-    /* top:0.5%;
-    bottom: 0.5%; */
     animation: moveleft 2s linear infinite;
 }
 
@@ -75,7 +67,6 @@
 .progress_flatitem_Progress {
     height: 100%;
     background-color: rgba(27, 81, 199, 0.692);
-    position: relative;
     width: 0%;
 }
 
@@ -84,13 +75,13 @@
 }
 
 .disperc {
-    display: table-cell;
     vertical-align: middle;
-     width: 12%;
-    left: -49%;
+    width: 40px;
+    left: 37px;
     position: relative;
-    color: whitesmoke;
-    font-size: small;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 999999999999999;
 }
 
 .outercircle {
@@ -98,7 +89,6 @@
   border-radius: 50%;
   height: 200px;
   width: 200px;
-  /* display: table; */
   background-color: lightgray;
   display: flex;
   justify-content: center;
@@ -125,7 +115,6 @@
   border-radius: 50%;
   height: 80%;
   width: 80%;
-  /* display: table-cell; */
   vertical-align: middle;
   background-color: white;
   padding-top: 1px;

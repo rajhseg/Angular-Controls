@@ -22,16 +22,18 @@
     </div>
 
 
-    <div [ngClass]="{ 'progress_flat_container': FloatInCenter,
+    <div style="place-items: center; place-content: center;text-align: right;" [ngClass]="{ 'progress_flat_container': FloatInCenter,
           'hide': !(Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.StraightLine) }"
         [style.left.px]="LeftPosition"
-        [ngStyle]="{ 'width': ProgressBarWidth, 'display': DisplayType == allDisplayTypes.StraightLine && Type==allProgressBarTypes.Progress ? 'table' : 'none'}">
-        <div class="progress_flattrack_finite" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight }">
+        [ngStyle]="{ 'width': ProgressBarWidth, 'display': DisplayType == allDisplayTypes.StraightLine && Type==allProgressBarTypes.Progress ? 'block' : 'none'}">
+
+        <div class="progress_flattrack_finite" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight, 'width': ProgressBarWidth }">
             <div #flatitemProgress [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem_Progress">
 
             </div>
         </div>
-        <span class="disperc">{{Percentage}}</span>
+
+        <span class="disperc" [style.color]="ForeColor">{{Percentage}}%</span>
     </div>
 
 

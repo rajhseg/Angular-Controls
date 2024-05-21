@@ -10,8 +10,8 @@ import { WindowHelper } from "../windowObject";
     standalone: true,
     template:'<ng-content></ng-content>',
     styles:[`
-      
-          `]            
+
+          `]
 })
 export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChanges, DoCheck, AfterContentInit
 {
@@ -20,7 +20,7 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
 
     @Input()
     Item: any | null;
-    
+
     @Input()
     IsInitItem: boolean = false;
 
@@ -31,10 +31,10 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
     @Input()
     set OptionSelected(value: boolean){
       this.isSelected = value;
-      
-      if(this.isSelected && this.eleRef && this.eleRef.nativeElement 
+
+      if(this.isSelected && this.eleRef && this.eleRef.nativeElement
         && typeof this.eleRef.nativeElement.scrollIntoView === 'function') {
-           this.eleRef.nativeElement.scrollIntoView();     
+           this.eleRef.nativeElement.scrollIntoView();
         }
     }
     get OptionSelected(): boolean{
@@ -62,21 +62,21 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
     }
 
     ngAfterViewChecked(): void {
-    
+
     }
 
     ngAfterViewInit(): void {
       if(this.isSelected){
-        this.eleRef.nativeElement.firstChild.focus();    
-        this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');           
+        this.eleRef.nativeElement.firstChild.focus();
+        this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');
         this.clicked.next(this);
       }
     }
-    
+
     @HostListener('click', ['$event'])
-    onClick(target: any) {            
-      this.eleRef.nativeElement.focus();   
-      this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');      
+    onClick(target: any) {
+      this.eleRef.nativeElement.focus();
+      this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');
       this.isSelected = true;
       this.clicked.next(this);
     }
@@ -84,7 +84,7 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
     @HostListener('mouseenter',['$event'])
     onMouseOver(target: any){
       this.backColor = this.eleRef.nativeElement.style.backgroundColor;
-      this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');      
+      this.eleRef.nativeElement.firstChild.classList.add('dropdown-content-selected');
     }
 
     scrollIntoElement(){
@@ -94,7 +94,7 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
     @HostListener('mouseleave',['$event'])
     onMouseLeave(target: any){
       if(!this.isSelected){
-        this.eleRef.nativeElement.firstChild.classList.remove('dropdown-content-selected');         
+        this.eleRef.nativeElement.firstChild.classList.remove('dropdown-content-selected');
       }
     }
 }

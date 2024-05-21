@@ -180,10 +180,10 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
   _displayText: string = '';
 
   @Input()
-  set DisplayText(val: string){
+  set FiniteCircularDisplayText(val: string){
     this._displayText = val;
   }
-  get DisplayText(): string {
+  get FiniteCircularDisplayText(): string {
     return this._displayText;
   }
 
@@ -198,12 +198,12 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
     let percentage = this._percentage;
     let _w = this.ProgressBarWidth.split('px')[0];
 
-    if(this.DisplayType==this.allDisplayTypes.StraightLine && this.Type==this.allProgressBarTypes.Progress){
-     _w = (parseFloat(_w) * (88/100)).toString();
-    }
+    // if(this.DisplayType==this.allDisplayTypes.StraightLine && this.Type==this.allProgressBarTypes.Progress){
+    //  _w = (parseFloat(_w) * (88/100)).toString();
+    // }
 
     // remove padding and border 4px from track width
-    _w = (parseFloat(_w) - 4).toString();
+    _w = (parseFloat(_w)).toString();
 
     if(_w != undefined && _w != null) {
       let calPercentage = 100;
@@ -293,17 +293,13 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
           if((this.textCanvas.nativeElement.width/2)-_linewidth > mt.width){
             _maxSize = mt.width;
           } else{
-            _maxSize = (this.textCanvas.nativeElement.width/2)-_linewidth-5;
+            _maxSize = (this.textCanvas.nativeElement.width/2)-_linewidth - 2; // 5 is changed to 2
           }
 
           textX = a - (_maxSize/2);
           textY = b + 5;
 
-          if(this.Percentage<10){
-            txtctx.fillText(_text, textX, textY, _maxSize);
-          } else{
-            txtctx.fillText(_text, textX, textY, _maxSize);
-          }
+          txtctx.fillText(_text, textX, textY, _maxSize);
 
           txtctx.closePath();
         }

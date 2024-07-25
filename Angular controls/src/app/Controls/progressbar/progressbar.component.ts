@@ -13,7 +13,7 @@ import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
 
   @ViewChild('flatitemProgress', {read:ElementRef, static: false})
-   stLineElement: ElementRef | undefined = undefined;
+  stLineElement: ElementRef | undefined = undefined;
 
   @ViewChild('procan', {read: ElementRef<HTMLCanvasElement>, static : false})
   progressCanvas: ElementRef<HTMLCanvasElement> | undefined = undefined;
@@ -258,8 +258,6 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
       this.context.lineWidth = _linewidth;
       this.context?.arc(a,b,radius,0, deg, false);
 
-      console.log('deg '+deg);
-
       this.context.strokeStyle = this.ForeColor;
       this.context?.stroke();
       this.context.closePath();
@@ -278,6 +276,8 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
           txtctx.fillStyle = this.ForeColor;
           txtctx.font = 'bold 16px Arial, sans-serif';
           let _text = '';
+
+          console.log('percentage '+this.Percentage);
 
           if(this._displayText == '') {
             _text = this.Percentage.toString()+" / "+"100";
@@ -300,7 +300,7 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
           textY = b + 5;
 
           txtctx.fillText(_text, textX, textY, _maxSize);
-
+          console.log(_text);
           txtctx.closePath();
         }
       }

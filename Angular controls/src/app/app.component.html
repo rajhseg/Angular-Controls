@@ -1,65 +1,129 @@
 <div>
-  <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
-  <rcalender [SelectedItemBackGroundColor]="'blue'"></rcalender>
-  <rcalender></rcalender>
-  <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
+
+  <div>
+
+  <starrating [starWidth]="starWidth"></starrating>
+
+  <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
+  <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
+
+  <rdropdown [Items]="items" Width="112px" DropDownContentWidth="122px">
+    <optionTemplate Item="Select all">
+      <div>
+        <input type="checkbox">Select All
+      </div>
+    </optionTemplate>
     <optionTemplate *ngFor="let item of items" [Item]="item">
       <div>
-       {{item.DisplayValue}}
+        <input type="checkbox" >
+
+          {{item.DisplayValue}}
+
       </div>
     </optionTemplate>
   </rdropdown>
-   {{selItem.Value}}
-  <rdropdown [Items]="items" DropDownContentWidth="92px">
-    <optionTemplate *ngFor="let item of items" [Item]="item">
-      <a>
-       {{item.DisplayValue}}
-      </a>
-    </optionTemplate>
-  </rdropdown>
 
-  <rcalender></rcalender>
+
+</div>
+
+<div>
+  <br/>
+  <button (click)="DeleteTab()">Delete One Tab</button>
+  <br/>
+  <div>
+    <label>Tab Index</label>
+    <input type="text" [(ngModel)]="deltabindex" />
+    <button (click)="DeleteTabBasedOnIndex()">Delete Tab(index)</button>
+  </div>
+  <br/>
+</div>
+
+<div>
+  <rtabs #tabCom [TabWidth]="'350px'">
+
+    <rtab [TabId]="'tab1'">
+      <rtab-header>Calender</rtab-header>
+      <rtab-content>
+        <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
+        <rcalender [SelectedItemBackGroundColor]="'blue'"></rcalender>
+        <rcalender></rcalender>        
+      </rtab-content>
+    </rtab>
+
+    <rtab [TabId]="'tab2'">
+      <rtab-header>ComboBox</rtab-header>
+      <rtab-content>
+            
+        <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
+          <optionTemplate *ngFor="let item of items" [Item]="item">
+            <div>
+            {{item.DisplayValue}}
+            </div>
+          </optionTemplate>
+        </rdropdown>
+        {{selItem.Value}}
+        <rdropdown [Items]="items" DropDownContentWidth="92px">
+          <optionTemplate *ngFor="let item of items" [Item]="item">
+            <a>
+            {{item.DisplayValue}}
+            </a>
+          </optionTemplate>
+        </rdropdown>
+
+        <starrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></starrating> {{starValue}}
+
+        <rcalender></rcalender>
+      
+      </rtab-content>
+    </rtab>
+
+    <rtab [TabId]="'tab3'">
+      <rtab-header>Star Rating</rtab-header>
+      <rtab-content>
+
+        <starrating [starWidth]="starWidth"></starrating>
+        <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
+        <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
+
+      </rtab-content>
+    </rtab>
+
+
+    <rtab [TabId]="'tab4'">
+      <rtab-header>Switch / Progress Bar</rtab-header>
+      <rtab-content>
+        <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+
+        <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar"></rswitch>
+      
+        <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
+                  [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+      
+        <rprogressbar [ForeColor]="'blue'"
+                    [TrackColor]="'lightgray'"
+                    [EnableBackDrop]="false"
+                    [FloatInCenter]="proincenter"
+                    [DisplayType]="progressDisplayType"
+                    [StraightLineTrackHeight]="'16px'"
+                    [ProgressBarWidth]="'150px'"
+                    [Percentage]="perc"
+                    [CircularLineWidth]="'15px'"
+                    [FiniteCircularDisplayText]="progressDisplayText"
+                    [Type]="progressType">
+        </rprogressbar>
+      
+        <button (click)="ResetProgress()">Reset</button>
+      
+      </rtab-content>
+    </rtab>
+
+  </rtabs>
+</div>
+
   <starrating [starWidth]="starWidth"></starrating>
 
-<starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
-<starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
+  <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
+  <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
 
-<rdropdown [Items]="items" Width="112px" DropDownContentWidth="122px">
-  <optionTemplate Item="Select all">
-    <div>
-      <input type="checkbox">Select All
-    </div>
-  </optionTemplate>
-  <optionTemplate *ngFor="let item of items" [Item]="item">
-    <div>
-      <input type="checkbox" >
 
-        {{item.DisplayValue}}
-
-    </div>
-  </optionTemplate>
-</rdropdown>
-
-<rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
-
-<rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar"></rswitch>
-
-<rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
-            [(ngModel)]="IsInfiniteProgressBar"></rswitch>
-
-<rprogressbar [ForeColor]="'blue'"
-              [TrackColor]="'lightgray'"
-              [EnableBackDrop]="false"
-              [FloatInCenter]="proincenter"
-              [DisplayType]="progressDisplayType"
-              [StraightLineTrackHeight]="'16px'"
-              [ProgressBarWidth]="'150px'"
-              [Percentage]="perc"
-              [CircularLineWidth]="'15px'"
-              [FiniteCircularDisplayText]="perc+' / 100 %'"
-              [Type]="progressType">
-</rprogressbar>
-
-<button (click)="updateProgress()">Start</button>
-<button (click)="ResetProgress()">Reset</button>
 </div>

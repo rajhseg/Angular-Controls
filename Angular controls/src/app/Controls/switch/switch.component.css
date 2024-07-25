@@ -49,3 +49,9 @@
     border-radius: 50%;
   }
   
+  :host {
+    display: flex;
+    width: fit-content;
+    margin-top: 2px; 
+    margin-bottom: 2px;
+}

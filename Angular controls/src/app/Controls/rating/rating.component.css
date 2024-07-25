@@ -34,3 +34,10 @@
     position: relative;
     display: none;    
 }
+
+:host {
+    display: flex;
+    width: fit-content;
+    margin-top: 2px; 
+    margin-bottom: 2px;
+}

@@ -1,4 +1,4 @@
-import { Component, Inject, NgZone } from '@angular/core';
+import { AfterViewInit, Component, Inject, NgZone, TemplateRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalenderComponent } from './Controls/Calender/calender.component';
 import { DropdownComponent } from './Controls/dropdown/dropdown.component';
@@ -12,18 +12,29 @@ import { ProgressbarComponent } from './Controls/progressbar/progressbar.compone
 import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/progressbarType';
 import { setInterval } from 'timers';
 import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
+import { RTabComponent } from './Controls/tab/tab.component';
+import { RTabHeaderComponent } from "./Controls/tab/tabheader/tabheader.component";
+import { RTabContentComponent } from './Controls/tab/tabcontent/tabcontent.component';
+import { RTabsComponent } from './Controls/tab/rtabs.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, CalenderComponent, SwitchComponent,
-    DropdownComponent, FormsModule, ReactiveFormsModule, ProgressbarComponent,
-    NgFor,JsonPipe,
-    optionTemplate, RatingComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    imports: [
+        RouterOutlet, CalenderComponent,
+        SwitchComponent,
+        DropdownComponent, FormsModule,
+        ReactiveFormsModule, ProgressbarComponent,
+        RTabComponent, RTabsComponent,
+        NgFor, JsonPipe,
+        optionTemplate, RatingComponent,
+        RTabHeaderComponent, RTabContentComponent
+      ]
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+
   title = 'angularcontrols';
   items: DropdownModel[] = [];
   selItem: any = null;
@@ -36,10 +47,15 @@ export class AppComponent {
   IsInfiniteProgressBar: boolean = true;
   progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
   progressType:ProgressBarType = ProgressBarType.Infinite;
-  perc:number = 0;
-  percInterval : number | undefined = undefined;
+  perc:number = 0;  
+  deltabindex: number = -1;
+  window!: Window;
+  interval!: number;
+  progressDisplayText: string = '';
 
-  constructor(private winObj: WindowHelper){
+  @ViewChild('tabCom', {read: RTabsComponent}) tabs!: RTabsComponent;
+
+  constructor(private winObj: WindowHelper, private ngZone: NgZone){
     this.items.push(new DropdownModel("0", "Jan"));
     this.items.push(new DropdownModel("1", "Feb"));
     this.items.push(new DropdownModel("2", "Mar"));
@@ -50,42 +66,53 @@ export class AppComponent {
     this.items.push(new DropdownModel("8", "Aug"));
     this.items.push(new DropdownModel("9", "Sep"));
 
+    if(this.winObj.isExecuteInBrowser())
+    this.window = window;
+
     this.selItem = this.items[5];
     this.curDate = "";
+    this.perc = 55;
+    this.IncrementValue(this);
+  }
 
-    if(winObj.isExecuteInBrowser()){
-     this.percInterval = window.setInterval((obj: any)=>
-      {
-        if(obj.perc==100) {
-          window.clearInterval(this.percInterval);
-          // return;
-        }
+  DeleteTab(){
+    if(this.tabs.SelectedTabId)
+      this.tabs.DeleteTab(this.tabs.SelectedTabId);
+  }
 
-        obj.perc++
-
-      }, 500, this);
+  DeleteTabBasedOnIndex(){
+    if(this.deltabindex){
+      this.tabs.DeleteTabBasedOnIndex(this.deltabindex);
     }
   }
 
-  updateProgress(){
-    this.percInterval = window.setInterval((obj: any)=> {
-
-      if(obj.perc==100) {
-        window.clearInterval(this.percInterval);
-        //return;
-      }
-
-      obj.perc++
-    }, 500, this);
+  ngAfterViewInit(): void {
+    if(this.tabs){
+      console.log('tabs initialized');
+      console.log(this.tabs);
+    }
   }
 
-  ResetProgress(){
-    if(this.winObj.isExecuteInBrowser())
-    {
-        window.clearInterval(this.percInterval);
-    }
+  IncrementValue(obj: AppComponent){        
+      if(obj.winObj.isExecuteInBrowser()) {        
+        obj.interval = obj.window.setInterval((x: AppComponent)=>{
+
+          x.perc = x.perc + 1;
+
+          if(x.perc > 100) {
+            x.window.clearInterval(x.interval);
+            return;
+          }
+          
+          x.progressDisplayText = x.perc.toString() +" / 100 %";                                                                                                        
+
+        }, 500, obj);
+      }              
+  }
+
+  ResetProgress(){    
     this.perc = 0;
-    this.updateProgress();
+    this.IncrementValue(this);
   }
 
   dateSelected($evt: any){

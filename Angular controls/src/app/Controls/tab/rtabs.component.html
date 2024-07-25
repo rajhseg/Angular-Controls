@@ -1,0 +1,29 @@
+
+
+<div style="margin:5px;" 
+*ngIf="this.tabs && this.tabs.length > 0 && this.headers && this.headers.length > 0 
+        && this.contents && this.contents.length > 0">
+
+<div *ngIf="this.headers && this.headers.length > 0" 
+      class="tabheaderContainer" [style.width]="TabWidth">
+  <ng-container *ngFor="let header of this.headers">
+    <button id="rtabheader_{{header.TabId}}" class="tabheader" 
+            (click)="HeaderClicked(header)"
+            [ngClass]="{ tabSelected: header.headerComponent.IsSelected}">
+      <template *ngTemplateOutlet="header.headerComponent.content"></template                                             >
+    </button>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="this.contents && this.contents.length > 0">
+  <div class="tabcontent" [style.width]="TabWidth">
+    <ng-container *ngFor="let item of this.contents">
+        <div  id="rtabcontent_{{item.TabId}}" class="tab"           
+              [ngClass]="{ active: item.contentComponent.IsSelected}">      
+          <template *ngTemplateOutlet="item.contentComponent.content"></template>
+        </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+</div>

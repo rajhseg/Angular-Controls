@@ -124,3 +124,10 @@
 .canvasCenter {
   position: absolute;
 }
+
+:host{
+    display: flex;
+    width: fit-content;
+    margin-top: 3px; 
+    margin-bottom: 3px;
+}

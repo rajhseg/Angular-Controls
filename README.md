@@ -43,7 +43,11 @@ Circular Finite
 
 Tab Control
 -------------------------
+
+![image](https://github.com/user-attachments/assets/a2da931b-6437-41dd-a589-978509e8ddd8)
+
 ![image](https://github.com/user-attachments/assets/26dd876c-c37c-44ae-865d-6314b8e13a5e)
+
 
 
 

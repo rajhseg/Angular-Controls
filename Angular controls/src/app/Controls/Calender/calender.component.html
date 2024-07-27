@@ -1,7 +1,7 @@
 
 <div class="rcal">
 <div class="rcalinputdiv">
-    <input  class="calendarinput" type="text" [(ngModel)]="Value" />
+    <input  class="calendarinput" (click)="openCalenderFromInput($event)" type="text" [(ngModel)]="Value" />
     <div style="position: relative; width: 0px; height: 0px;" (click)="openCalender($event)"><b  class="calIcon" >&#9782;</b></div>
 </div>
 <div class="calender" #calmodal *ngIf="IsCalenderOpen">

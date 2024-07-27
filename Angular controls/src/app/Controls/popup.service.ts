@@ -45,17 +45,8 @@ export class PopupService {
   }
 
   CloseDropdown(instance: IPopupCloseInterface | null, onWindowClick: boolean){
-
     this.dropdownService.GetAllInstance().forEach((x)=>{        
-      x.IsDropDownOpen = false;
-    
-      if(onWindowClick)
-      {
-        x.bshow = false;
-      } 
-      else if(!x.ObjEquals(instance, x)){
-        x.bshow = false;
-      }        
+      x.IsDropDownOpen = false;           
     });
   }
 

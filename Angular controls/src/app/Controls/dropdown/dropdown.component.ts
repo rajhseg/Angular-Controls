@@ -21,7 +21,10 @@ import { WINDOWOBJECT, WindowHelper } from '../windowObject';
       useExisting: forwardRef(()=> DropdownComponent), 
       multi: true
     }
-  ]
+  ],
+  host: {
+    "(window:click)":"windowOnClick()"
+  }
 })
 export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, 
                                 AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
@@ -84,8 +87,6 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     return this._show;
   }
 
-  bshow: boolean = false;
-
   SelectedItem: DropdownModel | string | any = '';
   SelectedDisplay: string | number = '';
   private firstTimeInit: boolean = true;
@@ -93,13 +94,11 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   private winObj!:Window;
   private injector = inject(Injector);
 
-  constructor(private ddservice: DropdownService, 
-    private popupService: PopupService,
+  constructor(private ddservice: DropdownService,     
     private windowHelper: WindowHelper
   ){
     this.Id = windowHelper.GenerateUniqueId();
-    this.ddservice.AddInstance(this);   
-    this.popupService.AddPopupModalClassName('dropdown-content');
+    this.ddservice.AddInstance(this);       
     this.winObj = inject(WINDOWOBJECT);
   }
 
@@ -112,16 +111,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   }
 
   ngAfterContentChecked(): void {
-    // this.optionTemps?.forEach((x)=>{
-    //   if(x.OptionSelected && !this.isFocusDone) {
-    //     if(x.eleRef 
-    //       && x.eleRef.nativeElement
-    //       && typeof x.eleRef.nativeElement.scrollIntoView === 'function'
-    //     ) {
-    //         // x.eleRef.nativeElement.scrollIntoView({ block: 'center',  behavior: 'smooth' });        
-    //       }
-    //   }
-    // })
+    
   }
 
   writeValue(obj: DropdownModel | string | number): void {
@@ -181,43 +171,16 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
 
   ngOnInit(): void {      
     if(this.windowHelper.isExecuteInBrowser()){
-      if(this.winObj && this.popupService.CanAddWindowClickToComponent('rdropdown')){
-        this.winObj.addEventListener('click', this.WindowClick.bind(this), false); 
-        this.popupService.AddWindowClickToComponent('rdropdown')
-      }
+      
     }        
-  }
-
-  private WindowClick(event:any){
-    let isClickedAsChild: boolean =false;
-
-     this.ddservice.GetAllInstance().forEach(x=>{
-      if(x.IsChildOfAnotherControlClicked){
-        isClickedAsChild = true;
-      }
-     });
-
-    if (!event.target.matches('.dropdownbtn') && !isClickedAsChild) {
-      this.closeAllDropdowns(null, true);      
-    }
   }
 
   private closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false){
 
-    this.popupService.ClosePopupsOnWindowsClick(ins, onwindowClick);
 
     this.ddservice.GetAllInstance().forEach((x)=>{
-      x.IsDropDownOpen = false;
-      
-        if(onwindowClick)
-        {
-          x.bshow = false;
-        } 
-        else if(!this.ObjEquals(ins, x)){
-          x.bshow = false;
-        }
-        
-    });
+        x.IsDropDownOpen = false;                     
+     });
   
   }
 
@@ -226,7 +189,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     
     if(this.windowHelper.isExecuteInBrowser()){
       if(this.winObj){
-        this.winObj.removeEventListener('click', this.WindowClick.bind(this));
+        
       }
     }
    
@@ -277,12 +240,24 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
       this.IsChildOfAnotherControlClicked = true;
     }
 
-    this.IsDropDownOpen = false;    
-    this.bshow = this.IsDropDownOpen;   
+    this.IsDropDownOpen = false;          
+  }
+
+  windowOnClick(){
+    this.IsDropDownOpen = false;
   }
 
   openDropdown(evt: Event){
    
+    var currentValueToSet = !this.IsDropDownOpen;
+    if(currentValueToSet){
+      this.optionTemps?.forEach(x=>{
+        if(x.OptionSelected){         
+         // x.scrollIntoViewElement();          
+        }
+      });
+    }
+
     this.closeAllDropdowns(this);
     this.IsChildOfAnotherControlClicked = false;
 
@@ -293,21 +268,10 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
       }
     });
 
-    this.firstTimeInit = false;
-
+    this.firstTimeInit = false;    
    }
 
-   if(this.bshow) {
-    this.IsDropDownOpen = this.bshow;    
-    this.bshow = false;
-   }
-
-   this.IsDropDownOpen = !this.IsDropDownOpen;
-
-   if(!this.bshow){
-    this.bshow = this.IsDropDownOpen;
-   }
-
+   this.IsDropDownOpen = currentValueToSet;
    evt.stopPropagation();
   }
 
@@ -324,7 +288,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
       this.SelectedDisplay = item;
     }
     this.IsDropDownOpen =false;
-    this.bshow = false;
+    
     this.onChange(item);
     this.onTouch(item);
     this.change.emit(item as any);    

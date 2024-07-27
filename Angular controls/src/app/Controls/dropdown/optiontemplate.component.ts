@@ -8,10 +8,8 @@ import { WindowHelper } from "../windowObject";
 @Component({
     selector:'optionTemplate',
     standalone: true,
-    template:'<ng-content></ng-content>',
-    styles:[`
-
-          `]
+    styleUrl: './optiontemplate.component.css',
+    template:'<ng-content></ng-content>'    
 })
 export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChanges, DoCheck, AfterContentInit
 {
@@ -34,7 +32,7 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
 
       if(this.isSelected && this.eleRef && this.eleRef.nativeElement
         && typeof this.eleRef.nativeElement.scrollIntoView === 'function') {
-           this.eleRef.nativeElement.scrollIntoView();
+           // this.scrollIntoViewElement();
         }
     }
     get OptionSelected(): boolean{
@@ -55,6 +53,14 @@ export class optionTemplate implements AfterViewInit, AfterViewChecked, OnChange
         this.eleRef.nativeElement.firstChild.focus();
         this.IsInitItem = false;
       }
+    }
+
+    focusElement(){
+      this.eleRef.nativeElement.firstChild.focus();
+    }
+
+    scrollIntoViewElement(){
+      this.eleRef.nativeElement.firstChild.scrollIntoView();
     }
 
     ngOnChanges(changes: SimpleChanges): void {

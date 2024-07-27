@@ -21,7 +21,10 @@ import { WINDOWOBJECT, WindowHelper } from '../windowObject';
       multi: true,
       useExisting: forwardRef(()=> CalenderComponent)
     }
-  ]
+  ],
+  host:{
+     "(window:click)":"windowOnClick($event)"
+  }
 })
 export class CalenderComponent implements OnInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
 
@@ -90,12 +93,14 @@ set IsCalenderOpen(value: boolean){
 
   if(this._showCalender && !value){
     this._showCalender = value;
-    this.Closed.emit(true);    
+    if(this.Closed)
+      this.Closed.emit(true);    
   }   
 
   if(value){
     this._showCalender = value;
-    this.Opened.emit(true);    
+    if(this.Opened)
+      this.Opened.emit(true);    
   } else {
     this._showCalender = value;
   }    
@@ -117,18 +122,36 @@ private winObj!: Window;
 
 dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
-constructor(private calService: CalenderService, 
-  private popupService: PopupService,
+constructor(private calService: CalenderService,   
   private windowHelper: WindowHelper){
 
   this.Id = this.windowHelper.GenerateUniqueId();
   this.selectedDate = null;
   this.loadYears(new Date().getFullYear());  
-  this.calService.AddInstance(this);
-  this.popupService.AddPopupModalClassName('calender');
+  this.calService.AddInstance(this);  
   this.winObj = inject(WINDOWOBJECT);
   this.LoadMonth(new Date(), false);
  }  
+
+ 
+ windowOnClick(evt: Event){
+   var tar: any = evt.target;
+
+  if (!tar.matches('.calIcon') 
+    && !tar.matches('.dropdown-content-template')
+    && !tar.matches('.around')
+    && !tar.matches('.inpdrop') 
+    && !tar.matches('.dayheader')
+    && !tar.matches('.calender')
+    && !tar.matches('.week')
+    && !tar.matches('.mnyr')
+    && !tar.matches('.notactive')  
+  ) {    
+    this.closeAllDropdowns(null, true);   
+    this.IsCalenderOpen = false;     
+  }
+  
+}
 
  isMonthDropdownClosed($evt: any){
   
@@ -211,10 +234,7 @@ ngOnInit(): void {
     this.LoadMonth(this.selectedDate, true);
 
   if(this.windowHelper.isExecuteInBrowser()){
-    if(this.winObj && this.popupService.CanAddWindowClickToComponent('rcalender')) {
-      this.winObj.addEventListener('click', this.WindowClick.bind(this), false);    
-      this.popupService.AddWindowClickToComponent('rcalender')
-    }
+    
   }
 
 }
@@ -257,15 +277,27 @@ WindowClick(event:any) {
 }
 
 closeAllDropdowns(ins: CalenderComponent | null, onwindowClick: boolean = false){
-
-  this.popupService.ClosePopupsOnWindowsClick(ins, onwindowClick);
-
+  this.calService.GetAllInstance().forEach(x=>{
+    x.IsCalenderOpen = false;
+  });  
 }
 
-openCalender($evt:Event){
+openCalenderFromInput($evt: Event){
+  this.openCalender($evt, true);
+}
+
+openCalender($evt:Event, isopenFromInput: boolean = false){
   this.IsChildOfAnotherControlClicked = false;
+  var currentValueToSet = false;
+
+  if(isopenFromInput){
+    currentValueToSet = true;
+  } else {
+   currentValueToSet = !this.IsCalenderOpen;
+  }
+
   this.closeAllDropdowns(this);
-  this.IsCalenderOpen = !this.IsCalenderOpen;
+  this.IsCalenderOpen = currentValueToSet;
   this.IsMonthDropdownOpen = false;
   this.IsYearDropdownOpen = false;
   

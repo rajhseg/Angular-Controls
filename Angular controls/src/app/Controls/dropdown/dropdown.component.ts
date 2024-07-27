@@ -1,5 +1,5 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { AfterContentChecked, AfterContentInit, AfterRenderPhase, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { DropdownModel } from './dropdownmodel';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { optionTemplate } from './optiontemplate.component';

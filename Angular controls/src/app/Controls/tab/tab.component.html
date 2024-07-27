@@ -1,3 +1,8 @@
-<div class="content">
-   
-</div>
+<ng-container>
+    <div  id="rtabcontent_{{TabId}}" class="tab"           
+          [ngClass]="{ active: IsSelected}">      
+      <div>
+        <ng-content></ng-content>
+      </div>
+    </div>
+</ng-container>

@@ -1,8 +1,7 @@
-import { AfterContentChecked, AfterContentInit, Component, ContentChildren, Input, QueryList, TemplateRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, ApplicationRef, Component, ContentChildren, ElementRef, inject, Input, QueryList, TemplateRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent } from "./tab.component";
-import { RTabHeaderComponent } from "./tabheader/tabheader.component";
 import { AsyncPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
-import { RTabContentComponent } from "./tabcontent/tabcontent.component";
+import { WindowHelper } from "../windowObject";
 
 @Component({
   selector:'rtabs',
@@ -11,20 +10,30 @@ import { RTabContentComponent } from "./tabcontent/tabcontent.component";
   templateUrl:'./rtabs.component.html',
   styleUrl:'./rtabs.component.css',
   imports:[NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
-    NgClass, RTabContentComponent, RTabHeaderComponent]
+    NgClass]
 })
 export class RTabsComponent implements AfterContentInit, AfterContentChecked {
 
-  SelectedTabHeader: TabHeaderWithTabId | undefined = undefined;
-  SelectedTabContent: TabContentWithTabId | undefined = undefined;
-  SelectedContentTemplateRef!: TemplateRef<any>;
-  SelectedTabIndex: number = 0;
-  IsTabHeaderWrapped: boolean = false;
-  tabsOffsets: TabOffsetTop[] = [];
-  wrapTabs: TabOffsetTop[] = [];
-
+  
   private _selectedTabId: string | undefined = undefined;
   private _tabWidth: string = '100%';
+  private _tabHeight: string = '200px';
+  public selectedTab: RTabComponent | undefined = undefined;
+  
+  public SelectedTabIndex: number = 0;
+  public TabHeaders: TabHeaderWithTabId[] = [];
+
+  @Input({required: true, alias:'TabHeight'})
+  set TabHeight(value: string){
+   if(value && value!='') {
+    this._tabHeight = value; 
+   } else {
+    this._tabHeight = '200px';
+   }    
+  }
+  get TabHeight(): string {
+    return this._tabHeight;
+  }
 
   @Input()
   set TabWidth(value: string){
@@ -39,188 +48,118 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
   }
 
   @Input()
-  set SelectedTabId(value: string){
+  set SelectedTabId(value: string|undefined){
     
     if(value) {      
-      this._selectedTabId = value;
-      if(this.TabMountedCount > 0 && this.TabMountedCount==this.TotalTabCount){
-        this.RenderUI();
-      }
+      this._selectedTabId = value;      
+        this.RenderUI();      
     }
   }
   get SelectedTabId(): string | undefined {
     return this._selectedTabId;
   }
 
-  headers: TabHeaderWithTabId[] | undefined | null = [];
-  contents: TabContentWithTabId[]| undefined | null = [];
 
   TotalTabCount: number = 0;
-  TabMountedCount: number = 0;
 
   @ContentChildren(RTabComponent) tabs!:QueryList<RTabComponent> | undefined;
 
-  HeaderClicked(selectedHeader: TabHeaderWithTabId){
-    this.SelectedTabId = selectedHeader.TabId;        
+  constructor(private winobj:WindowHelper){
+
   }
 
-  selectTab(selectedHeader: TabHeaderWithTabId){
+  HeaderClicked(selectedHeader: TabHeaderWithTabId){
+    selectedHeader.IsSelected = true;
+    this.SelectedTabId = selectedHeader.TabId;  
+  }
 
-    this.headers?.forEach(x=> {
-      if(x.headerComponent!=undefined)
-          x.headerComponent.IsSelected =false
-    } );
+  selectTab(selectedHeader: TabHeaderWithTabId | undefined){
 
-    if(selectedHeader.headerComponent!=undefined)
-      selectedHeader.headerComponent.IsSelected = true;
+    this.TabHeaders.forEach(x=>x.IsSelected = false);    
 
-    this.SelectedTabHeader = selectedHeader;
+    this.tabs?.forEach((x, _index)=>{
 
-    this.contents?.forEach(x=>x.contentComponent.IsSelected=false);
-
-    this.contents?.forEach(x=>{
-      if(selectedHeader.TabId==x.TabId){
-
-        x.contentComponent.IsSelected = true;
-        this.SelectedTabContent = x;        
-
-        if(x.contentComponent.content)
-          this.SelectedContentTemplateRef = x.contentComponent.content;
+      if(selectedHeader && x.TabId==selectedHeader.TabId){
+        x.IsSelected =true;
+        this.SelectedTabIndex = _index;
+      } else{
+        x.IsSelected =false;
       }
     });
 
+    this.TabHeaders.forEach(x=>{
+      if(selectedHeader && x.TabId==selectedHeader.TabId){
+        x.IsSelected = true;
+      }
+    });
+
+    console.log(this.SelectedTabIndex);
   }
 
   ngAfterContentInit(): void {
 
     if(this.tabs){
       
-      this.TotalTabCount = this.tabs.length;
-
-      this.tabs.forEach(x=> {
-        x.TabMounted.subscribe(x=>{
-          this.TabMountedCount++;
-        })
-      });
-
+      this.TotalTabCount = this.tabs.length;            
+      this.RenderUI();
     }        
 
   }
 
-  ngAfterContentChecked(): void {        
-    if(this.TabMountedCount > 0 && this.TabMountedCount==this.TotalTabCount){
-      this.RenderUI();
+  private RenderHeaders() {
+
+    if(this.tabs){
+      this.TabHeaders = [];
+      this.tabs.forEach(x => {
+
+        this.TabHeaders.push(new TabHeaderWithTabId(x.TabId, x.HeaderText));
+
+      });
     }
+  }
+
+  ngAfterContentChecked(): void {        
+    
   }  
 
   RenderUI(){    
 
-    this.headers = this.tabs?.map(x=> new TabHeaderWithTabId(x.TabId, x.tabHeader));
-    this.contents = this.tabs?.map(x=> new TabContentWithTabId(x.TabId, x.tabContent));
-
-    if(this.headers!=null && this.contents!=undefined 
-      && this.contents.length > 0 
-      && this.headers.length > 0) {            
-
-      if(this._selectedTabId==undefined || this._selectedTabId==null){
-        this._selectedTabId = this.headers[0].TabId;
-      } else{
-        let _index = this.headers.findIndex(x=>x.TabId == this._selectedTabId);
-        if(_index<0){
-          this._selectedTabId = this.headers[0].TabId;
-        } else{
-          this.SelectedTabIndex = _index;
-        }
-      }
-
-      this.SelectedTabContent = this.contents[this.SelectedTabIndex];
-      this.SelectedTabHeader = this.headers[this.SelectedTabIndex];      
-
-      if(this.SelectedTabContent.contentComponent.content)
-          this.SelectedContentTemplateRef = this.SelectedTabContent.contentComponent.content;
-      
-      this.selectTab(this.headers[this.SelectedTabIndex]);           
-
       let _wrapLength: number | undefined = undefined;
-
-      this.tabsOffsets = [];
-      this.wrapTabs = [];
-
-      this.tabs?.forEach(x => {                
-        let _ele = document.getElementById('rtabheader_'+x.TabId);
-        
-        if(_ele)
-          this.tabsOffsets.push(new TabOffsetTop(x.TabId, _ele.offsetTop));
-
-        if(!this.IsTabHeaderWrapped) {
-          if(_wrapLength==undefined){
-            _wrapLength = _ele?.offsetTop;
-          } else{
-            if(_ele &&_wrapLength < _ele.offsetTop){
-              this.IsTabHeaderWrapped = true;              
-            }
-          }
-        }
-
-      });
-
-      if(this.IsTabHeaderWrapped){
-        this.ReArrangeTabHeaderForWrap();
+      
+      if(this.SelectedTabId!=undefined){
+        this.selectedTab = this.tabs?.find(x=>x.TabId == this.SelectedTabId);
+      } else {
+       this.selectedTab = this.tabs?.first;
+       this.SelectedTabId = this.tabs?.first.TabId;
       }
 
-    }    
-  }
+      if(this.selectedTab) {
+        this.selectedTab.IsSelected = true;
+        let selectedHeader = new TabHeaderWithTabId(this.selectedTab.TabId, this.selectedTab.HeaderText, true);
+        this.RenderHeaders();
+        this.selectTab(selectedHeader);                  
+      } else{
+        this.RenderHeaders();
+        this.selectTab(undefined);
+      }       
+    }
 
   MoveEntireTabRow(){
-    this.tabsOffsets
-    this.tabs?.forEach(x => {                
-      let _ele = document.getElementById('rtabheader_'+x.TabId);
-
-      let _wrap = this.wrapTabs.find(y=>y.TabId==x.TabId);
-      if(_wrap && _ele){
-        console.log('TabID :'+x.TabId + ',offsetTop:'+ _ele.offsetTop +', before Element top: '+_ele.style.marginTop);
-        _ele.style.marginTop = _wrap.offsetTop+'px';
-        console.log('TabID :'+x.TabId+',offsetTop:'+ _ele.offsetTop +', after Element top: '+_ele.style.marginTop);
-      }
-    });
 
   }
 
   ReArrangeTabHeaderForWrap(){
-    console.log(this.tabsOffsets);
-    
-    let wrapTabOffset = this.tabsOffsets.filter(x=>x.TabId==this.SelectedTabId)[0].offsetTop;
-    let wrapTabList = this.tabsOffsets.filter(x=>x.offsetTop == wrapTabOffset).map(x=>x.TabId);
-
-    let newTabs = this.tabs?.filter(x=> wrapTabList.indexOf(x.TabId) == -1);
-    let wrapTabs = this.tabs?.filter(x=> wrapTabList.indexOf(x.TabId) > -1);
-    let wrappedTabs: RTabComponent[] = [];
-    
-    if(this.tabsOffsets.length > 0) {
-      let lastItemOffset = this.tabsOffsets[this.tabsOffsets.length-1].offsetTop;      
-      if(wrapTabList)
-        this.wrapTabs = wrapTabList.map(x=> new TabOffsetTop(x, lastItemOffset));
-    }
-
-    if(newTabs) {
-      for(let i=0; i<newTabs?.length; i++){
-        wrappedTabs.push(newTabs[i]);
-      }
-    }
-
-    if(wrapTabs) {
-      for(let i=0; i<wrapTabs?.length; i++){
-        wrappedTabs.push(wrapTabs[i]);
-      }
-    }
-    
-    console.log(this.tabsOffsets);
-
-    this.tabs?.reset(wrappedTabs);
-    this.MoveEntireTabRow();
+   
   }
 
   DeleteTab(tabId: string){    
+    
+    this.tabs?.forEach(x=>{
+      if(x.TabId==tabId){
+        x.IsSelected =false;
+      }
+    });
+
     let newTabs = this.tabs?.filter(x=>x.TabId!=tabId);
     if(newTabs){
       
@@ -236,6 +175,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
           this.SelectedTabId = _tab.TabId;
         }
       }
+
+      this.RenderUI();
+      
     }
   }
 
@@ -247,17 +189,10 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
         this.DeleteTab(tab.TabId);
     }
   }
-
 }
 
 export class TabHeaderWithTabId {
-  constructor(public TabId: string = '',
-  public headerComponent: RTabHeaderComponent){ }
-}
-
-export class TabContentWithTabId {
-  constructor(public TabId: string = '',
-  public contentComponent: RTabContentComponent){}
+  constructor(public TabId: string = '', public headerText: string = '', public IsSelected: boolean = false){ }
 }
 
 export class TabOffsetTop {

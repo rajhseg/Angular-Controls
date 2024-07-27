@@ -28,9 +28,7 @@
 }
 
 .tab {
-  color: white;
-  padding: 15px 20px;
-  height: 100%;
+  padding: 15px 20px;  
   visibility: collapse;
   display: none;
 }

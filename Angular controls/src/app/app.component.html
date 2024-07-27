@@ -39,21 +39,15 @@
 </div>
 
 <div>
-  <rtabs #tabCom [TabWidth]="'350px'">
+  <rtabs #tabCom [TabWidth]="'650px'" [TabHeight]="'300px'">
 
-    <rtab [TabId]="'tab1'">
-      <rtab-header>Calender</rtab-header>
-      <rtab-content>
+    <rtab [TabId]="'tab1'" [HeaderText]="'Calender'">            
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
         <rcalender [SelectedItemBackGroundColor]="'blue'"></rcalender>
-        <rcalender></rcalender>        
-      </rtab-content>
+        <rcalender></rcalender>              
     </rtab>
 
-    <rtab [TabId]="'tab2'">
-      <rtab-header>ComboBox</rtab-header>
-      <rtab-content>
-            
+    <rtab [TabId]="'tab2'" [HeaderText]="'ComboBox'">                        
         <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
           <optionTemplate *ngFor="let item of items" [Item]="item">
             <div>
@@ -69,29 +63,19 @@
             </a>
           </optionTemplate>
         </rdropdown>
-
         <starrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></starrating> {{starValue}}
-
-        <rcalender></rcalender>
-      
-      </rtab-content>
+        <rcalender></rcalender>            
     </rtab>
 
-    <rtab [TabId]="'tab3'">
-      <rtab-header>Star Rating</rtab-header>
-      <rtab-content>
-
+    <rtab [TabId]="'tab3'" [HeaderText]="'Star Rating'">            
         <starrating [starWidth]="starWidth"></starrating>
         <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
-        <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
-
-      </rtab-content>
+        <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>      
     </rtab>
 
 
-    <rtab [TabId]="'tab4'">
-      <rtab-header>Switch / Progress Bar</rtab-header>
-      <rtab-content>
+    <rtab [TabId]="'tab4'" [HeaderText]="'Switch / ProgressBar'">
+          
         <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
         <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar"></rswitch>
@@ -113,8 +97,7 @@
         </rprogressbar>
       
         <button (click)="ResetProgress()">Reset</button>
-      
-      </rtab-content>
+            
     </rtab>
 
   </rtabs>

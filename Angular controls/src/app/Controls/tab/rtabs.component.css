@@ -28,7 +28,7 @@
 
 .tabSelected{
   /* background-color: #e5e5e5; */
-  background-color: #e7e7e9;
+  background-color: #e7e7e9; 
   background-image: linear-gradient(white, #e7e7e9);
 }
 
@@ -38,6 +38,8 @@
   display: block;
   top:-2px;
   position: relative;
+  background-color: #e7e7e9;
+  overflow: auto;
 }
 
 .tab {

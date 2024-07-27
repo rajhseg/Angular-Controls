@@ -13,8 +13,6 @@ import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/
 import { setInterval } from 'timers';
 import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
 import { RTabComponent } from './Controls/tab/tab.component';
-import { RTabHeaderComponent } from "./Controls/tab/tabheader/tabheader.component";
-import { RTabContentComponent } from './Controls/tab/tabcontent/tabcontent.component';
 import { RTabsComponent } from './Controls/tab/rtabs.component';
 
 @Component({
@@ -29,8 +27,7 @@ import { RTabsComponent } from './Controls/tab/rtabs.component';
         ReactiveFormsModule, ProgressbarComponent,
         RTabComponent, RTabsComponent,
         NgFor, JsonPipe,
-        optionTemplate, RatingComponent,
-        RTabHeaderComponent, RTabContentComponent
+        optionTemplate, RatingComponent,        
       ]
 })
 export class AppComponent implements AfterViewInit {

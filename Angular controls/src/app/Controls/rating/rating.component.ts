@@ -162,7 +162,7 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   renderUI(){
     let _singleStarwidth = this.getSingleStarWidth();
     let containerWidth= this.getWidth(_singleStarwidth);
-    this.starControl.nativeElement.style.width = _singleStarwidth * this.noOfStars + 'px';
+    this.starControl.nativeElement.style.width = (_singleStarwidth * this.noOfStars) + 'px';
     
     this.container.nativeElement.style.width = containerWidth+'px';
     this.container.nativeElement.style.display = 'inline-block';         

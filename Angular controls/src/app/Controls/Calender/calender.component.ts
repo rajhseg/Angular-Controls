@@ -72,6 +72,8 @@ IsChildOfAnotherControl: boolean = false;
 
 IsChildOfAnotherControlClicked: boolean = false;
 
+IsWindowsOs: boolean = true;
+
 @Input()
 ParentComponent: any | undefined = undefined;
 
@@ -125,6 +127,9 @@ dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 constructor(private calService: CalenderService, private popupService: PopupService,   
   private windowHelper: WindowHelper){
 
+  if(this.windowHelper.isExecuteInBrowser())
+    this.IsWindowsOs =  navigator.platform=="Win32";
+  
   this.Id = this.windowHelper.GenerateUniqueId();
   this.selectedDate = null;
   this.loadYears(new Date().getFullYear());  

@@ -94,7 +94,8 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   private winObj!:Window;
   private injector = inject(Injector);
 
-  constructor(private ddservice: DropdownService,     
+  constructor(private ddservice: DropdownService, 
+    private popupService: PopupService,    
     private windowHelper: WindowHelper
   ){
     this.Id = windowHelper.GenerateUniqueId();
@@ -248,7 +249,8 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   }
 
   openDropdown(evt: Event){
-   
+    
+    this.popupService.CloseAllPopupsOnOpen(this);
     var currentValueToSet = !this.IsDropDownOpen;
     if(currentValueToSet){
       this.optionTemps?.forEach(x=>{

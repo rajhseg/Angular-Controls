@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Injector, Input, OnDestroy, OnInit, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, Injector, Input, OnDestroy, OnInit, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -26,7 +26,7 @@ import { WINDOWOBJECT, WindowHelper } from '../windowObject';
      "(window:click)":"windowOnClick($event)"
   }
 })
-export class CalenderComponent implements OnInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
+export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
 
 self: CalenderComponent = this;
 isDropdownChild: boolean = true;
@@ -122,7 +122,7 @@ private winObj!: Window;
 
 dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
-constructor(private calService: CalenderService,   
+constructor(private calService: CalenderService, private popupService: PopupService,   
   private windowHelper: WindowHelper){
 
   this.Id = this.windowHelper.GenerateUniqueId();
@@ -132,6 +132,10 @@ constructor(private calService: CalenderService,
   this.winObj = inject(WINDOWOBJECT);
   this.LoadMonth(new Date(), false);
  }  
+
+  ngAfterViewInit(): void {
+    
+  }
 
  
  windowOnClick(evt: Event){
@@ -287,8 +291,12 @@ openCalenderFromInput($evt: Event){
 }
 
 openCalender($evt:Event, isopenFromInput: boolean = false){
+  
   this.IsChildOfAnotherControlClicked = false;
+  
   var currentValueToSet = false;
+  
+  this.popupService.CloseAllPopupsOnOpen(this);
 
   if(isopenFromInput){
     currentValueToSet = true;

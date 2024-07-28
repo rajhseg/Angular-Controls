@@ -35,34 +35,28 @@ export class PopupService {
     }
   }
   
-  CloseCalender(instance: any){
+  CloseAllCalender(instance: IPopupCloseInterface | null){
     this.calendarService.GetAllInstance().forEach((x)=>{      
-      if(x!==instance) {
+      if(x!==instance && x!=instance?.ParentComponent) {
          x.IsCalenderOpen = false; 
       }
     });
 
   }
 
-  CloseDropdown(instance: IPopupCloseInterface | null, onWindowClick: boolean){
-    this.dropdownService.GetAllInstance().forEach((x)=>{        
-      x.IsDropDownOpen = false;           
+  CloseAllDropdown(instance: IPopupCloseInterface | null){
+    this.dropdownService.GetAllInstance().forEach((x)=>{ 
+      if(x!=instance && x!=instance?.ParentComponent)  {     
+          x.IsDropDownOpen = false;      
+      }     
     });
   }
 
-  ClosePopupsOnWindowsClick(instance: IPopupCloseInterface | null, onWindowClick: boolean){
+  CloseAllPopupsOnOpen(currentInstance: any | null){
     
-    if(instance!=null && instance!=undefined){
-      if(instance.IsChildOfAnotherControl){
-
-        if(instance instanceof DropdownComponent)
-            this.CloseDropdown(instance, onWindowClick);
-
-        if(instance instanceof CalenderComponent)
-            this.CloseCalender(instance);
-          
-        return;
-      }
+    if(currentInstance!=null && currentInstance!=undefined){              
+        this.CloseAllDropdown(currentInstance);        
+        this.CloseAllCalender(currentInstance);                    
     }
 
     this.list.forEach(element => {
@@ -75,11 +69,7 @@ export class PopupService {
           }
       });
     
-    });
-  
-    this.CloseCalender(instance);
- 
-    this.CloseDropdown(instance, onWindowClick);
+    });  
   }
 }
 

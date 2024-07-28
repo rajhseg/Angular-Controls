@@ -1,5 +1,5 @@
 
-<div class="rcal">
+<div class="rcal" *ngIf="IsWindowsOs || IsLinuxOs">
 <div class="rcalinputdiv">
     <input  class="calendarinput" (click)="openCalenderFromInput($event)" type="text" [(ngModel)]="Value" />
     <div style="position: relative; width: 0px; height: 0px;" 

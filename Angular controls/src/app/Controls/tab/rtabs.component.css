@@ -29,7 +29,7 @@
 .tabSelected{
   /* background-color: #e5e5e5; */
   background-color: #e7e7e9; 
-  background-image: linear-gradient(white, #e7e7e9);
+  background-image: linear-gradient(white, lightgray, #e7e7e9);
 }
 
 .tabcontent {

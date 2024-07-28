@@ -71,4 +71,11 @@
   width: fit-content;
   display: block;
   background: #e7e7e9;
+  border-radius: 30%;
+}
+
+.rtabroot{
+  border: 1px solid lightgray;
+  background: #e5e5e7; 
+  border-radius: 1%;
 }

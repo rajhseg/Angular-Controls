@@ -91,9 +91,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
       if(selectedHeader && x.TabId==selectedHeader.TabId){
         x.IsSelected = true;
       }
-    });
-
-    console.log(this.SelectedTabIndex);
+    });    
   }
 
   ngAfterContentInit(): void {

@@ -31,7 +31,7 @@
 }
 
 .staroutlinecontainer {
-    position: relative;
+    position: absolute; /* relative */
     display: none;    
 }
 
@@ -40,4 +40,5 @@
     width: fit-content;
     margin-top: 2px; 
     margin-bottom: 2px;
+    position: relative; /* removed */
 }

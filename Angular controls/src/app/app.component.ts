@@ -35,8 +35,8 @@ export class AppComponent implements AfterViewInit {
   title = 'angularcontrols';
   items: DropdownModel[] = [];
   selItem: any = null;
-  starWidth: number = 40;
-  starValue: number = 2.7;
+  starWidth: number = 30;
+  starValue: number = 3.6;
   curDate!: string;
   isChecked: boolean = true;
   proincenter: boolean = false;
@@ -85,8 +85,7 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if(this.tabs){
-      console.log('tabs initialized');
-      console.log(this.tabs);
+      
     }
   }
 

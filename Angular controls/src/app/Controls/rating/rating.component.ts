@@ -19,7 +19,7 @@ import { WindowHelper } from '../windowObject';
 })
 export class RatingComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   
-  _ratingValue: number = 3.7;
+  _ratingValue: number = 0;
   _starwidth: number = 20;
   _starColor: string = 'orange';
   _noOfStars: number = 10;
@@ -128,6 +128,15 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   }
 
   getSingleStarWidth(): number {
+
+    if(this.winObj.isExecuteInBrowser()) {
+      let starOuts : any = document.getElementsByClassName('staroutline');
+
+      if(starOuts && starOuts.length>0){
+        return starOuts[0].offsetWidth;
+      }
+    }
+
     return this.starWidth*(83.25/100);
   }
   
@@ -158,10 +167,11 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
     this.container.nativeElement.style.width = containerWidth+'px';
     this.container.nativeElement.style.display = 'inline-block';         
     
-    this.starOutlineContainer.nativeElement.style.left = -containerWidth + 'px';
-    this.starOutlineContainer.nativeElement.style.top = "-3px";
-    
+    //this.starOutlineContainer.nativeElement.style.left = -containerWidth + 'px';
+    //this.starOutlineContainer.nativeElement.style.top = "-3px";
+        
     this.starOutlineContainer.nativeElement.style.display = 'inline-block';  
+    this.starOutlineContainer.nativeElement.style.left =  '0px';
   }
 
   RenderUIAfterRatingValueChanged(){

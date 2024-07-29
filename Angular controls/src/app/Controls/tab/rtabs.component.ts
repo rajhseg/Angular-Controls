@@ -2,6 +2,7 @@ import { AfterContentChecked, AfterContentInit, ApplicationRef, Component, Conte
 import { RTabComponent } from "./tab.component";
 import { AsyncPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 
 @Component({
   selector:'rtabs',
@@ -10,7 +11,7 @@ import { WindowHelper } from "../windowObject";
   templateUrl:'./rtabs.component.html',
   styleUrl:'./rtabs.component.css',
   imports:[NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
-    NgClass]
+    NgClass, CdkDrag, CdkDropList]
 })
 export class RTabsComponent implements AfterContentInit, AfterContentChecked {
 
@@ -66,6 +67,39 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
 
   constructor(private winobj:WindowHelper){
 
+  }
+
+  trackByHeader(index: number, header: TabHeaderWithTabId) {
+    return index;
+  }
+
+  drop(event: CdkDragDrop<TabHeaderWithTabId[]>){
+    
+    let curContainer = event.container.data.every(x=>x instanceof TabHeaderWithTabId);
+    let PreContainer = event.previousContainer.data.every(x=>x instanceof TabHeaderWithTabId);
+
+    if(curContainer && PreContainer) {
+      
+      if(event.previousContainer===event.container){
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);      
+      } else{
+        transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+      }
+      
+      let components: RTabComponent[] | undefined = [];
+    
+      components = this.tabs?.toArray();
+
+      if(components){
+        let currentObject = components[event.previousIndex];
+        components.splice(event.previousIndex,1);
+        components.splice(event.currentIndex,0, currentObject);
+        this.tabs?.reset(components);
+      }
+          
+      this.SelectedTabIndex = event.currentIndex;
+      this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
+    }
   }
 
   HeaderClicked(selectedHeader: TabHeaderWithTabId){

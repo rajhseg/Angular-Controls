@@ -3,11 +3,15 @@
 <div class="rtabroot">
 
 <div cdkDropList cdkDropListOrientation="horizontal"
+     
      [cdkDropListData]="TabHeaders" (cdkDropListDropped)="drop($event)" 
      class="tabheaderContainer" [style.width]="TabWidth" *ngIf="tabs && tabs.length > 0">
   <ng-container>
     <button id="rtabheader_{{header.TabId}}" class="tabheader" 
-            *ngFor="let header of TabHeaders; trackBy:trackByHeader" cdkDrag
+            *ngFor="let header of TabHeaders; trackBy:trackByHeader" 
+            cdkDrag (cdkDragEnded)="dragEnded($event)" 
+            (cdkDragStarted)="dragStarted($event)"
+            [cdkDragData]="header"            
             (click)="HeaderClicked(header)" 
             [ngClass]="{ tabSelected: header.IsSelected}">            
       <div [innerHTML]="header.headerText">
@@ -20,7 +24,8 @@
  
 <ng-container>
   <div class="tabcontent" *ngIf="tabs && tabs.length > 0" [style.width]="TabWidth" [style.height]="TabHeight">
-    <ng-content></ng-content>
+    <ng-content></ng-content>     
+     <!-- <div #tabc></div> -->
   </div>
 </ng-container>  
 

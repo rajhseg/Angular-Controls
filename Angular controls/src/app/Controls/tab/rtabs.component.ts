@@ -1,8 +1,8 @@
-import { AfterContentChecked, AfterContentInit, ApplicationRef, Component, ContentChildren, ElementRef, inject, Input, QueryList, TemplateRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChildren, ElementRef, inject, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent } from "./tab.component";
-import { AsyncPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
+import { AsyncPipe, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
-import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd } from '@angular/cdk/drag-drop'
 
 @Component({
   selector:'rtabs',
@@ -11,9 +11,9 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem }
   templateUrl:'./rtabs.component.html',
   styleUrl:'./rtabs.component.css',
   imports:[NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
-    NgClass, CdkDrag, CdkDropList]
+    NgClass, CdkDrag, CdkDropList, JsonPipe]
 })
-export class RTabsComponent implements AfterContentInit, AfterContentChecked {
+export class RTabsComponent implements AfterContentInit, AfterContentChecked, AfterViewInit {
 
   
   private _selectedTabId: string | undefined = undefined;
@@ -23,6 +23,8 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
   
   public SelectedTabIndex: number = 0;
   public TabHeaders: TabHeaderWithTabId[] = [];
+
+  @ViewChild('tabc',{ read: ViewContainerRef}) viewRef!: ViewContainerRef;
 
   @Input({required: true, alias:'TabHeight'})
   set TabHeight(value: string){
@@ -65,40 +67,124 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
 
   @ContentChildren(RTabComponent) tabs!:QueryList<RTabComponent> | undefined;
 
-  constructor(private winobj:WindowHelper){
+  @ContentChildren(RTabComponent) tabsElementRef!:QueryList<RTabComponent>;
 
+  constructor(private winobj:WindowHelper, private cdr: ChangeDetectorRef, private cfr: ComponentFactoryResolver){
+
+  }
+
+  ngAfterViewInit(): void {
+    if(this.viewRef){
+      this.viewRef.clear();
+
+
+      if(this.tabsElementRef && this.tabsElementRef.first && this.tabsElementRef.length > 0) {
+        let g = this.tabsElementRef.first;
+        let fv = this.cfr.resolveComponentFactory<RTabComponent>(RTabComponent);
+        
+        this.viewRef.createComponent(fv);
+      }
+    
+      this.cdr.detectChanges();
+    }
   }
 
   trackByHeader(index: number, header: TabHeaderWithTabId) {
-    return index;
+    return header.TabId;
+  }
+
+  dragEnded(event: CdkDragEnd){
+    // let _tabs = this.tabs?.toArray();
+    // let item = (event.source.data as TabHeaderWithTabId);
+
+    // if(item && this.tabs){
+    //   let _tabs = this.tabs?.toArray();
+    //   let _prevIndex = _tabs?.findIndex(x=>x.TabId==item.tabComponent.TabId);
+    //   if(_tabs && _prevIndex > -1){
+    //     _tabs.splice(_prevIndex, 1);
+        
+    //     _tabs.forEach(x=>{
+    //       x.IsSelected = false;          
+    //     });
+
+
+    //     if(this.SelectedTabIndex >-1 && this.SelectedTabIndex < this.tabs.length){
+
+    //     } else{
+    //       this.SelectedTabIndex = this.tabs.length -1;
+    //     }
+        
+        
+    //     this.tabs?.reset(_tabs);
+
+    //     if(this.SelectedTabIndex > -1)
+    //       this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
+    //     else{
+    //       this.RenderHeaders();          
+    //     }  
+
+    //   }
+    // }
+    
+  }
+
+  dragStarted(event: any){
+    console.log('drag started');
+    console.log(event);
+    console.log(this.tabsElementRef);
   }
 
   drop(event: CdkDragDrop<TabHeaderWithTabId[]>){
-    
+    console.log('drop');
+    console.log(event);
     let curContainer = event.container.data.every(x=>x instanceof TabHeaderWithTabId);
     let PreContainer = event.previousContainer.data.every(x=>x instanceof TabHeaderWithTabId);
 
     if(curContainer && PreContainer) {
       
-      if(event.previousContainer===event.container){
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);      
+      if(event.previousContainer===event.container){        
+        
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);                    
+        let components: RTabComponent[] | undefined = [];      
+        components = event.container.data.map(x=>x.tabComponent);
+
+        if(components){        
+          this.tabs?.reset(components);
+        }
+            
+        this.SelectedTabIndex = event.currentIndex;
+        this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
+        
       } else{
+        
         transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+        
+        console.log('dropped moved item after');
+
+        console.log(event.previousContainer.data);
+        
+        console.log(event.container.data);
+
+        console.log('mapped');
+
+        let components: RTabComponent[] | undefined = [];
+      
+        // components = event.container.data.map(x=>x.tabComponent); 
+
+        // if(components){        
+        //   let currentObject = (event.item.data as TabHeaderWithTabId)?.tabComponent;
+        //   if(currentObject)
+        //   {
+        //     components.splice(event.currentIndex,0, currentObject);
+        //     this.tabs?.reset(components);
+        //   }
+        // }
+            
+        // this.SelectedTabIndex = event.currentIndex;
+        // this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
+       
       }
       
-      let components: RTabComponent[] | undefined = [];
-    
-      components = this.tabs?.toArray();
-
-      if(components){
-        let currentObject = components[event.previousIndex];
-        components.splice(event.previousIndex,1);
-        components.splice(event.currentIndex,0, currentObject);
-        this.tabs?.reset(components);
-      }
-          
-      this.SelectedTabIndex = event.currentIndex;
-      this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
     }
   }
 
@@ -130,10 +216,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
 
   ngAfterContentInit(): void {
 
-    if(this.tabs){
-      
+    if(this.tabs){      
       this.TotalTabCount = this.tabs.length;            
-      this.RenderUI();
+      this.RenderUI();      
     }        
 
   }
@@ -144,7 +229,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
       this.TabHeaders = [];
       this.tabs.forEach(x => {
 
-        this.TabHeaders.push(new TabHeaderWithTabId(x.TabId, x.HeaderText));
+        this.TabHeaders.push(new TabHeaderWithTabId(x, x.TabId, x.HeaderText));
 
       });
     }
@@ -167,7 +252,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
 
       if(this.selectedTab) {
         this.selectedTab.IsSelected = true;
-        let selectedHeader = new TabHeaderWithTabId(this.selectedTab.TabId, this.selectedTab.HeaderText, true);
+        let selectedHeader = new TabHeaderWithTabId(this.selectedTab, this.selectedTab.TabId, this.selectedTab.HeaderText, true);
         this.RenderHeaders();
         this.selectTab(selectedHeader);                  
       } else{
@@ -224,7 +309,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked {
 }
 
 export class TabHeaderWithTabId {
-  constructor(public TabId: string = '', public headerText: string = '', public IsSelected: boolean = false){ }
+  constructor(public tabComponent: RTabComponent, public TabId: string = '', public headerText: string = '', public IsSelected: boolean = false){ }
 }
 
 export class TabOffsetTop {

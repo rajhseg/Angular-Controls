@@ -14,6 +14,7 @@ import { setInterval } from 'timers';
 import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
 import { RTabComponent } from './Controls/tab/tab.component';
 import { RTabsComponent } from './Controls/tab/rtabs.component';
+import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-root',
@@ -27,7 +28,8 @@ import { RTabsComponent } from './Controls/tab/rtabs.component';
         ReactiveFormsModule, ProgressbarComponent,
         RTabComponent, RTabsComponent,
         NgFor, JsonPipe,
-        optionTemplate, RatingComponent,        
+        optionTemplate, RatingComponent,  
+        CdkDropListGroup, CdkDropList, CdkDrag      
       ]
 })
 export class AppComponent implements AfterViewInit {

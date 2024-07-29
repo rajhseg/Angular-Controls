@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, Output, output, QueryList } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Input, Output, output, QueryList } from '@angular/core';
 import { AsyncPipe, NgClass, NgForOf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
@@ -13,7 +13,7 @@ export class RTabComponent implements AfterContentInit {
   @Input({ required: true, alias:'TabId'}) TabId : string= '';
 
   @Input({required: true, alias:'HeaderText'}) HeaderText : string= '';
-
+  
   @Input()
   IsSelected: boolean = false;
 
@@ -25,5 +25,7 @@ export class RTabComponent implements AfterContentInit {
   }
 
 }
+
+
 
 

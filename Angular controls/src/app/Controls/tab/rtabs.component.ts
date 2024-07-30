@@ -104,18 +104,16 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
         
         _tabs.forEach(x=>{
           x.IsSelected = false;          
-        });
-
+        });        
+        
+        this.tabTemps.reset(_tabs);
 
         if(this.SelectedTabIndex >-1 && this.SelectedTabIndex < this.tabTemps.length){
 
         } else{
           this.SelectedTabIndex = this.tabTemps.length -1;
         }
-        
-        
-        this.tabTemps.reset(_tabs);
-
+                
         if(this.SelectedTabIndex > -1 && this.SelectedTabIndex < this.tabTemps.length)
           this.SelectedTabId = this.tabTemps?.get(this.SelectedTabIndex)?.TabId;
         else{

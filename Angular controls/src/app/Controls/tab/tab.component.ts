@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Input, Output, output, QueryList } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Input, Output, output, QueryList, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AsyncPipe, NgClass, NgForOf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
@@ -10,14 +10,9 @@ import { AsyncPipe, NgClass, NgForOf, NgTemplateOutlet } from '@angular/common';
 })
 export class RTabComponent implements AfterContentInit {
 
-  @Input({ required: true, alias:'TabId'}) TabId : string= '';
-
-  @Input({required: true, alias:'HeaderText'}) HeaderText : string= '';
   
-  @Input()
-  IsSelected: boolean = false;
-
   constructor(){
+
   }
 
   ngAfterContentInit(): void {
@@ -27,5 +22,45 @@ export class RTabComponent implements AfterContentInit {
 }
 
 
+@Directive({
+  selector:'[tabidfor]',
+  standalone: true
+})
+export class RTabIdFor implements AfterViewInit {
+
+  public IsSelected: boolean = false;
+
+  public TabId : string= '';
+
+  public HeaderText : string= '';
+
+  @Input('tabidfor') 
+  set tabidfor(val: TabIdForContext){
+    if(val){
+      this.TabId = val.TabId;
+      this.HeaderText = val.HeaderText;
+    }
+  }
+  get tabidfor(): TabIdForContext{
+    return new TabIdForContext(this.TabId, this.HeaderText);
+  }
+
+constructor(public templateRef: TemplateRef<any>, public vcr:ViewContainerRef, public cdr:ChangeDetectorRef){
+
+}
+ 
+ngAfterViewInit(): void {      
+}
+
+ngAfterContentInit(){
+  
+}
+
+}
 
 
+export class TabIdForContext{
+  constructor(public TabId: string, public HeaderText:string) {
+
+  }
+}

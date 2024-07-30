@@ -12,7 +12,7 @@ import { ProgressbarComponent } from './Controls/progressbar/progressbar.compone
 import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/progressbarType';
 import { setInterval } from 'timers';
 import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
-import { RTabComponent } from './Controls/tab/tab.component';
+import { RTabComponent, RTabIdFor } from './Controls/tab/tab.component';
 import { RTabsComponent } from './Controls/tab/rtabs.component';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
@@ -29,6 +29,7 @@ import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
         RTabComponent, RTabsComponent,
         NgFor, JsonPipe,
         optionTemplate, RatingComponent,  
+        RTabIdFor,
         CdkDropListGroup, CdkDropList, CdkDrag      
       ]
 })
@@ -40,6 +41,8 @@ export class AppComponent implements AfterViewInit {
   starWidth: number = 30;
   starValue: number = 3.6;
   curDate!: string;
+  dt1!:string;
+  dt2!:string;
   isChecked: boolean = true;
   proincenter: boolean = false;
   IsCircleProgressBar: boolean = false;

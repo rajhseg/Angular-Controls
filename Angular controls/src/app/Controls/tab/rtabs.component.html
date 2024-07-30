@@ -5,7 +5,7 @@
 <div cdkDropList cdkDropListOrientation="horizontal"
      
      [cdkDropListData]="TabHeaders" (cdkDropListDropped)="drop($event)" 
-     class="tabheaderContainer" [style.width]="TabWidth" *ngIf="tabs && tabs.length > 0">
+     class="tabheaderContainer" [style.width]="TabWidth" *ngIf="tabTemps && tabTemps.length > 0">
   <ng-container>
     <button id="rtabheader_{{header.TabId}}" class="tabheader" 
             *ngFor="let header of TabHeaders; trackBy:trackByHeader" 
@@ -23,10 +23,15 @@
 
  
 <ng-container>
-  <div class="tabcontent" *ngIf="tabs && tabs.length > 0" [style.width]="TabWidth" [style.height]="TabHeight">
-    <ng-content></ng-content>     
-     <!-- <div #tabc></div> -->
+  <div class="tabcontent" 
+    *ngIf="contentVisible && SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined"
+    [style.width]="TabWidth" [style.height]="TabHeight"> 
+    
+    <div  id="rtabcontent_{{SelectedTabTemplateRef.tabidfor}}" class="tab active">      
+      <ng-container #tempVcr *ngTemplateOutlet="SelectedTabTemplateRef.templateRef; context:tabInstance" ></ng-container>
+    </div>
   </div>
+
 </ng-container>  
 
 </div>

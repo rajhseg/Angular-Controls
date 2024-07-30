@@ -1,16 +1,17 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChildren, ElementRef, inject, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
-import { RTabComponent } from "./tab.component";
-import { AsyncPipe, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChildren, ElementRef, inject, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { RTabComponent, RTabIdFor } from "./tab.component";
+import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd } from '@angular/cdk/drag-drop'
 
 @Component({
   selector:'rtabs',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl:'./rtabs.component.html',
   styleUrl:'./rtabs.component.css',
-  imports:[NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
+  imports:[NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, 
     NgClass, CdkDrag, CdkDropList, JsonPipe]
 })
 export class RTabsComponent implements AfterContentInit, AfterContentChecked, AfterViewInit {
@@ -19,10 +20,13 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   private _selectedTabId: string | undefined = undefined;
   private _tabWidth: string = '100%';
   private _tabHeight: string = '200px';
-  public selectedTab: RTabComponent | undefined = undefined;
-  
+  public selectedTab: RTabIdFor | undefined = undefined;
+  public contentVisible: boolean = false;
+  public tabInstance: RTabsComponent = this;
   public SelectedTabIndex: number = 0;
   public TabHeaders: TabHeaderWithTabId[] = [];
+
+  public SelectedTabTemplateRef!: RTabIdFor | undefined;
 
   @ViewChild('tabc',{ read: ViewContainerRef}) viewRef!: ViewContainerRef;
 
@@ -63,28 +67,23 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   }
 
 
-  TotalTabCount: number = 0;
+  TotalTabCount: number = 0;  
 
-  @ContentChildren(RTabComponent) tabs!:QueryList<RTabComponent> | undefined;
+  // @ContentChildren(RTabComponent) tabs!:QueryList<RTabComponent> | undefined;
 
-  @ContentChildren(RTabComponent) tabsElementRef!:QueryList<RTabComponent>;
+  // @ContentChildren(RTabComponent) tabsElementRef!:QueryList<RTabComponent>;
 
-  constructor(private winobj:WindowHelper, private cdr: ChangeDetectorRef, private cfr: ComponentFactoryResolver){
+  @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;
+
+  constructor(private winobj:WindowHelper, 
+    private cdr: ChangeDetectorRef, 
+    private cfr: ComponentFactoryResolver){
 
   }
 
   ngAfterViewInit(): void {
     if(this.viewRef){
-      this.viewRef.clear();
-
-
-      if(this.tabsElementRef && this.tabsElementRef.first && this.tabsElementRef.length > 0) {
-        let g = this.tabsElementRef.first;
-        let fv = this.cfr.resolveComponentFactory<RTabComponent>(RTabComponent);
-        
-        this.viewRef.createComponent(fv);
-      }
-    
+      this.viewRef.clear();    
       this.cdr.detectChanges();
     }
   }
@@ -94,97 +93,69 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   }
 
   dragEnded(event: CdkDragEnd){
-    // let _tabs = this.tabs?.toArray();
-    // let item = (event.source.data as TabHeaderWithTabId);
+    
+    let _tabs = this.tabTemps?.toArray();
+    let item = (event.source.data as TabHeaderWithTabId);
 
-    // if(item && this.tabs){
-    //   let _tabs = this.tabs?.toArray();
-    //   let _prevIndex = _tabs?.findIndex(x=>x.TabId==item.tabComponent.TabId);
-    //   if(_tabs && _prevIndex > -1){
-    //     _tabs.splice(_prevIndex, 1);
+    if(item && _tabs){      
+      let _prevIndex = _tabs?.findIndex(x=>x.TabId==item.TabId);
+      if(_tabs && _prevIndex > -1){
+        _tabs.splice(_prevIndex, 1);
         
-    //     _tabs.forEach(x=>{
-    //       x.IsSelected = false;          
-    //     });
+        _tabs.forEach(x=>{
+          x.IsSelected = false;          
+        });
 
 
-    //     if(this.SelectedTabIndex >-1 && this.SelectedTabIndex < this.tabs.length){
+        if(this.SelectedTabIndex >-1 && this.SelectedTabIndex < this.tabTemps.length){
 
-    //     } else{
-    //       this.SelectedTabIndex = this.tabs.length -1;
-    //     }
+        } else{
+          this.SelectedTabIndex = this.tabTemps.length -1;
+        }
         
         
-    //     this.tabs?.reset(_tabs);
+        this.tabTemps.reset(_tabs);
 
-    //     if(this.SelectedTabIndex > -1)
-    //       this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
-    //     else{
-    //       this.RenderHeaders();          
-    //     }  
+        if(this.SelectedTabIndex > -1 && this.SelectedTabIndex < this.tabTemps.length)
+          this.SelectedTabId = this.tabTemps?.get(this.SelectedTabIndex)?.TabId;
+        else{
+          this.RenderHeaders();  
+          this.SelectedTabTemplateRef = undefined;        
+        }  
 
-    //   }
-    // }
+      }
+    }
     
   }
 
   dragStarted(event: any){
     console.log('drag started');
-    console.log(event);
-    console.log(this.tabsElementRef);
+    console.log(event);    
   }
 
   drop(event: CdkDragDrop<TabHeaderWithTabId[]>){
-    console.log('drop');
-    console.log(event);
+    
     let curContainer = event.container.data.every(x=>x instanceof TabHeaderWithTabId);
     let PreContainer = event.previousContainer.data.every(x=>x instanceof TabHeaderWithTabId);
 
     if(curContainer && PreContainer) {
       
-      if(event.previousContainer===event.container){        
-        
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);                    
-        let components: RTabComponent[] | undefined = [];      
-        components = event.container.data.map(x=>x.tabComponent);
-
-        if(components){        
-          this.tabs?.reset(components);
-        }
-            
-        this.SelectedTabIndex = event.currentIndex;
-        this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
-        
-      } else{
-        
-        transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-        
-        console.log('dropped moved item after');
-
-        console.log(event.previousContainer.data);
-        
-        console.log(event.container.data);
-
-        console.log('mapped');
-
-        let components: RTabComponent[] | undefined = [];
-      
-        // components = event.container.data.map(x=>x.tabComponent); 
-
-        // if(components){        
-        //   let currentObject = (event.item.data as TabHeaderWithTabId)?.tabComponent;
-        //   if(currentObject)
-        //   {
-        //     components.splice(event.currentIndex,0, currentObject);
-        //     this.tabs?.reset(components);
-        //   }
-        // }
-            
-        // this.SelectedTabIndex = event.currentIndex;
-        // this.SelectedTabId = this.tabs?.get(this.SelectedTabIndex)?.TabId;
-       
+      if(event.previousContainer===event.container){                
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);                            
+      } else{        
+        transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);                      
       }
-      
+
+      let components: RTabIdFor[] | undefined = [];      
+      components = event.container.data.map(x=>x.tabTemplateRef);
+
+      if(components){        
+        this.tabTemps?.reset(components);
+      }
+          
+      this.SelectedTabIndex = event.currentIndex;
+      this.SelectedTabId = this.tabTemps?.get(this.SelectedTabIndex)?.TabId;
+        
     }
   }
 
@@ -197,11 +168,12 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
     this.TabHeaders.forEach(x=>x.IsSelected = false);    
 
-    this.tabs?.forEach((x, _index)=>{
+    this.tabTemps?.forEach((x, _index)=>{
 
       if(selectedHeader && x.TabId==selectedHeader.TabId){
         x.IsSelected =true;
         this.SelectedTabIndex = _index;
+        this.SelectedTabTemplateRef = x;
       } else{
         x.IsSelected =false;
       }
@@ -216,20 +188,29 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
   ngAfterContentInit(): void {
 
-    if(this.tabs){      
-      this.TotalTabCount = this.tabs.length;            
-      this.RenderUI();      
-    }        
+    setTimeout(() => {
+      this.contentVisible = true;
+      console.log('timeout');
+      console.log(this.SelectedTabTemplateRef);
+      this.cdr.detectChanges();      
+    });
+
+    if(this.tabTemps && this.tabTemps.length > 0){                  
+      this.TotalTabCount = this.tabTemps.length; 
+      console.log('container');
+            
+      this.RenderUI();                  
+    }
 
   }
 
   private RenderHeaders() {
 
-    if(this.tabs){
+    if(this.tabTemps){
       this.TabHeaders = [];
-      this.tabs.forEach(x => {
+      this.tabTemps.forEach(x => {
 
-        this.TabHeaders.push(new TabHeaderWithTabId(x, x.TabId, x.HeaderText));
+        this.TabHeaders.push(new TabHeaderWithTabId( x, x.TabId, x.HeaderText));
 
       });
     }
@@ -241,25 +222,31 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
   RenderUI(){    
 
-      let _wrapLength: number | undefined = undefined;
+    let _wrapLength: number | undefined = undefined;
       
+    if(this.tabTemps && this.tabTemps.length > 0) {
       if(this.SelectedTabId!=undefined){
-        this.selectedTab = this.tabs?.find(x=>x.TabId == this.SelectedTabId);
+        this.selectedTab = this.tabTemps?.find(x=>x.TabId == this.SelectedTabId);
       } else {
-       this.selectedTab = this.tabs?.first;
-       this.SelectedTabId = this.tabs?.first.TabId;
+       this.selectedTab = this.tabTemps.first;
+       this.SelectedTabId = this.selectedTab.TabId;
       }
 
-      if(this.selectedTab) {
-        this.selectedTab.IsSelected = true;
-        let selectedHeader = new TabHeaderWithTabId(this.selectedTab, this.selectedTab.TabId, this.selectedTab.HeaderText, true);
-        this.RenderHeaders();
-        this.selectTab(selectedHeader);                  
+      if(this.selectedTab && this.tabTemps) {
+        this.selectedTab.IsSelected = true;                
+
+          let selectedHeader = new TabHeaderWithTabId(this.selectedTab,
+                    this.selectedTab.TabId, this.selectedTab.HeaderText,true);
+
+          this.RenderHeaders();
+          this.selectTab(selectedHeader);      
+                    
       } else{
         this.RenderHeaders();
         this.selectTab(undefined);
-      }       
-    }
+      }   
+    }    
+  }
 
   MoveEntireTabRow(){
 
@@ -271,23 +258,23 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
   DeleteTab(tabId: string){    
     
-    this.tabs?.forEach(x=>{
+    this.tabTemps?.forEach(x=>{
       if(x.TabId==tabId){
         x.IsSelected =false;
       }
     });
 
-    let newTabs = this.tabs?.filter(x=>x.TabId!=tabId);
+    let newTabs = this.tabTemps?.filter(x=>x.TabId!=tabId);
     if(newTabs){
       
       if(this.SelectedTabIndex < 0 || this.SelectedTabIndex >= newTabs.length){
         this.SelectedTabIndex = newTabs.length - 1;
       }
 
-      this.tabs?.reset(newTabs);
+      this.tabTemps?.reset(newTabs);
 
-      if(this.tabs) {
-        let _tab = this.tabs.get(this.SelectedTabIndex);
+      if(this.tabTemps) {
+        let _tab = this.tabTemps.get(this.SelectedTabIndex);
         if(_tab){
           this.SelectedTabId = _tab.TabId;
         }
@@ -299,8 +286,8 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   }
 
   DeleteTabBasedOnIndex(index: number){
-    if(this.tabs && index > -1 && index < this.tabs.length){
-      let tab = this.tabs.get(index);
+    if(this.tabTemps && index > -1 && index < this.tabTemps.length){
+      let tab = this.tabTemps.get(index);
       
       if(tab)
         this.DeleteTab(tab.TabId);
@@ -309,7 +296,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 }
 
 export class TabHeaderWithTabId {
-  constructor(public tabComponent: RTabComponent, public TabId: string = '', public headerText: string = '', public IsSelected: boolean = false){ }
+  constructor(public tabTemplateRef: RTabIdFor, public TabId: string = '', public headerText: string = '', public IsSelected: boolean = false){ }
 }
 
 export class TabOffsetTop {

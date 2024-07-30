@@ -44,11 +44,10 @@
 
 .tab {
   padding: 15px 20px;
-  height: 100%;
+  height: auto;
   visibility: collapse;
   display: none;
 }
-
 
 .active {
   visibility: visible;

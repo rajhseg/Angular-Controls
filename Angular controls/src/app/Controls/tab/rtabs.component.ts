@@ -55,6 +55,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   }
 
   @Input()
+  DisplayTabContainerWhenZeroTabs: boolean = false;
+  
+  @Input()
   set SelectedTabId(value: string|undefined){
     
     if(value) {      
@@ -68,10 +71,6 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
 
   TotalTabCount: number = 0;  
-
-  // @ContentChildren(RTabComponent) tabs!:QueryList<RTabComponent> | undefined;
-
-  // @ContentChildren(RTabComponent) tabsElementRef!:QueryList<RTabComponent>;
 
   @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;
 

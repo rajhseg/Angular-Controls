@@ -19,6 +19,7 @@
   border-radius: 2px;
   flex-wrap: wrap; 
   display: flex;
+  min-height: 37px;
 }
 
 .tabheader:hover {

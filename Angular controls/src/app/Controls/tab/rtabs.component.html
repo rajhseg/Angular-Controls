@@ -2,11 +2,11 @@
 
 <div class="rtabroot">
 
-<div cdkDropList cdkDropListOrientation="horizontal"
-     
+<div cdkDropList cdkDropListOrientation="mixed"
+     *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
      [cdkDropListData]="TabHeaders" (cdkDropListDropped)="drop($event)" 
-     class="tabheaderContainer" [style.width]="TabWidth" *ngIf="tabTemps && tabTemps.length > 0">
-  <ng-container>
+     class="tabheaderContainer" [style.width]="TabWidth">
+  <ng-container *ngIf="tabTemps && tabTemps.length > 0">
     <button id="rtabheader_{{header.TabId}}" class="tabheader" 
             *ngFor="let header of TabHeaders; trackBy:trackByHeader" 
             cdkDrag (cdkDragEnded)="dragEnded($event)" 
@@ -23,11 +23,10 @@
 
  
 <ng-container>
-  <div class="tabcontent" 
-    *ngIf="contentVisible && SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined"
+  <div class="tabcontent" *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
     [style.width]="TabWidth" [style.height]="TabHeight"> 
     
-    <div  id="rtabcontent_{{SelectedTabTemplateRef.tabidfor}}" class="tab active">      
+    <div *ngIf="SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined" id="rtabcontent_{{SelectedTabTemplateRef.tabidfor}}" class="tab active">      
       <ng-container #tempVcr *ngTemplateOutlet="SelectedTabTemplateRef.templateRef; context:tabInstance" ></ng-container>
     </div>
   </div>

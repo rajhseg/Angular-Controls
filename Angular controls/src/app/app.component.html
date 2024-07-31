@@ -39,7 +39,7 @@
 </div>
 
 <div cdkDropListGroup>
-  <rtabs #tabCom [TabWidth]="'650px'" [TabHeight]="'200px'">
+  <rtabs #tabCom [TabWidth]="'650px'" [TabHeight]="'200px'" [DisplayTabContainerWhenZeroTabs]="true">
 
     <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Calender' }">            
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
@@ -102,7 +102,7 @@
 
   </rtabs>
 
-  <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'200px'">
+  <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'200px'" [DisplayTabContainerWhenZeroTabs]="true">
 
     <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Calender 2' }">            
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}

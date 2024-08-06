@@ -37,7 +37,7 @@ export class RDynamicHostComponent implements OnInit, AfterContentInit, AfterVie
       this.container.clear();
 
       const componentRef = this.container.createComponent(factory);            
-
+      
       (componentRef.instance as any).afterContentLoad.subscribe((x: any)=>{                                           
         this.afterContentLoad.emit(x);
       });

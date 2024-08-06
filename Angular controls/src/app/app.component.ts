@@ -55,7 +55,7 @@ export class AppComponent implements AfterViewInit {
   interval!: number;
   progressDisplayText: string = '';
 
-  @ViewChild('tabCom', {read: RTabsComponent}) tabs!: RTabsComponent;
+  @ViewChild('tabCom1', {read: RTabsComponent}) tabs!: RTabsComponent;
 
   constructor(private winObj: WindowHelper, private ngZone: NgZone){
     this.items.push(new DropdownModel("0", "Jan"));
@@ -75,6 +75,12 @@ export class AppComponent implements AfterViewInit {
     this.curDate = "";
     this.perc = 55;
     this.IncrementValue(this);
+  }
+
+  AddTab(){
+    let rtabInnerHtml = '<starrating [starWidth]="starWidth" [starColor]="\'red\'" [(ngModel)]="starValue"></starrating> {{starValue}}<br/><br/><rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}';
+   
+    this.tabs.AddTab('tab26', 'Testing tab',  rtabInnerHtml, this, [CalenderComponent, RatingComponent]);
   }
 
   DeleteTab(){

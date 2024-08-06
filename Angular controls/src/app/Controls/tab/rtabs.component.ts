@@ -1,8 +1,12 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChildren, ElementRef, inject, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ContentChildren, Directive, ElementRef, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, TemplateRef, Type, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent, RTabIdFor } from "./tab.component";
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
-import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd } from '@angular/cdk/drag-drop'
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup } from '@angular/cdk/drag-drop'
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { parse } from "path";
+import { RDynamicHostComponent } from "./rdynamicHost.component";
 
 @Component({
   selector:'rtabs',
@@ -12,7 +16,7 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, 
   templateUrl:'./rtabs.component.html',
   styleUrl:'./rtabs.component.css',
   imports:[NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, 
-    NgClass, CdkDrag, CdkDropList, JsonPipe]
+    NgClass, CdkDrag, CdkDropList, JsonPipe, RDynamicHostComponent]
 })
 export class RTabsComponent implements AfterContentInit, AfterContentChecked, AfterViewInit {
 
@@ -26,9 +30,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   public SelectedTabIndex: number = 0;
   public TabHeaders: TabHeaderWithTabId[] = [];
 
-  public SelectedTabTemplateRef!: RTabIdFor | undefined;
+  @ViewChild(RDynamicHostComponent) dynamicHost!: RDynamicHostComponent;
 
-  @ViewChild('tabc',{ read: ViewContainerRef}) viewRef!: ViewContainerRef;
+  public SelectedTabTemplateRef!: RTabIdFor | undefined;
 
   @Input({required: true, alias:'TabHeight'})
   set TabHeight(value: string){
@@ -71,20 +75,24 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
 
   TotalTabCount: number = 0;  
+  private renderer!: Renderer2;
 
-  @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;
+  @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;  
 
   constructor(private winobj:WindowHelper, 
     private cdr: ChangeDetectorRef, 
-    private cfr: ComponentFactoryResolver){
-
+    private cfr: ComponentFactoryResolver,    
+    private rendererFactory: RendererFactory2,
+    private compiler: Compiler,
+    private injector:Injector,
+    private moduleRef: NgModuleRef<any>,
+    private viewRef: ViewContainerRef,
+  ){
+      this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 
   ngAfterViewInit(): void {
-    if(this.viewRef){
-      this.viewRef.clear();    
-      this.cdr.detectChanges();
-    }
+    
   }
 
   trackByHeader(index: number, header: TabHeaderWithTabId) {
@@ -290,6 +298,75 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
         this.DeleteTab(tab.TabId);
     }
   }
+
+  AddTab(tabId: string, headerText: string, 
+    rtabInnerHtml: string, contextInstanceOfTab: object, 
+    importsForThisComponent: (Array<Type<any> | ModuleWithProviders<{}> | any[]>) = []){
+     
+     let rtabhtml = '<rtab *tabidfor="{ \'TabId\':\''+tabId+'\', \'HeaderText\':\''+headerText+'\' }">'+rtabInnerHtml+'</rtab>';
+
+     let returnType = RTabIdFor;
+
+     importsForThisComponent.push(RTabIdFor);
+     importsForThisComponent.push(RTabComponent);
+     importsForThisComponent.push(FormsModule);
+     importsForThisComponent.push(ReactiveFormsModule);
+     importsForThisComponent.push(HttpClientModule);
+     
+     this.renderHtmlString(rtabhtml, contextInstanceOfTab, returnType, importsForThisComponent);    
+  }
+
+  renderHtmlString(value: string, parentInstanceOrContext: object, returnType: Type<any> | string,
+    importsForThisComponent: (Array<Type<any> | ModuleWithProviders<{}> | any[]>)){
+    
+    let directiveLoad = this.dynamicHost.createDynamicComponent(value, parentInstanceOrContext, returnType, {}, importsForThisComponent) as any;
+        
+    this.dynamicHost.afterContentLoad.subscribe((x: any[])=>{
+
+      let _tmps = this.tabTemps.toArray();            
+      
+      for (let index = 0; index < x.length; index++) {
+        const element = x[index];            
+        _tmps.push(element);
+      }
+      
+      this.tabTemps.reset(_tmps);      
+      this.RenderUI();
+      this.cdr.detectChanges();
+    });
+
+    
+
+    // const parser = new DOMParser();
+    // let doc = parser.parseFromString(value, 'text/html');
+    // const elements = doc.body.childNodes;
+
+    // elements.forEach((ele)=>{
+    //   if(ele.nodeType==Node.ELEMENT_NODE){
+    //     this.RenderElement(ele as HTMLElement);
+    //   }
+    // })
+  }
+
+  RenderElement(element: HTMLElement){
+    if (element.tagName.toLowerCase() === 'rtabcomponent') {
+      this.renderComponent(RTabComponent);
+    } else if (element.hasAttribute('*tabidfor')) {
+      
+    }
+  }
+
+  renderComponent(component: any) {
+    const factory = this.cfr.resolveComponentFactory(component);
+    const componentRef = this.viewRef.createComponent(factory);
+    // You can pass data to the component using componentRef.instance
+  }
+
+  applyDirective(element: HTMLElement) {
+    // This method assumes the directive is applied to existing elements
+    
+  }
+
 }
 
 export class TabHeaderWithTabId {

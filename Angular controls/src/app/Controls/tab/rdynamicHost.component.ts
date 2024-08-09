@@ -32,21 +32,28 @@ export class RDynamicHostComponent implements OnInit, AfterContentInit, AfterVie
     }
 
     createDynamicComponent(html: string, parentInstanceOrContext: object, returnType: Type<any> | string, directiveInputs: any, importsForThisComponent: any[]) {              
-      const componentClass = this.createComponent(html, parentInstanceOrContext, returnType, directiveInputs, importsForThisComponent);
-      const factory = this.cfr.resolveComponentFactory(componentClass);
-      this.container.clear();
+      // const componentClass = this.createComponent(html, parentInstanceOrContext, returnType, directiveInputs, importsForThisComponent);
+      // const factory = this.cfr.resolveComponentFactory(componentClass);
+      // this.container.clear();
 
-      const componentRef = this.container.createComponent(factory);            
+      // const componentRef = this.container.createComponent(factory);            
       
-      (componentRef.instance as any).afterContentLoad.subscribe((x: any)=>{                                           
-        this.afterContentLoad.emit(x);
-      });
+      // (componentRef.instance as any).afterContentLoad.subscribe((x: any)=>{                                           
+      //   this.afterContentLoad.emit(x);
+      // });
       
-      return componentRef;
+      // return componentRef;
+
+      return { 
+        afterContentLoad: {
+          subscribe:(x:any)=>{ }
+          }
+        };
     }
     
     private createComponent(val: string, parentInstanceOrContext:object, returnType: Type<any> | string, directiveInputs: any, importsForThisComponent: any[]): any {
         
+      /*
           
         let importDir = [];   
 
@@ -110,5 +117,8 @@ export class RDynamicHostComponent implements OnInit, AfterContentInit, AfterVie
         
         return componentFactory.componentType;
 
+        */
+
+        return {instance:{}};
     }
 }

@@ -36,7 +36,7 @@
 
   </ng-container>
 
-  <div *ngFor="let header of draggedTabs" class="draggedbox cursorForDrag" [hidden]="ispopuphidden"
+  <div #tmp *ngFor="let header of draggedTabs" (click)="bringToTop($event, tmp)" class="draggedbox cursorForDrag" [hidden]="ispopuphidden"
     [style.left]="header.X + 'px'" [style.top]="header.Y +'px'" cdkDropList [cdkDropListData]="draggedTabs"
     cdkDropListOrientation="mixed" (cdkDropListDropped)="draggeddropForPopup($event)" cdkDragHandle cdkDrag
     [style.width]="TabWidth" [style.height]="TabHeightForDragged">

@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, Host, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, Host, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent, RTabIdFor } from "./tab.component";
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
@@ -34,6 +34,8 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   public ispopuphidden: boolean = true;
 
   @ViewChild('vcTemp', { read: ViewContainerRef, static: false }) vcElement!: ViewContainerRef;
+
+  @ViewChildren('tmp', {read: ElementRef}) tmp!: QueryList<ElementRef>;
 
   private hostElement!: ElementRef;
 
@@ -173,25 +175,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
       if (!_exists) {
 
         if (event.previousContainer === event.container) {
-          let _itemData = (event.item.data as TabHeaderWithTabId);
-          let movedItemIndex = (event.container.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
-
-          if (movedItemIndex > -1) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-          } else {
-            event.container.data.splice(event.currentIndex, 0, _itemData);
-          }
-
+          this.dropDataExchange(event, true);
         } else {
-
-          let _itemData = (event.item.data as TabHeaderWithTabId);
-          let movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
-
-          if (movedItemIndex > -1) {
-            transferArrayItem(event.previousContainer.data, event.container.data, movedItemIndex, event.currentIndex);
-          } else {
-            event.container.data.splice(event.currentIndex, 0, _itemData);
-          }
+          this.dropDataExchange(event, false);
         }
 
         if (this.draggedTabs.length == 0)
@@ -206,6 +192,26 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
   dragStarted(event: any) {
 
+  }
+
+  dropDataExchange(event: CdkDragDrop<TabHeaderWithTabId[]>, isSameContainer: boolean) {
+    let _itemData = (event.item.data as TabHeaderWithTabId);
+    let movedItemIndex = -2;
+
+    if (isSameContainer) {
+      movedItemIndex = (event.container.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+    } else {
+      movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+    }
+
+    if (movedItemIndex > -1) {
+      if (isSameContainer)
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      else
+        transferArrayItem(event.previousContainer.data, event.container.data, movedItemIndex, event.currentIndex);
+    } else {
+      event.container.data.splice(event.currentIndex, 0, _itemData);
+    }
   }
 
   drop(event: CdkDragDrop<TabHeaderWithTabId[]>) {
@@ -230,26 +236,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
       if (!_exists) {
         if (event.previousContainer === event.container) {
-
-          let _itemData = (event.item.data as TabHeaderWithTabId);
-          let movedItemIndex = (event.container.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
-
-          if (movedItemIndex > -1) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-          } else {
-            event.container.data.splice(event.currentIndex, 0, _itemData);
-          }
-
+          this.dropDataExchange(event, true);
         } else {
-          
-          let _itemData = (event.item.data as TabHeaderWithTabId);
-          let movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
-
-          if (movedItemIndex > -1) {
-            transferArrayItem(event.previousContainer.data, event.container.data, movedItemIndex, event.currentIndex);
-          } else {
-            event.container.data.splice(event.currentIndex, 0, _itemData);
-          }
+          this.dropDataExchange(event, false);
         }
       }
 
@@ -267,6 +256,24 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
       this.SelectedTabId = this.tabTemps?.get(this.SelectedTabIndex)?.TabId;
 
     }
+  }
+
+  bringToTop($event: any, ele:HTMLDivElement){
+   
+    let highestindex = 0;
+
+    this.tmp.forEach((x:ElementRef<any>)=>{
+      let zindex = parseInt((x.nativeElement as HTMLElement).style.zIndex);
+      
+      if(zindex > highestindex)
+          highestindex = zindex;
+    });
+
+    this.tmp.forEach((x:ElementRef<any>)=>{
+      (x.nativeElement as HTMLElement).style.zIndex = highestindex.toString();        
+    });
+
+    ele.style.zIndex = (highestindex + 1).toString();
   }
 
   HeaderClicked(selectedHeader: TabHeaderWithTabId) {

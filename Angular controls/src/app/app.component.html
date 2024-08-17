@@ -41,15 +41,15 @@
 <button (click)="AddTab()">Add Tab</button>
 
 <div cdkDropListGroup>
-  <rtabs #tabCom [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
+  <rtabs [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
 
-    <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Calender' }">            
+    <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Calender', 'Context':this }">            
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
         <rcalender [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
         <rcalender></rcalender>              
     </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'ComboBox' }">                        
+    <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'ComboBox', 'Context':this }">                        
         <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
           <optionTemplate *ngFor="let item of items" [Item]="item">
             <div>
@@ -69,14 +69,14 @@
         <rcalender></rcalender>            
     </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'Star Rating' }">            
+    <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'Star Rating', 'Context':this }">            
         <starrating [starWidth]="starWidth"></starrating>
         <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
         <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>      
     </rtab>
 
 
-    <rtab *tabidfor="{ 'TabId':'tab4', 'HeaderText':'Switch / ProgressBar' }">
+    <rtab *tabidfor="{ 'TabId':'tab4', 'HeaderText':'Switch / ProgressBar', 'Context':this }">
           
         <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
@@ -106,13 +106,13 @@
 
   <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
 
-    <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Calender 2' }">            
+    <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Calender 2', 'Context':this }">            
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
         <rcalender [(ngModel)]="dt2" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt2}}
         <rcalender></rcalender>              
     </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'Combobox 2' }">                        
+    <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'Combobox 2', 'Context':this }">                        
         <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
           <optionTemplate *ngFor="let item of items" [Item]="item">
             <div>
@@ -132,14 +132,14 @@
         <rcalender></rcalender>            
     </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'Star Rating 2' }">            
+    <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'Star Rating 2', 'Context':this }">            
         <starrating [starWidth]="starWidth"></starrating>
         <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
         <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>      
     </rtab>
 
 
-    <rtab *tabidfor="{ 'TabId':'tab24', 'HeaderText':'Switch / ProgressBar 2' }">
+    <rtab *tabidfor="{ 'TabId':'tab24', 'HeaderText':'Switch / ProgressBar 2', 'Context':this }">
           
         <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 

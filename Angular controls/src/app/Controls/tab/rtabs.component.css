@@ -69,7 +69,7 @@
   margin-top: 2px; 
   margin-bottom: 2px;
   width: fit-content;
-  display: block;
+  display: inline-block;
   background: #e7e7e9;
   border-radius: 30%;
 }
@@ -78,4 +78,43 @@
   border: 1px solid lightgray;
   background: #e5e5e7; 
   border-radius: 1%;
+}
+
+.draggedbox {  
+  border: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 9999999998;  
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+              0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.draggedbox:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+
+.draghandle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ccc;
+  cursor: move;
+  width: 24px;
+  height: 24px;
+}
+
+.cursorForDrag {
+  cursor: move;
 }

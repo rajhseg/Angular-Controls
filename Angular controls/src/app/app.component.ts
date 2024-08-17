@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, NgZone, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalenderComponent } from './Controls/Calender/calender.component';
 import { DropdownComponent } from './Controls/dropdown/dropdown.component';
@@ -57,7 +57,7 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('tabCom1', {read: RTabsComponent}) tabs!: RTabsComponent;
 
-  constructor(private winObj: WindowHelper, private ngZone: NgZone){
+  constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>){
     this.items.push(new DropdownModel("0", "Jan"));
     this.items.push(new DropdownModel("1", "Feb"));
     this.items.push(new DropdownModel("2", "Mar"));
@@ -79,8 +79,11 @@ export class AppComponent implements AfterViewInit {
 
   AddTab(){
     let rtabInnerHtml = '<starrating [starWidth]="starWidth" [starColor]="\'red\'" [(ngModel)]="starValue"></starrating> {{starValue}}<br/><br/><rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}';
-   
-    this.tabs.AddTab('tab26', 'Testing tab',  rtabInnerHtml, this, [CalenderComponent, RatingComponent]);
+    
+    console.log("mod");
+    console.log(this.mod);
+
+    this.tabs.AddTab('tab26', 'Testing tab',  rtabInnerHtml, this, this.mod, [CalenderComponent, RatingComponent]);
   }
 
   DeleteTab(){

@@ -1,4 +1,4 @@
-import { inject, Injectable, Renderer2 } from "@angular/core";
+import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, inject, Injectable, Renderer2, ViewContainerRef } from "@angular/core";
 import { RTabsComponent } from "./tab/rtabs.component";
 
 @Injectable({
@@ -10,14 +10,15 @@ private render: Renderer2 = inject(Renderer2);
 
 private static instance: RTabService | undefined = undefined;
 
-private constructor(){
+private constructor(private appRef: ApplicationRef){
 
 }
 
 public static GetInstance(): RTabService {
     
     if(this.instance==undefined){
-        this.instance = new RTabService();
+        let _appRef = inject(ApplicationRef);
+        this.instance = new RTabService(_appRef);
     }
 
     return this.instance;
@@ -67,12 +68,25 @@ SetCommonParentElement(newElement: HTMLElement) {
 
     if(commonnode!=null){
         this.commonParentElement = commonnode;        
-        this.render.setAttribute(this.commonParentElement, "cdkDropListGroup", "");
-        
+        this.render.setAttribute(this.commonParentElement, "cdkDropListGroup", "");               
+
+        let cdr = inject(ChangeDetectorRef);
+        cdr.markForCheck();
         console.log('common parent');
         console.log(this.commonParentElement);
     }
     
     }
 
+}
+
+@Directive({
+    selector:'[body]',
+    standalone: true,
+    hostDirectives:[]
+})
+export class BodyDirective{
+    constructor(private elementRef: ElementRef){
+        console.log(":body");
+    }
 }

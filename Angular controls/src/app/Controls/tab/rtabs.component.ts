@@ -120,6 +120,10 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
     this.deleteSourceItemOnDrag(item);
   }
 
+  dragEndedForPopup(event: CdkDragEnd) {
+
+  }
+
   deleteSourceItemOnDrag(item: TabHeaderWithTabId) {
     let _tabs = this.tabTemps?.toArray();
     if (item && _tabs) {
@@ -154,7 +158,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
   }
 
-  draggeddropForPopup(event:  CdkDragDrop<TabHeaderWithTabId[]>) {
+  draggeddropForPopup(event: CdkDragDrop<TabHeaderWithTabId[]>) {
     let curContainer = event.container.data.every((x: any) => x instanceof TabHeaderWithTabId);
     let PreContainer = event.previousContainer.data.every((x: any) => x instanceof TabHeaderWithTabId);
     if (curContainer && PreContainer) {
@@ -169,17 +173,25 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
       if (!_exists) {
 
         if (event.previousContainer === event.container) {
-          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+          let _itemData = (event.item.data as TabHeaderWithTabId);
+          let movedItemIndex = (event.container.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+
+          if (movedItemIndex > -1) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+          } else {
+            event.container.data.splice(event.currentIndex, 0, _itemData);
+          }
+
         } else {
 
           let _itemData = (event.item.data as TabHeaderWithTabId);
           let movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
-  
+
           if (movedItemIndex > -1) {
             transferArrayItem(event.previousContainer.data, event.container.data, movedItemIndex, event.currentIndex);
-          } else{
+          } else {
             event.container.data.splice(event.currentIndex, 0, _itemData);
-          }                  
+          }
         }
 
         if (this.draggedTabs.length == 0)
@@ -204,7 +216,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
       if (!event.isPointerOverContainer) {
         this.ispopuphidden = false;
-        let _item = (event.item.data as TabHeaderWithTabId)        
+        let _item = (event.item.data as TabHeaderWithTabId)
         let mEvent = (event.event as MouseEvent);
         _item.X = mEvent.screenX;
         _item.Y = mEvent.screenY;
@@ -218,8 +230,18 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
       if (!_exists) {
         if (event.previousContainer === event.container) {
-          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+          let _itemData = (event.item.data as TabHeaderWithTabId);
+          let movedItemIndex = (event.container.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+
+          if (movedItemIndex > -1) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+          } else {
+            event.container.data.splice(event.currentIndex, 0, _itemData);
+          }
+
         } else {
+          
           let _itemData = (event.item.data as TabHeaderWithTabId);
           let movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
 
@@ -330,22 +352,22 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
         this.selectTab(selectedHeader);
 
       } else {
-        this.RenderUIOnEmpty();      
+        this.RenderUIOnEmpty();
       }
     } else {
-      this.RenderUIOnEmpty();      
+      this.RenderUIOnEmpty();
     }
 
     this.cdr.detectChanges();
   }
 
-  RenderUIOnEmpty(){
+  RenderUIOnEmpty() {
     this.RenderHeaders();
     this.TabHeaders = [];
     this.selectedTab = undefined;
     this.SelectedTabId = undefined;
     this.SelectedTabIndex = -1;
-    this.SelectedTabTemplateRef = undefined;   
+    this.SelectedTabTemplateRef = undefined;
   }
 
   MoveEntireTabRow() {

@@ -18,9 +18,8 @@ import { RTabService } from "../tab.service";
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl:'./rtabs.component.html',
   styleUrl:'./rtabs.component.css',
-  imports:[NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
-    NgClass, CdkDrag, CdkDropList, JsonPipe, RDynamicHostComponent]
-    // providers:[DynamicCmpService]
+  imports:[ NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
+            NgClass, CdkDrag, CdkDropList, JsonPipe, RDynamicHostComponent]    
 })
 export class RTabsComponent implements AfterContentInit, AfterContentChecked, AfterViewInit {
 
@@ -44,8 +43,6 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   @ViewChild('vcTemp', {read: ViewContainerRef, static: false}) vcElement!: ViewContainerRef;
 
   private hostElement!: ElementRef;
-
-  //private readonly factories: DynamicCmpFactory<any>[] = [];
 
   private components: any[] = [
     RTabComponent
@@ -110,8 +107,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
     private injector:Injector,
     private moduleRef: NgModuleRef<any>,
     private viewRef: ViewContainerRef,
-    @Host() public hostElementRef: ElementRef
-    // @Self() private cmpFactory: DynamicCmpService,
+    @Host() public hostElementRef: ElementRef    
   ){
       this.renderer = this.rendererFactory.createRenderer(null, null);
       RTabService.GetInstance().AddTabsInstance(this);      
@@ -386,10 +382,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
     importsForThisComponent: (Array<Type<any> | ModuleWithProviders<{}> | any[]>) = []){
 
      let rtabhtml = '<rtab *tabidfor="{ \'TabId\':\''+tabId+'\', \'HeaderText\':\''+headerText+'\' }">'+rtabInnerHtml+'</rtab>';
-
      let returnType = RTabIdFor;
-
-     //this.dynamicHtml = rtabhtml;
 
      importsForThisComponent.push(RTabIdFor);
      importsForThisComponent.push(RTabComponent);
@@ -398,14 +391,17 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
      importsForThisComponent.push(HttpClientModule);
 
      this.cdr.detectChanges();
+
      /* 
+     
      this.hostElement = this.vcElement.element;
      this.hostElement.nativeElement.innerHTML = rtabhtml
      this.initFactories();
      this.createAllComponents(this.moduleRef);
      
      */
-      //this.renderHtmlString(rtabhtml, contextInstanceOfTab, returnType, importsForThisComponent);
+    
+     //this.renderHtmlString(rtabhtml, contextInstanceOfTab, returnType, importsForThisComponent);
   }
 
   renderHtmlString(value: string, parentInstanceOrContext: object, returnType: Type<any> | string,
@@ -428,17 +424,6 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
       this.cdr.detectChanges();
     });
 
-
-
-    // const parser = new DOMParser();
-    // let doc = parser.parseFromString(value, 'text/html');
-    // const elements = doc.body.childNodes;
-
-    // elements.forEach((ele)=>{
-    //   if(ele.nodeType==Node.ELEMENT_NODE){
-    //     this.RenderElement(ele as HTMLElement);
-    //   }
-    // })
   }
 
   RenderElement(element: HTMLElement){

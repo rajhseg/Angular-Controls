@@ -34,12 +34,10 @@ export class RDynamicHostComponent implements OnInit, AfterContentInit, AfterVie
     }
 
     createDynamicComponent(html: string, parentInstanceOrContext: object, returnType: Type<any> | string, directiveInputs: any, importsForThisComponent: any[]) {              
+     
       const componentClass = this.createComponent(html, parentInstanceOrContext, returnType, directiveInputs, importsForThisComponent);
       const factory = this.cfr.resolveComponentFactory(componentClass);
       this.container.clear();
-
-console.log('Component Type');
-console.log(componentClass);
 
       const parentInjector = Injector.create({
         providers: [

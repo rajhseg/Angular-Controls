@@ -154,7 +154,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
   }
 
-  draggeddropForPopup(event: any) {
+  draggeddropForPopup(event:  CdkDragDrop<TabHeaderWithTabId[]>) {
     let curContainer = event.container.data.every((x: any) => x instanceof TabHeaderWithTabId);
     let PreContainer = event.previousContainer.data.every((x: any) => x instanceof TabHeaderWithTabId);
     if (curContainer && PreContainer) {
@@ -163,7 +163,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
         return;
       }
 
-      let _item = (event.previousContainer.data[event.previousIndex] as TabHeaderWithTabId);
+      let _item = (event.item.data as TabHeaderWithTabId);
       let _exists = this.draggedTabs.some((x: TabHeaderWithTabId) => x.TabId == _item.TabId);
 
       if (!_exists) {
@@ -214,16 +214,20 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
         return;
       }
 
-      if (event.previousContainer === event.container) {
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      } else {
-        let _itemData = (event.item.data as TabHeaderWithTabId);
-        let movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+      let _exists = event.container.data.some((x: TabHeaderWithTabId) => x.TabId == event.item.data.TabId);
 
-        if (movedItemIndex > -1) {
-          transferArrayItem(event.previousContainer.data, event.container.data, movedItemIndex, event.currentIndex);
-        } else{
-          event.container.data.splice(event.currentIndex, 0, _itemData);
+      if (!_exists) {
+        if (event.previousContainer === event.container) {
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+          let _itemData = (event.item.data as TabHeaderWithTabId);
+          let movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+
+          if (movedItemIndex > -1) {
+            transferArrayItem(event.previousContainer.data, event.container.data, movedItemIndex, event.currentIndex);
+          } else {
+            event.container.data.splice(event.currentIndex, 0, _itemData);
+          }
         }
       }
 

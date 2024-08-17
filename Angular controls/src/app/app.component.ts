@@ -17,21 +17,21 @@ import { RTabsComponent } from './Controls/tab/rtabs.component';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
-    imports: [
-        RouterOutlet, CalenderComponent,
-        SwitchComponent,
-        DropdownComponent, FormsModule,
-        ReactiveFormsModule, ProgressbarComponent,
-        RTabComponent, RTabsComponent,
-        NgFor, JsonPipe,
-        optionTemplate, RatingComponent,  
-        RTabIdFor,
-        CdkDropListGroup, CdkDropList, CdkDrag      
-      ]
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
+  imports: [
+    RouterOutlet, CalenderComponent,
+    SwitchComponent,
+    DropdownComponent, FormsModule,
+    ReactiveFormsModule, ProgressbarComponent,
+    RTabComponent, RTabsComponent,
+    NgFor, JsonPipe,
+    optionTemplate, RatingComponent,
+    RTabIdFor,
+    CdkDropListGroup, CdkDropList, CdkDrag
+  ]
 })
 export class AppComponent implements AfterViewInit {
 
@@ -41,23 +41,23 @@ export class AppComponent implements AfterViewInit {
   starWidth: number = 30;
   starValue: number = 3.6;
   curDate!: string;
-  dt1!:string;
-  dt2!:string;
+  dt1!: string;
+  dt2!: string;
   isChecked: boolean = true;
   proincenter: boolean = false;
   IsCircleProgressBar: boolean = false;
   IsInfiniteProgressBar: boolean = true;
   progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
-  progressType:ProgressBarType = ProgressBarType.Infinite;
-  perc:number = 0;  
+  progressType: ProgressBarType = ProgressBarType.Infinite;
+  perc: number = 0;
   deltabindex: number = -1;
   window!: Window;
   interval!: number;
   progressDisplayText: string = '';
 
-  @ViewChild('tabCom1', {read: RTabsComponent}) tabs!: RTabsComponent;
+  @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
 
-  constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>){
+  constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {
     this.items.push(new DropdownModel("0", "Jan"));
     this.items.push(new DropdownModel("1", "Feb"));
     this.items.push(new DropdownModel("2", "Mar"));
@@ -68,8 +68,8 @@ export class AppComponent implements AfterViewInit {
     this.items.push(new DropdownModel("8", "Aug"));
     this.items.push(new DropdownModel("9", "Sep"));
 
-    if(this.winObj.isExecuteInBrowser())
-    this.window = window;
+    if (this.winObj.isExecuteInBrowser())
+      this.window = window;
 
     this.selItem = this.items[5];
     this.curDate = "";
@@ -77,79 +77,78 @@ export class AppComponent implements AfterViewInit {
     this.IncrementValue(this);
   }
 
-  AddTab(){
+  AddTab() {
     let rtabInnerHtml = '<starrating [starWidth]="starWidth" [starColor]="\'red\'" [(ngModel)]="starValue"></starrating> {{starValue}}<br/><br/><rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}';
-    
+
     console.log("mod");
     console.log(this.mod);
 
-    this.tabs.AddTab('tab26', 'Testing tab',  rtabInnerHtml, this, this.mod, [CalenderComponent, RatingComponent]);
   }
 
-  DeleteTab(){
-    if(this.tabs.SelectedTabId)
+  DeleteTab() {
+    if (this.tabs.SelectedTabId)
       this.tabs.DeleteTab(this.tabs.SelectedTabId);
   }
 
-  DeleteTabBasedOnIndex(){
-    if(this.deltabindex){
+  DeleteTabBasedOnIndex() {
+    if (this.deltabindex) {
       this.tabs.DeleteTabBasedOnIndex(this.deltabindex);
     }
   }
 
   ngAfterViewInit(): void {
-    if(this.tabs){
-      
+    if (this.tabs) {
+
     }
   }
 
-  IncrementValue(obj: AppComponent){        
-      if(obj.winObj.isExecuteInBrowser()) {        
-        obj.interval = obj.window.setInterval((x: AppComponent)=>{
+  IncrementValue(obj: AppComponent) {
+    if (obj.winObj.isExecuteInBrowser()) {
+      obj.interval = obj.window.setInterval((x: AppComponent) => {
 
-          x.perc = x.perc + 1;
+        x.perc = x.perc + 1;
 
-          if(x.perc > 100) {
-            x.window.clearInterval(x.interval);
-            return;
-          }
-          
-          x.progressDisplayText = x.perc.toString() +" / 100 %";                                                                                                        
+        if (x.perc > 100) {
+          x.window.clearInterval(x.interval);
+          return;
+        }
 
-        }, 500, obj);
-      }              
+        x.progressDisplayText = x.perc.toString() + " / 100 %";
+
+      }, 500, obj);
+    }
   }
 
-  ResetProgress(){    
+  ResetProgress() {
     this.perc = 0;
     this.IncrementValue(this);
   }
 
-  dateSelected($evt: any){
+  dateSelected($evt: any) {
     console.log($evt);
   }
 
-  switchChange(val:boolean){
-    this.proincenter =val;
+  switchChange(val: boolean) {
+    this.proincenter = val;
   }
 
-  movetocenter(){
+  movetocenter() {
     this.proincenter = !this.proincenter;
   }
 
-  changeToCircle(val:boolean){
-    if(val){
+  changeToCircle(val: boolean) {
+    if (val) {
       this.progressDisplayType = ProgressBarDisplayType.Circle;
     }
-    else{
+    else {
       this.progressDisplayType = ProgressBarDisplayType.StraightLine;
     }
   }
 
-  changeToInfinite(val: boolean){
-    if(val){
+  changeToInfinite(val: boolean) {
+    if (val) {
       this.progressType = ProgressBarType.Infinite;
-    } else{
+    } else {
       this.progressType = ProgressBarType.Progress;
     }
   }

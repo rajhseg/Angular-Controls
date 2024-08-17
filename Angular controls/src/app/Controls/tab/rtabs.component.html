@@ -1,77 +1,64 @@
-
-
 <div class="rtabroot">
 
   <div cdkDropList cdkDropListOrientation="mixed"
-      *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
-      [cdkDropListData]="TabHeaders" (cdkDropListDropped)="drop($event)" 
-      class="tabheaderContainer" [style.width]="TabWidth">
+    *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
+    [cdkDropListData]="TabHeaders" (cdkDropListDropped)="drop($event)" class="tabheaderContainer"
+    [style.width]="TabWidth">
     <ng-container *ngIf="tabTemps && tabTemps.length > 0">
-      <button id="rtabheader_{{header.TabId}}" class="tabheader" 
-              *ngFor="let header of TabHeaders; trackBy:trackByHeader" 
-              cdkDrag (cdkDragEnded)="dragEnded($event)" 
-              (cdkDragStarted)="dragStarted($event)"
-              [cdkDragData]="header"            
-              (click)="HeaderClicked(header)" 
-              (cdkDragMoved)="onDragMoved($event)"
-              [ngClass]="{ tabSelected: header.IsSelected}">            
+      <button id="rtabheader_{{header.TabId}}" class="tabheader"
+        *ngFor="let header of TabHeaders; trackBy:trackByHeader" cdkDrag (cdkDragEnded)="dragEnded($event)"
+        (cdkDragStarted)="dragStarted($event)" [cdkDragData]="header" (click)="HeaderClicked(header)"
+        (cdkDragMoved)="onDragMoved($event)" [ngClass]="{ tabSelected: header.IsSelected}">
         <div [innerHTML]="header.headerText">
-          
-        </div>                                           
+
+        </div>
       </button>
     </ng-container>
   </div>
 
- 
   <ng-container>
     <div class="tabcontent" *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
-      [style.width]="TabWidth" [style.height]="TabHeight"> 
-      
-      <div *ngIf="SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined" id="rtabcontent_{{SelectedTabTemplateRef.TabId}}" class="tab active">      
-        
+      [style.width]="TabWidth" [style.height]="TabHeight">
+
+      <div *ngIf="SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined"
+        id="rtabcontent_{{SelectedTabTemplateRef.TabId}}" class="tab active">
+
         <!-- Below line ng-content is used to remove duplication of tabs due to hydration runs 
           before settimeout runs in dynamic Component 
           (https://github.com/angular/angular/issues/50543)
         -->
         <ng-content />
 
-        <ng-container #tempVcr *ngTemplateOutlet="SelectedTabTemplateRef.templateRef; context:SelectedTabTemplateRef.ContextInstance" ></ng-container>
+        <ng-container #tempVcr
+          *ngTemplateOutlet="SelectedTabTemplateRef.templateRef; context:SelectedTabTemplateRef.ContextInstance"></ng-container>
       </div>
     </div>
 
-  </ng-container>  
+  </ng-container>
 
-<!-- <rdynamic-host></rdynamic-host> -->
+  <div *ngFor="let header of draggedTabs" class="draggedbox cursorForDrag" [hidden]="ispopuphidden"
+    [style.left]="header.X + 'px'" [style.top]="header.Y +'px'" cdkDropList [cdkDropListData]="draggedTabs"
+    cdkDropListOrientation="mixed" (cdkDropListDropped)="draggeddropForPopup($event)" cdkDragHandle cdkDrag
+    [style.width]="TabWidth" [style.height]="TabHeightForDragged">
 
-  <div  *ngFor="let header of draggedTabs" class="draggedbox cursorForDrag" 
-        [hidden]="ispopuphidden" 
-        [style.left]="header.X + 'px'"
-        [style.top]="header.Y +'px'"      
-        cdkDropList 
-        [cdkDropListData]="draggedTabs"
-        cdkDropListOrientation="mixed" 
-        (cdkDropListDropped)="draggeddropForPopup($event)" 
-        cdkDragHandle cdkDrag
-        [style.width]="TabWidth" [style.height]="TabHeightForDragged">  
-        
-      <div class="tabheaderContainer" [style.width]="TabWidth">
-        <ng-container>
-          <button cdkDrag (cdkDragStarted)="dragStartedForPopup($event)"
-                  [cdkDragData]="header"
-                  id="rdragtabheader_{{header.TabId}}" class="tabheader" [ngClass]="{ tabSelected: true}">            
-            <div [innerHTML]="header.headerText">
-            </div>            
-          </button>
-        </ng-container>
-      </div>
-        
+    <div class="tabheaderContainer" [style.width]="TabWidth">
       <ng-container>
-        <div class="tabcontent" [style.width]="TabWidth" [style.height]="TabHeight">         
-          <div id="rdraggedtabcontent_{{header.TabId}}" class="tab active">                        
-            <ng-container *ngTemplateOutlet="header.tabTemplateRef.templateRef; context:header.tabTemplateRef.ContextInstance" ></ng-container>
+        <button cdkDrag (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
+          id="rdragtabheader_{{header.TabId}}" class="tabheader" [ngClass]="{ tabSelected: true}">
+          <div [innerHTML]="header.headerText">
           </div>
+        </button>
+      </ng-container>
+    </div>
+
+    <ng-container>
+      <div class="tabcontent" [style.width]="TabWidth" [style.height]="TabHeight">
+        <div id="rdraggedtabcontent_{{header.TabId}}" class="tab active">
+          <ng-container
+            *ngTemplateOutlet="header.tabTemplateRef.templateRef; context:header.tabTemplateRef.ContextInstance"></ng-container>
         </div>
-      </ng-container> 
+      </div>
+    </ng-container>
 
   </div>
 

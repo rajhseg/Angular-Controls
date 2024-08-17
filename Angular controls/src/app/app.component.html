@@ -2,58 +2,58 @@
 
   <div>
 
-  <starrating [starWidth]="starWidth"></starrating>
+    <starrating [starWidth]="starWidth"></starrating>
 
-  <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
-  <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
+    <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
+    <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
 
-  <rdropdown [Items]="items" Width="112px" DropDownContentWidth="122px">
-    <optionTemplate Item="Select all">
-      <div>
-        <input type="checkbox">Select All
-      </div>
-    </optionTemplate>
-    <optionTemplate *ngFor="let item of items" [Item]="item">
-      <div>
-        <input type="checkbox" >
+    <rdropdown [Items]="items" Width="112px" DropDownContentWidth="122px">
+      <optionTemplate Item="Select all">
+        <div>
+          <input type="checkbox">Select All
+        </div>
+      </optionTemplate>
+      <optionTemplate *ngFor="let item of items" [Item]="item">
+        <div>
+          <input type="checkbox">
 
           {{item.DisplayValue}}
 
-      </div>
-    </optionTemplate>
-  </rdropdown>
+        </div>
+      </optionTemplate>
+    </rdropdown>
 
 
-</div>
-
-<div>
-  <br/>
-  <button (click)="DeleteTab()">Delete One Tab</button>
-  <br/>
-  <div>
-    <label>Tab Index</label>
-    <input type="text" [(ngModel)]="deltabindex" />
-    <button (click)="DeleteTabBasedOnIndex()">Delete Tab(index)</button>
   </div>
-  <br/>
-</div>
 
-<button (click)="AddTab()">Add Tab</button>
+  <div>
+    <br />
+    <button (click)="DeleteTab()">Delete One Tab</button>
+    <br />
+    <div>
+      <label>Tab Index</label>
+      <input type="text" [(ngModel)]="deltabindex" />
+      <button (click)="DeleteTabBasedOnIndex()">Delete Tab(index)</button>
+    </div>
+    <br />
+  </div>
 
-<div cdkDropListGroup>
-  <rtabs [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
+  <button (click)="AddTab()">Add Tab</button>
 
-    <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Calender', 'Context':this }">            
+  <div cdkDropListGroup>
+    <rtabs [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
+
+      <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Calender', 'Context':this }">
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
         <rcalender [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
-        <rcalender></rcalender>              
-    </rtab>
+        <rcalender></rcalender>
+      </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'ComboBox', 'Context':this }">                        
+      <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'ComboBox', 'Context':this }">
         <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
           <optionTemplate *ngFor="let item of items" [Item]="item">
             <div>
-            {{item.DisplayValue}}
+              {{item.DisplayValue}}
             </div>
           </optionTemplate>
         </rdropdown>
@@ -61,62 +61,56 @@
         <rdropdown [Items]="items" DropDownContentWidth="92px">
           <optionTemplate *ngFor="let item of items" [Item]="item">
             <a>
-            {{item.DisplayValue}}
+              {{item.DisplayValue}}
             </a>
           </optionTemplate>
         </rdropdown>
         <starrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></starrating> {{starValue}}
-        <rcalender></rcalender>            
-    </rtab>
+        <rcalender></rcalender>
+      </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'Star Rating', 'Context':this }">            
+      <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'Star Rating', 'Context':this }">
         <starrating [starWidth]="starWidth"></starrating>
         <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
-        <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>      
-    </rtab>
+        <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
+      </rtab>
 
 
-    <rtab *tabidfor="{ 'TabId':'tab4', 'HeaderText':'Switch / ProgressBar', 'Context':this }">
-          
+      <rtab *tabidfor="{ 'TabId':'tab4', 'HeaderText':'Switch / ProgressBar', 'Context':this }">
+
         <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
-        <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar"></rswitch>
-      
+        <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+        </rswitch>
+
         <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
-                  [(ngModel)]="IsInfiniteProgressBar"></rswitch>
-      
-        <rprogressbar [ForeColor]="'blue'"
-                    [TrackColor]="'lightgray'"
-                    [EnableBackDrop]="false"
-                    [FloatInCenter]="proincenter"
-                    [DisplayType]="progressDisplayType"
-                    [StraightLineTrackHeight]="'16px'"
-                    [ProgressBarWidth]="'150px'"
-                    [Percentage]="perc"
-                    [CircularLineWidth]="'15px'"
-                    [FiniteCircularDisplayText]="progressDisplayText"
-                    [Type]="progressType">
+          [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+
+        <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+          [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+          [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+          [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
         </rprogressbar>
-      
+
         <button (click)="ResetProgress()">Reset</button>
-            
-    </rtab>
 
-  </rtabs>
+      </rtab>
 
-  <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
+    </rtabs>
 
-    <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Calender 2', 'Context':this }">            
+    <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
+
+      <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Calender 2', 'Context':this }">
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
         <rcalender [(ngModel)]="dt2" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt2}}
-        <rcalender></rcalender>              
-    </rtab>
+        <rcalender></rcalender>
+      </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'Combobox 2', 'Context':this }">                        
+      <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'Combobox 2', 'Context':this }">
         <rdropdown [(ngModel)]="selItem" [Items]="items" DropDownContentWidth="92px">
           <optionTemplate *ngFor="let item of items" [Item]="item">
             <div>
-            {{item.DisplayValue}}
+              {{item.DisplayValue}}
             </div>
           </optionTemplate>
         </rdropdown>
@@ -124,49 +118,43 @@
         <rdropdown [Items]="items" DropDownContentWidth="92px">
           <optionTemplate *ngFor="let item of items" [Item]="item">
             <a>
-            {{item.DisplayValue}}
+              {{item.DisplayValue}}
             </a>
           </optionTemplate>
         </rdropdown>
         <starrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></starrating> {{starValue}}
-        <rcalender></rcalender>            
-    </rtab>
+        <rcalender></rcalender>
+      </rtab>
 
-    <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'Star Rating 2', 'Context':this }">            
+      <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'Star Rating 2', 'Context':this }">
         <starrating [starWidth]="starWidth"></starrating>
         <starrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></starrating> {{starValue}}
-        <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>      
-    </rtab>
+        <starrating [starWidth]="starWidth" [starColor]="'blue'"></starrating>
+      </rtab>
 
 
-    <rtab *tabidfor="{ 'TabId':'tab24', 'HeaderText':'Switch / ProgressBar 2', 'Context':this }">
-          
+      <rtab *tabidfor="{ 'TabId':'tab24', 'HeaderText':'Switch / ProgressBar 2', 'Context':this }">
+
         <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
-        <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar"></rswitch>
-      
-        <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
-                  [(ngModel)]="IsInfiniteProgressBar"></rswitch>
-      
-        <rprogressbar [ForeColor]="'blue'"
-                    [TrackColor]="'lightgray'"
-                    [EnableBackDrop]="false"
-                    [FloatInCenter]="proincenter"
-                    [DisplayType]="progressDisplayType"
-                    [StraightLineTrackHeight]="'16px'"
-                    [ProgressBarWidth]="'150px'"
-                    [Percentage]="perc"
-                    [CircularLineWidth]="'15px'"
-                    [FiniteCircularDisplayText]="progressDisplayText"
-                    [Type]="progressType">
-        </rprogressbar>
-      
-        <button (click)="ResetProgress()">Reset</button>
-            
-    </rtab>
+        <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+        </rswitch>
 
-  </rtabs>
-</div>
+        <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
+          [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+
+        <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+          [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+          [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+          [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
+        </rprogressbar>
+
+        <button (click)="ResetProgress()">Reset</button>
+
+      </rtab>
+
+    </rtabs>
+  </div>
 
   <starrating [starWidth]="starWidth"></starrating>
 

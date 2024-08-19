@@ -1,0 +1,39 @@
+
+
+  ul {
+    list-style-type: none;    
+  }
+
+  :host{
+    margin: 0;
+    padding: 0;
+  }
+  
+  .symbol {
+     cursor: pointer;
+    -webkit-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none;
+  }
+  
+  .symbol::before {
+    content: "\25B6";
+    color: #00c7ba;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  .symbol-down::before {
+    -ms-transform: rotate(90deg); 
+    -webkit-transform: rotate(90deg); 
+    transform: rotate(90deg);  
+  }
+  
+  .childrens {
+    display: none;
+  }
+  
+  .show {
+    display: block;
+  }

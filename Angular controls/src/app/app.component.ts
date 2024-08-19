@@ -15,6 +15,8 @@ import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
 import { RTabComponent, RTabIdFor } from './Controls/tab/tab.component';
 import { RTabsComponent } from './Controls/tab/rtabs.component';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { TreeComponent } from "./Controls/Tree/tree.component";
+import { TreeItem } from './Controls/Tree/TreeModel';
 
 @Component({
   selector: 'app-root',
@@ -30,8 +32,9 @@ import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
     NgFor, JsonPipe,
     optionTemplate, RatingComponent,
     RTabIdFor,
-    CdkDropListGroup, CdkDropList, CdkDrag
-  ]
+    CdkDropListGroup, CdkDropList, CdkDrag,
+    TreeComponent
+]
 })
 export class AppComponent implements AfterViewInit {
 
@@ -55,6 +58,8 @@ export class AppComponent implements AfterViewInit {
   interval!: number;
   progressDisplayText: string = '';
 
+  treeItems: TreeItem[] | undefined = undefined;
+
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
 
   constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {
@@ -75,6 +80,67 @@ export class AppComponent implements AfterViewInit {
     this.curDate = "";
     this.perc = 55;
     this.IncrementValue(this);
+    this.createTreeData();
+   
+  }
+
+  createTreeData(){
+    if(this.winObj.isExecuteInBrowser()){ 
+    let _treeItems = new TreeItem();
+    const folderImage: any = document.getElementById("folderImage")?.cloneNode(true);
+
+    _treeItems.DisplayText = "Level 1";
+    _treeItems.Value = 1;
+    _treeItems.ImageUrl = "images/folder.png";
+
+    let childrens = [];
+
+    let level2= new TreeItem();
+    level2.DisplayText = "Level 2";
+    level2.Value = 2;
+    level2.ImageUrl = "images/folder.png";
+
+    childrens.push(level2);
+
+    let level21= new TreeItem();
+    level21.DisplayText = "Level 21";
+    level21.Value = 21;
+    level21.ImageUrl = "images/folder.png";
+
+    childrens.push(level21);
+
+    
+    let level22= new TreeItem();
+    level22.DisplayText = "Level 22";
+    level22.Value = 22;
+    level22.ImageUrl = "images/folder.png";
+
+    let level31= new TreeItem();
+    level31.DisplayText = "Level 31";
+    level31.Value = 31;
+    level22.Childrens.push(level31);
+    level31.ImageUrl = "images/folder.png";
+
+    childrens.push(level22);
+
+    _treeItems.Childrens = childrens;
+
+    this.treeItems = [];
+    this.treeItems.push(_treeItems);
+    }
+  }
+
+  OnTreeItemSelected(item: TreeItem){
+    console.log(item);
+  }
+
+  ExpandClicked(item:TreeItem) {
+    if(item.IsExpanded){
+      item.ImageUrl = "images/open-folder.png";
+    }
+    else{
+      item.ImageUrl = "images/folder.png";
+    }
   }
 
   AddTab() {

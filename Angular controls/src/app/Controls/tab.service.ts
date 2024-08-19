@@ -1,4 +1,4 @@
-import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, inject, Injectable, Renderer2, ViewContainerRef } from "@angular/core";
+import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactory, Directive, ElementRef, inject, Injectable, Injector, Renderer2, ViewContainerRef } from "@angular/core";
 import { RTabsComponent } from "./tab/rtabs.component";
 
 @Injectable({
@@ -70,6 +70,14 @@ SetCommonParentElement(newElement: HTMLElement) {
         this.commonParentElement = commonnode;        
         this.render.setAttribute(this.commonParentElement, "cdkDropListGroup", "");               
 
+        // let appRef = inject(ApplicationRef);
+        // let injector = inject(Injector);
+        // let factory = inject(ResolveFactory);
+
+        // let projectNodes = [Array.prototype.slice.call(this.commonParentElement.parentElement?.childNodes)];
+        // let _comp =    factory.cf.create(injector, projectNodes, this.commonParentElement.parentElement);
+        // this.appRef.attachView(_comp.hostView);
+
         let cdr = inject(ChangeDetectorRef);
         cdr.markForCheck();
         console.log('common parent');
@@ -78,6 +86,11 @@ SetCommonParentElement(newElement: HTMLElement) {
     
     }
 
+}
+
+@Injectable()
+export class ResolveFactory{
+    constructor(public cf: ComponentFactory<any>){ }
 }
 
 @Directive({

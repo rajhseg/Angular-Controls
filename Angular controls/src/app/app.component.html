@@ -37,6 +37,9 @@
     </div>
     <br />
   </div>
+  
+  <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" 
+          (onItemSelected)="OnTreeItemSelected($event)"></rtree>
 
   <button (click)="AddTab()">Add Tab</button>
 
@@ -94,6 +97,11 @@
 
         <button (click)="ResetProgress()">Reset</button>
 
+      </rtab>
+
+      <rtab *tabidfor="{ 'TabId': 'tab5', 'HeaderText':'Tree Control', 'Context': this}">
+        <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" 
+          (onItemSelected)="OnTreeItemSelected($event)"></rtree>
       </rtab>
 
     </rtabs>

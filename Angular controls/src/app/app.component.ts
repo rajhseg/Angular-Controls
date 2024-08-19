@@ -15,8 +15,8 @@ import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
 import { RTabComponent, RTabIdFor } from './Controls/tab/tab.component';
 import { RTabsComponent } from './Controls/tab/rtabs.component';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { TreeComponent } from "./Controls/Tree/tree.component";
-import { TreeItem } from './Controls/Tree/TreeModel';
+import { RTreeComponent } from "./Controls/Tree/tree.component";
+import { RTreeItem } from './Controls/Tree/TreeModel';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +33,7 @@ import { TreeItem } from './Controls/Tree/TreeModel';
     optionTemplate, RatingComponent,
     RTabIdFor,
     CdkDropListGroup, CdkDropList, CdkDrag,
-    TreeComponent
+    RTreeComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -58,7 +58,7 @@ export class AppComponent implements AfterViewInit {
   interval!: number;
   progressDisplayText: string = '';
 
-  treeItems: TreeItem[] | undefined = undefined;
+  treeItems: RTreeItem[] | undefined = undefined;
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
 
@@ -86,7 +86,7 @@ export class AppComponent implements AfterViewInit {
 
   createTreeData(){
     if(this.winObj.isExecuteInBrowser()){ 
-    let _treeItems = new TreeItem();
+    let _treeItems = new RTreeItem();
     const folderImage: any = document.getElementById("folderImage")?.cloneNode(true);
 
     _treeItems.DisplayText = "Level 1";
@@ -95,14 +95,14 @@ export class AppComponent implements AfterViewInit {
 
     let childrens = [];
 
-    let level2= new TreeItem();
+    let level2= new RTreeItem();
     level2.DisplayText = "Level 2";
     level2.Value = 2;
     level2.ImageUrl = "images/folder.png";
 
     childrens.push(level2);
 
-    let level21= new TreeItem();
+    let level21= new RTreeItem();
     level21.DisplayText = "Level 21";
     level21.Value = 21;
     level21.ImageUrl = "images/folder.png";
@@ -110,12 +110,12 @@ export class AppComponent implements AfterViewInit {
     childrens.push(level21);
 
     
-    let level22= new TreeItem();
+    let level22= new RTreeItem();
     level22.DisplayText = "Level 22";
     level22.Value = 22;
     level22.ImageUrl = "images/folder.png";
 
-    let level31= new TreeItem();
+    let level31= new RTreeItem();
     level31.DisplayText = "Level 31";
     level31.Value = 31;
     level22.Childrens.push(level31);
@@ -130,11 +130,11 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  OnTreeItemSelected(item: TreeItem){
+  OnTreeItemSelected(item: RTreeItem){
     console.log(item);
   }
 
-  ExpandClicked(item:TreeItem) {
+  ExpandClicked(item:RTreeItem) {
     if(item.IsExpanded){
       item.ImageUrl = "images/open-folder.png";
     }

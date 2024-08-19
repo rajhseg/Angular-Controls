@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, output, Output } from '@angular/core';
-import { TreeItem } from './TreeModel';
+import { RTreeItem } from './TreeModel';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 
 @Component({
@@ -9,30 +9,30 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
   templateUrl: './tree.component.html',
   styleUrl: './tree.component.css'
 })
-export class TreeComponent {
+export class RTreeComponent {
 
-  private _items: TreeItem[] = [];
-
-  @Output()
-  onExpandClicked = new EventEmitter<TreeItem>();
+  private _items: RTreeItem[] = [];
 
   @Output()
-  onItemSelected = new EventEmitter<TreeItem>();
+  onExpandClicked = new EventEmitter<RTreeItem>();
+
+  @Output()
+  onItemSelected = new EventEmitter<RTreeItem>();
 
   @Input()
-  set Items(value: TreeItem [] | undefined){        
+  set Items(value: RTreeItem [] | undefined){        
     if(value!=undefined)
       this._items = value;
   }
-  get Items(): TreeItem[] {
+  get Items(): RTreeItem[] {
     return this._items;
   }
 
-  onSelected($event: Event, itemSelected: TreeItem){
+  onSelected($event: Event, itemSelected: RTreeItem){
     this.onItemSelected.emit(itemSelected);
   }
 
-  expandTree($event: Event, itemClicked: TreeItem){
+  expandTree($event: Event, itemClicked: RTreeItem){
     
     itemClicked.IsExpanded = !itemClicked.IsExpanded;
 
@@ -48,11 +48,11 @@ export class TreeComponent {
     this.onExpandClicked.emit(itemClicked);
   }
 
-  OnChildExpandClicked(item: TreeItem){
+  OnChildExpandClicked(item: RTreeItem){
     this.onExpandClicked.emit(item);
   }
 
-  onChildSelected(item: TreeItem){
+  onChildSelected(item: RTreeItem){
     this.onItemSelected.emit(item);
   }
 }

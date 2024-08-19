@@ -1,5 +1,5 @@
 
-export class TreeItem {
+export class RTreeItem {
     
     public DisplayText : string = "";
 
@@ -7,7 +7,7 @@ export class TreeItem {
 
     public IsExpanded: boolean = false;
 
-    public Childrens: TreeItem[] = [];
+    public Childrens: RTreeItem[] = [];
 
     public ImageUrl: string | undefined = undefined;
 

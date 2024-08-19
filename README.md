@@ -13,13 +13,9 @@ This repo is consists of Angular controls like calender, dropdown, starrating, P
 -------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/1b6abd7b-cd37-48c3-952b-826766aa89f4)
 
-
-
 Tree Control
 --------------------------
-
 ![image](https://github.com/user-attachments/assets/a59b162e-5634-4930-9d64-9b6c1d5d68ca)
-
 
 
  StarRating Control
@@ -57,7 +53,10 @@ Tab Control
 
 ![image](https://github.com/user-attachments/assets/26dd876c-c37c-44ae-865d-6314b8e13a5e)
 
+Tree Control
+--------------------------
 
+![image](https://github.com/user-attachments/assets/a59b162e-5634-4930-9d64-9b6c1d5d68ca)
 
 
 

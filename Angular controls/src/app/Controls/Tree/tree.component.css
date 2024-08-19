@@ -39,3 +39,8 @@
   .show {
     display: block;
   }
+
+  .moveleftforchild {
+    position: relative;
+    left: -18px;
+  }

@@ -1,6 +1,7 @@
 
     <ul>
-        <li style="font-size: small; padding: 3px;" *ngFor="let Item of Items">
+        <li style="font-size: small; padding: 3px;" *ngFor="let Item of Items" 
+            [ngClass]="{'moveleftforchild': Item.IsHaveChild}">
             <span *ngIf="Item.IsHaveChild" class="symbol" (click)="expandTree($event, Item)">                
             </span>    
             <span style="vertical-align: middle; padding-right: 5px;" *ngIf="Item.IsHaveItemImage">

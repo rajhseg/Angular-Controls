@@ -121,6 +121,17 @@ export class AppComponent implements AfterViewInit {
     level22.Childrens.push(level31);
     level31.ImageUrl = "images/folder.png";
 
+    let level32= new RTreeItem();
+    level32.DisplayText = "Level 32";
+    level32.Value = 31;
+    level22.Childrens.push(level32);
+    level32.ImageUrl = "images/folder.png";
+
+    let level32ch = new RTreeItem();
+    level32ch.DisplayText = "Level 4";
+    level32ch.Value =4;
+    level32.Childrens.push(level32ch);
+
     childrens.push(level22);
 
     _treeItems.Childrens = childrens;

@@ -19,6 +19,14 @@ Tree Control
 ![image](https://github.com/user-attachments/assets/a59b162e-5634-4930-9d64-9b6c1d5d68ca)
 
 
+Checkbox
+---------------------------
+
+![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
+
+![image](https://github.com/user-attachments/assets/8812cfb4-f0e5-41cb-b2c0-15a8bfd0e16f)
+
+
  StarRating Control
 ---------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/802c17b4-753a-4dae-8dd1-9c7cefd39f78)
@@ -62,6 +70,9 @@ Tree Control
 
 Checkbox
 ---------------------------
+
+![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
+
 ![image](https://github.com/user-attachments/assets/8812cfb4-f0e5-41cb-b2c0-15a8bfd0e16f)
 
 

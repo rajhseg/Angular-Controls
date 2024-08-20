@@ -21,10 +21,7 @@ Tree Control
 
 Checkbox
 ---------------------------
-
 ![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
-
-![image](https://github.com/user-attachments/assets/8812cfb4-f0e5-41cb-b2c0-15a8bfd0e16f)
 
 
  StarRating Control

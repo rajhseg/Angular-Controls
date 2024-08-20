@@ -1,7 +1,8 @@
 # Angular-Controls
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
-This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), switch, Tab, Tree etc
+This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
+switch, Tab, Tree, checkbox etc
 
  Calender Control
 -------------------

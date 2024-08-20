@@ -1,22 +1,23 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CheckboxService } from './checkbox.service';
+import { RadioButtonService } from './radiobutton.service';
 
 @Component({
-  selector: 'rcheckbox',
+  selector: 'rradiobutton',
   standalone: true,
-  imports: [NgClass, NgIf],
-  templateUrl: './checkbox.component.html',
-  styleUrl: './checkbox.component.css',
+  imports: [NgClass, NgIf, NgStyle],
+  templateUrl: './radiobutton.component.html',
+  styleUrl: './radiobutton.component.css',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => RCheckboxComponent),
+    useExisting: forwardRef(() => RRadiobuttonComponent),
     multi: true
   }]
 })
-export class RCheckboxComponent implements ControlValueAccessor {
+export class RRadiobuttonComponent implements ControlValueAccessor{
 
+  
   @Input()
   IsChecked: boolean = false;
 
@@ -32,25 +33,28 @@ export class RCheckboxComponent implements ControlValueAccessor {
   @Output()
   OnCheckChanged = new EventEmitter<boolean>();
 
+  @Input()
+  Color: string = "#00c7ba";
+  
   onChange: Function = () => { };
 
   onTouch: Function = () => { };
 
-  constructor(private service: CheckboxService) {
+  constructor(private service: RadioButtonService) {
     this.service.AddInstance(this);
   }
 
   resetValueForGroupedCheckbox(groupname: string) {
-    this.service.ResetCheckboxesForGroup(groupname);
+    this.service.ResetRadioButtonsForGroup(groupname);
   }
 
   check(event: Event) {
     let spanEle = (event.target as HTMLDivElement).parentElement?.querySelector('span');
     if (spanEle) {
-      if (spanEle.classList.contains('check')) {
+      if (spanEle.classList.contains('round')) {
         this.IsChecked = true;
       }
-      spanEle.classList.toggle('check');
+      spanEle.classList.toggle('round');
     }
     this.toggleCheck();
   }
@@ -63,11 +67,11 @@ export class RCheckboxComponent implements ControlValueAccessor {
     }
 
     this.IsChecked = checkValue;
-    this.OnCheckChanged.emit(this.IsChecked);
     this.onChange(this.IsChecked);
     this.onTouch(this.IsChecked);
+    this.OnCheckChanged.emit(this.IsChecked);
   }
-  
+
   emitValueToUI(){
     this.onChange(this.IsChecked);
     this.onTouch(this.IsChecked);
@@ -112,5 +116,5 @@ export class RCheckboxComponent implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
 
   }
-
+  
 }

@@ -18,6 +18,7 @@ import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { RTreeComponent } from "./Controls/Tree/tree.component";
 import { RTreeItem } from './Controls/Tree/TreeModel';
 import { RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
+import { RRadiobuttonComponent } from "./Controls/radiobutton/radiobutton.component";
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,8 @@ import { RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
     RTabIdFor,
     CdkDropListGroup, CdkDropList, CdkDrag,
     RTreeComponent,
-    RCheckboxComponent
+    RCheckboxComponent,
+    RRadiobuttonComponent
 ]
 })
 export class AppComponent implements AfterViewInit {

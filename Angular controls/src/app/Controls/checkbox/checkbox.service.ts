@@ -16,6 +16,7 @@ export class CheckboxService {
         let filtered = this.checkboxs.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase());
         filtered.forEach(x=>{
             x.IsChecked = false;
+            x.emitValueToUI();
         });
     }
 }

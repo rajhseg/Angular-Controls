@@ -1,0 +1,45 @@
+
+
+:host {
+    /* display: block; */
+    width: fit-content;
+    margin-top: 6px; 
+    margin-bottom: 6px;
+}
+
+.checkroot{
+    width: 16px;
+    height: 16px;
+    border: 2px solid lightgray;
+    background-color: whitesmoke;    
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.round {
+    height:12px;
+    width: 12px;
+    /* background-color: lightgray; */
+    display: inline-block;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px whitesmoke;
+}
+
+.remove {
+
+}
+
+.remove::before {
+    content: "";
+}
+
+.label {
+    padding-right: 5px;
+    color: black;
+    padding-left: 5px;
+    align-content: center;
+}

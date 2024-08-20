@@ -2,7 +2,7 @@
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
-switch, Tab, Tree, checkbox etc
+switch, Tab, Tree, Checkbox, RadioButton etc
 
  Calender Control
 -------------------
@@ -89,6 +89,15 @@ Checkbox
 ![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
 
 ![image](https://github.com/user-attachments/assets/8812cfb4-f0e5-41cb-b2c0-15a8bfd0e16f)
+
+
+
+RadioButton
+----------------------------
+
+![image](https://github.com/user-attachments/assets/4ba30a66-257e-4daf-9088-9a95d6a7aa5b)
+
+
 
 
 

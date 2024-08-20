@@ -1,1 +1,14 @@
-<p>checkbox works!</p>
+<div style="display: flex;">
+    <div *ngIf="!DisplayTextRightAlign" class="label">
+        {{DisplayText}}
+    </div>
+    <div class="checkroot" (click)="check($event)">
+        <span [ngClass]="{'check': IsChecked}">
+
+        </span>
+    </div>
+
+    <div *ngIf="DisplayTextRightAlign" class="label">
+        {{DisplayText}}
+    </div>
+</div>

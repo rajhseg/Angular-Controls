@@ -1,0 +1,46 @@
+
+
+:host {
+    /* display: block; */
+    width: fit-content;
+    margin-top: 6px; 
+    margin-bottom: 6px;
+}
+
+.checkroot{
+    width: 15px;
+    height: 15px;
+    border: 2px solid lightgray;
+    background-color: whitesmoke;    
+    cursor: pointer;
+}
+
+.check {
+
+}
+
+.check::before {
+    content: "\2713";    
+    color: #00c7ba;
+    display: inline-block;
+    margin-right: 8px;
+    position:relative;
+    left: 1px;
+    top: -3px;
+    font-weight: 800;
+}
+
+.remove {
+
+}
+
+.remove::before {
+    content: "";
+}
+
+.label {
+    padding-right: 5px;
+    color: black;
+    padding-left: 5px;
+    align-content: center;
+}

@@ -37,9 +37,11 @@
     </div>
     <br />
   </div>
-  
-  <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" 
-          (onItemSelected)="OnTreeItemSelected($event)"></rtree>
+
+  <rcheckbox [DisplayText]="'Volleyball'" [IsChecked]="isChecked" [DisplayTextRightAlign]="true"></rcheckbox>
+
+  <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
+  </rtree>
 
   <button (click)="AddTab()">Add Tab</button>
 
@@ -100,9 +102,23 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab5', 'HeaderText':'Tree Control', 'Context': this}">
-        <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" 
+        <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)"
           (onItemSelected)="OnTreeItemSelected($event)"></rtree>
       </rtab>
+
+      <rtab *tabidfor="{ 'TabId': 'tab6', 'HeaderText':'Checkbox', 'Context': this}">
+        <label>Sports Interest:</label>
+        <div style="display: flex;">
+          <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball" [GroupName]="'sports'"></rcheckbox>
+          <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rcheckbox>
+          <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'"></rcheckbox>
+        </div>
+        <div style="display: flex;vertical-align: middle;">
+          <rcheckbox [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
+          <div style="display: block;">{{isChecked}}</div>
+        </div>
+      </rtab>
+
 
     </rtabs>
 

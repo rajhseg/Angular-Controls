@@ -17,6 +17,7 @@ import { RTabsComponent } from './Controls/tab/rtabs.component';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { RTreeComponent } from "./Controls/Tree/tree.component";
 import { RTreeItem } from './Controls/Tree/TreeModel';
+import { RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
 
 @Component({
   selector: 'app-root',
@@ -33,7 +34,8 @@ import { RTreeItem } from './Controls/Tree/TreeModel';
     optionTemplate, RatingComponent,
     RTabIdFor,
     CdkDropListGroup, CdkDropList, CdkDrag,
-    RTreeComponent
+    RTreeComponent,
+    RCheckboxComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -58,6 +60,10 @@ export class AppComponent implements AfterViewInit {
   interval!: number;
   progressDisplayText: string = '';
 
+  IsFootball: boolean = false;
+  IsVolleyball: boolean = false;
+  IsTennis: boolean = false;
+  
   treeItems: RTreeItem[] | undefined = undefined;
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;

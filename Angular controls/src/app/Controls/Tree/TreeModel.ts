@@ -13,8 +13,6 @@ export class RTreeItem {
 
     public ImageData: string | undefined = undefined;
 
-    public ImageElement: HTMLElement | undefined = undefined;
-
     public get IsHaveChild(): boolean {
         return this.Childrens.length > 0;
     }

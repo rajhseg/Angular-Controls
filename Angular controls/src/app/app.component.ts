@@ -19,6 +19,7 @@ import { RTreeComponent } from "./Controls/Tree/tree.component";
 import { RTreeItem } from './Controls/Tree/TreeModel';
 import { RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
 import { RRadiobuttonComponent } from "./Controls/radiobutton/radiobutton.component";
+import { RSliderComponent } from "./Controls/slider/slider.component";
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,8 @@ import { RRadiobuttonComponent } from "./Controls/radiobutton/radiobutton.compon
     CdkDropListGroup, CdkDropList, CdkDrag,
     RTreeComponent,
     RCheckboxComponent,
-    RRadiobuttonComponent
+    RRadiobuttonComponent,
+    RSliderComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -61,6 +63,7 @@ export class AppComponent implements AfterViewInit {
   window!: Window;
   interval!: number;
   progressDisplayText: string = '';
+  rangeValue: number = 40;
 
   IsFootball: boolean = false;
   IsVolleyball: boolean = false;

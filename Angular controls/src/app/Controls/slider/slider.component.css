@@ -1,0 +1,53 @@
+
+.box {
+    /* width: 200px; */
+    height: 6px;
+    background-color: whitesmoke;
+    border-radius: 5%;
+    border: 1px solid lightgray;
+    position: relative;
+    top: 15px;    
+}
+
+.cbox {
+    /* width: 200px; */
+    height: 6px;
+    background-color: whitesmoke;
+    border-radius: 5%;
+    border: 1px solid lightgray;
+    position: relative;
+    top: 7px;    
+}
+
+.sbox {
+    
+}
+
+.slider {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    /* background-color: blue; */
+    display: block;      
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;   
+    position: relative;
+    top: -7px; 
+}
+
+:host {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 2px; 
+    margin-bottom: 2px;
+}
+
+.displayValue {
+    position: relative;
+    top: 11px;
+    margin-left: 10px;
+    margin-right: 10px;
+}

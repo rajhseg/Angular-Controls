@@ -1,0 +1,12 @@
+<div style="display: flex;">
+    <div class="sbox">
+        <div class="box" [ngStyle]="{'width':SliderWidth+'px'}"></div>
+        <div class="cbox" 
+            [ngStyle]="{'background-color': EnablePathColor ? BackgroundColor : 'transparent', 'width':currentDistance+'px'}"></div>
+        <div #slider class="slider" [ngStyle]="{'background-color': BackgroundColor}" cdkDragLockAxis="x" cdkDrag
+            cdkDragBoundary=".sbox" (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"
+            (cdkDragReleased)="dragEnded($event)">
+        </div>
+    </div>
+    <div *ngIf="IsDisplayValue" class="displayValue">{{SliderValue}}</div>
+</div>

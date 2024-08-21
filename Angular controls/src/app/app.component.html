@@ -40,7 +40,14 @@
   
   <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
-
+  <br/>
+  <rslider [IsDisplayValue]="false" [(ngModel)]="rangeValue"></rslider> {{rangeValue}}
+  <br/>
+  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'"></rslider>
+  <br/>
+  <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
+  <br/>
+  
   <button (click)="AddTab()">Add Tab</button>
 
   <div cdkDropListGroup>
@@ -131,6 +138,13 @@
 
     <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
 
+      <rtab *tabidfor="{ 'TabId':'tab25', 'HeaderText':'Slider', 'Context':this }">        
+        <rslider [IsDisplayValue]="false" [(ngModel)]="rangeValue"></rslider> {{rangeValue}}
+        <br/>
+        <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'"></rslider>
+        <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
+      </rtab>
+
       <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Calender 2', 'Context':this }">
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
         <rcalender [(ngModel)]="dt2" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt2}}
@@ -182,7 +196,7 @@
 
         <button (click)="ResetProgress()">Reset</button>
 
-      </rtab>
+      </rtab>   
 
     </rtabs>
   </div>

@@ -41,6 +41,7 @@
   <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
   <br/>
+  
   <rslider [IsDisplayValue]="false" [(ngModel)]="rangeValue"></rslider> {{rangeValue}}
   <br/>
   <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'"></rslider>

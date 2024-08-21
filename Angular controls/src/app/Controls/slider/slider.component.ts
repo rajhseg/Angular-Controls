@@ -73,7 +73,7 @@ export class RSliderComponent implements ControlValueAccessor {
     this.currentDistance = Number.parseInt(width.toString());
 
     if(this.sliderElement){
-      this.sliderElement.nativeElement.style.webkitTransform = `translateX(${this.currentDistance}px)`;
+      (this.sliderElement.nativeElement as HTMLElement).style.transform = `translateX(${this.currentDistance}px)`;
     }
 
     this.notifyToUI();

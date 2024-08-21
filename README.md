@@ -35,6 +35,9 @@ RadioButton
 ![image](https://github.com/user-attachments/assets/4ba30a66-257e-4daf-9088-9a95d6a7aa5b)
 
 
+Sequence Vertical or Stepper Vertical Control 
+----------------------------------------------
+![image](https://github.com/user-attachments/assets/48bdb2a1-86d1-40e0-9336-2ba6da9aeb60)
 
 
 Slider
@@ -115,7 +118,7 @@ Slider
 ![image](https://github.com/user-attachments/assets/7bc1cf45-f23a-43df-ade1-198156dd3946)
 
 
-Sequence VErtical or Stepper Vertical Control 
+Sequence Vertical or Stepper Vertical Control 
 ----------------------------------------------
 ![image](https://github.com/user-attachments/assets/48bdb2a1-86d1-40e0-9336-2ba6da9aeb60)
 

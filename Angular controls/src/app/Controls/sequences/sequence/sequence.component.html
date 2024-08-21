@@ -1,5 +1,15 @@
 
 <div style="display: flex;">
+    <div *ngIf="Item?.IsLeftAlign" class="leftContent" 
+        [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
+                            CompletedForeColor : PendingForeColor),
+            'width': ContentWidth,
+            'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ?  CompletedBackgroundColor : PendingBackgroundColor}">
+        {{Item?.DisplayText}}
+    </div>
+    <div *ngIf="!Item?.IsLeftAlign" class="leftemptyContent" [ngStyle]="{'width': ContentWidth}">
+
+    </div>
     <div>
         <div class="tline" [style.backgroundColor]="StripLineColor"></div>
         <div class="circle" [ngStyle]="{ 
@@ -8,7 +18,9 @@
         </div>
         <div *ngIf="!Item?.IsLastItem" class="bline" [style.backgroundColor]="StripLineColor"></div>
     </div>   
-    <div class="content" [ngStyle]="{'Color': Item?.IsActive ? ActiveForeColor : Item?.IsCompleted ? CompletedForeColor : PendingForeColor,
+    <div *ngIf="!Item?.IsLeftAlign" class="content" 
+        [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
+                            CompletedForeColor : PendingForeColor),
             'width': ContentWidth,
             'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ?  CompletedBackgroundColor : PendingBackgroundColor}">
         {{Item?.DisplayText}}

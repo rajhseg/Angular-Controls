@@ -61,3 +61,42 @@
     -webkit-transition: .2s;
     transition: opacity .2s;   
 }
+
+.leftContent {
+    padding-top: 10px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow-wrap: break-word;
+    left: 11px;
+    position: relative;
+    height: 40px;
+    top: 10px;
+    text-wrap: wrap;
+    border-radius: 4%;
+
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;   
+    margin-right: 20px;
+}
+
+.leftemptyContent{
+    padding-top: 10px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow-wrap: break-word;
+    left: 11px;
+    position: relative;
+    height: 40px;
+    top: 10px;
+    text-wrap: wrap;        
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;   
+    margin-right: 20px;
+}

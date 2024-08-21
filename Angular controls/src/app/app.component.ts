@@ -110,6 +110,7 @@ export class AppComponent implements AfterViewInit {
     this.CompletedItem = new RSequenceItem();
     this.CompletedItem.IsCompleted = true;
     this.CompletedItem.Value = 1;
+    this.CompletedItem.IsLeftAlign = true;
     this.CompletedItem.DisplayText= "Completed step 1";
 
     this.ActiveItem = new RSequenceItem();
@@ -121,6 +122,7 @@ export class AppComponent implements AfterViewInit {
     this.PendingItem = new RSequenceItem();
     this.PendingItem.IsPending = true;
     this.PendingItem.Value = 3;
+    this.PendingItem.IsLeftAlign = true;
     this.PendingItem.DisplayText="Pending step 3";
 
     this.LastPendingItem = new RSequenceItem();

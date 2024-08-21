@@ -9,6 +9,8 @@ export class RSequenceItem {
 
     public IsLastItem: boolean = false;
 
+    public IsLeftAlign: boolean = false;
+
     private _isactive: boolean = false;
     private _isPending: boolean = false;
     private _isCompleted: boolean = false;

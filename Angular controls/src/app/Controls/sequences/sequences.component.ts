@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { RSequenceVerticalComponent } from "./sequence/sequence.component";
 import { RSequenceItem } from './sequence/sequenceitem';
 import { NgForOf } from '@angular/common';
@@ -30,7 +30,7 @@ export class RSequencesVerticalComponent {
   @Input()
   public CompletedBackgroundColor: string = "purple";
 
-  
+
   @Input()
   public PendingForeColor: string = "Black";
 
@@ -45,59 +45,86 @@ export class RSequencesVerticalComponent {
   public ActiveBackgroundColor: string = "green";
 
   @Input()
-  public set Items(value: RSequenceItem[]){
+  public set Items(value: RSequenceItem[]) {
     this._items = value;
-    let activeIndex = this._items.findIndex(x=>x.IsActive);
-    
-    if(activeIndex==-1)
+    let activeIndex = this._items.findIndex(x => x.IsActive);
+
+    if (activeIndex == -1)
       this.setActiveFirstItem();
   }
   public get Items(): RSequenceItem[] {
     return this._items;
   }
-  
-  public moveToNext(){
-    let currentIndex = this._items.findIndex(x=>x.IsActive);    
-    let nextIndex = currentIndex +1;
-    
-    if(nextIndex> this._items.length){
+
+  constructor(private cdr: ChangeDetectorRef) {
+
+  }
+
+  public moveToNext() {
+    let currentIndex = this._items.findIndex(x => x.IsActive);
+    let lastCompletedIndex = this.Items.findIndex(x => x.IsCompleted);
+
+    if (currentIndex == -1 && lastCompletedIndex > -1) {
+      return;
+    }
+
+    let nextIndex = currentIndex + 1;
+
+    if (nextIndex >= this._items.length) {
       this._items[currentIndex].IsCompleted = true;
       return;
     }
-      
-    this._items[nextIndex].IsActive = true;  
+
+    this._items[nextIndex].IsActive = true;
     this._currentActiveIndex = nextIndex;
-    this._currentActiveItem = this._items[nextIndex];  
+    this._currentActiveItem = this._items[nextIndex];
     this._items[currentIndex].IsCompleted = true;
+
+    this.cdr.detectChanges();
+
+    console.log(this._items[nextIndex]);
   }
 
-  
-  public moveToPrevious(){
-    let currentIndex = this._items.findIndex(x=>x.IsActive);    
+
+  public moveToPrevious() {
+    let currentIndex = this._items.findIndex(x => x.IsActive);
     let previousIndex = currentIndex - 1;
-    
-    if(previousIndex< 0){
-      this._items[currentIndex].IsPending = true;
+    let lastCompletedIndex = this.Items.findIndex(x => x.IsCompleted);
+
+    if (currentIndex < 0 && lastCompletedIndex > -1) {
+      this._items[this.Items.length - 1].IsActive = true;
       return;
     }
-      
-    this._items[previousIndex].IsActive = true; 
+
+    if (previousIndex < 0) {
+      if (this._items[currentIndex].IsActive) {
+        this._items[currentIndex].IsActive = false;
+        this._items[currentIndex].IsPending = true;
+      } else {
+        this._items[currentIndex].IsActive = true;
+      }
+      return;
+    }
+
+    this._items[previousIndex].IsActive = true;
     this._currentActiveIndex = previousIndex;
-    this._currentActiveItem = this._items[previousIndex];   
+    this._currentActiveItem = this._items[previousIndex];
     this._items[currentIndex].IsPending = true;
+    this.cdr.detectChanges();
   }
 
-  private setActiveFirstItem(){
-    if(this._items.length>0) {
+  private setActiveFirstItem() {
+    if (this._items.length > 0) {
       this._items[0].IsActive = true;
       this._currentActiveIndex = 0;
       this._currentActiveItem = this._items[0];
-    }    
+    }
 
     for (let index = 1; index < this._items.length; index++) {
       const element = this._items[index];
       element.IsPending = true;
-      
+
     }
+    this.cdr.detectChanges();
   }
 }

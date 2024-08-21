@@ -32,6 +32,12 @@ Checkbox
 
 
 
+Slider
+-----------------------------
+![image](https://github.com/user-attachments/assets/7bc1cf45-f23a-43df-ade1-198156dd3946)
+
+
+
  StarRating Control
 ---------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/802c17b4-753a-4dae-8dd1-9c7cefd39f78)

@@ -28,7 +28,18 @@ Checkbox
 ---------------------------
 ![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
 
-![image](https://github.com/user-attachments/assets/8812cfb4-f0e5-41cb-b2c0-15a8bfd0e16f)
+
+RadioButton
+----------------------------
+
+![image](https://github.com/user-attachments/assets/4ba30a66-257e-4daf-9088-9a95d6a7aa5b)
+
+
+
+
+Slider
+-----------------------------
+![image](https://github.com/user-attachments/assets/7bc1cf45-f23a-43df-ade1-198156dd3946)
 
 
 

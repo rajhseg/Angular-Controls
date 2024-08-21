@@ -1,0 +1,17 @@
+
+<div style="display: flex;">
+    <div>
+        <div class="tline" [style.backgroundColor]="StripLineColor"></div>
+        <div class="circle" [ngStyle]="{ 
+            'border': Item?.IsPending ? '1px solid lightgray' : '',
+            'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ? CompletedBackgroundColor : PendingBackgroundColor}">
+        </div>
+        <div *ngIf="!Item?.IsLastItem" class="bline" [style.backgroundColor]="StripLineColor"></div>
+    </div>   
+    <div class="content" [ngStyle]="{'Color': Item?.IsActive ? ActiveForeColor : Item?.IsCompleted ? CompletedForeColor : PendingForeColor,
+            'width': ContentWidth,
+            'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ?  CompletedBackgroundColor : PendingBackgroundColor}">
+        {{Item?.DisplayText}}
+    </div>
+    
+</div>

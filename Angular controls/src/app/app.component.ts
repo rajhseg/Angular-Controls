@@ -20,6 +20,8 @@ import { RTreeItem } from './Controls/Tree/TreeModel';
 import { RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
 import { RRadiobuttonComponent } from "./Controls/radiobutton/radiobutton.component";
 import { RSliderComponent } from "./Controls/slider/slider.component";
+import { RSequencesVerticalComponent } from "./Controls/sequences/sequences.component";
+import { RSequenceItem } from './Controls/sequences/sequence/sequenceitem';
 
 @Component({
   selector: 'app-root',
@@ -39,7 +41,8 @@ import { RSliderComponent } from "./Controls/slider/slider.component";
     RTreeComponent,
     RCheckboxComponent,
     RRadiobuttonComponent,
-    RSliderComponent
+    RSliderComponent,
+    RSequencesVerticalComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -69,9 +72,17 @@ export class AppComponent implements AfterViewInit {
   IsVolleyball: boolean = false;
   IsTennis: boolean = false;
   
+  seqItems: RSequenceItem[]=[];
+
+  ActiveItem!: RSequenceItem;
+  CompletedItem!: RSequenceItem;
+  PendingItem!: RSequenceItem;
+  LastPendingItem!: RSequenceItem;
+  
   treeItems: RTreeItem[] | undefined = undefined;
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
+  @ViewChild('sequ', {read: RSequencesVerticalComponent}) sequ!: RSequencesVerticalComponent;
 
   constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {
     this.items.push(new DropdownModel("0", "Jan"));
@@ -92,7 +103,44 @@ export class AppComponent implements AfterViewInit {
     this.perc = 55;
     this.IncrementValue(this);
     this.createTreeData();
-   
+    this.createSequenceVerticalItems();
+  }
+
+  createSequenceVerticalItems(){
+    this.CompletedItem = new RSequenceItem();
+    this.CompletedItem.IsCompleted = true;
+    this.CompletedItem.Value = 1;
+    this.CompletedItem.DisplayText= "Completed step 1";
+
+    this.ActiveItem = new RSequenceItem();
+    this.ActiveItem.IsActive = true;
+
+    this.ActiveItem.Value = 2;
+    this.ActiveItem.DisplayText= "Active step 2";
+
+    this.PendingItem = new RSequenceItem();
+    this.PendingItem.IsPending = true;
+    this.PendingItem.Value = 3;
+    this.PendingItem.DisplayText="Pending step 3";
+
+    this.LastPendingItem = new RSequenceItem();
+    this.LastPendingItem.IsPending = true;
+    this.LastPendingItem.IsLastItem = true;
+    this.LastPendingItem.Value = 4;
+    this.LastPendingItem.DisplayText="Last Pending step 4";
+
+    this.seqItems.push(this.CompletedItem);
+    this.seqItems.push(this.ActiveItem);
+    this.seqItems.push(this.PendingItem);
+    this.seqItems.push(this.LastPendingItem);
+  }
+
+  nextStep(){
+    this.sequ.moveToNext();
+  }
+
+  prevStep(){
+    this.sequ.moveToPrevious();
   }
 
   createTreeData(){

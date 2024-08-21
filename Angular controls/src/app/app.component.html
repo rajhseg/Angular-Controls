@@ -41,7 +41,15 @@
   <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
   <br/>
+
+  <button (click)="nextStep()">Move to Next Step</button>
+  <button (click)="prevStep()">Move to Previous Step</button>
+  <br/>
   
+  <rstepper-vertical #sequ [Items]="seqItems" [ActiveBackgroundColor]="'blue'"></rstepper-vertical>
+  
+  <br/>
+
   <rslider [IsDisplayValue]="false" [(ngModel)]="rangeValue"></rslider> {{rangeValue}}
   <br/>
   <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'"></rslider>

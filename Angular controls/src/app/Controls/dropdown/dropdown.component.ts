@@ -1,10 +1,9 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { AfterContentChecked, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { DropdownModel } from './dropdownmodel';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { optionTemplate } from './optiontemplate.component';
 import { DropdownService } from './dropdownservice.service';
-import { EventEmitter } from 'stream';
 import { IPopupCloseInterface, PopupService } from '../popup.service';
 import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 
@@ -47,9 +46,11 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   
   IsChildOfAnotherControlClicked: boolean = false;
 
-  Opened = output<boolean>();
+  @Output()
+  Opened = new EventEmitter<boolean>(); // output<boolean>();
 
-  Closed = output<boolean>();
+  @Output()
+  Closed = new EventEmitter<boolean>(); // output<boolean>();
 
   @Input()
   ParentComponent: any | undefined = undefined;
@@ -63,7 +64,8 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   @Input()
   DropDownContentWidth: string = '120px';
 
-  change = output<any>();
+  @Output()
+  change = new EventEmitter<any>(); // output<any>();
 
   private _show: boolean = false;
 

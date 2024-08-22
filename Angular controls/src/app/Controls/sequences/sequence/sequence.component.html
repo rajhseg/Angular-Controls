@@ -7,7 +7,7 @@
             'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ?  CompletedBackgroundColor : PendingBackgroundColor}">
         {{Item?.DisplayText}}
     </div>
-    <div *ngIf="!Item?.IsLeftAlign" class="leftemptyContent" [ngStyle]="{'width': ContentWidth}">
+    <div *ngIf="EnableEmptyItemOnLeftSide && !Item?.IsLeftAlign" class="leftemptyContent" [ngStyle]="{'width': ContentWidth}">
 
     </div>
     <div>

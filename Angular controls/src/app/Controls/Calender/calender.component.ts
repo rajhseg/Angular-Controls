@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, Injector, Input, OnDestroy, OnInit, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -63,7 +63,9 @@ Id: string = '';
 
 onChange: any = ()=>{};
 onTouch: any = ()=> {};
-onDateSelected = output<Date>();
+
+@Output()
+onDateSelected = new EventEmitter<Date>(); // output<Date>();
 
 @ViewChild('calmodal') calModal!: ElementRef;
 
@@ -114,9 +116,11 @@ get IsCalenderOpen(): boolean {
   return this._showCalender;
 }
 
-Opened = output<boolean>();
+@Output()
+Opened = new EventEmitter<boolean>(); // output<boolean>();
 
-Closed = output<boolean>();
+@Output()
+Closed = new EventEmitter<boolean>(); //output<boolean>();
 
 private winObj!: Window;
 

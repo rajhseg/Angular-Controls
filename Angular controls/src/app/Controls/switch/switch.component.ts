@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, Input, forwardRef, output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef, output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -37,7 +37,8 @@ export class SwitchComponent implements ControlValueAccessor {
 
   onTouch: Function = () => {};
 
-  checked = output<boolean>();
+  @Output()
+  checked = new EventEmitter<boolean>(); // output<boolean>();
 
   writeValue(obj: any): void {
     

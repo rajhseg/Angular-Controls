@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, forwardRef, output, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
 
@@ -28,7 +28,9 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
 
   onChange: any = ()=>{};
   onTouch: any = ()=> {};
-  onRatingValueChanged = output<number>();
+
+  @Output()
+  onRatingValueChanged =new EventEmitter<number>(); // output<number>();
 
   @Input()
   set noOfStars(value: number){
@@ -142,9 +144,9 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   
   writeValue(obj: any): void {
     this.ratingValue = obj;
-    this.onRatingValueChanged.emit(obj);
     this.onChange(this.ratingValue);
-    this.onTouch(this.ratingValue);    
+    this.onTouch(this.ratingValue); 
+    this.onRatingValueChanged.emit(obj);      
   }
 
   registerOnChange(fn: any): void {

@@ -78,7 +78,9 @@ export class AppComponent implements AfterViewInit {
   CompletedItem!: RSequenceItem;
   PendingItem!: RSequenceItem;
   LastPendingItem!: RSequenceItem;
-  
+  StepperSelectedItem!: RSequenceItem;
+  SeqActiveIndex: number = 1;
+
   treeItems: RTreeItem[] | undefined = undefined;
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
@@ -106,28 +108,26 @@ export class AppComponent implements AfterViewInit {
     this.createSequenceVerticalItems();
   }
 
+  seqValueChanged(event: RSequenceItem) {
+    console.log(this.StepperSelectedItem);
+  }
+
   createSequenceVerticalItems(){
-    this.CompletedItem = new RSequenceItem();
-    this.CompletedItem.IsCompleted = true;
+    this.CompletedItem = new RSequenceItem();    
     this.CompletedItem.Value = 1;
     this.CompletedItem.IsLeftAlign = true;
     this.CompletedItem.DisplayText= "Completed step 1";
 
     this.ActiveItem = new RSequenceItem();
-    this.ActiveItem.IsActive = true;
-
     this.ActiveItem.Value = 2;
     this.ActiveItem.DisplayText= "Active step 2";
 
     this.PendingItem = new RSequenceItem();
-    this.PendingItem.IsPending = true;
     this.PendingItem.Value = 3;
     this.PendingItem.IsLeftAlign = true;
     this.PendingItem.DisplayText="Pending step 3";
 
-    this.LastPendingItem = new RSequenceItem();
-    this.LastPendingItem.IsPending = true;
-    this.LastPendingItem.IsLastItem = true;
+    this.LastPendingItem = new RSequenceItem();    
     this.LastPendingItem.Value = 4;
     this.LastPendingItem.DisplayText="Last Pending step 4";
 
@@ -135,14 +135,19 @@ export class AppComponent implements AfterViewInit {
     this.seqItems.push(this.ActiveItem);
     this.seqItems.push(this.PendingItem);
     this.seqItems.push(this.LastPendingItem);
+    
+    this.StepperSelectedItem = this.PendingItem;
+
   }
 
   nextStep(){
+    //this.SeqActiveIndex++;
     this.sequ.moveToNext();
   }
 
   prevStep(){
     this.sequ.moveToPrevious();
+    //this.SeqActiveIndex--;
   }
 
   createTreeData(){

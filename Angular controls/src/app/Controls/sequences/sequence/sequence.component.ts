@@ -14,6 +14,9 @@ export class RSequenceVerticalComponent {
   private _item: RSequenceItem | undefined = undefined;
 
   @Input()
+  public EnableEmptyItemOnLeftSide: boolean = true;
+  
+  @Input()
   public ContentWidth: string = "250px";
 
   @Input()

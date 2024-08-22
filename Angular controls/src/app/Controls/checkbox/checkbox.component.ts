@@ -63,9 +63,9 @@ export class RCheckboxComponent implements ControlValueAccessor {
     }
 
     this.IsChecked = checkValue;
-    this.OnCheckChanged.emit(this.IsChecked);
     this.onChange(this.IsChecked);
     this.onTouch(this.IsChecked);
+    this.OnCheckChanged.emit(this.IsChecked);   
   }
   
   emitValueToUI(){

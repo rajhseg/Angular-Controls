@@ -46,7 +46,10 @@
   <button (click)="prevStep()">Move to Previous Step</button>
   <br/>
   
-  <rstepper-vertical #sequ [Items]="seqItems" [ActiveBackgroundColor]="'blue'"></rstepper-vertical>
+  <rstepper-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
+                [(ngModel)]="StepperSelectedItem"
+                (OnActiveValueChanged)="seqValueChanged($event)"
+                [ActiveBackgroundColor]="'blue'"></rstepper-vertical>
   
   <br/>
 
@@ -60,7 +63,7 @@
   <button (click)="AddTab()">Add Tab</button>
 
   <div cdkDropListGroup>
-    <rtabs [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
+    <rtabs [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
 
       <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Calender', 'Context':this }">
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
@@ -145,7 +148,7 @@
 
     </rtabs>
 
-    <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'250px'" [DisplayTabContainerWhenZeroTabs]="true">
+    <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
 
       <rtab *tabidfor="{ 'TabId':'tab25', 'HeaderText':'Slider', 'Context':this }">        
         <rslider [IsDisplayValue]="false" [(ngModel)]="rangeValue"></rslider> {{rangeValue}}
@@ -154,10 +157,17 @@
         <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
       </rtab>
 
-      <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Calender 2', 'Context':this }">
-        <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
-        <rcalender [(ngModel)]="dt2" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt2}}
-        <rcalender></rcalender>
+      <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'Stepper Vertical', 'Context':this }">        
+          <button (click)="nextStep()">Move to Next Step</button>
+          <button (click)="prevStep()">Move to Previous Step</button>
+          <br/>
+          
+          <rstepper-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
+                        [(ngModel)]="StepperSelectedItem"
+                        (OnActiveValueChanged)="seqValueChanged($event)"
+                        [ActiveBackgroundColor]="'blue'"></rstepper-vertical>
+          
+          <br/>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'Combobox 2', 'Context':this }">

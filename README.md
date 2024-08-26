@@ -34,7 +34,8 @@ Textbox Control
 
  Dropdown Control
 -------------------
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/1b6abd7b-cd37-48c3-952b-826766aa89f4)
+![image](https://github.com/user-attachments/assets/27655d87-7699-455a-ac3e-f6696709c52a)
+
 
 
 

@@ -4,10 +4,6 @@ This Repo is under development so there may be some issues you can face while us
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
 switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox etc
 
-group panel Control
---------------------------------------
-
-![image](https://github.com/user-attachments/assets/d18acc04-5212-4118-a7b9-abc98a7fed1c)
 
 
 button control
@@ -22,6 +18,12 @@ Textbox Control
 --------------------------------
 
 ![image](https://github.com/user-attachments/assets/881eccd2-34e6-4185-bc03-df49400c2a04)
+
+
+group panel Control
+--------------------------------------
+
+![image](https://github.com/user-attachments/assets/d18acc04-5212-4118-a7b9-abc98a7fed1c)
 
 
  Calender Control

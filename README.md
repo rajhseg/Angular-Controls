@@ -2,7 +2,7 @@
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
-switch, Tab, Tree, Checkbox, RadioButton, Slider, Sequence or Stepper etc
+switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox etc
 
  Calender Control
 -------------------
@@ -36,7 +36,7 @@ RadioButton
 
 
 
-Sequence Vertical or Stepper Vertical Control 
+Rstate-Vertical Control 
 ----------------------------------------------
 ![image](https://github.com/user-attachments/assets/48bdb2a1-86d1-40e0-9336-2ba6da9aeb60)
 
@@ -122,11 +122,42 @@ Slider
 ![image](https://github.com/user-attachments/assets/7bc1cf45-f23a-43df-ade1-198156dd3946)
 
 
-Sequence Vertical or Stepper Vertical Control 
+rstate-Vertical Control 
 ----------------------------------------------
+
 ![image](https://github.com/user-attachments/assets/48bdb2a1-86d1-40e0-9336-2ba6da9aeb60)
 
 ![image](https://github.com/user-attachments/assets/37f06a58-4e94-4bde-8636-3d50999c8af1)
+
+
+rstate-horizontal Control
+--------------------------------------
+
+![image](https://github.com/user-attachments/assets/fd57e00b-00ce-4eba-ba1f-23f2473c66b9)
+
+
+group panel Control
+--------------------------------------
+
+![image](https://github.com/user-attachments/assets/d18acc04-5212-4118-a7b9-abc98a7fed1c)
+
+
+button control
+--------------------------------------
+
+![image](https://github.com/user-attachments/assets/c95d1ba1-c6fb-4672-be5b-7b994ab89992)
+
+![image](https://github.com/user-attachments/assets/91c0f233-af11-4a8a-81d7-bf70a431528a)
+
+
+Textbox Control
+--------------------------------
+
+![image](https://github.com/user-attachments/assets/881eccd2-34e6-4185-bc03-df49400c2a04)
+
+
+
+
 
 
 

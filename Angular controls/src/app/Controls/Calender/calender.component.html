@@ -17,17 +17,12 @@
             <rdropdown #monthdropdown  [IsDropDownOpen]="IsMonthDropdownOpen" [ParentComponent]="this"
                         (Closed)="isMonthDropdownClosed($event)"
                         (Opened)="isMonthDropdownOpened($event)"
-                        [IsChildOfAnotherControl]="isDropdownChild"                         
+                        [IsChildOfAnotherControl]="isDropdownChild"     
+                        [IsMulti]="false"                    
                         (change)="changeMonth($event)" 
-                        [ngModel]="this.monthNames[this.month]" 
-                        (ngModelChange)="this.selectedMonthInString = $event"
-                        [Items]="this.monthNames" 
-                        DropDownContentWidth="92px">
-                <optionTemplate *ngFor="let item of this.monthNames" [Item]="item">
-                  <div>
-                    {{item}}
-                  </div>
-                </optionTemplate>
+                        [(ngModel)]="month"                         
+                        [Items]="monthNames" 
+                        DropDownContentWidth="92px">                
             </rdropdown>
 
         </div>
@@ -36,23 +31,10 @@
             <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"
                         [IsChildOfAnotherControl]="isDropdownChild"    
                         (change)="changeYear($event)" 
-                        [(ngModel)]="this.year" 
-                        [Items]="this.totalYears" 
-                        DropDownContentWidth="92px">
-                        <optionTemplate><div (click)="addPrevYears($event);$event.stopPropagation();" class="yeararrow">
-                             <i class="arrow up"></i>
-                            </div>
-                        </optionTemplate>
-                        <optionTemplate *ngFor="let item of this.totalYears" [Item]="item">
-                            <div>
-                                {{item}}
-                            </div>
-                        </optionTemplate>
-                        <optionTemplate>
-                            <div (click)="addNextYears($event);$event.stopPropagation();" class="yeararrow">
-                            <i class="arrow down"></i>
-                        </div>
-                    </optionTemplate>
+                        [IsMulti]="false"
+                        [(ngModel)]="year" 
+                        [Items]="totalYears" 
+                        DropDownContentWidth="92px">                       
             </rdropdown>
 
         </div>

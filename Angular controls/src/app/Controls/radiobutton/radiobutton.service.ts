@@ -11,11 +11,17 @@ export class RadioButtonService {
         this.radiobtns.push(obj);
     }
 
-    public ResetRadioButtonsForGroup(groupname: string){
+    public ResetRadioButtonsForGroup($event: Event | undefined, groupname: string){
         let filtered = this.radiobtns.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase());
         filtered.forEach(x=>{
             x.IsChecked = false;
-            x.emitValueToUI();
+            x.emitValueToModel($event);
         });
+    }
+}
+
+export class RadioEventArgs {
+    constructor(public event: Event | undefined, public isChecked:boolean) {
+
     }
 }

@@ -1,8 +1,8 @@
-<div style="display: flex;">
+<div style="display: flex;cursor: pointer;" (click)="check($event)">
     <div *ngIf="!DisplayTextRightAlign" class="label">
         {{DisplayText}}
     </div>
-    <div class="checkroot" (click)="check($event)">
+    <div class="checkroot">
         <span [ngClass]="{'round': IsChecked}" [ngStyle]="{'background-color': Color}">
 
         </span>

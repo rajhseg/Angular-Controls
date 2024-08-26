@@ -1,0 +1,104 @@
+
+
+.tline {
+    width: 40px;
+    height: 4px;    
+    border-radius: 10%;    
+    display: block;      
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;   
+    position: relative;        
+    left: -1px;
+    top: 2px;
+}
+
+.circle {          
+    border-radius: 50%;
+    display: block;      
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;   
+    position: relative;    
+    left: 37px;    
+    z-index: 4;
+    text-align: center;
+}
+
+
+.number {
+    text-align: center;
+    font-size: 11px;    
+    vertical-align: middle;
+    align-content: center;
+    margin: auto;
+    font-weight: bold;
+}
+
+.bline {
+    width: 100px;
+    height: 4px;    
+    border-radius: 10%;    
+    display: block;      
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;   
+    position: relative;
+    margin-left: 0px;        
+    top:-2px;
+}
+
+.content {          
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow-wrap: break-word;
+    position: relative; 
+    text-wrap: wrap;
+    border-radius: 4%;   
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;      
+    font-size: 12px;    
+}
+
+.topContent {
+    padding-top: 10px;
+    padding-bottom: 11px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow-wrap: break-word;
+    left: 0px;
+    position: relative;
+    text-wrap: wrap;
+    border-radius: 4%;    
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;           
+    font-size: 12px;
+}
+
+.topemptyContent{
+    padding-top: 26px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow-wrap: break-word;
+    left: 0px;
+    position: relative;
+    text-wrap: wrap;
+    border-radius: 4%;    
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;           
+    font-size: 12px;
+}

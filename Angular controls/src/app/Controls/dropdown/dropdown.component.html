@@ -1,15 +1,35 @@
-
 <div class="dropdown">
-    <input readonly class="inpdrop" type="text" [(ngModel)]="SelectedDisplay" [ngStyle]="{'width':Width}">
-    <button (click)="openDropdown($event)" class="dropdownbtn"> 
-        <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
-    </button>
-    <div id="myDropdown" (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)" 
-        class="dropdown-content" 
-        [ngStyle]="{'minWidth':DropDownContentWidth, 'visibility':IsDropDownOpen ? 'visible': 'collapse' }">
+  <input (click)="openDropdown($event)" readonly class="inpdrop" type="text" [(ngModel)]="SelectedDisplay" [ngStyle]="{'width':Width}">
+  <button (click)="openDropdown($event)" class="dropdownbtn">
+    <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
+  </button>
+  <div id="myDropdown" (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)"
+    class="dropdown-content" style="background-color: white;" [ngStyle]="{'minWidth':DropDownContentWidth, 
+        'visibility':IsDropDownOpen ? 'visible': 'collapse',
+        'background-color': BackgroundColor,
+        'color': ForeColor
+        }">
 
-      <ng-content class="option-content" select="optionTemplate">
-
-      </ng-content>
+    <div *ngIf="IsMulti" style="cursor: pointer;">
+      <div class="option-content" style="padding-left:6px;padding-top:6px;cursor: pointer;">
+        <rcheckbox style="width: auto;" (OnCheckChanged)="selectall($event)" [DisplayText]="'Select All'">
+        </rcheckbox>
+      </div>
+      <div class="option-content"  style="padding-left:6px;">
+        <rcheckbox (OnCheckChanged)="checkValue($event, item)" 
+              [IsChecked]="item.IsSelected" 
+              *ngFor="let item of ComplexItems" style="width: auto;padding: 6px;cursor: pointer;"
+          [DisplayText]="item.DisplayValue"></rcheckbox>        
+      </div>
     </div>
+
+    <div *ngIf="!IsMulti">
+      <div class="option-content">
+        <div class="item" style="padding-top:8px; padding-bottom: 10px;" (click)="selectSingleValue($event, item)"             
+            *ngFor="let item of ComplexItems" 
+            [ngClass]="{'dropdown-content-selected': item.IsSelected}">{{item.DisplayValue}}</div>        
+      </div>
+    </div>
+  
   </div>
+</div>

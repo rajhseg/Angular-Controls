@@ -12,11 +12,18 @@ export class CheckboxService {
         this.checkboxs.push(obj);
     }
 
-    public ResetCheckboxesForGroup(groupname: string){
+    public ResetCheckboxesForGroup($event: Event | undefined, groupname: string){
         let filtered = this.checkboxs.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase());
         filtered.forEach(x=>{
             x.IsChecked = false;
-            x.emitValueToUI();
+            x.emitValueToModel($event);
         });
+    }
+}
+
+
+export class CheckboxEventArgs {
+    constructor(public event: Event | undefined, public isChecked:boolean) {
+
     }
 }

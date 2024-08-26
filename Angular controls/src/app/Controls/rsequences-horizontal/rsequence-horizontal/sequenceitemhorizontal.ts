@@ -1,17 +1,19 @@
+
+
 import { Input } from "@angular/core";
 
 
-export class RSequenceVerticalItem {
-    
-    public StepNo: number = 1;
+export class RSequenceHorizontalItem {
 
+    public StepNo: number = -1;
+    
     public Value: object | string | number | undefined = undefined;
 
     public DisplayText: string = "";
 
     public IsLastItem: boolean = false;
 
-    public IsLeftAlign: boolean = false;
+    public IsTopAlign: boolean = false;
 
     private _isactive: boolean = false;
     private _isPending: boolean = false;

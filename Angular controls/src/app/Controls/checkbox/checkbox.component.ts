@@ -1,7 +1,7 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CheckboxService } from './checkbox.service';
+import { CheckboxEventArgs, CheckboxService } from './checkbox.service';
 
 @Component({
   selector: 'rcheckbox',
@@ -30,7 +30,7 @@ export class RCheckboxComponent implements ControlValueAccessor {
   GroupName: string = "";
 
   @Output()
-  OnCheckChanged = new EventEmitter<boolean>();
+  OnCheckChanged = new EventEmitter<CheckboxEventArgs>();
 
   onChange: Function = () => { };
 
@@ -40,8 +40,8 @@ export class RCheckboxComponent implements ControlValueAccessor {
     this.service.AddInstance(this);
   }
 
-  resetValueForGroupedCheckbox(groupname: string) {
-    this.service.ResetCheckboxesForGroup(groupname);
+  resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
+    this.service.ResetCheckboxesForGroup($event, groupname);
   }
 
   check(event: Event) {
@@ -52,26 +52,28 @@ export class RCheckboxComponent implements ControlValueAccessor {
       }
       spanEle.classList.toggle('check');
     }
-    this.toggleCheck();
+    this.toggleCheck(event);
   }
 
-  toggleCheck() {
+  toggleCheck($event: Event) {
     let checkValue = !this.IsChecked;
 
     if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
-      this.resetValueForGroupedCheckbox(this.GroupName);
+      this.resetValueForGroupedCheckbox($event, this.GroupName);
     }
 
     this.IsChecked = checkValue;
-    this.onChange(this.IsChecked);
-    this.onTouch(this.IsChecked);
-    this.OnCheckChanged.emit(this.IsChecked);   
+    let args=new CheckboxEventArgs($event, this.IsChecked);
+    this.onChange(args);
+    this.onTouch(args);
+    this.OnCheckChanged.emit(args);   
   }
   
-  emitValueToUI(){
-    this.onChange(this.IsChecked);
-    this.onTouch(this.IsChecked);
-    this.OnCheckChanged.emit(this.IsChecked);
+  emitValueToModel($event: Event | undefined){
+    let args=new CheckboxEventArgs($event, this.IsChecked);
+    this.onChange(args);
+    this.onTouch(args);    
+    this.OnCheckChanged.emit(args);
   }
 
   writeValue(obj: any): void {
@@ -80,7 +82,10 @@ export class RCheckboxComponent implements ControlValueAccessor {
 
     let checkValue: boolean = false;
 
-    if (typeof obj === 'boolean') {
+    if(obj instanceof CheckboxEventArgs){
+      checkValue = obj.isChecked;
+    }
+    else if (typeof obj === 'boolean') {
       checkValue = obj;
     }
     else if (typeof obj === 'string') {
@@ -92,13 +97,13 @@ export class RCheckboxComponent implements ControlValueAccessor {
     }
 
     if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
-      this.resetValueForGroupedCheckbox(this.GroupName);
+      this.resetValueForGroupedCheckbox(undefined, this.GroupName);
     }
 
     this.IsChecked = checkValue;
-    this.onChange(this.IsChecked);
-    this.onTouch(this.IsChecked);
-    this.OnCheckChanged.emit(this.IsChecked);
+    let args=new CheckboxEventArgs(undefined, this.IsChecked);
+    
+    this.OnCheckChanged.emit(args);
   }
 
   registerOnChange(fn: any): void {

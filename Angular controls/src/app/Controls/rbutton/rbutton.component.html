@@ -1,0 +1,8 @@
+
+
+
+<button class="btn" 
+    (click)="onClick($event)" [type]="ButtonType"
+    [ngStyle]="{'color':ForeColor, 'background-color':BackgroundColor, 'border': '1px solid '+BackgroundColor}">
+    <ng-content></ng-content>
+</button>

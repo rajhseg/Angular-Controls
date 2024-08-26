@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RStarRatingComponent } from './rating.component';
+import { RTextboxComponent } from './rtextbox.component';
 
-describe('RatingComponent', () => {
-  let component: RStarRatingComponent;
-  let fixture: ComponentFixture<RStarRatingComponent>;
+describe('RtextboxComponent', () => {
+  let component: RTextboxComponent;
+  let fixture: ComponentFixture<RTextboxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RStarRatingComponent]
+      imports: [RTextboxComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(RStarRatingComponent);
+
+    fixture = TestBed.createComponent(RTextboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

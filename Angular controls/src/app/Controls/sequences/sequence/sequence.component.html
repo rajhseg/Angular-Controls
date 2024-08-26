@@ -13,8 +13,14 @@
     <div>
         <div class="tline" [style.backgroundColor]="StripLineColor"></div>
         <div class="circle" [ngStyle]="{ 
-            'border': Item?.IsPending ? '1px solid lightgray' : '',
+            'width':  IsDisplayStepNo ? '20px': '15px',
+            'height': IsDisplayStepNo ? '20px': '15px',
+            'left': IsDisplayStepNo ? '-2px' : '',            
             'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ? CompletedBackgroundColor : PendingBackgroundColor}">
+
+            <span *ngIf="IsDisplayStepNo" [ngStyle]="{'color': StepNoForeColor}" 
+                    class="number">{{Item?.StepNo}}</span>
+
         </div>
         <div *ngIf="!Item?.IsLastItem" class="bline" [style.backgroundColor]="StripLineColor"></div>
     </div>   
@@ -24,6 +30,5 @@
             'width': ContentWidth,
             'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ?  CompletedBackgroundColor : PendingBackgroundColor}">
         {{Item?.DisplayText}}
-    </div>
-    
+    </div>    
 </div>

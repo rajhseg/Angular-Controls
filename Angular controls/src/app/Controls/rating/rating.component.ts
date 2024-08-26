@@ -4,7 +4,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
 import { WindowHelper } from '../windowObject';
 
 @Component({
-  selector: 'starrating',
+  selector: 'rstarrating',
   standalone: true,
   imports: [NgFor],
   templateUrl: './rating.component.html',
@@ -12,12 +12,12 @@ import { WindowHelper } from '../windowObject';
   providers:[
     {
       provide:NG_VALUE_ACCESSOR,
-      useExisting:forwardRef(()=> RatingComponent),
+      useExisting:forwardRef(()=> RStarRatingComponent),
       multi: true
     }
   ]
 })
-export class RatingComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   
   _ratingValue: number = 0;
   _starwidth: number = 20;
@@ -144,9 +144,8 @@ export class RatingComponent implements OnInit, AfterViewInit, ControlValueAcces
   
   writeValue(obj: any): void {
     this.ratingValue = obj;
-    this.onChange(this.ratingValue);
-    this.onTouch(this.ratingValue); 
-    this.onRatingValueChanged.emit(obj);      
+    
+    this.onRatingValueChanged.emit(this.ratingValue);      
   }
 
   registerOnChange(fn: any): void {

@@ -5,8 +5,8 @@ import { DropdownComponent } from './Controls/dropdown/dropdown.component';
 import { DropdownModel } from './Controls/dropdown/dropdownmodel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JsonPipe, NgFor } from '@angular/common';
-import { optionTemplate } from './Controls/dropdown/optiontemplate.component';
-import { RatingComponent } from './Controls/rating/rating.component';
+
+import { RStarRatingComponent } from './Controls/rating/rating.component';
 import { SwitchComponent } from './Controls/switch/switch.component';
 import { ProgressbarComponent } from './Controls/progressbar/progressbar.component';
 import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/progressbarType';
@@ -20,8 +20,13 @@ import { RTreeItem } from './Controls/Tree/TreeModel';
 import { RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
 import { RRadiobuttonComponent } from "./Controls/radiobutton/radiobutton.component";
 import { RSliderComponent } from "./Controls/slider/slider.component";
-import { RSequencesVerticalComponent } from "./Controls/sequences/sequences.component";
-import { RSequenceItem } from './Controls/sequences/sequence/sequenceitem';
+import { RStateVerticalComponent } from "./Controls/sequences/sequences.component";
+import { RSequenceVerticalItem } from './Controls/sequences/sequence/sequenceitem';
+import { RbuttonComponent } from "./Controls/rbutton/rbutton.component";
+import { RGrouppanelComponent } from './Controls/grouppanel/grouppanel.component';
+import { RStateHorizontalComponent } from './Controls/rsequences-horizontal/rsequences-horizontal.component';
+import { RSequenceHorizontalItem } from './Controls/rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
+import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
 
 @Component({
   selector: 'app-root',
@@ -34,21 +39,25 @@ import { RSequenceItem } from './Controls/sequences/sequence/sequenceitem';
     DropdownComponent, FormsModule,
     ReactiveFormsModule, ProgressbarComponent,
     RTabComponent, RTabsComponent,
-    NgFor, JsonPipe,
-    optionTemplate, RatingComponent,
+    NgFor, JsonPipe, RStarRatingComponent,
     RTabIdFor,
     CdkDropListGroup, CdkDropList, CdkDrag,
     RTreeComponent,
     RCheckboxComponent,
     RRadiobuttonComponent,
     RSliderComponent,
-    RSequencesVerticalComponent
+    RStateVerticalComponent,
+    RStateHorizontalComponent,
+    RbuttonComponent,
+    RGrouppanelComponent,
+    RTextboxComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
 
   title = 'angularcontrols';
   items: DropdownModel[] = [];
+  items1: any[] = [];
   selItem: any = null;
   starWidth: number = 30;
   starValue: number = 3.6;
@@ -68,23 +77,40 @@ export class AppComponent implements AfterViewInit {
   progressDisplayText: string = '';
   rangeValue: number = 40;
 
+  multiValue: DropdownModel[] = [];
+  singleValue!: DropdownModel;
+
   IsFootball: boolean = false;
   IsVolleyball: boolean = false;
   IsTennis: boolean = false;
   
-  seqItems: RSequenceItem[]=[];
+  IsFootball1: boolean = false;
+  IsVolleyball1: boolean = false;
+  IsTennis1: boolean = false;
 
-  ActiveItem!: RSequenceItem;
-  CompletedItem!: RSequenceItem;
-  PendingItem!: RSequenceItem;
-  LastPendingItem!: RSequenceItem;
-  StepperSelectedItem!: RSequenceItem;
+  seqItems: RSequenceVerticalItem[]=[];
+  seqHorizontalItems: RSequenceHorizontalItem[]=[];
+
+  ActiveItem!: RSequenceVerticalItem;
+  CompletedItem!: RSequenceVerticalItem;
+  PendingItem!: RSequenceVerticalItem;
+  LastPendingItem!: RSequenceVerticalItem;
+
+  StepperSelectedItem!: RSequenceVerticalItem;
   SeqActiveIndex: number = 1;
 
-  treeItems: RTreeItem[] | undefined = undefined;
+  StepperHorizontalSelectedItem!: RSequenceHorizontalItem;
+  SeqHorizontalActiveIndex: number = 1;
 
+  treeItems: RTreeItem[] | undefined = undefined;
+  selectAll: boolean = false;
+
+  userName: string = "Angular";
+  
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
-  @ViewChild('sequ', {read: RSequencesVerticalComponent}) sequ!: RSequencesVerticalComponent;
+  @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
+
+  @ViewChild('sequhorizontal', {read: RStateHorizontalComponent}) sequhorizontal!: RStateHorizontalComponent;
 
   constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {
     this.items.push(new DropdownModel("0", "Jan"));
@@ -97,37 +123,98 @@ export class AppComponent implements AfterViewInit {
     this.items.push(new DropdownModel("8", "Aug"));
     this.items.push(new DropdownModel("9", "Sep"));
 
+    // this.items1.push(new DropdownModel("0", "Jan"));
+    // this.items1.push(new DropdownModel("1", "Feb"));
+    // this.items1.push(new DropdownModel("2", "Mar"));
+    // this.items1.push(new DropdownModel("4", "Apr"));
+    // this.items1.push(new DropdownModel("5", "May"));
+    // this.items1.push(new DropdownModel("6", "Jun"));
+    // this.items1.push(new DropdownModel("7", "Jly"));
+    // this.items1.push(new DropdownModel("8", "Aug"));
+    // this.items1.push(new DropdownModel("9", "Sep"));
+
+    this.items1.push("Jan 24");
+    this.items1.push("Feb 24");
+    this.items1.push("Mar 24");
+    this.items1.push("Apr 24");
+    this.items1.push("May 24");
+    this.items1.push("Jun 24");
+    this.items1.push("Jly 24");
+    this.items1.push("Aug 24");
+
+    this.singleValue = new DropdownModel("Apr 24","Apr 24");
+    this.multiValue.push(new DropdownModel("5", "May"));
+    this.multiValue.push(new DropdownModel("7", "Jly"));
+        
     if (this.winObj.isExecuteInBrowser())
       this.window = window;
 
-    this.selItem = this.items[5];
+    this.selItem = [];
+    this.selItem.push(this.items[5]);
+
     this.curDate = "";
     this.perc = 55;
     this.IncrementValue(this);
     this.createTreeData();
     this.createSequenceVerticalItems();
+    this.createSequenceHorizontalItems();
   }
 
-  seqValueChanged(event: RSequenceItem) {
+  selectall($event: any){
+    this.selectAll = $event;
+  }
+
+  seqValueChanged(event: RSequenceVerticalItem) {
     console.log(this.StepperSelectedItem);
   }
 
+  seqValueChangedForHorizontal(event:RSequenceHorizontalItem){
+    console.log(event);
+  }
+
+  createSequenceHorizontalItems(){
+    let completedItem = new RSequenceHorizontalItem();    
+    completedItem.Value = 1;
+    completedItem.IsTopAlign = true;
+    completedItem.DisplayText= "Completed step 1";
+
+    let activeItem = new RSequenceHorizontalItem();
+    activeItem.Value = 2;
+    activeItem.DisplayText= "Active step 2";
+
+    let pendingItem = new RSequenceHorizontalItem();
+    pendingItem.Value = 3;
+    pendingItem.IsTopAlign = true;
+    pendingItem.DisplayText="Pending step 3";
+
+    let lastPendingItem = new RSequenceHorizontalItem();    
+    lastPendingItem.Value = 4;
+    lastPendingItem.DisplayText="Last Pending step 4";
+
+    this.seqHorizontalItems.push(completedItem);
+    this.seqHorizontalItems.push(activeItem);
+    this.seqHorizontalItems.push(pendingItem);
+    this.seqHorizontalItems.push(lastPendingItem);
+    
+    this.StepperHorizontalSelectedItem = completedItem;
+  }
+
   createSequenceVerticalItems(){
-    this.CompletedItem = new RSequenceItem();    
+    this.CompletedItem = new RSequenceVerticalItem();    
     this.CompletedItem.Value = 1;
     this.CompletedItem.IsLeftAlign = true;
     this.CompletedItem.DisplayText= "Completed step 1";
 
-    this.ActiveItem = new RSequenceItem();
+    this.ActiveItem = new RSequenceVerticalItem();
     this.ActiveItem.Value = 2;
     this.ActiveItem.DisplayText= "Active step 2";
 
-    this.PendingItem = new RSequenceItem();
+    this.PendingItem = new RSequenceVerticalItem();
     this.PendingItem.Value = 3;
     this.PendingItem.IsLeftAlign = true;
     this.PendingItem.DisplayText="Pending step 3";
 
-    this.LastPendingItem = new RSequenceItem();    
+    this.LastPendingItem = new RSequenceVerticalItem();    
     this.LastPendingItem.Value = 4;
     this.LastPendingItem.DisplayText="Last Pending step 4";
 
@@ -138,6 +225,16 @@ export class AppComponent implements AfterViewInit {
     
     this.StepperSelectedItem = this.PendingItem;
 
+  }
+
+  nextStepH(){
+    //this.SeqHorizontalActiveIndex++;
+    this.sequhorizontal.moveToNext();
+  }
+
+  prevStepH(){
+    this.sequhorizontal.moveToPrevious();
+    //this.SeqHorizontalActiveIndex--;
   }
 
   nextStep(){

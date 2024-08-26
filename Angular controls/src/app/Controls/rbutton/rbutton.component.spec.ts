@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RStarRatingComponent } from './rating.component';
+import { RbuttonComponent } from './rbutton.component';
 
-describe('RatingComponent', () => {
-  let component: RStarRatingComponent;
-  let fixture: ComponentFixture<RStarRatingComponent>;
+describe('RbuttonComponent', () => {
+  let component: RbuttonComponent;
+  let fixture: ComponentFixture<RbuttonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RStarRatingComponent]
+      imports: [RbuttonComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(RStarRatingComponent);
+
+    fixture = TestBed.createComponent(RbuttonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

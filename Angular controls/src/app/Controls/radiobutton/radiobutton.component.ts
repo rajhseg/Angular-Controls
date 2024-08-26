@@ -1,7 +1,7 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { RadioButtonService } from './radiobutton.service';
+import { RadioButtonService, RadioEventArgs } from './radiobutton.service';
 
 @Component({
   selector: 'rradiobutton',
@@ -31,7 +31,7 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
   GroupName: string = "";
 
   @Output()
-  OnCheckChanged = new EventEmitter<boolean>();
+  OnCheckChanged = new EventEmitter<RadioEventArgs>();
 
   @Input()
   Color: string = "#00c7ba";
@@ -44,8 +44,8 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
     this.service.AddInstance(this);
   }
 
-  resetValueForGroupedCheckbox(groupname: string) {
-    this.service.ResetRadioButtonsForGroup(groupname);
+  resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
+    this.service.ResetRadioButtonsForGroup($event, groupname);
   }
 
   check(event: Event) {
@@ -56,26 +56,28 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
       }
       spanEle.classList.toggle('round');
     }
-    this.toggleCheck();
+    this.toggleCheck(event);
   }
 
-  toggleCheck() {
+  toggleCheck($event: Event) {
     let checkValue = !this.IsChecked;
 
     if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
-      this.resetValueForGroupedCheckbox(this.GroupName);
+      this.resetValueForGroupedCheckbox($event, this.GroupName);
     }
 
     this.IsChecked = checkValue;
-    this.onChange(this.IsChecked);
-    this.onTouch(this.IsChecked);
-    this.OnCheckChanged.emit(this.IsChecked);
+    let args=new RadioEventArgs($event, this.IsChecked);
+    this.onChange(args);
+    this.onTouch(args);
+    this.OnCheckChanged.emit(args);
   }
 
-  emitValueToUI(){
-    this.onChange(this.IsChecked);
-    this.onTouch(this.IsChecked);
-    this.OnCheckChanged.emit(this.IsChecked);
+  emitValueToModel($event: Event | undefined){
+    let args=new RadioEventArgs($event, this.IsChecked);
+    this.onChange(args);
+    this.onTouch(args);
+    this.OnCheckChanged.emit(args);
   }
 
   writeValue(obj: any): void {
@@ -84,7 +86,10 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
 
     let checkValue: boolean = false;
 
-    if (typeof obj === 'boolean') {
+    if(obj instanceof RadioEventArgs){
+      checkValue = obj.isChecked;
+    }
+    else if (typeof obj === 'boolean') {
       checkValue = obj;
     }
     else if (typeof obj === 'string') {
@@ -96,13 +101,13 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
     }
 
     if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
-      this.resetValueForGroupedCheckbox(this.GroupName);
+      this.resetValueForGroupedCheckbox(undefined, this.GroupName);
     }
-
+    
     this.IsChecked = checkValue;
-    this.onChange(this.IsChecked);
-    this.onTouch(this.IsChecked);
-    this.OnCheckChanged.emit(this.IsChecked);
+    let args=new RadioEventArgs(undefined, this.IsChecked);
+    
+    this.OnCheckChanged.emit(args);
   }
 
   registerOnChange(fn: any): void {

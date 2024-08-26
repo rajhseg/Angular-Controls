@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RStarRatingComponent } from './rating.component';
+import { GrouppanelComponent } from './grouppanel.component';
 
-describe('RatingComponent', () => {
-  let component: RStarRatingComponent;
-  let fixture: ComponentFixture<RStarRatingComponent>;
+describe('GrouppanelComponent', () => {
+  let component: GrouppanelComponent;
+  let fixture: ComponentFixture<GrouppanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RStarRatingComponent]
+      imports: [GrouppanelComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(RStarRatingComponent);
+
+    fixture = TestBed.createComponent(GrouppanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

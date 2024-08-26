@@ -1,79 +1,70 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { RSequenceVerticalComponent } from "./sequence/sequence.component";
-import { RSequenceVerticalItem } from './sequence/sequenceitem';
-import { NgForOf } from '@angular/common';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { RSequenceHorizontalItem } from './rsequence-horizontal/sequenceitemhorizontal';
+import { NgForOf } from '@angular/common';
+import { RSequenceHorizontalComponent } from './rsequence-horizontal/rsequence-horizontal.component';
 
 @Component({
-  selector: 'rstate-vertical',
+  selector: 'rstate-horizontal',
   standalone: true,
-  imports: [RSequenceVerticalComponent, NgForOf],
-  templateUrl: './sequences.component.html',
-  styleUrl: './sequences.component.css',
-  providers: [
+  imports: [RSequenceHorizontalComponent, NgForOf],
+  templateUrl: './rsequences-horizontal.component.html',
+  styleUrl: './rsequences-horizontal.component.css',
+  providers:[
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RStateVerticalComponent),
+      useExisting: forwardRef(() => RStateHorizontalComponent),
       multi: true
     }
   ]
 })
-export class RStateVerticalComponent implements ControlValueAccessor {
+export class RStateHorizontalComponent  implements ControlValueAccessor {
 
   private _currentActiveIndex: number = -1;
 
-  private _currentActiveItem: RSequenceVerticalItem | undefined = undefined;
+  private _currentActiveItem: RSequenceHorizontalItem | undefined = undefined;
 
-  private _items: RSequenceVerticalItem[] = [];
+  private _items: RSequenceHorizontalItem[] = [];
 
-  public _allItemsAreInRight: boolean = false;
-
+  public _allItemsAreInBottom: boolean = false;
+  
+  
   @Input()
   public IsDisplayStepNo: boolean = true;
 
   @Input()
-  public StepNoForeColor: string = "white";
+  public StepNoForeColor: string = 'white';
   
-  @Input()
-  public ContentWidth: string = "250px";
 
   @Input()
-  public CompletedForeColor: string = "white";
+  public ContentWidth: string = "100px";
+
+  @Input()
+  public CompletedForeColor: string = "orange";
 
   @Input()
   public StripLineColor: string = "purple";
 
   @Input()
-  public CompletedBackgroundColor: string = "purple";
-
-
-  @Input()
-  public PendingForeColor: string = "white";
+  public PendingForeColor: string = "purple";
 
   @Input()
-  public PendingBackgroundColor: string = "orangered";
-
-
-  @Input()
-  public ActiveForeColor: string = "white";
+  public ActiveForeColor: string = "green";
 
   @Input()
-  public ActiveBackgroundColor: string = "green";
-
-  @Input()
-  public set Items(value: RSequenceVerticalItem[]) {
+  public set Items(value: RSequenceHorizontalItem[]) {
     this._items = value;
 
     for (let index = 0; index < this._items.length; index++) {
-      this._items[index].StepNo = index+1;      
+      this._items[index].StepNo = index + 1;      
     }
-    
+
     let activeIndex = this._items.findIndex(x => x.IsActive);
 
-    let anyInLeftAlign = this._items.some(x => x.IsLeftAlign);
+    let anyInTopAlign = this._items.some(x => x.IsTopAlign);
 
-    if (!anyInLeftAlign) {
-      this._allItemsAreInRight = true;
+    if (!anyInTopAlign) {
+      this._allItemsAreInBottom = true;
     }
 
     this._items[this._items.length - 1].IsLastItem = true;
@@ -85,7 +76,7 @@ export class RStateVerticalComponent implements ControlValueAccessor {
 
     this.notifyToModel();
   }
-  public get Items(): RSequenceVerticalItem[] {
+  public get Items(): RSequenceHorizontalItem[] {
     return this._items;
   }
 
@@ -111,7 +102,7 @@ export class RStateVerticalComponent implements ControlValueAccessor {
   }
 
   @Input()
-  public set SelectedActiveItem(value: RSequenceVerticalItem) {
+  public set SelectedActiveItem(value: RSequenceHorizontalItem) {
     if (value) {
       let activeIndex = this._items.findIndex(x => x.Value == value.Value);
       if (activeIndex > -1) {
@@ -122,15 +113,15 @@ export class RStateVerticalComponent implements ControlValueAccessor {
       this.notifyToModel();
     }
   }
-  public get SelectedActiveItem(): RSequenceVerticalItem | undefined {
+  public get SelectedActiveItem(): RSequenceHorizontalItem | undefined {
     return this._currentActiveItem;
   }
 
   @Output()
-  OnActiveValueChanged = new EventEmitter<RSequenceVerticalItem>();
+  OnActiveValueChanged = new EventEmitter<RSequenceHorizontalItem>();
 
-  OnChanged: Function = (item: RSequenceVerticalItem) => { };
-  OnTouched: Function = (item: RSequenceVerticalItem) => { };
+  OnChanged: Function = (item: RSequenceHorizontalItem) => { };
+  OnTouched: Function = (item: RSequenceHorizontalItem) => { };
 
   constructor(private cdr: ChangeDetectorRef) {
 

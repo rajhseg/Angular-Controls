@@ -1,0 +1,36 @@
+<div style="">
+    <div *ngIf="Item?.IsTopAlign" class="topContent" 
+        [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
+                            CompletedForeColor : PendingForeColor),
+            'width': ContentWidth}">
+        {{Item?.DisplayText}}
+    </div>
+    <div *ngIf="EnableEmptyItemOnTopSide && !Item?.IsTopAlign" class="topemptyContent"
+        [ngStyle]="{'width': ContentWidth}">
+
+    </div>
+    <div style="">
+        <div class="tline" [style.backgroundColor]="StripLineColor"></div>
+        <div *ngIf="!Item?.IsLastItem" class="bline" 
+            [ngStyle]="{ 'left': IsDisplayStepNo ? '57px' : '50px'}"
+        [style.backgroundColor]="StripLineColor"
+        [style.width]="blineWidth"></div>
+
+        <div class="circle" [ngStyle]="{ 
+            'width':  IsDisplayStepNo ? '20px': '15px',
+            'height': IsDisplayStepNo ? '20px': '15px',
+            'background-color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? CompletedForeColor : PendingForeColor),
+            'top': IsDisplayStepNo ?  Item?.IsLastItem ? '-10px' : '-15px'  :  Item?.IsLastItem ? '-8px' : '-12px' }">
+            <span class="number" *ngIf="IsDisplayStepNo" [ngStyle]="{ 'color': StepNoForeColor }">{{StepNo}}</span>
+        </div>
+      
+    </div>
+    <div *ngIf="!Item?.IsTopAlign" class="content" [ngStyle]="{
+        'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
+                            CompletedForeColor : PendingForeColor),
+        'padding-top': Item?.IsLastItem ? '4px': '',
+        'width': ContentWidth}">
+        {{Item?.DisplayText}}
+    </div>
+
+</div>

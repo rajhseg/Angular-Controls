@@ -76,7 +76,7 @@ export class RSliderComponent implements ControlValueAccessor {
       (this.sliderElement.nativeElement as HTMLElement).style.transform = `translateX(${this.currentDistance}px)`;
     }
 
-    this.notifyToUI();
+    this.OnValueChanged.emit(this.SliderValue);
   }
   
   registerOnChange(fn: any): void {
@@ -116,11 +116,11 @@ export class RSliderComponent implements ControlValueAccessor {
 
     this.SliderValue = Number.parseInt(((this.currentDistance * 100) / total).toString());
 
-    this.notifyToUI();
+    this.notifyToModel();
 
   }
 
-  notifyToUI(){
+  notifyToModel(){
     this.onChange(this.SliderValue);
     this.onTouch(this.SliderValue);
     this.OnValueChanged.emit(this.SliderValue);

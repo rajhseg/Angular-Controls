@@ -1,0 +1,12 @@
+
+
+<div style="width: fit-content;">
+    <rsequence-horizontal style="float: left;" *ngFor="let item of Items;" [Item]="item"
+     [ActiveForeColor]="ActiveForeColor"
+     [CompletedForeColor]="CompletedForeColor"
+     [PendingForeColor]="PendingForeColor"
+     [EnableEmptyItemOnTopSide]="!_allItemsAreInBottom"
+     [StripLineColor]="StripLineColor" [StepNo]= "item.StepNo"
+     [IsDisplayStepNo]="IsDisplayStepNo" [StepNoForeColor]="StepNoForeColor"
+     [ContentWidth]="ContentWidth"></rsequence-horizontal>    
+</div>

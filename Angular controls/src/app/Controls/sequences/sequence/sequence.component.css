@@ -14,9 +14,7 @@
     margin-left: 6px;
 }
 
-.circle {
-    width: 15px;
-    height: 15px;        
+.circle {      
     border-radius: 50%;
     display: block;      
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
@@ -25,7 +23,8 @@
     -webkit-transition: .2s;
     transition: opacity .2s;   
     position: relative;
-    
+    text-align: center;
+    align-items: center;    
 }
 
 .bline {
@@ -43,18 +42,18 @@
 }
 
 .content {        
-    padding-top: 10px;
+    padding-top: 3px;
     padding-bottom: 3px;
     padding-left: 10px;
     padding-right: 10px;
     overflow-wrap: break-word;
-    left: 11px;
+    left: 8px;
     position: relative;
     height: 40px;
-    top: 10px;
+    top: 16px;
     text-wrap: wrap;
     border-radius: 4%;
-
+    align-content: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
     outline: none;
     opacity: 0.7;
@@ -63,7 +62,7 @@
 }
 
 .leftContent {
-    padding-top: 10px;
+    padding-top: 3px;
     padding-bottom: 3px;
     padding-left: 10px;
     padding-right: 10px;
@@ -71,20 +70,31 @@
     left: 11px;
     position: relative;
     height: 40px;
-    top: 10px;
+    top: 16px;
     text-wrap: wrap;
     border-radius: 4%;
-
+    align-content: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;   
     margin-right: 20px;
+    text-align: end;
+}
+
+
+.number {
+    text-align: center;
+    font-size: 11px;    
+    vertical-align: middle;
+    align-content: center;
+    margin: auto;
+    font-weight: bold;
 }
 
 .leftemptyContent{
-    padding-top: 10px;
+    padding-top: 3px;
     padding-bottom: 3px;
     padding-left: 10px;
     padding-right: 10px;
@@ -92,8 +102,9 @@
     left: 11px;
     position: relative;
     height: 40px;
-    top: 10px;
-    text-wrap: wrap;        
+    top: 16px;
+    text-wrap: wrap;   
+    align-content: center;     
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;

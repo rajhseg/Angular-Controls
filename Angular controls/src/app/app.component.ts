@@ -27,6 +27,7 @@ import { RGrouppanelComponent } from './Controls/grouppanel/grouppanel.component
 import { RStateHorizontalComponent } from './Controls/rsequences-horizontal/rsequences-horizontal.component';
 import { RSequenceHorizontalItem } from './Controls/rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
 import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
+import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.component';
 
 @Component({
   selector: 'app-root',
@@ -50,7 +51,8 @@ import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
     RStateHorizontalComponent,
     RbuttonComponent,
     RGrouppanelComponent,
-    RTextboxComponent
+    RTextboxComponent,
+    RfileuploadComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -160,6 +162,16 @@ export class AppComponent implements AfterViewInit {
     this.createTreeData();
     this.createSequenceVerticalItems();
     this.createSequenceHorizontalItems();
+  }
+
+  filesSelected($files: FileList){
+    console.log("files selected for upload");
+    console.log($files);
+  }
+
+  filesCleared($event: Event){
+    console.log("files cleared");
+    console.log($event);
   }
 
   selectall($event: any){

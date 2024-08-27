@@ -1,5 +1,5 @@
 <div class="group">
-    <span class="grouptitle">{{groupname}}</span>
+    <span class="grouptitle" [ngStyle]="{'color': TitleForeColor}">{{groupname}}</span>
     <div [ngStyle]="{'display': IsItemsArrangeHorizontal ? 'flex' : ''}">
         <ng-content></ng-content>
     </div>

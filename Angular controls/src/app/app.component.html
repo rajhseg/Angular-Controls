@@ -91,7 +91,10 @@
     </rgroup-panel>
   </div>
 
-  
+  <div>
+    <rfileupload (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
+  </div>
+
   <div>
     <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
     <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'"></rtextbox>
@@ -207,6 +210,13 @@
         </div>
       </rtab>
 
+
+      
+      <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">        
+        <div style="display: flex;">
+          <rfileupload (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
+        </div>
+      </rtab>
 
     </rtabs>
 

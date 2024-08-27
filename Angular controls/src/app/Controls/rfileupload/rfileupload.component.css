@@ -1,0 +1,129 @@
+
+
+
+
+
+
+.rcontainer {
+    width:200px;
+    height: 30px;    
+    cursor: pointer;
+    border: none;
+    border-bottom: 2px solid blue;     
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    outline: none;
+    align-content: center;
+    align-items: center;
+    text-align: left;
+    vertical-align: middle;
+    position: relative;
+    padding: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.rcontainer:focus{
+    border-bottom: 2px solid lightblue;
+}
+
+.bicon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    text-align: center;
+    background-color: white;
+    vertical-align: middle;
+    color: lightgray;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    margin-left: 5px;
+    top:10px;    
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    cursor: pointer;
+    /* color: blue; */
+}
+
+
+.icon-up:before {
+    content: "\276F";
+}
+
+.icon-down:before {
+    content: "\276E";
+}
+
+.icon-up, .icon-down {
+  font-size: 18px;
+  display: inline-block;
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.droppos {
+    right: 5px;
+    position: relative;
+    float: right;
+    /* color: blue; */
+    top: -15px;
+}
+
+.tab{
+    border-collapse: collapse;
+    width: 100%;
+    cursor: pointer;
+}
+
+.tab thead {
+    text-align: left;
+}
+
+.tab tbody {
+    text-align: left;
+}
+
+.tab th {
+    padding: 7px;
+    font-size: small;
+}
+
+.tab td {
+    padding: 5px;
+    font-size: small;
+}
+
+.tab tr:hover {
+    /* background-color: antiquewhite; */
+}
+
+.closebtn {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;    
+    justify-content: center;
+    align-content: center;
+    background-color: white;
+    /* color: blue; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;    
+    float: right;    
+    vertical-align: middle;    
+    display: flex;
+    left: -15px;
+    position: relative;
+    top: -13px;
+    cursor: pointer;
+}
+
+.displayText {
+    width: 100px;
+    overflow: hidden;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+    width: 120px;
+    position: relative;
+    top: 8px;
+}

@@ -16,4 +16,7 @@ groupname: string = "";
 @Input()
 IsItemsArrangeHorizontal: boolean = false;
 
+@Input()
+TitleForeColor: string = "gray";
+
 }

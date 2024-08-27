@@ -2,7 +2,7 @@
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
-switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox etc
+switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox etc
 
 
 <br />
@@ -162,13 +162,11 @@ Circle Infinite
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/c21e8f0a-1651-4321-9841-42a96cf7be63)
 
 <br />
-<br />
 
 StraightLine Infinite
 ----------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/36481afd-9963-4fc3-8f71-cbe003061d09)
 
-<br />
 <br />
 
 
@@ -176,7 +174,6 @@ StraightLine Finite
 ----------------------
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/f429bb04-072f-4b12-af27-bf1fc2636fda)
 
-<br />
 <br />
 
 Circular Finite

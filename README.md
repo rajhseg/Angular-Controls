@@ -13,11 +13,19 @@ button control
 
 ![image](https://github.com/user-attachments/assets/91c0f233-af11-4a8a-81d7-bf70a431528a)
 
+<br />
+<br />
+<br />
 
 Textbox Control
 --------------------------------
 
 ![image](https://github.com/user-attachments/assets/881eccd2-34e6-4185-bc03-df49400c2a04)
+
+
+PasswordBox Control
+-------------------------
+![image](https://github.com/user-attachments/assets/5493660c-b221-4b38-9103-e8524ca5027a)
 
 
 group panel Control

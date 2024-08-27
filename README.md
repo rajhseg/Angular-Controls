@@ -123,9 +123,6 @@ Rstate-Vertical Control
 ![image](https://github.com/user-attachments/assets/37f06a58-4e94-4bde-8636-3d50999c8af1)
 
 <br />
-<br />
-
-
 
 Slider
 -----------------------------

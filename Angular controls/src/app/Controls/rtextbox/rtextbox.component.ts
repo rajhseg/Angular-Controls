@@ -33,6 +33,16 @@ export class RTextboxComponent implements ControlValueAccessor {
   @Output()
   valueChanged = new EventEmitter<string>();
 
+  private isPassord: boolean =false;
+
+  @Input()
+  public set IsPasswordBox(value: boolean){
+    this.isPassord = value;
+  }
+  public get IsPasswordBox(): boolean {
+    return this.isPassord;
+  }
+
   onChanged:  Function = (e:string)=>{ };
   onTouched: Function = (e: string)=> { };
 

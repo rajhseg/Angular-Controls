@@ -106,6 +106,8 @@ export class AppComponent implements AfterViewInit {
   selectAll: boolean = false;
 
   userName: string = "Angular";
+  password: string = "";
+  confirmpassword: string = "";
   
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;

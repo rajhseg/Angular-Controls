@@ -3,5 +3,5 @@
 
 <div class="txtroot">
     <span class="span" [ngStyle]="{ 'color': LabelForeColor}"> {{LabelText}} </span>
-    <input type="text" [(ngModel)]="TextboxValue" class="txtbox" [placeholder]="PlaceholderText" (click)="txtboxClicked($event)">            
+    <input type="text" [type]="IsPasswordBox ? 'password' : 'text'" [(ngModel)]="TextboxValue" class="txtbox" [placeholder]="PlaceholderText" (click)="txtboxClicked($event)">            
 </div>

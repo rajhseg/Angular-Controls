@@ -13,6 +13,9 @@
     <rdropdown [(ngModel)]="singleValue"  [IsMulti]="false" [Items]="items1" Width="112px" DropDownContentWidth="122px">      
     </rdropdown>
 
+    <br/>
+    <br/>
+    <br/>
     <div>
     multi:{{multiValue.length}}
     single: {{singleValue.DisplayValue}}
@@ -88,6 +91,22 @@
     </rgroup-panel>
   </div>
 
+  
+  <div>
+    <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
+    <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'"></rtextbox>
+    <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
+  </div>
+  
+  <br/>
+  <div>
+    <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'" [LabelText]="'Password'"></rtextbox>          
+    <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'" [LabelText]="'Confirm Password'"></rtextbox>          
+    <rbutton>Submit</rbutton>
+  </div>
+  <br/>
+  <br/>
+  <br />
   <div>
     <br />
     <rbutton BackgroundColor="green" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One Tab</rbutton>
@@ -278,8 +297,19 @@
 
         <div>
           <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
-          <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'"></rtextbox>
+          <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'" [LabelText]="'Email'"></rtextbox>
           <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
+        </div>
+
+      </rtab> 
+
+      
+      <rtab *tabidfor="{ 'TabId':'tab27', 'HeaderText':'rtextbox password', 'Context':this }">
+
+        <div>
+          <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'" [LabelText]="'Password'"></rtextbox>          
+          <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'" [LabelText]="'Confirm Password'"></rtextbox>          
+          <rbutton>Submit</rbutton>
         </div>
 
       </rtab> 

@@ -5,7 +5,7 @@
         <div style="display: flex;">
             <div class="rcontainer" [ngStyle]="{'border-bottom-color': IconForeColor}">
                 <div class="displayText" [ngStyle]="{ 'color': TextForeColor }">{{DisplayText}}</div>
-                <div *ngIf="DisplayText!=''">
+                <div *ngIf="Files.length > 0">
                     <span class="droppos" (click)="toggle($event)"
                         [ngClass]="{ 'icon-down': !showFiles, 'icon-up': showFiles}"
                         [ngStyle]="{'color': IconForeColor}"></span>
@@ -16,7 +16,7 @@
             <span class="bicon" (click)="browse($event)" 
                   [ngStyle]="{'color': IconForeColor}">&#8593;</span>
         </div>
-        <div *ngIf="showFiles">
+        <div *ngIf="showFiles" class="tableContainer">
             <table class="tab">
                 <thead>
                     <th>Name</th>

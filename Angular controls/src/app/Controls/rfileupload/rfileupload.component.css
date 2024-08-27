@@ -71,6 +71,11 @@
     top: -15px;
 }
 
+.tableContainer {
+    max-height: 120px;
+    overflow-y: auto;
+}
+
 .tab{
     border-collapse: collapse;
     width: 100%;

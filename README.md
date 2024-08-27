@@ -7,7 +7,7 @@ switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizo
 
 <br />
 <br />
-<br />
+
 
 button control
 --------------------------------------
@@ -18,7 +18,7 @@ button control
 
 <br />
 <br />
-<br />
+
 
 Textbox Control
 --------------------------------
@@ -27,7 +27,7 @@ Textbox Control
 
 <br />
 <br />
-<br />
+
 
 PasswordBox Control
 -------------------------
@@ -35,7 +35,7 @@ PasswordBox Control
 
 <br />
 <br />
-<br />
+
 
 group panel Control
 --------------------------------------
@@ -44,7 +44,7 @@ group panel Control
 
 <br />
 <br />
-<br />
+
 
  Calender Control
 -------------------
@@ -54,7 +54,7 @@ group panel Control
 
 <br />
 <br />
-<br />
+
 
 
  Dropdown Control
@@ -64,7 +64,7 @@ group panel Control
 
 <br />
 <br />
-<br />
+
 
 
 Tree Control
@@ -73,7 +73,7 @@ Tree Control
 
 <br />
 <br />
-<br />
+
 
 
 Checkbox
@@ -82,7 +82,7 @@ Checkbox
 
 <br />
 <br />
-<br />
+
 
 
 RadioButton
@@ -91,6 +91,14 @@ RadioButton
 ![image](https://github.com/user-attachments/assets/4ba30a66-257e-4daf-9088-9a95d6a7aa5b)
 
 <br />
+<br />
+
+
+rstate-horizontal Control
+--------------------------------------
+
+![image](https://github.com/user-attachments/assets/fd57e00b-00ce-4eba-ba1f-23f2473c66b9)
+
 <br />
 <br />
 
@@ -102,21 +110,21 @@ Rstate-Vertical Control
 
 <br />
 <br />
-<br />
+
 
 
 ![image](https://github.com/user-attachments/assets/48bdb2a1-86d1-40e0-9336-2ba6da9aeb60)
 
 <br />
 <br />
-<br />
+
 
 
 ![image](https://github.com/user-attachments/assets/37f06a58-4e94-4bde-8636-3d50999c8af1)
 
 <br />
 <br />
-<br />
+
 
 
 Slider
@@ -125,7 +133,7 @@ Slider
 
 <br />
 <br />
-<br />
+
 
 
  StarRating Control
@@ -134,7 +142,7 @@ Slider
 
 <br />
 <br />
-<br />
+
 
 
 Switch Control
@@ -143,7 +151,7 @@ Switch Control
 
 <br />
 <br />
-<br />
+
 
 
 ProgressBar Control
@@ -177,7 +185,7 @@ Circular Finite
 
 <br />
 <br />
-<br />
+
 
 
 Tab Control
@@ -187,14 +195,14 @@ Tab Control
 
 <br />
 <br />
-<br />
+
 
 
 ![image](https://github.com/user-attachments/assets/26dd876c-c37c-44ae-865d-6314b8e13a5e)
 
 <br />
 <br />
-<br />
+
 
 
 Tree Control
@@ -204,7 +212,7 @@ Tree Control
 
 <br />
 <br />
-<br />
+
 
 
 Checkbox
@@ -215,7 +223,7 @@ Checkbox
 
 <br />
 <br />
-<br />
+
 
 
 RadioButton
@@ -225,7 +233,7 @@ RadioButton
 
 <br />
 <br />
-<br />
+
 
 
 Slider
@@ -234,41 +242,8 @@ Slider
 
 <br />
 <br />
-<br />
-
-rstate-Vertical Control 
-----------------------------------------------
-
-![image](https://github.com/user-attachments/assets/2111a2e2-8b31-4c3a-b75a-556499ec9fd7)
-
-<br />
-<br />
-<br />
 
 
-![image](https://github.com/user-attachments/assets/48bdb2a1-86d1-40e0-9336-2ba6da9aeb60)
-
-<br />
-<br />
-<br />
-
-
-![image](https://github.com/user-attachments/assets/37f06a58-4e94-4bde-8636-3d50999c8af1)
-
-<br />
-<br />
-<br />
-
-
-
-rstate-horizontal Control
---------------------------------------
-
-![image](https://github.com/user-attachments/assets/fd57e00b-00ce-4eba-ba1f-23f2473c66b9)
-
-<br />
-<br />
-<br />
 
 
 

@@ -213,7 +213,10 @@ FileUpload Control
 ColorPicker
 ---------------------------------
 <br/>
-![image](https://github.com/user-attachments/assets/284ed83f-c64b-4d62-b2da-e77c114681ba)
+
+![image](https://github.com/user-attachments/assets/631ab6a9-ba84-4d33-bcb2-70947e1b441e)
+
+
 <br/>
 <br/>
 

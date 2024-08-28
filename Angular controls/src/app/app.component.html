@@ -22,7 +22,10 @@
     </div>
 
   </div>
-  
+  <br/>
+  <rcolorpicker [IsDisplayText]="true"></rcolorpicker>
+  <br/>
+  <br/>
   <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
   <br/>
@@ -31,8 +34,13 @@
   <rbutton (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
 
   <br />
+  
   <br />
   <br/>
+  
+  <br/>
+  <br/>
+  <br />
 
   <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
                 [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="true"
@@ -216,6 +224,10 @@
         <div style="display: flex;">
           <rfileupload (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
+      </rtab>
+
+      <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
+        <rcolorpicker [IsDisplayText]="true"></rcolorpicker>
       </rtab>
 
     </rtabs>

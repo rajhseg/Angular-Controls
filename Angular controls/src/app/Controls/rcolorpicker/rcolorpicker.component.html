@@ -1,0 +1,36 @@
+
+<div class="windowclose">
+<div class="mainContainer" (click)="toggle($event)" [ngStyle]="{'color': LabelTextForeColor}">
+    <div *ngIf="IsDisplayText" style="padding: 3px;">{{LabelText}} </div>
+    <div *ngIf="DisplayColorInHex && IsDisplayText" style="padding: 3px;">{{SelectedColorHex}}</div>
+    <div *ngIf="!DisplayColorInHex && IsDisplayText" style="padding: 3px;">{{GetRGBColorInNumbers}}</div>
+    <div style="width: 50px; height: 20px;padding: 3px;" 
+        [ngStyle]="{'background-color':SelectedColorRgb}">
+    </div>    
+</div>
+
+<div class="colorContainer" [ngStyle]="{'visibility':IsColorPickerOpen ? 'visible': 'collapse'}">
+    <div>
+        <canvas #variations width="250px" height="150px" class="variations"></canvas>
+        <canvas #colors width="25px" height="150px" class="colors"></canvas>
+    </div>
+
+    <div style="width: 250px; height: 15px;" [ngStyle]="{'background-color':SelectedColorRgb, 'color': 'white'}">
+    </div>
+
+    <div>
+        <div>
+            <div style="display: flex; margin-bottom: 5px;margin-left: 10px;">
+                <div style="align-self: center;">R</div><div class="colorDiv border">{{SelectedColorR}}</div>
+                <div style="align-self: center;">G</div><div class="colorDiv border">{{SelectedColorG}}</div>
+                <div style="align-self: center;">B</div><div class="colorDiv border">{{SelectedColorB}}</div>
+            </div>
+            <div style="margin-top:5px">
+                <span>Hex : </span><span>{{SelectedColorHex}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>

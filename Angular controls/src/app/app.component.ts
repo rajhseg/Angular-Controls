@@ -28,6 +28,7 @@ import { RStateHorizontalComponent } from './Controls/rsequences-horizontal/rseq
 import { RSequenceHorizontalItem } from './Controls/rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
 import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
 import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.component';
+import { RColorPickerComponent } from './Controls/rcolorpicker/rcolorpicker.component';
 
 @Component({
   selector: 'app-root',
@@ -52,7 +53,8 @@ import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.compone
     RbuttonComponent,
     RGrouppanelComponent,
     RTextboxComponent,
-    RfileuploadComponent
+    RfileuploadComponent,
+    RColorPickerComponent
 ]
 })
 export class AppComponent implements AfterViewInit {

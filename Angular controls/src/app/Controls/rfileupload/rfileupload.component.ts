@@ -41,6 +41,12 @@ export class RfileuploadComponent {
   @Input()
   TextForeColor: string = "gray";
 
+  @Input()
+  ShowFilesListMaximumHeight: string = "150px";
+
+  @Input()
+  EnableMaximumHeightForShowFiles: boolean = false;
+
   @Output()
   public filesSelected = new EventEmitter<FileList>();
 

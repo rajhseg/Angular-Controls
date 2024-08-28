@@ -71,9 +71,8 @@
     top: -15px;
 }
 
-.tableContainer {
-    max-height: 120px;
-    overflow-y: auto;
+.tableContainer {    
+    overflow-y: auto;    
 }
 
 .tab{
@@ -132,3 +131,17 @@
     position: relative;
     top: 8px;
 }
+
+::-webkit-scrollbar {
+    width: 0.4em;;
+    height: 0.4em;;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #bdbbbb;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #5e5e5e;
+    border-radius: 10px;
+  } 

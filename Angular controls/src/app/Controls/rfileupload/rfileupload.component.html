@@ -16,13 +16,14 @@
             <span class="bicon" (click)="browse($event)" 
                   [ngStyle]="{'color': IconForeColor}">&#8593;</span>
         </div>
-        <div *ngIf="showFiles" class="tableContainer">
+        <div *ngIf="showFiles" class="tableContainer" 
+            [ngStyle]="{'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
             <table class="tab">
                 <thead>
                     <th>Name</th>
                     <th>Size</th>                    
                 </thead>
-                <tbody>
+                <tbody class="">
                     <tr *ngFor="let item of Files" [ngStyle]="{ 'color': TextForeColor }">
                         <td>{{item.name}}</td>
                         <td>{{item.size}}</td>                        

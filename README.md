@@ -214,7 +214,7 @@ ColorPicker
 ---------------------------------
 <br/>
 
-![image](https://github.com/user-attachments/assets/631ab6a9-ba84-4d33-bcb2-70947e1b441e)
+![image](https://github.com/user-attachments/assets/1b9b0832-6519-4974-8ee0-3e66b0daaefc)
 
 
 <br/>

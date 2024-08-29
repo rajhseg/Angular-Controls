@@ -1,10 +1,10 @@
 
-<div class="windowclose">
+<div [id]="Id" class="rcolorpickerwindowclose">
 <div class="mainContainer" (click)="toggle($event)" [ngStyle]="{'color': LabelTextForeColor}">
-    <div *ngIf="IsDisplayText" style="padding: 3px;">{{LabelText}} </div>
-    <div *ngIf="DisplayColorInHex && IsDisplayText" style="padding: 3px;">{{SelectedColorHex}}</div>
-    <div *ngIf="!DisplayColorInHex && IsDisplayText" style="padding: 3px;">{{GetRGBColorInNumbers}}</div>
-    <div style="width: 50px; height: 20px;padding: 3px;" 
+    <div *ngIf="IsDisplayLabelText" style="padding: 3px;">{{LabelText}} </div>
+    <div *ngIf="DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;">{{SelectedColorHex}}</div>
+    <div *ngIf="!DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;">{{GetRGBColorInNumbers}}</div>
+    <div style="width: 50px; height: 20px;padding: 3px;"  *ngIf="SelectedColorRgb!=undefined"
         [ngStyle]="{'background-color':SelectedColorRgb}">
     </div>    
 </div>

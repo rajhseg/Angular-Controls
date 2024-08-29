@@ -273,14 +273,14 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     }
   }
 
-  private closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false) {
+  // private closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false) {
 
 
-    this.ddservice.GetAllInstance().forEach((x) => {
-      x.IsDropDownOpen = false;
-    });
+  //   this.ddservice.GetAllInstance().forEach((x) => {
+  //     x.IsDropDownOpen = false;
+  //   });
 
-  }
+  // }
 
   ngOnDestroy(): void {
 
@@ -312,36 +312,57 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
   }
 
   windowOnClick($event: Event) {
+        
+    let i =15;
+    let element = $event.srcElement;
+    let sameelementClicked: boolean = false;
+    let elementId: string | undefined = undefined;
 
-    let stopPropagation = false;
-    let parentElement = ($event.srcElement as any).parentElement;
-
-    let i = 10;
-    while (i >= 0 && parentElement != undefined) {
-      if (parentElement.classList.contains('option-content')) {
-        stopPropagation = true;
+    while(element!=undefined && i>-1){
+      if((element as HTMLElement).classList.contains('rdropdownWindowClose')){
+        elementId = (element as HTMLElement).id;
+        if(elementId==this.Id) {
+          sameelementClicked = true;
+        }
         break;
       }
-      parentElement = parentElement.parentElement;
+
       i--;
+      element = (element as HTMLElement).parentElement;
     }
 
-    if (!stopPropagation) {
-      this.IsDropDownOpen = false;
-    } else {
-      $event.stopPropagation();
-    }
+    if(!sameelementClicked)
+        this.IsDropDownOpen = false;
+
+    // let stopPropagation = false;
+    // let parentElement = ($event.srcElement as any).parentElement;
+
+    // let i = 10;
+    // while (i >= 0 && parentElement != undefined) {
+    //   if (parentElement.classList.contains('option-content')) {
+    //     stopPropagation = true;
+    //     break;
+    //   }
+    //   parentElement = parentElement.parentElement;
+    //   i--;
+    // }
+
+    // if (!stopPropagation) {
+    //   this.IsDropDownOpen = false;
+    // } else {
+    //   $event.stopPropagation();
+    // }
   }
 
   openDropdown(evt: Event) {
 
-    this.popupService.CloseAllPopupsOnOpen(this);
+    // this.popupService.CloseAllPopupsOnOpen(this);
     var currentValueToSet = !this.IsDropDownOpen;
     if (currentValueToSet) {
 
     }
 
-    this.closeAllDropdowns(this);
+    // this.closeAllDropdowns(this);
     this.IsChildOfAnotherControlClicked = false;
 
     if (this.firstTimeInit) {
@@ -349,7 +370,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, C
     }
 
     this.IsDropDownOpen = currentValueToSet;
-    evt.stopPropagation();
+    //evt.stopPropagation();
   }
 
   AssignItems(item: DropdownModel, val: boolean) {

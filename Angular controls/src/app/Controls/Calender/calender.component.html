@@ -1,65 +1,57 @@
 
-<div class="rcal" *ngIf="IsWindowsOs || IsLinuxOs">
-<div class="rcalinputdiv">
-    <input  class="calendarinput" (click)="openCalenderFromInput($event)" type="text" [(ngModel)]="Value" />
-    <div style="position: relative; width: 0px; height: 0px;" 
-      (click)="openCalender($event)">
-      <b *ngIf="IsWindowsOs || IsLinuxOs" [ngClass]="{ 'calIcon': IsWindowsOs, 'calIconLinux': IsLinuxOs}">&#9782;</b></div>
-</div>
-<div class="calender" #calmodal *ngIf="IsCalenderOpen">
-    <div class="week">
-        <div>
-            <a (click)="previousMonth()" class="atag previous around">&#8249;</a>
-        </div>
-
-        <div class="mnyr">
-
-            <rdropdown #monthdropdown  [IsDropDownOpen]="IsMonthDropdownOpen" [ParentComponent]="this"
-                        (Closed)="isMonthDropdownClosed($event)"
-                        (Opened)="isMonthDropdownOpened($event)"
-                        [IsChildOfAnotherControl]="isDropdownChild"     
-                        [IsMulti]="false"                    
-                        (change)="changeMonth($event)" 
-                        [(ngModel)]="month"                         
-                        [Items]="monthNames" 
-                        DropDownContentWidth="92px">                
-            </rdropdown>
-
-        </div>
-        <div class="mnyr">
-            
-            <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"
-                        [IsChildOfAnotherControl]="isDropdownChild"    
-                        (change)="changeYear($event)" 
-                        [IsMulti]="false"
-                        [(ngModel)]="year" 
-                        [Items]="totalYears" 
-                        DropDownContentWidth="92px">                       
-            </rdropdown>
-
-        </div>
-    
-        <div>
-            <a (click)="nextMonth()" class="atag next around">&#8250;</a>
+<div [id]="Id" class="rcal rcalenderWindowsClose" *ngIf="IsWindowsOs || IsLinuxOs">
+    <div class="rcalinputdiv">
+        <input class="calendarinput" (click)="openCalenderFromInput($event)" type="text" [(ngModel)]="Value" />
+        <div style="position: relative; width: 0px; height: 0px;" (click)="openCalender($event)">
+            <b *ngIf="IsWindowsOs || IsLinuxOs"
+                [ngClass]="{ 'calIcon': IsWindowsOs, 'calIconLinux': IsLinuxOs}">&#9782;</b>
         </div>
     </div>
-    <div class="week" >
-        <div class="day dayheader">Sun</div>
-        <div class="day dayheader">Mon</div>
-        <div class="day dayheader">Tue</div>
-        <div class="day dayheader">Wed</div>
-        <div class="day dayheader">Thu</div>
-        <div class="day dayheader">Fri</div>
-        <div class="day dayheader">Sat</div>
-    </div>
-    <div class="week" *ngFor="let week of currentMonth?.weeks">
-        <div (click)="selectDate(day)" class="day" *ngFor="let day of week.days"
-              [ngClass]="{ 'notCurrentMonth': !day.isActiveMonth}">
-           <div [ngClass]="{'selday':day.isSelected, 'notactive': !day.isActiveMonth}"
-                [ngStyle]="{'backgroundColor': day.isSelected ? SelectedItemBackGroundColor : ''}">
-            {{day.num}}
-            </div> 
+    <div class="calender" #calmodal *ngIf="IsCalenderOpen">
+        <div class="week">
+            <div>
+                <a (click)="previousMonth()" class="atag previous around">&#8249;</a>
+            </div>
+
+            <div class="mnyr">
+
+                <rdropdown #monthdropdown [IsDropDownOpen]="IsMonthDropdownOpen" [ParentComponent]="this"
+                    (Closed)="isMonthDropdownClosed($event)" (Opened)="isMonthDropdownOpened($event)"
+                    [IsChildOfAnotherControl]="isDropdownChild" [IsMulti]="false" (change)="changeMonth($event)"
+                    [(ngModel)]="month" [Items]="monthNames" DropDownContentWidth="92px">
+                </rdropdown>
+
+            </div>
+            <div class="mnyr">
+
+                <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"
+                    [IsChildOfAnotherControl]="isDropdownChild" (change)="changeYear($event)" [IsMulti]="false"
+                    [(ngModel)]="year" [Items]="totalYears" DropDownContentWidth="92px">
+                </rdropdown>
+
+            </div>
+
+            <div>
+                <a (click)="nextMonth()" class="atag next around">&#8250;</a>
+            </div>
+        </div>
+        <div class="week">
+            <div class="day dayheader">Sun</div>
+            <div class="day dayheader">Mon</div>
+            <div class="day dayheader">Tue</div>
+            <div class="day dayheader">Wed</div>
+            <div class="day dayheader">Thu</div>
+            <div class="day dayheader">Fri</div>
+            <div class="day dayheader">Sat</div>
+        </div>
+        <div class="week" *ngFor="let week of currentMonth?.weeks">
+            <div (click)="selectDate(day)" class="day" *ngFor="let day of week.days"
+                [ngClass]="{ 'notCurrentMonth': !day.isActiveMonth}">
+                <div [ngClass]="{'selday':day.isSelected, 'notactive': !day.isActiveMonth}"
+                    [ngStyle]="{'backgroundColor': day.isSelected ? SelectedItemBackGroundColor : ''}">
+                    {{day.num}}
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </div>

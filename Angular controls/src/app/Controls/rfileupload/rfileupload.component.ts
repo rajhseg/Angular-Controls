@@ -62,6 +62,7 @@ export class RfileuploadComponent {
     this.showFiles =false;
     this.rFile.nativeElement.value = "";
     this.DisplayText = "";
+    this.filesSelected.emit(undefined);
     this.filesCleared.emit($event);
   }
 

@@ -1,5 +1,6 @@
 import { NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, viewChild, ViewChild } from '@angular/core';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rcolorpicker',
@@ -51,7 +52,12 @@ export class RColorPickerComponent implements AfterViewInit {
   public DisplayColorInHex: boolean = false;
 
   @Input()
-  public IsDisplayText: boolean = false;
+  public IsDisplayLabelText: boolean = false;
+
+  @Input()
+  public IsDisplayColorCode: boolean = true;
+
+  public Id: string = "";
 
   public get GetRGBColorInNumbers(): string {
     return this.SelectedColorR +","+this.SelectedColorG+","+this.SelectedColorB;
@@ -61,10 +67,11 @@ export class RColorPickerComponent implements AfterViewInit {
 
   public IsColorPickerOpen: boolean = false;
 
-  constructor() {
+  constructor(private windowHelper: WindowHelper) {
     this.mainColorRgb = "rgb(255,0,0)";
     this.mainColorHex = this.RGBToHex(255, 0, 0);
     this._mainColorGradients = [];
+    this.Id = this.windowHelper.GenerateUniqueId();
   }
 
   toggle($event: any){
@@ -73,13 +80,17 @@ export class RColorPickerComponent implements AfterViewInit {
 
   windowOnClick($event: Event) {    
     
-    let i =6;
+    let i =15;
     let element = $event.srcElement;
     let sameelementClicked: boolean = false;
+    let elementId: string | undefined = undefined;
 
     while(element!=undefined && i>-1){
-      if((element as HTMLElement).classList.contains('windowclose')){
-        sameelementClicked = true;
+      if((element as HTMLElement).classList.contains('rcolorpickerwindowclose')){
+        elementId = (element as HTMLElement).id;
+        if(elementId==this.Id) {
+          sameelementClicked = true;
+        }
         break;
       }
 
@@ -88,7 +99,7 @@ export class RColorPickerComponent implements AfterViewInit {
     }
 
     if(!sameelementClicked)
-      this.IsColorPickerOpen = false;
+        this.IsColorPickerOpen = false;
   }
 
   AddColorGradients() {

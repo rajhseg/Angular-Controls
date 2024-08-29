@@ -23,7 +23,9 @@
 
   </div>
   <br/>
-  <rcolorpicker [IsDisplayText]="true"></rcolorpicker>
+  <rcolorpicker [IsDisplayLabelText]="true" [LabelText]="'Processed Color : '"></rcolorpicker>
+
+  <rcolorpicker [IsDisplayLabelText]="true" [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
   <br/>
   <br/>
   <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
@@ -38,8 +40,6 @@
   <br />
   <br/>
   
-  <br/>
-  <br/>
   <br />
 
   <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
@@ -227,7 +227,7 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
-        <rcolorpicker [IsDisplayText]="true"></rcolorpicker>
+        <rcolorpicker [IsDisplayLabelText]="true" [LabelText]="'Flag Indication Color : '"></rcolorpicker>
       </rtab>
 
     </rtabs>

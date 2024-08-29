@@ -166,23 +166,45 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
 
-  windowOnClick(evt: Event) {
+  windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
 
-    if (!tar.matches('.calIcon')
-      && !tar.matches('.dropdown-content-selected')
-      && !tar.matches('.dropdown-content-template')
-      && !tar.matches('.around')
-      && !tar.matches('.inpdrop')
-      && !tar.matches('.dayheader')
-      && !tar.matches('.calender')
-      && !tar.matches('.week')
-      && !tar.matches('.mnyr')
-      && !tar.matches('.notactive')
-    ) {
-      this.closeAllDropdowns(null, true);
-      this.IsCalenderOpen = false;
+    
+    let i =15;
+    let element = evt.srcElement;
+    let sameelementClicked: boolean = false;
+    let elementId: string | undefined = undefined;
+
+    while(element!=undefined && i>-1){
+      if((element as HTMLElement).classList.contains('rcalenderWindowsClose')){
+        elementId = (element as HTMLElement).id;
+        if(elementId==this.Id) {
+          sameelementClicked = true;
+        }
+        break;
+      }
+
+      i--;
+      element = (element as HTMLElement).parentElement;
     }
+
+    if(!sameelementClicked)
+        this.IsCalenderOpen = false;
+
+    // if (!tar.matches('.calIcon')
+    //   && !tar.matches('.dropdown-content-selected')
+    //   && !tar.matches('.dropdown-content-template')
+    //   && !tar.matches('.around')
+    //   && !tar.matches('.inpdrop')
+    //   && !tar.matches('.dayheader')
+    //   && !tar.matches('.calender')
+    //   && !tar.matches('.week')
+    //   && !tar.matches('.mnyr')
+    //   && !tar.matches('.notactive')
+    // ) {
+    //   this.closeAllDropdowns(null, true);
+    //   this.IsCalenderOpen = false;
+    // }
 
   }
 
@@ -286,47 +308,47 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
   WindowClick(event: any) {
-    let tar: any = event.target;
-    let anyoneCalenderSelectIsTriggered: boolean = false;
+    // let tar: any = event.target;
+    // let anyoneCalenderSelectIsTriggered: boolean = false;
 
-    this.calService.GetAllInstance().forEach(x => {
-      if (x.isSelectDayTriggered) {
-        anyoneCalenderSelectIsTriggered = true;
-      }
-    });
+    // this.calService.GetAllInstance().forEach(x => {
+    //   if (x.isSelectDayTriggered) {
+    //     anyoneCalenderSelectIsTriggered = true;
+    //   }
+    // });
 
-    this.calService.GetAllInstance().forEach(x => {
-      x.isSelectDayTriggered = false;
-    });
+    // this.calService.GetAllInstance().forEach(x => {
+    //   x.isSelectDayTriggered = false;
+    // });
 
-    let isClickedAsChild: boolean = false;
+    // let isClickedAsChild: boolean = false;
 
-    this.calService.GetAllInstance().forEach(x => {
-      if (x.IsChildOfAnotherControlClicked) {
-        isClickedAsChild = true;
-      }
-    });
+    // this.calService.GetAllInstance().forEach(x => {
+    //   if (x.IsChildOfAnotherControlClicked) {
+    //     isClickedAsChild = true;
+    //   }
+    // });
 
-    if (!tar.matches('.calIcon')
-      && !tar.matches('.dropdown-content-template')
-      && !tar.matches('.around')
-      && !tar.matches('.inpdrop')
-      && !tar.matches('.dayheader')
-      && !tar.matches('.calender')
-      && !tar.matches('.week')
-      && !tar.matches('.mnyr')
-      && !tar.matches('.notactive')
-      && !anyoneCalenderSelectIsTriggered
-    ) {
-      this.closeAllDropdowns(null, true);
-    }
+    // if (!tar.matches('.calIcon')
+    //   && !tar.matches('.dropdown-content-template')
+    //   && !tar.matches('.around')
+    //   && !tar.matches('.inpdrop')
+    //   && !tar.matches('.dayheader')
+    //   && !tar.matches('.calender')
+    //   && !tar.matches('.week')
+    //   && !tar.matches('.mnyr')
+    //   && !tar.matches('.notactive')
+    //   && !anyoneCalenderSelectIsTriggered
+    // ) {
+    //   this.closeAllDropdowns(null, true);
+    // }
   }
 
-  closeAllDropdowns(ins: CalenderComponent | null, onwindowClick: boolean = false) {
-    this.calService.GetAllInstance().forEach(x => {
-      x.IsCalenderOpen = false;
-    });
-  }
+  // closeAllDropdowns(ins: CalenderComponent | null, onwindowClick: boolean = false) {
+  //   this.calService.GetAllInstance().forEach(x => {
+  //     x.IsCalenderOpen = false;
+  //   });
+  // }
 
   openCalenderFromInput($evt: Event) {
     this.openCalender($evt, true);
@@ -346,7 +368,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
       currentValueToSet = !this.IsCalenderOpen;
     }
 
-    this.closeAllDropdowns(this);
+    //this.closeAllDropdowns(this);
     this.IsCalenderOpen = currentValueToSet;
     this.IsMonthDropdownOpen = false;
     this.IsYearDropdownOpen = false;

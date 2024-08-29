@@ -23,9 +23,9 @@
 
   </div>
   <br/>
-  <rcolorpicker [IsDisplayLabelText]="true" [LabelText]="'Processed Color : '"></rcolorpicker>
+  <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '"></rcolorpicker>
 
-  <rcolorpicker [IsDisplayLabelText]="true" [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
+  <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"  [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
   <br/>
   <br/>
   <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
@@ -40,8 +40,6 @@
   <br />
   <br/>
   
-  <br />
-
   <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
                 [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="true"
                 [PendingBackgroundColor]="'orange'"
@@ -227,7 +225,8 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
-        <rcolorpicker [IsDisplayLabelText]="true" [LabelText]="'Flag Indication Color : '"></rcolorpicker>
+        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '"></rcolorpicker>
+        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"  [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>        
       </rtab>
 
     </rtabs>

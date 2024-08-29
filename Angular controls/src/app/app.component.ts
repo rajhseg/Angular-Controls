@@ -166,6 +166,10 @@ export class AppComponent implements AfterViewInit {
     this.createSequenceHorizontalItems();
   }
 
+  ColorSelected($event: string){
+    console.log($event);
+  }
+
   filesSelected($files: FileList){
     console.log("files selected for upload");
     console.log($files);

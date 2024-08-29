@@ -1,6 +1,7 @@
 import { NgIf, NgStyle } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
 import { WindowHelper } from '../windowObject';
+import { RectShape } from './rectShape';
 
 @Component({
   selector: 'rcolorpicker',
@@ -12,7 +13,7 @@ import { WindowHelper } from '../windowObject';
     "(window:click)": "windowOnClick($event)"
   }
 })
-export class RColorPickerComponent implements AfterViewInit {
+export class RColorPickerComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('variations', { read: ElementRef<HTMLCanvasElement>, static: false })
   variations: ElementRef<HTMLCanvasElement> | undefined = undefined;
@@ -42,6 +43,48 @@ export class RColorPickerComponent implements AfterViewInit {
   public SelectedColorG: number = -1;
   public SelectedColorB: number = -1;
 
+  private varRectShape: RectShape | undefined = undefined;
+  private mainRectShape: RectShape | undefined = undefined;
+
+  private varCanvasWidth: number = 250;
+  private varCanvasHeight: number = 150;
+  private colorCanvasWidth: number = 25;
+  private colorCanvasHeight: number = 150;
+
+  private varOffSetX: number = 0;
+  private varOffSetY: number = 0;
+  private colorOffSetX: number = 0;
+  private colorOffSetY: number = 0;
+
+  private varSelectorWidth: number = 10;
+  private varSelectorHeight: number = 10;
+
+
+  private mainSelectorWidth: number = 25;
+  private mainSelectorHeight: number = 10;
+
+  private varStartX: number = 0;
+  private varStartY: number = 0;
+
+  private mainStartX: number = 0;
+  private mainStartY: number = 0;
+
+  // private _inputColorInHex: string | undefined = undefined;
+
+  // @Input()
+  // public set InputColorInHex(value: string) {
+  //   if (value) {
+  //     this._inputColorInHex = value;
+  //     this.AssignColorsForInputColor(value);
+  //   }
+  // }
+  // public get InputColorInHex(): string | undefined {
+  //   return this._inputColorInHex;
+  // }
+
+  @Output()
+  public ColorSelected = new EventEmitter<string>();
+
   @Input()
   public LabelText: string = "Color";
 
@@ -57,38 +100,181 @@ export class RColorPickerComponent implements AfterViewInit {
   @Input()
   public IsDisplayColorCode: boolean = true;
 
+  private isVariationsColorPickerDrag: boolean = false;
+  private isMainColorPickerDrag: boolean = false;
+
   public Id: string = "";
 
   public get GetRGBColorInNumbers(): string {
-    return this.SelectedColorR +","+this.SelectedColorG+","+this.SelectedColorB;
+    return this.SelectedColorR + "," + this.SelectedColorG + "," + this.SelectedColorB;
   }
 
   private _mainColorGradients: CanvasGradient[] = [];
 
   public IsColorPickerOpen: boolean = false;
 
-  constructor(private windowHelper: WindowHelper) {
+  constructor(private windowHelper: WindowHelper, private cdr: ChangeDetectorRef) {
     this.mainColorRgb = "rgb(255,0,0)";
     this.mainColorHex = this.RGBToHex(255, 0, 0);
     this._mainColorGradients = [];
     this.Id = this.windowHelper.GenerateUniqueId();
   }
 
-  toggle($event: any){
+  AssignColorsForInputColor(value: string){
+      value = value.toString().toLowerCase();
+      this.SelectedColorHex = value;
+      this.SelectedColorRgb = this.HexToRgb(value);
+
+      let nums = this.HexToRgbInNumbers(value);
+
+      this.SelectedColorR = nums[0];
+      this.SelectedColorG = nums[1];
+      this.SelectedColorB = nums[2];
+  }
+
+  GetOffset() {
+    if (this.variations) {
+      let _offset = this.variations.nativeElement.getBoundingClientRect();
+      this.varOffSetX = _offset.left;
+      this.varOffSetY = _offset.top;
+    }
+
+    if (this.colors) {
+      let _offset = this.colors.nativeElement.getBoundingClientRect();
+      this.colorOffSetX = _offset.left;
+      this.colorOffSetY = _offset.top;
+    }
+  }
+
+  VariationsMouseDown($event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    let _x = $event.offsetX;
+    let _y = $event.offsetY;
+    if (this.varRectShape && this.mouseIsOnTopOfRect(_x, _y, this.varRectShape)) {
+      this.isVariationsColorPickerDrag = true;
+    } else {
+      this.isVariationsColorPickerDrag = false;
+    }
+  }
+
+  VariationsMouseMove($event: MouseEvent) {
+
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    if (!this.isVariationsColorPickerDrag) {
+      return;
+    }
+
+    let _x = $event.offsetX;// - this.varStartX ;
+    let _y = $event.offsetY;// - this.varStartY;
+
+    this.GetActualColorFromVariartion({ offsetX: _x, offsetY: _y });
+
+    this.varStartX = _x;
+    this.varStartY = _y;
+  }
+
+  mouseIsOnTopOfRect(x: number, y: number, shape: RectShape) {
+    let Left = shape.x;
+    let Right = shape.x + this.varSelectorWidth;
+    let top = shape.y;
+    let bottom = shape.y + this.varSelectorHeight;
+
+    if (x > Left && x < Right && y > top && y < bottom) {
+      return true;
+    }
+
+    return false;
+  }
+
+  VariationsMouseUp($event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    if (this.isVariationsColorPickerDrag) {
+      this.isVariationsColorPickerDrag = false;
+
+      // if(this.SelectedColorHex)
+      //   this._inputColorInHex = this.SelectedColorHex;
+      
+      this.ColorSelected.emit(this.SelectedColorHex);
+      
+      return;
+    }
+  }
+
+  MainMouseDown($event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    let _x = $event.offsetX;
+    let _y = $event.offsetY;
+    if (this.mainRectShape && this.mouseIsOnTopOfRectOfMain(_x, _y, this.mainRectShape)) {
+      this.isMainColorPickerDrag = true;
+    } else {
+      this.isMainColorPickerDrag = false;
+    }
+  }
+
+  MainMouseMove($event: MouseEvent) {
+
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    if (!this.isMainColorPickerDrag) {
+      return;
+    }
+
+    let _x = $event.offsetX;// - this.mainStartX ;
+    let _y = $event.offsetY;// - this.mainStartY;
+
+    this.GetRgb({ offsetX: 0, offsetY: _y });
+
+    this.mainStartX = 0;
+    this.mainStartY = _y;
+  }
+
+  mouseIsOnTopOfRectOfMain(x: number, y: number, shape: RectShape) {
+    let Left = shape.x;
+    let Right = shape.x + this.mainSelectorWidth;
+    let top = shape.y;
+    let bottom = shape.y + this.varSelectorHeight;
+
+    if (x > Left && x < Right && y > top && y < bottom) {
+      return true;
+    }
+
+    return false;
+  }
+
+  MainMouseUp($event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    if (this.isMainColorPickerDrag) {
+      this.isMainColorPickerDrag = false;
+      return;
+    }
+  }
+
+
+
+  toggle($event: any) {
     this.IsColorPickerOpen = !this.IsColorPickerOpen;
   }
 
-  windowOnClick($event: Event) {    
-    
-    let i =15;
+  windowOnClick($event: Event) {
+
+    let i = 15;
     let element = $event.srcElement;
     let sameelementClicked: boolean = false;
     let elementId: string | undefined = undefined;
 
-    while(element!=undefined && i>-1){
-      if((element as HTMLElement).classList.contains('rcolorpickerwindowclose')){
+    while (element != undefined && i > -1) {
+      if ((element as HTMLElement).classList.contains('rcolorpickerwindowclose')) {
         elementId = (element as HTMLElement).id;
-        if(elementId==this.Id) {
+        if (elementId == this.Id) {
           sameelementClicked = true;
         }
         break;
@@ -98,8 +284,8 @@ export class RColorPickerComponent implements AfterViewInit {
       element = (element as HTMLElement).parentElement;
     }
 
-    if(!sameelementClicked)
-        this.IsColorPickerOpen = false;
+    if (!sameelementClicked)
+      this.IsColorPickerOpen = false;
   }
 
   AddColorGradients() {
@@ -148,17 +334,68 @@ export class RColorPickerComponent implements AfterViewInit {
     this.AddColorGradients();
     this.RenderUI();
     this.LoadDefault();
+
     this.GetRgb({ offsetX: this._prevRectX, offsetY: this._prevRectY });
     this.GetActualColorFromVariartion({ offsetX: this._varprevRectX, offsetY: this._varprevRectY });
+    
+    // this.FindColorsInUI(this.InputColorInHex);
+
+    if (this.windowHelper.isExecuteInBrowser()) {
+      window.onscroll = this.GetOffset;
+      window.onresize = this.GetOffset;
+
+      if (this.variations) {
+        this.variations.nativeElement.onscroll = this.GetOffset.bind(this);
+        this.variations.nativeElement.onresize = this.GetOffset.bind(this);
+        this.variations.nativeElement.onmousedown = this.VariationsMouseDown.bind(this);
+        this.variations.nativeElement.onmouseup = this.VariationsMouseUp.bind(this);
+        this.variations.nativeElement.onmousemove = this.VariationsMouseMove.bind(this);
+      }
+
+      if (this.colors) {
+        this.colors.nativeElement.onscroll = this.GetOffset.bind(this);
+        this.colors.nativeElement.onresize = this.GetOffset.bind(this);
+        this.colors.nativeElement.onmousedown = this.MainMouseDown.bind(this);
+        this.colors.nativeElement.onmouseup = this.MainMouseUp.bind(this);
+        this.colors.nativeElement.onmousemove = this.MainMouseMove.bind(this);
+      }
+    }
+
+    // if(this._inputColorInHex){    
+    //   this.AssignColorsForInputColor(this._inputColorInHex);
+    // }
+
+    setTimeout(() => {            
+      this.cdr.detectChanges();
+    });
+
   }
 
-  HexToRgb(hex: any) {
+  HexToRgb(hex: string) {
+    hex = hex.substring(1);
+
     var bigint = parseInt(hex, 16);
     var r = (bigint >> 16) & 255;
     var g = (bigint >> 8) & 255;
     var b = bigint & 255;
 
     return 'rgb(r + "," + g + "," + b+)';
+  }
+
+
+  HexToRgbInNumbers(hex: any) {
+    hex = hex.substring(1);    
+    let num = [];
+    var bigint = parseInt(hex, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+    num.push(r);
+    num.push(g);
+    num.push(b);
+
+    return num;
   }
 
   colorCodeToHex(c: any) {
@@ -175,6 +412,9 @@ export class RColorPickerComponent implements AfterViewInit {
     this._prevRectY = 40;
     this._varprevRectX = 200;
     this._varprevRectY = 0;
+
+    this.varStartX = 200;
+    this.varStartY = 0;
   }
 
   RenderUI() {
@@ -184,7 +424,7 @@ export class RColorPickerComponent implements AfterViewInit {
 
   RenderVariations() {
     if (this.variations) {
-      this.varContext = this.variations.nativeElement.getContext('2d', { willReadFrequently: true});
+      this.varContext = this.variations.nativeElement.getContext('2d', { willReadFrequently: true });
 
       // Horizontal Rendering of Selected Color
       if (this.varContext) {
@@ -208,7 +448,7 @@ export class RColorPickerComponent implements AfterViewInit {
       }
 
       if (!this.variationColorClickEventBinded) {
-        this.variations.nativeElement.addEventListener('click', this.GetActualColorFromVariartion.bind(this), false);
+        this.variations.nativeElement.addEventListener('click', this.GetActualColorFromVariationClick.bind(this), false);
         this.variationColorClickEventBinded = true;
       }
     }
@@ -253,12 +493,8 @@ export class RColorPickerComponent implements AfterViewInit {
       this.mainColorRgb = rgb;
       this.mainColorHex = this.RGBToHex(colorData[0], colorData[1], colorData[2]);
 
-      this.colorsContext.beginPath();
-      this.colorsContext.fillStyle = "transparent";
-      this.colorsContext.strokeStyle = "black";
-      this.colorsContext.lineWidth = 2;
-      this.colorsContext.strokeRect(0, yPoint, 25, 10);
-      this.colorsContext.closePath();
+      this.mainRectShape = new RectShape(0, yPoint);
+      this.DrawMainRectShape(this.mainRectShape);
 
       // render the variations for each color
       this.RenderVariations();
@@ -266,7 +502,16 @@ export class RColorPickerComponent implements AfterViewInit {
     }
   }
 
-  GetActualColorFromVariartion(event: any) {
+  GetActualColorFromVariationClick(event: any){
+    this.GetActualColorFromVariartionSub(event);
+    
+    // if(this.SelectedColorHex)
+    //   this._inputColorInHex = this.SelectedColorHex;
+
+    this.ColorSelected.emit(this.SelectedColorHex);
+  }
+  
+  GetActualColorFromVariartionSub(event: any) {
 
     if (this.varContext) {
       this.varContext.clearRect(0, 0, 250, 150);
@@ -287,13 +532,97 @@ export class RColorPickerComponent implements AfterViewInit {
       this.SelectedColorG = colorData[1];
       this.SelectedColorB = colorData[2];
 
+      this.varRectShape = new RectShape(xPoint, yPoint);
+      this.DrawRectShape(this.varRectShape);
+    }
+  }
+
+  GetActualColorFromVariartion(event: any) {
+    this.GetActualColorFromVariartionSub(event);    
+  }
+
+  DrawMainRectShape(shape: RectShape) {
+    if (this.colorsContext) {
+      this.colorsContext.beginPath();
+      this.colorsContext.fillStyle = "transparent";
+      this.colorsContext.strokeStyle = "black";
+      this.colorsContext.lineWidth = 2;
+      this.colorsContext.strokeRect(0, shape.y, this.mainSelectorWidth, this.mainSelectorHeight);
+      this.colorsContext.closePath();
+    }
+  }
+
+  DrawRectShape(shape: RectShape) {
+    if (this.varContext) {
       this.varContext.beginPath();
       this.varContext.fillStyle = "transparent";
       this.varContext.strokeStyle = "white";
       this.varContext.lineWidth = 2;
-      this.varContext.strokeRect(xPoint, yPoint, 10, 10);
+      this.varContext.strokeRect(shape.x, shape.y, this.varSelectorWidth, this.varSelectorHeight);
       this.varContext.closePath();
     }
   }
 
+  FindColorsInUI(colorValueInHex: string) {
+
+    if (this.colorsContext) {
+      let _loopY = this.colorCanvasHeight;
+      let colorSelected = false;
+
+      for (let index = 0; index <= _loopY; index++) {
+
+        this.GetRgb({ offsetX: 0, offsetY: index });
+
+        for (let _x = 0; _x <= this.varCanvasWidth; _x++) {
+          for (let _y = 0; _y <= this.varCanvasHeight; _y++) {
+            this.GetActualColorFromVariartion({ offsetX: _x, offsetY: _y });
+            if (this.SelectedColorHex?.toLowerCase() == colorValueInHex.toLowerCase()) {
+              colorSelected = true;
+            }
+
+            if (colorSelected)
+              break;
+
+            _y += 10;
+          }
+
+          if (colorSelected)
+            break;
+
+          _x += 10;
+        }
+
+        if (colorSelected)
+          break;
+
+        index += 10;
+      }
+    }
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.windowHelper.isExecuteInBrowser()) {
+      window.onscroll = null;
+      window.onresize = null;
+
+      if (this.variations) {
+        this.variations.nativeElement.onscroll = null;
+        this.variations.nativeElement.onresize = null;
+        this.variations.nativeElement.onmousedown = null;
+        this.variations.nativeElement.onmouseup = null;
+        this.variations.nativeElement.onmousemove = null;
+      }
+
+      if (this.colors) {
+        this.colors.nativeElement.onscroll = null;
+        this.colors.nativeElement.onresize = null;
+        this.colors.nativeElement.onmousedown = null;
+        this.colors.nativeElement.onmouseup = null;
+        this.colors.nativeElement.onmousemove = null;
+      }
+    }
+  }
+
 }
+

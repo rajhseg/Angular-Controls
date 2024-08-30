@@ -128,6 +128,8 @@ Slider
 -----------------------------
 ![image](https://github.com/user-attachments/assets/7bc1cf45-f23a-43df-ade1-198156dd3946)
 
+![image](https://github.com/user-attachments/assets/f68d20ec-2f51-4fad-8c51-531901c53533)
+
 <br />
 <br />
 

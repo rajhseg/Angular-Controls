@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragMove, CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, Host, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Host, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -9,22 +9,33 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   imports: [CdkDrag, NgStyle, NgIf],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css',
-  providers:[
+  providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(()=> RSliderComponent),
+      useExisting: forwardRef(() => RSliderComponent),
       multi: true
     }
   ]
 })
-export class RSliderComponent implements ControlValueAccessor {
+export class RSliderComponent implements ControlValueAccessor, OnInit {
 
   private offsetLeft: number = 0;
   private additionalSizeToAdd = 3;
   public currentDistance: number = 0;
   private resize: number = 0;
 
-  @ViewChild('slider', {read: ElementRef}) sliderElement!: ElementRef;
+  public RangeValue: number = 0;
+
+  @ViewChild('slider', { read: ElementRef }) sliderElement!: ElementRef;
+
+  @Input()
+  public ShowDecimalValues: boolean = false;
+
+  @Input()
+  public MinValue: number = 0;
+
+  @Input()
+  public MaxValue: number = 100;
 
   @Output()
   OnValueChanged = new EventEmitter<number>();
@@ -48,47 +59,68 @@ export class RSliderComponent implements ControlValueAccessor {
   private LeftBoundry: number = this.offsetLeft + this.additionalSizeToAdd + 1;
   private rightBoundary: number = this.LeftBoundry + this.SliderWidth + 20 - 1;
 
-  onChange: Function = (value: number)=>{};
+  onChange: Function = (value: number) => { };
 
-  onTouch: Function = (value: number) => {};
+  onTouch: Function = (value: number) => { };
 
   constructor(@Host() private ele: ElementRef) {
     this.offsetLeft = (this.ele.nativeElement as HTMLElement).offsetLeft;
     // 12 offsetLeft + 2 + 1 +first position 1 = 16 
-    // 16 + 200 = 216 + 20 = 236-1; layerX
+    // 16 + 200 = 216 + 20 = 236-1; layerX    
+  }
+
+  ngOnInit(): void {
+    if(this.SliderValue==0){
+      this.RangeValue = this.MinValue;
+    }
   }
 
   writeValue(obj: any): void {
-    if(obj==null)
+    if (obj == null)
       return;
 
-    let number = Number.parseInt(obj);
+    if (obj < this.MinValue || obj > this.MaxValue) {
+      this.SliderValue = 0;
+      this.RangeValue = 0;
+      throw Error("Invalid Value between slider range");
+      return;
+    }
+
+    let number = Number.parseFloat(obj);
 
     this.SliderValue = number;
 
     let total = this.SliderWidth - 20 + 2;
 
-    let width = (total * this.SliderValue)/ 100;
-    
+    let percentage = (this.SliderValue - this.MinValue) / (this.MaxValue - this.MinValue);
+
+    let width = total * percentage;
+
     this.currentDistance = Number.parseInt(width.toString());
 
-    if(this.sliderElement){
+    if (this.sliderElement) {
       (this.sliderElement.nativeElement as HTMLElement).style.transform = `translateX(${this.currentDistance}px)`;
     }
 
-    this.OnValueChanged.emit(this.SliderValue);
+    if (this.ShowDecimalValues) {
+      this.RangeValue = parseFloat(parseFloat(this.SliderValue.toString()).toFixed(2));
+    } else {
+      this.RangeValue = parseInt(this.SliderValue.toString());
+    }
+
+    this.OnValueChanged.emit(this.RangeValue);
   }
-  
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  
+
   registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
+
   }
 
   dragStarted($event: CdkDragStart) {
@@ -116,14 +148,22 @@ export class RSliderComponent implements ControlValueAccessor {
 
     this.SliderValue = Number.parseInt(((this.currentDistance * 100) / total).toString());
 
+    let percentageValue = (((this.MaxValue - this.MinValue) * this.SliderValue) / 100) + this.MinValue;
+
+    if (this.ShowDecimalValues) {
+      this.RangeValue = parseFloat(parseFloat(percentageValue.toString()).toFixed(2));
+    } else {
+      this.RangeValue = parseInt(percentageValue.toString());
+    }    
+
     this.notifyToModel();
 
   }
 
-  notifyToModel(){
-    this.onChange(this.SliderValue);
-    this.onTouch(this.SliderValue);
-    this.OnValueChanged.emit(this.SliderValue);
+  notifyToModel() {
+    this.onChange(this.RangeValue);
+    this.onTouch(this.RangeValue);
+    this.OnValueChanged.emit(this.RangeValue);
   }
 
   dragEnded($event: CdkDragRelease) {

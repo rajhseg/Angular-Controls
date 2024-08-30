@@ -79,7 +79,7 @@ export class AppComponent implements AfterViewInit {
   window!: Window;
   interval!: number;
   progressDisplayText: string = '';
-  rangeValue: number = 40;
+  rangeValue: number = 0.4;
 
   multiValue: DropdownModel[] = [];
   singleValue!: DropdownModel;

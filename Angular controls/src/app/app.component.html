@@ -7,91 +7,83 @@
     <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
     <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
 
-    <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" Width="112px" DropDownContentWidth="122px">      
+    <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" Width="112px" DropDownContentWidth="122px">
     </rdropdown>
 
-    <rdropdown [(ngModel)]="singleValue"  [IsMulti]="false" [Items]="items1" Width="112px" DropDownContentWidth="122px">      
+    <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" Width="112px" DropDownContentWidth="122px">
     </rdropdown>
 
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
     <div>
-    multi:{{multiValue.length}}
-    single: {{singleValue.DisplayValue}}
+      multi:{{multiValue.length}}
+      single: {{singleValue.DisplayValue}}
     </div>
 
   </div>
-  <br/>
-  <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '"></rcolorpicker>
+  <br />
+  <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+  </rcolorpicker>
 
-  <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"  [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
-  <br/>
-  <br/>
+  <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Pending Color : '"
+    [IsDisplayColorCode]="false"></rcolorpicker>
+  <br />
+  <br />
   <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
-  <br/>
+  <br />
 
   <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStep()">Move to Next Step</rbutton>
   <rbutton (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
 
   <br />
-  
-  <br />
-  <br/>
-  
-  <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
-                [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="true"
-                [PendingBackgroundColor]="'orange'"
-                [PendingForeColor]="'white'"
-                [ContentWidth]="'140px'"                
-                (OnActiveValueChanged)="seqValueChanged($event)"
-                [ActiveBackgroundColor]="'blue'"></rstate-vertical>
-  
-  <br/>
 
-  <rslider [IsDisplayValue]="false" [(ngModel)]="rangeValue"></rslider> {{rangeValue}}
-  <br/>
-  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'"></rslider>
-  <br/>
+  <br />
+  <br />
+
+  <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" [(ngModel)]="StepperSelectedItem"
+    [IsDisplayStepNo]="true" [PendingBackgroundColor]="'orange'" [PendingForeColor]="'white'" [ContentWidth]="'140px'"
+    (OnActiveValueChanged)="seqValueChanged($event)" [ActiveBackgroundColor]="'blue'"></rstate-vertical>
+
+  <br />
+
+  <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
+  </rslider>
+  <br />
+  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25" [MaxValue]="75">
+  </rslider>
+  <br />
   <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
-  <br/>
-  
+  <br />
+
   <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
   <rbutton (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
 
-  <br/>
-  
+  <br />
+
   <div>
-    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-                  [Items]="seqHorizontalItems" 
-                  [(ngModel)]="StepperHorizontalSelectedItem"
-                  [ContentWidth]="'110px'"
-                  [IsDisplayStepNo]="false"
-                  (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
-                  [StripLineColor]="'blue'"></rstate-horizontal>
-  
-    </div>
-  <div>
-  <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-                [Items]="seqHorizontalItems" 
-                [(ngModel)]="StepperHorizontalSelectedItem"
-                [ContentWidth]="'110px'"
-                [IsDisplayStepNo]="true"
-                (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
-                [StripLineColor]="'blue'"></rstate-horizontal>
+    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" [Items]="seqHorizontalItems"
+      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="false"
+      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
 
   </div>
-  <br/>
+  <div>
+    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" [Items]="seqHorizontalItems"
+      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="true"
+      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
+
+  </div>
+  <br />
   <div style="display: flex;">
     <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="false">
-      <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1" ></rcheckbox>
+      <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
     </rgroup-panel>
 
     <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
-      <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1" ></rcheckbox>
+      <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
     </rgroup-panel>
@@ -106,15 +98,17 @@
     <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'"></rtextbox>
     <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
   </div>
-  
-  <br/>
+
+  <br />
   <div>
-    <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'" [LabelText]="'Password'"></rtextbox>          
-    <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'" [LabelText]="'Confirm Password'"></rtextbox>          
+    <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
+      [LabelText]="'Password'"></rtextbox>
+    <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'"
+      [LabelText]="'Confirm Password'"></rtextbox>
     <rbutton>Submit</rbutton>
   </div>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <br />
   <div>
     <br />
@@ -140,22 +134,23 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'rdropdown', 'Context':this }">
-        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" Width="112px" DropDownContentWidth="122px">        
+        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" Width="112px" DropDownContentWidth="122px">
         </rdropdown>
         {{selItem.Value}}
 
         <rdropdown [Items]="items" [(ngModel)]="selItem" DropDownContentWidth="92px">
         </rdropdown>
-               
-        <rdropdown [(ngModel)]="singleValue"  [IsMulti]="false" [Items]="items1" Width="112px" DropDownContentWidth="122px">      
+
+        <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" Width="112px"
+          DropDownContentWidth="122px">
         </rdropdown>
-        
+
         <br />
         <br />
         <div>
-        Multiple Values Select Count :{{selItem.length}}
-        Single Value : {{singleValue.DisplayValue}}
-        </div> 
+          Multiple Values Select Count :{{selItem.length}}
+          Single Value : {{singleValue.DisplayValue}}
+        </div>
 
         <rstarrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
         <rcalender></rcalender>
@@ -193,112 +188,113 @@
           (onItemSelected)="OnTreeItemSelected($event)"></rtree>
       </rtab>
 
-      <rtab *tabidfor="{ 'TabId': 'tab6', 'HeaderText':'rcheckbox', 'Context': this}">        
+      <rtab *tabidfor="{ 'TabId': 'tab6', 'HeaderText':'rcheckbox', 'Context': this}">
         <div style="display: flex;">
           <rgroup-panel groupname="Sports Interest">
             <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball" [GroupName]="'sports'"></rcheckbox>
-            <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball"  [GroupName]="'sports'"></rcheckbox>
-            <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"  [GroupName]="'sports'"></rcheckbox>
+            <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rcheckbox>
+            <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'"></rcheckbox>
           </rgroup-panel>
         </div>
         <div style="display: flex;vertical-align: middle;">
-          <rcheckbox [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>          
+          <rcheckbox [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
         </div>
       </rtab>
 
-      <rtab *tabidfor="{ 'TabId': 'tab7', 'HeaderText':'rradiobutton', 'Context':this}">        
+      <rtab *tabidfor="{ 'TabId': 'tab7', 'HeaderText':'rradiobutton', 'Context':this}">
         <div style="display: flex;">
           <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
-            <rradiobutton [Color]="'OrangeRed'" [DisplayText]="'Football'" [(ngModel)]="IsFootball" [GroupName]="'sports'"></rradiobutton>
+            <rradiobutton [Color]="'OrangeRed'" [DisplayText]="'Football'" [(ngModel)]="IsFootball"
+              [GroupName]="'sports'"></rradiobutton>
             <rradiobutton [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rradiobutton>
-            <rradiobutton [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'"></rradiobutton>
+            <rradiobutton [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
+            </rradiobutton>
           </rgroup-panel>
         </div>
       </rtab>
 
 
-      
-      <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">        
+
+      <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">
         <div style="display: flex;">
           <rfileupload (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
-        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '"></rcolorpicker>
-        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"  [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>        
+        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
+          [LabelText]="'Processed Color : '"></rcolorpicker>
+        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
+          [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
       </rtab>
 
     </rtabs>
 
     <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
 
-      <rtab *tabidfor="{ 'TabId':'tab20', 'HeaderText':'rslider', 'Context':this }">        
-        <rslider [IsDisplayValue]="false" [(ngModel)]="rangeValue"></rslider> {{rangeValue}}
-        <br/>
-        <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'"></rslider>
+      <rtab *tabidfor="{ 'TabId':'tab20', 'HeaderText':'rslider', 'Context':this }">
+
+
+        <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1"
+          [(ngModel)]="rangeValue"></rslider>
+        <br />
+        <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
+          [MaxValue]="75"></rslider>
+        <br />
         <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
+        <br />
+
+
       </rtab>
 
-      <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'rstate-vertical', 'Context':this }">        
-          <rbutton type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to Next Step</rbutton>
-          <rbutton (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
-          <br/>
-          <br/>
-          <br/>
-          <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
-                        [(ngModel)]="StepperSelectedItem"
-                        (OnActiveValueChanged)="seqValueChanged($event)"
-                        [PendingBackgroundColor]="'orangered'"
-                        [PendingForeColor]="'white'"
-                        [ActiveBackgroundColor]="'blue'"></rstate-vertical>
-          
-          <br/>
+      <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'rstate-vertical', 'Context':this }">
+        <rbutton type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to Next Step</rbutton>
+        <rbutton (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+        <br />
+        <br />
+        <br />
+        <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
+          [(ngModel)]="StepperSelectedItem" (OnActiveValueChanged)="seqValueChanged($event)"
+          [PendingBackgroundColor]="'orangered'" [PendingForeColor]="'white'"
+          [ActiveBackgroundColor]="'blue'"></rstate-vertical>
 
-          
-          <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
-                        [(ngModel)]="StepperSelectedItem"
-                        [IsDisplayStepNo]="false"
-                        (OnActiveValueChanged)="seqValueChanged($event)"
-                        [ActiveBackgroundColor]="'blue'"></rstate-vertical>
-          
-          <br/>
+        <br />
+
+
+        <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
+          [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="false" (OnActiveValueChanged)="seqValueChanged($event)"
+          [ActiveBackgroundColor]="'blue'"></rstate-vertical>
+
+        <br />
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'rstate-horizontal', 'Context':this }">
-                            
+
         <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
         <rbutton (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
-        <br/>
-        
+        <br />
+
         <div>
-          <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-                        [Items]="seqHorizontalItems" 
-                        [(ngModel)]="StepperHorizontalSelectedItem"
-                        [ContentWidth]="'110px'"
-                        [IsDisplayStepNo]="false"
-                        [CompletedForeColor]="'red'"                        
-                        (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
-                        [StripLineColor]="'blue'"></rstate-horizontal>
-        
-          </div>
-        <div>
-        <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-                      [Items]="seqHorizontalItems" 
-                      [(ngModel)]="StepperHorizontalSelectedItem"
-                      [ContentWidth]="'110px'"
-                      [IsDisplayStepNo]="true"
-                      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
-                      [StripLineColor]="'blue'"></rstate-horizontal>
+          <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
+            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'"
+            [IsDisplayStepNo]="false" [CompletedForeColor]="'red'"
+            (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
 
         </div>
-        <br/>
-        
+        <div>
+          <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
+            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'"
+            [IsDisplayStepNo]="true" (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
+            [StripLineColor]="'blue'"></rstate-horizontal>
+
+        </div>
+        <br />
+
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'rbutton', 'Context':this }">
         <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
-        <rbutton (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>       
+        <rbutton (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
       </rtab>
 
 
@@ -306,34 +302,37 @@
 
         <div style="display: flex;">
           <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
-            <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1" ></rcheckbox>
+            <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
             <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
             <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
           </rgroup-panel>
         </div>
 
-      </rtab>   
+      </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab25', 'HeaderText':'rtextbox', 'Context':this }">
 
         <div>
-          <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
+          <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'">
+          </rtextbox>
           <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'" [LabelText]="'Email'"></rtextbox>
           <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
         </div>
 
-      </rtab> 
+      </rtab>
 
-      
+
       <rtab *tabidfor="{ 'TabId':'tab27', 'HeaderText':'rtextbox password', 'Context':this }">
 
         <div>
-          <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'" [LabelText]="'Password'"></rtextbox>          
-          <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'" [LabelText]="'Confirm Password'"></rtextbox>          
+          <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
+            [LabelText]="'Password'"></rtextbox>
+          <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword"
+            [PlaceholderText]="'Please enter confirm password'" [LabelText]="'Confirm Password'"></rtextbox>
           <rbutton>Submit</rbutton>
         </div>
 
-      </rtab> 
+      </rtab>
 
     </rtabs>
   </div>

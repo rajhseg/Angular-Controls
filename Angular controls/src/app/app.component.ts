@@ -28,7 +28,7 @@ import { RStateHorizontalComponent } from './Controls/rsequences-horizontal/rseq
 import { RSequenceHorizontalItem } from './Controls/rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
 import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
 import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.component';
-import { RColorPickerComponent } from './Controls/rcolorpicker/rcolorpicker.component';
+import { RColorPickerComponent, RColorPickerEventArgs } from './Controls/rcolorpicker/rcolorpicker.component';
 
 @Component({
   selector: 'app-root',
@@ -166,7 +166,7 @@ export class AppComponent implements AfterViewInit {
     this.createSequenceHorizontalItems();
   }
 
-  ColorSelected($event: string){
+  ColorSelected($event: RColorPickerEventArgs){
     console.log($event);
   }
 

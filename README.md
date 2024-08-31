@@ -191,8 +191,6 @@ Tab Control
 ![image](https://github.com/user-attachments/assets/82c74daa-1e38-432f-80ba-c83dd5b40dd7)
 
 
-![image](https://github.com/user-attachments/assets/00d31649-ef3a-4dd3-be60-6c75c5aedd10)
-
 <br />
 <br />
 

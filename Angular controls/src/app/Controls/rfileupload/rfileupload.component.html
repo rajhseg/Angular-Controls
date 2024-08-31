@@ -1,7 +1,8 @@
 <div>
     <input [hidden]="true" multiple type="file" #rfile (change)="onFilesSelected($event)" />
     <div style="width: 285px;">
-    <rgroup-panel [groupname]="'Files Upload'" [TitleForeColor]="TextForeColor">
+    <rgroup-panel [groupname]="'Files Upload'" [TitleForeColor]="TextForeColor" 
+            [EnableShadowEffect]="EnableShadowEffect">
         <div style="display: flex;">
             <div class="rcontainer" [ngStyle]="{'border-bottom-color': IconForeColor}">
                 <div class="displayText" [ngStyle]="{ 'color': TextForeColor }">{{DisplayText}}</div>

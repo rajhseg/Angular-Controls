@@ -1,6 +1,7 @@
 
 <div [id]="Id" class="rcolorpickerwindowclose">
-<div class="mainContainer" (click)="toggle($event)" [ngStyle]="{'color': LabelTextForeColor}">
+<div [ngStyle]="{'color': LabelTextForeColor,'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}"
+        class="mainContainer" (click)="toggle($event)">
     <div *ngIf="IsDisplayLabelText" style="padding: 3px;">{{LabelText}} </div>
     <div *ngIf="DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;">{{SelectedColorHex}}</div>
     <div *ngIf="!DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;">{{GetRGBColorInNumbers}}</div>

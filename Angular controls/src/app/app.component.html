@@ -23,6 +23,8 @@
 
   </div>
   <br />
+  <br />
+  
   <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
   </rcolorpicker>
 
@@ -95,7 +97,7 @@
 
   <div>
     <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
-    <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'"></rtextbox>
+    <rtextbox [LabelText]="'Email'"></rtextbox>
     <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
   </div>
 
@@ -108,6 +110,14 @@
     <rbutton>Submit</rbutton>
   </div>
   <br />
+  <br />
+
+  <rnumeric [EnableShadowEffect]="true" [(ngModel)]="rangeValue1"></rnumeric>
+  
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'" 
+      [BottomLineColor]="'orangered'" [LabelTextForeColor]="'orangered'"
+      [(ngModel)]="rangeValue1"></rnumeric>
+  
   <br />
   <br />
   <div>
@@ -123,6 +133,8 @@
   </div>
 
   <rbutton (ButtonClick)="AddTab()">Add Tab</rbutton>
+
+
 
   <div cdkDropListGroup>
     <rtabs [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
@@ -241,7 +253,7 @@
         <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
           [MaxValue]="75"></rslider>
         <br />
-        <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
+        <rslider [(ngModel)]="rangeValue1" [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
         <br />
 
 
@@ -315,7 +327,7 @@
         <div>
           <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'">
           </rtextbox>
-          <rtextbox [LabelText]="'Email'" [LabelForeColor]="'purple'" [LabelText]="'Email'"></rtextbox>
+          <rtextbox [LabelText]="'Email'"></rtextbox>
           <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
         </div>
 
@@ -332,6 +344,15 @@
           <rbutton>Submit</rbutton>
         </div>
 
+      </rtab>
+
+      <rtab *tabidfor="{'TabId':'tab28', 'HeaderText':'Numeric', 'Context': this}">
+        <rnumeric [(ngModel)]="rangeValue1"></rnumeric>
+        
+        <rnumeric [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'" 
+            [BottomLineColor]="'orangered'" [LabelTextForeColor]="'orangered'" [EnableShadowEffect]="true"
+            [(ngModel)]="rangeValue1"></rnumeric>
+        <br />
       </rtab>
 
     </rtabs>

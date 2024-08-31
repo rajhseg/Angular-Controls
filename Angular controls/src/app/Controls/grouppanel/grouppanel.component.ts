@@ -11,6 +11,9 @@ import { Component, Input } from '@angular/core';
 export class RGrouppanelComponent {
 
 @Input()
+public EnableShadowEffect: boolean = true;
+
+@Input()
 groupname: string = "";
 
 @Input()

@@ -40,7 +40,8 @@
     flex-direction: row;    
     width: fit-content;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  */
+    border: 1px solid lightgray;
     padding: 5px;
     margin-top: 4px;
     margin-bottom: 4px;

@@ -1,6 +1,7 @@
 import { NgIf, NgStyle } from '@angular/common';
-import { Component, EventEmitter, forwardRef, HostListener, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rtextbox',
@@ -11,15 +12,15 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
   host: {
     "(window:click)": "windowOnClick($event)"
   },
-  providers:[
+  providers: [
     {
-      provide:NG_VALUE_ACCESSOR,
-      useExisting:forwardRef(()=> RTextboxComponent),
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RTextboxComponent),
       multi: true
     }
   ]
 })
-export class RTextboxComponent implements ControlValueAccessor {
+export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
 
   @Input()
   LabelText: string = "";
@@ -28,53 +29,69 @@ export class RTextboxComponent implements ControlValueAccessor {
   PlaceholderText: string = "";
 
   @Input()
-  LabelForeColor: string = "purple";
+  LabelForeColor: string = "blue";
+
+  @Input()
+  BottomLineColor: string = "blue";
+
+  @Input()
+  IsReadOnly: boolean = false;
+
+  @Input()
+  TextBoxWidth: number = 200;
 
   @Output()
   valueChanged = new EventEmitter<string>();
 
-  private isPassord: boolean =false;
+  private isPassord: boolean = false;
 
   @Input()
-  public set IsPasswordBox(value: boolean){
+  public set IsPasswordBox(value: boolean) {
     this.isPassord = value;
   }
   public get IsPasswordBox(): boolean {
     return this.isPassord;
   }
 
-  onChanged:  Function = (e:string)=>{ };
-  onTouched: Function = (e: string)=> { };
+  onChanged: Function = (e: string) => { };
+  onTouched: Function = (e: string) => { };
 
   private _textboxValue: string = "";
 
-  public set TextboxValue(value: string){
+  public set TextboxValue(value: string) {
     this._textboxValue = value;
     this.notifyToModel();
   }
-  
+
   public get TextboxValue(): string {
     return this._textboxValue;
   }
 
+  constructor(private winObj: WindowHelper) {
+
+  }
+
+  ngAfterViewInit(): void {
+   
+  }
 
   public displayPlaceholder: boolean = true;
 
 
 
-  txtboxClicked($event: Event){
-    
+  txtboxClicked($event: Event) {
+
   }
 
-  windowOnClick($event: Event) {   
-    
+  windowOnClick($event: Event) {
+
   }
 
-  @HostListener('onblur',['$event'])
-  blur($event: Event){
-    
+  @HostListener('onblur', ['$event'])
+  blur($event: Event) {
+
   }
-  
+
   writeValue(obj: any): void {
     this._textboxValue = obj;
     this.notifyToUI();
@@ -86,7 +103,7 @@ export class RTextboxComponent implements ControlValueAccessor {
     this.valueChanged.emit(this.TextboxValue);
   }
 
-  notifyToUI(){
+  notifyToUI() {
     this.valueChanged.emit(this.TextboxValue);
   }
 
@@ -99,7 +116,7 @@ export class RTextboxComponent implements ControlValueAccessor {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
-  }  
+
+  }
 
 }

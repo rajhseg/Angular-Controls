@@ -79,6 +79,9 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
   private mainStartX: number = 0;
   private mainStartY: number = 0;
 
+  @Input()
+  public EnableShadowEffect: boolean = true;
+
   // private _inputColorInHex: string | undefined = undefined;
 
   // @Input()

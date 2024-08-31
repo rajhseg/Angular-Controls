@@ -53,6 +53,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   SliderWidth: number = 200;
 
   private sliderFromStart: boolean = false;
+  private clickonInitHaveValues: boolean = true;
 
   public SliderValue: number = 0;
 
@@ -70,7 +71,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    if(this.SliderValue==0){
+    if (this.SliderValue == 0) {
       this.RangeValue = this.MinValue;
     }
   }
@@ -127,7 +128,25 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     this.sliderFromStart = true;
   }
 
+  clickOnBar($event: MouseEvent) {
+
+    // $event.preventDefault();
+    // $event.stopPropagation();
+
+    // let total = this.SliderWidth - 20 + 2;
+    // this.currentDistance = ($event as MouseEvent).offsetX;
+
+    // this.AdjustSlideBasedOnCurrentDistance(total);
+
+    // (this.sliderElement.nativeElement as HTMLElement).style.transform = "0px";
+    // (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX("+this.currentDistance+"px)"; //this.currentDistance+"px";
+
+  }
+
   dragMove($event: CdkDragMove) {
+
+    $event.event.preventDefault();
+    $event.event.stopPropagation();
 
     let total = this.SliderWidth - 20 + 2;
 
@@ -137,6 +156,10 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     }
 
     this.currentDistance = this.resize + $event.distance.x;
+    this.AdjustSlideBasedOnCurrentDistance(total);
+  }
+
+  AdjustSlideBasedOnCurrentDistance(total: number) {
 
     if (this.currentDistance > total) {
       this.currentDistance = total;
@@ -154,10 +177,9 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
       this.RangeValue = parseFloat(parseFloat(percentageValue.toString()).toFixed(2));
     } else {
       this.RangeValue = parseInt(percentageValue.toString());
-    }    
+    }
 
     this.notifyToModel();
-
   }
 
   notifyToModel() {

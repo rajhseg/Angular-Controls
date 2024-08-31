@@ -1,0 +1,38 @@
+
+
+.spn {
+    cursor: pointer;
+    text-align: center;
+    align-self: center;        
+    position: relative;
+}
+
+.spn:focus {
+    outline: none !important;
+}
+
+:host{
+    display: flex;
+    width: fit-content;
+    margin-top:8px;
+    margin-bottom: 8px;
+}
+
+.sh {    
+    padding-left: 15px;
+    width: 180px;
+}
+
+.minus {
+    align-self:center;
+    left: -100px;
+    position: relative;
+    top: 7px;
+}
+
+.plus {
+    align-self:center;
+    left: -98px;
+    position: relative;
+    top: 7px;
+}

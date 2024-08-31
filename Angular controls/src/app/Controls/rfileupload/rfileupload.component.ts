@@ -42,6 +42,9 @@ export class RfileuploadComponent {
   TextForeColor: string = "gray";
 
   @Input()
+  public EnableShadowEffect: boolean = true;
+  
+  @Input()
   ShowFilesListMaximumHeight: string = "150px";
 
   @Input()

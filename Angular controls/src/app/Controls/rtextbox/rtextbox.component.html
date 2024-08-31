@@ -3,5 +3,20 @@
 
 <div class="txtroot">
     <span class="span" [ngStyle]="{ 'color': LabelForeColor}"> {{LabelText}} </span>
-    <input type="text" [type]="IsPasswordBox ? 'password' : 'text'" [(ngModel)]="TextboxValue" class="txtbox" [placeholder]="PlaceholderText" (click)="txtboxClicked($event)">            
+    
+    
+    <!-- <p #para contenteditable="true" onkeypress="return event.keyCode != 13;"  
+        class="txtbox" 
+        (click)="txtboxClicked($event)"
+        [ngStyle]="{'width': TextBoxWidth+'px','border-bottom': '2px solid {{BottomLineColor}};'}">
+
+    </p> -->
+
+    <input [readOnly]="IsReadOnly" type="text" 
+            [type]="IsPasswordBox ? 'password' : 'text'" 
+            [(ngModel)]="TextboxValue" class="txtbox" 
+       [ngStyle]="{'width': TextBoxWidth+'px','border-bottom-color': BottomLineColor}" 
+       [placeholder]="PlaceholderText" 
+       (click)="txtboxClicked($event)">     
+
 </div>

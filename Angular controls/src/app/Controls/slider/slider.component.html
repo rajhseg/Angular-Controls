@@ -1,10 +1,10 @@
 <div style="display: flex;">
     <div class="sbox">
-        <div class="box" [ngStyle]="{'width':SliderWidth+'px'}"></div>
-        <div class="cbox" 
+        <div class="box" (click)="clickOnBar($event)" [ngStyle]="{'width':SliderWidth+'px'}"></div>
+        <div class="cbox"  (click)="clickOnBar($event)"
             [ngStyle]="{'background-color': EnablePathColor ? BackgroundColor : 'transparent', 'width':currentDistance+'px'}"></div>
         <div #slider class="slider" [ngStyle]="{'background-color': BackgroundColor}" cdkDragLockAxis="x" cdkDrag
-            cdkDragBoundary=".sbox" (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"
+            cdkDragBoundary=".sbox" (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"            
             (cdkDragReleased)="dragEnded($event)">
         </div>
     </div>

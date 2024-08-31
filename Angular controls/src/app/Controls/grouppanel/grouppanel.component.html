@@ -1,4 +1,4 @@
-<div class="group">
+<div class="group" [ngStyle]="{'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}">
     <span class="grouptitle" [ngStyle]="{'color': TitleForeColor}">{{groupname}}</span>
     <div [ngStyle]="{'display': IsItemsArrangeHorizontal ? 'flex' : ''}">
         <ng-content></ng-content>

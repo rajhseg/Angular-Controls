@@ -29,6 +29,7 @@ import { RSequenceHorizontalItem } from './Controls/rsequences-horizontal/rseque
 import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
 import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.component';
 import { RColorPickerComponent, RColorPickerEventArgs } from './Controls/rcolorpicker/rcolorpicker.component';
+import { RNumericComponent } from "./Controls/rnumeric/rnumeric.component";
 
 @Component({
   selector: 'app-root',
@@ -54,7 +55,8 @@ import { RColorPickerComponent, RColorPickerEventArgs } from './Controls/rcolorp
     RGrouppanelComponent,
     RTextboxComponent,
     RfileuploadComponent,
-    RColorPickerComponent
+    RColorPickerComponent,
+    RNumericComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -80,6 +82,7 @@ export class AppComponent implements AfterViewInit {
   interval!: number;
   progressDisplayText: string = '';
   rangeValue: number = 0.4;
+  rangeValue1: number = 35;
 
   multiValue: DropdownModel[] = [];
   singleValue!: DropdownModel;

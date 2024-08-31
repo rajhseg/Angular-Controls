@@ -1,0 +1,9 @@
+
+
+<div [ngStyle]="{'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}" class="sh" style="display: flex;flex-direction: row;">  
+    <rtextbox [IsReadOnly]="true" [BottomLineColor]="BottomLineColor" [LabelText]="LabelText" 
+        [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="150"
+        [(ngModel)]="Value"></rtextbox>    
+    <rbutton [BackgroundColor]="MinusBackgroundColor" [ForeColor]="MinusForeColor" (ButtonClick)="Dec()" class="minus">&#9866;</rbutton>
+    <rbutton [BackgroundColor]="PlusBackgroundColor" [ForeColor]="PlusForeColor" (ButtonClick)="Inc()" class="plus">&#10009;</rbutton>
+</div>

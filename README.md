@@ -194,13 +194,6 @@ Tab Control
 <br />
 <br />
 
-
-
-![image](https://github.com/user-attachments/assets/26dd876c-c37c-44ae-865d-6314b8e13a5e)
-
-<br />
-<br />
-
 FileUpload Control
 --------------------------------
 

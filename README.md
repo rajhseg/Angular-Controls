@@ -2,7 +2,8 @@
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
-switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker etc
+switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
+Numeric etc
 
 
 <br />
@@ -223,6 +224,18 @@ ColorPicker
 
 <br/>
 <br/>
+
+Numeric Control
+---------------------------------
+<br/>
+
+![image](https://github.com/user-attachments/assets/87b85a84-e7c6-4fc1-a0f8-bc17248653e4)
+
+![image](https://github.com/user-attachments/assets/15456951-900a-4c45-b32a-1227a15a7eb0)
+
+
+<br />
+<br />
 
 
 

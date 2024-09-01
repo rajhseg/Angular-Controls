@@ -112,13 +112,17 @@
   <br />
   <br />
 
-  <rnumeric [EnableShadowEffect]="true" [(ngModel)]="rangeValue1"></rnumeric>
+  <rnumeric  [(ngModel)]="rangeValue1"></rnumeric>
   
   <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'" 
       [BottomLineColor]="'orangered'" [LabelTextForeColor]="'orangered'"
       [(ngModel)]="rangeValue1"></rnumeric>
   
   <br />
+
+  <rtimer></rtimer>
+  <rtimer [DisplayType]="timerDisplayType" [CircularWidth]="70"></rtimer>
+
   <br />
   <div>
     <br />
@@ -181,17 +185,11 @@
 
         <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
         </rswitch>
-
+          
+        <span>Is Circle: {{IsCircleProgressBar}}</span>
+        
         <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
           [(ngModel)]="IsInfiniteProgressBar"></rswitch>
-
-        <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
-          [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
-          [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
-          [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
-        </rprogressbar>
-
-        <rbutton (ButtonClick)="ResetProgress()">Reset</rbutton>
 
       </rtab>
 
@@ -238,6 +236,24 @@
           [LabelText]="'Processed Color : '"></rcolorpicker>
         <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
           [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
+      </rtab>
+
+      <rtab *tabidfor="{ 'TabId': 'tab10', 'HeaderText':'rprogressbar', 'Context':this}">        
+        <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+
+        <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+        </rswitch>
+
+        <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
+          [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+
+        <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+          [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+          [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+          [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
+        </rprogressbar>
+
+        <rbutton (ButtonClick)="ResetProgress()">Reset</rbutton>
       </rtab>
 
     </rtabs>
@@ -355,6 +371,10 @@
         <br />
       </rtab>
 
+      <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rtimer', 'Context': this}">
+        <rtimer (ValueChanged)="rtimer_ValueChanged($event)"></rtimer>
+        <rtimer [CallbackAfterCertainSeconds]="120" (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70"></rtimer>
+      </rtab>
     </rtabs>
   </div>
 

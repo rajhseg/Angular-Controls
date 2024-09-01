@@ -8,7 +8,7 @@ import { JsonPipe, NgFor } from '@angular/common';
 
 import { RStarRatingComponent } from './Controls/rating/rating.component';
 import { SwitchComponent } from './Controls/switch/switch.component';
-import { ProgressbarComponent } from './Controls/progressbar/progressbar.component';
+import { RProgressbarComponent } from './Controls/progressbar/progressbar.component';
 import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/progressbarType';
 import { setInterval } from 'timers';
 import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
@@ -30,6 +30,7 @@ import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
 import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.component';
 import { RColorPickerComponent, RColorPickerEventArgs } from './Controls/rcolorpicker/rcolorpicker.component';
 import { RNumericComponent } from "./Controls/rnumeric/rnumeric.component";
+import { RTimerComponent, TimerType } from './Controls/rtimer/rtimer.component';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,7 @@ import { RNumericComponent } from "./Controls/rnumeric/rnumeric.component";
     RouterOutlet, CalenderComponent,
     SwitchComponent,
     DropdownComponent, FormsModule,
-    ReactiveFormsModule, ProgressbarComponent,
+    ReactiveFormsModule, RProgressbarComponent,
     RTabComponent, RTabsComponent,
     NgFor, JsonPipe, RStarRatingComponent,
     RTabIdFor,
@@ -56,7 +57,8 @@ import { RNumericComponent } from "./Controls/rnumeric/rnumeric.component";
     RTextboxComponent,
     RfileuploadComponent,
     RColorPickerComponent,
-    RNumericComponent
+    RNumericComponent,
+    RTimerComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -84,6 +86,8 @@ export class AppComponent implements AfterViewInit {
   rangeValue: number = 0.4;
   rangeValue1: number = 35;
 
+  timerDisplayType: TimerType = TimerType.Circle;
+  
   multiValue: DropdownModel[] = [];
   singleValue!: DropdownModel;
 
@@ -167,6 +171,14 @@ export class AppComponent implements AfterViewInit {
     this.createTreeData();
     this.createSequenceVerticalItems();
     this.createSequenceHorizontalItems();
+  }
+
+  rtimer_ValueChanged($event: string){
+    
+  }
+
+  callbackAfterInterval($event: string){
+    console.log("Callback after: "+$event);
   }
 
   ColorSelected($event: RColorPickerEventArgs){

@@ -1,0 +1,31 @@
+
+
+.lbl
+{
+    align-self: center;
+    position: relative;
+    top:-5px;
+    font-size: small;    
+}
+
+:host{
+    display: flex;
+    width: fit-content;
+    margin-top:8px;
+    margin-bottom: 8px;
+}
+
+.simpleTimer{
+    padding: 6px;    
+}
+
+
+
+.lbl1
+{
+    align-self: center;
+    position: relative;
+    top: 0px;
+    padding-left: 7px;
+    font-size: small;
+}

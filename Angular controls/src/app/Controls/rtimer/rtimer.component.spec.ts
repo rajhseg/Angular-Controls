@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RProgressbarComponent } from './progressbar.component';
+import { RtimerComponent } from './rtimer.component';
 
-describe('ProgressbarComponent', () => {
-  let component: RProgressbarComponent;
-  let fixture: ComponentFixture<RProgressbarComponent>;
+describe('RtimerComponent', () => {
+  let component: RtimerComponent;
+  let fixture: ComponentFixture<RtimerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RProgressbarComponent]
+      imports: [RtimerComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(RProgressbarComponent);
+
+    fixture = TestBed.createComponent(RtimerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

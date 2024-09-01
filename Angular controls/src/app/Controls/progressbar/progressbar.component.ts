@@ -10,7 +10,7 @@ import { WINDOWOBJECT, WindowHelper } from '../windowObject';
   templateUrl: './progressbar.component.html',
   styleUrl: './progressbar.component.css'
 })
-export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
+export class RProgressbarComponent implements AfterViewInit, AfterViewChecked{
 
   @ViewChild('flatitemProgress', {read:ElementRef, static: false})
   stLineElement: ElementRef | undefined = undefined;
@@ -182,6 +182,14 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
   @Input()
   set FiniteCircularDisplayText(val: string){
     this._displayText = val;
+
+    if(this.Type==this.allProgressBarTypes.Progress && this.DisplayType==this.allDisplayTypes.StraightLine){
+      this.RenderStraightLine();
+    }
+
+    if(this.Type==this.allProgressBarTypes.Progress && this.DisplayType == this.allDisplayTypes.Circle){
+      this.RenderProgressCircle();
+    }
   }
   get FiniteCircularDisplayText(): string {
     return this._displayText;
@@ -226,7 +234,7 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
   RenderProgressCircle(){
     if(this.progressCanvas){
     let per = this.Percentage/100;
-    let deg = per * 360.0 * (Math.PI/180);
+    let deg = per * 359.98 * (Math.PI/180);
 
     let _w = parseInt(this.ProgressBarWidth.split('px')[0]);
     let _linewidth = parseInt(this.CircularLineWidth.split('px')[0]);
@@ -275,9 +283,7 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
           txtctx.beginPath();
           txtctx.fillStyle = this.ForeColor;
           txtctx.font = 'bold 16px Arial, sans-serif';
-          let _text = '';
-
-          console.log('percentage '+this.Percentage);
+          let _text = '';          
 
           if(this._displayText == '') {
             _text = this.Percentage.toString()+" / "+"100";
@@ -299,8 +305,7 @@ export class ProgressbarComponent implements AfterViewInit, AfterViewChecked{
           textX = a - (_maxSize/2);
           textY = b + 5;
 
-          txtctx.fillText(_text, textX, textY, _maxSize);
-          console.log(_text);
+          txtctx.fillText(_text, textX, textY, _maxSize);          
           txtctx.closePath();
         }
       }

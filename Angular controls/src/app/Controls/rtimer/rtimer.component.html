@@ -1,0 +1,79 @@
+<div>
+    <div [ngStyle]="{'padding': EnableShadowEffect ? '15px' : '','box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}"
+        *ngIf="DisplayType == allDisplayTypes.Circle" style="display: flex;">
+
+        <div style="display: flex; flex-direction: column;">
+            <rprogressbar [ForeColor]="HoursForeColor" [TrackColor]="HoursTrackColor" [EnableBackDrop]="false"
+                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [Percentage]="HourPercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Hour"
+                [Type]="ProgressType">
+            </rprogressbar>
+            <div [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl">
+                <span>Hrs</span>
+            </div>
+        </div>
+
+
+        <div style="display: flex; flex-direction: column;">
+            <rprogressbar [ForeColor]="MinuteForeColor" [TrackColor]="MinuteTrackColor" [EnableBackDrop]="false"
+                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [Percentage]="MinutePercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Minute"
+                [Type]="ProgressType">
+            </rprogressbar>
+            <div [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl">
+                <span>Mins</span>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <rprogressbar [ForeColor]="SecondsForeColor" [TrackColor]="SecondsTrackColor" [EnableBackDrop]="false"
+                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [Percentage]="SecondPercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Second"
+                [Type]="ProgressType">
+            </rprogressbar>
+            <div [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl">
+                <span>Secs</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div [ngStyle]="{'padding': EnableShadowEffect ? '15px' : '','box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}" 
+            *ngIf="DisplayType == allDisplayTypes.FlatStyle" style="display: flex; flex-direction: column;">
+        <div [ngStyle]="{'color':FlatStyleForeColor, 'border-color': FlatStyleForeColor}"
+            style="display: flex;border: 1px solid lightgray;">
+            <div class="simpleTimer">
+                {{Hour}}
+            </div>
+            <div class="simpleTimer">
+                <span>:</span>
+            </div>
+            <div class="simpleTimer">
+                {{Minute}}
+            </div>
+            <div class="simpleTimer">
+                <span>:</span>
+            </div>
+            <div class="simpleTimer">
+                {{Second}}
+            </div>
+        </div>
+        <div style="display: flex;padding-top:3px;">
+            <div class="simpleTimer" [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl1">
+                <span>Hrs</span>
+            </div>
+            <div class="simpleTimer">
+                <span></span>
+            </div>
+            <div class="simpleTimer" [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl1">
+                <span>Mins</span>
+            </div>
+            <div class="simpleTimer">
+                <span></span>
+            </div>
+            <div class="simpleTimer" [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl1">
+                <span>Secs</span>
+            </div>
+        </div>
+    </div>
+</div>

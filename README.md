@@ -188,14 +188,8 @@ Circular Finite
 Tab Control
 -------------------------
 
-![image](https://github.com/user-attachments/assets/00d31649-ef3a-4dd3-be60-6c75c5aedd10)
+![image](https://github.com/user-attachments/assets/82c74daa-1e38-432f-80ba-c83dd5b40dd7)
 
-<br />
-<br />
-
-
-
-![image](https://github.com/user-attachments/assets/26dd876c-c37c-44ae-865d-6314b8e13a5e)
 
 <br />
 <br />

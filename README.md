@@ -236,7 +236,11 @@ Timer Control
 -----------------------------------
 <br/>
 
-![image](https://github.com/user-attachments/assets/3934a7aa-3821-4059-951d-605848cf3559)
+![image](https://github.com/user-attachments/assets/30e754c5-6dac-4868-b6ee-ddb86b0a55d8)
+
+<br/>
+
+![image](https://github.com/user-attachments/assets/91e5e973-f77d-4462-b231-62df37fa1fe6)
 
 <br/>
 <br />

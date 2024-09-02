@@ -106,23 +106,9 @@ rstate-horizontal Control
 
 Rstate-Vertical Control 
 ----------------------------------------------
-
-![image](https://github.com/user-attachments/assets/2111a2e2-8b31-4c3a-b75a-556499ec9fd7)
-
-<br />
-<br />
-
-
-
-![image](https://github.com/user-attachments/assets/48bdb2a1-86d1-40e0-9336-2ba6da9aeb60)
+![image](https://github.com/user-attachments/assets/1963ee77-1817-49dd-86bf-76405cdde62c)
 
 <br />
-<br />
-
-
-
-![image](https://github.com/user-attachments/assets/37f06a58-4e94-4bde-8636-3d50999c8af1)
-
 <br />
 
 Slider
@@ -216,12 +202,7 @@ ColorPicker
 
 Numeric Control
 ---------------------------------
-<br/>
-
-
-![image](https://github.com/user-attachments/assets/87b85a84-e7c6-4fc1-a0f8-bc17248653e4)
-
-![image](https://github.com/user-attachments/assets/15456951-900a-4c45-b32a-1227a15a7eb0)
+![image](https://github.com/user-attachments/assets/29afbe78-6c1b-4270-85ba-f6cdb309ba2a)
 
 
 <br />
@@ -229,14 +210,7 @@ Numeric Control
 
 Timer Control
 -----------------------------------
-<br/>
-
-![image](https://github.com/user-attachments/assets/30e754c5-6dac-4868-b6ee-ddb86b0a55d8)
-
-![image](https://github.com/user-attachments/assets/91e5e973-f77d-4462-b231-62df37fa1fe6)
-
-![image](https://github.com/user-attachments/assets/743f4af0-3798-41c2-b17d-10356074dcdf)
-
+![image](https://github.com/user-attachments/assets/fa43eebe-462a-4995-a210-0cd3b55ff12f)
 
 <br/>
 <br />

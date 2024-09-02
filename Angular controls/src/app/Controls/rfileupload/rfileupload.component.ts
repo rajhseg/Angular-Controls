@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -9,8 +9,16 @@ import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
   imports: [RGrouppanelComponent, NgClass, NgIf, NgForOf, NgStyle],
   templateUrl: './rfileupload.component.html',
   styleUrl: './rfileupload.component.css',
+  providers:[
+    {
+      provide:NG_VALUE_ACCESSOR,
+      useExisting:forwardRef(()=>RfileuploadComponent),
+      multi: true
+    }
+  ]
 })
-export class RfileuploadComponent {
+export class RfileuploadComponent implements ControlValueAccessor {
+  
 
   @ViewChild('rfile', { read: ElementRef }) rFile!: ElementRef;
 
@@ -56,8 +64,31 @@ export class RfileuploadComponent {
   @Output()
   public filesCleared = new EventEmitter<any>();
 
+  onChanged: Function = ()=> {};
+  onTouched: Function = ()=> {};
+
   browse($event: Event) {
     (this.rFile.nativeElement as HTMLElement).click();
+  }
+
+  writeValue(obj: any): void {
+    if(obj instanceof FileList){
+      this._files = obj;
+      this.filesSelected.emit(this._files);
+      this.renderDisplayText();
+    }
+  }
+  
+  registerOnChange(fn: any): void {
+    this.onChanged= fn;
+  }
+  
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    
   }
 
   clear($event: Event) {
@@ -65,14 +96,23 @@ export class RfileuploadComponent {
     this.showFiles =false;
     this.rFile.nativeElement.value = "";
     this.DisplayText = "";
+
+    this.onChanged(undefined);
+    this.onTouched(undefined);
     this.filesSelected.emit(undefined);
     this.filesCleared.emit($event);
   }
+  
 
   onFilesSelected($event: Event) {
     this._files = ($event.target as any).files;
+    this.onChanged(this._files);
+    this.onTouched(this._files);
     this.filesSelected.emit(this._files);
+    this.renderDisplayText();    
+  }
 
+  renderDisplayText(){
     if (this._files != undefined) {
       if (this._files.length > 0) {
         this.DisplayText = "(" + (this._files.length) + ") files";

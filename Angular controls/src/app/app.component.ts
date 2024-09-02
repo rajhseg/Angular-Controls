@@ -125,6 +125,7 @@ export class AppComponent implements AfterViewInit {
   userName: string = "Angular";
   password: string = "";
   confirmpassword: string = "";
+  files!: FileList;
   
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;

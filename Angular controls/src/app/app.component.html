@@ -241,7 +241,7 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">
         <div style="display: flex;">
-          <rfileupload (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
+          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
       </rtab>
 

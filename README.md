@@ -240,6 +240,9 @@ Timer Control
 
 ![image](https://github.com/user-attachments/assets/91e5e973-f77d-4462-b231-62df37fa1fe6)
 
+![image](https://github.com/user-attachments/assets/743f4af0-3798-41c2-b17d-10356074dcdf)
+
+
 <br/>
 <br />
 

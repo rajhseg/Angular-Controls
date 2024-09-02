@@ -126,7 +126,8 @@ export class AppComponent implements AfterViewInit {
   password: string = "";
   confirmpassword: string = "";
   files!: FileList;
-  
+  color1: string = "#1598DC";
+
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
 

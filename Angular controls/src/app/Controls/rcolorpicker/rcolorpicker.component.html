@@ -1,12 +1,13 @@
 
 <div [id]="Id" class="rcolorpickerwindowclose">
-<div [ngStyle]="{'color': LabelTextForeColor,'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}"
+<div [ngStyle]="{'color': LabelTextForeColor, 'font-size':FontSize,
+            'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}"
         class="mainContainer" (click)="toggle($event)">
-    <div *ngIf="IsDisplayLabelText" style="padding: 3px;">{{LabelText}} </div>
-    <div *ngIf="DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;">{{SelectedColorHex}}</div>
-    <div *ngIf="!DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;">{{GetRGBColorInNumbers}}</div>
-    <div style="width: 50px; height: 20px;padding: 3px;"  *ngIf="SelectedColorRgb!=undefined"
-        [ngStyle]="{'background-color':SelectedColorRgb}">
+    <div *ngIf="IsDisplayLabelText" style="padding: 3px;align-self:center;">{{LabelText}} </div>
+    <div *ngIf="DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;align-self:center;">{{DisplayColorHex}}</div>
+    <div *ngIf="!DisplayColorInHex && IsDisplayColorCode" style="padding: 3px;align-self:center;">{{GetDisplayColorInNumbers}}</div>
+    <div style="width: 50px; height: 20px;padding: 3px;align-self:center;"  *ngIf="DisplayColorRGB!=undefined"
+        [ngStyle]="{'background-color':DisplayColorRGB}">
     </div>    
 </div>
 

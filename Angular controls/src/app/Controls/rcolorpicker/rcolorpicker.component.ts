@@ -1,7 +1,8 @@
 import { NgIf, NgStyle, UpperCasePipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
 import { WindowHelper } from '../windowObject';
 import { RectShape } from './rectShape';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'rcolorpicker',
@@ -12,9 +13,16 @@ import { RectShape } from './rectShape';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     "(window:click)": "windowOnClick($event)"
-  }
+  },
+  providers:[
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(()=> RColorPickerComponent),
+      multi: true
+    }
+  ]
 })
-export class RColorPickerComponent implements AfterViewInit, OnDestroy {
+export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
   @ViewChild('variations', { read: ElementRef<HTMLCanvasElement>, static: false })
   variations: ElementRef<HTMLCanvasElement> | undefined = undefined;
@@ -28,6 +36,11 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
   private _varprevRectX: number | undefined = undefined;
   private _varprevRectY: number | undefined = undefined;
 
+  DisplayColorRGB: string = "";
+  DisplayColorHex: string = "";
+  DisplayColorR!: number;
+  DisplayColorG!: number;
+  DisplayColorB!: number;
 
   private mainColorClickEventBinded: boolean = false;
   private variationColorClickEventBinded: boolean = false;
@@ -111,6 +124,9 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
   public IsDisplayLabelText: boolean = false;
 
   @Input()
+  public FontSize: string = "small";
+  
+  @Input()
   public IsDisplayColorCode: boolean = true;
 
   private isVariationsColorPickerDrag: boolean = false;
@@ -122,15 +138,61 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
     return this.SelectedColorR + "," + this.SelectedColorG + "," + this.SelectedColorB;
   }
 
+  public get GetDisplayColorInNumbers(): string {
+    return this.DisplayColorR + "," + this.DisplayColorG + "," + this.DisplayColorB;
+  }
+
   private _mainColorGradients: CanvasGradient[] = [];
 
   public IsColorPickerOpen: boolean = false;
+
+  onChanged: Function = ()=>{};
+  onTocuhed: Function = ()=>{};
 
   constructor(private windowHelper: WindowHelper, private cdr: ChangeDetectorRef) {
     this.mainColorRgb = "rgb(255,0,0)";
     this.mainColorHex = this.RGBToHex(255, 0, 0);
     this._mainColorGradients = [];
     this.Id = this.windowHelper.GenerateUniqueId();
+  }
+
+  writeValue(obj: any): void {
+    if(obj){
+
+      if(obj instanceof RColorPickerEventArgs){
+        this.SetDisplayColorsUsingHex((obj as RColorPickerEventArgs).SelectedColorInHex);      
+      } else {
+      let col = obj as string;
+      if(col[0] == "#"){
+        this.SetDisplayColorsUsingHex(col);       
+      } else{
+        let colNums = col.match(/\d+/g);
+        if(colNums) {
+          let _hexValue = this.RGBToHex(parseInt(colNums[0]), parseInt(colNums[1]), parseInt(colNums[2]))
+          this.SetDisplayColorsUsingHex(_hexValue);
+        }
+      }
+    }
+
+    if(this.DisplayColorRGB.trim()!="") {
+      let args = new RColorPickerEventArgs(this.DisplayColorRGB, this.DisplayColorHex,
+        this.DisplayColorR, this.DisplayColorG, this.DisplayColorB);
+      this.ColorSelected.emit(args);
+    }
+
+    }
+  }
+
+  registerOnChange(fn: any): void {
+   this.onChanged = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTocuhed = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    
   }
 
   AssignColorsForInputColor(value: string) {
@@ -350,6 +412,9 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
       this.GetRgb({ offsetX: this._prevRectX, offsetY: this._prevRectY });
       this.GetActualColorFromVariartion({ offsetX: this._varprevRectX, offsetY: this._varprevRectY });
 
+      if(this.SelectedColorHex)
+        this.SetDisplayColorsUsingHex(this.SelectedColorHex);
+
       if (this.windowHelper.isExecuteInBrowser()) {
         window.onscroll = this.GetOffset;
         window.onresize = this.GetOffset;
@@ -390,7 +455,7 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
     var g = (bigint >> 8) & 255;
     var b = bigint & 255;
 
-    return 'rgb(r + "," + g + "," + b+)';
+    return 'rgb('+r + "," + g + "," + b+')';
   }
 
 
@@ -496,8 +561,22 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
       let args = new RColorPickerEventArgs(this.SelectedColorRgb, this.SelectedColorHex,
         this.SelectedColorR, this.SelectedColorG, this.SelectedColorB);
 
+      this.SetDisplayColorsUsingHex(this.SelectedColorHex);
+      this.onChanged(this.DisplayColorHex);
+      this.onTocuhed(this.DisplayColorHex);
+
       this.ColorSelected.emit(args);
     }
+  }
+
+  SetDisplayColorsUsingHex(colorInHex: string){
+    this.DisplayColorHex = colorInHex;
+    this.DisplayColorRGB = this.HexToRgb(colorInHex);
+    
+    let colorsInrgb = this.HexToRgbInNumbers(colorInHex);
+    this.DisplayColorR = colorsInrgb[0];
+    this.DisplayColorG = colorsInrgb[1];
+    this.DisplayColorB = colorsInrgb[2];
   }
 
   GetRgb(event: any) {
@@ -540,6 +619,10 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
       let args = new RColorPickerEventArgs(this.SelectedColorRgb, this.SelectedColorHex,
         this.SelectedColorR, this.SelectedColorG, this.SelectedColorB);
 
+      this.SetDisplayColorsUsingHex(this.SelectedColorHex);
+      this.onChanged(this.DisplayColorHex);
+      this.onTocuhed(this.DisplayColorHex);
+      
       this.ColorSelected.emit(args);
     }
   }

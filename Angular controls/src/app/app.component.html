@@ -25,7 +25,9 @@
   <br />
   <br />
   
-  <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+  <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true"
+      [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" 
+      [LabelText]="'Processed Color : '">
   </rcolorpicker>
 
   <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Pending Color : '"
@@ -248,7 +250,7 @@
       <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
         <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
           [LabelText]="'Processed Color : '"></rcolorpicker>
-        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
+        <rcolorpicker  [(ngModel)]="color1" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
           [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
       </rtab>
 

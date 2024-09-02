@@ -213,7 +213,6 @@ ColorPicker
 
 ![image](https://github.com/user-attachments/assets/ed23f3c5-763a-4769-b096-5641c787342b)
 
-<br/>
 
 Numeric Control
 ---------------------------------

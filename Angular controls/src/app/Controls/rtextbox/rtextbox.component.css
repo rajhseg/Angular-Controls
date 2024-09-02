@@ -33,14 +33,14 @@
     position: relative;
     top: -5px;
     /* color: blue; */
-    width:200px;
+    /* width:200px; */
 }
 
 :host{
     display: flex;
     width: fit-content;
-    margin-top:8px;
-    margin-bottom: 8px;
+    margin-top:3px;
+    margin-bottom: 3px;
 }
 
 .txtroot{
@@ -48,8 +48,6 @@
     display: flex; 
     width: fit-content;
     flex-direction: column; 
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 ::-webkit-scrollbar {

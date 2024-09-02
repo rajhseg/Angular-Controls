@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DropdownService } from './dropdown/dropdownservice.service';
 import { CalenderService } from './Calender/calender.service';
-import { DropdownComponent } from './dropdown/dropdown.component';
+import { RDropdownComponent } from './dropdown/dropdown.component';
 import { CalenderComponent } from './Calender/calender.component';
 
 @Injectable({

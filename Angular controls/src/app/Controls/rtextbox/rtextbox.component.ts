@@ -43,8 +43,17 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   @Output()
   valueChanged = new EventEmitter<string>();
 
+  @Output()
+  Click = new EventEmitter<any>();
+
   private isPassord: boolean = false;
 
+  @Input()
+  EnableMarginTextBottom: boolean = true;
+
+  @Input()
+  MarginTextBottom: number = 10;
+  
   @Input()
   public set IsPasswordBox(value: boolean) {
     this.isPassord = value;
@@ -80,7 +89,7 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
 
 
   txtboxClicked($event: Event) {
-
+    this.Click.emit($event);
   }
 
   windowOnClick($event: Event) {

@@ -20,18 +20,35 @@
 
 .sh {     
     width: 180px;
+    padding-top:6px;
+    padding-bottom: 6px;
 }
 
 .minus {
     align-self:center;
-    left: -100px;
+    left: -65px;
     position: relative;
-    top: 7px;
+    top: 3px;
 }
 
 .plus {
     align-self:center;
-    left: -98px;
+    left: -62px;
     position: relative;
-    top: 7px;
+    top: 3px;
 }
+
+
+::-webkit-scrollbar {
+    width: 0.4em;;
+    height: 0.4em;;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #bdbbbb;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #5e5e5e;
+    border-radius: 10px;
+  } 

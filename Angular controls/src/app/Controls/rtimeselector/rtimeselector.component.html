@@ -1,0 +1,33 @@
+<div [id]="Id" class="rtimeselectorwindowclose">
+  <div>
+    <div style="display: flex;width: fit-content;">
+      <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="110" 
+          [IsReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
+      <rbutton class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"
+          [ngStyle]="{ 'top': LabelText.trim() !='' ? '8px': '-1px'}"
+          (ButtonClick)="openDropdown($event)">
+          <span>&#9716;</span>
+          <!-- {{IsDropDownOpen ? 'Close' : 'Open'}} -->
+        </rbutton>
+    </div>
+
+    <div style="display: flex;" class="dropdown-content"
+      [ngStyle]="{'width': Is24HourFormat ? '122px': '122px', 'visibility':IsDropDownOpen ? 'visible': 'collapse',}">
+      <div style="overflow-y: auto; border-right: 1px solid lightgray;" class="scrl">
+        <div class="cmb" [ngStyle]="{'color': item.IsSelected ? SelectedItemForeColor : '', 
+                            'background-color': item.IsSelected ? SelectedItemBackgroundColor : ''}"
+          *ngFor="let item of hours" (click)="SelectHour(item)">{{item.DisplayValue}}</div>
+      </div>
+      <div style="overflow-y: auto; border-right: 1px solid lightgray;" class="scrl">
+        <div class="cmb" [ngStyle]="{'color': item.IsSelected ? SelectedItemForeColor : '', 
+                            'background-color': item.IsSelected ? SelectedItemBackgroundColor : ''}"
+          *ngFor="let item of minutes" (click)="SelectMinute(item)">{{item.DisplayValue}}</div>
+      </div>
+      <div style="overflow-y: auto;" class="scrl">
+        <div class="mod" [ngStyle]="{'color': Is24HourFormat ? 'lightgray' : item.IsSelected ? SelectedItemForeColor : '', 
+                            'background-color': item.IsSelected ? SelectedItemBackgroundColor : ''}"
+          *ngFor="let item of modes" (click)="SelectMode(item)">{{item.DisplayValue}}</div>
+      </div>
+    </div>
+  </div>
+</div>

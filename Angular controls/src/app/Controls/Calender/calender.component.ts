@@ -1,19 +1,20 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { RDropdownComponent } from '../dropdown/dropdown.component';
 
 import { DropdownService } from '../dropdown/dropdownservice.service';
 import { CalenderService } from './calender.service';
 import { IPopupCloseInterface, PopupService } from '../popup.service';
 import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 import { DropdownModel } from '../dropdown/dropdownmodel';
+import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 
 @Component({
   selector: 'rcalender',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, NgStyle, FormsModule, DropdownComponent],
+  imports: [NgFor, NgIf, NgClass, NgStyle, FormsModule,RTextboxComponent,ReactiveFormsModule, RDropdownComponent],
   templateUrl: './calender.component.html',
   styleUrl: './calender.component.css',
   providers: [
@@ -139,9 +140,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   private winObj!: Window;
 
-  @ViewChild('monthdropdown', { read: DropdownComponent }) monthDropDownControl!: DropdownComponent;
+  @ViewChild('monthdropdown', { read: RDropdownComponent }) monthDropDownControl!: RDropdownComponent;
 
-  @ViewChild('yeardropdown', { read: DropdownComponent }) yearDropDownControl!: DropdownComponent;
+  @ViewChild('yeardropdown', { read: RDropdownComponent }) yearDropDownControl!: RDropdownComponent;
 
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 

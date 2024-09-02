@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalenderComponent } from './Controls/Calender/calender.component';
-import { DropdownComponent } from './Controls/dropdown/dropdown.component';
+import { RDropdownComponent } from './Controls/dropdown/dropdown.component';
 import { DropdownModel } from './Controls/dropdown/dropdownmodel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JsonPipe, NgFor } from '@angular/common';
@@ -31,6 +31,7 @@ import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.compone
 import { RColorPickerComponent, RColorPickerEventArgs } from './Controls/rcolorpicker/rcolorpicker.component';
 import { RNumericComponent } from "./Controls/rnumeric/rnumeric.component";
 import { RTimerComponent, TimerType } from './Controls/rtimer/rtimer.component';
+import { RTimeSelectorComponent } from "./Controls/rtimeselector/rtimeselector.component";
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,7 @@ import { RTimerComponent, TimerType } from './Controls/rtimer/rtimer.component';
   imports: [
     RouterOutlet, CalenderComponent,
     SwitchComponent,
-    DropdownComponent, FormsModule,
+    RDropdownComponent, FormsModule,
     ReactiveFormsModule, RProgressbarComponent,
     RTabComponent, RTabsComponent,
     NgFor, JsonPipe, RStarRatingComponent,
@@ -58,10 +59,15 @@ import { RTimerComponent, TimerType } from './Controls/rtimer/rtimer.component';
     RfileuploadComponent,
     RColorPickerComponent,
     RNumericComponent,
-    RTimerComponent
+    RTimerComponent,
+    RTimeSelectorComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
+
+  time1: string = "1:45 PM";
+  time2: string ="13:6";
+  time3:string = "";
 
   title = 'angularcontrols';
   items: DropdownModel[] = [];
@@ -396,6 +402,7 @@ export class AppComponent implements AfterViewInit {
 
   ResetProgress() {
     this.perc = 0;
+    this.window.clearInterval(this.interval);
     this.IncrementValue(this);
   }
 

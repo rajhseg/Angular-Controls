@@ -302,7 +302,7 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
   AddColorGradients() {
 
     if (this.colors) {
-      if (this.colorsContext == undefined) {
+      if (this.colorsContext == undefined && this.windowHelper.isExecuteInBrowser()) {
         this.colorsContext = this.colors.nativeElement.getContext('2d', { willReadFrequently: true });
       }
 
@@ -342,41 +342,43 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.AddColorGradients();
-    this.RenderUI();
-    this.LoadDefault();
-
-    this.GetRgb({ offsetX: this._prevRectX, offsetY: this._prevRectY });
-    this.GetActualColorFromVariartion({ offsetX: this._varprevRectX, offsetY: this._varprevRectY });
-
     if (this.windowHelper.isExecuteInBrowser()) {
-      window.onscroll = this.GetOffset;
-      window.onresize = this.GetOffset;
+      this.AddColorGradients();
+      this.RenderUI();
+      this.LoadDefault();
 
-      if (this.variations) {
-        this.variations.nativeElement.onscroll = this.GetOffset.bind(this);
-        this.variations.nativeElement.onresize = this.GetOffset.bind(this);
-        this.variations.nativeElement.onmousedown = this.VariationsMouseDown.bind(this);
-        this.variations.nativeElement.onmouseup = this.VariationsMouseUp.bind(this);
-        this.variations.nativeElement.onmousemove = this.VariationsMouseMove.bind(this);
+      this.GetRgb({ offsetX: this._prevRectX, offsetY: this._prevRectY });
+      this.GetActualColorFromVariartion({ offsetX: this._varprevRectX, offsetY: this._varprevRectY });
+
+      if (this.windowHelper.isExecuteInBrowser()) {
+        window.onscroll = this.GetOffset;
+        window.onresize = this.GetOffset;
+
+        if (this.variations) {
+          this.variations.nativeElement.onscroll = this.GetOffset.bind(this);
+          this.variations.nativeElement.onresize = this.GetOffset.bind(this);
+          this.variations.nativeElement.onmousedown = this.VariationsMouseDown.bind(this);
+          this.variations.nativeElement.onmouseup = this.VariationsMouseUp.bind(this);
+          this.variations.nativeElement.onmousemove = this.VariationsMouseMove.bind(this);
+        }
+
+        if (this.colors) {
+          this.colors.nativeElement.onscroll = this.GetOffset.bind(this);
+          this.colors.nativeElement.onresize = this.GetOffset.bind(this);
+          this.colors.nativeElement.onmousedown = this.MainMouseDown.bind(this);
+          this.colors.nativeElement.onmouseup = this.MainMouseUp.bind(this);
+          this.colors.nativeElement.onmousemove = this.MainMouseMove.bind(this);
+        }
       }
 
-      if (this.colors) {
-        this.colors.nativeElement.onscroll = this.GetOffset.bind(this);
-        this.colors.nativeElement.onresize = this.GetOffset.bind(this);
-        this.colors.nativeElement.onmousedown = this.MainMouseDown.bind(this);
-        this.colors.nativeElement.onmouseup = this.MainMouseUp.bind(this);
-        this.colors.nativeElement.onmousemove = this.MainMouseMove.bind(this);
-      }
+      // if(this._inputColorInHex){    
+      //   this.AssignColorsForInputColor(this._inputColorInHex);
+      // }
+
+      setTimeout(() => {
+        this.cdr.detectChanges();
+      });
     }
-
-    // if(this._inputColorInHex){    
-    //   this.AssignColorsForInputColor(this._inputColorInHex);
-    // }
-
-    setTimeout(() => {
-      this.cdr.detectChanges();
-    });
 
   }
 
@@ -432,7 +434,7 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
   }
 
   RenderVariations() {
-    if (this.variations) {
+    if (this.variations && this.windowHelper.isExecuteInBrowser()) {
       this.varContext = this.variations.nativeElement.getContext('2d', { willReadFrequently: true });
 
       // Horizontal Rendering of Selected Color
@@ -485,10 +487,10 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  GetRgbClick(event: any){
+  GetRgbClick(event: any) {
 
     this.GetRgbSub(event);
-    
+
     if (this.SelectedColorRgb && this.SelectedColorHex) {
 
       let args = new RColorPickerEventArgs(this.SelectedColorRgb, this.SelectedColorHex,

@@ -2,7 +2,9 @@
 
 
 <div class="txtroot">
-    <span class="span" [ngStyle]="{ 'color': LabelForeColor}"> {{LabelText}} </span>
+    <span class="span" [ngStyle]="{ 'width': TextBoxWidth+'px', 'color': LabelForeColor}"> 
+        {{LabelText}} 
+    </span>
     
     
     <!-- <p #para contenteditable="true" onkeypress="return event.keyCode != 13;"  
@@ -15,7 +17,11 @@
     <input [readOnly]="IsReadOnly" type="text" 
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
-       [ngStyle]="{'width': TextBoxWidth+'px','border-bottom-color': BottomLineColor}" 
+       
+       [ngStyle]="{'width': TextBoxWidth+'px','border-bottom-color': BottomLineColor,       
+        'margin-bottom': EnableMarginTextBottom ? MarginTextBottom+'px' : ''
+       }"
+
        [placeholder]="PlaceholderText" 
        (click)="txtboxClicked($event)">     
 

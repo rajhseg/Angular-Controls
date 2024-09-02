@@ -306,16 +306,12 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   ngAfterContentInit(): void {
 
     setTimeout(() => {
-      this.contentVisible = true;
-      console.log('timeout');
-      console.log(this.SelectedTabTemplateRef);
+      this.contentVisible = true;      
       this.cdr.detectChanges();
     });
 
     if (this.tabTemps && this.tabTemps.length > 0) {
-      this.TotalTabCount = this.tabTemps.length;
-      console.log('container');
-
+      this.TotalTabCount = this.tabTemps.length;      
       this.RenderUI();
     }
 

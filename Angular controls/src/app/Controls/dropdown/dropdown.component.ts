@@ -19,7 +19,7 @@ import { CheckboxEventArgs } from '../checkbox/checkbox.service';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DropdownComponent),
+      useExisting: forwardRef(() => RDropdownComponent),
       multi: true
     }
   ],
@@ -27,7 +27,7 @@ import { CheckboxEventArgs } from '../checkbox/checkbox.service';
     "(window:click)": "windowOnClick($event)"
   }
 })
-export class DropdownComponent implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
+export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
   AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
 
   onChange: any = () => { }

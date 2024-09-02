@@ -120,10 +120,24 @@
   
   <br />
 
-  <rtimer></rtimer>
-  <rtimer [DisplayType]="timerDisplayType" [CircularWidth]="70"></rtimer>
+  <rtimer [EnableShadowEffect]="true"></rtimer>
+  <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="'orangered'" 
+          [MinuteForeColor]="'orangered'" [SecondsForeColor]="'orangered'" 
+          [DisplayTextForeColor]="'orangered'"
+          [EnableShadowEffect]="true" [CircularWidth]="70"></rtimer>
 
   <br />
+
+  <rtimeselector [(ngModel)]="time1"></rtimeselector>
+
+  <rtimeselector [(ngModel)]="time2"></rtimeselector>
+  <br/>
+
+  <rtimeselector [LabelText]="'Arriving Time'"  [(ngModel)]="time3" [Is24HourFormat]="false" 
+        [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> 
+        <br />
+        <br/>
+
   <div>
     <br />
     <rbutton BackgroundColor="green" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One Tab</rbutton>
@@ -256,6 +270,21 @@
         <rbutton (ButtonClick)="ResetProgress()">Reset</rbutton>
       </rtab>
 
+      
+      <rtab *tabidfor="{'TabId':'tab11', 'HeaderText':'rtimer', 'Context': this}">
+        <rtimer (ValueChanged)="rtimer_ValueChanged($event)"></rtimer>
+        <rtimer [CallbackAfterCertainSeconds]="120" (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70"></rtimer>
+      </rtab>
+
+      <rtab *tabidfor="{ 'TabId': 'tab12', 'HeaderText':'rtimeselector', 'Context':this}">
+        <rtimeselector [(ngModel)]="time1"></rtimeselector>
+
+        <rtimeselector [(ngModel)]="time2"></rtimeselector>
+      
+        <rtimeselector [LabelText]="'Arriving Time'" [(ngModel)]="time3" [Is24HourFormat]="false" 
+              [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> {{time3}}
+      </rtab>
+
     </rtabs>
 
     <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
@@ -269,7 +298,7 @@
         <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
           [MaxValue]="75"></rslider>
         <br />
-        <rslider [(ngModel)]="rangeValue1" [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
+        <rslider  [(ngModel)]="rangeValue1" [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
         <br />
 
 
@@ -371,10 +400,6 @@
         <br />
       </rtab>
 
-      <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rtimer', 'Context': this}">
-        <rtimer (ValueChanged)="rtimer_ValueChanged($event)"></rtimer>
-        <rtimer [CallbackAfterCertainSeconds]="120" (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70"></rtimer>
-      </rtab>
     </rtabs>
   </div>
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RDropdownComponent } from './dropdown.component';
+import { RtimeselectorComponent } from './rtimeselector.component';
 
-describe('DropdownComponent', () => {
-  let component: RDropdownComponent;
-  let fixture: ComponentFixture<RDropdownComponent>;
+describe('RtimeselectorComponent', () => {
+  let component: RtimeselectorComponent;
+  let fixture: ComponentFixture<RtimeselectorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RDropdownComponent]
+      imports: [RtimeselectorComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(RDropdownComponent);
+
+    fixture = TestBed.createComponent(RtimeselectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

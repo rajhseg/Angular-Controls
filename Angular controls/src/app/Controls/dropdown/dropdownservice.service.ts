@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { DropdownComponent } from './dropdown.component';
+import { RDropdownComponent } from './dropdown.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DropdownService {
 
-  ddList: DropdownComponent[] = [];
+  ddList: RDropdownComponent[] = [];
 
   constructor() { }
 
-  AddInstance(instance: DropdownComponent) {
+  AddInstance(instance: RDropdownComponent) {
     this.ddList.push(instance);
   }
 
-  GetAllInstance(): DropdownComponent[] {
+  GetAllInstance(): RDropdownComponent[] {
     return this.ddList;
   }
 }

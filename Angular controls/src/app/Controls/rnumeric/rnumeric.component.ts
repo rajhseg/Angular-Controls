@@ -29,6 +29,9 @@ export class RNumericComponent implements ControlValueAccessor {
   @Input()
   public BottomLineColor: string = "blue";
 
+  @Input()
+  public TextBoxWidth: number = 150;
+
   private _value: number = 0;
 
   @Input()

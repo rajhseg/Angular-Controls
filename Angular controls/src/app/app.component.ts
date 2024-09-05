@@ -32,6 +32,11 @@ import { RColorPickerComponent, RColorPickerEventArgs } from './Controls/rcolorp
 import { RNumericComponent } from "./Controls/rnumeric/rnumeric.component";
 import { RTimerComponent, TimerType } from './Controls/rtimer/rtimer.component';
 import { RTimeSelectorComponent } from "./Controls/rtimeselector/rtimeselector.component";
+import { RGridComponent } from './Controls/rgrid/rgrid.component';
+import { RColumnComponent } from './Controls/rgrid/rcolumn/rcolumn.component';
+import { RGridColumnForDirective } from './Controls/rgrid/grid-column-for.directive';
+import { ReadViewTemplateDirective } from './Controls/rgrid/view-template.directive';
+import { EditViewTemplateDirective } from './Controls/rgrid/edit-template.directive';
 
 @Component({
   selector: 'app-root',
@@ -60,7 +65,12 @@ import { RTimeSelectorComponent } from "./Controls/rtimeselector/rtimeselector.c
     RColorPickerComponent,
     RNumericComponent,
     RTimerComponent,
-    RTimeSelectorComponent
+    RTimeSelectorComponent, 
+    RGridComponent,
+    RGridColumnForDirective,
+    RColumnComponent,
+    ReadViewTemplateDirective,
+    EditViewTemplateDirective   
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -127,6 +137,7 @@ export class AppComponent implements AfterViewInit {
   confirmpassword: string = "";
   files!: FileList;
   color1: string = "#1598DC";
+  gridItems:any[] = [];
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -179,6 +190,28 @@ export class AppComponent implements AfterViewInit {
     this.createTreeData();
     this.createSequenceVerticalItems();
     this.createSequenceHorizontalItems();
+    this.populateGridValues();
+  }
+
+  populateGridValues(){
+    this.gridItems.push({'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': 'BCom'});
+    this.gridItems.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC'});
+    this.gridItems.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE'});
+    this.gridItems.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom'});
+    this.gridItems.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': 'BE'});
+    this.gridItems.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': 'BSC'});
+    this.gridItems.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': 'BA'});
+    this.gridItems.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': 'BBA'});
+    this.gridItems.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': 'BPharm'});
+    this.gridItems.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': 'BE'});
+    this.gridItems.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': 'BSC'});
+    this.gridItems.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': 'BA'});
+    this.gridItems.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': 'BA'});
+    this.gridItems.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': 'BE'});
+    this.gridItems.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': 'BBA'});
+    this.gridItems.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': 'BA'});
+    this.gridItems.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE'});
+    this.gridItems.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE'});
   }
 
   rtimer_ValueChanged($event: string){

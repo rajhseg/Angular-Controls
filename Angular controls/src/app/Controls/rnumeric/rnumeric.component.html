@@ -3,8 +3,8 @@
 <div [ngStyle]="{'padding-left': EnableShadowEffect ? '15px' : '','box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}" 
     class="sh" style="display: flex;flex-direction: row;">  
     <rtextbox [IsReadOnly]="true" [BottomLineColor]="BottomLineColor" [LabelText]="LabelText" 
-        [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="150"
+        [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth"
         [(ngModel)]="Value"></rtextbox>    
-    <rbutton [BackgroundColor]="MinusBackgroundColor" [ForeColor]="MinusForeColor" (ButtonClick)="Dec()" class="minus">&#9866;</rbutton>
-    <rbutton [BackgroundColor]="PlusBackgroundColor" [ForeColor]="PlusForeColor" (ButtonClick)="Inc()" class="plus">&#10009;</rbutton>
+    <rbutton [ngStyle]="{'top':LabelText.trim()=='' ? '-6px':'3px'}" [BackgroundColor]="MinusBackgroundColor" [ForeColor]="MinusForeColor" (ButtonClick)="Dec()" class="minus">&#9866;</rbutton>
+    <rbutton [ngStyle]="{'top':LabelText.trim()=='' ? '-6px':'3px'}" [BackgroundColor]="PlusBackgroundColor" [ForeColor]="PlusForeColor" (ButtonClick)="Inc()" class="plus">&#10009;</rbutton>
 </div>

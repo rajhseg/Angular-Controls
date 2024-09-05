@@ -140,6 +140,65 @@
         <br />
         <br/>
 
+  <br />
+  <br />
+  <div>
+
+    <div style="float: left;padding-right:30px">
+      <rgrid [Items]="gridItems" [TableHeight]="'200px'"></rgrid>
+    </div>
+    
+    <rgrid [Items]="gridItems">
+
+      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'80px'" [EditModeWidth]="'100px'" [Height]="'20px'">
+        <ng-template readviewtemplate let-Item let-cell="CellInfo">
+          <span>{{cell.Value}}</span>
+        </ng-template>
+        <ng-template editviewtemplate let-Item let-rcell="CellInfo">
+          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="rcell.Value" />
+        </ng-template>
+      </rcolumn>
+
+      
+      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'80px'" [EditModeWidth]="'120px'">
+        <ng-template readviewtemplate let-Item>
+          <span>{{Item.Name}}</span>
+        </ng-template>
+        <ng-template editviewtemplate let-cell="CellInfo">
+          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+        </ng-template>
+      </rcolumn>
+
+      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [Width]="'80px'" [EditModeWidth]="'150px'">
+        <ng-template readviewtemplate let-Item>
+          <span>{{Item.Age}}</span>
+        </ng-template>
+        <ng-template editviewtemplate let-cell="CellInfo">
+          <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="90"></rnumeric>          
+        </ng-template>
+      </rcolumn>
+
+      <rcolumn [Name]="'column4'" [PropToBind]="'Education'" [HeaderText]="'Degree'" [Width]="'80px'" [EditModeWidth]="'80px'">
+        <ng-template readviewtemplate let-Item>
+          <span>{{Item.Education}}</span>
+        </ng-template>
+        <ng-template editviewtemplate let-cell="CellInfo">
+          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+        </ng-template>
+      </rcolumn>
+
+      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'80px'" [EditModeWidth]="'80px'">
+        <ng-template readviewtemplate let-Item>
+          <span>{{Item.Age + 4}}</span>
+        </ng-template>
+        <ng-template editviewtemplate let-cell="CellInfo">
+          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+        </ng-template>
+      </rcolumn>
+
+    </rgrid>
+  </div>
+  <br />
   <div>
     <br />
     <rbutton BackgroundColor="green" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One Tab</rbutton>

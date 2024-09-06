@@ -1,22 +1,27 @@
 <div class="display: flex;" class="root" cdkDropListGroup>
-    <div class=" groupheader" style="display: flex; flex-direction: column;"
+    <div class="groupheader" style="display: flex;"
         cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
         (cdkDropListDropped)="groupDrop($event)">
-        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders">
+        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders"
+            [ngStyle]="{ 'width': grpheader.Width }"
+            >
             {{grpheader.HeaderText}}
             <span (click)="removeFromGroup(grpheader)" class="rbtn">&#10006;</span>
         </div>
     </div>
     <table class="tbl">
         <thead>
-            <tr cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
+            <tr cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"          
                 (cdkDropListDropped)="draggeddropForPopup($event)">
 
                 <ng-container *ngIf="!ColumnsNotDefined">
                     <td [ngStyle]="{ 'padding-left': '7px', 
                         'width': EditModeEnabled ? header.EditModeWidth : header.Width, 
                         'height':'20px'} " class="header" cdkDrag (cdkDragStarted)="dragStartedForPopup($event)"
-                        [cdkDragData]="header" *ngFor="let header of Headers">
+                        [cdkDragData]="header" 
+                        (cdkDragStarted)="headerDragStart($event)"
+                        (cdkDragEnded)="headerDragEnd($event)"
+                        *ngFor="let header of Headers">
                         {{header.HeaderText}}
                     </td>
                 </ng-container>
@@ -25,6 +30,8 @@
                     <td style="cursor: pointer;min-width: 60px;min-height: 40px;"
                         [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}" class="header" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
+                        (cdkDragStarted)="headerDragStart($event)"
+                        (cdkDragEnded)="headerDragEnd($event)"
                         *ngFor="let header of Headers">
                         {{header.HeaderText}}
                     </td>
@@ -37,7 +44,7 @@
             </tr>
         </thead>
         <tbody [ngStyle]="{'height': TableHeight}">
-            <ng-container *ngIf="ShowItems && ShowItems.Rows">
+            <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                 <tr *ngFor="let item of ShowItems.Rows">
                     <ng-container *ngIf="!ColumnsNotDefined">
                         <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.Key].Width, 
@@ -66,8 +73,7 @@
                                     defaultReadView || em; 
                                 context:{$implicit: item[header.Key].Item, CellInfo: item[header.Key]}">
                             </ng-container>
-
-                            <!-- <ng-content></ng-content> -->
+                            
                             <ng-template #em>No Content</ng-template>
                         </td>
                     </ng-container>
@@ -78,24 +84,81 @@
                             <a class="atagedit" *ngIf="item && item[Headers[0].Key].IsEditMode"
                                 (click)="ShowEdit($event, item)">Update</a>
                         </div>
-                    </td>
-                    <!-- <ng-content></ng-content> -->
+                    </td>                    
                 </tr>
+                
+            </ng-container>
+
+            <ng-container *ngIf="IsGroupHaveColumns && DisplayGroupItems">
+                
+                <ng-container *ngFor="let grpitem of DisplayGroupItems">
+                    <tr style="border-bottom: 1px solid lightgray;">
+                        <td colspan="2">
+                            <span class="symbol" (click)="expandGroup($event, grpitem)">                
+                            </span> 
+                            <span style="text-overflow: ellipsis;">{{getGroupHeaderAsString(grpitem)}}</span>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="grpitem.IsExpanded">
+                        <tr *ngFor="let item of grpitem.Values">
+                            <ng-container *ngIf="!ColumnsNotDefined">
+                                <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.Key].Width, 
+                            'height': EditModeEnabled ? header.EditModeHeight : item[header.Key].Height}">
+        
+                                    <ng-container *ngIf="item[header.Key] && item[header.Key].columnDirective">
+                                        <div>
+                                            <ng-container *ngTemplateOutlet="item[header.Key].IsEditMode ?  
+                                                item[header.Key].columnDirective.EditView  || em : 
+                                                item[header.Key].columnDirective.ReadView || em; 
+                                            context:{$implicit: item[header.Key].Item, CellInfo: item[header.Key]}">
+                                            </ng-container>                                            
+                                            <ng-template #em>No Content</ng-template>
+                                        </div>
+                                    </ng-container>
+        
+                                </td>
+                            </ng-container>
+        
+                            <ng-container *ngIf="ColumnsNotDefined">
+                                <td *ngFor="let header of Headers" style="cursor: pointer;min-width: 60px;min-height: 40px;">
+        
+                                    <ng-container *ngTemplateOutlet="item[header.Key].IsEditMode ?  
+                                            defaultEditView || em : 
+                                            defaultReadView || em; 
+                                        context:{$implicit: item[header.Key].Item, CellInfo: item[header.Key]}">
+                                    </ng-container>                           
+                                    <ng-template #em>No Content</ng-template>
+                                </td>
+                            </ng-container>
+                            <td *ngIf="ShowEditUpdate">
+                                <div>
+                                    <a class="atagedit" *ngIf="item && !item[Headers[0].Key].IsEditMode"
+                                        (click)="ShowEdit($event, item)">Edit</a>
+                                    <a class="atagedit" *ngIf="item && item[Headers[0].Key].IsEditMode"
+                                        (click)="ShowEdit($event, item)">Update</a>
+                                </div>
+                            </td>  
+                        </tr>
+                    </ng-container>
+                </ng-container>
             </ng-container>
         </tbody>
         <tfoot>
             <tr>
                 <td>
                     <div class="page">
-                        <div style="display: block;">
+                        <div style="display: block;font-size: small;color:grey">
                             <div class="pageItem" (click)="FirstPage()">&#171;</div>
                             <div class="pageItem" (click)="PreviousPage()">&#8249;</div>
                             <div class="pageItem">
                                 <rdropdown [Items]="PageItems" [DropDownContentWidth]="'90px'"
                                     (change)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage"></rdropdown>
-                            </div>
+                            </div>                           
                             <div class="pageItem" (click)="NextPage()">&#8250;</div>
                             <div class="pageItem" (click)="LastPage()">&#187;</div>
+                            <div class="pageItem">
+                                <span>Current Page: {{currentPage}}</span>
+                            </div>
                         </div>
                     </div>
                 </td>

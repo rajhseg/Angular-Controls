@@ -1,5 +1,5 @@
-import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { AsyncPipe, JsonPipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { AsyncPipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RGridColumnForDirective } from './grid-column-for.directive';
@@ -13,7 +13,8 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 @Component({
   selector: 'rgrid',
   standalone: true,
-  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,
+  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,  
+    KeyValuePipe,
     NgClass, CdkDrag, CdkDropList, JsonPipe, FormsModule, ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent],
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
@@ -49,7 +50,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
   IsGroupHaveColumns: boolean = false;
 
-  GroupedData!: Map<string, any[]> | undefined;
+  HeaderGroupPanelShow: boolean =false;
+
+  GroupedData!: Map<string, RGridRow[]> | undefined;
+
+  GroupItems: RGridGroupData[] = [];
+  DisplayGroupItems: RGridGroupData[] = [];
 
   @ContentChildren(RColumnComponent)
   public Columns!: QueryList<RColumnComponent>;
@@ -81,7 +87,21 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     this.ItemsPerPage = new DropdownModel(10, "10");
   }
 
-  createGroup(){
+  getGroupHeaderAsString(grpItem: RGridGroupData) {
+    let gpString = "";
+    let keys = grpItem.Key.split("_$");
+
+    for (let index = 0; index < this.GroupHeaders.length; index++) {
+      const element = this.GroupHeaders[index];
+      //gpString += "["+element.HeaderText +" : "+ keys[index+1]+"] ";
+      gpString += "[" + keys[index + 1] + "] ";
+    }
+
+    gpString += "(" + grpItem.Values.length + ")  items";
+    return gpString;
+  }
+
+  createGroup() {
 
     let exprs = [];
 
@@ -91,28 +111,61 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       exprs.push(exp);
     }
 
-    this.GroupedData = this.groupByItems(exprs);
+    this.GroupItems = [];
 
-    if(this.GroupHeaders.length > 0){
+    if (this.GroupHeaders.length > 0) {
       this.GroupedData = this.groupByItems(exprs);
+      let keys = (this.GroupedData.keys() as any).toArray();
+
+      for (let index = 0; index < keys.length; index++) {
+        const element = keys[index];
+        let _values = this.GroupedData.get(element);
+        if (_values) {
+          this.GroupItems.push(new RGridGroupData(element, _values));
+        }
+      }
+
       this.IsGroupHaveColumns = true;
-    } else{
+
+    } else {
       this.GroupedData = undefined;
-      this.IsGroupHaveColumns =false;
+      this.IsGroupHaveColumns = false;
     }
+
+    this.filterPerPageForGroup();
 
     console.log('After group');
     console.log(this.GroupedData);
   }
-  
-  groupDrop($event: CdkDragDrop<RGridHeader[]>){
-    this.GroupHeaders.push($event.item.data);
-    this.createGroup();    
+
+  expandGroup($event: Event, grpItem: RGridGroupData) {
+    grpItem.IsExpanded = !grpItem.IsExpanded;
+
+    let spanElement = ($event.srcElement as HTMLSpanElement);
+    spanElement.classList.toggle("symbol-down");
   }
 
-  removeFromGroup(item: RGridHeader){
-    let ind = this.GroupHeaders.findIndex(x=>x.Key==item.Key);
-    if(ind > -1) {
+  groupDrop($event: CdkDragDrop<RGridHeader[]>) {
+    let _hdr = $event.item.data as RGridHeader;
+
+    if (_hdr) {
+      let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.Value.toLowerCase());
+
+      if (_col && _col.IsComputationalColumn) {
+        return;
+      }
+
+      let indx = this.GroupHeaders.findIndex(x => x.Key == $event.item.data.Key);
+      if (indx == -1) {
+        this.GroupHeaders.push($event.item.data);
+        this.createGroup();
+      }
+    }
+  }
+
+  removeFromGroup(item: RGridHeader) {
+    let ind = this.GroupHeaders.findIndex(x => x.Key == item.Key);
+    if (ind > -1) {
       this.GroupHeaders.splice(ind, 1);
       this.createGroup();
     }
@@ -129,7 +182,6 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         this.ExtractHeadersFromTemplate();
         this.DataItems = this.PopulateData();
         this.filterPerPage();
-        console.clear();
         console.log("DataItems");
         console.log(this.DataItems);
         this.cdr.detectChanges();
@@ -152,24 +204,88 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
   ItemsShownPerPage(num: any) {
     this.adjustPageValue();
-    this.filterPerPage();
+    if (this.IsGroupHaveColumns) {
+      this.filterPerPageForGroup();
+    } else {
+      this.filterPerPage();
+    }
   }
 
   filterPerPage() {
+    if (this.DataItems) {
+      let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
+      this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
+    }
+  }
+
+  headerDragEnd($event: any){
+    if(this.HeaderGroupPanelShow){
+      this.HeaderGroupPanelShow = false;
+    }
+  }
+
+  headerDragStart($event: any){
+    if(!this.IsGroupHaveColumns){
+      this.HeaderGroupPanelShow = true;
+    }
+  }
+
+  filterPerPageForGroup() {
     let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
+    this.DisplayGroupItems = [];
+
     this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
+    let addItem: boolean = false;
+
+    let skipcount = 0;
+    let itemAddToListCount: number = 0;
+
+    for (let index = 0; index < this.GroupItems.length; index++) {
+      const element = this.GroupItems[index];      
+      let grpData = new RGridGroupData(element.Key, [], element.IsExpanded);
+      for (let i = 0; i < element.Values.length; i++) {
+
+        if (itemAddToListCount == this.ItemsPerPage.Value)
+          break;
+
+        const eachItem = element.Values[i];
+        skipcount++;
+        if (!addItem && skipcount > skipItems) {
+          addItem = true;
+        }
+        if (addItem) {
+          grpData.Values.push(eachItem);
+          itemAddToListCount++;
+        }
+      }
+
+      if(grpData.Values.length > 0)
+        this.DisplayGroupItems.push(grpData);
+
+      if (itemAddToListCount == this.ItemsPerPage.Value)
+        break;
+    }
+
   }
 
   NextPage() {
     this.currentPage++;
     this.adjustPageValue();
-    this.filterPerPage();
+    if (this.IsGroupHaveColumns) {
+      this.filterPerPageForGroup();
+    } else {
+      this.filterPerPage();
+    }
   }
 
   PreviousPage() {
     this.currentPage--;
     this.adjustPageValue();
-    this.filterPerPage();
+    if (this.IsGroupHaveColumns) {
+      this.filterPerPageForGroup();
+    } else {
+      this.filterPerPage();
+    }
   }
 
   LastPage() {
@@ -182,12 +298,20 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     }
 
     this.currentPage = noofPage;
-    this.filterPerPage();
+    if (this.IsGroupHaveColumns) {
+      this.filterPerPageForGroup();
+    } else {
+      this.filterPerPage();
+    }
   }
 
   FirstPage() {
     this.currentPage = 1;
-    this.filterPerPage();
+    if (this.IsGroupHaveColumns) {
+      this.filterPerPageForGroup();
+    } else {
+      this.filterPerPage();
+    }
   }
 
   adjustPageValue() {
@@ -366,16 +490,16 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     }
   }
 
-  groupByItems(lambdaKey: any[]): any {
+  groupByItems(lambdaKey: any[]): Map<string, RGridRow[]> {
     let data = new Map();
-    for (let index = 0; index < this.Items.length; index++) {
-      const element = this.Items[index];
+    for (let index = 0; index < this.DataItems.Rows.length; index++) {
+      const element = this.DataItems.Rows[index];
       let keyValue: string = "";
 
       for (let index = 0; index < lambdaKey.length; index++) {
         const expr = lambdaKey[index];
         let _keyV = expr(element);
-        keyValue = keyValue + "_" + _keyV;
+        keyValue = keyValue + "_$" + _keyV.Value;
       }
 
       let itemExist = data.get(keyValue);
@@ -418,6 +542,12 @@ export class RGridHeader {
     public EditModeWidth: string = 'auto', public EditModeHeight: string = 'auto',
     public readView: TemplateRef<any> | null = null, public editView: TemplateRef<any> | null = null
   ) {
+
+  }
+}
+
+export class RGridGroupData {
+  constructor(public Key: string, public Values: RGridRow[], public IsExpanded: boolean = false) {
 
   }
 }

@@ -3,8 +3,9 @@
   margin-bottom: 2px;
   margin-top: 2px;
   height: 45px;  
-  background-color: lightgray;
-  overflow-y: auto;
+  background-color: white;
+  border-top: 1px solid lightgray;
+  overflow: hidden;  
 }
 
 .grpheaderItem{
@@ -12,25 +13,25 @@
   margin-right:5px;
   background-color: rgb(35, 206, 236);
   color: white;
-  height: 30px;
-  width:70px;
+  height: 15px;
+  /* width:70px; */
   font-size: small;
   text-align: center;
   vertical-align: middle;  
   align-content: center;
-  padding: 8px;
+  padding:3px 5px 8px 5px;
   margin-bottom: 5px;
+  margin-top:8px;
 }
 
 .rbtn{
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
+  width: 20px;
+  height: 20px;  
   background-color: red;
   color: white;
   position: relative;
-  top:0px;
-  right:-6px;
+  top: 0px;
+  right: -2px;
   cursor: pointer;
 }
 
@@ -46,6 +47,29 @@
     padding-left: 8px;
     padding-right: 8px;
 }
+
+
+.symbol {
+  cursor: pointer;
+ -webkit-user-select: none; 
+ -moz-user-select: none; 
+ -ms-user-select: none; 
+ user-select: none;
+}
+
+.symbol::before {
+ content: "\25B6";
+ color: rgb(35, 206, 236);
+ display: inline-block;
+ margin-right: 8px;
+}
+
+.symbol-down::before {
+ -ms-transform: rotate(90deg); 
+ -webkit-transform: rotate(90deg); 
+ transform: rotate(90deg);  
+}
+
 
 .tbl{     
     border-collapse: collapse;      
@@ -66,6 +90,11 @@ tbody {
      display: block; 
     /* height: 200px;         */
     overflow-y: auto;
+    background: white;
+}
+
+tfoot {
+  background: white;
 }
 
 tbody tr:hover{
@@ -89,7 +118,7 @@ tbody tr{
     font-size: small;    
     text-align: left;
     display: block;
-    width: 100%;
+    /* width: 100%; */
     /* border-bottom: 1px solid lightgray; */
 }
 

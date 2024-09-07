@@ -143,12 +143,46 @@
   <br />
   <br />
   <div>
+    <br/>
+    <div>
+      <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
+        <ng-template optionstemplate let-Item>
+          <div>
+            <span>{{Item.Value.Id}}</span>
+            <span>{{Item.Value.Name}}</span>
+            <span>{{Item.Value.Education}}</span>
+          </div>
+        </ng-template>
+      </rselectdropdown>
+
+      <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+
+      <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'"></rselectdropdown>
+
+      <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
+        <ng-template optionstemplate let-Item>
+          <div>
+            <span>{{Item.Value.Id}}</span>
+            <span>{{Item.Value.Name}}</span>
+            <span>{{Item.Value.Education}}</span>
+          </div>
+        </ng-template>
+      </rselectdropdown>
+
+      <rselectdropdown [Items]="items"  [DropDownContentWidth]="'130px'"></rselectdropdown>
+
+      <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+
+    </div>
+    <br/>
+    <br/>
+    <br/>
 
     <div style="float: left;padding-right:30px">
-      <rgrid [Items]="gridItems" [TableHeight]="'200px'"></rgrid>
+      <rgrid [Items]="gridItems"  [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
     
-    <rgrid [Items]="gridItems">
+    <rgrid [Items]="gridItems" [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'80px'" [EditModeWidth]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
@@ -463,10 +497,10 @@
 
       <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rgrid', 'Context': this}">
         <div style="float: left;padding-right:30px">
-          <rgrid [Items]="gridItems" [TableHeight]="'200px'"></rgrid>
+          <rgrid [Items]="gridItems" [TableHeight]="'200px'"  [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
         
-        <rgrid [Items]="gridItems">
+        <rgrid [Items]="gridItems"  [ItemsPerPage]="ItemsPerPage">
     
           <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'80px'" [EditModeWidth]="'100px'" [Height]="'20px'">
             <ng-template readviewtemplate let-Item let-cell="CellInfo">
@@ -515,6 +549,39 @@
           </rcolumn>
     
         </rgrid>
+      </rtab>
+
+      <rtab *tabidfor="{'TabId':'tab30', 'HeaderText':'rselectdropdown', 'Context': this}">
+        <div>
+          <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
+            <ng-template optionstemplate let-Item>
+              <div>
+                <span>{{Item.Value.Id}}</span>
+                <span>{{Item.Value.Name}}</span>
+                <span>{{Item.Value.Education}}</span>
+              </div>
+            </ng-template>
+          </rselectdropdown>
+    
+          <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+    
+          <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'"></rselectdropdown>
+    
+          <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
+            <ng-template optionstemplate let-Item>
+              <div>
+                <span>{{Item.Value.Id}}</span>
+                <span>{{Item.Value.Name}}</span>
+                <span>{{Item.Value.Education}}</span>
+              </div>
+            </ng-template>
+          </rselectdropdown>
+    
+          <rselectdropdown [Items]="items"  [DropDownContentWidth]="'130px'"></rselectdropdown>
+    
+          <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+    
+        </div>
       </rtab>
 
     </rtabs>

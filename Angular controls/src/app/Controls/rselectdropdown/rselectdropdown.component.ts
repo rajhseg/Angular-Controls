@@ -1,25 +1,23 @@
-import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
-import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
-import { DropDownItemModel, DropdownModel } from './dropdownmodel';
+import { AfterContentChecked, AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Injector, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { ROptionsTemplateDirective, RSelectItemModel } from './rselectModel';
+import { CommonModule, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import { DropdownService } from './dropdownservice.service';
-import { IPopupCloseInterface, PopupService } from '../popup.service';
-import { WINDOWOBJECT, WindowHelper } from '../windowObject';
-import { RCheckboxComponent } from "../checkbox/checkbox.component";
+import { DropdownModel } from '../dropdown/dropdownmodel';
+import { IPopupCloseInterface } from '../popup.service';
+import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { CheckboxEventArgs } from '../checkbox/checkbox.service';
+import { RCheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
-  selector: 'rdropdown',
+  selector: 'rselectdropdown',
   standalone: true,
-  imports: [CommonModule, NgIf, FormsModule, NgForOf, NgClass, RCheckboxComponent],
-  templateUrl: './dropdown.component.html',
-  styleUrl: './dropdown.component.css',
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-    {
+  imports: [ROptionsTemplateDirective, CommonModule, NgIf, FormsModule, NgForOf, NgClass, RCheckboxComponent],
+  templateUrl: './rselectdropdown.component.html',
+  styleUrl: './rselectdropdown.component.css',
+  providers:[
+    { 
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RDropdownComponent),
+      useExisting: forwardRef(()=> RSelectDropdownComponent),
       multi: true
     }
   ],
@@ -27,19 +25,21 @@ import { CheckboxEventArgs } from '../checkbox/checkbox.service';
     "(window:click)": "windowOnClick($event)"
   }
 })
-export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
-  AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
-
+export class RSelectDropdownComponent implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
+AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
+  
   onChange: any = () => { }
   onTouch: any = () => { }
   private selectedElementRef: ElementRef | undefined = undefined;
   private isFocusDone: boolean = false;
-  isSelectAllChecked: boolean = false;
 
   @HostBinding('style.display')
   @Input() set styleDisplay(val: any) {
 
   }
+  
+  @ContentChild(ROptionsTemplateDirective, {read: TemplateRef<any>}) 
+  OptionsTemplate!: TemplateRef<any>;
 
   @Input()
   IsMulti: boolean = false;
@@ -56,10 +56,10 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   IsChildOfAnotherControlClicked: boolean = false;
 
   @Output()
-  Opened = new EventEmitter<boolean>(); // output<boolean>();
+  Opened = new EventEmitter<boolean>(); 
 
   @Output()
-  Closed = new EventEmitter<boolean>(); // output<boolean>();
+  Closed = new EventEmitter<boolean>(); 
 
   @Input()
   ParentComponent: any | undefined = undefined;
@@ -71,17 +71,19 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     if (value) {
       value.forEach((x: DropdownModel | string | number) => {
         if (x instanceof DropdownModel) {
-          let _citem = new DropDownItemModel(x.Value, x.DisplayValue);
+          let _citem = new RSelectItemModel(x.Value, x.DisplayValue);
           this.ComplexItems.push(_citem);
         } else {
-          let _citem = new DropDownItemModel(x, x.toString());
+          let _citem = new RSelectItemModel(x, x.toString());
           this.ComplexItems.push(_citem);
         }
       });
     }
   }
 
-  public ComplexItems: DropDownItemModel[] = [];
+  public ComplexItems: RSelectItemModel[] = [];
+
+  isSelectAllChecked: boolean = false;
 
   @Input()
   Width: string = '80px';
@@ -90,7 +92,7 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   DropDownContentWidth: string = '120px';
 
   @Output()
-  change = new EventEmitter<any>(); // output<any>();
+  change = new EventEmitter<any>(); 
 
   private _show: boolean = false;
 
@@ -127,12 +129,8 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   private winObj!: Window;
   private injector = inject(Injector);
 
-  constructor(private ddservice: DropdownService,
-    private popupService: PopupService,
-    private windowHelper: WindowHelper
-  ) {
-    this.Id = windowHelper.GenerateUniqueId();
-    this.ddservice.AddInstance(this);
+  constructor(private windowHelper: WindowHelper) {
+    this.Id = windowHelper.GenerateUniqueId();    
     this.winObj = inject(WINDOWOBJECT);
   }
 
@@ -148,7 +146,7 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
   }
 
-  selectSingleValue($event: Event, selValue: DropDownItemModel) {
+  selectSingleValue($event: Event, selValue: RSelectItemModel) {
 
     this.ComplexItems.forEach(x => x.IsSelected = false);
 
@@ -190,8 +188,8 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
           this.loadSelectedItems();
           this.NotifyToUI();
-
           this.isSelectAllChecked = this.ComplexItems.every(x=>x.IsSelected);
+
         }
       } else {
 
@@ -220,15 +218,20 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     }
   }
 
-  checkValue($event: CheckboxEventArgs, value: DropDownItemModel) {
+  checkValue($event: CheckboxEventArgs, value: RSelectItemModel) {
     this.AssignItems(value, $event.isChecked);
     this.loadSelectedItems();
     this.NotifyToModel();
   }
 
+  selectallFromSpan($event: Event){
+    this.isSelectAllChecked = !this.isSelectAllChecked;
+    this.selectall({event: $event, isChecked : this.isSelectAllChecked});
+  }
+
   selectall($event: CheckboxEventArgs) {
     this.ComplexItems.forEach(x => {
-      this.AssignItems(x, $event.isChecked);
+      this.AssignItems(x, this.isSelectAllChecked);
     });
 
     this.loadSelectedItems();
@@ -241,8 +244,8 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
       this.SelectedIndexes = [];
 
       this.ComplexItems.forEach((x: any, index: number) => {
-        if (x instanceof DropDownItemModel) {
-          let eleR = x as DropDownItemModel;
+        if (x instanceof RSelectItemModel) {
+          let eleR = x as RSelectItemModel;
           if (eleR && eleR.IsSelected) {
             this.SelectedItems.push(new DropdownModel(eleR.Value, eleR.DisplayValue));
             this.SelectedIndexes.push(index);
@@ -277,15 +280,6 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     }
   }
 
-  // private closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false) {
-
-
-  //   this.ddservice.GetAllInstance().forEach((x) => {
-  //     x.IsDropDownOpen = false;
-  //   });
-
-  // }
-
   ngOnDestroy(): void {
 
   }
@@ -307,7 +301,6 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   }
 
   closeDropdown() {
-
     if (this.IsChildOfAnotherControl) {
       this.IsChildOfAnotherControlClicked = true;
     }
@@ -315,15 +308,14 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     this.IsDropDownOpen = false;
   }
 
-  windowOnClick($event: Event) {
-        
+  windowOnClick($event: Event) {        
     let i =15;
     let element = $event.srcElement;
     let sameelementClicked: boolean = false;
     let elementId: string | undefined = undefined;
 
     while(element!=undefined && i>-1){
-      if((element as HTMLElement).classList.contains('rdropdownWindowClose')){
+      if((element as HTMLElement).classList.contains('rselectdropdownWindowClose')){
         elementId = (element as HTMLElement).id;
         if(elementId==this.Id) {
           sameelementClicked = true;
@@ -337,49 +329,26 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
     if(!sameelementClicked)
         this.IsDropDownOpen = false;
-
-    // let stopPropagation = false;
-    // let parentElement = ($event.srcElement as any).parentElement;
-
-    // let i = 10;
-    // while (i >= 0 && parentElement != undefined) {
-    //   if (parentElement.classList.contains('option-content')) {
-    //     stopPropagation = true;
-    //     break;
-    //   }
-    //   parentElement = parentElement.parentElement;
-    //   i--;
-    // }
-
-    // if (!stopPropagation) {
-    //   this.IsDropDownOpen = false;
-    // } else {
-    //   $event.stopPropagation();
-    // }
   }
 
-  openDropdown(evt: Event) {
-
-    // this.popupService.CloseAllPopupsOnOpen(this);
+  openDropdown(evt: Event) {  
     var currentValueToSet = !this.IsDropDownOpen;
     if (currentValueToSet) {
 
     }
-
-    // this.closeAllDropdowns(this);
+   
     this.IsChildOfAnotherControlClicked = false;
 
     if (this.firstTimeInit) {
       this.firstTimeInit = false;
     }
 
-    this.IsDropDownOpen = currentValueToSet;
-    //evt.stopPropagation();
+    this.IsDropDownOpen = currentValueToSet;    
   }
 
-  AssignItems(item: DropDownItemModel, val: boolean) {
+  AssignItems(item: RSelectItemModel, val: boolean) {
 
-    if (item instanceof DropDownItemModel) {
+    if (item instanceof RSelectItemModel) {
       item.IsSelected = val;
     }
 
@@ -390,9 +359,9 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     this.SelectedItem = new DropdownModel(item.Value, item.DisplayValue);
   }
 
-  SelectItem(item: DropDownItemModel | string | number) {
+  SelectItem(item: RSelectItemModel | string | number) {
 
-    if (item instanceof DropDownItemModel) {
+    if (item instanceof RSelectItemModel) {
       item.IsSelected = true;
     }
 
@@ -400,13 +369,13 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
       this.IsChildOfAnotherControlClicked = true;
     }
 
-    if(item instanceof DropDownItemModel){
+    if(item instanceof RSelectItemModel){
       this.SelectedItem = new DropdownModel(item.Value, item.DisplayValue);
     } else {
       this.SelectedItem = item;
     }
 
-    if (item instanceof DropDownItemModel) {
+    if (item instanceof RSelectItemModel) {
       this.SelectedDisplay = item.DisplayValue;
     } else {
       this.SelectedDisplay = item;
@@ -478,5 +447,7 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     return Object.keys(yValue).every((i) => { return p.indexOf(i) !== -1; }) &&
       p.every((i) => { return this.ObjEquals(xValue[i], yValue[i]); });
   }
+
+
 
 }

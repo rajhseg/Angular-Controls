@@ -34,9 +34,11 @@ import { RTimerComponent, TimerType } from './Controls/rtimer/rtimer.component';
 import { RTimeSelectorComponent } from "./Controls/rtimeselector/rtimeselector.component";
 import { RGridComponent } from './Controls/rgrid/rgrid.component';
 import { RColumnComponent } from './Controls/rgrid/rcolumn/rcolumn.component';
-import { RGridColumnForDirective } from './Controls/rgrid/grid-column-for.directive';
+
 import { ReadViewTemplateDirective } from './Controls/rgrid/view-template.directive';
 import { EditViewTemplateDirective } from './Controls/rgrid/edit-template.directive';
+import { RSelectDropdownComponent } from './Controls/rselectdropdown/rselectdropdown.component';
+import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectModel';
 
 @Component({
   selector: 'app-root',
@@ -67,10 +69,11 @@ import { EditViewTemplateDirective } from './Controls/rgrid/edit-template.direct
     RTimerComponent,
     RTimeSelectorComponent, 
     RGridComponent,
-    RGridColumnForDirective,
     RColumnComponent,
     ReadViewTemplateDirective,
-    EditViewTemplateDirective   
+    EditViewTemplateDirective,
+    RSelectDropdownComponent,
+    ROptionsTemplateDirective
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -101,6 +104,8 @@ export class AppComponent implements AfterViewInit {
   progressDisplayText: string = '';
   rangeValue: number = 0.4;
   rangeValue1: number = 35;
+  
+  ItemsPerPage = new DropdownModel(10, "10");
 
   timerDisplayType: TimerType = TimerType.Circle;
   
@@ -138,6 +143,8 @@ export class AppComponent implements AfterViewInit {
   files!: FileList;
   color1: string = "#1598DC";
   gridItems:any[] = [];
+
+  selectDropdownItems: DropdownModel[] = [];
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -191,6 +198,18 @@ export class AppComponent implements AfterViewInit {
     this.createSequenceVerticalItems();
     this.createSequenceHorizontalItems();
     this.populateGridValues();
+    this.populateSelectDropdownItems();
+  }
+
+  populateSelectDropdownItems(){
+    this.selectDropdownItems.push(new DropdownModel({'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': 'BCom'}, "A-1"));
+    this.selectDropdownItems.push(new DropdownModel({'Id':2, 'Name': 'BBB', 'Age': 24, 'Education': 'BCom'}, "B-1"));
+    this.selectDropdownItems.push(new DropdownModel({'Id':3, 'Name': 'CCC', 'Age': 24, 'Education': 'BCom'}, "C-1"));
+    this.selectDropdownItems.push(new DropdownModel({'Id':4, 'Name': 'DDD', 'Age': 24, 'Education': 'BCom'}, "D-1"));
+    this.selectDropdownItems.push(new DropdownModel({'Id':5, 'Name': 'EEE', 'Age': 24, 'Education': 'BCom'}, "E-1"));
+    this.selectDropdownItems.push(new DropdownModel({'Id':6, 'Name': 'FFF', 'Age': 24, 'Education': 'BCom'}, "F-1"));
+    this.selectDropdownItems.push(new DropdownModel({'Id':7, 'Name': 'GGG', 'Age': 24, 'Education': 'BCom'}, "G-1"));
+    this.selectDropdownItems.push(new DropdownModel({'Id':8, 'Name': 'HHH', 'Age': 24, 'Education': 'BCom'}, "H-1"));
   }
 
   populateGridValues(){

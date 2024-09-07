@@ -17,8 +17,15 @@ import { CheckboxEventArgs, CheckboxService } from './checkbox.service';
 })
 export class RCheckboxComponent implements ControlValueAccessor {
 
+  private _isChecked: boolean =false;
+
   @Input()
-  IsChecked: boolean = false;
+  public set IsChecked(val: boolean){
+    this._isChecked = val;
+  }
+  public get IsChecked(): boolean {
+    return this._isChecked;
+  }
 
   @Input()
   DisplayText: string = "";
@@ -32,6 +39,9 @@ export class RCheckboxComponent implements ControlValueAccessor {
   @Output()
   OnCheckChanged = new EventEmitter<CheckboxEventArgs>();
 
+  @Output()
+  OnClick = new EventEmitter<CheckboxEventArgs>();
+  
   onChange: Function = () => { };
 
   onTouch: Function = () => { };
@@ -64,15 +74,16 @@ export class RCheckboxComponent implements ControlValueAccessor {
 
     this.IsChecked = checkValue;
     let args=new CheckboxEventArgs($event, this.IsChecked);
-    this.onChange(args);
-    this.onTouch(args);
-    this.OnCheckChanged.emit(args);   
+    this.onChange(this.IsChecked);
+    this.onTouch(this.IsChecked);
+    this.OnCheckChanged.emit(args);  
+    this.OnClick.emit(args); 
   }
   
   emitValueToModel($event: Event | undefined){
     let args=new CheckboxEventArgs($event, this.IsChecked);
-    this.onChange(args);
-    this.onTouch(args);    
+    this.onChange(this.IsChecked);
+    this.onTouch(this.IsChecked);    
     this.OnCheckChanged.emit(args);
   }
 

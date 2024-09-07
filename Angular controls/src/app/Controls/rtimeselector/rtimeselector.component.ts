@@ -2,7 +2,7 @@ import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/cor
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
-import { DropdownModel } from '../dropdown/dropdownmodel';
+import { DropDownItemModel, DropdownModel } from '../dropdown/dropdownmodel';
 import { RDropdownComponent } from '../dropdown/dropdown.component';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
@@ -35,13 +35,13 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
 
   public outputValue: string = "";
 
-  hours: DropdownModel[] = [];
-  minutes: DropdownModel[] = [];
-  modes: DropdownModel[] = [];
+  hours: DropDownItemModel[] = [];
+  minutes: DropDownItemModel[] = [];
+  modes: DropDownItemModel[] = [];
 
-  selectedHour!: DropdownModel;
-  selectedMinute!: DropdownModel;
-  selectedMode!: DropdownModel;
+  selectedHour!: DropDownItemModel;
+  selectedMinute!: DropDownItemModel;
+  selectedMode!: DropDownItemModel;
 
   @Input()
   LabelText: string = "";
@@ -260,26 +260,26 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
     if (this.Is24HourFormat) {
       for (let index = 0; index < 24; index++) {
         let display = index.toString().length == 1 ? "0" + index.toString() : index.toString();
-        this.hours.push(new DropdownModel(index, display));
+        this.hours.push(new DropDownItemModel(index, display));
       }
     }
     else {
       for (let index = 1; index < 13; index++) {
         let display = index.toString().length == 1 ? "0" + index.toString() : index.toString();
-        this.hours.push(new DropdownModel(index, display));
+        this.hours.push(new DropDownItemModel(index, display));
       }
     }
 
     for (let index = 0; index < 60; index++) {
       let display = index.toString().length == 1 ? "0" + index.toString() : index.toString();
-      this.minutes.push(new DropdownModel(index, display));
+      this.minutes.push(new DropDownItemModel(index, display));
     }
 
-    this.modes.push(new DropdownModel("AM", "AM"));
-    this.modes.push(new DropdownModel("PM", "PM"));
+    this.modes.push(new DropDownItemModel("AM", "AM"));
+    this.modes.push(new DropDownItemModel("PM", "PM"));
   }
 
-  SelectMode(item: DropdownModel) {
+  SelectMode(item: DropDownItemModel) {
 
     this.modes.forEach(x => x.IsSelected = false);
 
@@ -293,7 +293,7 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
     this.NotifyToModel();
   }
 
-  SelectHour(item: DropdownModel) {
+  SelectHour(item: DropDownItemModel) {
     this.hours.forEach(x => x.IsSelected = false);
     item.IsSelected = true;
     this.selectedHour = item;
@@ -301,7 +301,7 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
     this.NotifyToModel();
   }
 
-  SelectMinute(item: DropdownModel) {
+  SelectMinute(item: DropDownItemModel) {
     this.minutes.forEach(x => x.IsSelected = false);
     item.IsSelected = true;
     this.selectedMinute = item;

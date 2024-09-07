@@ -17,18 +17,18 @@
                 <ng-container *ngIf="!ColumnsNotDefined">
                     <td [ngStyle]="{ 'padding-left': '7px', 
                         'width': EditModeEnabled ? header.EditModeWidth : header.Width, 
-                        'height':'20px'} " class="header" cdkDrag (cdkDragStarted)="dragStartedForPopup($event)"
+                        'height':'20px'} " class="header headerbox" cdkDrag (cdkDragStarted)="dragStartedForPopup($event)"
                         [cdkDragData]="header" 
                         (cdkDragStarted)="headerDragStart($event)"
                         (cdkDragEnded)="headerDragEnd($event)"
                         *ngFor="let header of Headers">
-                        {{header.HeaderText}}
+                        {{header.HeaderText}}                        
                     </td>
                 </ng-container>
 
                 <ng-container *ngIf="ColumnsNotDefined">
                     <td style="cursor: pointer;min-width: 60px;min-height: 40px;"
-                        [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}" class="header" cdkDrag
+                        [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}" class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
                         (cdkDragStarted)="headerDragStart($event)"
                         (cdkDragEnded)="headerDragEnd($event)"
@@ -94,7 +94,8 @@
                 <ng-container *ngFor="let grpitem of DisplayGroupItems">
                     <tr style="border-bottom: 1px solid lightgray;">
                         <td colspan="2">
-                            <span class="symbol" (click)="expandGroup($event, grpitem)">                
+                            <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}" 
+                                    (click)="expandGroup($event, grpitem)">                
                             </span> 
                             <span style="text-overflow: ellipsis;">{{getGroupHeaderAsString(grpitem)}}</span>
                         </td>
@@ -150,13 +151,13 @@
                         <div style="display: block;font-size: small;color:grey">
                             <div class="pageItem" (click)="FirstPage()">&#171;</div>
                             <div class="pageItem" (click)="PreviousPage()">&#8249;</div>
-                            <div class="pageItem">
+                            <div class="pageItemDropdown">
                                 <rdropdown [Items]="PageItems" [DropDownContentWidth]="'90px'"
                                     (change)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage"></rdropdown>
                             </div>                           
                             <div class="pageItem" (click)="NextPage()">&#8250;</div>
                             <div class="pageItem" (click)="LastPage()">&#187;</div>
-                            <div class="pageItem">
+                            <div class="pageItemSmallFont">
                                 <span>Current Page: {{currentPage}}</span>
                             </div>
                         </div>

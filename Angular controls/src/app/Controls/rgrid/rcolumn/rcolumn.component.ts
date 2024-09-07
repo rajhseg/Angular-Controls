@@ -1,5 +1,4 @@
 import { AfterContentInit, Component, ContentChild, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
-import { RGridColumnForDirective } from '../grid-column-for.directive';
 import { EditViewTemplateDirective } from '../edit-template.directive';
 import { ReadViewTemplateDirective } from '../view-template.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
@@ -7,7 +6,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 @Component({
   selector: 'rcolumn',
   standalone: true,
-  imports: [RGridColumnForDirective, ReadViewTemplateDirective, EditViewTemplateDirective, NgIf, NgTemplateOutlet],
+  imports: [ReadViewTemplateDirective, EditViewTemplateDirective, NgIf, NgTemplateOutlet],
   templateUrl: './rcolumn.component.html',
   styleUrl: './rcolumn.component.css'
 })

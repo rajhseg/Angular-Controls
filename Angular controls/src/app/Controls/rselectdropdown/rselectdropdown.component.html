@@ -1,0 +1,76 @@
+<div [id]="Id" class="dropdown rselectdropdownWindowClose">
+  <input (click)="openDropdown($event)" readonly class="inpdrop" type="text" [value]="SelectedDisplay"
+    [ngStyle]="{'width':Width}">
+  <button (click)="openDropdown($event)" class="dropdownbtn">
+    <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
+  </button>
+  <div id="myDropdown" (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)"
+    class="dropdown-content" style="background-color: white;" [ngStyle]="{'minWidth':DropDownContentWidth, 
+          'visibility':IsDropDownOpen ? 'visible': 'collapse',
+          'background-color': BackgroundColor,
+          'color': ForeColor
+          }">
+
+    <ng-content></ng-content>
+
+    <div *ngIf="IsMulti" style="cursor: pointer;">
+      <div class="option-content" style="padding-left:6px;padding-top:6px;cursor: pointer;display: flex;">
+        <rcheckbox style="width: auto;padding: 6px;" (OnClick)="selectall($event)" 
+            [IsChecked]="isSelectAllChecked" [(ngModel)]="isSelectAllChecked"
+            [DisplayText]="'' ">
+        </rcheckbox>
+        
+        <div (click)="selectallFromSpan($event)" style="padding-top: 12px;width: 100%;">
+          <span>Select All</span>          
+        </div>
+
+      </div>
+      <div class="option-content" style="padding-left:6px;">
+
+        <ng-container *ngFor="let item of ComplexItems">
+          <div style="display: flex;flex-direction: row;align-self: center;">
+          <rcheckbox (OnCheckChanged)="checkValue($event, item)" [IsChecked]="item.IsSelected"
+            style="width: auto;padding: 6px;cursor: pointer;"
+            [DisplayText]="''"></rcheckbox>
+
+            <div (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)" 
+                style="display: flex;flex-direction: row;align-self: center;width: 100%;">
+
+                <ng-container *ngIf="OptionsTemplate==undefined">
+                  {{item.DisplayValue}}
+                </ng-container>
+      
+              <ng-container *ngIf="OptionsTemplate!=undefined">
+                <ng-container *ngTemplateOutlet="OptionsTemplate; context:{$implicit: item}">
+                </ng-container>
+                <ng-template #em>No Content</ng-template>
+              </ng-container>
+
+            </div>
+
+        </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div *ngIf="!IsMulti">
+      <div class="option-content">
+        <div class="item" style="padding-top:8px; padding-bottom: 10px;" (click)="selectSingleValue($event, item)"
+          *ngFor="let item of ComplexItems" [ngClass]="{'dropdown-content-selected': item.IsSelected}">
+          
+          <ng-container *ngIf="OptionsTemplate==undefined">
+            {{item.DisplayValue}}
+          </ng-container>
+
+          <ng-container *ngIf="OptionsTemplate!=undefined">
+            <ng-container *ngTemplateOutlet="OptionsTemplate; context:{$implicit: item}">
+            </ng-container>
+            <ng-template #em>No Content</ng-template>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

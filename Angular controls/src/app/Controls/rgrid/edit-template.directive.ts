@@ -1,5 +1,4 @@
 import { Directive, Optional, Self, TemplateRef } from '@angular/core';
-import { RGridColumnForDirective } from './grid-column-for.directive';
 import { RGridTemplateContext } from './rgridtemplatecontext';
 
 @Directive({

@@ -35,7 +35,10 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
 
   @Input()
   Color: string = "#00c7ba";
-  
+
+  @Output()
+  OnClick = new EventEmitter<RadioEventArgs>();
+
   onChange: Function = () => { };
 
   onTouch: Function = () => { };
@@ -68,15 +71,16 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
 
     this.IsChecked = checkValue;
     let args=new RadioEventArgs($event, this.IsChecked);
-    this.onChange(args);
-    this.onTouch(args);
+    this.onChange(this.IsChecked);
+    this.onTouch(this.IsChecked);
     this.OnCheckChanged.emit(args);
+    this.OnClick.emit(args);
   }
 
   emitValueToModel($event: Event | undefined){
     let args=new RadioEventArgs($event, this.IsChecked);
-    this.onChange(args);
-    this.onTouch(args);
+    this.onChange(this.IsChecked);
+    this.onTouch(this.IsChecked);
     this.OnCheckChanged.emit(args);
   }
 

@@ -1,8 +1,7 @@
-import { CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
-import { RGridColumnForDirective } from './grid-column-for.directive';
 import { RCell, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../dropdown/dropdown.component";
@@ -15,7 +14,8 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
   standalone: true,
   imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,  
     KeyValuePipe,
-    NgClass, CdkDrag, CdkDropList, JsonPipe, FormsModule, ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent],
+    NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, 
+    ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent],
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -121,7 +121,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         const element = keys[index];
         let _values = this.GroupedData.get(element);
         if (_values) {
-          this.GroupItems.push(new RGridGroupData(element, _values));
+          this.GroupItems.push(new RGridGroupData(element, _values, true));
         }
       }
 
@@ -367,7 +367,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.Row = r;
         _cell.HeaderIndex = index;
         _cell.HeaderKey = _hdr.Key;
-
+        
         _cell.Item = element;
         _cell.Value = element[_hdr.Key];
 
@@ -408,8 +408,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.HeaderKey = _hdr.Key;
 
         _cell.Item = element;
-        _cell.Value = element[_hdr.Key];
-
+        _cell.Value = element[_hdr.Key];      
+        
         let dir = new RColumnComponent();
         dir.EditView = this.defaultEditView;
         dir.ReadView = this.defaultReadView;
@@ -442,6 +442,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       const element = item[keys[index]];
       if (!element.columnDirective.IsComputationalColumn)
         element.IsEditMode = !element.IsEditMode;
+
+      if(!element.IsEditMode){
+        if(this.GroupHeaders.length > 0){
+          this.createGroup();
+        }
+      }
     }
 
     this.EditModeEnabled = false;

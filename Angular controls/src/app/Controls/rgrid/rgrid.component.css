@@ -22,6 +22,7 @@
   padding:3px 5px 8px 5px;
   margin-bottom: 5px;
   margin-top:8px;
+  cursor: pointer;
 }
 
 .rbtn{
@@ -35,6 +36,10 @@
   cursor: pointer;
 }
 
+.headerbox {
+  box-sizing:content-box;
+}
+
 .header {    
     padding-top: 10px;    
     cursor: pointer;
@@ -45,7 +50,7 @@
     padding-bottom: 10px;
     vertical-align: bottom;    
     padding-left: 8px;
-    padding-right: 8px;
+    padding-right: 8px;    
 }
 
 
@@ -158,7 +163,8 @@ tbody tr td{
     width: 100%;
     background-color: white;
     height: 30px;
-    border-top: 1px solid lightgray;    
+    border-top: 1px solid lightgray; 
+    padding-bottom: 16px;   
   }
 
   .pageItem {
@@ -166,4 +172,22 @@ tbody tr td{
     float: left;
     vertical-align: middle;
     cursor: pointer;
+    margin-top: 1px;
+    font-size: large;
+  }
+
+  
+  .pageItemSmallFont {
+    padding:10px;
+    float: left;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+
+  .pageItemDropdown {
+    padding:10px;
+    float: left;
+    vertical-align: middle;
+    cursor: pointer;    
   }

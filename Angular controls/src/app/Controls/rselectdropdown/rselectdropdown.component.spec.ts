@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RGridComponent } from './rgrid.component';
+import { RSelectDropdownComponent } from './rselectdropdown.component';
 
-describe('RgridComponent', () => {
-  let component: RGridComponent;
-  let fixture: ComponentFixture<RGridComponent>;
+describe('RselectdropdownComponent', () => {
+  let component: RSelectDropdownComponent;
+  let fixture: ComponentFixture<RSelectDropdownComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RGridComponent]
+      imports: [RSelectDropdownComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RGridComponent);
+    fixture = TestBed.createComponent(RSelectDropdownComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

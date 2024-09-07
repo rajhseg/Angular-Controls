@@ -14,7 +14,9 @@
 
     <div *ngIf="IsMulti" style="cursor: pointer;">
       <div class="option-content" style="padding-left:6px;padding-top:6px;cursor: pointer;">
-        <rcheckbox style="width: auto;" (OnCheckChanged)="selectall($event)" [DisplayText]="'Select All'">
+        <rcheckbox style="width: auto;" (OnClick)="selectall($event)"  
+              [(ngModel)]="isSelectAllChecked"
+              [IsChecked]="isSelectAllChecked" [DisplayText]="'Select All'">
         </rcheckbox>
       </div>
       <div class="option-content" style="padding-left:6px;">

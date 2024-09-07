@@ -56,7 +56,7 @@
   background-color: #e7e7e9;
   display: block;
   /* background-image: linear-gradient(#e7e7e9, transparent); */
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 

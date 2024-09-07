@@ -1,8 +1,8 @@
-import { RGridColumnForDirective } from "./grid-column-for.directive";
+
 import { RColumnComponent } from "./rcolumn/rcolumn.component";
 
 
-export class RCell {
+export class RCell {    
 
     private _value: object | undefined = undefined;
 
@@ -20,7 +20,7 @@ export class RCell {
         this._value = data;
         
         if(this.Item)
-            this.Item[this.HeaderKey] = data;
+            this.Item[this.HeaderKey] = data;        
     }
     public get Value(): object | undefined {
         return this._value;

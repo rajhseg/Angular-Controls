@@ -176,14 +176,37 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
     }).reduce((prev, curr) => prev ? prev : curr, 0);
 
-    
+
     if (this.IsGroupHaveColumns) {
-      let _keys = this.DisplayGroupItems.length;
+
+      /* insert group column at first position in sort */
+      let _cols = this.SortHeaders.map(x => this.GroupHeaders.find(y => y.ColumnName == x.Header.ColumnName));
+      let groupCols = _cols.filter(x => x != undefined);
+
+      for (let index = groupCols.length - 1; index > -1; index--) {
+        const element = groupCols[index];
+        if (element) {
+          let indx = this.SortHeaders.findIndex(x => x.Header.ColumnName == element.ColumnName);
+          let ele = this.SortHeaders[indx];
+          if (indx > 0) {
+            this.SortHeaders.splice(indx, 1);
+            this.SortHeaders.unshift(ele);
+          }
+        }
+      }
+      /* above code insert group column at first position in sort */
+
+      this.DataItems.Rows.sort(sorter(this.SortHeaders));
+      this.createGroup();
+
+      let _keys = this.GroupItems.length;
       for (let index = 0; index < _keys; index++) {
-        const element = this.DisplayGroupItems[index];
+        const element = this.GroupItems[index];
         element.Values.sort(sorter(this.SortHeaders));
-      }            
+      }
+
       this.filterPerPageForGroup();
+
     } else {
       this.DataItems.Rows.sort(sorter(this.SortHeaders));
       this.filterPerPage();

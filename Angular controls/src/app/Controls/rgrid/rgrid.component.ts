@@ -24,6 +24,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
   private _items: any[] = [];
 
+  private indxKey: string = "rgrid_index";
+
   Headers: RGridHeader[] = [];
 
   SortHeaders: RGridHeaderSort[] = [];
@@ -94,7 +96,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
   }
 
   sortAsc(hdr: RGridHeader){
-    let indx = this.SortHeaders.findIndex(x=>x.Header.Key==hdr.Key);
+    let indx = this.SortHeaders.findIndex(x=>x.Header.PropToBind==hdr.PropToBind);
 
     if(indx > -1){
       this.SortHeaders[indx].SortType = RGridHeaderSortType.Ascending;
@@ -106,7 +108,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
   }
   
   sortDes(hdr: RGridHeader){
-    let indx = this.SortHeaders.findIndex(x=>x.Header.Key==hdr.Key);
+    let indx = this.SortHeaders.findIndex(x=>x.Header.PropToBind==hdr.PropToBind);
 
     if(indx > -1){
       this.SortHeaders[indx].SortType = RGridHeaderSortType.Descending;
@@ -125,9 +127,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         type = -1;
       }
 
-      if(firstObj[x.Header.Key].Value < SecondObj[x.Header.Key].Value)
+      if(firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
         return -(type);
-      else if(firstObj[x.Header.Key].Value > SecondObj[x.Header.Key].Value)
+      else if(firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
         return type;
       else 
       return 0;
@@ -164,7 +166,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
     for (let index = 0; index < this.GroupHeaders.length; index++) {
       const element = this.GroupHeaders[index];
-      let exp = (x: any) => x[element.Key];
+      let exp = (x: any) => x[element.PropToBind];
       exprs.push(exp);
     }
 
@@ -206,13 +208,13 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     let _hdr = $event.item.data as RGridHeader;
 
     if (_hdr) {
-      let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.Value.toLowerCase());
+      let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
 
       if (_col && _col.IsComputationalColumn) {
         return;
       }
 
-      let indx = this.GroupHeaders.findIndex(x => x.Key == $event.item.data.Key);
+      let indx = this.GroupHeaders.findIndex(x => x.PropToBind == $event.item.data.Key);
       if (indx == -1) {
         this.GroupHeaders.push($event.item.data);
         this.createGroup();
@@ -221,7 +223,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
   }
 
   removeFromGroup(item: RGridHeader) {
-    let ind = this.GroupHeaders.findIndex(x => x.Key == item.Key);
+    let ind = this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind);
     if (ind > -1) {
       this.GroupHeaders.splice(ind, 1);
       this.createGroup();
@@ -397,7 +399,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
         this.Headers.push(new RGridHeader(index.toString(), element.PropToBind, element.Name, index,
-          element.HeaderText, element.Width, element.Height, element.EditModeWidth, element.EditModeHeight));
+          element.HeaderText, element.IsComputationalColumn, element.Width, element.Height, element.EditModeWidth, element.EditModeHeight));
       }
 
     }
@@ -423,12 +425,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.Column = c;
         _cell.Row = r;
         _cell.HeaderIndex = index;
-        _cell.HeaderKey = _hdr.Key;
+        _cell.HeaderKey = _hdr.PropToBind;
         
         _cell.Item = element;
-        _cell.Value = element[_hdr.Key];
+        _cell.Value = element[_hdr.PropToBind];
 
-        let dirs = cols.filter(x => x.Name.toLowerCase() == _hdr.Value.toLowerCase());
+        let dirs = cols.filter(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
 
         if (dirs && dirs.length > 0) {
           _cell.columnDirective = dirs[0];
@@ -436,8 +438,16 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
           _cell.Height = dirs[0].Height;
         }
 
-        _row[_hdr.Key] = _cell;
+        _row[_hdr.PropToBind] = _cell;
       }
+
+      /* Adding index column for each row */
+      let _cell = new RCell();
+      c++;
+      _cell.Column = c;
+      _cell.Row = r;            
+      _cell.Value = r as any;
+      _row[this.indxKey] = _cell; 
 
       _dataItems.Rows.push(_row);
     }
@@ -462,10 +472,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.Column = c;
         _cell.Row = r;
         _cell.HeaderIndex = index;
-        _cell.HeaderKey = _hdr.Key;
+        _cell.HeaderKey = _hdr.PropToBind;
 
         _cell.Item = element;
-        _cell.Value = element[_hdr.Key];      
+        _cell.Value = element[_hdr.PropToBind];      
         
         let dir = new RColumnComponent();
         dir.EditView = this.defaultEditView;
@@ -473,8 +483,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         dir.Width = "fit-content";
         dir.Height = "fit-content";
         dir.HeaderText = _hdr.HeaderText;
-        dir.Name = _hdr.Key;
-        dir.PropToBind = _hdr.Key;
+        dir.Name = _hdr.PropToBind;
+        dir.PropToBind = _hdr.PropToBind;
         dir.EditModeHeight = "fit-content";
         dir.EditModeWidth = "fit-content";
 
@@ -484,9 +494,18 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
           _cell.Height = dir.Height;
         }
 
-        _row[_hdr.Key] = _cell;
+        _row[_hdr.PropToBind] = _cell;
       }
 
+      
+      /* Adding index column for each row */
+      let _cell = new RCell();
+      c++;
+      _cell.Column = c;
+      _cell.Row = r;            
+      _cell.Value = r as any;
+      _row[this.indxKey] = _cell; 
+      
       _dataItems.Rows.push(_row);
     }
 
@@ -533,7 +552,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       if (keys) {
         for (let index = 0; index < keys.length; index++) {
           const element = keys[index];
-          this.Headers.push(new RGridHeader(index.toString(), element, element, index, element));
+          this.Headers.push(new RGridHeader(index.toString(), element, element, index, element, false));
         }
       }
     }
@@ -600,8 +619,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 }
 
 export class RGridHeader {
-  constructor(public Id: string, public Key: string, public Value: string,
-    public Index: number, public HeaderText: string, public Width: string = 'auto', public Height: string = 'auto',
+  constructor(public Id: string, public PropToBind: string, public ColumnName: string,
+    public Index: number, public HeaderText: string, public IsComputationColumn: boolean, 
+    public Width: string = 'auto', public Height: string = 'auto',
     public EditModeWidth: string = 'auto', public EditModeHeight: string = 'auto',
     public readView: TemplateRef<any> | null = null, public editView: TemplateRef<any> | null = null
   ) {

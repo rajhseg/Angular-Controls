@@ -24,8 +24,8 @@
                            
                             {{header.HeaderText}}  
                             
-                            <span class="srt">&#8593;</span>
-                            <span class="srt">&#8595;</span>
+                            <span *ngIf="!header.IsComputationColumn"  (click)="sortDes(header)" class="srt">&#8593;</span>
+                            <span *ngIf="!header.IsComputationColumn"  (click)="sortAsc(header)" class="srt">&#8595;</span>
 
                             <div *cdkDragPreview class="preview">
                                 {{header.HeaderText}} 
@@ -44,8 +44,8 @@
 
                             {{header.HeaderText}}
 
-                            <span class="srt" (click)="sortDes(header)">&#8593;</span>
-                            <span class="srt" (click)="sortAsc(header)">&#8595;</span>
+                            <span *ngIf="!header.IsComputationColumn" class="srt" (click)="sortDes(header)">&#8593;</span>
+                            <span *ngIf="!header.IsComputationColumn" class="srt" (click)="sortAsc(header)">&#8595;</span>
 
                             <div *cdkDragPreview class="preview">
                                 {{header.HeaderText}} 
@@ -64,15 +64,15 @@
             <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                 <tr *ngFor="let item of ShowItems.Rows">
                     <ng-container *ngIf="!ColumnsNotDefined">
-                        <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.Key].Width, 
-                    'height': EditModeEnabled ? header.EditModeHeight : item[header.Key].Height}">
+                        <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.PropToBind].Width, 
+                    'height': EditModeEnabled ? header.EditModeHeight : item[header.PropToBind].Height}">
 
-                            <ng-container *ngIf="item[header.Key] && item[header.Key].columnDirective">
+                            <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
                                 <div>
-                                    <ng-container *ngTemplateOutlet="item[header.Key].IsEditMode ?  
-                                        item[header.Key].columnDirective.EditView  || em : 
-                                        item[header.Key].columnDirective.ReadView || em; 
-                                    context:{$implicit: item[header.Key].Item, CellInfo: item[header.Key]}">
+                                    <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
+                                        item[header.PropToBind].columnDirective.EditView  || em : 
+                                        item[header.PropToBind].columnDirective.ReadView || em; 
+                                    context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
                                     </ng-container>
                                     <ng-content></ng-content>
                                     <ng-template #em>No Content</ng-template>
@@ -85,10 +85,10 @@
                     <ng-container *ngIf="ColumnsNotDefined">
                         <td *ngFor="let header of Headers" style="cursor: pointer;min-width: 60px;min-height: 40px;">
 
-                            <ng-container *ngTemplateOutlet="item[header.Key].IsEditMode ?  
+                            <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
                                     defaultEditView || em : 
                                     defaultReadView || em; 
-                                context:{$implicit: item[header.Key].Item, CellInfo: item[header.Key]}">
+                                context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
                             </ng-container>
                             
                             <ng-template #em>No Content</ng-template>
@@ -96,9 +96,9 @@
                     </ng-container>
                     <td *ngIf="ShowEditUpdate">
                         <div>
-                            <a class="atagedit" *ngIf="item && !item[Headers[0].Key].IsEditMode"
+                            <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
                                 (click)="ShowEdit($event, item)">Edit</a>
-                            <a class="atagedit" *ngIf="item && item[Headers[0].Key].IsEditMode"
+                            <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
                                 (click)="ShowEdit($event, item)">Update</a>
                         </div>
                     </td>                    
@@ -120,15 +120,15 @@
                     <ng-container *ngIf="grpitem.IsExpanded">
                         <tr *ngFor="let item of grpitem.Values">
                             <ng-container *ngIf="!ColumnsNotDefined">
-                                <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.Key].Width, 
-                            'height': EditModeEnabled ? header.EditModeHeight : item[header.Key].Height}">
+                                <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.PropToBind].Width, 
+                            'height': EditModeEnabled ? header.EditModeHeight : item[header.PropToBind].Height}">
         
-                                    <ng-container *ngIf="item[header.Key] && item[header.Key].columnDirective">
+                                    <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
                                         <div>
-                                            <ng-container *ngTemplateOutlet="item[header.Key].IsEditMode ?  
-                                                item[header.Key].columnDirective.EditView  || em : 
-                                                item[header.Key].columnDirective.ReadView || em; 
-                                            context:{$implicit: item[header.Key].Item, CellInfo: item[header.Key]}">
+                                            <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
+                                                item[header.PropToBind].columnDirective.EditView  || em : 
+                                                item[header.PropToBind].columnDirective.ReadView || em; 
+                                            context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
                                             </ng-container>                                            
                                             <ng-template #em>No Content</ng-template>
                                         </div>
@@ -140,19 +140,19 @@
                             <ng-container *ngIf="ColumnsNotDefined">
                                 <td *ngFor="let header of Headers" style="cursor: pointer;min-width: 60px;min-height: 40px;">
         
-                                    <ng-container *ngTemplateOutlet="item[header.Key].IsEditMode ?  
+                                    <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
                                             defaultEditView || em : 
                                             defaultReadView || em; 
-                                        context:{$implicit: item[header.Key].Item, CellInfo: item[header.Key]}">
+                                        context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
                                     </ng-container>                           
                                     <ng-template #em>No Content</ng-template>
                                 </td>
                             </ng-container>
                             <td *ngIf="ShowEditUpdate">
                                 <div>
-                                    <a class="atagedit" *ngIf="item && !item[Headers[0].Key].IsEditMode"
+                                    <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
                                         (click)="ShowEdit($event, item)">Edit</a>
-                                    <a class="atagedit" *ngIf="item && item[Headers[0].Key].IsEditMode"
+                                    <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
                                         (click)="ShowEdit($event, item)">Update</a>
                                 </div>
                             </td>  

@@ -12,7 +12,7 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 @Component({
   selector: 'rgrid',
   standalone: true,
-  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,  
+  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,
     KeyValuePipe,
     NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, CdkDragPreview,
     ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent],
@@ -58,7 +58,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
   IsGroupHaveColumns: boolean = false;
 
-  HeaderGroupPanelShow: boolean =false;
+  HeaderGroupPanelShow: boolean = false;
 
   GroupedData!: Map<string, RGridRow[]> | undefined;
 
@@ -95,51 +95,96 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     this.ItemsPerPage = new DropdownModel(10, "10");
   }
 
-  sortAsc(hdr: RGridHeader){
-    let indx = this.SortHeaders.findIndex(x=>x.Header.PropToBind==hdr.PropToBind);
+  sortColumn(hdr: RGridHeader) {
+    if (hdr) {
 
-    if(indx > -1){
+      let defaultindx = this.SortHeaders.findIndex(x => x.Header.PropToBind == this.indxKey);
+      if (defaultindx > -1) {
+        this.SortHeaders.splice(defaultindx, 1);
+      }
+      let srtType: RGridHeaderSortType | undefined = undefined;
+
+      if (hdr.sortType == undefined) {
+        srtType = RGridHeaderSortType.Ascending;
+      } else if (hdr.sortType == RGridHeaderSortType.Ascending) {
+        srtType = RGridHeaderSortType.Descending;
+      }
+      else {
+        srtType = undefined;
+      }
+
+      let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
+      hdr.sortType = srtType;
+
+      if (srtType == undefined) {
+        this.SortHeaders.splice(indx, 1);
+      } else {
+        if (indx > -1) {
+          this.SortHeaders[indx].SortType = srtType;;
+        } else {
+          this.SortHeaders.push(new RGridHeaderSort(srtType, hdr));
+        }
+      }
+
+      if (this.SortHeaders.length == 0) {
+        let defaultHdr = new RGridHeader(this.indxKey, this.indxKey, this.indxKey, -1, this.indxKey, false);
+        this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, defaultHdr));
+      }
+
+      this.sortData();
+    }
+  }
+
+  sortAsc(hdr: RGridHeader) {
+    let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
+
+    if (indx > -1) {
       this.SortHeaders[indx].SortType = RGridHeaderSortType.Ascending;
     } else {
-      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending,  hdr));
+      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, hdr));
     }
 
     this.sortData();
   }
-  
-  sortDes(hdr: RGridHeader){
-    let indx = this.SortHeaders.findIndex(x=>x.Header.PropToBind==hdr.PropToBind);
 
-    if(indx > -1){
+  sortDes(hdr: RGridHeader) {
+    let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
+
+    if (indx > -1) {
       this.SortHeaders[indx].SortType = RGridHeaderSortType.Descending;
     } else {
-      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Descending,  hdr));
+      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Descending, hdr));
     }
 
     this.sortData();
   }
 
-  sortData(){
-    const sorter = (columns: RGridHeaderSort[])=> (firstObj: any, SecondObj: any)=> columns.map(x=>{
+  sortData() {
+    const sorter = (columns: RGridHeaderSort[]) => (firstObj: any, SecondObj: any) => columns.map(x => {
       let type = 1;
 
-      if(x.SortType==RGridHeaderSortType.Descending){
+      if (x.SortType == RGridHeaderSortType.Descending) {
         type = -1;
       }
 
-      if(firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
+      if (firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
         return -(type);
-      else if(firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
+      else if (firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
         return type;
-      else 
-      return 0;
+      else
+        return 0;
 
-    }).reduce((prev, curr)=> prev ? prev : curr, 0);
+    }).reduce((prev, curr) => prev ? prev : curr, 0);
 
-    if(this.IsGroupHaveColumns){
-      this.DisplayGroupItems.sort(sorter(this.SortHeaders));
+    
+    if (this.IsGroupHaveColumns) {
+      let _keys = this.DisplayGroupItems.length;
+      for (let index = 0; index < _keys; index++) {
+        const element = this.DisplayGroupItems[index];
+        element.Values.sort(sorter(this.SortHeaders));
+      }            
       this.filterPerPageForGroup();
-    } else{
+    } else {
       this.DataItems.Rows.sort(sorter(this.SortHeaders));
       this.filterPerPage();
     }
@@ -277,14 +322,14 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     }
   }
 
-  headerDragEnd($event: any){
-    if(this.HeaderGroupPanelShow){
+  headerDragEnd($event: any) {
+    if (this.HeaderGroupPanelShow) {
       this.HeaderGroupPanelShow = false;
     }
   }
 
-  headerDragStart($event: any){
-    if(!this.IsGroupHaveColumns){
+  headerDragStart($event: any) {
+    if (!this.IsGroupHaveColumns) {
       this.HeaderGroupPanelShow = true;
     }
   }
@@ -300,7 +345,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     let itemAddToListCount: number = 0;
 
     for (let index = 0; index < this.GroupItems.length; index++) {
-      const element = this.GroupItems[index];      
+      const element = this.GroupItems[index];
       let grpData = new RGridGroupData(element.Key, [], element.IsExpanded);
       for (let i = 0; i < element.Values.length; i++) {
 
@@ -318,7 +363,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         }
       }
 
-      if(grpData.Values.length > 0)
+      if (grpData.Values.length > 0)
         this.DisplayGroupItems.push(grpData);
 
       if (itemAddToListCount == this.ItemsPerPage.Value)
@@ -399,7 +444,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
         this.Headers.push(new RGridHeader(index.toString(), element.PropToBind, element.Name, index,
-          element.HeaderText, element.IsComputationalColumn, element.Width, element.Height, element.EditModeWidth, element.EditModeHeight));
+          element.HeaderText, element.IsComputationalColumn, undefined, element.Width, element.Height, element.EditModeWidth, element.EditModeHeight));
       }
 
     }
@@ -426,7 +471,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.Row = r;
         _cell.HeaderIndex = index;
         _cell.HeaderKey = _hdr.PropToBind;
-        
+
         _cell.Item = element;
         _cell.Value = element[_hdr.PropToBind];
 
@@ -445,9 +490,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       let _cell = new RCell();
       c++;
       _cell.Column = c;
-      _cell.Row = r;            
+      _cell.Row = r;
       _cell.Value = r as any;
-      _row[this.indxKey] = _cell; 
+      _row[this.indxKey] = _cell;
 
       _dataItems.Rows.push(_row);
     }
@@ -475,8 +520,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.HeaderKey = _hdr.PropToBind;
 
         _cell.Item = element;
-        _cell.Value = element[_hdr.PropToBind];      
-        
+        _cell.Value = element[_hdr.PropToBind];
+
         let dir = new RColumnComponent();
         dir.EditView = this.defaultEditView;
         dir.ReadView = this.defaultReadView;
@@ -497,15 +542,15 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _row[_hdr.PropToBind] = _cell;
       }
 
-      
+
       /* Adding index column for each row */
       let _cell = new RCell();
       c++;
       _cell.Column = c;
-      _cell.Row = r;            
+      _cell.Row = r;
       _cell.Value = r as any;
-      _row[this.indxKey] = _cell; 
-      
+      _row[this.indxKey] = _cell;
+
       _dataItems.Rows.push(_row);
     }
 
@@ -519,8 +564,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       if (!element.columnDirective.IsComputationalColumn)
         element.IsEditMode = !element.IsEditMode;
 
-      if(!element.IsEditMode){
-        if(this.GroupHeaders.length > 0){
+      if (!element.IsEditMode) {
+        if (this.GroupHeaders.length > 0) {
           this.createGroup();
         }
       }
@@ -620,7 +665,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
 export class RGridHeader {
   constructor(public Id: string, public PropToBind: string, public ColumnName: string,
-    public Index: number, public HeaderText: string, public IsComputationColumn: boolean, 
+    public Index: number, public HeaderText: string, public IsComputationColumn: boolean,
+    public sortType: RGridHeaderSortType | undefined = undefined,
     public Width: string = 'auto', public Height: string = 'auto',
     public EditModeWidth: string = 'auto', public EditModeHeight: string = 'auto',
     public readView: TemplateRef<any> | null = null, public editView: TemplateRef<any> | null = null

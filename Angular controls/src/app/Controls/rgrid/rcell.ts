@@ -51,7 +51,7 @@ export enum RGridHeaderSortType {
 }
 
 export class RGridHeaderSort {
-    constructor(public SortType: RGridHeaderSortType, public Header: RGridHeader) {
+    constructor(public SortType: RGridHeaderSortType | undefined, public Header: RGridHeader) {
         
     }
 }

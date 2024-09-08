@@ -1,5 +1,6 @@
 
 import { RColumnComponent } from "./rcolumn/rcolumn.component";
+import { RGridHeader } from "./rgrid.component";
 
 
 export class RCell {    
@@ -42,4 +43,15 @@ export class RGridRow {
 
 export class RGridItems{
     public Rows: RGridRow[] = [];
+}
+
+export enum RGridHeaderSortType {
+    Descending = -1,
+    Ascending = 1  
+}
+
+export class RGridHeaderSort {
+    constructor(public SortType: RGridHeaderSortType, public Header: RGridHeader) {
+        
+    }
 }

@@ -1,8 +1,8 @@
-import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
-import { RCell, RGridItems, RGridRow } from './rcell';
+import { RCell, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../dropdown/dropdown.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
   standalone: true,
   imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,  
     KeyValuePipe,
-    NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, 
+    NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, CdkDragPreview,
     ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent],
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
@@ -25,6 +25,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
   private _items: any[] = [];
 
   Headers: RGridHeader[] = [];
+
+  SortHeaders: RGridHeaderSort[] = [];
 
   GroupHeaders: RGridHeader[] = [];
 
@@ -38,7 +40,11 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
   @Input()
   TableHeight: string = "200px";
 
+  @Input()
   ShowEditUpdate: boolean = true;
+
+  @Input()
+  ShowGroupHeader: boolean = true;
 
   EditModeEnabled: boolean = false;
 
@@ -85,6 +91,57 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
     this.PageItems = ditems;
     this.ItemsPerPage = new DropdownModel(10, "10");
+  }
+
+  sortAsc(hdr: RGridHeader){
+    let indx = this.SortHeaders.findIndex(x=>x.Header.Key==hdr.Key);
+
+    if(indx > -1){
+      this.SortHeaders[indx].SortType = RGridHeaderSortType.Ascending;
+    } else {
+      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending,  hdr));
+    }
+
+    this.sortData();
+  }
+  
+  sortDes(hdr: RGridHeader){
+    let indx = this.SortHeaders.findIndex(x=>x.Header.Key==hdr.Key);
+
+    if(indx > -1){
+      this.SortHeaders[indx].SortType = RGridHeaderSortType.Descending;
+    } else {
+      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Descending,  hdr));
+    }
+
+    this.sortData();
+  }
+
+  sortData(){
+    const sorter = (columns: RGridHeaderSort[])=> (firstObj: any, SecondObj: any)=> columns.map(x=>{
+      let type = 1;
+
+      if(x.SortType==RGridHeaderSortType.Descending){
+        type = -1;
+      }
+
+      if(firstObj[x.Header.Key].Value < SecondObj[x.Header.Key].Value)
+        return -(type);
+      else if(firstObj[x.Header.Key].Value > SecondObj[x.Header.Key].Value)
+        return type;
+      else 
+      return 0;
+
+    }).reduce((prev, curr)=> prev ? prev : curr, 0);
+
+    if(this.IsGroupHaveColumns){
+      this.DisplayGroupItems.sort(sorter(this.SortHeaders));
+      this.filterPerPageForGroup();
+    } else{
+      this.DataItems.Rows.sort(sorter(this.SortHeaders));
+      this.filterPerPage();
+    }
+
   }
 
   getGroupHeaderAsString(grpItem: RGridGroupData) {

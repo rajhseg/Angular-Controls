@@ -1,10 +1,9 @@
 <div class="display: flex;" class="root" cdkDropListGroup>
-    <div class="groupheader" style="display: flex;"
+    <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;"
         cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
         (cdkDropListDropped)="groupDrop($event)">
         <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders"
-            [ngStyle]="{ 'width': grpheader.Width }"
-            >
+            [ngStyle]="{ 'width': grpheader.Width }">
             {{grpheader.HeaderText}}
             <span (click)="removeFromGroup(grpheader)" class="rbtn">&#10006;</span>
         </div>
@@ -22,7 +21,16 @@
                         (cdkDragStarted)="headerDragStart($event)"
                         (cdkDragEnded)="headerDragEnd($event)"
                         *ngFor="let header of Headers">
-                        {{header.HeaderText}}                        
+                           
+                            {{header.HeaderText}}  
+                            
+                            <span class="srt">&#8593;</span>
+                            <span class="srt">&#8595;</span>
+
+                            <div *cdkDragPreview class="preview">
+                                {{header.HeaderText}} 
+                            </div>
+
                     </td>
                 </ng-container>
 
@@ -33,7 +41,16 @@
                         (cdkDragStarted)="headerDragStart($event)"
                         (cdkDragEnded)="headerDragEnd($event)"
                         *ngFor="let header of Headers">
-                        {{header.HeaderText}}
+
+                            {{header.HeaderText}}
+
+                            <span class="srt" (click)="sortDes(header)">&#8593;</span>
+                            <span class="srt" (click)="sortAsc(header)">&#8595;</span>
+
+                            <div *cdkDragPreview class="preview">
+                                {{header.HeaderText}} 
+                            </div>  
+
                     </td>
                 </ng-container>
 

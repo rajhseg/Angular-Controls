@@ -229,8 +229,7 @@ RGrid Control
 ------------------------------
 <br/>
 
-![image](https://github.com/user-attachments/assets/0b97e400-c4c9-47c5-adab-78b16c5dc48f)
-
+![image](https://github.com/user-attachments/assets/07645759-98ab-4cd6-9beb-03b8e7b995b1)
 
 <br/>
 <br/>

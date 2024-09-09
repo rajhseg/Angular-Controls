@@ -44,6 +44,19 @@
   color: white;
 }
 
+.defaultEditview {
+  border: none;
+  outline: none;
+  margin-left:-4px; 
+  border-bottom: 2px solid blue;
+}
+
+.defaultEditview:hover, .defaultEditview:focus {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid blue;
+}
+
 .srt {
   padding-left: 2px;
   padding-right: 2px;

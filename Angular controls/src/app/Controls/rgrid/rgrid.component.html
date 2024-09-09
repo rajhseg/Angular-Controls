@@ -194,6 +194,7 @@
     <div [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}">{{cell.Value}}</div>
 </ng-template>
 
-<ng-template #editmode let-cell="CellInfo">
-    <rtextbox [TextBoxWidth]="66" [(ngModel)]="cell.Value"></rtextbox>
+<ng-template #editmode let-cell="CellInfo">   
+    <!-- <input class="defaultEditview" type="text"  [(ngModel)]="cell.Value" style="width: 35px;" /> -->
+    <rtextbox [TextBoxWidth]="65" [(ngModel)]="cell.Value"></rtextbox>
 </ng-template>

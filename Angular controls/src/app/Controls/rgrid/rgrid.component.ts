@@ -274,6 +274,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
   groupDrop($event: CdkDragDrop<RGridHeader[]>) {
     let _hdr = $event.item.data as RGridHeader;
+    let _srt = undefined;
 
     if (_hdr) {
       let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
@@ -286,6 +287,16 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       if (indx == -1) {
         this.GroupHeaders.push($event.item.data);
         this.createGroup();
+
+        /* Sort the column when group */
+        if(_hdr.sortType==RGridHeaderSortType.Ascending){
+          _srt = undefined;
+        } else if(_hdr.sortType==RGridHeaderSortType.Descending){
+          _srt = RGridHeaderSortType.Ascending;
+        }
+
+        _hdr.sortType = _srt;
+        this.sortColumn(_hdr);
       }
     }
   }
@@ -584,7 +595,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     let keys = Object.keys(item)
     for (let index = 0; index < keys.length; index++) {
       const element = item[keys[index]];
-      if (!element.columnDirective.IsComputationalColumn)
+      if (element.columnDirective && !element.columnDirective.IsComputationalColumn)
         element.IsEditMode = !element.IsEditMode;
 
       if (!element.IsEditMode) {

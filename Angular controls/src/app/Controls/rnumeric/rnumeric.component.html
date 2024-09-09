@@ -1,10 +1,26 @@
 
 
-<div [ngStyle]="{'padding-left': EnableShadowEffect ? '15px' : '','box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}" 
+<div [ngStyle]="{}" 
     class="sh" style="display: flex;flex-direction: row;">  
-    <rtextbox [IsReadOnly]="true" [BottomLineColor]="BottomLineColor" [LabelText]="LabelText" 
+    <rtextbox [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
+        [IsReadOnly]="true" [BottomLineColor]="BottomLineColor" [LabelText]="''" 
         [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth"
         [(ngModel)]="Value"></rtextbox>    
-    <rbutton [ngStyle]="{'top':LabelText.trim()=='' ? '-6px':'3px'}" [BackgroundColor]="MinusBackgroundColor" [ForeColor]="MinusForeColor" (ButtonClick)="Dec()" class="minus">&#9866;</rbutton>
-    <rbutton [ngStyle]="{'top':LabelText.trim()=='' ? '-6px':'3px'}" [BackgroundColor]="PlusBackgroundColor" [ForeColor]="PlusForeColor" (ButtonClick)="Inc()" class="plus">&#10009;</rbutton>
+
+    <rbutton [ngStyle]="{ 'top':'-1px'}" 
+                [ButtonHeight]="'20px'"
+                [ButtonWidth]="'25px'"
+                [BackgroundColor]="MinusBackgroundColor" 
+                [ForeColor]="MinusForeColor" 
+                (ButtonClick)="Dec()" 
+                class="minus">&#9866;</rbutton>
+
+    <rbutton [ngStyle]="{ 'top': '-1px'}" 
+                [ButtonHeight]="'20px'"
+                [ButtonWidth]="'25px'"
+                [BackgroundColor]="PlusBackgroundColor" 
+                [ForeColor]="PlusForeColor"
+                (ButtonClick)="Inc()" 
+                class="plus">&#10009;</rbutton>
+
 </div>

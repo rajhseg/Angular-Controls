@@ -15,7 +15,7 @@
 
                 <ng-container *ngIf="!ColumnsNotDefined">
                     <td [ngStyle]="{ 'padding-left': '7px', 
-                        'width': EditModeEnabled ? header.EditModeWidth : header.Width, 
+                        'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
                         'height':'20px'} " class="header headerbox" cdkDrag (cdkDragStarted)="dragStartedForPopup($event)"
                         [cdkDragData]="header" 
                         (cdkDragStarted)="headerDragStart($event)"
@@ -37,7 +37,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="ColumnsNotDefined">
-                    <td style="cursor: pointer;min-width: 60px;min-height: 40px;"
+                    <td style="cursor: pointer;min-width: 85px;min-height: 40px;"
                         [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}" class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
                         (cdkDragStarted)="headerDragStart($event)"
@@ -59,7 +59,7 @@
                 </ng-container>
 
                 <td class="header" *ngIf="ShowEditUpdate"
-                    [ngStyle]="{'width': (EditModeEnabled && !ColumnsNotDefined) ? '48px' : ''}">
+                    [ngStyle]="{'width': (EditModeEnabled && !ColumnsNotDefined) ? '68px' : '68px'}">
                     Action
                 </td>
             </tr>
@@ -68,7 +68,7 @@
             <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                 <tr *ngFor="let item of ShowItems.Rows">
                     <ng-container *ngIf="!ColumnsNotDefined">
-                        <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.PropToBind].Width, 
+                        <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
                     'height': EditModeEnabled ? header.EditModeHeight : item[header.PropToBind].Height}">
 
                             <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
@@ -124,8 +124,9 @@
                     <ng-container *ngIf="grpitem.IsExpanded">
                         <tr *ngFor="let item of grpitem.Values">
                             <ng-container *ngIf="!ColumnsNotDefined">
-                                <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : item[header.PropToBind].Width, 
-                            'height': EditModeEnabled ? header.EditModeHeight : item[header.PropToBind].Height}">
+                                <td *ngFor="let header of Headers" style="cursor: pointer;" 
+                                    [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
+                                                 'height': EditModeEnabled ? header.EditModeHeight : item[header.PropToBind].Height}">
         
                                     <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
                                         <div>
@@ -191,10 +192,13 @@
 </div>
 
 <ng-template #viewmode let-cell="CellInfo">
-    <div [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}">{{cell.Value}}</div>
+    <div [ngStyle]="{'width': EditModeEnabled ? '84px' : '85px'}">{{cell.Value}}</div>
 </ng-template>
 
-<ng-template #editmode let-cell="CellInfo">   
-    <!-- <input class="defaultEditview" type="text"  [(ngModel)]="cell.Value" style="width: 35px;" /> -->
-    <rtextbox [TextBoxWidth]="65" [(ngModel)]="cell.Value"></rtextbox>
+<ng-template #editmode let-cell="CellInfo">       
+    <rtextbox   [TextBoxWidth]="69" 
+                [EnableMarginTextBottom]="false" 
+                [TextBoxHeight]="12" 
+                [(ngModel)]="cell.Value">
+    </rtextbox>
 </ng-template>

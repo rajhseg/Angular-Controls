@@ -21,7 +21,7 @@ import { RbuttonComponent } from "../rbutton/rbutton.component";
 export class RNumericComponent implements ControlValueAccessor {
 
   @Input()
-  public LabelText: string = "Number of Count";
+  public LabelText: string = "";
 
   @Input()
   public LabelTextForeColor: string = "blue";
@@ -30,7 +30,12 @@ export class RNumericComponent implements ControlValueAccessor {
   public BottomLineColor: string = "blue";
 
   @Input()
-  public TextBoxWidth: number = 150;
+  public TextBoxWidth: number = 80;
+  
+  public TextBoxHeight: number = 16;
+
+  @Input()
+  public EnableMarginTextBottom: boolean = false;
 
   private _value: number = 0;
 

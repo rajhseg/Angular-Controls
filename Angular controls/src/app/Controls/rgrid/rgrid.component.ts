@@ -478,7 +478,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
         this.Headers.push(new RGridHeader(index.toString(), element.PropToBind, element.Name, index,
-          element.HeaderText, element.IsComputationalColumn, undefined, element.Width, element.Height, element.EditModeWidth, element.EditModeHeight));
+          element.HeaderText, element.IsComputationalColumn, undefined, element.EditModeWidth, element.Height, element.EditModeWidth, element.EditModeHeight));
       }
 
     }
@@ -513,7 +513,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
         if (dirs && dirs.length > 0) {
           _cell.columnDirective = dirs[0];
-          _cell.Width = dirs[0].Width;
+          _cell.Width = dirs[0].EditModeWidth;
           _cell.Height = dirs[0].Height;
         }
 
@@ -558,8 +558,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
         let dir = new RColumnComponent();
         dir.EditView = this.defaultEditView;
-        dir.ReadView = this.defaultReadView;
-        dir.Width = "fit-content";
+        dir.ReadView = this.defaultReadView;        
         dir.Height = "fit-content";
         dir.HeaderText = _hdr.HeaderText;
         dir.Name = _hdr.PropToBind;
@@ -569,7 +568,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
         if (dir) {
           _cell.columnDirective = dir;
-          _cell.Width = dir.Width;
+          _cell.Width = dir.EditModeWidth;
           _cell.Height = dir.Height;
         }
 

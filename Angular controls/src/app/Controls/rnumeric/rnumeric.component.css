@@ -26,14 +26,16 @@
 
 .minus {
     align-self:center;
-    left: -65px;
+    /* left: -48px; */
+    right: 53px;
     position: relative;
     /* top: 3px; */
 }
 
 .plus {
     align-self:center;
-    left: -62px;
+    /* left: -46px; */
+    right: 52px;
     position: relative;
     /* top: 3px; */
 }

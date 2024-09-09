@@ -4,6 +4,8 @@
       <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="110" 
           [IsReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
       <rbutton class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"
+          [ButtonHeight]="'34px'"
+          [ButtonWidth]="'30px'"
           [ngStyle]="{ 'top': LabelText.trim() !='' ? '8px': '-1px'}"
           (ButtonClick)="openDropdown($event)">
           <span>&#9716;</span>

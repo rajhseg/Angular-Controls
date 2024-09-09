@@ -18,8 +18,9 @@
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
        
-       [ngStyle]="{'width': TextBoxWidth+'px','border-bottom-color': BottomLineColor,       
-        'margin-bottom': EnableMarginTextBottom ? MarginTextBottom+'px' : ''
+       [ngStyle]="{ 'height': TextBoxHeight+'px', 
+            'width': TextBoxWidth+'px','border-bottom-color': BottomLineColor,       
+            'margin-bottom': EnableMarginTextBottom ? MarginTextBottom+'px' : ''
        }"
 
        [placeholder]="PlaceholderText" 

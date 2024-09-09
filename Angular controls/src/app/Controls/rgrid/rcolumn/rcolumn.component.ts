@@ -24,8 +24,8 @@ export class RColumnComponent implements AfterContentInit {
   @Input()
   HeaderText: string = "";
 
-  @Input()
-  Width: string ="auto";
+  // @Input()
+  // Width: string ="auto";
 
   @Input()
   Height: string ="auto";

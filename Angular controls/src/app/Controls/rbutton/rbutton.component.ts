@@ -14,6 +14,12 @@ export class RbuttonComponent {
   public ButtonClick = new EventEmitter<any>();
   
   @Input()
+  public ButtonWidth: string = '100px';
+
+  @Input()
+  public ButtonHeight: string = '32px';
+
+  @Input()
   public ButtonType: string = "button";
 
   @Input()

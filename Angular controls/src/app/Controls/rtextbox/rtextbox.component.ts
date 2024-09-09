@@ -40,6 +40,9 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   @Input()
   TextBoxWidth: number = 200;
 
+  @Input()
+  TextBoxHeight: number = 30;
+
   @Output()
   valueChanged = new EventEmitter<string>();
 

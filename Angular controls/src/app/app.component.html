@@ -38,8 +38,8 @@
   </rtree>
   <br />
 
-  <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStep()">Move to Next Step</rbutton>
-  <rbutton (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+  <rbutton  [ButtonWidth]="'150px'"  [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStep()">Move to Next Step</rbutton>
+  <rbutton  [ButtonWidth]="'150px'"  (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
 
   <br />
 
@@ -61,8 +61,8 @@
   <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
   <br />
 
-  <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
-  <rbutton (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+  <rbutton  [ButtonWidth]="'150px'"  [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
+  <rbutton  [ButtonWidth]="'150px'"  (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
 
   <br />
 
@@ -184,49 +184,49 @@
     
     <rgrid [Items]="gridItems" [ItemsPerPage]="ItemsPerPage">
 
-      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'80px'" [EditModeWidth]="'100px'" [Height]="'20px'">
+      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
           <span>{{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="rcell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="rcell.Value" />
         </ng-template>
       </rcolumn>
 
       
-      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'80px'" [EditModeWidth]="'120px'">
+      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'"  [EditModeWidth]="'120px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Name}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [Width]="'80px'" [EditModeWidth]="'150px'">
+      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'130px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="90"></rnumeric>          
+          <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>          
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column4'" [PropToBind]="'Education'" [HeaderText]="'Degree'" [Width]="'80px'" [EditModeWidth]="'80px'">
+      <rcolumn [Name]="'column4'" [PropToBind]="'Education'" [HeaderText]="'Degree'" [EditModeWidth]="'80px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Education}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'80px'" [EditModeWidth]="'80px'">
+      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'"  [EditModeWidth]="'80px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age + 4}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
@@ -235,12 +235,12 @@
   <br />
   <div>
     <br />
-    <rbutton BackgroundColor="green" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One Tab</rbutton>
+    <rbutton BackgroundColor="green" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One Tab</rbutton>
     <br />
     <div>
       <label>Tab Index</label>
       <input type="text" [(ngModel)]="deltabindex" />
-      <rbutton (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
+      <rbutton  [ButtonWidth]="'150px'"  (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
     </div>
     <br />
   </div>
@@ -362,7 +362,7 @@
           [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
         </rprogressbar>
 
-        <rbutton (ButtonClick)="ResetProgress()">Reset</rbutton>
+        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="ResetProgress()">Reset</rbutton>
       </rtab>
 
       
@@ -400,8 +400,8 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'rstate-vertical', 'Context':this }">
-        <rbutton type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to Next Step</rbutton>
-        <rbutton (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+        <rbutton  [ButtonWidth]="'150px'"  type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to Next Step</rbutton>
+        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
         <br />
         <br />
         <br />
@@ -422,8 +422,8 @@
 
       <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'rstate-horizontal', 'Context':this }">
 
-        <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
-        <rbutton (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+        <rbutton  [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
+        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
         <br />
 
         <div>
@@ -445,8 +445,8 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'rbutton', 'Context':this }">
-        <rbutton [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
-        <rbutton (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+        <rbutton  [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
+        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
       </rtab>
 
 
@@ -502,26 +502,26 @@
         
         <rgrid [Items]="gridItems"  [ItemsPerPage]="ItemsPerPage">
     
-          <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'80px'" [EditModeWidth]="'100px'" [Height]="'20px'">
+          <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'"  [EditModeWidth]="'100px'" [Height]="'20px'">
             <ng-template readviewtemplate let-Item let-cell="CellInfo">
               <span>{{cell.Value}}</span>
             </ng-template>
             <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-              <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="rcell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="rcell.Value" />
             </ng-template>
           </rcolumn>
     
           
-          <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'80px'" [EditModeWidth]="'120px'">
+          <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [EditModeWidth]="'120px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Name}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
     
-          <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [Width]="'80px'" [EditModeWidth]="'150px'">
+          <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'150px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Age}}</span>
             </ng-template>
@@ -530,21 +530,21 @@
             </ng-template>
           </rcolumn>
     
-          <rcolumn [Name]="'column4'" [PropToBind]="'Education'" [HeaderText]="'Degree'" [Width]="'80px'" [EditModeWidth]="'80px'">
+          <rcolumn [Name]="'column4'" [PropToBind]="'Education'" [HeaderText]="'Degree'"  [EditModeWidth]="'80px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Education}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
     
-          <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'80px'" [EditModeWidth]="'80px'">
+          <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'"  [EditModeWidth]="'60px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Age + 4}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox type="text" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
     

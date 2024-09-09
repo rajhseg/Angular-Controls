@@ -229,7 +229,15 @@ RGrid Control
 ------------------------------
 <br/>
 
-![image](https://github.com/user-attachments/assets/07645759-98ab-4cd6-9beb-03b8e7b995b1)
+ViewMode
+---------
+![image](https://github.com/user-attachments/assets/ac51b637-f3fc-4b1e-8fbb-47334ff088dc)
+
+<br />
+
+EditMode
+----------
+![image](https://github.com/user-attachments/assets/0c9135ea-b293-4b96-a08e-90b6cc35f3ff)
 
 <br/>
 <br/>

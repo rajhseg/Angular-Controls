@@ -7,11 +7,13 @@ import { IPopupCloseInterface } from '../popup.service';
 import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { CheckboxEventArgs } from '../checkbox/checkbox.service';
 import { RCheckboxComponent } from '../checkbox/checkbox.component';
+import { RTextboxComponent } from '../rtextbox/rtextbox.component';
+import { RDropdownFilterPipe } from '../dropdown-filter.pipe';
 
 @Component({
   selector: 'rselectdropdown',
   standalone: true,
-  imports: [ROptionsTemplateDirective, CommonModule, NgIf, FormsModule, NgForOf, NgClass, RCheckboxComponent],
+  imports: [ROptionsTemplateDirective, RDropdownFilterPipe, RTextboxComponent, CommonModule, NgIf, FormsModule, NgForOf, NgClass, RCheckboxComponent],
   templateUrl: './rselectdropdown.component.html',
   styleUrl: './rselectdropdown.component.css',
   providers:[
@@ -33,11 +35,22 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   private selectedElementRef: ElementRef | undefined = undefined;
   private isFocusDone: boolean = false;
 
+  SearchItem: string = "";
+
   @HostBinding('style.display')
   @Input() set styleDisplay(val: any) {
 
   }
   
+  @Input()
+  EnableFilterOption: boolean = true;
+  
+  @Input()
+  EnableShadowOnDropdown: boolean = true;
+
+  @Input()
+  DropDownContentHeight: string = "200px";
+
   @ContentChild(ROptionsTemplateDirective, {read: TemplateRef<any>}) 
   OptionsTemplate!: TemplateRef<any>;
 
@@ -101,6 +114,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
 
     if (this._show && !value) {
       this._show = value;
+      this.SearchItem = "";
       this.Closed.emit(true);
     }
 
@@ -134,6 +148,19 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     this.winObj = inject(WINDOWOBJECT);
   }
 
+  getFilterBoxWidth(str: string): number{
+    var regex   = /\d+/g;
+    if(str){
+      let num = regex.exec(str);
+      if(num)
+      {
+        return parseInt(num["0"]);
+      }
+    }
+
+    return 100;
+  }
+
   FocusItem($evt: Event) {
     this.isFocusDone = true;
   }
@@ -155,7 +182,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     if (this.SelectedIndex > -1) {
       this.SelectedItem = new DropdownModel(selValue.Value, selValue.DisplayValue);
       this.SelectItem(selValue);
-      this.NotifyToModel();
+      this.NotifyToModel();      
     }
   }
 
@@ -221,7 +248,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   checkValue($event: CheckboxEventArgs, value: RSelectItemModel) {
     this.AssignItems(value, $event.isChecked);
     this.loadSelectedItems();
-    this.NotifyToModel();
+    this.NotifyToModel();    
   }
 
   selectallFromSpan($event: Event){
@@ -387,12 +414,12 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     if (!this.IsMulti) {      
       this.onChange(this.SelectedItem);
       this.onTouch(this.SelectedItem);
-      this.change.emit(this.SelectedItem as any);
+      this.change.emit(this.SelectedItem as any);      
     }
     else{
       this.onChange(this.SelectedItems);
       this.onTouch(this.SelectedItems);
-      this.change.emit(this.SelectedItems as any);
+      this.change.emit(this.SelectedItems as any);      
     }
   }
 
@@ -401,6 +428,8 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
       this.change.emit(this.SelectedItem as any);
     else
       this.change.emit(this.SelectedItems as any);
+
+      this.SearchItem = "";
   }
 
   ObjEquals(xValue: any, yValue: any): boolean {

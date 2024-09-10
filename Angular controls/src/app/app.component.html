@@ -262,7 +262,8 @@
 
       <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'rcalender', 'Context':this }">
         <rcalender [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
-        <rcalender [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
+        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" 
+              [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
         <rcalender></rcalender>
       </rtab>
 

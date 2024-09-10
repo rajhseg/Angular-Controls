@@ -19,17 +19,19 @@
             <div class="mnyr">
 
                 <rdropdown #monthdropdown [IsDropDownOpen]="IsMonthDropdownOpen" [ParentComponent]="this"
+                    [EnableFilterOption]="EnableFilterOptionForMonth"
                     (Closed)="isMonthDropdownClosed($event)" (Opened)="isMonthDropdownOpened($event)"
                     [IsChildOfAnotherControl]="isDropdownChild" [IsMulti]="false" (change)="changeMonth($event)"
-                    [(ngModel)]="month" [Items]="monthNames" DropDownContentWidth="92px">
+                    [(ngModel)]="month" [Items]="monthNames" DropDownContentWidth="92px" [DropDownContentHeight]="'150px'">
                 </rdropdown>
 
             </div>
             <div class="mnyr">
 
-                <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"
+                <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"    
+                    [EnableFilterOption]="EnableFilterOptionForYear"                
                     [IsChildOfAnotherControl]="isDropdownChild" (change)="changeYear($event)" [IsMulti]="false"
-                    [(ngModel)]="year" [Items]="totalYears" DropDownContentWidth="92px">
+                    [(ngModel)]="year" [Items]="totalYears" DropDownContentWidth="92px" [DropDownContentHeight]="'150px'">
                 </rdropdown>
 
             </div>

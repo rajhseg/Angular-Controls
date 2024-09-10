@@ -8,11 +8,13 @@ import { IPopupCloseInterface, PopupService } from '../popup.service';
 import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 import { RCheckboxComponent } from "../checkbox/checkbox.component";
 import { CheckboxEventArgs } from '../checkbox/checkbox.service';
+import { RDropdownFilterPipe } from '../dropdown-filter.pipe';
+import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 
 @Component({
   selector: 'rdropdown',
   standalone: true,
-  imports: [CommonModule, NgIf, FormsModule, NgForOf, NgClass, RCheckboxComponent],
+  imports: [CommonModule, NgIf, FormsModule, RDropdownFilterPipe, RTextboxComponent, NgForOf, NgClass, RCheckboxComponent],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -83,11 +85,23 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
   public ComplexItems: DropDownItemModel[] = [];
 
+  
+  @Input()
+  EnableFilterOption: boolean = true;
+
+  SearchItem: string = "";
+
   @Input()
   Width: string = '80px';
 
   @Input()
   DropDownContentWidth: string = '120px';
+
+  @Input()
+  DropDownContentHeight: string = "200px";
+
+  @Input()
+  EnableShadowOnDropdown: boolean = true;
 
   @Output()
   change = new EventEmitter<any>(); // output<any>();
@@ -99,6 +113,7 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
     if (this._show && !value) {
       this._show = value;
+      this.SearchItem = "";
       this.Closed.emit(true);
     }
 
@@ -414,6 +429,20 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     this.IsDropDownOpen = false;   
   }
 
+  
+  getFilterBoxWidth(str: string): number{
+    var regex   = /\d+/g;
+    if(str){
+      let num = regex.exec(str);
+      if(num)
+      {
+        return parseInt(num["0"]);
+      }
+    }
+
+    return 100;
+  }
+
   NotifyToModel(){       
     if (!this.IsMulti) {      
       this.onChange(this.SelectedItem);
@@ -432,6 +461,8 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
       this.change.emit(this.SelectedItem as any);
     else
       this.change.emit(this.SelectedItems as any);
+
+      this.SearchItem = "";
   }
 
   ObjEquals(xValue: any, yValue: any): boolean {

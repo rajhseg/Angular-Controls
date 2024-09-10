@@ -86,6 +86,12 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   @ViewChild('calmodal') calModal!: ElementRef;
 
   @Input()
+  EnableFilterOptionForYear: boolean = true;
+
+  @Input()
+  EnableFilterOptionForMonth: boolean = true;
+  
+  @Input()
   IsChildOfAnotherControl: boolean = false;
 
   IsChildOfAnotherControlClicked: boolean = false;

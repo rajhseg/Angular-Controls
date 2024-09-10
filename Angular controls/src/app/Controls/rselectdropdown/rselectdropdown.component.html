@@ -8,8 +8,14 @@
     class="dropdown-content" style="background-color: white;" [ngStyle]="{'minWidth':DropDownContentWidth, 
           'visibility':IsDropDownOpen ? 'visible': 'collapse',
           'background-color': BackgroundColor,
-          'color': ForeColor
+          'color': ForeColor,
+          'height': DropDownContentHeight,
+          ' box-shadow': EnableShadowOnDropdown ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px': ''
           }">
+
+      <div *ngIf="EnableFilterOption">
+        <rtextbox [TextBoxWidth]="getFilterBoxWidth(DropDownContentWidth)" [EnableMarginTextBottom]="false" [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"></rtextbox>        
+      </div>
 
     <ng-content></ng-content>
 
@@ -27,7 +33,7 @@
       </div>
       <div class="option-content" style="padding-left:6px;">
 
-        <ng-container *ngFor="let item of ComplexItems">
+        <ng-container *ngFor="let item of ComplexItems | rfilter: SearchItem">
           <div style="display: flex;flex-direction: row;align-self: center;">
           <rcheckbox (OnCheckChanged)="checkValue($event, item)" [IsChecked]="item.IsSelected"
             style="width: auto;padding: 6px;cursor: pointer;"
@@ -56,7 +62,7 @@
     <div *ngIf="!IsMulti">
       <div class="option-content">
         <div class="item" style="padding-top:8px; padding-bottom: 10px;" (click)="selectSingleValue($event, item)"
-          *ngFor="let item of ComplexItems" [ngClass]="{'dropdown-content-selected': item.IsSelected}">
+          *ngFor="let item of ComplexItems | rfilter: SearchItem" [ngClass]="{'dropdown-content-selected': item.IsSelected}">
           
           <ng-container *ngIf="OptionsTemplate==undefined">
             {{item.DisplayValue}}

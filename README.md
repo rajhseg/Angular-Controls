@@ -67,6 +67,16 @@ group panel Control
 <br />
 
 
+RSelectDropdown Control
+-------------------------------
+<br/>
+
+![image](https://github.com/user-attachments/assets/4ae23074-74ed-4e27-874f-e1f1dad2e63a)
+
+
+<br/>
+<br/>
+
 
 Tree Control
 --------------------------
@@ -243,15 +253,6 @@ EditMode
 <br/>
 
 
-RSelectDropdown Control
--------------------------------
-<br/>
-
-![image](https://github.com/user-attachments/assets/4ae23074-74ed-4e27-874f-e1f1dad2e63a)
-
-
-<br/>
-<br/>
 
 
 

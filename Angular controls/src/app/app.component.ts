@@ -143,7 +143,7 @@ export class AppComponent implements AfterViewInit {
   files!: FileList;
   color1: string = "#1598DC";
   gridItems:any[] = [];
-
+  gridItems1:any[] = [];
   selectDropdownItems: DropdownModel[] = [];
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
@@ -213,24 +213,43 @@ export class AppComponent implements AfterViewInit {
   }
 
   populateGridValues(){
-    this.gridItems.push({'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': 'BCom'});
-    this.gridItems.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC'});
-    this.gridItems.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE'});
-    this.gridItems.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom'});
-    this.gridItems.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': 'BE'});
-    this.gridItems.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': 'BSC'});
-    this.gridItems.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': 'BA'});
-    this.gridItems.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': 'BBA'});
-    this.gridItems.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': 'BPharm'});
-    this.gridItems.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': 'BE'});
-    this.gridItems.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': 'BSC'});
-    this.gridItems.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': 'BA'});
-    this.gridItems.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': 'BA'});
-    this.gridItems.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': 'BE'});
-    this.gridItems.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': 'BBA'});
-    this.gridItems.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': 'BA'});
-    this.gridItems.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE'});
-    this.gridItems.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE'});
+    this.gridItems1.push({'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': 'BCom'});
+    this.gridItems1.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC'});
+    this.gridItems1.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE'});
+    this.gridItems1.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom'});
+    this.gridItems1.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': 'BE'});
+    this.gridItems1.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': 'BSC'});
+    this.gridItems1.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': 'BA'});
+    this.gridItems1.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': 'BBA'});
+    this.gridItems1.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': 'BPharm'});
+    this.gridItems1.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': 'BE'});
+    this.gridItems1.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': 'BSC'});
+    this.gridItems1.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': 'BA'});
+    this.gridItems1.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': 'BA'});
+    this.gridItems1.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': 'BE'});
+    this.gridItems1.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': 'BBA'});
+    this.gridItems1.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': 'BA'});
+    this.gridItems1.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE'});
+    this.gridItems1.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE'});
+
+    this.gridItems.push({'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
+    this.gridItems.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': { 'Higher': {'Id': 2, 'Course': 'BSC'}} });
+    this.gridItems.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
+    this.gridItems.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': { 'Higher': {'Id': 5, 'Course': 'BBA'}} });
+    this.gridItems.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': { 'Higher': {'Id': 6, 'Course': 'BPharm'}} });
+    this.gridItems.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': { 'Higher': {'Id': 2, 'Course': 'BSC'}} });
+    this.gridItems.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': { 'Higher': {'Id': 5, 'Course': 'BBA'}} });
+    this.gridItems.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
   }
 
   rtimer_ValueChanged($event: string){

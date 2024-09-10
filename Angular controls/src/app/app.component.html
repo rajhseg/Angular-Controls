@@ -24,10 +24,9 @@
   </div>
   <br />
   <br />
-  
-  <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true"
-      [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" 
-      [LabelText]="'Processed Color : '">
+
+  <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
+    (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
   </rcolorpicker>
 
   <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Pending Color : '"
@@ -38,8 +37,9 @@
   </rtree>
   <br />
 
-  <rbutton  [ButtonWidth]="'150px'"  [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStep()">Move to Next Step</rbutton>
-  <rbutton  [ButtonWidth]="'150px'"  (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStep()">Move to Next Step
+  </rbutton>
+  <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
 
   <br />
 
@@ -61,8 +61,9 @@
   <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
   <br />
 
-  <rbutton  [ButtonWidth]="'150px'"  [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
-  <rbutton  [ButtonWidth]="'150px'"  (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step
+  </rbutton>
+  <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
 
   <br />
 
@@ -114,36 +115,34 @@
   <br />
   <br />
 
-  <rnumeric  [(ngModel)]="rangeValue1"></rnumeric>
-  
-  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'" 
-      [BottomLineColor]="'orangered'" [LabelTextForeColor]="'orangered'"
-      [(ngModel)]="rangeValue1"></rnumeric>
-  
+  <rnumeric [(ngModel)]="rangeValue1"></rnumeric>
+
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'"
+    [BottomLineColor]="'orangered'" [LabelTextForeColor]="'orangered'" [(ngModel)]="rangeValue1"></rnumeric>
+
   <br />
 
   <rtimer [EnableShadowEffect]="true"></rtimer>
-  <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="'orangered'" 
-          [MinuteForeColor]="'orangered'" [SecondsForeColor]="'orangered'" 
-          [DisplayTextForeColor]="'orangered'"
-          [EnableShadowEffect]="true" [CircularWidth]="70"></rtimer>
+  <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="'orangered'" [MinuteForeColor]="'orangered'"
+    [SecondsForeColor]="'orangered'" [DisplayTextForeColor]="'orangered'" [EnableShadowEffect]="true"
+    [CircularWidth]="70"></rtimer>
 
   <br />
 
   <rtimeselector [(ngModel)]="time1"></rtimeselector>
 
   <rtimeselector [(ngModel)]="time2"></rtimeselector>
-  <br/>
+  <br />
 
-  <rtimeselector [LabelText]="'Arriving Time'"  [(ngModel)]="time3" [Is24HourFormat]="false" 
-        [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> 
-        <br />
-        <br/>
+  <rtimeselector [LabelText]="'Arriving Time'" [(ngModel)]="time3" [Is24HourFormat]="false"
+    [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector>
+  <br />
+  <br />
 
   <br />
   <br />
   <div>
-    <br/>
+    <br />
     <div>
       <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
         <ng-template optionstemplate let-Item>
@@ -155,9 +154,11 @@
         </ng-template>
       </rselectdropdown>
 
-      <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+      <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+      </rselectdropdown>
 
-      <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'"></rselectdropdown>
+      <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
+      </rselectdropdown>
 
       <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
         <ng-template optionstemplate let-Item>
@@ -169,19 +170,19 @@
         </ng-template>
       </rselectdropdown>
 
-      <rselectdropdown [Items]="items"  [DropDownContentWidth]="'130px'"></rselectdropdown>
+      <rselectdropdown [Items]="items" [DropDownContentWidth]="'130px'"></rselectdropdown>
 
       <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
 
     </div>
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
 
     <div style="float: left;padding-right:30px">
-      <rgrid [Items]="gridItems"  [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+      <rgrid [Items]="gridItems1" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
-    
+
     <rgrid [Items]="gridItems" [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
@@ -189,17 +190,19 @@
           <span>{{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="rcell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+            [(ngModel)]="rcell.Value" />
         </ng-template>
       </rcolumn>
 
-      
-      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'"  [EditModeWidth]="'120px'">
+
+      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [EditModeWidth]="'120px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Name}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+            [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
@@ -208,25 +211,29 @@
           <span>{{Item.Age}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>          
+          <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column4'" [PropToBind]="'Education'" [HeaderText]="'Degree'" [EditModeWidth]="'80px'">
+      <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
+        [EditModeWidth]="'80px'">
         <ng-template readviewtemplate let-Item>
-          <span>{{Item.Education}}</span>
+          <span>{{Item.Education.Higher.Id}}</span> -
+          <span>{{Item.Education.Higher.Course}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+            [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'"  [EditModeWidth]="'80px'">
+      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [EditModeWidth]="'80px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age + 4}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+            [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
@@ -235,12 +242,13 @@
   <br />
   <div>
     <br />
-    <rbutton BackgroundColor="green" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One Tab</rbutton>
+    <rbutton BackgroundColor="green" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One
+      Tab</rbutton>
     <br />
     <div>
       <label>Tab Index</label>
       <input type="text" [(ngModel)]="deltabindex" />
-      <rbutton  [ButtonWidth]="'150px'"  (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
+      <rbutton [ButtonWidth]="'150px'" (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
     </div>
     <br />
   </div>
@@ -294,9 +302,9 @@
 
         <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
         </rswitch>
-          
+
         <span>Is Circle: {{IsCircleProgressBar}}</span>
-        
+
         <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
           [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
@@ -336,18 +344,19 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">
         <div style="display: flex;">
-          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" (filesSelected)="filesSelected($event)"></rfileupload>
+          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files"
+            (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
         <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
           [LabelText]="'Processed Color : '"></rcolorpicker>
-        <rcolorpicker  [(ngModel)]="color1" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
+        <rcolorpicker [(ngModel)]="color1" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
           [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
       </rtab>
 
-      <rtab *tabidfor="{ 'TabId': 'tab10', 'HeaderText':'rprogressbar', 'Context':this}">        
+      <rtab *tabidfor="{ 'TabId': 'tab10', 'HeaderText':'rprogressbar', 'Context':this}">
         <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
         <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
@@ -362,22 +371,24 @@
           [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
         </rprogressbar>
 
-        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="ResetProgress()">Reset</rbutton>
+        <rbutton [ButtonWidth]="'150px'" (ButtonClick)="ResetProgress()">Reset</rbutton>
       </rtab>
 
-      
+
       <rtab *tabidfor="{'TabId':'tab11', 'HeaderText':'rtimer', 'Context': this}">
         <rtimer (ValueChanged)="rtimer_ValueChanged($event)"></rtimer>
-        <rtimer [CallbackAfterCertainSeconds]="120" (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70"></rtimer>
+        <rtimer [CallbackAfterCertainSeconds]="120"
+          (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70">
+        </rtimer>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab12', 'HeaderText':'rtimeselector', 'Context':this}">
         <rtimeselector [(ngModel)]="time1"></rtimeselector>
 
         <rtimeselector [(ngModel)]="time2"></rtimeselector>
-      
-        <rtimeselector [LabelText]="'Arriving Time'" [(ngModel)]="time3" [Is24HourFormat]="false" 
-              [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> {{time3}}
+
+        <rtimeselector [LabelText]="'Arriving Time'" [(ngModel)]="time3" [Is24HourFormat]="false"
+          [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> {{time3}}
       </rtab>
 
     </rtabs>
@@ -393,15 +404,17 @@
         <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
           [MaxValue]="75"></rslider>
         <br />
-        <rslider  [(ngModel)]="rangeValue1" [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
+        <rslider [(ngModel)]="rangeValue1" [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'">
+        </rslider>
         <br />
 
 
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'rstate-vertical', 'Context':this }">
-        <rbutton  [ButtonWidth]="'150px'"  type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to Next Step</rbutton>
-        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+        <rbutton [ButtonWidth]="'150px'" type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to
+          Next Step</rbutton>
+        <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
         <br />
         <br />
         <br />
@@ -422,8 +435,9 @@
 
       <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'rstate-horizontal', 'Context':this }">
 
-        <rbutton  [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
-        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+        <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step
+        </rbutton>
+        <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
         <br />
 
         <div>
@@ -445,8 +459,9 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'rbutton', 'Context':this }">
-        <rbutton  [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step</rbutton>
-        <rbutton  [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+        <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step
+        </rbutton>
+        <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
       </rtab>
 
 
@@ -488,66 +503,72 @@
 
       <rtab *tabidfor="{'TabId':'tab28', 'HeaderText':'Numeric', 'Context': this}">
         <rnumeric [(ngModel)]="rangeValue1"></rnumeric>
-        
-        <rnumeric [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'" 
-            [BottomLineColor]="'orangered'" [LabelTextForeColor]="'orangered'" [EnableShadowEffect]="true"
-            [(ngModel)]="rangeValue1"></rnumeric>
+
+        <rnumeric [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'" [BottomLineColor]="'orangered'"
+          [LabelTextForeColor]="'orangered'" [EnableShadowEffect]="true" [(ngModel)]="rangeValue1"></rnumeric>
         <br />
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rgrid', 'Context': this}">
         <div style="float: left;padding-right:30px">
-          <rgrid [Items]="gridItems" [TableHeight]="'200px'"  [ItemsPerPage]="ItemsPerPage"></rgrid>
+          <rgrid [Items]="gridItems1" [TableHeight]="'200px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
-        
-        <rgrid [Items]="gridItems"  [ItemsPerPage]="ItemsPerPage">
-    
-          <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'"  [EditModeWidth]="'100px'" [Height]="'20px'">
+
+        <rgrid [Items]="gridItems" [ItemsPerPage]="ItemsPerPage">
+
+          <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'"
+            [Height]="'20px'">
             <ng-template readviewtemplate let-Item let-cell="CellInfo">
               <span>{{cell.Value}}</span>
             </ng-template>
             <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="rcell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+                [(ngModel)]="rcell.Value" />
             </ng-template>
           </rcolumn>
-    
-          
+
+
           <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [EditModeWidth]="'120px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Name}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+                [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
-    
-          <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'150px'">
+
+          <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'130px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Age}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="90"></rnumeric>          
+              <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
             </ng-template>
           </rcolumn>
-    
-          <rcolumn [Name]="'column4'" [PropToBind]="'Education'" [HeaderText]="'Degree'"  [EditModeWidth]="'80px'">
+
+          <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
+            [EditModeWidth]="'80px'">
             <ng-template readviewtemplate let-Item>
-              <span>{{Item.Education}}</span>
+              <span>{{Item.Education.Higher.Id}}</span> -
+              <span>{{Item.Education.Higher.Course}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+                [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
-    
-          <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'"  [EditModeWidth]="'60px'">
+
+          <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [EditModeWidth]="'80px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Age + 4}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40" [(ngModel)]="cell.Value" />
+              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+                [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
-    
+
         </rgrid>
       </rtab>
 
@@ -562,11 +583,13 @@
               </div>
             </ng-template>
           </rselectdropdown>
-    
-          <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
-    
-          <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'"></rselectdropdown>
-    
+
+          <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+          </rselectdropdown>
+
+          <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
+          </rselectdropdown>
+
           <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
             <ng-template optionstemplate let-Item>
               <div>
@@ -576,11 +599,12 @@
               </div>
             </ng-template>
           </rselectdropdown>
-    
-          <rselectdropdown [Items]="items"  [DropDownContentWidth]="'130px'"></rselectdropdown>
-    
-          <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
-    
+
+          <rselectdropdown [Items]="items" [DropDownContentWidth]="'130px'"></rselectdropdown>
+
+          <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'">
+          </rselectdropdown>
+
         </div>
       </rtab>
 

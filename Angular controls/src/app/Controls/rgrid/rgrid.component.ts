@@ -166,7 +166,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       if (x.SortType == RGridHeaderSortType.Descending) {
         type = -1;
       }
-
+            
       if (firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
         return -(type);
       else if (firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
@@ -507,7 +507,28 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.HeaderKey = _hdr.PropToBind;
 
         _cell.Item = element;
-        _cell.Value = element[_hdr.PropToBind];
+
+        let props = _hdr.PropToBind.split(".");
+        
+        if(props.length > 1){
+          let _obj = undefined;
+          let _fobj = element;
+
+            for (let index = 0; index < props.length; index++) {
+              const _p = props[index];
+              _fobj = _fobj[_p];
+
+              if(_fobj==undefined)
+                break;
+
+              _obj = _fobj;
+            }
+
+            _cell.Value = _obj;
+            
+        } else {
+          _cell.Value = element[_hdr.PropToBind];
+        }
 
         let dirs = cols.filter(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
 

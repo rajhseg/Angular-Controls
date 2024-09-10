@@ -34,6 +34,7 @@
   top: 0px;
   right: -2px;
   cursor: pointer;
+  float: right;
 }
 
 .preview {

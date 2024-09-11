@@ -131,8 +131,6 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       this.currentPage = 1;   
 
     this.ngAfterContentInit();
-    this.createGroup();
-    this.sortData();    
   }
 
   registerOnChange(fn: any): void {
@@ -153,13 +151,15 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   }
 
   NotifyToModelOnUpdate(row: RGridRow){
-    this.onChanged(this.Items);
-    this.onTouched(this.Items);      
+    let notifyDataItems = this.Items.slice();
+
+    this.onChanged(notifyDataItems);
+    this.onTouched(notifyDataItems);      
 
     let _rownum = row[this.indxKey as string].Row;  
-    let _row = (this.Items as [])[_rownum as any];
+    let _row = (notifyDataItems as [])[_rownum as any];
 
-    this.OnItemsChanged.emit({Items: this.Items, ChangedRow: _row, RowIndex: _rownum});
+    this.OnItemsChanged.emit({Items: notifyDataItems, ChangedRow: _row, RowIndex: _rownum});
     this.cdr.detectChanges();
   }
 
@@ -213,6 +213,17 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     }
 
     this.sortData();
+  }
+
+  AssignSortTypeToHeaders(){
+    for (let index = 0; index < this.SortHeaders.length; index++) {
+      const element = this.SortHeaders[index];
+      let _hdrIndx = this.Headers.findIndex(x=>x.PropToBind == element.Header.PropToBind);
+      if(_hdrIndx > -1){
+        let _hdr = this.Headers[_hdrIndx];
+        _hdr.sortType = element.SortType;
+      }
+    }
   }
 
   sortDes(hdr: RGridHeader) {
@@ -280,6 +291,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       this.filterPerPage();
     }
 
+    this.AssignSortTypeToHeaders();
   }
 
   getGroupHeaderAsString(grpItem: RGridGroupData) {
@@ -386,6 +398,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         this.ExtractHeadersFromTemplate();
         this.DataItems = this.PopulateData();
         this.filterPerPage();
+        //this.createGroup();
+        this.sortData();    
         this.cdr.detectChanges();
       }, 500);
     } else {
@@ -396,7 +410,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         this.ExtractHeader();
         this.DataItems = this.PopulateDefaultData();
         this.filterPerPage();
-
+       // this.createGroup();
+        this.sortData();    
         this.cdr.detectChanges();
 
         //}, 500);      

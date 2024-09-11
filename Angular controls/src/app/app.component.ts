@@ -253,12 +253,12 @@ export class AppComponent implements AfterViewInit {
   }
 
   itemsChanged($event: any){        
-    this.gridItems = $event.Items.slice();    
+    this.gridItems = $event.Items;    
     console.log($event);  
   }
 
   itemsChangedGridItems1($event: any){    
-    this.gridItems1 = $event.Items.slice(); 
+    this.gridItems1 = $event.Items; 
     console.log($event);       
   }
 

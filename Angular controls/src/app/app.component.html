@@ -180,10 +180,10 @@
     <br />
 
     <div style="float: left;padding-right:30px">
-      <rgrid [Items]="gridItems1" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+      <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
 
-    <rgrid [Items]="gridItems" [ItemsPerPage]="ItemsPerPage">
+    <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
@@ -512,10 +512,11 @@
 
       <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rgrid', 'Context': this}">
         <div style="float: left;padding-right:30px">
-          <rgrid [Items]="gridItems1" [TableHeight]="'200px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
+          <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+                  [TableHeight]="'200px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
 
-        <rgrid [Items]="gridItems" [ItemsPerPage]="ItemsPerPage">
+        <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
 
           <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'"
             [Height]="'20px'">
@@ -585,7 +586,7 @@
             </ng-template>
           </rselectdropdown>
 
-          <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+          <rselectdropdown [EnableFilterOption]="false" [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
           </rselectdropdown>
 
           <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">

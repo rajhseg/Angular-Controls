@@ -65,7 +65,7 @@
                     
                     <ng-container *ngIf="!ColumnsNotDefined">
                         <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
-                    'height': EditModeEnabled ? header.EditModeHeight : item[header.PropToBind].Height}">
+                    'height': EditModeEnabled ? header.EditModeHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : ''}">
 
                             <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
                                 <div>
@@ -91,7 +91,7 @@
                                     defaultReadView || em; 
                                 context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
                             </ng-container>
-
+                            <ng-content></ng-content>
                             <ng-template #em>No Content</ng-template>
                         </td>
                     </ng-container>
@@ -126,7 +126,7 @@
                             <ng-container *ngIf="!ColumnsNotDefined">
                                 <td *ngFor="let header of Headers" style="cursor: pointer;"
                                     [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
-                                                 'height': EditModeEnabled ? header.EditModeHeight : item[header.PropToBind].Height}">
+                                                 'height': EditModeEnabled ? header.EditModeHeight : (item[header.PropToBind]!=undefined) ? item[header.PropToBind].Height : ''}">
 
                                     <ng-container
                                         *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
@@ -137,6 +137,7 @@
                                                 item[header.PropToBind].columnDirective.ReadView || em; 
                                             context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
                                             </ng-container>
+                                            <ng-content></ng-content>
                                             <ng-template #em>No Content</ng-template>
                                         </div>
                                     </ng-container>
@@ -154,6 +155,7 @@
                                             defaultReadView || em; 
                                         context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
                                     </ng-container>
+                                    <ng-content></ng-content>
                                     <ng-template #em>No Content</ng-template>
                                 </td>
                             </ng-container>
@@ -181,7 +183,7 @@
                             <div class="pageItem" (click)="FirstPage()">&#171;</div>
                             <div class="pageItem" (click)="PreviousPage()">&#8249;</div>
                             <div class="pageItemDropdown">
-                                <rdropdown [Items]="PageItems" [DropDownContentWidth]="'90px'"
+                                <rdropdown [DropDownContentHeight]="'100px'" [Items]="PageItems" [DropDownContentWidth]="'90px'" [EnableFilterOption]="false"
                                     (change)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage"></rdropdown>
                             </div>
                             <div class="pageItem" (click)="NextPage()">&#8250;</div>

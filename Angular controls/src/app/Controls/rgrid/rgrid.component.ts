@@ -1,11 +1,11 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../dropdown/dropdown.component";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 
@@ -18,9 +18,16 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
     ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent],
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers:[
+    { 
+      provide:NG_VALUE_ACCESSOR,      
+      useExisting:forwardRef(()=> RGridComponent),
+      multi: true
+    }
+  ]
 })
-export class RGridComponent implements AfterContentInit, AfterViewInit {
+export class RGridComponent implements AfterContentInit, AfterViewInit, ControlValueAccessor, OnChanges {
 
   private _items: any[] = [];
 
@@ -36,6 +43,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
   currentPage: number = 1;
 
+  @Output()
+  OnCellValueChanged = new EventEmitter<RCell>();
+  
+  @Output()
+  OnItemsChanged = new EventEmitter<{Items: any[], ChangedRow: any, RowIndex: number| undefined}>();
+  
   @Input()
   ItemsPerPage!: DropdownModel;
 
@@ -72,10 +85,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
   @ViewChild('editmode', { read: TemplateRef<any> }) defaultEditView!: TemplateRef<any>;
 
+  onChanged: Function = ()=>{};
+  onTouched: Function = ()=>{};
+
   @Input()
-  public set Items(value: any[]) {
-    this._items = value;
-    this.ExtractHeader();
+  public set Items(value: any[]) {    
+    this.RenderUI(value);
   }
   public get Items(): any[] {
     return this._items;
@@ -93,6 +108,59 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
 
     this.PageItems = ditems;
     this.ItemsPerPage = new DropdownModel(10, "10");
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    
+  }
+
+  writeValue(obj: any): void {
+    this.RenderUI(obj);    
+  }
+
+  RenderUI(obj: any[]){
+    if(obj==null || obj==undefined)
+      obj = [];
+
+    this._items = obj.slice(); 
+    this.InitGrid();     
+  }
+
+  InitGrid(){
+    if(this.currentPage==0)
+      this.currentPage = 1;   
+
+    this.ngAfterContentInit();
+    this.createGroup();
+    this.sortData();    
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChanged = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    
+  }
+
+  NotifyToModel(cellInfo: RCell){       
+    this.OnCellValueChanged.emit(cellInfo);    
+    this.cdr.detectChanges();
+  }
+
+  NotifyToModelOnUpdate(row: RGridRow){
+    this.onChanged(this.Items);
+    this.onTouched(this.Items);      
+
+    let _rownum = row[this.indxKey as string].Row;  
+    let _row = (this.Items as [])[_rownum as any];
+
+    this.OnItemsChanged.emit({Items: this.Items, ChangedRow: _row, RowIndex: _rownum});
+    this.cdr.detectChanges();
   }
 
   sortColumn(hdr: RGridHeader) {
@@ -260,9 +328,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
     }
 
     this.filterPerPageForGroup();
-
-    console.log('After group');
-    console.log(this.GroupedData);
+    
   }
 
   expandGroup($event: Event, grpItem: RGridGroupData) {
@@ -320,8 +386,6 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         this.ExtractHeadersFromTemplate();
         this.DataItems = this.PopulateData();
         this.filterPerPage();
-        console.log("DataItems");
-        console.log(this.DataItems);
         this.cdr.detectChanges();
       }, 500);
     } else {
@@ -505,11 +569,13 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.Row = r;
         _cell.HeaderIndex = index;
         _cell.HeaderKey = _hdr.PropToBind;
+        _cell.component = this;
 
-        _cell.Item = element;
+        _cell.Item = structuredClone(element);
 
         let props = _hdr.PropToBind.split(".");
-        
+        _cell.FromModel = true;
+
         if(props.length > 1){
           let _obj = undefined;
           let _fobj = element;
@@ -530,6 +596,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
           _cell.Value = element[_hdr.PropToBind];
         }
 
+        _cell.FromModel = false;
         let dirs = cols.filter(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
 
         if (dirs && dirs.length > 0) {
@@ -546,7 +613,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       c++;
       _cell.Column = c;
       _cell.Row = r;
+      _cell.FromModel =true;
       _cell.Value = r as any;
+      _cell.FromModel =false;
       _row[this.indxKey] = _cell;
 
       _dataItems.Rows.push(_row);
@@ -573,9 +642,11 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
         _cell.Row = r;
         _cell.HeaderIndex = index;
         _cell.HeaderKey = _hdr.PropToBind;
-
-        _cell.Item = element;
+        _cell.component = this;
+        _cell.Item = structuredClone(element);
+        _cell.FromModel =true;
         _cell.Value = element[_hdr.PropToBind];
+        _cell.FromModel =false;
 
         let dir = new RColumnComponent();
         dir.EditView = this.defaultEditView;
@@ -602,7 +673,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
       c++;
       _cell.Column = c;
       _cell.Row = r;
+      _cell.FromModel =true;
       _cell.Value = r as any;
+      _cell.FromModel = false;
       _row[this.indxKey] = _cell;
 
       _dataItems.Rows.push(_row);
@@ -612,6 +685,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit {
   }
 
   ShowEdit($event: Event, item: RGridRow) {
+
+    if(this.EditModeEnabled)            
+        this.NotifyToModelOnUpdate(item);
+
     let keys = Object.keys(item)
     for (let index = 0; index < keys.length; index++) {
       const element = item[keys[index]];

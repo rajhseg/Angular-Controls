@@ -11,8 +11,8 @@
 .grpheaderItem{
   margin-left: 5px;
   margin-right:5px;
-  background-color: rgb(35, 206, 236);
-  color: white;
+  /* background-color: rgb(35, 206, 236); */
+  /* color: white; */
   height: 15px;
   /* width:70px; */
   font-size: small;
@@ -28,8 +28,8 @@
 .rbtn{
   width: 20px;
   height: 20px;  
-  background-color: red;
-  color: white;
+  /* background-color: red;
+  color: white; */
   position: relative;
   top: 0px;
   right: -2px;
@@ -70,8 +70,8 @@
 .header {    
     padding-top: 10px;    
     cursor: pointer;
-    background-color: rgb(35, 206, 236);
-    color: white;
+    /* background-color: rgb(35, 206, 236);
+    color: white; */
     font-size: small;
     font-weight: 700;
     padding-bottom: 10px;
@@ -116,7 +116,7 @@
 
 thead tr {
      display: block; 
-     background-color: rgb(35, 206, 236);
+     /* background-color: rgb(35, 206, 236); */
 }
 
 tbody {

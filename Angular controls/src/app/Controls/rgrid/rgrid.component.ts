@@ -2,7 +2,7 @@ import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart,
 import { AsyncPipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
-import { RCell, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
+import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../dropdown/dropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -61,9 +61,17 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   @Input()
   ShowGroupHeader: boolean = true;
 
+  @Input()
+  HeaderBackgroundColor: string = "rgb(35, 206, 236)";
+
+  @Input()
+  HeaderForeColor: string = "white";
+
   EditModeEnabled: boolean = false;
 
   DataItems!: RGridItems;
+
+  EditRows: RGridEditRowInfo[] = [];
 
   ShowItems!: RGridItems;
 
@@ -361,7 +369,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         return;
       }
 
-      let indx = this.GroupHeaders.findIndex(x => x.PropToBind == $event.item.data.Key);
+      let indx = this.GroupHeaders.findIndex(x => x.PropToBind == _hdr.PropToBind);
       if (indx == -1) {
         this.GroupHeaders.push($event.item.data);
         this.createGroup();
@@ -417,6 +425,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         //}, 500);      
       }
     }
+
+    this.AssignEditRowWhenLoad();
   }
 
   ItemsShownPerPage(num: any) {
@@ -699,15 +709,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     return _dataItems;
   }
 
-  ShowEdit($event: Event, item: RGridRow) {
-
-    if(this.EditModeEnabled)            
-        this.NotifyToModelOnUpdate(item);
+  ShowEdit($event: Event, item: RGridRow, isUpdate: boolean) {
 
     let keys = Object.keys(item)
     for (let index = 0; index < keys.length; index++) {
       const element = item[keys[index]];
-      if (element.columnDirective && !element.columnDirective.IsComputationalColumn)
+      if ((element.columnDirective && !element.columnDirective.IsComputationalColumn) || element.columnDirective==undefined)
         element.IsEditMode = !element.IsEditMode;
 
       if (!element.IsEditMode) {
@@ -718,20 +725,45 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     }
 
     this.EditModeEnabled = false;
+    this.EditRows = [];
 
     for (let i = 0; i < this.DataItems.Rows.length; i++) {
       for (let index = 0; index < keys.length; index++) {
         const element = this.DataItems.Rows[i][keys[index]].IsEditMode;
         if (element) {
-          this.EditModeEnabled = true;
-          break;
-        }
-      }
 
-      if (this.EditModeEnabled)
-        break;
+          if(!this.EditModeEnabled)
+            this.EditModeEnabled = true;
+
+          this.EditRows.push(new RGridEditRowInfo(i, index));
+        }
+      }      
     }
 
+    
+    if(isUpdate)            
+      this.NotifyToModelOnUpdate(item);
+
+  }
+
+  private AssignEditRowWhenLoad(){
+    this.EditModeEnabled = false;
+
+    if(this.EditRows.length > 0){
+      this.EditModeEnabled = true;
+
+      for (let index = 0; index < this.EditRows.length; index++) {
+        const element = this.EditRows[index];
+        let rowItem = this.DataItems.Rows[element.Row] as RGridRow;
+        let keys = Object.keys(rowItem);
+
+        for (let _keys = 0; _keys < keys.length; _keys++) {
+          const _hdrKey = keys[_keys];
+          rowItem[_hdrKey].IsEditMode = true;
+        }
+        
+      }
+    }
   }
 
   private ExtractHeader() {

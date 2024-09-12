@@ -3,6 +3,7 @@ import { DropdownModel } from './dropdown/dropdownmodel';
 
 @Pipe({
   name: 'rfilter',
+  pure: false,
   standalone: true
 })
 export class RDropdownFilterPipe implements PipeTransform {

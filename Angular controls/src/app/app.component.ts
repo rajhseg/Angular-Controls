@@ -250,6 +250,9 @@ export class AppComponent implements AfterViewInit {
     this.gridItems.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
     this.gridItems.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
     this.gridItems.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+
+    this.gridItems = this.gridItems.slice();
+    this.gridItems1 = this.gridItems1.slice();
   }
 
   itemsChanged($event: any){        

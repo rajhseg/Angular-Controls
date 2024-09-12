@@ -1,14 +1,17 @@
 <div class="display: flex;" class="root" cdkDropListGroup>
     <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">
-        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" [ngStyle]="{ 'width': grpheader.Width }">
+        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" [ngStyle]="{ 'width': grpheader.Width,
+            'background-color':HeaderBackgroundColor, 'color': HeaderForeColor
+         }">
             {{grpheader.HeaderText}}
-            <span (click)="removeFromGroup(grpheader)" class="rbtn">&#10006;</span>
+            <span (click)="removeFromGroup(grpheader)" [ngStyle]="{'color': HeaderForeColor}" class="rbtn">&#10006;</span>
         </div>
     </div>
     <table class="tbl">
         <thead>
-            <tr cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
+            <tr  [ngStyle]="{'background-color':HeaderBackgroundColor, 'color': HeaderForeColor}"
+                 cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
                 (cdkDropListDropped)="draggeddropForPopup($event)">
 
                 <ng-container *ngIf="!ColumnsNotDefined">
@@ -99,9 +102,9 @@
                     <td *ngIf="ShowEditUpdate">
                         <div>
                             <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
-                                (click)="ShowEdit($event, item)">Edit</a>
+                                (click)="ShowEdit($event, item, false)">Edit</a>
                             <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
-                                (click)="ShowEdit($event, item)">Update</a>
+                                (click)="ShowEdit($event, item, true)">Close</a>
                         </div>
                     </td>
                 </tr>
@@ -163,9 +166,9 @@
                             <td *ngIf="ShowEditUpdate">
                                 <div>
                                     <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
-                                        (click)="ShowEdit($event, item)">Edit</a>
+                                        (click)="ShowEdit($event, item, false)">Edit</a>
                                     <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
-                                        (click)="ShowEdit($event, item)">Update</a>
+                                        (click)="ShowEdit($event, item, true)">Close</a>
                                 </div>
                             </td>
                         </tr>

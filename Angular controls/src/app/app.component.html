@@ -179,12 +179,17 @@
     <br />
     <br />
     
+    <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
+    <br/>
+    <br/>
 
     <div style="float: left;padding-right:30px">
-      <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+      <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+        [HeaderBackgroundColor]="'blue'"
+        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
 
-    <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
+    <rgrid [Items]="gridItems" [HeaderBackgroundColor]="'red'" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">

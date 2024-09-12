@@ -189,14 +189,14 @@
         [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
 
-    <rgrid [Items]="gridItems" [HeaderBackgroundColor]="'red'" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
+    <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
           <span>{{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="rcell.Value" />
         </ng-template>
       </rcolumn>
@@ -207,7 +207,7 @@
           <span>{{Item.Name}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -217,7 +217,9 @@
           <span>{{Item.Age}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
+          <rnumeric [BottomLineColor]="'rgb(35, 206, 236)'"  
+          [MinusBackgroundColor]="'rgb(35, 206, 236)'" [PlusBackgroundColor]="'rgb(35, 206, 236)'"
+          [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
         </ng-template>
       </rcolumn>
 
@@ -228,7 +230,7 @@
           <span>{{Item.Education.Higher.Course}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -238,7 +240,7 @@
           <span>{{Item.Age + 4}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>

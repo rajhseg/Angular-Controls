@@ -19,10 +19,10 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers:[
-    { 
-      provide:NG_VALUE_ACCESSOR,      
-      useExisting:forwardRef(()=> RGridComponent),
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RGridComponent),
       multi: true
     }
   ]
@@ -45,10 +45,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   @Output()
   OnCellValueChanged = new EventEmitter<RCell>();
-  
+
   @Output()
-  OnItemsChanged = new EventEmitter<{Items: any[], ChangedRow: any, RowIndex: number| undefined}>();
-  
+  OnItemsChanged = new EventEmitter<{ Items: any[], ChangedRow: any, RowIndex: number | undefined }>();
+
   @Input()
   ItemsPerPage!: DropdownModel;
 
@@ -93,11 +93,11 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   @ViewChild('editmode', { read: TemplateRef<any> }) defaultEditView!: TemplateRef<any>;
 
-  onChanged: Function = ()=>{};
-  onTouched: Function = ()=>{};
+  onChanged: Function = () => { };
+  onTouched: Function = () => { };
 
   @Input()
-  public set Items(value: any[]) {    
+  public set Items(value: any[]) {
     this.RenderUI(value);
   }
   public get Items(): any[] {
@@ -119,24 +119,24 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
+
   }
 
   writeValue(obj: any): void {
-    this.RenderUI(obj);    
+    this.RenderUI(obj);
   }
 
-  RenderUI(obj: any[]){
-    if(obj==null || obj==undefined)
+  RenderUI(obj: any[]) {
+    if (obj == null || obj == undefined)
       obj = [];
 
-    this._items = obj.slice(); 
-    this.InitGrid();     
+    this._items = obj.slice();
+    this.InitGrid();
   }
 
-  InitGrid(){
-    if(this.currentPage==0)
-      this.currentPage = 1;   
+  InitGrid() {
+    if (this.currentPage == 0)
+      this.currentPage = 1;
 
     this.ngAfterContentInit();
   }
@@ -150,24 +150,24 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
+
   }
 
-  NotifyToModel(cellInfo: RCell){       
-    this.OnCellValueChanged.emit(cellInfo);    
+  NotifyToModel(cellInfo: RCell) {
+    this.OnCellValueChanged.emit(cellInfo);
     this.cdr.detectChanges();
   }
 
-  NotifyToModelOnUpdate(row: RGridRow){
+  NotifyToModelOnUpdate(row: RGridRow) {
     let notifyDataItems = this.Items.slice();
 
     this.onChanged(notifyDataItems);
-    this.onTouched(notifyDataItems);      
+    this.onTouched(notifyDataItems);
 
-    let _rownum = row[this.indxKey as string].Row;  
+    let _rownum = row[this.indxKey as string].Row;
     let _row = (notifyDataItems as [])[_rownum as any];
 
-    this.OnItemsChanged.emit({Items: notifyDataItems, ChangedRow: _row, RowIndex: _rownum});
+    this.OnItemsChanged.emit({ Items: notifyDataItems, ChangedRow: _row, RowIndex: _rownum });
     this.cdr.detectChanges();
   }
 
@@ -223,11 +223,11 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     this.sortData();
   }
 
-  AssignSortTypeToHeaders(){
+  AssignSortTypeToHeaders() {
     for (let index = 0; index < this.SortHeaders.length; index++) {
       const element = this.SortHeaders[index];
-      let _hdrIndx = this.Headers.findIndex(x=>x.PropToBind == element.Header.PropToBind);
-      if(_hdrIndx > -1){
+      let _hdrIndx = this.Headers.findIndex(x => x.PropToBind == element.Header.PropToBind);
+      if (_hdrIndx > -1) {
         let _hdr = this.Headers[_hdrIndx];
         _hdr.sortType = element.SortType;
       }
@@ -253,7 +253,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       if (x.SortType == RGridHeaderSortType.Descending) {
         type = -1;
       }
-            
+
       if (firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
         return -(type);
       else if (firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
@@ -348,7 +348,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     }
 
     this.filterPerPageForGroup();
-    
+
   }
 
   expandGroup($event: Event, grpItem: RGridGroupData) {
@@ -375,9 +375,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         this.createGroup();
 
         /* Sort the column when group */
-        if(_hdr.sortType==RGridHeaderSortType.Ascending){
+        if (_hdr.sortType == RGridHeaderSortType.Ascending) {
           _srt = undefined;
-        } else if(_hdr.sortType==RGridHeaderSortType.Descending){
+        } else if (_hdr.sortType == RGridHeaderSortType.Descending) {
           _srt = RGridHeaderSortType.Ascending;
         }
 
@@ -405,9 +405,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       setTimeout(() => {
         this.ExtractHeadersFromTemplate();
         this.DataItems = this.PopulateData();
+        this.AssignEditRowWhenLoad();
         this.filterPerPage();
         //this.createGroup();
-        this.sortData();    
+        this.sortData();
         this.cdr.detectChanges();
       }, 500);
     } else {
@@ -417,16 +418,17 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
         this.ExtractHeader();
         this.DataItems = this.PopulateDefaultData();
+        this.AssignEditRowWhenLoad();
         this.filterPerPage();
-       // this.createGroup();
-        this.sortData();    
+        // this.createGroup();
+        this.sortData();
         this.cdr.detectChanges();
 
         //}, 500);      
       }
     }
 
-    this.AssignEditRowWhenLoad();
+
   }
 
   ItemsShownPerPage(num: any) {
@@ -601,22 +603,22 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         let props = _hdr.PropToBind.split(".");
         _cell.FromModel = true;
 
-        if(props.length > 1){
+        if (props.length > 1) {
           let _obj = undefined;
           let _fobj = element;
 
-            for (let index = 0; index < props.length; index++) {
-              const _p = props[index];
-              _fobj = _fobj[_p];
+          for (let index = 0; index < props.length; index++) {
+            const _p = props[index];
+            _fobj = _fobj[_p];
 
-              if(_fobj==undefined)
-                break;
+            if (_fobj == undefined)
+              break;
 
-              _obj = _fobj;
-            }
+            _obj = _fobj;
+          }
 
-            _cell.Value = _obj;
-            
+          _cell.Value = _obj;
+
         } else {
           _cell.Value = element[_hdr.PropToBind];
         }
@@ -638,9 +640,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       c++;
       _cell.Column = c;
       _cell.Row = r;
-      _cell.FromModel =true;
+      _cell.FromModel = true;
       _cell.Value = r as any;
-      _cell.FromModel =false;
+      _cell.FromModel = false;
       _row[this.indxKey] = _cell;
 
       _dataItems.Rows.push(_row);
@@ -669,13 +671,13 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         _cell.HeaderKey = _hdr.PropToBind;
         _cell.component = this;
         _cell.Item = structuredClone(element);
-        _cell.FromModel =true;
+        _cell.FromModel = true;
         _cell.Value = element[_hdr.PropToBind];
-        _cell.FromModel =false;
+        _cell.FromModel = false;
 
         let dir = new RColumnComponent();
         dir.EditView = this.defaultEditView;
-        dir.ReadView = this.defaultReadView;        
+        dir.ReadView = this.defaultReadView;
         dir.Height = "fit-content";
         dir.HeaderText = _hdr.HeaderText;
         dir.Name = _hdr.PropToBind;
@@ -698,7 +700,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       c++;
       _cell.Column = c;
       _cell.Row = r;
-      _cell.FromModel =true;
+      _cell.FromModel = true;
       _cell.Value = r as any;
       _cell.FromModel = false;
       _row[this.indxKey] = _cell;
@@ -714,7 +716,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     let keys = Object.keys(item)
     for (let index = 0; index < keys.length; index++) {
       const element = item[keys[index]];
-      if ((element.columnDirective && !element.columnDirective.IsComputationalColumn) || element.columnDirective==undefined)
+      if ((element.columnDirective && !element.columnDirective.IsComputationalColumn) || element.columnDirective == undefined)
         element.IsEditMode = !element.IsEditMode;
 
       if (!element.IsEditMode) {
@@ -732,36 +734,50 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         const element = this.DataItems.Rows[i][keys[index]].IsEditMode;
         if (element) {
 
-          if(!this.EditModeEnabled)
+          if (!this.EditModeEnabled)
             this.EditModeEnabled = true;
 
-          this.EditRows.push(new RGridEditRowInfo(i, index));
+          let _rowIndex = this.DataItems.Rows[i][this.indxKey];
+
+          if (_rowIndex && _rowIndex.Value) {
+            this.EditRows.push(new RGridEditRowInfo(parseInt(_rowIndex.Value.toString())));
+            break;
+          }
         }
-      }      
+      }
     }
 
-    
-    if(isUpdate)            
-      this.NotifyToModelOnUpdate(item);
 
+    if (isUpdate)
+      this.NotifyToModelOnUpdate(item);
   }
 
-  private AssignEditRowWhenLoad(){
+  private AssignEditRowWhenLoad() {
     this.EditModeEnabled = false;
 
-    if(this.EditRows.length > 0){
+    if (this.EditRows.length > 0) {
       this.EditModeEnabled = true;
 
       for (let index = 0; index < this.EditRows.length; index++) {
         const element = this.EditRows[index];
-        let rowItem = this.DataItems.Rows[element.Row] as RGridRow;
-        let keys = Object.keys(rowItem);
 
-        for (let _keys = 0; _keys < keys.length; _keys++) {
-          const _hdrKey = keys[_keys];
-          rowItem[_hdrKey].IsEditMode = true;
+        // let rowItemIndex = (this.DataItems.Rows as RGridRow[]).findIndex(
+        //   x=> x[this.indxKey]!=undefined && x[this.indxKey].Value != undefined 
+        //   && (x[this.indxKey].Value as any).toString().toLowerCase() == element.RowIndex.toString().toLowerCase());
+
+        let rowItem = this.DataItems.Rows.find((val: RGridRow, indx: number) => {
+          return (val[this.indxKey].Value as any).toString().toLowerCase() == element.RowIndex.toString().toLowerCase();
+        })
+
+        if (rowItem) {
+          let keys = Object.keys(rowItem);
+
+          for (let _keys = 0; _keys < keys.length; _keys++) {
+            const _hdrKey = keys[_keys];
+            if(!this.Columns.find(c=>c.PropToBind==_hdrKey)?.IsComputationalColumn)
+               rowItem[_hdrKey].IsEditMode = true;
+          }
         }
-        
       }
     }
   }

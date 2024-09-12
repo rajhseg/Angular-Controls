@@ -209,6 +209,6 @@
 </ng-template>
 
 <ng-template #editmode let-cell="CellInfo">
-    <rtextbox [TextBoxWidth]="69" [EnableMarginTextBottom]="false" [TextBoxHeight]="12" [(ngModel)]="cell.Value">
+    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="69" [EnableMarginTextBottom]="false" [TextBoxHeight]="12" [(ngModel)]="cell.Value">
     </rtextbox>
 </ng-template>

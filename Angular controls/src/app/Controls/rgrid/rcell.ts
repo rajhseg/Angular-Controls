@@ -114,7 +114,7 @@ export class RGridHeaderSort {
 }
 
 export class RGridEditRowInfo {
-    constructor(public Row: number, public Column: number){
+    constructor(public RowIndex: number){
 
     }
 }

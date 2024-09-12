@@ -247,6 +247,7 @@ ViewMode
 ![image](https://github.com/user-attachments/assets/1d04074a-ed13-45b4-9926-4a34ee183a09)
 
 <br />
+
 ![image](https://github.com/user-attachments/assets/93be58b3-0f19-43a6-b7c5-27d2c63afd11)
 
 

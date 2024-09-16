@@ -1,0 +1,82 @@
+<div [class.scl]="!ShowScrollBar">
+    <div>
+        <div class="timeDiv">
+            <div [ngStyle]="{
+                    'height': '30px',
+                    'width': Width }"  class="times">
+
+                <span class="pageItem" (click)="PreviousPage()">&#8249;</span>
+                <span [ngStyle]="{'width': GetDateCellWidth(), 
+                            'color': isSameDate(dt) ? 'rgb(35, 206, 236)' : 'white',
+                            'background-color': isSameDate(dt) ? 'white' :'rgb(35, 206, 236)' }"  class="dts"
+                    *ngFor="let dt of DatesList" (click)="Select(dt)">{{dt}}</span>
+                <span class="pageItem1" (click)="NextPage()">&#8250;</span>
+            </div>
+            <div class="content">
+                                
+                <div [ngStyle]="{
+                    'height': Height,
+                    'width': Width }" 
+                  #hscroll class="Hcontainer">
+                  
+                    <div class="rowheader">
+                        <div [ngStyle]="{ 'width': VerticalHeaderWidth+'px'}" class="rowheaderitem"></div>
+                        <div *ngFor="let item of HorizontalHeaders.EachCellHeaderItems" 
+                            [ngStyle]="{ 'width': item.WidthInPx+'px'}"
+                            class="rowheaderitem">{{item.DisplayTitle}}</div>                        
+                    </div>
+
+                    <div  class="verticalitems">
+                        
+                        <div #marker [ngStyle]="{'height': getMarkerHeight(SelectedDate), 'float': 'left' }" class="marker"></div> 
+
+                        <div #vheader class="verticalheader">
+                            <div style="float: left;">
+                                <div class="ritemHeader" 
+                                        [ngStyle]="{ 'width' : VerticalHeaderWidth+'px', 'height': VerticalHeaderHeight+'px' }"
+                                        *ngFor="let channel of VerticalChannelsList[SelectedDate]">
+                                        {{channel.DisplayTitle}}
+                                </div>                                                                
+                            </div>
+                        </div>
+                       
+                        <div style="flex-grow: 0;flex-shrink: 0;">
+                            <div  style="display: flex;flex-direction: column;" >
+
+                                <ng-container *ngIf="DisplaySchedules && DisplaySchedules[SelectedDate]">
+                                    <div  class="row" [ngStyle]="{ 
+                                        'width': (TotalCellWidthInPx)+'px',
+                                        'display': RenderOverLappingEvents ? 'block' : 'flex', 
+                                        }"
+
+                                        *ngFor="let channelitem of DisplaySchedules[SelectedDate].ChannelItems">
+                                    
+                                        <div class="ritem"  [ngStyle]="{ 
+                                                'width': event.WidthInPxForEventCell+'px',
+                                                'position': RenderOverLappingEvents ? 'relative' : '',
+                                                'float': RenderOverLappingEvents ? 'left' : '',
+                                                'left': RenderOverLappingEvents ? event.OffsetLeft+'px': '',
+                                                'border-left': channelitem.RenderEventsInContinousSequence ? '' : '1px solid rgb(35, 206, 236)'                                              
+                                               }"
+
+                                            *ngFor="let event of channelitem.Events">
+                                            <div>
+                                                <div>{{event.StartTime}} - {{event.EndTime}}</div>
+                                                <div>{{event.Title}}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </div>
+                    </div>
+
+               
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

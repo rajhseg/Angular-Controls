@@ -39,6 +39,8 @@ import { ReadViewTemplateDirective } from './Controls/rgrid/view-template.direct
 import { EditViewTemplateDirective } from './Controls/rgrid/edit-template.directive';
 import { RSelectDropdownComponent } from './Controls/rselectdropdown/rselectdropdown.component';
 import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectModel';
+import { REventsScheduleComponent } from './Controls/reventsschedule/reventsschedule.component';
+import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from './Controls/reventsschedule/reventsschedule';
 
 @Component({
   selector: 'app-root',
@@ -73,7 +75,8 @@ import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectMod
     ReadViewTemplateDirective,
     EditViewTemplateDirective,
     RSelectDropdownComponent,
-    ROptionsTemplateDirective
+    ROptionsTemplateDirective,
+    REventsScheduleComponent
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -127,6 +130,8 @@ export class AppComponent implements AfterViewInit {
   CompletedItem!: RSequenceVerticalItem;
   PendingItem!: RSequenceVerticalItem;
   LastPendingItem!: RSequenceVerticalItem;
+  
+  scheduleItems!: REventsSchedules;
 
   StepperSelectedItem!: RSequenceVerticalItem;
   SeqActiveIndex: number = 1;
@@ -145,6 +150,10 @@ export class AppComponent implements AfterViewInit {
   gridItems:any[] = [];
   gridItems1:any[] = [];
   selectDropdownItems: DropdownModel[] = [];
+
+  dates: string [] = [];
+  dates1: string [] = [];
+  selectedDate: string = "";
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -199,6 +208,96 @@ export class AppComponent implements AfterViewInit {
     this.createSequenceHorizontalItems();
     this.populateGridValues();
     this.populateSelectDropdownItems();
+    this.createScheduleItems();
+  }
+
+  createScheduleItems(){
+    let items = new REventsSchedules();
+
+    let ritem = new REventChannelItem();
+    ritem.ChannelTitle = "Channel Title1";
+    ritem.CalculateStartAndEndTimeBasedOnDuration = true;
+    ritem.RenderEventsInContinousSequence = true;
+    ritem.ValueKey = {};
+  
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    let ritem2 = new REventChannelItem();
+    ritem2.ChannelTitle = "Channel Title2";
+    ritem2.RenderEventsInContinousSequence = false;
+    ritem2.CalculateStartAndEndTimeBasedOnDuration = false;
+    ritem2.ValueKey = {};  
+
+    ritem2.Events.push(new REvent("15:40", 20, "Event title 4", {}));
+    ritem2.Events.push(new REvent("3:15", 30, "Event title 1", {}));
+    ritem2.Events.push(new REvent("13:10", 30, "Event title 3", {}));
+    ritem2.Events.push(new REvent("13:30", 30, "Event title 3.2", {}));
+    ritem2.Events.push(new REvent("4:0", 30, "Event title 2", {}));
+    ritem2.Events.push(new REvent("16:40", 120, "Event title 5", {}));
+    ritem2.Events.push(new REvent("0:40", 30, "Event title 6", {}));
+    ritem2.Events.push(new REvent("16:00", 30, "Event title 7", {}));
+    ritem2.Events.push(new REvent("17:20", 40, "Event title 8", {}));
+    ritem2.Events.push(new REvent("18:20", 40, "Event title 10", {}));
+    
+
+    let evItem = new REventsDateSchedule();    
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem2);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem2);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem);
+
+    items["14-09-2024"] = evItem;
+    items["16-09-2024"] = evItem;
+    items["18-09-2024"] = evItem;
+
+    this.dates = ["13-09-2024", "14-09-2024","15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
+
+    this.dates1 = ["15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
+    this.selectedDate = "18-09-2024";
+
+    this.scheduleItems = items;
   }
 
   populateSelectDropdownItems(){

@@ -246,7 +246,9 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
     let _x = $event.offsetX;// - this.varStartX ;
     let _y = $event.offsetY;// - this.varStartY;
 
-    this.GetActualColorFromVariartion({ offsetX: _x, offsetY: _y });
+    // this.GetActualColorFromVariartion({ offsetX: _x, offsetY: _y });
+    
+    this.GetActualColorFromVariationClick({ offsetX: _x, offsetY: _y });
 
     this.varStartX = _x;
     this.varStartY = _y;
@@ -303,7 +305,8 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
     let _x = $event.offsetX;// - this.mainStartX ;
     let _y = $event.offsetY;// - this.mainStartY;
 
-    this.GetRgb({ offsetX: 0, offsetY: _y });
+    // this.GetRgb({ offsetX: 0, offsetY: _y });
+    this.GetRgbClick({ offsetX: 0, offsetY: _y });
 
     this.mainStartX = 0;
     this.mainStartY = _y;

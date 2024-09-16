@@ -1,0 +1,180 @@
+
+.times{
+    background-color: rgb(35, 206, 236);
+    text-align: center;
+    align-items: center;
+    border: 1px solid lightgray;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+
+.Hcontainer{    
+    overflow: scroll;
+    border: 1px solid lightgray;
+    background-color: white;
+}
+
+.pageItem {
+    padding: 5px; 
+    padding-left: 15px;
+    padding-right: 25px;
+    cursor: pointer;
+    color:white;
+    border-right:1px solid whitesmoke;
+    position: relative;
+    top: 5px;
+    text-align: center;
+    align-self: center;
+    font-size: large;    
+  }
+
+  
+.pageItem1 {
+    padding:5px; 
+    padding-right: 15px;
+    cursor: pointer;    
+    color:white;
+    left: 10px;    
+    position: relative;
+    top: 5px;
+    text-align: center;
+    align-self: center;
+    font-size: large;
+  }
+
+.dts {
+    padding:5px;
+    padding-left:15px;
+    padding-right: 15px;
+    padding-top:8px;
+    cursor: pointer;
+    color:white;
+    border-right:1px solid whitesmoke;
+    position: relative;
+    top: 7px;
+    text-align: center;
+    align-self: center;
+    font-size: smaller;
+}
+
+.marker{
+    width: 2px;    
+    position: relative;
+    background-color: rgb(35, 206, 236);
+    z-index: 1;
+    top:0px;
+    overscroll-behavior: contain;
+    
+}
+
+.Vcontainer{
+    height: 250px;
+    width: 500px;
+    overflow: scroll;
+}
+
+.row {
+    height: 50px;   
+    /* width: 500px; */
+    /* display: flex;         */
+    border-bottom: 1px solid rgb(35, 206, 236);
+}
+
+.verticalitems {
+    display: flex;
+    flex-direction:row;
+    width: max-content;    
+    height: 100%;
+}
+
+.verticalheader {
+    position: sticky;
+    left: 0px; 
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgb(35, 206, 236);;
+    z-index: 1;
+    font-size: small;
+}
+
+.rowheader{
+    height: 50px;
+    display: flex;
+    background-color: rgb(35, 206, 236);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.rowheaderlistname {
+    background-color: rgb(35, 206, 236);
+    height: 50px;
+    width: 50px;
+    color: white;
+    flex-shrink: 0;
+    /* flex-basis: 50px; */
+    flex-grow: 0;
+    text-align: center;
+    align-content: center;
+    font-size: small;
+    border-right: 1p solid white;
+}
+
+.rowheaderitem{
+    height: 50px;
+    /* width: 250px;     */
+    /* flex-basis: 60px; */
+    flex-grow: 0;
+    flex-shrink: 0;
+    text-align: center;
+    align-content: center;
+    background-color: rgb(35, 206, 236);
+    color: white;
+    font-size: small;   
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.ritem {
+    height: 50px;
+    /* width: 250px; */
+    /* padding: 6px; */
+    /* flex-basis: 200px; */
+    flex-grow: 0;
+    flex-shrink: 0;
+    text-align: center;
+    align-content: center;
+    border-right: 1px solid rgb(35, 206, 236);
+    /* border-left: 1px solid rgb(35, 206, 236); */
+    border-bottom: 1px solid rgb(35, 206, 236);
+    background-color: white;
+    color: rgb(35, 206, 236);
+    font-size: small;    
+}
+
+.ritemHeader {
+    background-color: rgb(35, 206, 236);
+    /* height: 50px; */
+    /* width: 50px; */
+    color: white;
+    flex-shrink: 0;
+     /* flex-basis: 60px;  */
+    flex-grow: 0;
+    text-align: center;
+    align-content: center;
+    border-bottom: 1px solid white;    
+}
+
+  .scl ::-webkit-scrollbar {
+    width: 0.3px;
+    height: 0.3px;
+  }
+  
+  .scl ::-webkit-scrollbar-track {
+    background-color: unset;
+  }
+  
+  .scl ::-webkit-scrollbar-thumb {
+    background-color: unset;
+    border-radius: unset;
+  }   

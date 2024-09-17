@@ -1,41 +1,97 @@
 <div [class.scl]="!ShowScrollBar">
     <div>
         <div class="timeDiv">
-            <div [ngStyle]="{
+            <div [ngStyle]="{ 
+                    'background-color' : ContainerBackgroundColor,
                     'height': '30px',
-                    'width': Width }"  class="times">
+                    'width': Width,
+                    'border': '1px solid '+ContainerBorderColor 
+                    }"  class="times">
 
-                <span class="pageItem" (click)="PreviousPage()">&#8249;</span>
+                <span [ngStyle]="{ 'border-right': '1px solid '+ContainerBorderColor, 
+                                    'color': ContainerForeColor 
+                                }"
+                    class="pageItem" (click)="PreviousPage()">&#8249;</span>
+
                 <span [ngStyle]="{'width': GetDateCellWidth(), 
-                            'color': isSameDate(dt) ? 'rgb(35, 206, 236)' : 'white',
-                            'background-color': isSameDate(dt) ? 'white' :'rgb(35, 206, 236)' }"  class="dts"
+                            'border-right': '1px solid '+ContainerBorderColor, 
+                            'color': isSameDate(dt) ? SelectedDateForeColor : ContainerForeColor,
+                            'background-color': isSameDate(dt) ? SelectedDateBackgroundColor : ContainerBackgroundColor 
+                            }"  
+                    class="dts"
                     *ngFor="let dt of DisplayDatesOnLoad" (click)="Select(dt)">{{dt}}</span>
-                <span class="pageItem1" (click)="NextPage()">&#8250;</span>
+                
+                <span [ngStyle]="{ 'color': ContainerForeColor }"
+                    class="pageItem1" (click)="NextPage()">&#8250;</span>
             </div>
             <div class="content">
                                 
                 <div [ngStyle]="{
                     'height': Height,
-                    'width': Width }" 
+                    'width': Width,
+                    'border': '1px solid '+ContainerBorderColor ,
+                    'background-color': ContainerBackgroundColor 
+                    }"
+
                   #hscroll class="Hcontainer">
                   
-                    <div class="rowheader">
-                        <div [ngStyle]="{ 'width': VerticalHeaderWidth+'px'}" class="rowheaderitem"></div>
+                    <div class="rowheader" [ngStyle]="{'background-color' : ContainerBackgroundColor}">
+                        
+                        <div [ngStyle]="{ 
+                            'width': VerticalHeaderWidth+'px',
+                            'background-color': ContainerBackgroundColor,
+                            'border-right': '1px solid '+ContainerBorderColor,
+                            'border-bottom': '1px solid '+ContainerBorderColor,
+                            'color': ContainerForeColor
+                            }" class="rowheaderitem"></div>
+                        
                         <div *ngFor="let item of HorizontalHeaders.EachCellHeaderItems" 
-                            [ngStyle]="{ 'width': item.WidthInPx+'px'}"
-                            class="rowheaderitem">{{item.DisplayTitle}}</div>                        
+                            [ngStyle]="{ 
+                                'width': item.WidthInPx+'px',
+                                'background-color': ContainerBackgroundColor,
+                                'border-left': '1px solid '+ContainerBorderColor,
+                                'border-right': '1px solid '+ContainerBorderColor,
+                                'border-bottom': '1px solid '+ContainerBorderColor,
+                                'color': ContainerForeColor
+                            }"
+                            class="rowheaderitem">{{item.DisplayTitle}}</div> 
+
                     </div>
 
                     <div  class="verticalitems">
                         
-                        <div *ngIf="ShowMarker" #marker [ngStyle]="{'height': getMarkerHeight(SelectedDate), 'float': 'left' }" class="marker"></div> 
+                        <div *ngIf="ShowMarker" #marker 
+                            [ngStyle]="{
+                                    'height': getMarkerHeight(SelectedDate), 
+                                    'float': 'left',
+                                    'background-color': MarkerBackgroundColor 
+                                    }" 
+                            class="marker"></div> 
 
-                        <div #vheader class="verticalheader">
+                        <div [ngStyle]="{ 'background-color' : ContainerBackgroundColor }" 
+                            #vheader class="verticalheader">
                             <div style="float: left;">
                                 <div class="ritemHeader" 
-                                        [ngStyle]="{ 'width' : VerticalHeaderWidth+'px', 'height': VerticalHeaderHeight+'px' }"
+                                        [ngStyle]="{ 
+                                            'width' : VerticalHeaderWidth+'px', 
+                                            'height': VerticalHeaderHeight+'px',
+                                            'background-color': ContainerBackgroundColor,
+                                            'color': ContainerForeColor,
+                                            'border-bottom': '1px solid '+ContainerBorderColor,                                            
+                                            'border-right': '1px solid '+ContainerBorderColor,
+                                        }"
                                         *ngFor="let channel of VerticalChannelsList[SelectedDate]">
-                                        {{channel.DisplayTitle}}
+                                        
+                                        <span *ngIf="channel.ChannelImageUrl==undefined || channel.ChannelImageUrl == ''">
+                                            {{channel.DisplayTitle}}
+                                        </span>
+
+                                        <img *ngIf="channel.ChannelImageUrl!=undefined && channel.ChannelImageUrl != ''" 
+                                            [ngStyle]="{ 
+                                                'width':VerticalHeaderWidth+'px',
+                                                'height': VerticalHeaderHeight+'px'
+                                            }"
+                                         [src]="channel.ChannelImageUrl" [alt]="channel.DisplayTitle" />
                                 </div>                                                                
                             </div>
                         </div>
@@ -47,23 +103,29 @@
                                     <div  class="row" [ngStyle]="{ 
                                         'width': (TotalCellWidthInPx)+'px',
                                         'display': RenderOverLappingEvents ? 'block' : 'flex', 
+                                        'border-bottom': '1px solid '+ContainerBorderColor
                                         }"
 
                                         *ngFor="let channelitem of DisplaySchedules[SelectedDate].ChannelItems">
                                     
                                         <div class="ritem"  [ngStyle]="{ 
-                                                'width': event.WidthInPxForEventCell+'px',
-                                                'position': RenderOverLappingEvents ? 'relative' : '',
-                                                'float': RenderOverLappingEvents ? 'left' : '',
-                                                'left': RenderOverLappingEvents ? event.OffsetLeft+'px': '',
-                                                'border-left': channelitem.RenderEventsInContinousSequence ? '' : '1px solid rgb(35, 206, 236)'                                              
-                                               }"
-
+                                            'border-right': '1px solid transparent',
+                                            'border-bottom': '1px solid '+EventBorderColor,
+                                            'background-color': EventBackgroundColor,
+                                            'color': EventForeColor,
+                                            'width': event.WidthInPxForEventCell+'px',
+                                            'position': RenderOverLappingEvents ? 'relative' : '',
+                                            'float': RenderOverLappingEvents ? 'left' : '',
+                                            'left': RenderOverLappingEvents ? event.OffsetLeft+'px': '',
+                                            'border-left': channelitem.RenderEventsInContinousSequence ? '1px solid '+EventBorderColor : '1px solid '+EventBorderColor                                              
+                                           }"
                                             *ngFor="let event of channelitem.Events">
+
                                             <div>
                                                 <div>{{event.StartTime}} - {{event.EndTime}}</div>
                                                 <div>{{event.Title}}</div>
                                             </div>
+
                                         </div>
 
                                     </div>

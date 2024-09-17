@@ -127,12 +127,14 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
         let _vchannel = new REventsVerticalChannels();
         _vchannel.DisplayTitle = channel.ChannelTitle;
+        _vchannel.ChannelImageUrl = channel.ChannelImageUrl;
         _vchannel.EventDate = element;
         _vchannel.ValueKey = channel.ValueKey;
         chList.push(_vchannel);
 
         let _renderChannelItem = new REventsRenderChannelItem();
         _renderChannelItem.ChannelTitle = channel.ChannelTitle;
+        _renderChannelItem.ChannelImageUrl = channel.ChannelImageUrl;
         _renderChannelItem.ValueKey = channel.ValueKey;
         _renderChannelItem.CalculateStartAndEndTimeBasedOnDuration = channel.CalculateStartAndEndTimeBasedOnDuration;
         _renderChannelItem.RenderEventsInContinousSequence = channel.RenderEventsInContinousSequence;
@@ -167,7 +169,8 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
           let previousObject: REventsRenderObj = new REventsRenderObj();
           previousObject.EndTime = "";
-          previousObject.OffsetLeft = 0;
+          previousObject.OffsetLeft = 0;          
+
           let minusPx = 0;
 
           for (let p = 0; p < _renderChannelItem.Events.length; p++) {
@@ -179,26 +182,33 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
             let differenceLeft = this.GetOffsetLeftForEvent(_endTime, _evt.StartTime);
             let borders = this.GetBordersCountUptoTargetTimeCell(_evt.StartTime);
             let calcBorder;
-
+            
             if (differenceLeft < 0) {
               minusPx = minusPx + 2;
             }
 
+            // ContinousSequence Events have 1 side border, others are having 2 side border for each Event
             if (!_renderChannelItem.RenderEventsInContinousSequence) {
-              calcBorder = borders - (2 * p) - minusPx - 1; // minusPx is for OverlappingEvents, -1 is for border in vertical header
+              calcBorder = borders - (2 * p) - minusPx - 2; // minusPx is for OverlappingEvents, -1 is for border in vertical header
             } else {
-              calcBorder = borders - (p) - 1;
+              calcBorder = borders - (2 * p) - 2; // 2 is for borders
+            }            
+
+            let mergedBorders = 0;
+            if(_evt.DurationInMinutes > this.MinutesForEachCell){
+              // if cell takes more than one space, borders are merged that need to be add for each cell
+               mergedBorders = this.GetBordersMergedWithInCell(_evt.DurationInMinutes);                            
             }
 
             if (!_renderChannelItem.RenderEventsInContinousSequence && p == _renderChannelItem.Events.length - 1) {
               //_evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;            
-              _evt.OffsetLeft = differenceLeft + calcBorder - 1;
+              _evt.OffsetLeft = differenceLeft + calcBorder - 2;
             } else {
-              _evt.OffsetLeft = differenceLeft + calcBorder;
+              _evt.OffsetLeft = differenceLeft + calcBorder;            
             }
 
             previousObject = _evt;
-            cellStartingLeftOffset = cellStartingLeftOffset + _evt.WidthInPxForEventCell;
+            cellStartingLeftOffset = cellStartingLeftOffset + _evt.WidthInPxForEventCell;            
           }
         }
 
@@ -230,6 +240,33 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   NoOfDatesToShowOnHeader: number = 6;
+
+  @Input()
+  ContainerBackgroundColor: string = "rgb(35, 206, 236)";
+
+  @Input()
+  ContainerBorderColor: string = "#10C4C8";
+
+  @Input()
+  ContainerForeColor: string = "white";
+
+  @Input()
+  SelectedDateForeColor: string = "white";
+
+  @Input()
+  SelectedDateBackgroundColor: string = "#10C4C8";
+
+  @Input()
+  MarkerBackgroundColor: string = "blue";
+
+  @Input()
+  EventBackgroundColor: string = "rgb(35, 206, 236)";
+
+  @Input()
+  EventForeColor: string = "white";
+
+  @Input()
+  EventBorderColor: string = "#10C4C8";
 
   constructor(private winObj: WindowHelper) {
     this.CalculateHorizontalHeaders();
@@ -338,7 +375,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     let min = time.getMinutes();
 
     let totalMinutes = (hr * 60) + min;
-    let width = (totalMinutes * this.EachMinuteInPx) + ((totalMinutes / this.MinutesForEachCell) * 1);
+    let width = (totalMinutes * this.EachMinuteInPx) + ((totalMinutes / this.MinutesForEachCell) * 2); // 2 is for 2 borders
     let leftWidth = this.VerticalHeaderWidth + width;
 
     let _marker = (this.marker.nativeElement as HTMLElement)
@@ -358,7 +395,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     let min = time.getMinutes();
 
     let totalMinutes = (hr * 60) + min;
-    let width = (totalMinutes * this.EachMinuteInPx) + ((totalMinutes / this.MinutesForEachCell) * 1);
+    let width = (totalMinutes * this.EachMinuteInPx) + ((totalMinutes / this.MinutesForEachCell) * 2); // 2 is for borders
     let leftWidth = this.VerticalHeaderWidth + width;
 
     if (this.winObj.isExecuteInBrowser()) {
@@ -389,11 +426,17 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   GetBordersCountUptoTargetTimeCell(time: string) {
     let parts = time.split(":");
-    let firstPart = parseInt((parseInt(parts[0]) * (60 / this.MinutesForEachCell)).toString());
-    let secondPart = parseInt((parseInt(parts[1]) / this.MinutesForEachCell).toString());
+    // 2 is for borders for each cell
+    let firstPart = parseInt((parseInt(parts[0]) * (2 *  (60 / this.MinutesForEachCell))).toString());
+    let secondPart = parseInt((2 *(parseInt(parts[1]) / this.MinutesForEachCell)).toString());
 
     let totalBorders = firstPart + secondPart;
     return totalBorders;
+  }
+
+  GetBordersMergedWithInCell(duration: number){    
+    let noOfBorders = (4 * parseInt((duration / this.MinutesForEachCell).toString())) - 4;
+    return noOfBorders;
   }
 
   GetOffsetLeftForEvent(previousEventEndTime: string, currentEventStartTime: string) {

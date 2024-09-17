@@ -219,7 +219,7 @@ export class AppComponent implements AfterViewInit {
     ritem.CalculateStartAndEndTimeBasedOnDuration = true;
     ritem.RenderEventsInContinousSequence = true;
     ritem.ValueKey = {};
-  
+
     ritem.Events.push(new REvent("", 15, "Event title 1", {}));
     ritem.Events.push(new REvent("", 15, "Event title 2", {}));
     ritem.Events.push(new REvent("", 30, "Event title 3", {}));

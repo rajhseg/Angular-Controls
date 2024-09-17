@@ -20,6 +20,8 @@ export class REventChannelItem {
 
     public ChannelTitle: string = "";
 
+    public ChannelImageUrl: string = "";
+
     public ValueKey: object = {};
 
     public RenderEventsInContinousSequence: boolean = false;
@@ -97,6 +99,8 @@ export class REventsRenderChannelItem {
 
     public ChannelTitle: string = "";
 
+    public ChannelImageUrl: string = "";
+
     public ValueKey: object = {};
 
     // public EventDate: string = "";
@@ -126,6 +130,8 @@ export class REventsRenderSchedules {
 export class REventsVerticalChannels {
 
     public DisplayTitle: string = "";
+
+    public ChannelImageUrl: string = "";
 
     public ValueKey: object = {};
 

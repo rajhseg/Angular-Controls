@@ -1,26 +1,20 @@
 
-.times{
-    background-color: rgb(35, 206, 236);
+.times{    
     text-align: center;
-    align-items: center;
-    border: 1px solid lightgray;
+    align-items: center;    
     text-wrap: nowrap;
     overflow: hidden;
 }
 
 .Hcontainer{    
-    overflow: scroll;
-    border: 1px solid #10C4C8;
-    background-color: rgb(35, 206, 236);
+    overflow: scroll;    
 }
 
 .pageItem {
     padding: 5px; 
     padding-left: 15px;
     padding-right: 25px;
-    cursor: pointer;
-    color:white;
-    border-right:1px solid #10C4C8;
+    cursor: pointer;        
     position: relative;
     top: 5px;
     text-align: center;
@@ -32,8 +26,7 @@
 .pageItem1 {
     padding:5px; 
     padding-right: 15px;
-    cursor: pointer;    
-    color:white;
+    cursor: pointer;        
     left: 10px;    
     position: relative;
     top: 5px;
@@ -47,9 +40,7 @@
     padding-left:15px;
     padding-right: 15px;
     padding-top:8px;
-    cursor: pointer;
-    color:white;
-    border-right:1px solid #10C4C8;
+    cursor: pointer;        
     position: relative;
     top: 7px;
     text-align: center;
@@ -59,8 +50,7 @@
 
 .marker{
     width: 2px;    
-    position: relative;
-    background-color: blue;
+    position: relative;    
     z-index: 1;
     top:0px;
     overscroll-behavior: contain;
@@ -74,10 +64,7 @@
 }
 
 .row {
-    height: 50px;   
-    /* width: 500px; */
-    /* display: flex;         */
-    border-bottom: 1px solid #10C4C8;
+    height: 50px;           
 }
 
 .verticalitems {
@@ -91,23 +78,20 @@
     position: sticky;
     left: 0px; 
     flex-grow: 0;
-    flex-shrink: 0;
-    background-color: rgb(35, 206, 236);;
+    flex-shrink: 0;    
     z-index: 1;
     font-size: small;
 }
 
 .rowheader{
     height: 50px;
-    display: flex;
-    background-color: rgb(35, 206, 236);
+    display: flex;    
     position: sticky;
     top: 0;
     z-index: 2;
 }
 
-.rowheaderlistname {
-    background-color: rgb(35, 206, 236);
+.rowheaderlistname {    
     height: 50px;
     width: 50px;
     color: white;
@@ -127,12 +111,8 @@
     flex-grow: 0;
     flex-shrink: 0;
     text-align: center;
-    align-content: center;
-    background-color: rgb(35, 206, 236);
-    color: white;
-    font-size: small;   
-    border-right: 1px solid #10C4C8;
-    border-bottom: 1px solid #10C4C8;
+    align-content: center;        
+    font-size: small;       
 }
 
 .ritem {
@@ -143,26 +123,18 @@
     flex-grow: 0;
     flex-shrink: 0;
     text-align: center;
-    align-content: center;
-    border-right: 1px solid #10C4C8;
-    /* border-left: 1px solid rgb(35, 206, 236); */
-    border-bottom: 1px solid #10C4C8;
-    background-color: rgb(35, 206, 236);
-    color: white;
+    align-content: center;            
     font-size: small;    
 }
 
-.ritemHeader {
-    background-color: rgb(35, 206, 236);
+.ritemHeader {    
     /* height: 50px; */
-    /* width: 50px; */
-    color: white;
+    /* width: 50px; */    
     flex-shrink: 0;
      /* flex-basis: 60px;  */
     flex-grow: 0;
     text-align: center;
-    align-content: center;
-    border-bottom: 1px solid #10C4C8;    
+    align-content: center;       
 }
 
   .scl ::-webkit-scrollbar {

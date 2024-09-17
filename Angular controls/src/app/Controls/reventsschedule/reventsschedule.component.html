@@ -9,7 +9,7 @@
                 <span [ngStyle]="{'width': GetDateCellWidth(), 
                             'color': isSameDate(dt) ? 'rgb(35, 206, 236)' : 'white',
                             'background-color': isSameDate(dt) ? 'white' :'rgb(35, 206, 236)' }"  class="dts"
-                    *ngFor="let dt of DatesList" (click)="Select(dt)">{{dt}}</span>
+                    *ngFor="let dt of DisplayDatesOnLoad" (click)="Select(dt)">{{dt}}</span>
                 <span class="pageItem1" (click)="NextPage()">&#8250;</span>
             </div>
             <div class="content">
@@ -28,7 +28,7 @@
 
                     <div  class="verticalitems">
                         
-                        <div #marker [ngStyle]="{'height': getMarkerHeight(SelectedDate), 'float': 'left' }" class="marker"></div> 
+                        <div *ngIf="ShowMarker" #marker [ngStyle]="{'height': getMarkerHeight(SelectedDate), 'float': 'left' }" class="marker"></div> 
 
                         <div #vheader class="verticalheader">
                             <div style="float: left;">

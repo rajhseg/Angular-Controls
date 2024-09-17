@@ -221,12 +221,12 @@ export class AppComponent implements AfterViewInit {
     ritem.ValueKey = {};
   
     ritem.Events.push(new REvent("", 15, "Event title 1", {}));
-    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 15, "Event title 2", {}));
     ritem.Events.push(new REvent("", 30, "Event title 3", {}));
     ritem.Events.push(new REvent("", 30, "Event title 4", {}));
     ritem.Events.push(new REvent("", 30, "Event title 5", {}));
     ritem.Events.push(new REvent("", 120, "Event title 6", {}));
-    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 60, "Event title 7", {}));
     ritem.Events.push(new REvent("", 30, "Event title 8", {}));
     ritem.Events.push(new REvent("", 30, "Event title 9", {}));
 
@@ -266,16 +266,18 @@ export class AppComponent implements AfterViewInit {
     ritem2.CalculateStartAndEndTimeBasedOnDuration = false;
     ritem2.ValueKey = {};  
 
+    ritem2.Events.push(new REvent("5:30", 30, "Event title 4", {}));
     ritem2.Events.push(new REvent("15:40", 20, "Event title 4", {}));
     ritem2.Events.push(new REvent("3:15", 30, "Event title 1", {}));
     ritem2.Events.push(new REvent("13:10", 30, "Event title 3", {}));
     ritem2.Events.push(new REvent("13:30", 30, "Event title 3.2", {}));
     ritem2.Events.push(new REvent("4:0", 30, "Event title 2", {}));
-    ritem2.Events.push(new REvent("16:40", 120, "Event title 5", {}));
-    ritem2.Events.push(new REvent("0:40", 30, "Event title 6", {}));
+    ritem2.Events.push(new REvent("16:30", 120, "Event title 5", {}));
+    ritem2.Events.push(new REvent("0:30", 30, "Event title 6", {}));
     ritem2.Events.push(new REvent("16:00", 30, "Event title 7", {}));
     ritem2.Events.push(new REvent("17:20", 40, "Event title 8", {}));
     ritem2.Events.push(new REvent("18:20", 40, "Event title 10", {}));
+    ritem2.Events.push(new REvent("23:30", 30, "Event title 11", {}));
     
 
     let evItem = new REventsDateSchedule();    

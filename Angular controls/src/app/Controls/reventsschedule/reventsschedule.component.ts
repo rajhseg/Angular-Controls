@@ -24,7 +24,8 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   private mosDown: boolean = false;
   private _ele!: HTMLElement;
   private _vele!: HTMLElement;
-  private markerInterval!: number;
+  private markerInterval!: number | undefined;
+  private pageInterval!: number | undefined;
 
   @Input()
   MinutesForEachCell: number = 30;
@@ -47,15 +48,39 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @Input()
   VerticalHeaderWidth: number = 120;
 
+  private _showMarker: boolean = true;
+
+  @Input()
+  public set ShowMarker(val: boolean) {
+    this._showMarker = val;
+
+    if (val == true) {
+      this.clearPage();
+      
+      if (this.markerInterval == undefined && this.winObj.isExecuteInBrowser()) {
+        this.markerInterval = window.setInterval(this.renderMarker.bind(this), 60000);
+      }
+    } else {
+      this.clearMarker();
+
+      if (this.pageInterval == undefined && this.winObj.isExecuteInBrowser()) {
+        this.pageInterval = window.setInterval(this.movePageToCurrentTime.bind(this), 60000);
+      }
+    }
+  }
+  public get ShowMarker(): boolean {
+    return this._showMarker;
+  }
+
   private _datesList: string[] = [];
   private _selectedDate: string = "";
 
   @Input()
-  public set DatesList(val: string[]) {
+  public set DisplayDatesOnLoad(val: string[]) {
     this._datesList = val;
-    this.NoOfDatesToShowOnHeader = this.DatesList.length;
+    this.NoOfDatesToShowOnHeader = this.DisplayDatesOnLoad.length;
   }
-  public get DatesList(): string[] {
+  public get DisplayDatesOnLoad(): string[] {
     return this._datesList;
   }
 
@@ -143,6 +168,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
           let previousObject: REventsRenderObj = new REventsRenderObj();
           previousObject.EndTime = "";
           previousObject.OffsetLeft = 0;
+          let minusPx = 0;
 
           for (let p = 0; p < _renderChannelItem.Events.length; p++) {
             const _evt = _renderChannelItem.Events[p];
@@ -154,14 +180,19 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
             let borders = this.GetBordersCountUptoTargetTimeCell(_evt.StartTime);
             let calcBorder;
 
-            calcBorder = borders - (p);
+            if (differenceLeft < 0) {
+              minusPx = minusPx + 2;
+            }
+
+            if (!_renderChannelItem.RenderEventsInContinousSequence) {
+              calcBorder = borders - (2 * p) - minusPx - 1; // minusPx is for OverlappingEvents, -1 is for border in vertical header
+            } else {
+              calcBorder = borders - (p) - 1;
+            }
 
             if (!_renderChannelItem.RenderEventsInContinousSequence && p == _renderChannelItem.Events.length - 1) {
-              if (differenceLeft < 0) {
-                _evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;
-              } else {
-                _evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;
-              }
+              //_evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;            
+              _evt.OffsetLeft = differenceLeft + calcBorder - 1;
             } else {
               _evt.OffsetLeft = differenceLeft + calcBorder;
             }
@@ -203,7 +234,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   constructor(private winObj: WindowHelper) {
     this.CalculateHorizontalHeaders();
 
-    if (this.DatesList.length == 0) {
+    if (this.DisplayDatesOnLoad.length == 0) {
       this.CalculateDates();
     }
 
@@ -221,7 +252,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   PreviousPage() {
 
-    let startDate = this.DatesList[0];
+    let startDate = this.DisplayDatesOnLoad[0];
     let parts = startDate.split("-");
     let dt = new Date();
     dt.setDate(parseInt(parts[0]));
@@ -229,12 +260,12 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     dt.setFullYear(parseInt(parts[2]));
 
     let list = this.GenerateDates(dt, -this.NoOfDatesToShowOnHeader);
-    this.DatesList = list;
-    this.SelectedDate = this.DatesList[this.DatesList.length - 1];
+    this.DisplayDatesOnLoad = list;
+    this.SelectedDate = this.DisplayDatesOnLoad[this.DisplayDatesOnLoad.length - 1];
   }
 
   NextPage() {
-    let startDate = this.DatesList[this.DatesList.length - 1];
+    let startDate = this.DisplayDatesOnLoad[this.DisplayDatesOnLoad.length - 1];
     let parts = startDate.split("-");
     let dt = new Date();
     dt.setDate(parseInt(parts[0]));
@@ -242,12 +273,12 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     dt.setFullYear(parseInt(parts[2]));
 
     let list = this.GenerateDates(dt, this.NoOfDatesToShowOnHeader);
-    this.DatesList = list;
-    this.SelectedDate = this.DatesList[0];
+    this.DisplayDatesOnLoad = list;
+    this.SelectedDate = this.DisplayDatesOnLoad[0];
   }
 
   GetDateCellWidth(): string {
-    let eachWidth = this.TotalCellWidthInPx / this.DatesList.length;
+    let eachWidth = this.TotalCellWidthInPx / this.DisplayDatesOnLoad.length;
     return eachWidth + 'px';
   }
   CalculateDates() {
@@ -258,7 +289,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
     let totalList = [...list1, todayString, ...list2];
 
-    this.DatesList = totalList;
+    this.DisplayDatesOnLoad = totalList;
     this.SelectedDate = todayString;
   }
 
@@ -314,14 +345,27 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     _marker.style.left = leftWidth + 'px';
 
     if (this.winObj.isExecuteInBrowser()) {
-      let scrollList = document.getElementsByClassName("Hcontainer");
+      let _scr = this.hScroll.nativeElement as HTMLElement;
 
-      for (let r = 0; r < scrollList.length; r++) {
-        const _scr = scrollList[r];
-        if (_scr)
-          _scr.scrollLeft = leftWidth - this.VerticalHeaderWidth - (this.EachCellInPx);
-      }
+      if (_scr)
+        _scr.scrollLeft = leftWidth - this.VerticalHeaderWidth - (this.EachCellInPx);
+    }
+  }
 
+  movePageToCurrentTime() {
+    let time = new Date();
+    let hr = time.getHours();
+    let min = time.getMinutes();
+
+    let totalMinutes = (hr * 60) + min;
+    let width = (totalMinutes * this.EachMinuteInPx) + ((totalMinutes / this.MinutesForEachCell) * 1);
+    let leftWidth = this.VerticalHeaderWidth + width;
+
+    if (this.winObj.isExecuteInBrowser()) {
+      let _scr = this.hScroll.nativeElement as HTMLElement;
+
+      if (_scr)
+        _scr.scrollLeft = leftWidth - this.VerticalHeaderWidth - (this.EachCellInPx);
     }
   }
 
@@ -345,8 +389,8 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   GetBordersCountUptoTargetTimeCell(time: string) {
     let parts = time.split(":");
-    let firstPart = parseInt(parts[0]) * (60 / this.MinutesForEachCell);
-    let secondPart = parseInt(parts[1]) / this.MinutesForEachCell;
+    let firstPart = parseInt((parseInt(parts[0]) * (60 / this.MinutesForEachCell)).toString());
+    let secondPart = parseInt((parseInt(parts[1]) / this.MinutesForEachCell).toString());
 
     let totalBorders = firstPart + secondPart;
     return totalBorders;
@@ -450,21 +494,43 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     this._ele.addEventListener('mouseleave', this.stopDrag.bind(this), false);
     this._ele.addEventListener('mousemove', this.dragging.bind(this), false);
 
-    this.renderMarker();
+    if (this._showMarker) {
+      this.renderMarker();
+      if (this.markerInterval == undefined && this.winObj.isExecuteInBrowser()) {
+        this.markerInterval = window.setInterval(this.renderMarker.bind(this), 30000);
+      }
+    } else {
+      this.movePageToCurrentTime();
+      if (this.pageInterval == undefined && this.winObj.isExecuteInBrowser()) {
+        this.pageInterval = window.setInterval(this.movePageToCurrentTime.bind(this), 30000);
+      }
+    }
 
-    if (this.winObj.isExecuteInBrowser()) {
-      this.markerInterval = window.setInterval(this.renderMarker.bind(this), 60000);
+  }
+
+  clearMarker() {
+    if (this.winObj.isExecuteInBrowser()){
+      window.clearInterval(this.markerInterval);
+      this.markerInterval = undefined;
     }
   }
 
+  clearPage(){
+    if(this.winObj.isExecuteInBrowser()){
+      window.clearInterval(this.pageInterval);
+      this.pageInterval = undefined
+    }
+  }
   ngOnDestroy(): void {
     this._ele.removeEventListener('mousedown', this.startDrag.bind(this), false);
     this._ele.removeEventListener('mouseup', this.stopDrag.bind(this), false);
     this._ele.removeEventListener('mouseleave', this.stopDrag.bind(this), false);
     this._ele.removeEventListener('mousemove', this.dragging.bind(this), false);
 
-    if (this.winObj.isExecuteInBrowser())
+    if (this.winObj.isExecuteInBrowser()) {
       window.clearInterval(this.markerInterval);
+      window.clearInterval(this.pageInterval);
+    }
   }
 
   stopDrag(e: Event) {

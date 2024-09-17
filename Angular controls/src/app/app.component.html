@@ -182,7 +182,7 @@
     <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
     <br/>
     <br/>
-    <revents-schedule [DatesList]="dates" [SelectedDate]="selectedDate" 
+    <revents-schedule [ShowMarker]="true" [ShowScrollBar]="false" [DisplayDatesOnLoad]="dates" [SelectedDate]="selectedDate" 
           [ScheduleItems]="scheduleItems"></revents-schedule>
     <br/>
     <div style="float: left;padding-right:30px">
@@ -621,8 +621,7 @@
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab31', 'HeaderText':'rEventsSchedule', 'Context': this}">        
-        <revents-schedule [Width]="'740px'" [DatesList]="dates" [SelectedDate]="'16-09-2024'" 
-          [ScheduleItems]="scheduleItems"></revents-schedule>
+        <revents-schedule [Width]="'740px'" [ScheduleItems]="scheduleItems"></revents-schedule>
       </rtab>
 
     </rtabs>

@@ -3,7 +3,7 @@ This Repo is under development so there may be some issues you can face while us
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
 switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
-Numeric, Timer, TimeSelector, RGrid, RSelectDropdown etc
+Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule etc
 
 
 <br />
@@ -265,11 +265,14 @@ EditMode
 <br/>
 <br/>
 
+REventsSchedule
+-------------------------------
+<br/>
 
+![image](https://github.com/user-attachments/assets/26dc824e-b0f0-4dbe-99ec-7ed6c0732c12)
 
-
-
-
+<br/>
+<br/>
 
 
 

@@ -60,11 +60,12 @@
 
                     <div  class="verticalitems">
                         
-                        <div *ngIf="ShowMarker" #marker 
+                        <div #marker 
                             [ngStyle]="{
                                     'height': getMarkerHeight(SelectedDate), 
                                     'float': 'left',
-                                    'background-color': MarkerBackgroundColor 
+                                    'background-color': MarkerBackgroundColor,
+                                    'visibility': ShowMarker && isMatchedWithCurrentDate(SelectedDate) ? 'visible' : 'hidden' 
                                     }" 
                             class="marker"></div> 
 

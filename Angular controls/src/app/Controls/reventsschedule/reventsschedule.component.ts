@@ -48,25 +48,14 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @Input()
   VerticalHeaderWidth: number = 120;
 
+  private isCurrentDate: boolean = false;
+
   private _showMarker: boolean = true;
 
   @Input()
   public set ShowMarker(val: boolean) {
     this._showMarker = val;
-
-    if (val == true) {
-      this.clearPage();
-      
-      if (this.markerInterval == undefined && this.winObj.isExecuteInBrowser()) {
-        this.markerInterval = window.setInterval(this.renderMarker.bind(this), 60000);
-      }
-    } else {
-      this.clearMarker();
-
-      if (this.pageInterval == undefined && this.winObj.isExecuteInBrowser()) {
-        this.pageInterval = window.setInterval(this.movePageToCurrentTime.bind(this), 60000);
-      }
-    }
+    this.checkMarker();    
   }
   public get ShowMarker(): boolean {
     return this._showMarker;
@@ -87,6 +76,8 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @Input()
   public set SelectedDate(val: string) {
     this._selectedDate = val;
+    this.isCurrentDate = this.isMatchedWithCurrentDate(val);
+    this.checkMarker();
   }
   public get SelectedDate(): string {
     return this._selectedDate;
@@ -94,6 +85,9 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   VerticalHeaderHeight: number = 50;
+
+  @Input()
+  EnableMovePageToCurrentTime: boolean = true;
 
   RenderOverLappingEvents: boolean = true;
 
@@ -169,7 +163,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
           let previousObject: REventsRenderObj = new REventsRenderObj();
           previousObject.EndTime = "";
-          previousObject.OffsetLeft = 0;          
+          previousObject.OffsetLeft = 0;
 
           let minusPx = 0;
 
@@ -182,7 +176,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
             let differenceLeft = this.GetOffsetLeftForEvent(_endTime, _evt.StartTime);
             let borders = this.GetBordersCountUptoTargetTimeCell(_evt.StartTime);
             let calcBorder;
-            
+
             if (differenceLeft < 0) {
               minusPx = minusPx + 2;
             }
@@ -192,23 +186,23 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
               calcBorder = borders - (2 * p) - minusPx - 2; // minusPx is for OverlappingEvents, -1 is for border in vertical header
             } else {
               calcBorder = borders - (2 * p) - 2; // 2 is for borders
-            }            
+            }
 
             let mergedBorders = 0;
-            if(_evt.DurationInMinutes > this.MinutesForEachCell){
+            if (_evt.DurationInMinutes > this.MinutesForEachCell) {
               // if cell takes more than one space, borders are merged that need to be add for each cell
-               mergedBorders = this.GetBordersMergedWithInCell(_evt.DurationInMinutes);                            
+              mergedBorders = this.GetBordersMergedWithInCell(_evt.DurationInMinutes);
             }
 
             if (!_renderChannelItem.RenderEventsInContinousSequence && p == _renderChannelItem.Events.length - 1) {
               //_evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;            
               _evt.OffsetLeft = differenceLeft + calcBorder - 2;
             } else {
-              _evt.OffsetLeft = differenceLeft + calcBorder;            
+              _evt.OffsetLeft = differenceLeft + calcBorder;
             }
 
             previousObject = _evt;
-            cellStartingLeftOffset = cellStartingLeftOffset + _evt.WidthInPxForEventCell;            
+            cellStartingLeftOffset = cellStartingLeftOffset + _evt.WidthInPxForEventCell;
           }
         }
 
@@ -277,6 +271,26 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   }
 
+  checkMarker(){
+    if (this.isCurrentDate) {
+      if (this._showMarker == true) {
+        this.clearPage();
+        this.renderMarker();
+        if (this.markerInterval == undefined && this.winObj.isExecuteInBrowser()) {
+          this.markerInterval = window.setInterval(this.renderMarker.bind(this), 60000);
+        }
+      } else {
+        this.clearMarker();        
+        if (this.EnableMovePageToCurrentTime && this.pageInterval == undefined && this.winObj.isExecuteInBrowser()) {
+          this.movePageToCurrentTime();
+          this.pageInterval = window.setInterval(this.movePageToCurrentTime.bind(this), 60000);
+        }
+      }
+    } else {
+      this.ResetPageAndMarker();
+    }
+  }
+
   getMarkerHeight(date: string): string {
     if (this.VerticalChannelsList[date] != undefined) {
       let count = this.VerticalChannelsList[date].length;
@@ -332,6 +346,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   Select(dt: string) {
     this.SelectedDate = dt;
+    this.isCurrentDate = this.isMatchedWithCurrentDate(dt);
   }
 
   isSameDate(a: string) {
@@ -359,6 +374,20 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     return list;
   }
 
+  isMatchedWithCurrentDate(dte: string): boolean {
+    let date = new Date();
+    let yr = date.getFullYear();
+    let mon = date.getMonth() + 1;
+    let day = date.getDate();
+    let parts = dte.split("-");
+
+    if (parseInt(parts[0]) == day && parseInt(parts[1]) == mon && parseInt(parts[2]) == yr) {
+      return true;
+    }
+
+    return false;
+  }
+
   getDate(dt: Date, addDays: number): string {
     let date = new Date(new Date().setDate(dt.getDate() + addDays))
     let yr = date.getFullYear();
@@ -378,10 +407,12 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     let width = (totalMinutes * this.EachMinuteInPx) + ((totalMinutes / this.MinutesForEachCell) * 2); // 2 is for 2 borders
     let leftWidth = this.VerticalHeaderWidth + width;
 
+    if(this.marker){
     let _marker = (this.marker.nativeElement as HTMLElement)
     _marker.style.left = leftWidth + 'px';
+    }
 
-    if (this.winObj.isExecuteInBrowser()) {
+    if (this.winObj.isExecuteInBrowser() && this.hScroll) {
       let _scr = this.hScroll.nativeElement as HTMLElement;
 
       if (_scr)
@@ -398,11 +429,25 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     let width = (totalMinutes * this.EachMinuteInPx) + ((totalMinutes / this.MinutesForEachCell) * 2); // 2 is for borders
     let leftWidth = this.VerticalHeaderWidth + width;
 
-    if (this.winObj.isExecuteInBrowser()) {
+    if (this.winObj.isExecuteInBrowser() && this.hScroll) {
       let _scr = this.hScroll.nativeElement as HTMLElement;
 
       if (_scr)
         _scr.scrollLeft = leftWidth - this.VerticalHeaderWidth - (this.EachCellInPx);
+    }
+  }
+
+  ResetPageAndMarker(){
+    if(this.marker) {
+      let _marker = (this.marker.nativeElement as HTMLElement)
+      _marker.style.left = 0+'px';
+    }
+
+    if (this.winObj.isExecuteInBrowser() && this.hScroll) {
+      let _scr = this.hScroll.nativeElement as HTMLElement;
+
+      if (_scr)
+        _scr.scrollLeft = 0;
     }
   }
 
@@ -427,14 +472,14 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   GetBordersCountUptoTargetTimeCell(time: string) {
     let parts = time.split(":");
     // 2 is for borders for each cell
-    let firstPart = parseInt((parseInt(parts[0]) * (2 *  (60 / this.MinutesForEachCell))).toString());
-    let secondPart = parseInt((2 *(parseInt(parts[1]) / this.MinutesForEachCell)).toString());
+    let firstPart = parseInt((parseInt(parts[0]) * (2 * (60 / this.MinutesForEachCell))).toString());
+    let secondPart = parseInt((2 * (parseInt(parts[1]) / this.MinutesForEachCell)).toString());
 
     let totalBorders = firstPart + secondPart;
     return totalBorders;
   }
 
-  GetBordersMergedWithInCell(duration: number){    
+  GetBordersMergedWithInCell(duration: number) {
     let noOfBorders = (4 * parseInt((duration / this.MinutesForEachCell).toString())) - 4;
     return noOfBorders;
   }
@@ -537,29 +582,30 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     this._ele.addEventListener('mouseleave', this.stopDrag.bind(this), false);
     this._ele.addEventListener('mousemove', this.dragging.bind(this), false);
 
-    if (this._showMarker) {
-      this.renderMarker();
-      if (this.markerInterval == undefined && this.winObj.isExecuteInBrowser()) {
-        this.markerInterval = window.setInterval(this.renderMarker.bind(this), 30000);
-      }
-    } else {
-      this.movePageToCurrentTime();
-      if (this.pageInterval == undefined && this.winObj.isExecuteInBrowser()) {
-        this.pageInterval = window.setInterval(this.movePageToCurrentTime.bind(this), 30000);
+    if (this.isCurrentDate) {
+      if (this._showMarker) {
+        this.renderMarker();
+        if (this.markerInterval == undefined && this.winObj.isExecuteInBrowser()) {
+          this.markerInterval = window.setInterval(this.renderMarker.bind(this), 30000);
+        }
+      } else if (this.EnableMovePageToCurrentTime) {
+        this.movePageToCurrentTime();
+        if (this.pageInterval == undefined && this.winObj.isExecuteInBrowser()) {
+          this.pageInterval = window.setInterval(this.movePageToCurrentTime.bind(this), 30000);
+        }
       }
     }
-
   }
 
   clearMarker() {
-    if (this.winObj.isExecuteInBrowser()){
+    if (this.winObj.isExecuteInBrowser()) {
       window.clearInterval(this.markerInterval);
       this.markerInterval = undefined;
     }
   }
 
-  clearPage(){
-    if(this.winObj.isExecuteInBrowser()){
+  clearPage() {
+    if (this.winObj.isExecuteInBrowser()) {
       window.clearInterval(this.pageInterval);
       this.pageInterval = undefined
     }

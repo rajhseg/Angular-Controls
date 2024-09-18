@@ -134,7 +134,7 @@
      /* flex-basis: 60px;  */
     flex-grow: 0;
     text-align: center;
-    align-content: center;       
+    align-content: center;          
 }
 
   .scl ::-webkit-scrollbar {

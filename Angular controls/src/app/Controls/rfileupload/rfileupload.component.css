@@ -6,6 +6,23 @@
     margin-bottom: 15px;
 }
 
+.uploadicon {
+    width: 16px;
+    height: 16px;
+    font-size: smaller;
+    position: relative;
+    top: -4px;
+}
+
+.bar {
+    width: 12px;
+    height: 2px;
+    background: blue;
+    position: relative;
+    top: -8px;
+    left: 6px;
+}
+
 .rcontainer {
     width:200px;
     height: 30px;    

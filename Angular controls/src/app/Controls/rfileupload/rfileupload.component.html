@@ -14,8 +14,13 @@
                             [ngStyle]="{'color': IconForeColor}">x</span>
                 </div>
             </div>
+            
             <span class="bicon" (click)="browse($event)" 
-                  [ngStyle]="{'color': IconForeColor}">&#8593;</span>
+                  [ngStyle]="{'color': IconForeColor}">
+                    <span class="uploadicon">&#8593;</span>
+                    <div class="bar"></div>
+            </span>
+
         </div>
         <div *ngIf="showFiles" class="tableContainer" 
             [ngStyle]="{'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">

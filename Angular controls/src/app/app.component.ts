@@ -291,13 +291,13 @@ export class AppComponent implements AfterViewInit {
     evItem.ChannelItems.push(ritem);
 
     items["14-09-2024"] = evItem;
-    items["16-09-2024"] = evItem;
-    items["18-09-2024"] = evItem;
+    items["19-09-2024"] = evItem;
+    items["20-09-2024"] = evItem;
 
-    this.dates = ["13-09-2024", "14-09-2024","15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
+    this.dates = ["14-09-2024","15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
 
     this.dates1 = ["15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
-    this.selectedDate = "18-09-2024";
+    this.selectedDate = "19-09-2024";
 
     this.scheduleItems = items;
   }

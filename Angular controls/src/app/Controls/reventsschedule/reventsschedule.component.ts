@@ -75,6 +75,14 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   public set SelectedDate(val: string) {
+    let _data = this.DisplayDatesOnLoad.filter(x=>x.toLowerCase() == val.toLowerCase());
+    
+    if(_data == undefined || _data.length < 1) {
+      let flist = this.GenerateDatesFromString(val, -2);
+      let slist = this.GenerateDatesFromString(val, 3);
+      this.DisplayDatesOnLoad = [...flist, val, ...slist];
+    } 
+
     this._selectedDate = val;
     this.isCurrentDate = this.isMatchedWithCurrentDate(val);
     this.checkMarker();
@@ -354,6 +362,26 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     return result;
   }
 
+  GenerateDatesFromString(fromDate: string, addDays: number): string[] {
+
+    let list = [];
+
+    if (addDays < 0) {
+      for (let index = addDays; index < 0; index++) {
+        let dte = this.getDateFromString(fromDate, index)
+        list.push(dte);
+      }
+    }
+    else {
+      for (let index = 1; index <= addDays; index++) {
+        let dte = this.getDateFromString(fromDate, index)
+        list.push(dte);
+      }
+    }
+
+    return list;
+  }
+
   GenerateDates(fromDate: Date, addDays: number): string[] {
 
     let list = [];
@@ -390,6 +418,18 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   getDate(dt: Date, addDays: number): string {
     let date = new Date(new Date().setDate(dt.getDate() + addDays))
+    let yr = date.getFullYear();
+    let mon = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let dateString = this.GetTimeInString(day) + "-" + this.GetTimeInString(mon) + "-" + this.GetTimeInString(yr);
+    return dateString;
+  }
+
+  getDateFromString(dt: string, addDays: number): string {
+    let parts = dt.split("-");
+    let _str = (new Date()).setFullYear(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0])+ addDays);
+    let date = new Date(_str)
     let yr = date.getFullYear();
     let mon = date.getMonth() + 1;
     let day = date.getDate();

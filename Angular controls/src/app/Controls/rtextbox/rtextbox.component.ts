@@ -49,7 +49,7 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   @Output()
   Click = new EventEmitter<any>();
 
-  private isPassord: boolean = false;
+  private isPassword: boolean = false;
 
   @Input()
   EnableMarginTextBottom: boolean = true;
@@ -59,10 +59,10 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   
   @Input()
   public set IsPasswordBox(value: boolean) {
-    this.isPassord = value;
+    this.isPassword = value;
   }
   public get IsPasswordBox(): boolean {
-    return this.isPassord;
+    return this.isPassword;
   }
 
   onChanged: Function = (e: string) => { };

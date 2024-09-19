@@ -20,7 +20,7 @@
   }
   
   .symbol::before {
-    content: "\25B6";
+    content: "\25B6"; 
     color: #00c7ba;
     display: inline-block;
     margin-right: 8px;

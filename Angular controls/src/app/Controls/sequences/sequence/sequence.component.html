@@ -4,6 +4,7 @@
         [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
                             CompletedForeColor : PendingForeColor),
             'width': ContentWidth,
+            'box-shadow': EnableShadow ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : '', 
             'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ?  CompletedBackgroundColor : PendingBackgroundColor}">
         {{Item?.DisplayText}}
     </div>
@@ -27,6 +28,7 @@
     <div *ngIf="!Item?.IsLeftAlign" class="content" 
         [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
                             CompletedForeColor : PendingForeColor),
+            'box-shadow': EnableShadow ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : '', 
             'width': ContentWidth,
             'background-color': Item?.IsActive ? ActiveBackgroundColor : Item?.IsCompleted ?  CompletedBackgroundColor : PendingBackgroundColor}">
         {{Item?.DisplayText}}

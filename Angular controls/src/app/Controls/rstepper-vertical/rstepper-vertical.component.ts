@@ -6,14 +6,18 @@ import { EditViewTemplateDirective } from "../rgrid/edit-template.directive";
 import { WindowHelper } from '../windowObject';
 import { RStateVerticalComponent } from "../sequences/sequences.component";
 import { RSequenceVerticalItem } from '../sequences/sequence/sequenceitem';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
 
 @Component({
   selector: 'rstepper-vertical',
   standalone: true,
-  imports: [RbuttonComponent, NgIf, NgTemplateOutlet, EditViewTemplateDirective, NgStyle, NgClass, RStateVerticalComponent],
+  imports: [RbuttonComponent, NgIf, NgTemplateOutlet, 
+        EditViewTemplateDirective, NgStyle, NgClass, RStateVerticalComponent],
   templateUrl: './rstepper-vertical.component.html',
   styleUrl: './rstepper-vertical.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush  
 })
 export class RStepperVerticalComponent implements AfterContentInit {
 
@@ -176,6 +180,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
           let selectedStep = this.stepsList.filter(x => x.StepNo == stepNo);
 
           if (selectedStep && selectedStep.length > 0) {
+            this.CurrentViewStep = undefined;
             this.CurrentViewStep = selectedStep[0];
           }
 

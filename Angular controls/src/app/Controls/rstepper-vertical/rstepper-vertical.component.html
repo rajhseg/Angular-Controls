@@ -6,7 +6,7 @@
          [Items]="seqItems"></rstate-vertical>
          
         <div style="display: flex; flex-direction: row;">
-            <div  class="done">Completed</div>
+            <div  class="done"><rbutton [BackgroundColor]="'rgb(35, 206, 236)'">Completed</rbutton></div>
 
             <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" (ButtonClick)="PrevStep()">Back</rbutton>
         </div>        
@@ -27,7 +27,7 @@
             <div *ngIf="!IsLastStepFinished"  class="stepHeader">
                 <label [ngStyle]="{'color': CurrentViewStep.IsStepValid ? 'green': 'blue'}">{{CurrentViewStep.Title}}</label>
             </div>
-            <div  *ngIf="!IsLastStepFinished" style="padding:10px" [ngStyle]="{'height': (ContentHeight - 148)+'px' }">
+            <div  *ngIf="!IsLastStepFinished" style="padding:10px" [ngStyle]="{'height': (ContentHeight - 148)+'px' }">                
                 <ng-template *ngTemplateOutlet="CurrentViewStep.Content">
 
                 </ng-template>

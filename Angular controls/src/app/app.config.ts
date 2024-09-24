@@ -7,6 +7,7 @@ import { JitCompilerFactory } from '@angular/platform-browser-dynamic'
 
 import { NgModule, COMPILER_OPTIONS, Compiler, CompilerFactory} from '@angular/core'
 import { environment } from '../environments/environment.development';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export function createCompiler(factory:CompilerFactory){
   return factory.createCompiler();
@@ -21,7 +22,7 @@ const provider1: (Provider | EnvironmentProviders)[] = [provideRouter(routes), p
 
 const provider2: (Provider | EnvironmentProviders)[] = [
   provideRouter(routes), 
-  provideClientHydration(),  
+  provideClientHydration(),    
 ]
 
 export const appConfig: ApplicationConfig = {

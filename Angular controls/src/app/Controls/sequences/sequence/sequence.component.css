@@ -54,7 +54,7 @@
     text-wrap: wrap;
     border-radius: 4%;
     align-content: center;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  */
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
@@ -74,7 +74,7 @@
     text-wrap: wrap;
     border-radius: 4%;
     align-content: center;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  */
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;

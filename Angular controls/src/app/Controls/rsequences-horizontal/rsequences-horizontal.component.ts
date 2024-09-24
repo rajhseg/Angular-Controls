@@ -50,7 +50,7 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
 
   @Input()
   public ActiveForeColor: string = "green";
-
+  
   @Input()
   public set Items(value: RSequenceHorizontalItem[]) {
     this._items = value;

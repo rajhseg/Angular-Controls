@@ -29,6 +29,9 @@ export class RSequenceHorizontalComponent {
   public EnableEmptyItemOnTopSide: boolean = true;
 
   @Input()
+  public EnableShadow: boolean = false;
+
+  @Input()
   public set ContentWidth(value: string ){
     this._contentWidth = value;
     let width = value.split("px")[0];

@@ -1,7 +1,7 @@
 <div style="">
     <div *ngIf="Item?.IsTopAlign" class="topContent" 
         [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
-                            CompletedForeColor : PendingForeColor),
+                            CompletedForeColor : PendingForeColor),            
             'width': ContentWidth}">
         {{Item?.DisplayText}}
     </div>
@@ -28,7 +28,7 @@
     <div *ngIf="!Item?.IsTopAlign" class="content" [ngStyle]="{
         'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
                             CompletedForeColor : PendingForeColor),
-        'padding-top': Item?.IsLastItem ? '4px': '',
+        'padding-top': Item?.IsLastItem ? '4px': '',        
         'width': ContentWidth}">
         {{Item?.DisplayText}}
     </div>

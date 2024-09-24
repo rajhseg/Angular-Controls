@@ -52,6 +52,9 @@ export class RSequenceVerticalComponent {
   public ActiveBackgroundColor: string = "green";
 
   @Input()
+  public EnableShadow: boolean = true;
+
+  @Input()
   public set Item(value: RSequenceVerticalItem){
     this._item = value;
   }

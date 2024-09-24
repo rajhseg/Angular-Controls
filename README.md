@@ -273,10 +273,6 @@ REventsSchedule
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/f2153b6d-c011-4d83-9538-9b4cfca4929d)
-
-<br/>
-
 ![image](https://github.com/user-attachments/assets/859cfaec-e253-4938-8d20-ab5954a5d8b3)
 
 <br/>
@@ -285,12 +281,10 @@ RStepper-Vertical
 -------------------------------
 <br />
 
-![image](https://github.com/user-attachments/assets/c0de4d48-bd73-4b80-b011-052670d6731b)
+![image](https://github.com/user-attachments/assets/02d8494e-2a5f-4f5b-9db4-be6754170235)
 
 
-![image](https://github.com/user-attachments/assets/3c9d75a5-5bc5-42a1-80bd-1d2dd9f6d2d4)
-
-
+![image](https://github.com/user-attachments/assets/86a1925c-19e3-480c-892a-e4c5eb284f2f)
 
 <br />
 

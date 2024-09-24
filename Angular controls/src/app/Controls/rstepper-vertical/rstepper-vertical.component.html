@@ -1,51 +1,58 @@
-<div style="width: fit-content;display: flex;flex-direction: row;margin-left: 25px;">
-    <div *ngIf="IsLastStepFinished">
+<div style="width: fit-content;display: flex;flex-direction: column;margin-left: 25px;">
+    <div class="items">
 
         <rstate-vertical [SelectedActiveIndex]="TotalSteps" [CompletedBackgroundColor]="'white'"
-         [CompletedForeColor]="'green'" [StepNoForeColor]="'green'" [StripLineColor]="'blue'" 
-         [Items]="seqItems"></rstate-vertical>
-         
-        <div style="display: flex; flex-direction: row;">
-            <div  class="done"><rbutton [BackgroundColor]="'rgb(35, 206, 236)'">Completed</rbutton></div>
+            [CompletedForeColor]="'green'" [StepNoForeColor]="'green'" [StripLineColor]="'blue'"
+            [Items]="seqItems"></rstate-vertical>
 
-            <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" (ButtonClick)="PrevStep()">Back</rbutton>
-        </div>        
+        <div style="display: flex; flex-direction: row;" *ngIf="IsLastStepFinished">
+            <div class="done">
+                <rbutton [BackgroundColor]="'rgb(35, 206, 236)'">Completed</rbutton>
+            </div>
+
+            <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" (ButtonClick)="PrevStep()">Back
+            </rbutton>
+        </div>
 
     </div>
-    <div *ngIf="!IsLastStepFinished" [ngStyle]="{'height': ContentHeight+'px'}">
-       <div  style="background-color: white;" class="bar"></div> 
-       <div class="circle fcircle" *ngIf="fStep">{{fStep}}</div>
-       <div class="circle scircle" *ngIf="sStep">{{sStep}}</div>
-       <div class="circle activecircle" *ngIf="CurrentViewStep">{{CurrentViewStep.StepNo}}</div>
-       <div class="circle focircle" *ngIf="foStep">{{foStep}}</div>
-       <div class="circle ficircle" *ngIf="fiStep">{{fiStep}}</div>       
-    </div>
-    <div style="background-color: white;" *ngIf="!IsLastStepFinished" class="contentContainer" [ngClass]="{ 'box': EnableShadow }" 
-        [ngStyle]="{'height': ContentHeight+'px', 'width': ContentWidth+'px'}">
+    <div style="width: fit-content;display: flex;flex-direction: row;">
+        <div *ngIf="!IsLastStepFinished" [ngStyle]="{'height': ContentHeight+'px'}">
+            <div style="background-color: white;" class="bar"></div>
+            <div class="circle fcircle" *ngIf="fStep">{{fStep}}</div>
+            <div class="circle scircle" *ngIf="sStep">{{sStep}}</div>
+            <div class="circle activecircle" *ngIf="CurrentViewStep">{{CurrentViewStep.StepNo}}</div>
+            <div class="circle focircle" *ngIf="foStep">{{foStep}}</div>
+            <div class="circle ficircle" *ngIf="fiStep">{{fiStep}}</div>
+        </div>
+        <div style="background-color: white;" *ngIf="!IsLastStepFinished" class="contentContainer"
+            [ngClass]="{ 'box': EnableShadow }" [ngStyle]="{'height': ContentHeight+'px', 'width': ContentWidth+'px'}">
 
-        <ng-container *ngIf="CurrentViewStep">
-            <div *ngIf="!IsLastStepFinished"  class="stepHeader">
-                <label [ngStyle]="{'color': CurrentViewStep.IsStepValid ? 'green': 'blue'}">{{CurrentViewStep.Title}}</label>
-            </div>
-            <div  *ngIf="!IsLastStepFinished" style="padding:10px" [ngStyle]="{'height': (ContentHeight - 148)+'px' }">                
-                <ng-template *ngTemplateOutlet="CurrentViewStep.Content">
-
-                </ng-template>
-            </div>
-            <div class="stepFooter">
-                <div style="float: right;">
-                    
-                    <rbutton *ngIf="!(CurrentViewStep.StepNo==1)" 
-                        style="margin-right: 10px;cursor: pointer;" (ButtonClick)="PrevStep()">Back</rbutton>
-
-                    <rbutton [IsDisabled]="!CurrentViewStep.IsStepValid" 
-                        *ngIf="!IsLastStep()" style="cursor: pointer;" (ButtonClick)="NextStep()">Next</rbutton>
-
-                    <rbutton (ButtonClick)="Done($event)" [IsDisabled]="!CurrentViewStep.IsStepValid" 
-                        *ngIf="IsLastStep() && !IsLastStepFinished" style="cursor: pointer;">Done</rbutton>
-
+            <ng-container *ngIf="CurrentViewStep">
+                <div *ngIf="!IsLastStepFinished" class="stepHeader">
+                    <label
+                        [ngStyle]="{'color': CurrentViewStep.IsStepValid ? 'green': 'blue'}">{{CurrentViewStep.Title}}</label>
                 </div>
-            </div>
-        </ng-container>
+                <div *ngIf="!IsLastStepFinished" style="padding:10px"
+                    [ngStyle]="{'height': (ContentHeight - 150)+'px' }">
+                    <ng-template *ngTemplateOutlet="CurrentViewStep.Content">
+
+                    </ng-template>
+                </div>
+                <div class="stepFooter">
+                    <div style="float: right;">
+
+                        <rbutton *ngIf="!(CurrentViewStep.StepNo==1)" style="margin-right: 10px;cursor: pointer;"
+                            (ButtonClick)="PrevStep()">Back</rbutton>
+
+                        <rbutton [IsDisabled]="!CurrentViewStep.IsStepValid" *ngIf="!IsLastStep()"
+                            style="cursor: pointer;" (ButtonClick)="NextStep()">Next</rbutton>
+
+                        <rbutton (ButtonClick)="Done($event)" [IsDisabled]="!CurrentViewStep.IsStepValid"
+                            *ngIf="IsLastStep() && !IsLastStepFinished" style="cursor: pointer;">Done</rbutton>
+
+                    </div>
+                </div>
+            </ng-container>
+        </div>
     </div>
 </div>

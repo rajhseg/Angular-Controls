@@ -67,7 +67,8 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
       this._allItemsAreInBottom = true;
     }
 
-    this._items[this._items.length - 1].IsLastItem = true;
+    if(this._items.length > 0)
+      this._items[this._items.length - 1].IsLastItem = true;
 
     if (activeIndex == -1 && this._currentActiveIndex == -1)
       this.setPendingFirstItem();

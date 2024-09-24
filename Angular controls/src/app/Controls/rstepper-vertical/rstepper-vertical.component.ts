@@ -82,6 +82,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
       const element = this.stepsList[index];
       let CompletedItem = new RSequenceVerticalItem();    
       CompletedItem.Value = element.StepNo;
+      CompletedItem.StepNo = element.StepNo;
       CompletedItem.IsCompleted = true;      
       CompletedItem.DisplayText= element.Title;      
       this.seqItems.push(CompletedItem);
@@ -134,7 +135,18 @@ export class RStepperVerticalComponent implements AfterContentInit {
       else
         nextStep = stepno + 1;
 
-      this.SelectStep(nextStep);
+      let filItems = this.seqItems.filter(x=>x.StepNo==this.CurrentViewStep?.StepNo);
+
+      if(filItems == undefined || filItems.length == 0){      
+        let CompletedItem = new RSequenceVerticalItem();    
+        CompletedItem.Value = this.CurrentViewStep.StepNo;
+        CompletedItem.StepNo = this.CurrentViewStep.StepNo;
+        CompletedItem.IsCompleted = true;      
+        CompletedItem.DisplayText= this.CurrentViewStep.Title;      
+        this.seqItems.push(CompletedItem);
+      }
+
+      this.SelectStep(nextStep);      
     }
   }
 

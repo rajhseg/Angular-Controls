@@ -18,8 +18,8 @@
     <div style="width: fit-content;display: flex;flex-direction: row;">
         <div *ngIf="!IsLastStepFinished" [ngStyle]="{'height': ContentHeight+'px'}">
             <div style="background-color: white;" class="bar"></div>
-            <div class="circle fcircle" *ngIf="fStep">{{fStep}}</div>
-            <div class="circle scircle" *ngIf="sStep">{{sStep}}</div>
+            <!-- <div class="circle fcircle" *ngIf="fStep">{{fStep}}</div>
+            <div class="circle scircle" *ngIf="sStep">{{sStep}}</div> -->
             <div class="circle activecircle" *ngIf="CurrentViewStep">{{CurrentViewStep.StepNo}}</div>
             <div class="circle focircle" *ngIf="foStep">{{foStep}}</div>
             <div class="circle ficircle" *ngIf="fiStep">{{fiStep}}</div>

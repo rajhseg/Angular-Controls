@@ -122,6 +122,10 @@ export class RStepperVerticalComponent implements AfterContentInit {
       prevStep = this.TotalSteps;
     }
 
+    if(this.seqItems.length > 0){
+      this.seqItems.splice(this.seqItems.length-1, 1);
+    }
+
     this.SelectStep(prevStep);
   }
 

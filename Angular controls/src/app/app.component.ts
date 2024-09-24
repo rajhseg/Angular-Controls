@@ -448,6 +448,11 @@ export class AppComponent implements AfterViewInit {
     this.StepperHorizontalSelectedItem = completedItem;
   }
 
+  StepsCompleted($event: Event){
+    console.log("Steps completed");
+    console.log($event);
+  }
+
   createSequenceVerticalItems(){
     this.CompletedItem = new RSequenceVerticalItem();    
     this.CompletedItem.Value = 1;

@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
 import { RStepComponent } from '../rstep/rstep.component';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -32,6 +32,51 @@ export class RStepperVerticalComponent implements AfterContentInit {
   @Input()
   EnableShadow: boolean = true;
 
+  @Input()
+  CompletedButtonBackColor: string = 'rgb(35, 206, 236)';
+
+  @Input()
+  CompletedButtonForeColor: string = 'white';
+
+  @Input()
+  BackButtonBackColor: string = 'blue';
+
+  @Input()
+  BackButtonForeColor: string = 'white';
+
+  @Input()
+  VerticalItemStepNoForeColor: string = 'green';
+
+  @Input()
+  VerticalItemStripLineColor: string = 'blue';
+
+  @Input()
+  VerticalItemBackColor: string = 'white';
+
+  @Input()
+  VerticalItemForeColor: string = 'green';
+
+  @Input()
+  NextButtonBackColor: string = 'blue';
+
+  @Input()
+  NextButtonForeColor: string = 'white';
+
+  @Input()
+  DoneButtonBackColor: string = 'blue';
+
+  @Input()
+  DoneButtonForeColor: string = 'white';
+
+  @Input()
+  CurrentStepValidLabelColor: string = 'green';
+
+  @Input()
+  CurrentStepInValidLabelColor: string = 'blue';
+
+  @Output()
+  public OnCompletedClick = new EventEmitter<Event>();
+
   public IsCompleted: boolean = false;
 
   public IsLastStepFinished: boolean = false;
@@ -59,6 +104,12 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
 
+  }
+
+  CompletedClick($event: Event){
+    let allValid = this.stepsList.every(x=>x.IsStepValid);
+    if(allValid)
+      this.OnCompletedClick.emit($event);
   }
 
   Done($event: Event){

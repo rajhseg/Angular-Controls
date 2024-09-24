@@ -252,7 +252,7 @@
   <br />
   <br />
 
-  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530">
+  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530"  (OnCompletedClick)="StepsCompleted($event)">
     <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
 
@@ -449,7 +449,8 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab13', 'HeaderText':'rstepper vertical', 'Context':this}">
-        <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530">
+
+        <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530" (OnCompletedClick)="StepsCompleted($event)">
           <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
       

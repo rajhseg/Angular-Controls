@@ -250,6 +250,50 @@
     </rgrid>
   </div>
   <br />
+  <br />
+
+  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530">
+    <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+      <ng-template rstepview>
+
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+          [HeaderBackgroundColor]="'blue'"
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        <br />
+        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
+          Save        
+        </rbutton>
+
+      </ng-template>
+    </rstep>
+    <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+      <ng-template rstepview>
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+          [HeaderBackgroundColor]="'blue'"
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+
+          <br />
+        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
+          Save        
+        </rbutton>
+      </ng-template>
+    </rstep>
+    <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+      <ng-template rstepview>
+
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+          [HeaderBackgroundColor]="'blue'"
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+          <br />
+        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
+          Save        
+        </rbutton>
+
+      </ng-template>
+    </rstep>
+  </rstepper-vertical>
+
+  <br />
   <div>
     <br />
     <rbutton BackgroundColor="green" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One
@@ -309,7 +353,9 @@
 
       <rtab *tabidfor="{ 'TabId':'tab4', 'HeaderText':'rswitch', 'Context':this }">
 
-        <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+        <rswitch [DisplayLabel]="'MoveToCenter'"  (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+
+        <rswitch [DisplayLabel]="'MoveToCenter Copy'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
         <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
         </rswitch>
@@ -402,6 +448,49 @@
           [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> {{time3}}
       </rtab>
 
+      <rtab *tabidfor="{ 'TabId': 'tab13', 'HeaderText':'rstepper vertical', 'Context':this}">
+        <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530">
+          <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+            <ng-template rstepview>
+      
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+                [HeaderBackgroundColor]="'blue'"
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+              <br />
+              <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
+                Save        
+              </rbutton>
+      
+            </ng-template>
+          </rstep>
+          <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+            <ng-template rstepview>
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+                [HeaderBackgroundColor]="'blue'"
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+      
+                <br />
+              <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
+                Save        
+              </rbutton>
+            </ng-template>
+          </rstep>
+          <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+            <ng-template rstepview>
+      
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+                [HeaderBackgroundColor]="'blue'"
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                <br />
+              <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
+                Save        
+              </rbutton>
+      
+            </ng-template>
+          </rstep>
+        </rstepper-vertical>
+      
+      </rtab>
     </rtabs>
 
     <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">

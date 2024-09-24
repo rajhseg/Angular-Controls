@@ -9,18 +9,28 @@
 .uploadicon {
     width: 16px;
     height: 16px;
-    font-size: smaller;
+    font-size: small;
     position: relative;
-    top: -4px;
+    top: -6px;
 }
 
 .bar {
-    width: 12px;
+
+    /* width: 12px;
     height: 2px;
     background: blue;
     position: relative;
     top: -8px;
-    left: 6px;
+    left: 6px; */
+
+    width: 11px;
+    height: 2px;
+    background: #b7b7e3;
+    position: relative;
+    top: -9px;
+    left: 7px;
+    font-size: small;
+    opacity: 0.4;
 }
 
 .rcontainer {

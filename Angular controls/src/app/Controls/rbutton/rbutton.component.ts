@@ -28,6 +28,9 @@ export class RbuttonComponent {
   @Input()
   BackgroundColor: string = "blue";
 
+  @Input()
+  IsDisabled: boolean = false;
+  
   onClick($event: any){
     this.ButtonClick.emit($event);
   }

@@ -1,0 +1,99 @@
+
+
+
+.stepFooter {
+    border-top:1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-top: 15px;    
+    padding:10px;
+    height: 30px;
+}
+
+.stepHeader {
+    border-bottom: 1px solid lightgray;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom: 15px;
+    color: blue;
+    font-size: small;
+    height: 20px;
+}
+
+.box {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+}
+
+.contentContainer {
+    border-top-left-radius: 1%;
+    border-top-right-radius: 1%;
+    border-bottom-left-radius: 1%;
+    border-bottom-right-radius: 1%;
+    border: 1px solid lightgray; 
+    overflow: auto;
+    margin-left: 25px;
+}
+
+.bar {
+    height: 100%;
+    width: 5px;
+    border: 1px solid lightgray;
+}
+
+.circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    position: relative;
+    background-color: white;
+    text-align: center;
+    align-content: center;    
+    font-size: small;
+}
+
+.activecircle {
+    top: -70%;
+    left: -12px;
+    width: 30px;
+    height: 30px;  
+    color:blue;  
+}
+
+.fcircle {
+    top: -95%;
+    left: -8px;
+    width: 20px;
+    height: 20px; 
+    color: green;
+}
+
+.scircle {
+    top: -85%;
+    left: -8px;
+    width: 20px;
+    height: 20px; 
+    color: green;
+}
+
+.focircle {
+    top: -50%;
+    left: -8px;
+    width: 20px;
+    height: 20px; 
+    color: lightgray;
+}
+
+.ficircle {
+    top: -40%;
+    left: -8px;
+    width: 20px;
+    height: 20px; 
+    color: lightgray;
+}
+
+.done 
+{
+    color: green;
+    margin-top:5px;
+    margin-bottom: 5px;
+}

@@ -17,8 +17,8 @@
             
             <span class="bicon" (click)="browse($event)" 
                   [ngStyle]="{'color': IconForeColor}">
-                    <span class="uploadicon">&#8593;</span>
-                    <div class="bar"></div>
+                    <span class="uploadicon" [ngStyle]="{'color': IconForeColor}">&#8593;</span>
+                    <div class="bar" [ngStyle]="{'background-color': IconForeColor}"></div>                    
             </span>
 
         </div>

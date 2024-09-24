@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, viewChild, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalenderComponent } from './Controls/Calender/calender.component';
 import { RDropdownComponent } from './Controls/dropdown/dropdown.component';
@@ -41,6 +41,9 @@ import { RSelectDropdownComponent } from './Controls/rselectdropdown/rselectdrop
 import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectModel';
 import { REventsScheduleComponent } from './Controls/reventsschedule/reventsschedule.component';
 import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from './Controls/reventsschedule/reventsschedule';
+import { RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
+import { RStepComponent } from "./Controls/rstep/rstep.component";
+import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
 
 @Component({
   selector: 'app-root',
@@ -69,14 +72,17 @@ import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from
     RColorPickerComponent,
     RNumericComponent,
     RTimerComponent,
-    RTimeSelectorComponent, 
+    RTimeSelectorComponent,
     RGridComponent,
     RColumnComponent,
     ReadViewTemplateDirective,
     EditViewTemplateDirective,
     RSelectDropdownComponent,
     ROptionsTemplateDirective,
-    REventsScheduleComponent
+    REventsScheduleComponent,
+    RStepperVerticalComponent,
+    RStepComponent,
+    RStepViewDirective
 ]
 })
 export class AppComponent implements AfterViewInit {
@@ -154,10 +160,13 @@ export class AppComponent implements AfterViewInit {
   dates: string [] = [];
   dates1: string [] = [];
   selectedDate: string = "";
+  stepOneValid: boolean = false;
+  stepTwoValid: boolean = false;
+  stepThreeValid: boolean =false;
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
-
+  
   @ViewChild('sequhorizontal', {read: RStateHorizontalComponent}) sequhorizontal!: RStateHorizontalComponent;
 
   constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {
@@ -209,6 +218,18 @@ export class AppComponent implements AfterViewInit {
     this.populateGridValues();
     this.populateSelectDropdownItems();
     this.createScheduleItems();
+  }
+
+  stepOneSave($event: Event){
+    this.stepOneValid = true;
+  }
+
+  stepTwoSave($event: Event){
+    this.stepTwoValid = true;
+  }
+
+  stepThreeSave($event: Event){
+    this.stepThreeValid = true;
   }
 
   createScheduleItems(){

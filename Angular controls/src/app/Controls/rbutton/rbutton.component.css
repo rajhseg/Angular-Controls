@@ -11,6 +11,10 @@
     opacity: 0.6;
 }
 
+.btn:disabled, .btn[disabled] {
+  opacity: 0.5;
+  cursor:default;
+}
 ::-webkit-scrollbar {
     width: 0.4em;;
     height: 0.4em;;

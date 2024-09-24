@@ -196,8 +196,6 @@ FileUpload Control
 --------------------------------
 ![image](https://github.com/user-attachments/assets/f7178107-123d-4ff4-ad55-6a7c9aac5c55)
 
-<br />
-
 ![image](https://github.com/user-attachments/assets/8ca523ae-6b3f-4c6d-a91f-20562f24015b)
 
 <br />

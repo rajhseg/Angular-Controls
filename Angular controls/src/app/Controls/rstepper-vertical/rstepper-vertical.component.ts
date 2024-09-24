@@ -13,16 +13,16 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 @Component({
   selector: 'rstepper-vertical',
   standalone: true,
-  imports: [RbuttonComponent, NgIf, NgTemplateOutlet, 
-        EditViewTemplateDirective, NgStyle, NgClass, RStateVerticalComponent],
+  imports: [RbuttonComponent, NgIf, NgTemplateOutlet,
+    EditViewTemplateDirective, NgStyle, NgClass, RStateVerticalComponent],
   templateUrl: './rstepper-vertical.component.html',
   styleUrl: './rstepper-vertical.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush  
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RStepperVerticalComponent implements AfterContentInit {
 
-  seqItems: RSequenceVerticalItem[]=[];
-  
+  seqItems: RSequenceVerticalItem[] = [];
+
   @Input()
   public ContentWidth: number = 800;
 
@@ -81,6 +81,21 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
   public IsLastStepFinished: boolean = false;
 
+  private _showInValidStepOnLoad: boolean = true;
+
+  @Input()
+  public set ShowInValidStepOnLoadAsFirstItem(val: boolean) {
+    this._showInValidStepOnLoad = val;
+    if (this.CurrentViewStep) {
+      this.SelectStep(this.CurrentViewStep.StepNo);
+      this.RenderSequenceItemsForValidSteps();
+    }
+  }
+
+  public get ShowInValidStepOnLoadAsFirstItem(): boolean {
+    return this._showInValidStepOnLoad;
+  }
+
   @ContentChildren(RStepComponent) Steps!: QueryList<RStepComponent>;
 
   public CurrentViewStep: RStepComponent | undefined = undefined;
@@ -97,57 +112,58 @@ export class RStepperVerticalComponent implements AfterContentInit {
   @Input()
   public set ActiveStepNo(val: number) {
     this.SelectStepDirectly(val);
+    this.RenderSequenceItemsForValidSteps();
   }
   public get ActiveStepNo(): number {
     return this._activeStepNo;
   }
 
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
-
+    this.seqItems = [];
   }
 
-  CompletedClick($event: Event){
-    let allValid = this.stepsList.every(x=>x.IsStepValid);
-    if(allValid)
+  CompletedClick($event: Event) {
+    let allValid = this.stepsList.every(x => x.IsStepValid);
+    if (allValid)
       this.OnCompletedClick.emit($event);
   }
 
-  Done($event: Event){
+  Done($event: Event) {
     this.IsCompleted = true;
-    this.IsLastStepFinished = true; 
+    this.IsLastStepFinished = true;
     this.CurrentViewStep = undefined;
-    let cStep = this.TotalSteps+1;
-    if(cStep) {
+    let cStep = this.TotalSteps + 1;
+    if (cStep) {
       this.fStep = cStep > 2 ? cStep - 2 : undefined;
-      this.sStep = cStep > 1 ? cStep - 1 : undefined;            
+      this.sStep = cStep > 1 ? cStep - 1 : undefined;
     }
 
     this.CreateFinalItemsToDisplay();
   }
 
-  CreateFinalItemsToDisplay(){
+  CreateFinalItemsToDisplay() {
 
     this.seqItems = [];
 
     for (let index = 0; index < this.stepsList.length; index++) {
       const element = this.stepsList[index];
-      let CompletedItem = new RSequenceVerticalItem();    
+      let CompletedItem = new RSequenceVerticalItem();
       CompletedItem.Value = element.StepNo;
       CompletedItem.StepNo = element.StepNo;
-      CompletedItem.IsCompleted = true;      
-      CompletedItem.DisplayText= element.Title;      
+      CompletedItem.IsCompleted = true;
+      CompletedItem.DisplayText = element.Title;
       this.seqItems.push(CompletedItem);
     }
-    
+
   }
 
-  IsLastStep(): boolean{
+  IsLastStep(): boolean {
     return this.CurrentViewStep?.StepNo == this.TotalSteps;
   }
 
   ngAfterContentInit(): void {
     this.stepsList = this.Steps.toArray();
-    let stepNo = 0;
+    let stepNo = 0;    
 
     for (let index = 0; index < this.stepsList.length; index++) {
       const element = this.stepsList[index];
@@ -156,25 +172,58 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
     this.TotalSteps = this.stepsList.length;
     this.SelectStepDirectly(this.TotalSteps);
+
+    if(this.ShowInValidStepOnLoadAsFirstItem)
+      this.RenderSequenceItemsForValidSteps();
+  }
+
+  RenderSequenceItemsForValidSteps() {
+    for (let index = 0; index < this.stepsList.length; index++) {
+      const element = this.stepsList[index];
+
+      if (element.IsStepValid) {
+        let filItems = this.seqItems.filter(x => x.StepNo == element.StepNo);
+
+        if (filItems == undefined || filItems.length == 0) {
+          let CompletedItem = new RSequenceVerticalItem();
+          CompletedItem.Value = element.StepNo;
+          CompletedItem.StepNo = element.StepNo;
+          CompletedItem.IsCompleted = true;
+          CompletedItem.DisplayText = element.Title;
+          CompletedItem.IsLastItem = false;                
+          this.seqItems.push(CompletedItem);
+        }
+      }
+      else {        
+        break;
+      }
+    }
+
+    this.TotalSteps = this.stepsList.length;
+
+    if(this.TotalSteps == this.seqItems.length && this.seqItems.length > 0){
+      this.seqItems[this.seqItems.length-1].IsLastItem = true;      
+    }
+
   }
 
   PrevStep() {
     var prevStep = 1;
 
-    if(!this.IsLastStepFinished) {      
+    if (!this.IsLastStepFinished) {
       var stepno = this.ActiveStepNo;
       if (stepno - 1 < 1)
         prevStep = 1;
       else
         prevStep = stepno - 1;
     }
-    else{
+    else {
       this.IsLastStepFinished = false;
       prevStep = this.TotalSteps;
     }
 
-    if(this.seqItems.length > 0){
-      this.seqItems.splice(this.seqItems.length-1, 1);
+    if (this.seqItems.length > 0) {
+      this.seqItems.splice(this.seqItems.length - 1, 1);
     }
 
     this.SelectStep(prevStep);
@@ -190,18 +239,18 @@ export class RStepperVerticalComponent implements AfterContentInit {
       else
         nextStep = stepno + 1;
 
-      let filItems = this.seqItems.filter(x=>x.StepNo==this.CurrentViewStep?.StepNo);
+      let filItems = this.seqItems.filter(x => x.StepNo == this.CurrentViewStep?.StepNo);
 
-      if(filItems == undefined || filItems.length == 0){      
-        let CompletedItem = new RSequenceVerticalItem();    
+      if (filItems == undefined || filItems.length == 0) {
+        let CompletedItem = new RSequenceVerticalItem();
         CompletedItem.Value = this.CurrentViewStep.StepNo;
         CompletedItem.StepNo = this.CurrentViewStep.StepNo;
-        CompletedItem.IsCompleted = true;      
-        CompletedItem.DisplayText= this.CurrentViewStep.Title;      
+        CompletedItem.IsCompleted = true;
+        CompletedItem.DisplayText = this.CurrentViewStep.Title;
         this.seqItems.push(CompletedItem);
       }
 
-      this.SelectStep(nextStep);      
+      this.SelectStep(nextStep);
     }
   }
 
@@ -213,10 +262,12 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
           let stepNo = 1;
 
-          for (let index = 1; index <= val; index++) {
-            if (!this.stepsList[index - 1].IsStepValid) {
-              stepNo = index;
-              break;
+          if (this.ShowInValidStepOnLoadAsFirstItem) {
+            for (let index = 1; index <= val; index++) {
+              if (!this.stepsList[index - 1].IsStepValid) {
+                stepNo = index;
+                break;
+              }
             }
           }
 
@@ -258,16 +309,15 @@ export class RStepperVerticalComponent implements AfterContentInit {
     }
   }
 
-  calculateSteps(){
+  calculateSteps() {
     let cStep = this.CurrentViewStep?.StepNo;
 
-    if(cStep) {
+    if (cStep) {
       this.fStep = cStep > 2 ? cStep - 2 : undefined;
       this.sStep = cStep > 1 ? cStep - 1 : undefined;
-      this.foStep = cStep + 1 <= this.TotalSteps ? cStep + 1: undefined;
-      this.fiStep = cStep  + 2 <= this.TotalSteps ? cStep + 2: undefined;
+      this.foStep = cStep + 1 <= this.TotalSteps ? cStep + 1 : undefined;
+      this.fiStep = cStep + 2 <= this.TotalSteps ? cStep + 2 : undefined;
     }
   }
-
 
 }

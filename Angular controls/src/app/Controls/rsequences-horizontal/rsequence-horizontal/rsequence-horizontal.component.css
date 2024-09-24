@@ -26,9 +26,8 @@
     position: relative;    
     left: 37px;    
     z-index: 4;
-    text-align: center;
+    text-align: center;    
 }
-
 
 .number {
     text-align: center;

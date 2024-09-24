@@ -11,7 +11,7 @@ export class RSequenceHorizontalItem {
 
     public DisplayText: string = "";
 
-    public IsLastItem: boolean = false;
+    public IsLastItem: boolean | undefined = undefined;
 
     public IsTopAlign: boolean = false;
 

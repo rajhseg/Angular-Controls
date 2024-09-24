@@ -9,7 +9,7 @@ export class RSequenceVerticalItem {
 
     public DisplayText: string = "";
 
-    public IsLastItem: boolean = false;
+    public IsLastItem: boolean | undefined = undefined;    
 
     public IsLeftAlign: boolean = false;
 

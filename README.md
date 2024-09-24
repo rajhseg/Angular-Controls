@@ -194,14 +194,10 @@ Tab Control
 
 FileUpload Control
 --------------------------------
+![image](https://github.com/user-attachments/assets/f7178107-123d-4ff4-ad55-6a7c9aac5c55)
 
-![image](https://github.com/user-attachments/assets/efbf6573-56b1-4fe0-b0de-69c89de839b7)
+![image](https://github.com/user-attachments/assets/8ca523ae-6b3f-4c6d-a91f-20562f24015b)
 
-<br />
-
-![image](https://github.com/user-attachments/assets/eddaaad9-6269-44ad-842f-49fe0e927992)
-
-<br />
 <br />
 
 

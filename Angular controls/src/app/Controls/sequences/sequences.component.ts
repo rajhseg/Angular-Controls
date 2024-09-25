@@ -50,6 +50,9 @@ export class RStateVerticalComponent implements ControlValueAccessor {
   public EnableShadowOnContent: boolean = true;
 
   @Input()
+  public ApplyItemForeColorToStepNo: boolean = false;
+
+  @Input()
   public PendingForeColor: string = "white";
 
   @Input()

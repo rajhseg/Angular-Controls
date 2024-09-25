@@ -7,6 +7,9 @@
      [PendingForeColor]="PendingForeColor"
      [EnableEmptyItemOnTopSide]="!_allItemsAreInBottom"
      [StripLineColor]="StripLineColor" [StepNo]= "item.StepNo"
-     [IsDisplayStepNo]="IsDisplayStepNo" [StepNoForeColor]="StepNoForeColor"     
+     [IsDisplayStepNo]="IsDisplayStepNo" 
+     [StepNoForeColor]="ApplyItemForeColorToStepNo ? item.IsCompleted ? CompletedForeColor : 
+                            item.IsActive ? ActiveForeColor : PendingForeColor : 
+                        StepNoForeColor"     
      [ContentWidth]="ContentWidth"></rsequence-horizontal>    
 </div>

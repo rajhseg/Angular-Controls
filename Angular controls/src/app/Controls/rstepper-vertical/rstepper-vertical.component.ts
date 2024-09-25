@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
 import { RStepComponent } from '../rstep/rstep.component';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -45,16 +45,32 @@ export class RStepperVerticalComponent implements AfterContentInit {
   BackButtonForeColor: string = 'white';
 
   @Input()
-  VerticalItemStepNoForeColor: string = 'green';
+  VerticalItemStepNoForeColor: string = 'Whitesmoke';
 
   @Input()
   VerticalItemStripLineColor: string = 'blue';
 
   @Input()
-  VerticalItemBackColor: string = 'white';
+  VerticalItemCompletedBackColor: string = 'white';
 
   @Input()
-  VerticalItemForeColor: string = 'green';
+  VerticalItemCompletedForeColor: string = 'green';
+
+  @Input()
+  VerticalItemActiveBackColor: string = 'green';
+
+  @Input()
+  VerticalItemActiveForeColor: string = 'white';
+
+  @Input()
+  ApplyItemForeColorToStepNo: boolean = true;
+
+  @Input()
+  VerticalItemPendingBackColor: string = 'blue';
+
+  @Input()
+  VerticalItemPendingForeColor: string = 'white';
+
 
   @Input()
   NextButtonBackColor: string = 'blue';
@@ -83,18 +99,59 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
   private _showInValidStepOnLoad: boolean = true;
 
+  @Output()
+  public StateVerticalDisplayTypeChange = new EventEmitter<RStateVerticalDisplayType>();
+
+  private _stateVerticalDisplayType: RStateVerticalDisplayType = RStateVerticalDisplayType.AllItems;
+
   @Input()
-  public set ShowInValidStepOnLoadAsFirstItem(val: boolean) {
-    this._showInValidStepOnLoad = val;
-    if (this.CurrentViewStep) {
-      this.SelectStep(this.CurrentViewStep.StepNo);
-      this.RenderSequenceItemsForValidSteps();
+  public set StateVerticalDisplayType(val: RStateVerticalDisplayType) {
+    this._stateVerticalDisplayType = val;
+
+    if (this.StateVerticalAlignment == RStateVerticalAlignment.OnTop) {
+      this._stateVerticalDisplayType = RStateVerticalDisplayType.OnlyCompleted;      
     }
+
+    this.RenderSequenceItemsForValidSteps();
+    this.StateVerticalDisplayTypeChange.emit(this._stateVerticalDisplayType);
+  }
+  public get StateVerticalDisplayType(): RStateVerticalDisplayType {
+    return this._stateVerticalDisplayType;
   }
 
-  public get ShowInValidStepOnLoadAsFirstItem(): boolean {
-    return this._showInValidStepOnLoad;
+  @Output()
+  public StateVerticalAlignmentChange = new EventEmitter<RStateVerticalAlignment>();
+
+  private _stateVerticalAlign: RStateVerticalAlignment = RStateVerticalAlignment.OnLeft;
+
+  @Input()
+  public set StateVerticalAlignment(val: RStateVerticalAlignment) {
+    this._stateVerticalAlign = val;
+
+    if (val == RStateVerticalAlignment.OnTop) {
+      this._stateVerticalDisplayType = RStateVerticalDisplayType.OnlyCompleted;
+      this.StateVerticalDisplayTypeChange.emit(this._stateVerticalDisplayType);
+    }
+
+    this.RenderSequenceItemsForValidSteps();
+    this.StateVerticalAlignmentChange.emit(this._stateVerticalAlign);
   }
+  public get StateVerticalAlignment(): RStateVerticalAlignment {
+    return this._stateVerticalAlign;
+  }
+
+  private _showStateVertical: boolean = true;
+
+  @Input()
+  public set ShowStateVertical(val: boolean) {
+    this._showStateVertical = val;
+    this.RenderSequenceItemsForValidSteps();
+  }
+  public get ShowStateVertical(): boolean {
+    return this._showStateVertical;
+  }
+
+  @ViewChild('view', { read: ViewContainerRef }) vcr!: ViewContainerRef;
 
   @ContentChildren(RStepComponent) Steps!: QueryList<RStepComponent>;
 
@@ -108,6 +165,8 @@ export class RStepperVerticalComponent implements AfterContentInit {
   public sStep: number | undefined = undefined;
   public foStep: number | undefined = undefined;
   public fiStep: number | undefined = undefined;
+
+  public verticalItemActiveItem: number = 0;
 
   @Input()
   public set ActiveStepNo(val: number) {
@@ -155,6 +214,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
       this.seqItems.push(CompletedItem);
     }
 
+    this.verticalItemActiveItem = this.stepsList.length;
   }
 
   IsLastStep(): boolean {
@@ -162,22 +222,26 @@ export class RStepperVerticalComponent implements AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    this.stepsList = this.Steps.toArray();
-    let stepNo = 0;    
+    if (this.winObj.isExecuteInBrowser()) {
+      this.stepsList = this.Steps.toArray();
+      let stepNo = 0;
 
-    for (let index = 0; index < this.stepsList.length; index++) {
-      const element = this.stepsList[index];
-      element.StepNo = index + 1;
-    }
+      for (let index = 0; index < this.stepsList.length; index++) {
+        const element = this.stepsList[index];
+        element.StepNo = index + 1;
+      }
 
-    this.TotalSteps = this.stepsList.length;
-    this.SelectStepDirectly(this.TotalSteps);
-
-    if(this.ShowInValidStepOnLoadAsFirstItem)
+      this.TotalSteps = this.stepsList.length;
+      this.SelectStepDirectly(this.TotalSteps);
       this.RenderSequenceItemsForValidSteps();
+    }
   }
 
   RenderSequenceItemsForValidSteps() {
+    this.seqItems = [];
+    //this.CurrentViewStep = undefined;
+
+    let isActiveItem = true;
     for (let index = 0; index < this.stepsList.length; index++) {
       const element = this.stepsList[index];
 
@@ -190,25 +254,73 @@ export class RStepperVerticalComponent implements AfterContentInit {
           CompletedItem.StepNo = element.StepNo;
           CompletedItem.IsCompleted = true;
           CompletedItem.DisplayText = element.Title;
-          CompletedItem.IsLastItem = false;                
+          CompletedItem.IsLastItem = false;
           this.seqItems.push(CompletedItem);
         }
       }
-      else {        
-        break;
+      else {
+        if (this.StateVerticalDisplayType == RStateVerticalDisplayType.OnlyCompleted) {
+          this.verticalItemActiveItem = index;
+          // this.CurrentViewStep = undefined;
+          this.CurrentViewStep = this.stepsList[index];
+          break;
+        }
+
+        let filItems = this.seqItems.filter(x => x.StepNo == element.StepNo);
+
+        if (filItems == undefined || filItems.length == 0) {
+          let CurrentOrPendingItem = new RSequenceVerticalItem();
+          CurrentOrPendingItem.Value = element.StepNo;
+          CurrentOrPendingItem.StepNo = element.StepNo;
+
+          if (isActiveItem) {
+            CurrentOrPendingItem.IsActive = true;
+            //this.CurrentViewStep = undefined;
+            this.CurrentViewStep = this.stepsList.find(x => x.StepNo == element.StepNo);
+            this.verticalItemActiveItem = index;
+            isActiveItem = false;
+          } else {
+            CurrentOrPendingItem.IsPending = true;
+          }
+
+          CurrentOrPendingItem.DisplayText = element.Title;
+          CurrentOrPendingItem.IsLastItem = false;
+          this.seqItems.push(CurrentOrPendingItem);
+        }
+
       }
     }
 
     this.TotalSteps = this.stepsList.length;
 
-    if(this.TotalSteps == this.seqItems.length && this.seqItems.length > 0){
-      this.seqItems[this.seqItems.length-1].IsLastItem = true;      
+    if (this.TotalSteps == this.seqItems.length && this.seqItems.length > 0) {
+      this.seqItems[this.seqItems.length - 1].IsLastItem = true;
     }
+
+    if (this.stepsList.length > 0 && this.stepsList[this.stepsList.length - 1].IsStepValid) {
+      this.IsCompleted = true;
+      this.IsLastStepFinished = true;
+      // this.CurrentViewStep = undefined;
+      this.verticalItemActiveItem = this.TotalSteps + 1;
+      let cStep = this.TotalSteps + 1;
+      if (cStep) {
+        this.fStep = cStep > 2 ? cStep - 2 : undefined;
+        this.sStep = cStep > 1 ? cStep - 1 : undefined;
+      }
+
+      return;
+    }
+
+    this.calculateSteps();
 
   }
 
   PrevStep() {
     var prevStep = 1;
+    
+    if(this.IsCompleted){
+      this.IsCompleted = false;
+    }
 
     if (!this.IsLastStepFinished) {
       var stepno = this.ActiveStepNo;
@@ -222,8 +334,13 @@ export class RStepperVerticalComponent implements AfterContentInit {
       prevStep = this.TotalSteps;
     }
 
-    if (this.seqItems.length > 0) {
-      this.seqItems.splice(this.seqItems.length - 1, 1);
+    if (this.StateVerticalDisplayType == RStateVerticalDisplayType.OnlyCompleted) {
+      if (this.seqItems.length > 0) {
+        this.seqItems.splice(this.seqItems.length - 1, 1);
+      }
+    }
+    else {
+      this.RenderVerticalItemsForAllDisplayType(prevStep - 1);
     }
 
     this.SelectStep(prevStep);
@@ -239,19 +356,59 @@ export class RStepperVerticalComponent implements AfterContentInit {
       else
         nextStep = stepno + 1;
 
-      let filItems = this.seqItems.filter(x => x.StepNo == this.CurrentViewStep?.StepNo);
+      if (this.StateVerticalDisplayType == RStateVerticalDisplayType.OnlyCompleted) {
+        let filItems = this.seqItems.filter(x => x.StepNo == this.CurrentViewStep?.StepNo);
 
-      if (filItems == undefined || filItems.length == 0) {
-        let CompletedItem = new RSequenceVerticalItem();
-        CompletedItem.Value = this.CurrentViewStep.StepNo;
-        CompletedItem.StepNo = this.CurrentViewStep.StepNo;
-        CompletedItem.IsCompleted = true;
-        CompletedItem.DisplayText = this.CurrentViewStep.Title;
-        this.seqItems.push(CompletedItem);
+        if (filItems == undefined || filItems.length == 0) {
+          let CompletedItem = new RSequenceVerticalItem();
+          CompletedItem.Value = this.CurrentViewStep.StepNo;
+          CompletedItem.StepNo = this.CurrentViewStep.StepNo;
+          CompletedItem.IsCompleted = true;
+          CompletedItem.DisplayText = this.CurrentViewStep.Title;
+          this.seqItems.push(CompletedItem);
+        }
+      } else {
+        this.RenderVerticalItemsForAllDisplayType(nextStep - 1);
       }
 
       this.SelectStep(nextStep);
     }
+  }
+
+  RenderVerticalItemsForAllDisplayType(lastcompletedStepNo: number) {
+
+    if (this.StateVerticalDisplayType == RStateVerticalDisplayType.AllItems) {
+      for (let index = 1; index <= lastcompletedStepNo; index++) {
+        const element = this.stepsList[index];
+        let item = this.seqItems.find(x => x.StepNo == index);
+        if (item) {
+          item.IsCompleted = true;
+        }
+      }
+
+      let activeItem = this.seqItems.find(x => x.StepNo == lastcompletedStepNo + 1);
+      if (activeItem) {
+        activeItem.IsActive = true;
+        // this.CurrentViewStep = undefined;
+        this.CurrentViewStep = this.stepsList.find(x => x.StepNo == activeItem.StepNo);
+        this.verticalItemActiveItem = lastcompletedStepNo;
+      }
+
+      for (let index = lastcompletedStepNo + 2; index <= this.TotalSteps; index++) {
+        let pendingItem = this.seqItems.find(x => x.StepNo == index);
+        if (pendingItem) {
+          pendingItem.IsPending = true;
+        }
+      }
+
+
+      if (this.TotalSteps == this.seqItems.length && this.seqItems.length > 0) {
+        this.seqItems[this.seqItems.length - 1].IsLastItem = true;
+      }
+
+    }
+
+    this.calculateSteps();
   }
 
   SelectStepDirectly(val: number) {
@@ -262,12 +419,10 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
           let stepNo = 1;
 
-          if (this.ShowInValidStepOnLoadAsFirstItem) {
-            for (let index = 1; index <= val; index++) {
-              if (!this.stepsList[index - 1].IsStepValid) {
-                stepNo = index;
-                break;
-              }
+          for (let index = 1; index <= val; index++) {
+            if (!this.stepsList[index - 1].IsStepValid) {
+              stepNo = index;
+              break;
             }
           }
 
@@ -276,11 +431,13 @@ export class RStepperVerticalComponent implements AfterContentInit {
           let selectedStep = this.stepsList.filter(x => x.StepNo == stepNo);
 
           if (selectedStep && selectedStep.length > 0) {
+            // this.CurrentViewStep = undefined;
             this.CurrentViewStep = selectedStep[0];
           }
 
         }
         this.calculateSteps();
+
         this.cdr.detectChanges();
       });
     }
@@ -298,12 +455,13 @@ export class RStepperVerticalComponent implements AfterContentInit {
           let selectedStep = this.stepsList.filter(x => x.StepNo == stepNo);
 
           if (selectedStep && selectedStep.length > 0) {
-            this.CurrentViewStep = undefined;
+            // this.CurrentViewStep = undefined;
             this.CurrentViewStep = selectedStep[0];
           }
 
         }
         this.calculateSteps();
+
         this.cdr.detectChanges();
       });
     }
@@ -320,4 +478,15 @@ export class RStepperVerticalComponent implements AfterContentInit {
     }
   }
 
+}
+
+
+export enum RStateVerticalAlignment {
+  OnTop = 0,
+  OnLeft = 1
+}
+
+export enum RStateVerticalDisplayType {
+  OnlyCompleted = 0,
+  AllItems = 1
 }

@@ -11,7 +11,9 @@
      [StripLineColor]="StripLineColor"
      [StepNo]="item.StepNo"
      [IsDisplayStepNo]="IsDisplayStepNo"
-     [StepNoForeColor]="StepNoForeColor"
+     [StepNoForeColor]="ApplyItemForeColorToStepNo ? item.IsCompleted ? CompletedForeColor : 
+                            item.IsActive ? ActiveForeColor : PendingForeColor : 
+                        StepNoForeColor"
      [EnableShadow]="EnableShadowOnContent"
      [ContentWidth]="ContentWidth"></rsequence-vertical>    
 </div>

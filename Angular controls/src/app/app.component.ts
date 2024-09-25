@@ -41,7 +41,7 @@ import { RSelectDropdownComponent } from './Controls/rselectdropdown/rselectdrop
 import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectModel';
 import { REventsScheduleComponent } from './Controls/reventsschedule/reventsschedule.component';
 import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from './Controls/reventsschedule/reventsschedule';
-import { RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
+import { RStateVerticalAlignment, RStateVerticalDisplayType, RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
 import { RStepComponent } from "./Controls/rstep/rstep.component";
 import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
 
@@ -157,12 +157,17 @@ export class AppComponent implements AfterViewInit {
   gridItems1:any[] = [];
   selectDropdownItems: DropdownModel[] = [];
 
+  showVerticalItems: boolean =true;
+
   dates: string [] = [];
   dates1: string [] = [];
   selectedDate: string = "";
   stepOneValid: boolean = false;
   stepTwoValid: boolean = false;
   stepThreeValid: boolean =false;
+  
+  stepperDisplayType: RStateVerticalDisplayType = RStateVerticalDisplayType.AllItems;
+  stepperAlign: RStateVerticalAlignment = RStateVerticalAlignment.OnTop;  
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -218,6 +223,27 @@ export class AppComponent implements AfterViewInit {
     this.populateGridValues();
     this.populateSelectDropdownItems();
     this.createScheduleItems();
+  }
+
+  changeStepperDisplayType($event: any){
+    if(this.stepperDisplayType == RStateVerticalDisplayType.AllItems){
+      this.stepperDisplayType = RStateVerticalDisplayType.OnlyCompleted;
+    } else {
+      this.stepperDisplayType = RStateVerticalDisplayType.AllItems;
+    }
+  }
+  
+  changeShow($event: any){
+    this.showVerticalItems = !this.showVerticalItems;
+  }
+
+  changeStepperAlign($event: any){
+    if(this.stepperAlign== RStateVerticalAlignment.OnLeft){
+      this.stepperAlign = RStateVerticalAlignment.OnTop;
+    } else{
+      this.stepperAlign = RStateVerticalAlignment.OnLeft;
+      this.stepperDisplayType = RStateVerticalDisplayType.AllItems;
+    }
   }
 
   stepOneSave($event: Event){

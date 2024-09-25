@@ -219,9 +219,22 @@
     </rgrid>
   </div>
   <br />
+  
+  <rswitch [DisplayLabel]="'Change Display Type'"  (checked)="changeStepperDisplayType($event)"></rswitch>
+  {{stepperDisplayType}}
+
+  <rswitch [DisplayLabel]="'Change Align'"  (checked)="changeStepperAlign($event)"></rswitch>
+  {{stepperAlign}}
+
+  <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
+  {{showVerticalItems}}
+
   <br />
 
-  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530"  (OnCompletedClick)="StepsCompleted($event)">
+  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530"  (OnCompletedClick)="StepsCompleted($event)"
+   [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType" 
+   [(StateVerticalAlignment)]="stepperAlign">
+
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
 

@@ -28,7 +28,9 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
 
   public _allItemsAreInBottom: boolean = false;
   
-  
+  @Input()
+  public ApplyItemForeColorToStepNo: boolean = false;
+
   @Input()
   public IsDisplayStepNo: boolean = true;
 

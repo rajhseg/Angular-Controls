@@ -277,12 +277,20 @@ RStepper-Vertical
 -------------------------------
 <br />
 
+RStateVerticalItems on Top
+----------------------------------
 ![image](https://github.com/user-attachments/assets/02d8494e-2a5f-4f5b-9db4-be6754170235)
 
+RStateVerticalItems on Left
+----------------------------------
 ![image](https://github.com/user-attachments/assets/a4f685b6-bbd6-476d-94cc-1ab59405f438)
 
+RStateVerticalItems not Present or Display
+--------------------------------------------
 ![image](https://github.com/user-attachments/assets/473f3e5c-761f-48fe-976a-947550afe452)
 
+RStepper-Vertical After Completion
+-------------------------------------
 ![image](https://github.com/user-attachments/assets/430cbfc1-a7b8-4b7b-a888-c5196e49e084)
 
 <br />

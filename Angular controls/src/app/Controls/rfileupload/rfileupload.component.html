@@ -22,9 +22,9 @@
             </span>
 
         </div>
-        <div *ngIf="showFiles" class="tableContainer" 
+        <div *ngIf="showFiles" class="tableContainer rfileuploaddropdownclose" id="dropdownId"
             [ngClass]="{'dropdown-content': ShowFilesAsDropdownContainer }"
-            [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse', 'height':'100%',
+            [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse', 'height':'fit-content',
                 'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
             <table class="tab">
                 <thead>

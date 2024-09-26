@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChi
 import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rfileupload',
@@ -15,7 +16,10 @@ import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
       useExisting:forwardRef(()=>RfileuploadComponent),
       multi: true
     }
-  ]
+  ],
+  host: {
+    "(window:click)": "windowOnClick($event)"
+  }
 })
 export class RfileuploadComponent implements ControlValueAccessor {
   
@@ -43,6 +47,8 @@ export class RfileuploadComponent implements ControlValueAccessor {
     return Rfiles;
   }
 
+  public dropdownId: string = "";
+
   @Input()
   IconForeColor: string = "blue";
 
@@ -69,6 +75,10 @@ export class RfileuploadComponent implements ControlValueAccessor {
 
   onChanged: Function = ()=> {};
   onTouched: Function = ()=> {};
+
+  constructor(private windowHelper: WindowHelper){
+    this.dropdownId = windowHelper.GenerateUniqueId();   
+  }
 
   browse($event: Event) {
     (this.rFile.nativeElement as HTMLElement).click();
@@ -119,12 +129,40 @@ export class RfileuploadComponent implements ControlValueAccessor {
     if (this._files != undefined) {
       if (this._files.length > 0) {
         this.DisplayText = "(" + (this._files.length) + ") files";
+      } else{
+        this.DisplayText ="";
       }
     }
   }
 
   toggle($event: Event) {
     this.showFiles = !this.showFiles;
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
+  
+  windowOnClick($event: Event) {        
+    let i =15;
+    let element = $event.srcElement;
+    let sameelementClicked: boolean = false;
+    let elementId: string | undefined = undefined;
+
+    while(element!=undefined && i>-1){
+      if((element as HTMLElement).classList.contains('rfileuploaddropdownclose')){
+        elementId = (element as HTMLElement).id;
+        if(elementId==this.dropdownId) {
+          sameelementClicked = true;
+        }
+        break;
+      }
+
+      i--;
+      element = (element as HTMLElement).parentElement;
+    }
+
+    if(!sameelementClicked)
+        this.showFiles = false;
   }
 
 }

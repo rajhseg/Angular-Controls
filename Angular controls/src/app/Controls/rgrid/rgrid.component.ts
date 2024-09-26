@@ -8,6 +8,7 @@ import { RDropdownComponent } from "../dropdown/dropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rgrid',
@@ -104,7 +105,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     return this._items;
   }
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
     let ditems: DropdownModel[] = [];
     ditems.push(new DropdownModel(5, "5"));
     ditems.push(new DropdownModel(10, "10"));
@@ -400,34 +401,35 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   }
 
   ngAfterContentInit(): void {
-    if (this.Columns && this.Columns.length > 0) {
-      this.ColumnsNotDefined = false;
-      setTimeout(() => {
-        this.ExtractHeadersFromTemplate();
-        this.DataItems = this.PopulateData();
-        this.AssignEditRowWhenLoad();
-        this.filterPerPage();
-        //this.createGroup();
-        this.sortData();
-        this.cdr.detectChanges();
-      }, 500);
-    } else {
-      this.ColumnsNotDefined = true;
-      if (this.ColumnsNotDefined) {
-        //setTimeout(()=>{
+    if (this.winObj.isExecuteInBrowser()) {
+      if (this.Columns && this.Columns.length > 0) {
+        this.ColumnsNotDefined = false;
+          setTimeout(() => {
+            this.ExtractHeadersFromTemplate();
+            this.DataItems = this.PopulateData();
+            this.AssignEditRowWhenLoad();
+            this.filterPerPage();
+            //this.createGroup();
+            this.sortData();
+            this.cdr.detectChanges();
+          }, 500);
+      } else {
+        this.ColumnsNotDefined = true;
+        if (this.ColumnsNotDefined) {
+          setTimeout(()=>{
 
-        this.ExtractHeader();
-        this.DataItems = this.PopulateDefaultData();
-        this.AssignEditRowWhenLoad();
-        this.filterPerPage();
-        // this.createGroup();
-        this.sortData();
-        this.cdr.detectChanges();
+            this.ExtractHeader();
+            this.DataItems = this.PopulateDefaultData();
+            this.AssignEditRowWhenLoad();
+            this.filterPerPage();
+            // this.createGroup();
+            this.sortData();
+            this.cdr.detectChanges();
 
-        //}, 500);      
+          }, 500);      
+        }
       }
     }
-
 
   }
 

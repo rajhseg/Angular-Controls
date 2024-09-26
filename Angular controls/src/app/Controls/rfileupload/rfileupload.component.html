@@ -23,15 +23,17 @@
 
         </div>
         <div *ngIf="showFiles" class="tableContainer" 
-            [ngStyle]="{'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
+            [ngClass]="{'dropdown-content': ShowFilesAsDropdownContainer }"
+            [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse',
+                'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
             <table class="tab">
                 <thead>
-                    <th>Name</th>
+                    <th style="width: 170px;">Name</th>
                     <th>Size</th>                    
                 </thead>
                 <tbody class="">
                     <tr *ngFor="let item of Files" [ngStyle]="{ 'color': TextForeColor }">
-                        <td>{{item.name}}</td>
+                        <td style="text-wrap: wrap;">{{item.name}}</td>
                         <td>{{item.size}}</td>                        
                     </tr>
                 </tbody>

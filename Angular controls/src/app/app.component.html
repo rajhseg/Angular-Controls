@@ -95,7 +95,7 @@
   </div>
 
   <div>
-    <rfileupload [EnableShadowEffect]="true" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
+    <rfileupload [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
   </div>
 
   <div>
@@ -122,9 +122,9 @@
 
   <br />
 
-  <rtimer [EnableShadowEffect]="true"></rtimer>
+  <rtimer [EnableShadowEffect]="false"></rtimer>
   <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="'orangered'" [MinuteForeColor]="'orangered'"
-    [SecondsForeColor]="'orangered'" [DisplayTextForeColor]="'orangered'" [EnableShadowEffect]="true"
+    [SecondsForeColor]="'orangered'" [DisplayTextForeColor]="'orangered'" [EnableShadowEffect]="false"
     [CircularWidth]="70"></rtimer>
 
   <br />

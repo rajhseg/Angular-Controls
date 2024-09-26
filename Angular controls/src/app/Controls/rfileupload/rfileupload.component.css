@@ -33,6 +33,18 @@
     opacity: 0.4;
 }
 
+.dropdown-content {
+    visibility: collapse;
+    position: absolute;
+    background-color: #f1f1f1;
+    overflow: auto;     
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    overflow-y: auto;
+    z-index: 10;
+    margin-top: 5px;
+    border: 1px solid lightgray;
+  }
+
 .rcontainer {
     width:200px;
     height: 30px;    
@@ -101,7 +113,8 @@
 }
 
 .tableContainer {    
-    overflow-y: auto;    
+    overflow-y: auto;   
+    background-color: white;           
 }
 
 .tab{

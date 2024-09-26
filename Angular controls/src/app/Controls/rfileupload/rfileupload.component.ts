@@ -47,6 +47,9 @@ export class RfileuploadComponent implements ControlValueAccessor {
   IconForeColor: string = "blue";
 
   @Input()
+  ShowFilesAsDropdownContainer: boolean = false;
+  
+  @Input()
   TextForeColor: string = "gray";
 
   @Input()

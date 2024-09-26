@@ -95,9 +95,21 @@
   </div>
 
   <div>
-    <rfileupload [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
-  </div>
 
+    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'" 
+      [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" 
+      (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
+
+  </div>
+  <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
+ <br />
   <div>
     <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
     <rtextbox [LabelText]="'Email'"></rtextbox>

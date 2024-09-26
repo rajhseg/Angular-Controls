@@ -24,7 +24,7 @@
         </div>
         <div *ngIf="showFiles" class="tableContainer" 
             [ngClass]="{'dropdown-content': ShowFilesAsDropdownContainer }"
-            [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse',
+            [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse', 'height':'100%',
                 'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
             <table class="tab">
                 <thead>

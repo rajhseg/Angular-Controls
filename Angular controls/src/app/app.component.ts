@@ -44,6 +44,7 @@ import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from
 import { RStateVerticalAlignment, RStateVerticalDisplayType, RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
 import { RStepComponent } from "./Controls/rstep/rstep.component";
 import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
+import { RPieChartComponent, RPieChartItem } from "./Controls/rpiechart/rpiechart.component";
 
 @Component({
   selector: 'app-root',
@@ -82,7 +83,8 @@ import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
     REventsScheduleComponent,
     RStepperVerticalComponent,
     RStepComponent,
-    RStepViewDirective
+    RStepViewDirective,
+    RPieChartComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -119,6 +121,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   timerDisplayType: TimerType = TimerType.Circle;
   
+  pieItems: RPieChartItem[] = [];
+
   multiValue: DropdownModel[] = [];
   singleValue!: DropdownModel;
 
@@ -224,10 +228,27 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.populateGridValues();
       this.populateSelectDropdownItems();
       this.createScheduleItems();    
+      this.createPieItems();
   }
 
   ngAfterContentChecked(): void {
     this.cdr.detectChanges();
+  }
+
+  createPieItems(){
+    let pieItem1 = new RPieChartItem(24,'Cricket', 'blue', 'white');
+    let pieItem2 = new RPieChartItem(35,'Volleyball', 'orange', 'white');
+    let pieItem3 = new RPieChartItem(12,'Tennis', 'yellow', 'white');
+    let pieItem4 = new RPieChartItem(44,'BaseBall', 'lightgreen', 'white');
+    let pieItem5 = new RPieChartItem(14,'Hockey', 'orangered', 'white');
+    let pieItem6 = new RPieChartItem(44,'Football', 'green', 'white');
+
+    this.pieItems.push(pieItem1);
+    this.pieItems.push(pieItem2);
+    this.pieItems.push(pieItem3);
+    this.pieItems.push(pieItem4);
+    this.pieItems.push(pieItem5);
+    this.pieItems.push(pieItem6);
   }
 
   changeStepperDisplayType($event: any){
@@ -637,7 +658,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
         }
 
         x.progressDisplayText = x.perc.toString() + " / 100 %";
-
+        x.cdr.detectChanges();
       }, 500, obj);
     }
   }

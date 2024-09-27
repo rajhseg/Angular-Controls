@@ -25,6 +25,7 @@
         <div *ngIf="showFiles" class="tableContainer rfileuploaddropdownclose" id="dropdownId"
             [ngClass]="{'dropdown-content': ShowFilesAsDropdownContainer }"
             [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse', 'height':'fit-content',
+                'background-color': ShowFilesAsDropdownContainer ? 'white': '',
                 'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
             <table class="tab">
                 <thead>

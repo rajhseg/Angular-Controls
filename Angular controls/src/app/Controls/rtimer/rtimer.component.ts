@@ -10,7 +10,8 @@ import { NgIf, NgStyle } from '@angular/common';
   standalone: true,
   imports: [NgIf, RProgressbarComponent, NgStyle],
   templateUrl: './rtimer.component.html',
-  styleUrl: './rtimer.component.css'
+  styleUrl: './rtimer.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RTimerComponent implements OnInit, OnDestroy {
 
@@ -126,7 +127,7 @@ export class RTimerComponent implements OnInit, OnDestroy {
     return this.second.toString()
   }
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
     if (this.winObj.isExecuteInBrowser())
       this.window = window;
@@ -151,6 +152,8 @@ export class RTimerComponent implements OnInit, OnDestroy {
           x.CallbackTriggeredAfterCertainSeconds.emit(timeString);
           x.count = 0;
         }
+
+        x.cdr.detectChanges();
       }, 1000, this);
     }
   }

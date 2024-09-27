@@ -23,6 +23,7 @@
 
   </div>
   <br />
+  <rpiechart [ChartWidth]="300" [Items]="pieItems" [LineWidth]="100" [Opacity]="'0.8'"></rpiechart>
   <br />
 
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
@@ -426,7 +427,7 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">
         <div style="display: flex;">
-          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files"
+          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" [ShowFilesAsDropdownContainer]="true"
             (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
       </rtab>
@@ -737,6 +738,12 @@
 
       <rtab *tabidfor="{'TabId':'tab31', 'HeaderText':'rEventsSchedule', 'Context': this}">        
         <revents-schedule [Width]="'740px'" [ScheduleItems]="scheduleItems"></revents-schedule>
+      </rtab>
+
+      <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rPieChart', 'Context': this}">
+        <br />
+          <rpiechart [ChartWidth]="300" [Items]="pieItems" [LineWidth]="80" [Opacity]="'0.7'"></rpiechart>
+        <br />
       </rtab>
 
     </rtabs>

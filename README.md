@@ -300,7 +300,7 @@ RStepper-Vertical After Completion
 RPieChart Control
 ----------------------------------
 
-![image](https://github.com/user-attachments/assets/03ee1d1c-9021-498f-b9ae-8626416038fa)
+![image](https://github.com/user-attachments/assets/878f84fc-f401-4d5b-bd27-558494c90748)
 
 <br />
 

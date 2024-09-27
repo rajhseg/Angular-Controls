@@ -17,6 +17,9 @@ export class RPieChartComponent implements AfterViewInit {
   @Input()
   DataListHeight: number = 100;
 
+  @Input()
+  ShadowColor: string = 'blue';
+
   @ViewChild('procan', { read: ElementRef<HTMLCanvasElement>, static: false })
   progressCanvas: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
@@ -97,6 +100,8 @@ export class RPieChartComponent implements AfterViewInit {
         this.context.lineWidth = this.LineWidth;
         this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);        
         this.context.strokeStyle = element.BackgroundColor;
+        this.context.shadowBlur = 10;
+        this.context.shadowColor = this.ShadowColor;
         this.context?.stroke();
         this.context.closePath();
         

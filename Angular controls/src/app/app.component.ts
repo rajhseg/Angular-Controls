@@ -237,9 +237,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createPieItems(){
     let pieItem1 = new RPieChartItem(24,'Cricket', 'blue', 'white');
-    let pieItem2 = new RPieChartItem(35,'Volleyball', 'orange', 'white');
+    let pieItem2 = new RPieChartItem(35,'Volleyball', 'purple', 'white');
     let pieItem3 = new RPieChartItem(12,'Tennis', 'yellow', 'white');
-    let pieItem4 = new RPieChartItem(44,'BaseBall', 'lightgreen', 'white');
+    let pieItem4 = new RPieChartItem(44,'BaseBall', '#6CEBC5', 'white');
     let pieItem5 = new RPieChartItem(14,'Hockey', 'orangered', 'white');
     let pieItem6 = new RPieChartItem(44,'Football', 'green', 'white');
 

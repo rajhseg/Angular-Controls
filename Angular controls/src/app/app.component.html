@@ -23,7 +23,9 @@
 
   </div>
   <br />
-    <rpiechart [ChartWidth]="300" [ShadowColor]="'blue'" [Items]="pieItems" [LineWidth]="90" [Opacity]="'0.8'"></rpiechart>
+    <rpiechart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" [ShadowColor]="'blue'" [Items]="pieItems" [Opacity]="'0.8'"></rpiechart>
+    <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'blue'" [Items]="pieItems" [Opacity]="'0.8'"></rpiechart>
+    <rpiechart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" [Items]="pieItems" [Opacity]="'0.8'"></rpiechart>
   <br />
 
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
@@ -742,7 +744,7 @@
 
       <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rPieChart', 'Context': this}">
         <br />
-          <rpiechart [ChartWidth]="300" [ShadowColor]="'red'" [Items]="pieItems" [LineWidth]="80" [Opacity]="'0.7'"></rpiechart>
+          <rpiechart [ChartWidth]="300" [ShadowColor]="'red'" [Items]="pieItems" [Opacity]="'0.7'"></rpiechart>
         <br />
       </rtab>
 

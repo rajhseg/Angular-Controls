@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { WindowHelper } from '../windowObject';
-import { NgForOf, NgStyle } from '@angular/common';
+import { NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'rpiechart',
   standalone: true,
-  imports: [NgStyle, NgForOf],
+  imports: [NgStyle, NgForOf, NgIf],
   templateUrl: './rpiechart.component.html',
   styleUrl: './rpiechart.component.css'
 })
@@ -13,6 +13,8 @@ export class RPieChartComponent implements AfterViewInit {
 
   @Input()
   ChartWidth: number = 200;
+
+  public IsRendered: boolean = false;
 
   @Input()
   DataListHeight: number = 100;
@@ -28,8 +30,12 @@ export class RPieChartComponent implements AfterViewInit {
   @Input()
   public Opacity: string = '1';
 
-  @Input()
-  public LineWidth: number = 100;
+  private _lineWidth: number = 0;
+  
+  public get LineWidth(): number {
+    this._lineWidth = (this.ChartWidth/3)- 12 ;
+    return this._lineWidth;
+  }
 
   @Input()
   public set Items(val: RPieChartItem[]) {
@@ -72,6 +78,7 @@ export class RPieChartComponent implements AfterViewInit {
   }
 
   RenderChart() {
+    this.IsRendered = false;
     if (this.progressCanvas && this.context && this._items.length > 0) {
 
       this.context.clearRect(0, 0, this.progressCanvas.nativeElement.width, this.progressCanvas.nativeElement.height);
@@ -118,6 +125,8 @@ export class RPieChartComponent implements AfterViewInit {
                 
       this.progressCanvas.nativeElement.style.transform = "rotate(-90deg)";
       this.progressCanvas.nativeElement.style.opacity = this.Opacity;
+
+      this.IsRendered = true;
     }
   }
 

@@ -1,5 +1,5 @@
 import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
-import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output, ViewChild } from '@angular/core';
 import { DropDownItemModel, DropdownModel } from './dropdownmodel';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -37,6 +37,10 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   private selectedElementRef: ElementRef | undefined = undefined;
   private isFocusDone: boolean = false;
   isSelectAllChecked: boolean = false;
+
+  @ViewChild('openbtn', { read: ElementRef}) openBtn!: ElementRef;
+  @ViewChild('myDropdown', { read: ElementRef}) mydropDown!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef}) startElement!: ElementRef;
 
   @HostBinding('style.display')
   @Input() set styleDisplay(val: any) {
@@ -390,6 +394,39 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
     this.IsDropDownOpen = currentValueToSet;
     //evt.stopPropagation();
+    
+  }
+
+  AttachDropdown(){
+    let windowHeight = this.winObj.innerHeight;    
+    if(this.openBtn.nativeElement && this.mydropDown.nativeElement){
+      let btn = this.openBtn.nativeElement as HTMLElement;
+      let dropDownElement = this.mydropDown.nativeElement as HTMLElement;
+      let dropDownHeight = dropDownElement.clientHeight;
+      let btnPosTop = btn.getBoundingClientRect().top;
+
+      if(windowHeight - btnPosTop < dropDownHeight){
+        dropDownElement.style.bottom = '120%';
+        dropDownElement.style.top = 'auto';
+      } else {
+        dropDownElement.style.top = '110%';
+        dropDownElement.style.bottom = 'auto';
+      }
+    }
+
+    let windowWidth = this.winObj.innerWidth;
+    if(this.startElement.nativeElement && this.mydropDown.nativeElement){
+      let start = this.startElement.nativeElement as HTMLElement;
+      let dropDownElement = this.mydropDown.nativeElement as HTMLElement;
+      let dropDownWidth = dropDownElement.clientWidth;
+      let startPos = start.getBoundingClientRect();      
+      
+      if(windowWidth - startPos.left < dropDownWidth){
+        dropDownElement.style.left = (startPos.right - startPos.left - dropDownWidth) - 5 + 'px';
+      } else {
+        dropDownElement.style.left ='0px';;                
+      }
+    }
   }
 
   AssignItems(item: DropDownItemModel, val: boolean) {

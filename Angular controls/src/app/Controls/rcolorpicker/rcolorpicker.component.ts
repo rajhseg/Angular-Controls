@@ -153,7 +153,7 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
     this.mainColorRgb = "rgb(255,0,0)";
     this.mainColorHex = this.RGBToHex(255, 0, 0);
     this._mainColorGradients = [];
-    this.Id = this.windowHelper.GenerateUniqueId();
+    this.Id = this.windowHelper.GenerateUniqueId();    
   }
 
   writeValue(obj: any): void {

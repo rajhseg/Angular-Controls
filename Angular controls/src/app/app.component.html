@@ -95,19 +95,15 @@
   </div>
 
   <div>
+    <br />
 
-    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'" 
+  <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'" 
       [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" 
-      (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)"></rfileupload>
+      (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
+  </rfileupload>
 
   </div>
-  <br />
- <br />
- <br />
- <br />
- <br />
- <br />
- <br />
+  
  <br />
  <br />
   <div>
@@ -244,8 +240,8 @@
   <br />
 
   <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530"  (OnCompletedClick)="StepsCompleted($event)"
-   [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType" 
-   [(StateVerticalAlignment)]="stepperAlign">
+   [ShowStateVertical]="showVerticalItems" [(StateVerticalAlignment)]="stepperAlign" 
+   [(StateVerticalDisplayType)]="stepperDisplayType">
 
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>

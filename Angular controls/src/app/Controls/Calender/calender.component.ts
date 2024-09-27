@@ -83,7 +83,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   @Output()
   onDateSelected = new EventEmitter<Date>(); // output<Date>();
 
-  @ViewChild('calmodal') calModal!: ElementRef;
+  @ViewChild('calmodal', { read: ElementRef}) calModal!: ElementRef;
 
   @Input()
   EnableFilterOptionForYear: boolean = true;
@@ -93,6 +93,10 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   
   @Input()
   IsChildOfAnotherControl: boolean = false;
+
+  @ViewChild('openbtn', { read: ElementRef}) openBtn!: ElementRef;  
+  @ViewChild('startElement', { read: ElementRef}) startElement!: ElementRef;
+
 
   IsChildOfAnotherControlClicked: boolean = false;
 
@@ -382,7 +386,42 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
     this.RenderUI(this.Value);
     this.NotifyToModel();
-    $evt.stopPropagation();
+    $evt.stopPropagation();    
+  }
+
+    
+  AttachDropdown(){
+    let windowHeight = this.winObj.innerHeight;  
+
+    if(this.openBtn.nativeElement && this.calModal.nativeElement){
+      let btn = this.openBtn.nativeElement as HTMLElement;
+      let dropDownElement = this.calModal.nativeElement as HTMLElement;
+      let dropDownHeight = dropDownElement.clientHeight;
+      let btnPosTop = btn.getBoundingClientRect().top;
+
+      if(windowHeight - btnPosTop < dropDownHeight){
+        dropDownElement.style.bottom = '120%';
+        dropDownElement.style.top = 'auto';
+      } else {
+        dropDownElement.style.top = '110%';
+        dropDownElement.style.bottom = 'auto';        
+        
+      }
+    }
+
+    let windowWidth = this.winObj.innerWidth;
+    if(this.startElement.nativeElement && this.calModal.nativeElement){
+      let start = this.startElement.nativeElement as HTMLElement;
+      let dropDownElement = this.calModal.nativeElement as HTMLElement;
+      let dropDownWidth = dropDownElement.clientWidth;
+      let startPos = start.getBoundingClientRect();      
+      
+      if(windowWidth - startPos.left < dropDownWidth){
+        dropDownElement.style.left = (startPos.right - startPos.left - dropDownWidth) - 5 + 'px';
+      } else {
+        dropDownElement.style.left ='0px';        
+      }
+    }
   }
 
   closeCalender() {

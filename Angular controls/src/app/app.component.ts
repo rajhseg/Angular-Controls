@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, viewChild, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, viewChild, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalenderComponent } from './Controls/Calender/calender.component';
 import { RDropdownComponent } from './Controls/dropdown/dropdown.component';
@@ -83,9 +83,10 @@ import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
     RStepperVerticalComponent,
     RStepComponent,
     RStepViewDirective
-]
+],
+changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   time1: string = "1:45 PM";
   time2: string ="13:6";
@@ -174,55 +175,59 @@ export class AppComponent implements AfterViewInit {
   
   @ViewChild('sequhorizontal', {read: RStateHorizontalComponent}) sequhorizontal!: RStateHorizontalComponent;
 
-  constructor(private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {
-    this.items.push(new DropdownModel("0", "Jan"));
-    this.items.push(new DropdownModel("1", "Feb"));
-    this.items.push(new DropdownModel("2", "Mar"));
-    this.items.push(new DropdownModel("4", "Apr"));
-    this.items.push(new DropdownModel("5", "May"));
-    this.items.push(new DropdownModel("6", "Jun"));
-    this.items.push(new DropdownModel("7", "Jly"));
-    this.items.push(new DropdownModel("8", "Aug"));
-    this.items.push(new DropdownModel("9", "Sep"));
+  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {    
+      this.items.push(new DropdownModel("0", "Jan"));
+      this.items.push(new DropdownModel("1", "Feb"));
+      this.items.push(new DropdownModel("2", "Mar"));
+      this.items.push(new DropdownModel("4", "Apr"));
+      this.items.push(new DropdownModel("5", "May"));
+      this.items.push(new DropdownModel("6", "Jun"));
+      this.items.push(new DropdownModel("7", "Jly"));
+      this.items.push(new DropdownModel("8", "Aug"));
+      this.items.push(new DropdownModel("9", "Sep"));
 
-    // this.items1.push(new DropdownModel("0", "Jan"));
-    // this.items1.push(new DropdownModel("1", "Feb"));
-    // this.items1.push(new DropdownModel("2", "Mar"));
-    // this.items1.push(new DropdownModel("4", "Apr"));
-    // this.items1.push(new DropdownModel("5", "May"));
-    // this.items1.push(new DropdownModel("6", "Jun"));
-    // this.items1.push(new DropdownModel("7", "Jly"));
-    // this.items1.push(new DropdownModel("8", "Aug"));
-    // this.items1.push(new DropdownModel("9", "Sep"));
+      // this.items1.push(new DropdownModel("0", "Jan"));
+      // this.items1.push(new DropdownModel("1", "Feb"));
+      // this.items1.push(new DropdownModel("2", "Mar"));
+      // this.items1.push(new DropdownModel("4", "Apr"));
+      // this.items1.push(new DropdownModel("5", "May"));
+      // this.items1.push(new DropdownModel("6", "Jun"));
+      // this.items1.push(new DropdownModel("7", "Jly"));
+      // this.items1.push(new DropdownModel("8", "Aug"));
+      // this.items1.push(new DropdownModel("9", "Sep"));
 
-    this.items1.push("Jan 24");
-    this.items1.push("Feb 24");
-    this.items1.push("Mar 24");
-    this.items1.push("Apr 24");
-    this.items1.push("May 24");
-    this.items1.push("Jun 24");
-    this.items1.push("Jly 24");
-    this.items1.push("Aug 24");
+      this.items1.push("Jan 24");
+      this.items1.push("Feb 24");
+      this.items1.push("Mar 24");
+      this.items1.push("Apr 24");
+      this.items1.push("May 24");
+      this.items1.push("Jun 24");
+      this.items1.push("Jly 24");
+      this.items1.push("Aug 24");
 
-    this.singleValue = new DropdownModel("Apr 24","Apr 24");
-    this.multiValue.push(new DropdownModel("5", "May"));
-    this.multiValue.push(new DropdownModel("7", "Jly"));
-        
-    if (this.winObj.isExecuteInBrowser())
-      this.window = window;
+      this.singleValue = new DropdownModel("Apr 24","Apr 24");
+      this.multiValue.push(new DropdownModel("5", "May"));
+      this.multiValue.push(new DropdownModel("7", "Jly"));
+          
+      if (this.winObj.isExecuteInBrowser())
+        this.window = window;
 
-    this.selItem = [];
-    this.selItem.push(this.items[5]);
+      this.selItem = [];
+      this.selItem.push(this.items[5]);
 
-    this.curDate = "";
-    this.perc = 55;
-    this.IncrementValue(this);
-    this.createTreeData();
-    this.createSequenceVerticalItems();
-    this.createSequenceHorizontalItems();
-    this.populateGridValues();
-    this.populateSelectDropdownItems();
-    this.createScheduleItems();
+      this.curDate = "";
+      this.perc = 55;
+      this.IncrementValue(this);
+      this.createTreeData();
+      this.createSequenceVerticalItems();
+      this.createSequenceHorizontalItems();
+      this.populateGridValues();
+      this.populateSelectDropdownItems();
+      this.createScheduleItems();    
+  }
+
+  ngAfterContentChecked(): void {
+    this.cdr.detectChanges();
   }
 
   changeStepperDisplayType($event: any){
@@ -616,10 +621,8 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    if (this.tabs) {
-
-    }
+  ngAfterViewInit(): void {    
+   
   }
 
   IncrementValue(obj: AppComponent) {

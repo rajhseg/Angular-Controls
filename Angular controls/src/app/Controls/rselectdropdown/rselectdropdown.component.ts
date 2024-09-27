@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Injector, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Injector, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ROptionsTemplateDirective, RSelectItemModel } from './rselectModel';
 import { CommonModule, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -142,6 +142,11 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   Id: string = '';
   private winObj!: Window;
   private injector = inject(Injector);
+  
+  @ViewChild('openbtn', { read: ElementRef}) openBtn!: ElementRef;
+  @ViewChild('myDropdown', { read: ElementRef}) mydropDown!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef}) startElement!: ElementRef;
+
 
   constructor(private windowHelper: WindowHelper) {
     this.Id = windowHelper.GenerateUniqueId();    
@@ -371,6 +376,40 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     }
 
     this.IsDropDownOpen = currentValueToSet;    
+  }
+
+  
+  AttachDropdown(){
+    let windowHeight = this.winObj.innerHeight;    
+    if(this.openBtn.nativeElement && this.mydropDown.nativeElement){
+      let btn = this.openBtn.nativeElement as HTMLElement;
+      let dropDownElement = this.mydropDown.nativeElement as HTMLElement;
+      let dropDownHeight = dropDownElement.clientHeight;
+      let btnPosTop = btn.getBoundingClientRect().top;
+
+      if(windowHeight - btnPosTop < dropDownHeight){
+        dropDownElement.style.bottom = '120%';
+        dropDownElement.style.top = 'auto';
+      } else {
+        dropDownElement.style.top = '110%';
+        dropDownElement.style.bottom = 'auto';        
+        
+      }
+    }
+
+    let windowWidth = this.winObj.innerWidth;
+    if(this.startElement.nativeElement && this.mydropDown.nativeElement){
+      let start = this.startElement.nativeElement as HTMLElement;
+      let dropDownElement = this.mydropDown.nativeElement as HTMLElement;
+      let dropDownWidth = dropDownElement.clientWidth;
+      let startPos = start.getBoundingClientRect();      
+      
+      if(windowWidth - startPos.left < dropDownWidth){
+        dropDownElement.style.left = (startPos.right - startPos.left - dropDownWidth) - 5 + 'px';
+      } else {
+        dropDownElement.style.left ='0px';        
+      }
+    }
   }
 
   AssignItems(item: RSelectItemModel, val: boolean) {

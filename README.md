@@ -1,4 +1,3 @@
-<div style="zoom:80%">this is sample text </div>
 
 # Angular-Controls
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.

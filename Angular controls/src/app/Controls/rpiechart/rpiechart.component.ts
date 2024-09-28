@@ -100,18 +100,22 @@ export class RPieChartComponent implements AfterViewInit {
       for (let index = 0; index < this._items.length; index++) {
         const element = this._items[index];
 
-        let precentage = (element.Value * 100) / TotalCount;
-        let end1 = (precentage/100 ) * 359.98 * (Math.PI / 180);
+        let percentage = (element.Value * 100) / TotalCount;
+        let end1 = (percentage/100 ) * 359.98 * (Math.PI / 180);
 
+        element.Percentage = percentage;
+        this.context.fillStyle = element.BackgroundColor;
         this.context?.beginPath();
         this.context.lineWidth = this.LineWidth;
-        this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);        
+                
+        this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);                        
         this.context.strokeStyle = element.BackgroundColor;
+                
         this.context.shadowBlur = 10;
         this.context.shadowColor = this.ShadowColor;
         this.context?.stroke();
         this.context.closePath();
-        
+                
         let pos = this.GetXYForText(x, y, 70, (previousAngle));
         console.log(pos);
         

@@ -46,7 +46,7 @@ width: fit-content;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 10px;  
 }
 .week { 
     display: flex; 
@@ -149,22 +149,31 @@ width: fit-content;
     overflow-y: auto;
   }
 
+  .calIconContainer {
+    position: relative; 
+    width: 0px; 
+    height: 0px;
+    display: flex; 
+    justify-content: end; 
+    align-self: auto;
+  }
+
   .calIcon {
     position: relative;
-    top: -31px;
+    top: -3px;
     cursor: pointer;
     font-size: x-large;
-    left: 158px;
+    left: -4px;
     color: #808080cf;
     width: fit-content;
   }
   
   .calIconLinux {
     position: relative;
-    top: -26px;
+    top: -3px;
     cursor: pointer;
     font-size: x-large;
-    left: 165px;
+    left: -4px;
     color: #808080cf;
     width: fit-content;
   }

@@ -127,6 +127,10 @@
     font-size: small;    
 }
 
+:host{
+    
+}
+
 .ritemHeader {    
     /* height: 50px; */
     /* width: 50px; */    

@@ -46,6 +46,10 @@
     margin-top: 2px;
   }
   
+:host {
+    
+}
+
   .dropdown-content-template {
     color: black;
     /* padding: 10px 10px; */

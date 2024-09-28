@@ -29,6 +29,12 @@
     text-align: center;    
 }
 
+.htl {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
 .number {
     text-align: center;
     font-size: 11px;    

@@ -126,7 +126,6 @@ Rstate-Vertical Control
 
 Slider
 -----------------------------
-![image](https://github.com/user-attachments/assets/7bc1cf45-f23a-43df-ade1-198156dd3946)
 
 ![image](https://github.com/user-attachments/assets/f68d20ec-2f51-4fad-8c51-531901c53533)
 
@@ -244,23 +243,10 @@ RGrid Control
 
 ![image](https://github.com/user-attachments/assets/9915b4f0-1ea6-45f2-924c-ab893753479b)
 
-
-<br />
-
-![image](https://github.com/user-attachments/assets/93be58b3-0f19-43a6-b7c5-27d2c63afd11)
-
-
 ### EditMode
-
 
 ![image](https://github.com/user-attachments/assets/39b7c50c-540d-485a-92de-911a6fb8e027)
 
-
-<br />
-
-![image](https://github.com/user-attachments/assets/563c09e4-eec1-4414-971a-b45ca7c4626e)
-
-<br/>
 <br/>
 
 REventsSchedule

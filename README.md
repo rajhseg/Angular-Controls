@@ -1,3 +1,4 @@
+
 # Angular-Controls
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
@@ -125,7 +126,6 @@ Rstate-Vertical Control
 
 Slider
 -----------------------------
-![image](https://github.com/user-attachments/assets/7bc1cf45-f23a-43df-ade1-198156dd3946)
 
 ![image](https://github.com/user-attachments/assets/f68d20ec-2f51-4fad-8c51-531901c53533)
 
@@ -155,27 +155,27 @@ Switch Control
 ProgressBar Control
 ---------------------
 
-Circle Infinite
-----------------------
+### Circle Infinite
+
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/c21e8f0a-1651-4321-9841-42a96cf7be63)
 
 <br />
 
-StraightLine Infinite
-----------------------
+### StraightLine Infinite
+
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/36481afd-9963-4fc3-8f71-cbe003061d09)
 
 <br />
 
 
-StraightLine Finite
-----------------------
+### StraightLine Finite
+
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/f429bb04-072f-4b12-af27-bf1fc2636fda)
 
 <br />
 
-Circular Finite
------------------------
+### Circular Finite
+
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/b5e76ad3-cfca-4fd4-999a-f8a68c544537)
 
 <br />
@@ -239,28 +239,14 @@ RGrid Control
 ------------------------------
 <br/>
 
-ViewMode
----------
+### ViewMode
 
 ![image](https://github.com/user-attachments/assets/9915b4f0-1ea6-45f2-924c-ab893753479b)
 
-
-<br />
-
-![image](https://github.com/user-attachments/assets/93be58b3-0f19-43a6-b7c5-27d2c63afd11)
-
-
-EditMode
-----------
+### EditMode
 
 ![image](https://github.com/user-attachments/assets/39b7c50c-540d-485a-92de-911a6fb8e027)
 
-
-<br />
-
-![image](https://github.com/user-attachments/assets/563c09e4-eec1-4414-971a-b45ca7c4626e)
-
-<br/>
 <br/>
 
 REventsSchedule
@@ -279,20 +265,20 @@ RStepper-Vertical
 -------------------------------
 <br />
 
-RStateVerticalItems on Top
-----------------------------------
+### RStateVerticalItems on Top
+
 ![image](https://github.com/user-attachments/assets/02d8494e-2a5f-4f5b-9db4-be6754170235)
 
-RStateVerticalItems on Left
-----------------------------------
+### RStateVerticalItems on Left
+
 ![image](https://github.com/user-attachments/assets/a4f685b6-bbd6-476d-94cc-1ab59405f438)
 
-RStateVerticalItems not Present or Display
---------------------------------------------
+### RStateVerticalItems not Present or Display
+
 ![image](https://github.com/user-attachments/assets/473f3e5c-761f-48fe-976a-947550afe452)
 
-RStepper-Vertical After Completion
--------------------------------------
+### RStepper-Vertical After Completion
+
 ![image](https://github.com/user-attachments/assets/430cbfc1-a7b8-4b7b-a888-c5196e49e084)
 
 <br />

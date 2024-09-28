@@ -14,7 +14,7 @@ Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperV
 button control
 --------------------------------------
 
-![image](https://github.com/user-attachments/assets/c95d1ba1-c6fb-4672-be5b-7b994ab89992){:height="80%" width="80%"}
+![image](https://github.com/user-attachments/assets/c95d1ba1-c6fb-4672-be5b-7b994ab89992)
 
 ![image](https://github.com/user-attachments/assets/91c0f233-af11-4a8a-81d7-bf70a431528a)
 

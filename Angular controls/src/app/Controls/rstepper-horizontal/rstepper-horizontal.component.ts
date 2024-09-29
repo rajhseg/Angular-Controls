@@ -255,7 +255,7 @@ export class RStepperHorizontalComponent implements AfterContentInit {
       this.seqItems[this.seqItems.length - 1].IsLastItem = true;
     }
 
-    if (this.stepsList.length > 0 && this.stepsList[this.stepsList.length - 1].IsStepValid) {
+    if (this.stepsList.length > 0 && this.stepsList.every(x=>x.IsStepValid)) {
       this.IsCompleted = true;
       this.IsLastStepFinished = true;      
       this.verticalItemActiveItem = this.TotalSteps + 1;

@@ -11,6 +11,13 @@
     height: 30px;
 }
 
+.completedBtn {
+    display: flex; 
+    flex-direction: row;
+    margin-top: 25px;
+    align-self: end;
+}
+
 .stepHeader {
     border-bottom: 1px solid lightgray;
     padding:10px;

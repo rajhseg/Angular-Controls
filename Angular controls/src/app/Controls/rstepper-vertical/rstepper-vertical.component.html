@@ -27,18 +27,18 @@
         <div style="display: flex; flex-direction: row;margin-top: 25px;" *ngIf="IsLastStepFinished">
 
             <div class="done">
-                <rbutton (ButtonClick)="CompletedClick($event)" 
-                    [ForeColor]="CompletedButtonForeColor" 
-                    [BackgroundColor]="CompletedButtonBackColor">
-                    Completed
+                <rbutton (ButtonClick)="PrevStep()" 
+                    [ForeColor]="BackButtonForeColor" 
+                    [BackgroundColor]="BackButtonBackColor">
+                    Back
                 </rbutton>
             </div>
 
             <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" 
-                    [BackgroundColor] = "BackButtonBackColor"
-                    [ForeColor] = "BackButtonForeColor"
-                    (ButtonClick)="PrevStep()">
-                    Back
+                    [BackgroundColor] = "CompletedButtonBackColor"
+                    [ForeColor] = "CompletedButtonForeColor"
+                    (ButtonClick)="CompletedClick($event)">                    
+                    Completed
             </rbutton>
 
         </div>
@@ -67,18 +67,18 @@
             <div style="display: flex; flex-direction: row;margin-top: 25px;" *ngIf="IsLastStepFinished">
     
                 <div class="done">
-                    <rbutton (ButtonClick)="CompletedClick($event)" 
-                        [ForeColor]="CompletedButtonForeColor" 
-                        [BackgroundColor]="CompletedButtonBackColor">
-                        Completed
+                    <rbutton (ButtonClick)="PrevStep()" 
+                        [ForeColor]="BackButtonForeColor" 
+                        [BackgroundColor]="BackButtonBackColor">
+                        Back
                     </rbutton>
                 </div>
     
                 <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" 
-                        [BackgroundColor] = "BackButtonBackColor"
-                        [ForeColor] = "BackButtonForeColor"
-                        (ButtonClick)="PrevStep()">
-                        Back
+                        [BackgroundColor] = "CompletedButtonBackColor"
+                        [ForeColor] = "CompletedButtonForeColor"
+                        (ButtonClick)="CompletedClick($event)">
+                        Completed
                 </rbutton>
     
             </div>

@@ -64,8 +64,9 @@
 .completedBtn {
     display: flex; 
     flex-direction: row;
-    margin-top: 10px;
-    margin-left: 25px
+    margin-top: 20px;
+    margin-right: -26px;
+    align-self: end;
 }
 
 .nos{

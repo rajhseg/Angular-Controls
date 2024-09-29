@@ -261,6 +261,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
         if (this.StateVerticalDisplayType == RStateDisplayType.OnlyCompleted) {
           this.verticalItemActiveItem = index;          
           this.CurrentViewStep = this.stepsList[index];
+          this._activeStepNo = this.CurrentViewStep.StepNo;
           break;
         }
 
@@ -274,6 +275,10 @@ export class RStepperVerticalComponent implements AfterContentInit {
           if (isActiveItem) {
             CurrentOrPendingItem.IsActive = true;            
             this.CurrentViewStep = this.stepsList.find(x => x.StepNo == element.StepNo);
+            
+            if(this.CurrentViewStep)
+              this._activeStepNo = this.CurrentViewStep.StepNo;
+
             this.verticalItemActiveItem = index;
             isActiveItem = false;
           } else {
@@ -294,7 +299,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
       this.seqItems[this.seqItems.length - 1].IsLastItem = true;
     }
 
-    if (this.stepsList.length > 0 && this.stepsList[this.stepsList.length - 1].IsStepValid) {
+    if (this.stepsList.length > 0 && this.stepsList.every(x=>x.IsStepValid)) {
       this.IsCompleted = true;
       this.IsLastStepFinished = true;      
       this.verticalItemActiveItem = this.TotalSteps + 1;

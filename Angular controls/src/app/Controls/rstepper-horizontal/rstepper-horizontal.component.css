@@ -1,0 +1,129 @@
+
+
+
+:host{
+    
+}
+
+.stepFooter {
+    border-top:1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-top: 15px;    
+    padding:10px;
+    height: 30px;
+}
+
+.stepHeader {
+    border-bottom: 1px solid lightgray;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom: 15px;
+    color: blue;
+    font-size: small;
+    height: 20px;
+}
+
+.box {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+}
+
+.contentContainer {
+    border-top-left-radius: 1%;
+    border-top-right-radius: 1%;
+    border-bottom-left-radius: 1%;
+    border-bottom-right-radius: 1%;
+    border: 1px solid lightgray; 
+    overflow: auto;
+    margin-left: 25px;
+}
+
+.bar {
+    height: 5px;    
+    border: 1px solid lightgray;
+}
+
+.circle {
+    width: 26px;
+    height: 22px;
+    border-radius: 50%;
+    /* border: 1px solid white; */
+    position: relative;
+    background-color: white;
+    text-align: center;
+    align-content: center;    
+    font-size: small;
+}
+
+.activecircle {
+    top: -13px;    
+    width: 34px;
+    height: 30px;  
+    color:blue;  
+}
+
+.completedBtn {
+    display: flex; 
+    flex-direction: row;
+    margin-top: 10px;
+    margin-left: 25px
+}
+
+.nos{
+    display: flex;
+    flex-direction: row;
+    margin-top:-8px;
+    justify-content: space-between;
+}
+
+.fcircle {
+    top: -8px;    
+    width: 24px;
+    height: 22px;     
+}
+
+.scircle {
+    top: -8px;    
+    width: 24px;
+    height: 20px; 
+    color: green;
+}
+
+.focircle {
+    top: -8px;    
+    width: 24px;
+    height: 20px; 
+    color: lightgray;
+}
+
+.ficircle {
+    top: -8px;    
+    width: 24px;
+    height: 20px; 
+    color: lightgray;
+}
+
+.done 
+{
+    color: green;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+.items {    
+    position: relative;
+    margin-left: 24px;
+    margin-bottom: 8px;
+}
+
+.barContainer {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-left: 24px;
+}
+
+.rowBar {
+    display: flex; 
+    flex-direction: row;
+    margin-top: 16px;
+}

@@ -41,10 +41,11 @@ import { RSelectDropdownComponent } from './Controls/rselectdropdown/rselectdrop
 import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectModel';
 import { REventsScheduleComponent } from './Controls/reventsschedule/reventsschedule.component';
 import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from './Controls/reventsschedule/reventsschedule';
-import { RStateVerticalAlignment, RStateVerticalDisplayType, RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
-import { RStepComponent } from "./Controls/rstep/rstep.component";
+import { RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
+import { RStateAlignment, RStateDisplayType, RStepComponent } from "./Controls/rstep/rstep.component";
 import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
 import { RPieChartComponent, RPieChartItem } from "./Controls/rpiechart/rpiechart.component";
+import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
 
 @Component({
   selector: 'app-root',
@@ -84,7 +85,8 @@ import { RPieChartComponent, RPieChartItem } from "./Controls/rpiechart/rpiechar
     RStepperVerticalComponent,
     RStepComponent,
     RStepViewDirective,
-    RPieChartComponent
+    RPieChartComponent,
+    RStepperHorizontalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -171,8 +173,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   stepTwoValid: boolean = false;
   stepThreeValid: boolean =false;
   
-  stepperDisplayType: RStateVerticalDisplayType = RStateVerticalDisplayType.AllItems;
-  stepperAlign: RStateVerticalAlignment = RStateVerticalAlignment.OnTop;  
+  stepperDisplayType: RStateDisplayType = RStateDisplayType.AllItems;
+  stepperAlign: RStateAlignment = RStateAlignment.OnTop;  
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -252,10 +254,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   changeStepperDisplayType($event: any){
-    if(this.stepperDisplayType == RStateVerticalDisplayType.AllItems){
-      this.stepperDisplayType = RStateVerticalDisplayType.OnlyCompleted;
+    if(this.stepperDisplayType == RStateDisplayType.AllItems){
+      this.stepperDisplayType = RStateDisplayType.OnlyCompleted;
     } else {
-      this.stepperDisplayType = RStateVerticalDisplayType.AllItems;
+      this.stepperDisplayType = RStateDisplayType.AllItems;
     }
   }
   
@@ -264,11 +266,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   changeStepperAlign($event: any){
-    if(this.stepperAlign== RStateVerticalAlignment.OnLeft){
-      this.stepperAlign = RStateVerticalAlignment.OnTop;
+    if(this.stepperAlign== RStateAlignment.OnLeft){
+      this.stepperAlign = RStateAlignment.OnTop;
     } else{
-      this.stepperAlign = RStateVerticalAlignment.OnLeft;
-      this.stepperDisplayType = RStateVerticalDisplayType.AllItems;
+      this.stepperAlign = RStateAlignment.OnLeft;
+      this.stepperDisplayType = RStateDisplayType.AllItems;
     }
   }
 

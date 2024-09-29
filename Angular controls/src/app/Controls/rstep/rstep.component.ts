@@ -39,3 +39,16 @@ export class RStepComponent implements AfterContentInit {
   }
 
 }
+
+
+
+
+export enum RStateAlignment {
+  OnTop = 0,
+  OnLeft = 1
+}
+
+export enum RStateDisplayType {
+  OnlyCompleted = 0,
+  AllItems = 1
+}

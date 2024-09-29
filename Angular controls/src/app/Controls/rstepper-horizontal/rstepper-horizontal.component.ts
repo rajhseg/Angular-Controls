@@ -1,27 +1,22 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
 import { RStateAlignment, RStateDisplayType, RStepComponent } from '../rstep/rstep.component';
-import { RbuttonComponent } from "../rbutton/rbutton.component";
-import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { EditViewTemplateDirective } from "../rgrid/edit-template.directive";
 import { WindowHelper } from '../windowObject';
-import { RStateVerticalComponent } from "../sequences/sequences.component";
-import { RSequenceVerticalItem } from '../sequences/sequence/sequenceitem';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-
+import { RSequenceHorizontalItem } from '../rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
+import { RStateHorizontalComponent } from "../rsequences-horizontal/rsequences-horizontal.component";
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { RbuttonComponent } from '../rbutton/rbutton.component';
 
 @Component({
-  selector: 'rstepper-vertical',
+  selector: 'rstepper-horizontal',
   standalone: true,
-  imports: [RbuttonComponent, NgIf, NgTemplateOutlet,
-    EditViewTemplateDirective, NgStyle, NgClass, RStateVerticalComponent],
-  templateUrl: './rstepper-vertical.component.html',
-  styleUrl: './rstepper-vertical.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [RStateHorizontalComponent, NgIf, RbuttonComponent, NgStyle, NgFor, NgClass, NgTemplateOutlet],
+  templateUrl: './rstepper-horizontal.component.html',
+  styleUrl: './rstepper-horizontal.component.css'
 })
-export class RStepperVerticalComponent implements AfterContentInit {
+export class RStepperHorizontalComponent implements AfterContentInit {
 
-  seqItems: RSequenceVerticalItem[] = [];
+  
+  seqItems: RSequenceHorizontalItem[] = [];
 
   @Input()
   public ContentWidth: number = 800;
@@ -45,32 +40,19 @@ export class RStepperVerticalComponent implements AfterContentInit {
   BackButtonForeColor: string = 'white';
 
   @Input()
-  VerticalItemStepNoForeColor: string = 'Whitesmoke';
+  HorizontalItemStepNoForeColor: string = 'white';
 
   @Input()
-  VerticalItemStripLineColor: string = 'blue';
+  HorizontalItemStripLineColor: string = 'white';  
 
   @Input()
-  VerticalItemCompletedBackColor: string = 'white';
+  HorizontalItemCompletedBackColor: string = 'green';
 
   @Input()
-  VerticalItemCompletedForeColor: string = 'green';
+  HorizontalItemActiveBackColor: string = 'blue';
 
   @Input()
-  VerticalItemActiveBackColor: string = 'green';
-
-  @Input()
-  VerticalItemActiveForeColor: string = 'white';
-
-  @Input()
-  ApplyItemForeColorToStepNo: boolean = true;
-
-  @Input()
-  VerticalItemPendingBackColor: string = 'blue';
-
-  @Input()
-  VerticalItemPendingForeColor: string = 'white';
-
+  HorizontalItemPendingBackColor: string = 'orange';
 
   @Input()
   NextButtonBackColor: string = 'blue';
@@ -99,56 +81,26 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
   private _showInValidStepOnLoad: boolean = true;
 
-  @Output()
-  public StateVerticalDisplayTypeChange = new EventEmitter<RStateDisplayType>();
 
-  private _stateVerticalDisplayType: RStateDisplayType = RStateDisplayType.AllItems;
+  private _stateHorizontalDisplayType: RStateDisplayType = RStateDisplayType.AllItems;
+  public get StateHorizontalDisplayType(): RStateDisplayType {
+    return this._stateHorizontalDisplayType;
+  }
+
+  private _stateHorizontalAlign: RStateAlignment = RStateAlignment.OnTop;
+  public get StateHorizontalAlignment(): RStateAlignment {
+    return this._stateHorizontalAlign;
+  }
+
+  private _showStateHorizontal: boolean = true;
 
   @Input()
-  public set StateVerticalDisplayType(val: RStateDisplayType) {
-    this._stateVerticalDisplayType = val;
-
-    if (this.StateVerticalAlignment == RStateAlignment.OnTop) {
-      this._stateVerticalDisplayType = RStateDisplayType.OnlyCompleted;      
-    }
-
-    this.RenderSequenceItemsForValidSteps();
-    this.StateVerticalDisplayTypeChange.emit(this._stateVerticalDisplayType);
-  }
-  public get StateVerticalDisplayType(): RStateDisplayType {
-    return this._stateVerticalDisplayType;
-  }
-
-  @Output()
-  public StateVerticalAlignmentChange = new EventEmitter<RStateAlignment>();
-
-  private _stateVerticalAlign: RStateAlignment = RStateAlignment.OnLeft;
-
-  @Input()
-  public set StateVerticalAlignment(val: RStateAlignment) {
-    this._stateVerticalAlign = val;
-
-    if (val == RStateAlignment.OnTop) {
-      this._stateVerticalDisplayType = RStateDisplayType.OnlyCompleted;
-      this.StateVerticalDisplayTypeChange.emit(this._stateVerticalDisplayType);
-    }
-
-    this.RenderSequenceItemsForValidSteps();
-    this.StateVerticalAlignmentChange.emit(this._stateVerticalAlign);
-  }
-  public get StateVerticalAlignment(): RStateAlignment {
-    return this._stateVerticalAlign;
-  }
-
-  private _showStateVertical: boolean = true;
-
-  @Input()
-  public set ShowStateVertical(val: boolean) {
-    this._showStateVertical = val;
+  public set ShowStateHorizontal(val: boolean) {
+    this._showStateHorizontal = val;
     this.RenderSequenceItemsForValidSteps();
   }
-  public get ShowStateVertical(): boolean {
-    return this._showStateVertical;
+  public get ShowStateHorizontal(): boolean {
+    return this._showStateHorizontal;
   }
 
   @ViewChild('view', { read: ViewContainerRef }) vcr!: ViewContainerRef;
@@ -158,6 +110,8 @@ export class RStepperVerticalComponent implements AfterContentInit {
   public CurrentViewStep: RStepComponent | undefined = undefined;
 
   public TotalSteps: number = 0;
+
+  public StepsNos: number[] = [];
 
   private stepsList: RStepComponent[] = [];
   private _activeStepNo: number = 1;
@@ -181,6 +135,12 @@ export class RStepperVerticalComponent implements AfterContentInit {
     this.seqItems = [];
   }
 
+  populateNos(){
+    this.StepsNos = [];
+    for (let index = 1; index <= this.TotalSteps; index++) {      
+      this.StepsNos.push(index);
+    }
+  }
   CompletedClick($event: Event) {
     let allValid = this.stepsList.every(x => x.IsStepValid);
     if (allValid)
@@ -190,7 +150,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
   Done($event: Event) {
     this.IsCompleted = true;
     this.IsLastStepFinished = true;
-    this.CurrentViewStep = undefined;
+    //this.CurrentViewStep = undefined;
     let cStep = this.TotalSteps + 1;
     if (cStep) {
       this.fStep = cStep > 2 ? cStep - 2 : undefined;
@@ -206,7 +166,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
     for (let index = 0; index < this.stepsList.length; index++) {
       const element = this.stepsList[index];
-      let CompletedItem = new RSequenceVerticalItem();
+      let CompletedItem = new RSequenceHorizontalItem();
       CompletedItem.Value = element.StepNo;
       CompletedItem.StepNo = element.StepNo;
       CompletedItem.IsCompleted = true;
@@ -232,8 +192,9 @@ export class RStepperVerticalComponent implements AfterContentInit {
       }
 
       this.TotalSteps = this.stepsList.length;
+      this.populateNos();
       this.SelectStepDirectly(this.TotalSteps);
-      this.RenderSequenceItemsForValidSteps();
+      this.RenderSequenceItemsForValidSteps();      
     }
   }
 
@@ -248,7 +209,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
         let filItems = this.seqItems.filter(x => x.StepNo == element.StepNo);
 
         if (filItems == undefined || filItems.length == 0) {
-          let CompletedItem = new RSequenceVerticalItem();
+          let CompletedItem = new RSequenceHorizontalItem();
           CompletedItem.Value = element.StepNo;
           CompletedItem.StepNo = element.StepNo;
           CompletedItem.IsCompleted = true;
@@ -258,7 +219,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
         }
       }
       else {
-        if (this.StateVerticalDisplayType == RStateDisplayType.OnlyCompleted) {
+        if (this.StateHorizontalDisplayType == RStateDisplayType.OnlyCompleted) {
           this.verticalItemActiveItem = index;          
           this.CurrentViewStep = this.stepsList[index];
           break;
@@ -267,7 +228,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
         let filItems = this.seqItems.filter(x => x.StepNo == element.StepNo);
 
         if (filItems == undefined || filItems.length == 0) {
-          let CurrentOrPendingItem = new RSequenceVerticalItem();
+          let CurrentOrPendingItem = new RSequenceHorizontalItem();
           CurrentOrPendingItem.Value = element.StepNo;
           CurrentOrPendingItem.StepNo = element.StepNo;
 
@@ -330,13 +291,13 @@ export class RStepperVerticalComponent implements AfterContentInit {
       prevStep = this.TotalSteps;
     }
 
-    if (this.StateVerticalDisplayType == RStateDisplayType.OnlyCompleted) {
+    if (this.StateHorizontalDisplayType == RStateDisplayType.OnlyCompleted) {
       if (this.seqItems.length > 0) {
         this.seqItems.splice(this.seqItems.length - 1, 1);
       }
     }
     else {
-      this.RenderVerticalItemsForAllDisplayType(prevStep - 1);
+      this.RenderHorizontalItemsForAllDisplayType(prevStep - 1);
     }
 
     this.SelectStep(prevStep);
@@ -352,11 +313,11 @@ export class RStepperVerticalComponent implements AfterContentInit {
       else
         nextStep = stepno + 1;
 
-      if (this.StateVerticalDisplayType == RStateDisplayType.OnlyCompleted) {
+      if (this.StateHorizontalDisplayType == RStateDisplayType.OnlyCompleted) {
         let filItems = this.seqItems.filter(x => x.StepNo == this.CurrentViewStep?.StepNo);
 
         if (filItems == undefined || filItems.length == 0) {
-          let CompletedItem = new RSequenceVerticalItem();
+          let CompletedItem = new RSequenceHorizontalItem();
           CompletedItem.Value = this.CurrentViewStep.StepNo;
           CompletedItem.StepNo = this.CurrentViewStep.StepNo;
           CompletedItem.IsCompleted = true;
@@ -364,16 +325,16 @@ export class RStepperVerticalComponent implements AfterContentInit {
           this.seqItems.push(CompletedItem);
         }
       } else {
-        this.RenderVerticalItemsForAllDisplayType(nextStep - 1);
+        this.RenderHorizontalItemsForAllDisplayType(nextStep - 1);
       }
 
       this.SelectStep(nextStep);
     }
   }
 
-  RenderVerticalItemsForAllDisplayType(lastcompletedStepNo: number) {
+  RenderHorizontalItemsForAllDisplayType(lastcompletedStepNo: number) {
 
-    if (this.StateVerticalDisplayType == RStateDisplayType.AllItems) {
+    if (this.StateHorizontalDisplayType == RStateDisplayType.AllItems) {
       for (let index = 1; index <= lastcompletedStepNo; index++) {
         const element = this.stepsList[index];
         let item = this.seqItems.find(x => x.StepNo == index);

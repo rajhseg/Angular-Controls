@@ -240,6 +240,127 @@
   <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
   {{showVerticalItems}}
 
+  <br/>
+  <br />
+
+  <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"  
+      (OnCompletedClick)="StepsCompleted($event)"
+      [ShowStateHorizontal]="showVerticalItems">
+
+    <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
+      <ng-template rstepview>
+
+        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
+          <ng-template optionstemplate let-Item>
+            <div>
+              <span>{{Item.Value.Id}}</span>
+              <span>{{Item.Value.Name}}</span>
+              <span>{{Item.Value.Education}}</span>
+            </div>
+          </ng-template>
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
+          <ng-template optionstemplate let-Item>
+            <div>
+              <span>{{Item.Value.Id}}</span>
+              <span>{{Item.Value.Name}}</span>
+              <span>{{Item.Value.Education}}</span>
+            </div>
+          </ng-template>
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="items" [DropDownContentWidth]="'130px'"></rselectdropdown>
+  
+        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+  
+      </ng-template>
+    </rstep>
+    <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+      <ng-template rstepview>
+
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+          [HeaderBackgroundColor]="'blue'"
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        <br />
+        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
+          Save        
+        </rbutton>
+
+      </ng-template>
+    </rstep>
+    <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+      <ng-template rstepview>
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+          [HeaderBackgroundColor]="'blue'"
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+
+          <br />
+        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
+          Save        
+        </rbutton>
+      </ng-template>
+    </rstep>
+    <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+      <ng-template rstepview>
+
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+          [HeaderBackgroundColor]="'blue'"
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+          <br />
+        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
+          Save        
+        </rbutton>
+
+      </ng-template>
+    </rstep>
+
+    
+    <rstep [Title]="'Dropdown Sample'" [IsStepValid]="false">
+      <ng-template rstepview>
+
+        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
+          <ng-template optionstemplate let-Item>
+            <div>
+              <span>{{Item.Value.Id}}</span>
+              <span>{{Item.Value.Name}}</span>
+              <span>{{Item.Value.Education}}</span>
+            </div>
+          </ng-template>
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
+          <ng-template optionstemplate let-Item>
+            <div>
+              <span>{{Item.Value.Id}}</span>
+              <span>{{Item.Value.Name}}</span>
+              <span>{{Item.Value.Education}}</span>
+            </div>
+          </ng-template>
+        </rselectdropdown>
+  
+        <rselectdropdown [Items]="items" [DropDownContentWidth]="'130px'"></rselectdropdown>
+  
+        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+  
+      </ng-template>
+    </rstep>
+
+  </rstepper-horizontal>
+
+  <br />
   <br />
 
   <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530"  (OnCompletedClick)="StepsCompleted($event)"

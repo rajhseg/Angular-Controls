@@ -293,9 +293,7 @@ RStepperHorizontal
 ![image](https://github.com/user-attachments/assets/68ded88c-ad10-42fa-bcfc-7ce7c46c81ea)
 
 ### After All Steps Completed
-![image](https://github.com/user-attachments/assets/79f26f23-dd66-43f8-912c-1417c92c3afc)
-
-<br/>
+![image](https://github.com/user-attachments/assets/b1f69544-c4a3-490a-8545-bcd40ee211c7)
 
 
 <br />

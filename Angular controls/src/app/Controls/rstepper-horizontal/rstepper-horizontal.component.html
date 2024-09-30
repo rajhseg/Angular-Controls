@@ -18,7 +18,11 @@
                                         CurrentViewStep?.StepNo == no ? 
                                             IsLastStepFinished ? HorizontalItemCompletedBackColor : HorizontalItemActiveBackColor  
                                             : HorizontalItemCompletedBackColor,
-                    'color': HorizontalItemStepNoForeColor
+                    'color': (CurrentViewStep && no > CurrentViewStep.StepNo) ? 
+                                    HorizontalItemPendingForeColor : 
+                                        CurrentViewStep?.StepNo == no ? 
+                                            IsLastStepFinished ? HorizontalItemCompletedForeColor : HorizontalItemActiveForeColor  
+                                            : HorizontalItemCompletedForeColor
                     }" 
                     
                     [ngClass]="{ 'fcircle': CurrentViewStep?.StepNo != no , 
@@ -50,19 +54,31 @@
             </div>
 
             <div class="stepFooter">
-                <div style="float: right;" *ngIf="!IsLastStepFinished">
+                <div style="float: right;">
 
-                    <rbutton *ngIf="!(CurrentViewStep.StepNo==1)" [ForeColor]="BackButtonForeColor"
+                    <rbutton *ngIf="!(CurrentViewStep.StepNo==1) && !IsLastStepFinished" [ForeColor]="BackButtonForeColor"
                         [BackgroundColor]="BackButtonBackColor" style="margin-right: 10px;cursor: pointer;"
                         (ButtonClick)="PrevStep()">Back</rbutton>
 
-                    <rbutton [IsDisabled]="!CurrentViewStep.IsStepValid" *ngIf="!IsLastStep()"
+                    <rbutton [IsDisabled]="!CurrentViewStep.IsStepValid" 
+                        *ngIf="!IsLastStep() && !IsLastStepFinished"
                         [ForeColor]="NextButtonForeColor" [BackgroundColor]="NextButtonBackColor"
                         style="cursor: pointer;" (ButtonClick)="NextStep()">Next</rbutton>
 
                     <rbutton (ButtonClick)="Done($event)" [IsDisabled]="!CurrentViewStep.IsStepValid"
                         [ForeColor]="DoneButtonForeColor" [BackgroundColor]="DoneButtonBackColor"
-                        *ngIf="IsLastStep()" style="cursor: pointer;">Done</rbutton>
+                        *ngIf="IsLastStep() && !IsLastStepFinished" 
+                        style="cursor: pointer;">Done</rbutton>
+                            
+                    <rbutton *ngIf="IsLastStepFinished" (ButtonClick)="PrevStep()" [ForeColor]="BackButtonForeColor"
+                        [BackgroundColor]="BackButtonBackColor">
+                        Back
+                    </rbutton>
+                
+                    <rbutton *ngIf="IsLastStepFinished" style="margin-left: 10px; margin-top:5px; cursor: pointer;" [BackgroundColor]="CompletedButtonBackColor"
+                        [ForeColor]="CompletedButtonForeColor" (ButtonClick)="CompletedClick($event)">
+                        Completed
+                    </rbutton>
 
                 </div>
             </div>
@@ -70,6 +86,7 @@
         </ng-container>
     </div>
 
+<!-- 
     <div class="completedBtn" *ngIf="IsLastStepFinished">
 
         <div class="done">
@@ -84,6 +101,6 @@
             Completed
         </rbutton>
 
-    </div>
+    </div> -->
 
 </div>

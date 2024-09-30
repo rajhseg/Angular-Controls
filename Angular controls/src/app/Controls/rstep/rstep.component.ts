@@ -34,8 +34,7 @@ export class RStepComponent implements AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    console.log("StepComponent "+this.Title);
-    console.log(this.Content);
+    
   }
 
 }

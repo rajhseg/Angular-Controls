@@ -40,19 +40,25 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   BackButtonForeColor: string = 'white';
 
   @Input()
-  HorizontalItemStepNoForeColor: string = 'white';
-
-  @Input()
   HorizontalItemStripLineColor: string = 'white';  
 
   @Input()
-  HorizontalItemCompletedBackColor: string = 'green';
+  HorizontalItemCompletedBackColor: string = 'white';
 
   @Input()
   HorizontalItemActiveBackColor: string = 'blue';
 
   @Input()
-  HorizontalItemPendingBackColor: string = 'orange';
+  HorizontalItemPendingBackColor: string = 'white';
+
+  @Input()
+  HorizontalItemCompletedForeColor: string = 'green';
+
+  @Input()
+  HorizontalItemActiveForeColor: string = 'white';
+
+  @Input()
+  HorizontalItemPendingForeColor: string = 'orange';
 
   @Input()
   NextButtonBackColor: string = 'blue';
@@ -90,17 +96,6 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   private _stateHorizontalAlign: RStateAlignment = RStateAlignment.OnTop;
   public get StateHorizontalAlignment(): RStateAlignment {
     return this._stateHorizontalAlign;
-  }
-
-  private _showStateHorizontal: boolean = true;
-
-  @Input()
-  public set ShowStateHorizontal(val: boolean) {
-    this._showStateHorizontal = val;
-    this.RenderSequenceItemsForValidSteps();
-  }
-  public get ShowStateHorizontal(): boolean {
-    return this._showStateHorizontal;
   }
 
   @ViewChild('view', { read: ViewContainerRef }) vcr!: ViewContainerRef;

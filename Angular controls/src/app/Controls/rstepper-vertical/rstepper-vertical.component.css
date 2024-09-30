@@ -2,6 +2,12 @@
     
 }
 
+.completedContainer {
+    display: flex; 
+    flex-direction: row;
+    margin-top: 25px;
+    align-self: flex-end;
+}
 
 .stepFooter {
     border-top:1px solid lightgray;
@@ -58,6 +64,7 @@
     text-align: center;
     align-content: center;    
     font-size: small;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .activecircle {

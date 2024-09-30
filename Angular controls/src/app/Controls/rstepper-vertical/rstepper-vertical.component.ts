@@ -112,7 +112,11 @@ export class RStepperVerticalComponent implements AfterContentInit {
       this._stateVerticalDisplayType = RStateDisplayType.OnlyCompleted;      
     }
 
-    this.RenderSequenceItemsForValidSteps();
+    if(this._showStateVertical)
+      this.RenderSequenceItemsForValidSteps();
+    else
+      this.seqItems = [];
+    
     this.StateVerticalDisplayTypeChange.emit(this._stateVerticalDisplayType);
   }
   public get StateVerticalDisplayType(): RStateDisplayType {
@@ -133,7 +137,11 @@ export class RStepperVerticalComponent implements AfterContentInit {
       this.StateVerticalDisplayTypeChange.emit(this._stateVerticalDisplayType);
     }
 
-    this.RenderSequenceItemsForValidSteps();
+    if(this._showStateVertical)
+      this.RenderSequenceItemsForValidSteps();
+    else
+      this.seqItems = [];
+
     this.StateVerticalAlignmentChange.emit(this._stateVerticalAlign);
   }
   public get StateVerticalAlignment(): RStateAlignment {
@@ -145,7 +153,10 @@ export class RStepperVerticalComponent implements AfterContentInit {
   @Input()
   public set ShowStateVertical(val: boolean) {
     this._showStateVertical = val;
-    this.RenderSequenceItemsForValidSteps();
+    if(val)
+      this.RenderSequenceItemsForValidSteps();
+    else 
+      this.seqItems = [];
   }
   public get ShowStateVertical(): boolean {
     return this._showStateVertical;
@@ -171,7 +182,11 @@ export class RStepperVerticalComponent implements AfterContentInit {
   @Input()
   public set ActiveStepNo(val: number) {
     this.SelectStepDirectly(val);
-    this.RenderSequenceItemsForValidSteps();
+    
+    if(this._showStateVertical)
+      this.RenderSequenceItemsForValidSteps();
+    else
+      this.seqItems = [];
   }
   public get ActiveStepNo(): number {
     return this._activeStepNo;
@@ -189,15 +204,22 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
   Done($event: Event) {
     this.IsCompleted = true;
-    this.IsLastStepFinished = true;
-    this.CurrentViewStep = undefined;
-    let cStep = this.TotalSteps + 1;
-    if (cStep) {
-      this.fStep = cStep > 2 ? cStep - 2 : undefined;
-      this.sStep = cStep > 1 ? cStep - 1 : undefined;
-    }
+    this.IsLastStepFinished = true;    
 
-    this.CreateFinalItemsToDisplay();
+    if(this.seqItems.length > 0)
+      this.seqItems[this.seqItems.length-1].IsCompleted = true;
+
+    let cStep = this.TotalSteps;
+      if (cStep) {
+        this.fStep = cStep > 2 ? cStep - 2 : undefined;
+        this.sStep = cStep > 1 ? cStep - 1 : undefined;
+        this.foStep = cStep + 1 <= this.TotalSteps ? cStep + 1 : undefined;
+        this.fiStep = cStep + 2 <= this.TotalSteps ? cStep + 2 : undefined;
+      }
+
+      if(!this.ShowStateVertical){
+        this.seqItems = [];
+      }          
   }
 
   CreateFinalItemsToDisplay() {
@@ -233,7 +255,11 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
       this.TotalSteps = this.stepsList.length;
       this.SelectStepDirectly(this.TotalSteps);
-      this.RenderSequenceItemsForValidSteps();
+      
+      if(this._showStateVertical)
+        this.RenderSequenceItemsForValidSteps();
+      else
+        this.seqItems = [];        
     }
   }
 
@@ -301,12 +327,22 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
     if (this.stepsList.length > 0 && this.stepsList.every(x=>x.IsStepValid)) {
       this.IsCompleted = true;
-      this.IsLastStepFinished = true;      
-      this.verticalItemActiveItem = this.TotalSteps + 1;
-      let cStep = this.TotalSteps + 1;
+      this.IsLastStepFinished = true;    
+      
+      if(this.StateVerticalAlignment==RStateAlignment.OnTop) {
+        this.seqItems.splice(this.seqItems.length-1, 1);
+      }
+
+      this.CurrentViewStep = this.stepsList[this.stepsList.length-1];
+      this._activeStepNo = this.CurrentViewStep.StepNo;
+
+      this.verticalItemActiveItem = this.TotalSteps;
+      let cStep = this.TotalSteps;
       if (cStep) {
         this.fStep = cStep > 2 ? cStep - 2 : undefined;
         this.sStep = cStep > 1 ? cStep - 1 : undefined;
+        this.foStep = cStep + 1 <= this.TotalSteps ? cStep + 1 : undefined;
+        this.fiStep = cStep + 2 <= this.TotalSteps ? cStep + 2 : undefined;
       }
 
       return;
@@ -336,7 +372,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
     }
 
     if (this.StateVerticalDisplayType == RStateDisplayType.OnlyCompleted) {
-      if (this.seqItems.length > 0) {
+      if (this.seqItems.length > 0 && prevStep != this.TotalSteps) {
         this.seqItems.splice(this.seqItems.length - 1, 1);
       }
     }

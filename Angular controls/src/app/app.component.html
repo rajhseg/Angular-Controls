@@ -230,22 +230,9 @@
     </rgrid>
   </div>
   <br />
-  
-  <rswitch [DisplayLabel]="'Change Display Type'"  (checked)="changeStepperDisplayType($event)"></rswitch>
-  {{stepperDisplayType}}
-
-  <rswitch [DisplayLabel]="'Change Align'"  (checked)="changeStepperAlign($event)"></rswitch>
-  {{stepperAlign}}
-
-  <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
-  {{showVerticalItems}}
-
-  <br/>
-  <br />
 
   <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"  
-      (OnCompletedClick)="StepsCompleted($event)"
-      [ShowStateHorizontal]="showVerticalItems">
+      (OnCompletedClick)="StepsCompleted($event)">
 
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
@@ -324,7 +311,7 @@
     
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
-
+        
         <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
@@ -361,6 +348,18 @@
   </rstepper-horizontal>
 
   <br />
+  <br />
+  
+  <rswitch [DisplayLabel]="'Change Display Type'"  (checked)="changeStepperDisplayType($event)"></rswitch>
+  {{stepperDisplayType}}
+
+  <rswitch [DisplayLabel]="'Change Align'"  (checked)="changeStepperAlign($event)"></rswitch>
+  {{stepperAlign}}
+
+  <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
+  {{showVerticalItems}}
+
+  <br/>
   <br />
 
   <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530"  (OnCompletedClick)="StepsCompleted($event)"
@@ -640,6 +639,52 @@
           </rstep>
         </rstepper-vertical>
       
+      </rtab>
+
+      <rtab *tabidfor="{ 'TabId': 'tab14', 'HeaderText':'rstepper horizontal', 'Context':this}">
+          
+        <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"  
+        (OnCompletedClick)="StepsCompleted($event)">
+          <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+            <ng-template rstepview>
+
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+                [HeaderBackgroundColor]="'blue'"
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+              <br />
+              <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
+                Save        
+              </rbutton>
+
+            </ng-template>
+          </rstep>
+          <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+            <ng-template rstepview>
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+                [HeaderBackgroundColor]="'blue'"
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+
+                <br />
+              <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
+                Save        
+              </rbutton>
+            </ng-template>
+          </rstep>
+          <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+            <ng-template rstepview>
+
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
+                [HeaderBackgroundColor]="'blue'"
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                <br />
+              <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
+                Save        
+              </rbutton>
+
+            </ng-template>
+          </rstep>
+        </rstepper-horizontal>
+
       </rtab>
     </rtabs>
 

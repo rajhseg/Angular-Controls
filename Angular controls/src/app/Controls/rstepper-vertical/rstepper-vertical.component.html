@@ -1,7 +1,7 @@
 
 
 
-<div style="width: fit-content;display: flex;flex-direction: column;margin-left: 25px;">
+<div style="width: fit-content;display: flex;flex-direction: column; margin-left:25px">
 
     <div class="items" *ngIf="ShowStateVertical && StateVerticalAlignment == 0">
 
@@ -23,31 +23,12 @@
             [StripLineColor]="VerticalItemStripLineColor"
             [Items]="seqItems">
         </rstate-vertical>
-
-        <div style="display: flex; flex-direction: row;margin-top: 25px;" *ngIf="IsLastStepFinished">
-
-            <div class="done">
-                <rbutton (ButtonClick)="PrevStep()" 
-                    [ForeColor]="BackButtonForeColor" 
-                    [BackgroundColor]="BackButtonBackColor">
-                    Back
-                </rbutton>
-            </div>
-
-            <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" 
-                    [BackgroundColor] = "CompletedButtonBackColor"
-                    [ForeColor] = "CompletedButtonForeColor"
-                    (ButtonClick)="CompletedClick($event)">                    
-                    Completed
-            </rbutton>
-
-        </div>
-
+     
     </div>
 
     <div style="width: fit-content;display: flex;flex-direction: row;">
 
-        <div class="items" *ngIf="(!ShowStateVertical && IsCompleted) || (ShowStateVertical && StateVerticalAlignment == 1)">
+        <div class="items" *ngIf="(ShowStateVertical && StateVerticalAlignment == 1)">
 
             <rstate-vertical style="font-size: small;" [SelectedActiveIndex]="verticalItemActiveItem" 
                 
@@ -63,55 +44,42 @@
                 [StripLineColor]="VerticalItemStripLineColor"
                 [Items]="seqItems">
             </rstate-vertical>
-    
-            <div style="display: flex; flex-direction: row;margin-top: 25px;" *ngIf="IsLastStepFinished">
-    
-                <div class="done">
-                    <rbutton (ButtonClick)="PrevStep()" 
-                        [ForeColor]="BackButtonForeColor" 
-                        [BackgroundColor]="BackButtonBackColor">
-                        Back
-                    </rbutton>
-                </div>
-    
-                <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" 
-                        [BackgroundColor] = "CompletedButtonBackColor"
-                        [ForeColor] = "CompletedButtonForeColor"
-                        (ButtonClick)="CompletedClick($event)">
-                        Completed
-                </rbutton>
-    
-            </div>
-    
+            
         </div>
 
-        <div *ngIf="!IsLastStepFinished" [ngStyle]="{'height': ContentHeight+'px'}">
+        <div [ngStyle]="{'height': ContentHeight+'px'}">
 
             <div style="background-color: white;" class="bar"></div>
 
             <div class="circle fcircle" *ngIf="fStep && (StateVerticalAlignment == 1 || !ShowStateVertical)">{{fStep}}</div>
             <div class="circle scircle" *ngIf="sStep && (StateVerticalAlignment == 1 || !ShowStateVertical)">{{sStep}}</div> 
 
-            <div class="circle activecircle" *ngIf="CurrentViewStep">{{CurrentViewStep.StepNo}}</div>
+            <div class="circle activecircle" 
+                [ngStyle]="{
+                    'background-color': IsLastStepFinished ? VerticalItemCompletedBackColor : VerticalItemActiveBackColor, 
+                    'color': IsLastStepFinished ? VerticalItemCompletedForeColor : VerticalItemActiveForeColor
+                    }"
+                *ngIf="CurrentViewStep">{{CurrentViewStep.StepNo}}</div>
+
             <div class="circle focircle" *ngIf="foStep">{{foStep}}</div>
             <div class="circle ficircle" *ngIf="fiStep">{{fiStep}}</div>
 
         </div>
 
-        <div *ngIf="!IsLastStepFinished" class="contentContainer"
+        <div class="contentContainer"
             [ngClass]="{ 'box': EnableShadow }" 
             [ngStyle]="{ 'background-color': 'white', 'height': ContentHeight+'px', 'width': ContentWidth+'px'}">
 
             <ng-container *ngIf="CurrentViewStep">
                 
-                <div *ngIf="!IsLastStepFinished" class="stepHeader">
+                <div class="stepHeader">
                     <label [ngStyle]="{ 'color': CurrentViewStep.IsStepValid ? 
                                             CurrentStepValidLabelColor : CurrentStepInValidLabelColor}">
                         {{CurrentViewStep.Title}}
                     </label>
                 </div>
 
-                <div *ngIf="!IsLastStepFinished" style="padding:10px"
+                <div style="padding:10px"
                     [ngStyle]="{'height': (ContentHeight - 148)+'px' }">                                        
                     <ng-container #view *ngTemplateOutlet="CurrentViewStep.Content">
 
@@ -121,7 +89,7 @@
                 <div class="stepFooter">
                     <div style="float: right;">
 
-                        <rbutton *ngIf="!(CurrentViewStep.StepNo==1)" 
+                        <rbutton *ngIf="!(CurrentViewStep.StepNo==1) && !IsLastStepFinished" 
                             [ForeColor]="BackButtonForeColor" 
                             [BackgroundColor]="BackButtonBackColor"                           
                             style="margin-right: 10px;cursor: pointer;"
@@ -137,10 +105,46 @@
                             [BackgroundColor]="DoneButtonBackColor"
                             *ngIf="IsLastStep() && !IsLastStepFinished" style="cursor: pointer;">Done</rbutton>
 
+                        
+                            
+                        <rbutton *ngIf="IsLastStepFinished" (ButtonClick)="PrevStep()" 
+                            [ForeColor]="BackButtonForeColor" 
+                            [BackgroundColor]="BackButtonBackColor">
+                            Back
+                        </rbutton>
+
+
+                        <rbutton *ngIf="IsLastStepFinished" style="margin-left: 10px; margin-top:5px; cursor: pointer;" 
+                                [BackgroundColor] = "CompletedButtonBackColor"
+                                [ForeColor] = "CompletedButtonForeColor"
+                                (ButtonClick)="CompletedClick($event)">
+                                Completed
+                        </rbutton>                                            
+
                     </div>
                 </div>
 
             </ng-container>
         </div>
     </div>
+
+    <!-- <div class="completedContainer" *ngIf="IsLastStepFinished">
+    
+       <div class="done">
+            <rbutton (ButtonClick)="PrevStep()" 
+                [ForeColor]="BackButtonForeColor" 
+                [BackgroundColor]="BackButtonBackColor">
+                Back
+            </rbutton>
+        </div>
+
+        <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" 
+                [BackgroundColor] = "CompletedButtonBackColor"
+                [ForeColor] = "CompletedButtonForeColor"
+                (ButtonClick)="CompletedClick($event)">
+                Completed
+        </rbutton> 
+
+    </div> -->
+
 </div>

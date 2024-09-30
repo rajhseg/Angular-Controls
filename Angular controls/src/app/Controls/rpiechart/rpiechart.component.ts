@@ -116,8 +116,7 @@ export class RPieChartComponent implements AfterViewInit {
         this.context?.stroke();
         this.context.closePath();
                 
-        let pos = this.GetXYForText(x, y, 70, (previousAngle));
-        console.log(pos);
+        let pos = this.GetXYForText(x, y, 70, (previousAngle));        
         
         // this.context.fillText(element.Title, pos.X, pos.Y);
         // this.context.fillStyle = element.ForeColor;

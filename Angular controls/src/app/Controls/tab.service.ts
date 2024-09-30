@@ -29,9 +29,7 @@ private commonParentElement: HTMLElement | undefined = undefined;
 
 AddTabsInstance(instance: RTabsComponent){
     this.elements.push(instance);
-    console.log("tab service host element");
-    console.log(this.render);
-    console.log(instance.hostElementRef);
+    
     this.SetCommonParentElement(instance.hostElementRef.nativeElement)
 }
 
@@ -79,9 +77,7 @@ SetCommonParentElement(newElement: HTMLElement) {
         // this.appRef.attachView(_comp.hostView);
 
         let cdr = inject(ChangeDetectorRef);
-        cdr.markForCheck();
-        console.log('common parent');
-        console.log(this.commonParentElement);
+        cdr.markForCheck();        
     }
     
     }
@@ -100,6 +96,6 @@ export class ResolveFactory{
 })
 export class BodyDirective{
     constructor(private elementRef: ElementRef){
-        console.log(":body");
+        
     }
 }

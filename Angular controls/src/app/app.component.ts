@@ -432,13 +432,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   itemsChanged($event: any){        
-    this.gridItems = $event.Items;    
-    console.log($event);  
+    this.gridItems = $event.Items;        
   }
 
   itemsChangedGridItems1($event: any){    
-    this.gridItems1 = $event.Items; 
-    console.log($event);       
+    this.gridItems1 = $event.Items;           
   }
 
   rtimer_ValueChanged($event: string){
@@ -446,7 +444,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   callbackAfterInterval($event: string){
-    console.log("Callback after: "+$event);
+    
   }
 
   ColorSelected($event: RColorPickerEventArgs){

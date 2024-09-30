@@ -2,30 +2,7 @@
 
 
 <div style="width: fit-content;display: flex;flex-direction: column; margin-left:25px">
-
-    <div class="items" *ngIf="ShowStateVertical && StateVerticalAlignment == 0">
-
-        <rstate-vertical style="font-size: small;display: flex;
-                                width: fit-content;
-                                margin-right: 0px;
-                                margin-bottom: 5px;" 
-            
-            [ApplyItemForeColorToStepNo]="ApplyItemForeColorToStepNo"                                    
-            [SelectedActiveIndex]="verticalItemActiveItem" 
-            [CompletedBackgroundColor]="VerticalItemCompletedBackColor"
-            [CompletedForeColor]="VerticalItemCompletedForeColor"
-            [ActiveBackgroundColor]="VerticalItemActiveBackColor"
-            [ActiveForeColor]="VerticalItemActiveForeColor"
-            [PendingBackgroundColor]="VerticalItemPendingBackColor"
-            [PendingForeColor]="VerticalItemPendingForeColor"
-
-            [StepNoForeColor]="VerticalItemStepNoForeColor" 
-            [StripLineColor]="VerticalItemStripLineColor"
-            [Items]="seqItems">
-        </rstate-vertical>
-     
-    </div>
-
+    
     <div style="width: fit-content;display: flex;flex-direction: row;">
 
         <div class="items" *ngIf="(ShowStateVertical && StateVerticalAlignment == 1)">
@@ -47,23 +24,35 @@
             
         </div>
 
-        <div [ngStyle]="{'height': ContentHeight+'px'}">
+        <div [ngStyle]="{'height': ContentHeight+'px'}" style="display: flex; flex-direction: row;">
 
-            <div style="background-color: white;" class="bar"></div>
-
-            <div class="circle fcircle" *ngIf="fStep && (StateVerticalAlignment == 1 || !ShowStateVertical)">{{fStep}}</div>
-            <div class="circle scircle" *ngIf="sStep && (StateVerticalAlignment == 1 || !ShowStateVertical)">{{sStep}}</div> 
-
-            <div class="circle activecircle" 
-                [ngStyle]="{
-                    'background-color': IsLastStepFinished ? VerticalItemCompletedBackColor : VerticalItemActiveBackColor, 
-                    'color': IsLastStepFinished ? VerticalItemCompletedForeColor : VerticalItemActiveForeColor
-                    }"
-                *ngIf="CurrentViewStep">{{CurrentViewStep.StepNo}}</div>
-
-            <div class="circle focircle" *ngIf="foStep">{{foStep}}</div>
-            <div class="circle ficircle" *ngIf="fiStep">{{fiStep}}</div>
-
+            <div [ngStyle]="{'height': ContentHeight+'px'}" style="background-color: white;" class="bar"></div>
+            
+            <div [ngStyle]="{'height': (ContentHeight) +'px'}" class="nos">
+            
+                <div *ngFor="let no of StepsNos">
+    
+                    <div class="circle" [ngStyle]="{
+                        'background-color': (CurrentViewStep && no > CurrentViewStep.StepNo) ? 
+                                        VerticalItemPendingBackColor : 
+                                            CurrentViewStep?.StepNo == no ? 
+                                                IsLastStepFinished ? VerticalItemCompletedBackColor : VerticalItemActiveBackColor  
+                                                : VerticalItemCompletedBackColor,
+                        'color': (CurrentViewStep && no > CurrentViewStep.StepNo) ? 
+                                        VerticalItemPendingForeColor : 
+                                            CurrentViewStep?.StepNo == no ? 
+                                                IsLastStepFinished ? VerticalItemCompletedForeColor : VerticalItemActiveForeColor  
+                                                : VerticalItemCompletedForeColor
+                        }" 
+                        
+                        [ngClass]="{ 'ffcircle': CurrentViewStep?.StepNo != no , 
+                                'factivecircle': CurrentViewStep?.StepNo == no}">
+                        {{no}}
+                    </div>
+                </div>
+                
+            </div>
+                    
         </div>
 
         <div class="contentContainer"
@@ -127,24 +116,5 @@
             </ng-container>
         </div>
     </div>
-
-    <!-- <div class="completedContainer" *ngIf="IsLastStepFinished">
-    
-       <div class="done">
-            <rbutton (ButtonClick)="PrevStep()" 
-                [ForeColor]="BackButtonForeColor" 
-                [BackgroundColor]="BackButtonBackColor">
-                Back
-            </rbutton>
-        </div>
-
-        <rbutton style="margin-left: 10px; margin-top:5px; cursor: pointer;" 
-                [BackgroundColor] = "CompletedButtonBackColor"
-                [ForeColor] = "CompletedButtonForeColor"
-                (ButtonClick)="CompletedClick($event)">
-                Completed
-        </rbutton> 
-
-    </div> -->
 
 </div>

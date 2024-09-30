@@ -40,7 +40,7 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   BackButtonForeColor: string = 'white';
 
   @Input()
-  HorizontalItemStripLineColor: string = 'white';  
+  HorizontalItemStripLineColor: string = 'blue';  
 
   @Input()
   HorizontalItemCompletedBackColor: string = 'white';
@@ -87,6 +87,8 @@ export class RStepperHorizontalComponent implements AfterContentInit {
 
   private _showInValidStepOnLoad: boolean = true;
 
+  @Input()
+  public ShowStateHorizontal: boolean = true;
 
   private _stateHorizontalDisplayType: RStateDisplayType = RStateDisplayType.AllItems;
   public get StateHorizontalDisplayType(): RStateDisplayType {
@@ -130,12 +132,13 @@ export class RStepperHorizontalComponent implements AfterContentInit {
     this.seqItems = [];
   }
 
-  populateNos(){
+  populateNos() {
     this.StepsNos = [];
     for (let index = 1; index <= this.TotalSteps; index++) {      
       this.StepsNos.push(index);
     }
   }
+
   CompletedClick($event: Event) {
     let allValid = this.stepsList.every(x => x.IsStepValid);
     if (allValid)

@@ -229,9 +229,21 @@
 
     </rgrid>
   </div>
+
+  <br />
+  <br />
+  
+  <rswitch [DisplayLabel]="'Change Display Type'"  (checked)="changeStepperDisplayType($event)"></rswitch>
+  {{stepperDisplayType}}
+
+  <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
+  {{showVerticalItems}}
+
+  <br/>
+  <br />
   <br />
 
-  <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"  
+  <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"  [ShowStateHorizontal]="showVerticalItems"
       (OnCompletedClick)="StepsCompleted($event)">
 
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
@@ -353,18 +365,14 @@
   <rswitch [DisplayLabel]="'Change Display Type'"  (checked)="changeStepperDisplayType($event)"></rswitch>
   {{stepperDisplayType}}
 
-  <rswitch [DisplayLabel]="'Change Align'"  (checked)="changeStepperAlign($event)"></rswitch>
-  {{stepperAlign}}
-
   <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
   {{showVerticalItems}}
 
   <br/>
   <br />
 
-  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530"  (OnCompletedClick)="StepsCompleted($event)"
-   [ShowStateVertical]="showVerticalItems" [(StateVerticalAlignment)]="stepperAlign" 
-   [(StateVerticalDisplayType)]="stepperDisplayType">
+  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="700"  (OnCompletedClick)="StepsCompleted($event)"
+   [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
 
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>

@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
 import { RStateAlignment, RStateDisplayType, RStepComponent } from '../rstep/rstep.component';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
-import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { EditViewTemplateDirective } from "../rgrid/edit-template.directive";
 import { WindowHelper } from '../windowObject';
 import { RStateVerticalComponent } from "../sequences/sequences.component";
@@ -13,7 +13,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 @Component({
   selector: 'rstepper-vertical',
   standalone: true,
-  imports: [RbuttonComponent, NgIf, NgTemplateOutlet,
+  imports: [RbuttonComponent, NgIf, NgTemplateOutlet, NgForOf,
     EditViewTemplateDirective, NgStyle, NgClass, RStateVerticalComponent],
   templateUrl: './rstepper-vertical.component.html',
   styleUrl: './rstepper-vertical.component.css',
@@ -93,6 +93,8 @@ export class RStepperVerticalComponent implements AfterContentInit {
   @Output()
   public OnCompletedClick = new EventEmitter<Event>();
 
+  public StepsNos: number[] = [];
+
   public IsCompleted: boolean = false;
 
   public IsLastStepFinished: boolean = false;
@@ -107,10 +109,6 @@ export class RStepperVerticalComponent implements AfterContentInit {
   @Input()
   public set StateVerticalDisplayType(val: RStateDisplayType) {
     this._stateVerticalDisplayType = val;
-
-    if (this.StateVerticalAlignment == RStateAlignment.OnTop) {
-      this._stateVerticalDisplayType = RStateDisplayType.OnlyCompleted;      
-    }
 
     if(this._showStateVertical)
       this.RenderSequenceItemsForValidSteps();
@@ -128,22 +126,6 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
   private _stateVerticalAlign: RStateAlignment = RStateAlignment.OnLeft;
 
-  @Input()
-  public set StateVerticalAlignment(val: RStateAlignment) {
-    this._stateVerticalAlign = val;
-
-    if (val == RStateAlignment.OnTop) {
-      this._stateVerticalDisplayType = RStateDisplayType.OnlyCompleted;
-      this.StateVerticalDisplayTypeChange.emit(this._stateVerticalDisplayType);
-    }
-
-    if(this._showStateVertical)
-      this.RenderSequenceItemsForValidSteps();
-    else
-      this.seqItems = [];
-
-    this.StateVerticalAlignmentChange.emit(this._stateVerticalAlign);
-  }
   public get StateVerticalAlignment(): RStateAlignment {
     return this._stateVerticalAlign;
   }
@@ -194,6 +176,14 @@ export class RStepperVerticalComponent implements AfterContentInit {
 
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
     this.seqItems = [];
+  }
+
+  
+  populateNos(){
+    this.StepsNos = [];
+    for (let index = 1; index <= this.TotalSteps; index++) {      
+      this.StepsNos.push(index);
+    }
   }
 
   CompletedClick($event: Event) {
@@ -254,6 +244,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
       }
 
       this.TotalSteps = this.stepsList.length;
+      this.populateNos();
       this.SelectStepDirectly(this.TotalSteps);
       
       if(this._showStateVertical)

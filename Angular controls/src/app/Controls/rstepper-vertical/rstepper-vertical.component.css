@@ -67,12 +67,33 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.nos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: -8px;
+}
+
 .activecircle {
     top: -70%;
     left: -12px;
     width: 30px;
     height: 30px;  
     color:blue;  
+}
+
+.factivecircle{
+    left: -12px;
+    width: 30px;
+    height: 30px;  
+    color:blue;  
+}
+
+.ffcircle {
+    left: -8px;
+    width: 24px;
+    height: 24px; 
+    color: green;
 }
 
 .fcircle {

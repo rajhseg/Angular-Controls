@@ -1,6 +1,19 @@
 <div style="width: fit-content;display: flex;flex-direction: column;"
     [ngStyle]="{ 'width': ContentWidth + 'px'}">
 
+    <div class="items" *ngIf="ShowStateHorizontal">
+
+        <rstate-horizontal style="font-size: small;" [SelectedActiveIndex]="verticalItemActiveItem"             
+            [ApplyItemForeColorToStepNo]="false"              
+            [CompletedForeColor]="HorizontalItemCompletedForeColor"                           
+            [ActiveForeColor]="HorizontalItemActiveBackColor"            
+            [PendingForeColor]="HorizontalItemPendingForeColor"            
+            [StripLineColor]="HorizontalItemStripLineColor"            
+            [Items]="seqItems">
+        </rstate-horizontal>
+        
+    </div>
+
     <div class="barContainer">
         <div class="rowBar" [ngStyle]="{ 'width' : ContentWidth + 'px'}">
 

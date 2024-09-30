@@ -265,15 +265,11 @@ RStepper-Vertical
 -------------------------------
 <br />
 
-### RStateVerticalItems on Top
-
-![image](https://github.com/user-attachments/assets/02d8494e-2a5f-4f5b-9db4-be6754170235)
-
-### RStateVerticalItems on Left
+### ShowState on Left
 
 ![image](https://github.com/user-attachments/assets/a4f685b6-bbd6-476d-94cc-1ab59405f438)
 
-### RStateVerticalItems not Present or Display
+### ShowState not Present or Display on left side
 
 ![image](https://github.com/user-attachments/assets/473f3e5c-761f-48fe-976a-947550afe452)
 
@@ -289,10 +285,12 @@ RPieChart Control
 
 RStepperHorizontal
 -----------------------------------
-### Few Steps Completed
-![image](https://github.com/user-attachments/assets/68ded88c-ad10-42fa-bcfc-7ce7c46c81ea)
 
-### After All Steps Completed
+### With ShowState on Top
+![image](https://github.com/user-attachments/assets/8a3770b0-865c-4523-a481-5f954ab93d7c)
+
+
+### ShowState not present or display on Top
 ![image](https://github.com/user-attachments/assets/b1f69544-c4a3-490a-8545-bcd40ee211c7)
 
 

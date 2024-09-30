@@ -277,9 +277,6 @@ RStepper-Vertical
 
 ![image](https://github.com/user-attachments/assets/473f3e5c-761f-48fe-976a-947550afe452)
 
-### RStepper-Vertical After Completion
-
-![image](https://github.com/user-attachments/assets/430cbfc1-a7b8-4b7b-a888-c5196e49e084)
 
 <br />
 
@@ -296,7 +293,7 @@ RStepperHorizontal
 ![image](https://github.com/user-attachments/assets/68ded88c-ad10-42fa-bcfc-7ce7c46c81ea)
 
 ### After All Steps Completed
-![image](https://github.com/user-attachments/assets/1fc108f9-bd44-4370-b870-b16196ad62d7)
+![image](https://github.com/user-attachments/assets/b1f69544-c4a3-490a-8545-bcd40ee211c7)
 
 
 <br />

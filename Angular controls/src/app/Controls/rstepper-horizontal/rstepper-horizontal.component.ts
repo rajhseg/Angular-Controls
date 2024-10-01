@@ -161,7 +161,7 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   CreateFinalItemsToDisplay() {
 
     this.seqItems = [];
-
+    
     for (let index = 0; index < this.stepsList.length; index++) {
       const element = this.stepsList[index];
       let CompletedItem = new RSequenceHorizontalItem();

@@ -3,13 +3,13 @@ import { WindowHelper } from '../windowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'rpiechart',
+  selector: 'rdonutchart',
   standalone: true,
   imports: [NgStyle, NgForOf, NgIf],
-  templateUrl: './rpiechart.component.html',
-  styleUrl: './rpiechart.component.css'
+  templateUrl: './rdonutchart.component.html',
+  styleUrl: './rdonutchart.component.css'
 })
-export class RPieChartComponent implements AfterViewInit {
+export class RDonutChartComponent implements AfterViewInit {
 
   @Input()
   ChartWidth: number = 200;
@@ -77,6 +77,16 @@ export class RPieChartComponent implements AfterViewInit {
     return {X: x2, Y: y2};
   }
 
+  DrawText(context : CanvasRenderingContext2D, x: number, y: number, length: number, angle: number, color: string){
+    let rad = (angle * Math.PI)/180;
+    context.beginPath();
+    context.moveTo(x,y);
+    context.lineTo(x +length * rad, y + length *rad);
+    context.strokeStyle = color;
+    context.stroke(); 
+    context.closePath();       
+  }
+
   RenderChart() {
     this.IsRendered = false;
     if (this.progressCanvas && this.context && this._items.length > 0) {
@@ -108,7 +118,7 @@ export class RPieChartComponent implements AfterViewInit {
         this.context?.beginPath();
         this.context.lineWidth = this.LineWidth;
                 
-        this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);                        
+        this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);                                
         this.context.strokeStyle = element.BackgroundColor;
                 
         this.context.shadowBlur = 10;
@@ -116,10 +126,10 @@ export class RPieChartComponent implements AfterViewInit {
         this.context?.stroke();
         this.context.closePath();
                 
-        let pos = this.GetXYForText(x, y, 70, (previousAngle));        
+        let pos = this.GetXYForText(x, y, 90, (previousAngle));        
         
         // this.context.fillText(element.Title, pos.X, pos.Y);
-        // this.context.fillStyle = element.ForeColor;
+        // this.context.fillStyle = 'white';
         // this.context.save();
         // this.context.restore();
         

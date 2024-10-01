@@ -44,7 +44,7 @@ import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from
 import { RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
 import { RStateAlignment, RStateDisplayType, RStepComponent } from "./Controls/rstep/rstep.component";
 import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
-import { RPieChartComponent, RPieChartItem } from "./Controls/rpiechart/rpiechart.component";
+import { RDonutChartComponent, RPieChartItem } from "./Controls/rdonutchart/rdonutchart.component";
 import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
 
 @Component({
@@ -85,7 +85,7 @@ import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rste
     RStepperVerticalComponent,
     RStepComponent,
     RStepViewDirective,
-    RPieChartComponent,
+    RDonutChartComponent,
     RStepperHorizontalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush

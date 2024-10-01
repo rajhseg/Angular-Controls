@@ -301,6 +301,10 @@ RStepperHorizontal
 <br />
 <br />
 
+RPieChart Control
+----------------------------------
+![image](https://github.com/user-attachments/assets/b4b130b5-7dc2-421a-8916-68894afd7408)
 
-
+<br/>
+<br/>
 

@@ -279,7 +279,7 @@ RStepper-Vertical
 <br />
 <br />
 
-RPieChart Control
+RDonutChart Control
 ----------------------------------
 
 ![image](https://github.com/user-attachments/assets/878f84fc-f401-4d5b-bd27-558494c90748)

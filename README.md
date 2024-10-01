@@ -271,7 +271,7 @@ RStepper-Vertical
 
 ![image](https://github.com/user-attachments/assets/a4f685b6-bbd6-476d-94cc-1ab59405f438)
 
-### ShowState not Present or Display on left side
+### Disabled ShowState 
 
 ![image](https://github.com/user-attachments/assets/473f3e5c-761f-48fe-976a-947550afe452)
 
@@ -294,7 +294,7 @@ RStepperHorizontal
 ![image](https://github.com/user-attachments/assets/8a3770b0-865c-4523-a481-5f954ab93d7c)
 
 
-### ShowState not present or display on Top
+### Disabled ShowState
 ![image](https://github.com/user-attachments/assets/b1f69544-c4a3-490a-8545-bcd40ee211c7)
 
 

@@ -4,7 +4,7 @@ This Repo is under development so there may be some issues you can face while us
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
 switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
-Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RPieChart, RStepperHorizontal etc
+Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RPieChart, RStepperHorizontal etc.
 
 
 <br />
@@ -248,6 +248,7 @@ RGrid Control
 ![image](https://github.com/user-attachments/assets/39b7c50c-540d-485a-92de-911a6fb8e027)
 
 <br/>
+<br />
 
 REventsSchedule
 -------------------------------
@@ -260,42 +261,44 @@ REventsSchedule
 ![image](https://github.com/user-attachments/assets/859cfaec-e253-4938-8d20-ab5954a5d8b3)
 
 <br/>
+<br />
 
 RStepper-Vertical
 -------------------------------
 <br />
 
-### RStateVerticalItems on Top
-
-![image](https://github.com/user-attachments/assets/02d8494e-2a5f-4f5b-9db4-be6754170235)
-
-### RStateVerticalItems on Left
+### 1. ShowState on Left
 
 ![image](https://github.com/user-attachments/assets/a4f685b6-bbd6-476d-94cc-1ab59405f438)
 
-### RStateVerticalItems not Present or Display
+### 2. Disabled ShowState 
 
 ![image](https://github.com/user-attachments/assets/473f3e5c-761f-48fe-976a-947550afe452)
 
 
 <br />
+<br />
 
-RPieChart Control
+RDonutChart Control
 ----------------------------------
 
 ![image](https://github.com/user-attachments/assets/878f84fc-f401-4d5b-bd27-558494c90748)
 
 <br />
+<br />
 
 RStepperHorizontal
 -----------------------------------
-### Few Steps Completed
-![image](https://github.com/user-attachments/assets/68ded88c-ad10-42fa-bcfc-7ce7c46c81ea)
 
-### After All Steps Completed
+### 1. With ShowState on Top
+![image](https://github.com/user-attachments/assets/8a3770b0-865c-4523-a481-5f954ab93d7c)
+
+
+### 2. Disabled ShowState
 ![image](https://github.com/user-attachments/assets/b1f69544-c4a3-490a-8545-bcd40ee211c7)
 
 
+<br />
 <br />
 
 

@@ -44,8 +44,9 @@ import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from
 import { RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
 import { RStateAlignment, RStateDisplayType, RStepComponent } from "./Controls/rstep/rstep.component";
 import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
-import { RDonutChartComponent, RPieChartItem } from "./Controls/rdonutchart/rdonutchart.component";
+import { RDonutChartComponent, RDonutChartItem } from "./Controls/rdonutchart/rdonutchart.component";
 import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
+import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
 
 @Component({
   selector: 'app-root',
@@ -86,6 +87,7 @@ import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rste
     RStepComponent,
     RStepViewDirective,
     RDonutChartComponent,
+    RPieChartComponent,
     RStepperHorizontalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
@@ -123,7 +125,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   timerDisplayType: TimerType = TimerType.Circle;
   
-  pieItems: RPieChartItem[] = [];
+  pieItems: RDonutChartItem[] = [];
+
+    
+  pieItems1: RPieChartItem[] = [];
 
   multiValue: DropdownModel[] = [];
   singleValue!: DropdownModel;
@@ -231,19 +236,20 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.populateSelectDropdownItems();
       this.createScheduleItems();    
       this.createPieItems();
+      this.createDonutItems();
   }
 
   ngAfterContentChecked(): void {
     this.cdr.detectChanges();
   }
 
-  createPieItems(){
-    let pieItem1 = new RPieChartItem(24,'Cricket', 'blue', 'white');
-    let pieItem2 = new RPieChartItem(35,'Volleyball', 'purple', 'white');
-    let pieItem3 = new RPieChartItem(12,'Tennis', 'yellow', 'white');
-    let pieItem4 = new RPieChartItem(44,'BaseBall', '#6CEBC5', 'white');
-    let pieItem5 = new RPieChartItem(14,'Hockey', 'orangered', 'white');
-    let pieItem6 = new RPieChartItem(44,'Football', 'green', 'white');
+  createDonutItems(){
+    let pieItem1 = new RDonutChartItem(24,'Cricket', 'blue', 'white');
+    let pieItem2 = new RDonutChartItem(35,'Volleyball', 'purple', 'white');
+    let pieItem3 = new RDonutChartItem(12,'Tennis', 'yellow', 'white');
+    let pieItem4 = new RDonutChartItem(44,'BaseBall', '#6CEBC5', 'white');
+    let pieItem5 = new RDonutChartItem(14,'Hockey', 'orangered', 'white');
+    let pieItem6 = new RDonutChartItem(44,'Football', 'green', 'white');
 
     this.pieItems.push(pieItem1);
     this.pieItems.push(pieItem2);
@@ -252,6 +258,24 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.pieItems.push(pieItem5);
     this.pieItems.push(pieItem6);
   }
+
+  
+  createPieItems(){
+    let pieItem1 = new RPieChartItem(24,'Cricket', 'blue', 'white');
+    let pieItem2 = new RPieChartItem(35,'Volleyball', 'purple', 'white');
+    let pieItem3 = new RPieChartItem(12,'Tennis', 'yellow', 'white');
+    let pieItem4 = new RPieChartItem(44,'BaseBall', '#6CEBC5', 'white');
+    let pieItem5 = new RPieChartItem(14,'Hockey', 'orangered', 'white');
+    let pieItem6 = new RPieChartItem(44,'Football', 'green', 'white');
+
+    this.pieItems1.push(pieItem1);
+    this.pieItems1.push(pieItem2);
+    this.pieItems1.push(pieItem3);
+    this.pieItems1.push(pieItem4);
+    this.pieItems1.push(pieItem5);
+    this.pieItems1.push(pieItem6);
+  }
+
 
   changeStepperDisplayType($event: any){
     if(this.stepperDisplayType == RStateDisplayType.AllItems){

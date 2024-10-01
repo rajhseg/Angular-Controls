@@ -1,15 +1,15 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { WindowHelper } from '../windowObject';
-import { NgForOf, NgIf, NgStyle } from '@angular/common';
+import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'rdonutchart',
+  selector: 'rpiechart',
   standalone: true,
-  imports: [NgStyle, NgForOf, NgIf],
-  templateUrl: './rdonutchart.component.html',
-  styleUrl: './rdonutchart.component.css'
+  imports: [NgStyle, NgClass, NgForOf, NgIf],
+  templateUrl: './rpiechart.component.html',
+  styleUrl: './rpiechart.component.css'
 })
-export class RDonutChartComponent implements AfterViewInit {
+export class RPieChartComponent {
 
   @Input()
   ChartWidth: number = 200;
@@ -25,7 +25,7 @@ export class RDonutChartComponent implements AfterViewInit {
   @ViewChild('procan', { read: ElementRef<HTMLCanvasElement>, static: false })
   progressCanvas: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
-  private _items: RRenderDonutChartItem[] = [];
+  private _items: RRenderPieChartItem[] = [];
 
   @Input()
   public Opacity: string = '1';
@@ -38,21 +38,21 @@ export class RDonutChartComponent implements AfterViewInit {
   }
 
   @Input()
-  public set Items(val: RDonutChartItem[]) {
+  public set Items(val: RPieChartItem[]) {
 
     this._items = [];
 
     if (val) {
       for (let index = 0; index < val.length; index++) {
         const element = val[index];
-        let itm = new RRenderDonutChartItem(element.Value, element.Title, element.BackgroundColor, element.ForeColor);
+        let itm = new RRenderPieChartItem(element.Value, element.Title, element.BackgroundColor, element.ForeColor);
         this._items.push(itm);
       }
 
       this.RenderChart();
     }
   }
-  public get Items(): RDonutChartItem[] {
+  public get Items(): RPieChartItem[] {
     return this._items.map(x => x.ConverToItem());
   }
 
@@ -95,6 +95,7 @@ export class RDonutChartComponent implements AfterViewInit {
       this.context.restore();
       let x = this.ChartWidth / 2;
       let y = this.ChartWidth / 2;
+      let radius = this.ChartWidth/2;
 
       let totalValues = this._items.map(x => x.Value);
       let TotalCount = 0;
@@ -111,18 +112,21 @@ export class RDonutChartComponent implements AfterViewInit {
         const element = this._items[index];
 
         let percentage = (element.Value * 100) / TotalCount;
-        let end1 = (percentage/100 ) * 359.98 * (Math.PI / 180);
+        let end1 = (percentage/100 ) * 359.85 * (Math.PI / 180);
 
         element.Percentage = percentage;
         this.context.fillStyle = element.BackgroundColor;
         this.context?.beginPath();
-        this.context.lineWidth = this.LineWidth;
-                        
-        this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);                                
-        this.context.strokeStyle = element.BackgroundColor;
-                
+        this.context.lineWidth = 2;
+        
+        this.context.moveTo(x,y);
+        this.context?.arc(x, y, radius-10, previousAngle, (previousAngle + end1), false);
+        this.context.fillStyle = element.BackgroundColor;
+        this.context.strokeStyle = 'white';        
         this.context.shadowBlur = 10;
         this.context.shadowColor = this.ShadowColor;
+        
+        this.context.fill();
         this.context?.stroke();
         this.context.closePath();
                 
@@ -135,7 +139,17 @@ export class RDonutChartComponent implements AfterViewInit {
         
         previousAngle = previousAngle + end1;
       }
-                
+                      
+      this.context.beginPath();
+      this.context.moveTo(x,y);
+      this.context.lineTo(x+x-10, y);
+      this.context.lineWidth = 2;      
+      this.context.shadowBlur = 10;
+      this.context.shadowColor = this.ShadowColor;
+      this.context.stroke();
+      this.context.fill();      
+      this.context.closePath();
+
       this.progressCanvas.nativeElement.style.transform = "rotate(-90deg)";
       this.progressCanvas.nativeElement.style.opacity = this.Opacity;
 
@@ -145,7 +159,9 @@ export class RDonutChartComponent implements AfterViewInit {
 
 }
 
-export class RDonutChartItem {
+
+
+export class RPieChartItem {
   constructor(
     public Value: number,
     public Title: string,
@@ -155,17 +171,17 @@ export class RDonutChartItem {
   }
 }
 
-export class RRenderDonutChartItem extends RDonutChartItem {
+export class RRenderPieChartItem extends RPieChartItem {
   public Percentage: number = 0;
 
-  ConvertToRenderItem(item: RDonutChartItem) {
+  ConvertToRenderItem(item: RPieChartItem) {
     this.Value = item.Value;
     this.Title = item.Title;
     this.BackgroundColor = item.BackgroundColor;
     this.ForeColor = item.ForeColor;
   }
 
-  ConverToItem(): RDonutChartItem {
-    return new RDonutChartItem(this.Value, this.Title, this.BackgroundColor, this.ForeColor);
+  ConverToItem(): RPieChartItem {
+    return new RPieChartItem(this.Value, this.Title, this.BackgroundColor, this.ForeColor);
   }
 }

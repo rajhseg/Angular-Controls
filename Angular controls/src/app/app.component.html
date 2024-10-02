@@ -23,9 +23,20 @@
 
   </div>
   <br />
-    <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" [ShadowColor]="'blue'" [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
-    <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'blue'" [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
-    <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+
+
+    <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" 
+        [ShadowColor]="'blue'"  [MoveTextUpwardsFromCenterInPx]="20"
+        [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+
+    <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
+        [ShadowColor]="'blue'" [Items]="pieItems" 
+        [Opacity]="'0.8'"></rdonutchart>
+
+    <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" 
+        [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+
+
   <br />
 
   <br/>
@@ -33,11 +44,18 @@
   <br />
 
   
-  <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150" [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
+  <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150" 
+    [MoveTextUpwardsFromCenterInPx]="5" [RotateTextToInlineAngle]="true"    
+    [Items]="pieItems1" 
+    [Opacity]="'0.8'"></rpiechart>
 
-  <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
+  <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
+    [MoveTextUpwardsFromCenterInPx]="-20"
+    [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
 
-  <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
+  <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" 
+    [MoveTextUpwardsFromCenterInPx]="-30"
+    [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
 
   <br/>
 
@@ -931,7 +949,18 @@
 
       <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rdonutchart', 'Context': this}">
         <br />
-          <rdonutchart [ChartWidth]="300" [ShadowColor]="'red'" [Items]="pieItems" [Opacity]="'0.7'"></rdonutchart>
+          
+          <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" 
+          [ShadowColor]="'blue'"  [MoveTextUpwardsFromCenterInPx]="20"
+          [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+
+          <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
+              [ShadowColor]="'blue'" [Items]="pieItems" 
+              [Opacity]="'0.8'"></rdonutchart>
+
+          <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" 
+              [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+
         <br />
       </rtab>
 
@@ -939,12 +968,19 @@
 
         <br />
   
-        <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150" [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
+        <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150" 
+          [MoveTextUpwardsFromCenterInPx]="5" [RotateTextToInlineAngle]="true"    
+          [Items]="pieItems1" 
+          [Opacity]="'0.8'"></rpiechart>
       
-        <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
-      
-        <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
-            
+      <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
+          [MoveTextUpwardsFromCenterInPx]="-20"
+          [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
+    
+      <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" 
+          [MoveTextUpwardsFromCenterInPx]="-30"
+          [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
+        
       </rtab>
     </rtabs>
   </div>

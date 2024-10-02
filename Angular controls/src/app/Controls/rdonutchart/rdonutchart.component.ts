@@ -11,6 +11,22 @@ import { NgForOf, NgIf, NgStyle } from '@angular/common';
 })
 export class RDonutChartComponent implements AfterViewInit {
 
+
+  @Input()
+  FontSize: number = 10;
+
+  @Input()
+  TextForeColor: string = 'white';
+
+  @Input()
+  RotateTextToInlineAngle: boolean = false;
+
+  @Input()
+  ShowTextOnTopOfChartItem: boolean = true;
+
+  @Input()
+  MoveTextUpwardsFromCenterInPx: number = 0;
+
   @Input()
   ChartWidth: number = 200;
 
@@ -31,9 +47,9 @@ export class RDonutChartComponent implements AfterViewInit {
   public Opacity: string = '1';
 
   private _lineWidth: number = 0;
-  
+
   public get LineWidth(): number {
-    this._lineWidth = (this.ChartWidth/3)- 12 ;
+    this._lineWidth = (this.ChartWidth / 3) - 12;
     return this._lineWidth;
   }
 
@@ -71,20 +87,20 @@ export class RDonutChartComponent implements AfterViewInit {
     }
   }
 
-  GetXYForText(x: number, y: number, length: number, angle: number): {X: number, Y: number} {    
+  GetXYForText(x: number, y: number, length: number, angle: number): { X: number, Y: number } {
     let x2 = x + length * Math.cos(angle);
     let y2 = y + length * Math.sin(angle);
-    return {X: x2, Y: y2};
+    return { X: x2, Y: y2 };
   }
 
-  DrawText(context : CanvasRenderingContext2D, x: number, y: number, length: number, angle: number, color: string){
-    let rad = (angle * Math.PI)/180;
+  DrawText(context: CanvasRenderingContext2D, x: number, y: number, length: number, angle: number, color: string) {
+    let rad = (angle * Math.PI) / 180;
     context.beginPath();
-    context.moveTo(x,y);
-    context.lineTo(x +length * rad, y + length *rad);
+    context.moveTo(x, y);
+    context.lineTo(x + length * rad, y + length * rad);
     context.strokeStyle = color;
-    context.stroke(); 
-    context.closePath();       
+    context.stroke();
+    context.closePath();
   }
 
   RenderChart() {
@@ -95,6 +111,7 @@ export class RDonutChartComponent implements AfterViewInit {
       this.context.restore();
       let x = this.ChartWidth / 2;
       let y = this.ChartWidth / 2;
+      let radiusLength = (this.ChartWidth / 3) + (this.LineWidth / 2);
 
       let totalValues = this._items.map(x => x.Value);
       let TotalCount = 0;
@@ -111,31 +128,57 @@ export class RDonutChartComponent implements AfterViewInit {
         const element = this._items[index];
 
         let percentage = (element.Value * 100) / TotalCount;
-        let end1 = (percentage/100 ) * 359.98 * (Math.PI / 180);
+        let end1 = (percentage / 100) * 359.98 * (Math.PI / 180);
 
         element.Percentage = percentage;
         this.context.fillStyle = element.BackgroundColor;
         this.context?.beginPath();
         this.context.lineWidth = this.LineWidth;
-                        
-        this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);                                
+
+        this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);
         this.context.strokeStyle = element.BackgroundColor;
-                
+
         this.context.shadowBlur = 10;
         this.context.shadowColor = this.ShadowColor;
         this.context?.stroke();
         this.context.closePath();
-                
-        let pos = this.GetXYForText(x, y, 90, (previousAngle));        
-        
-        // this.context.fillText(element.Title, pos.X, pos.Y);
-        // this.context.fillStyle = 'white';
-        // this.context.save();
-        // this.context.restore();
-        
+
+        if (this.ShowTextOnTopOfChartItem) {
+          let endAngle = previousAngle + end1;
+          let avgAngle = (previousAngle + (endAngle > previousAngle ? endAngle : endAngle + ((Math.PI * 359.58) / 180))) / 2;
+
+          let metrics = this.context.measureText(element.Title);
+          let textRadiusLength = radiusLength - metrics.width - 5 + this.MoveTextUpwardsFromCenterInPx;
+
+          let pos = this.GetXYForText(x, y, textRadiusLength, avgAngle);
+
+          this.context.beginPath();
+
+          this.context.save();
+          this.context.textAlign = "center";
+          this.context.textBaseline = "middle";
+
+          this.context.translate(pos.X, pos.Y);
+
+          if (this.RotateTextToInlineAngle) {
+            this.context.rotate(avgAngle);
+          } else {
+            this.context.rotate(Math.PI / 2);
+          }
+
+          this.context.font = this.FontSize + 'px verdana';
+          this.context.fillStyle = this.TextForeColor;
+          this.context.fillText(element.Title, 0, 0);
+
+          this.context.stroke();
+          this.context.restore();
+          this.context.closePath();
+
+        }
+
         previousAngle = previousAngle + end1;
       }
-                
+
       this.progressCanvas.nativeElement.style.transform = "rotate(-90deg)";
       this.progressCanvas.nativeElement.style.opacity = this.Opacity;
 

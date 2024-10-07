@@ -23,7 +23,8 @@
 
   </div>
   <br />
-
+  <rbutton [ButtonWidth]="'200px'" (ButtonClick)="AddFewItems($event)">Add Few Items to Chart</rbutton>
+  <br />
 
     <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" 
         [ShadowColor]="'blue'"  [MoveTextUpwardsFromCenterInPx]="20"
@@ -951,8 +952,8 @@
         <br />
           
           <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" 
-          [ShadowColor]="'blue'"  [MoveTextUpwardsFromCenterInPx]="20"
-          [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+              [ShadowColor]="'blue'"  [MoveTextUpwardsFromCenterInPx]="20"
+              [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
           <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
               [ShadowColor]="'blue'" [Items]="pieItems" 

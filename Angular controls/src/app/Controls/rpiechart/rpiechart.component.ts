@@ -37,6 +37,9 @@ export class RPieChartComponent {
   @Input()
   ShadowColor: string = 'blue';
 
+  @Input()
+  ShadowBlur: number = 10;
+
   @ViewChild('procan', { read: ElementRef<HTMLCanvasElement>, static: false })
   progressCanvas: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
@@ -99,13 +102,13 @@ export class RPieChartComponent {
     context.lineTo(x + length * rad, y + length * rad);
     context.strokeStyle = color;
     context.stroke();
-    context.closePath();
+    context.closePath();       
   }
 
   RenderChart() {
     this.IsRendered = false;
     if (this.progressCanvas && this.context && this._items.length > 0) {
-
+      this.context.reset();
       this.context.clearRect(0, 0, this.progressCanvas.nativeElement.width, this.progressCanvas.nativeElement.height);
       this.context.restore();
       let x = this.ChartWidth / 2;
@@ -138,7 +141,7 @@ export class RPieChartComponent {
         this.context?.arc(x, y, radius - 10, previousAngle, (previousAngle + end1), false);
         this.context.fillStyle = element.BackgroundColor;
         this.context.strokeStyle = 'white';
-        this.context.shadowBlur = 10;
+        this.context.shadowBlur = this.ShadowBlur;
         this.context.shadowColor = this.ShadowColor;
 
         this.context.fill();

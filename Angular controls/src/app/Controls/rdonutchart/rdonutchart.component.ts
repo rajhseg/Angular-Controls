@@ -38,6 +38,9 @@ export class RDonutChartComponent implements AfterViewInit {
   @Input()
   ShadowColor: string = 'blue';
 
+  @Input()
+  ShadowBlur: number = 10;
+
   @ViewChild('procan', { read: ElementRef<HTMLCanvasElement>, static: false })
   progressCanvas: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
@@ -106,7 +109,7 @@ export class RDonutChartComponent implements AfterViewInit {
   RenderChart() {
     this.IsRendered = false;
     if (this.progressCanvas && this.context && this._items.length > 0) {
-
+      this.context.reset();
       this.context.clearRect(0, 0, this.progressCanvas.nativeElement.width, this.progressCanvas.nativeElement.height);
       this.context.restore();
       let x = this.ChartWidth / 2;
@@ -138,7 +141,7 @@ export class RDonutChartComponent implements AfterViewInit {
         this.context?.arc(x, y, this.ChartWidth / 3, previousAngle, (previousAngle + end1), false);
         this.context.strokeStyle = element.BackgroundColor;
 
-        this.context.shadowBlur = 10;
+        this.context.shadowBlur = this.ShadowBlur;
         this.context.shadowColor = this.ShadowColor;
         this.context?.stroke();
         this.context.closePath();

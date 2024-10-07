@@ -259,6 +259,13 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.pieItems.push(pieItem6);
   }
 
+  AddFewItems(evt: any) {
+    let pieItem5 = new RDonutChartItem(14,'F1', 'gray', 'white');
+    let pieItem6 = new RDonutChartItem(24,'WW', 'Red', 'white');
+    this.pieItems.push(pieItem5);
+    this.pieItems.push(pieItem6);
+    this.pieItems = this.pieItems.slice();
+  }
   
   createPieItems(){
     let pieItem1 = new RPieChartItem(24,'Cricket', 'blue', 'white');

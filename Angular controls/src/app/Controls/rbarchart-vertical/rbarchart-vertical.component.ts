@@ -111,6 +111,10 @@ export class RBarChartVerticalComponent implements AfterViewInit {
                            itm.barItemsBackColor[0] : "orangered";
   }
 
+  isPropString(prop: any){
+    return typeof prop === 'string';
+  }
+
   RenderBarChart(){
     this.IsRendered =false;
 
@@ -225,7 +229,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
         
         xPoint += eachBarLength;              
       }
-
+      
       this.IsRendered = true;
     }
   }
@@ -261,7 +265,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
   private DrawBar(startX: number, startY: number, xdistance: number, yDistance: number, color: string){
     if(this.context){
       this.context.beginPath();
-      this.context.fillStyle = color;
+      this.context.fillStyle = color;      
       this.context.fillRect(startX, startY, xdistance, yDistance);
       this.context.fill();
       this.context.closePath();

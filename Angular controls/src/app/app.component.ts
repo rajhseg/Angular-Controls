@@ -47,6 +47,8 @@ import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
 import { RDonutChartComponent, RDonutChartItem } from "./Controls/rdonutchart/rdonutchart.component";
 import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
 import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
+import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
+import { BarChartItem } from './Controls/Models/BarChartItem';
 
 @Component({
   selector: 'app-root',
@@ -88,7 +90,8 @@ import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechar
     RStepViewDirective,
     RDonutChartComponent,
     RPieChartComponent,
-    RStepperHorizontalComponent
+    RStepperHorizontalComponent,
+    RBarChartVerticalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -181,6 +184,12 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   stepperDisplayType: RStateDisplayType = RStateDisplayType.AllItems;
   stepperAlign: RStateAlignment = RStateAlignment.OnTop;  
 
+  barChartItems: BarChartItem[] = []
+  barChartXAxisItems: string[] = [];
+
+  barChartItems1: BarChartItem[] = []
+  barChartXAxisItems1: string[] = [];
+
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
   
@@ -237,10 +246,23 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createScheduleItems();    
       this.createPieItems();
       this.createDonutItems();
+      this.createBarCharts();
   }
 
   ngAfterContentChecked(): void {
     this.cdr.detectChanges();
+  }
+
+  createBarCharts(){
+    this.barChartXAxisItems = ["2000", "2001", "2002","2003"];
+    this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "blue", "white"));
+    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 78], "red", "white"));
+    this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
+
+    this.barChartXAxisItems1 = ["Tomato", "Potato", "Onion","Oil"];
+    this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "purple", "white"));
+    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 78], "orange", "white"));
+    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
   }
 
   createDonutItems(){

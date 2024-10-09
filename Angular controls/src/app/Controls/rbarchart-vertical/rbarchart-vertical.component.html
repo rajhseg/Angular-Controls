@@ -1,0 +1,21 @@
+
+
+
+<div>
+    <canvas #rbar width="{{Width}}" height="{{Height}}">
+
+    </canvas>
+    <div *ngIf="IsRendered"  style="position: relative; align-content: center;" 
+            [ngStyle]="{'bottom': '30px', 'height': DataListHeight+'px'}">
+        <div class="dataContainer">
+            <div class="data"
+                 *ngFor="let itm of this.Columns">
+                <div class="indicator" [ngStyle]="{'backgroundColor': getNameIndicator(itm) }">                    
+                </div>
+                <span class="title">
+                    {{itm.DisplayName}}
+                </span>                
+            </div>
+        </div>        
+    </div>
+</div>

@@ -59,7 +59,15 @@
     [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
 
   <br/>
+  <br/>
 
+  <rbarchart-vertical style="float:left" [xAxisItemNames]="barChartXAxisItems" [Columns]="barChartItems"></rbarchart-vertical>
+
+
+  <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItems1" [Columns]="barChartItems1"></rbarchart-vertical>
+
+  <br/>
+  <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
     (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
   </rcolorpicker>

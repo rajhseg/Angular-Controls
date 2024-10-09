@@ -4,7 +4,7 @@ This Repo is under development so there may be some issues you can face while us
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
 switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
-Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RStepperHorizontal, RDonutChart, RPieChart  etc.
+Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RStepperHorizontal, RDonutChart, RPieChart, RBarChart Vertical  etc.
 
 
 <br />
@@ -310,5 +310,14 @@ RPieChart Control
 
 <br/>
 <br/>
+
+RBarChart Vertical Control
+-----------------------------------
+
+![image](https://github.com/user-attachments/assets/fd9f5e39-dd93-4136-addd-fb98d4c5445d)
+
+<br/>
+<br/>
+
 
 

@@ -66,6 +66,14 @@
   <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItems1" [Columns]="barChartItems1"></rbarchart-vertical>
 
   <br/>
+  
+  <rbarchart-horizontal style="float:left" [Width]="400" [yAxisItemNames]="barChartXAxisItems" 
+          [Columns]="barChartItems"></rbarchart-horizontal>
+  
+  <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItems1" 
+          [Columns]="barChartItems1"></rbarchart-horizontal>
+
+  <br/>
   <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
     (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">

@@ -49,6 +49,7 @@ import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rste
 import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
 import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
 import { BarChartItem } from './Controls/Models/BarChartItem';
+import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
 
 @Component({
   selector: 'app-root',
@@ -91,7 +92,8 @@ import { BarChartItem } from './Controls/Models/BarChartItem';
     RDonutChartComponent,
     RPieChartComponent,
     RStepperHorizontalComponent,
-    RBarChartVerticalComponent
+    RBarChartVerticalComponent,
+    RBarChartHorizontalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })

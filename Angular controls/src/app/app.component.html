@@ -61,19 +61,25 @@
   <br/>
   <br/>
 
-  <rbarchart-vertical style="float:left" [Width]="400" [xAxisItemNames]="barChartXAxisItems" [Columns]="barChartItems"></rbarchart-vertical>
+  <rbarchart-vertical style="float:left" [Width]="400" [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems"></rbarchart-vertical>
 
-  <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItems1" [Columns]="barChartItems1"></rbarchart-vertical>
+  <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1" [Columns]="barChartItems1"></rbarchart-vertical>
 
   <br/>
   
-  <rbarchart-horizontal style="float:left" [Width]="400" [yAxisItemNames]="barChartXAxisItems" 
+  <rbarchart-horizontal style="float:left" [Width]="400" [yAxisItemNames]="barChartXAxisItemNames" 
           [Columns]="barChartItems"></rbarchart-horizontal>
   
-  <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItems1" 
+  <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1" 
           [Columns]="barChartItems1"></rbarchart-horizontal>
 
   <br/>
+  <br/>
+
+  <rstackedbarchart-vertical [Width]="500" [xAxisItemNames]="stackedbarChartXAxisItemNames1" 
+      [Columns]="stackedbarChartItems1">
+  </rstackedbarchart-vertical>
+
   <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
     (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">

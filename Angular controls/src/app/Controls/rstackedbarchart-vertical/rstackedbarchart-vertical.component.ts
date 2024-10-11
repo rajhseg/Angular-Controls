@@ -4,13 +4,13 @@ import { BarChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
 @Component({
-  selector: 'rbarchart-horizontal',
+  selector: 'rstackedbarchart-vertical',
   standalone: true,
   imports: [NgIf, NgStyle, NgForOf],
-  templateUrl: './rbarchart-horizontal.component.html',
-  styleUrl: './rbarchart-horizontal.component.css'
+  templateUrl: './rstackedbarchart-vertical.component.html',
+  styleUrl: './rstackedbarchart-vertical.component.css'
 })
-export class RBarChartHorizontalComponent implements AfterViewInit {
+export class RStackedBarChartVerticalComponent implements AfterViewInit {
 
 
   private _width: number = 300;
@@ -31,6 +31,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     return this._noOfSplitInValueAxis;
   }
 
+
   @Input()
   public set Width(val: number) {
     this._width = val;
@@ -49,7 +50,6 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   public get GapBetweenBars(): number {
     return this._gapBetweenBars;
   }
-
 
   private _marginX: number = 50;
 
@@ -72,7 +72,6 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     return this._marginY;
   }
 
-
   @Input()
   public set Height(val: number) {
     this._height = val;
@@ -81,17 +80,17 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     return this._height;
   }
 
-  private _yAxisItemNames: string[] = [];
+  private _xAxisItemNames: string[] = [];
 
   @Input()
-  public set yAxisItemNames(val: string[]) {
-    if (val == undefined || val == null || val.toString() != this._yAxisItemNames.toString()) {
-      this._yAxisItemNames = val;
+  public set xAxisItemNames(val: string[]) {
+    if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
+      this._xAxisItemNames = val;
       this.RenderBarChart();
     }
   }
-  public get yAxisItemNames(): string[] {
-    return this._yAxisItemNames;
+  public get xAxisItemNames(): string[] {
+    return this._xAxisItemNames;
   }
 
   private _dataListHeight: number = 30;
@@ -158,38 +157,42 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   RenderBarChart() {
     this.IsRendered = false;
 
-    if (this.bar && this.context && this.Columns.length > 0 && this.yAxisItemNames.length > 0) {
+    if (this.bar && this.context && this.Columns.length > 0 && this.xAxisItemNames.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
 
-      let spaceFromRightXAxis = 25;
+      let spaceFromTopYAxis = 25;
 
-      for (let index = 0; index < this.Columns.length; index++) {
-        const element = this.Columns[index];
-        if (element) {
+      var valueList = [];
+      for (let index = 0; index < this.xAxisItemNames.length; index++) {
+        const element = this.xAxisItemNames[index];
 
-          let list: number[] = element.Values;
-          if (min != undefined && max != undefined) {
-            min = this.MinArray([this.MinArray(list), min]);
-            max = this.MaxArray([this.MaxArray(list), max]);
-          } else {
-            min = this.MinArray(list);
-            max = this.MaxArray(list);
-          }
+        var itm = 0;
+
+        for (let col = 0; col < this.Columns.length; col++) {
+          const clmn = this.Columns[col];
+
+          if (clmn.Values[index] != undefined)
+            itm += clmn.Values[index];
         }
+
+        valueList.push(itm);
       }
 
+      min = this.MinArray(valueList);
+      max = this.MaxArray(valueList);
+
       var distance: number = 0;
-      var itemCount = this.yAxisItemNames.length;
+      var itemCount = this.xAxisItemNames.length;
 
       if (min != undefined && max != undefined) {
-        distance = (max) / this.NoOfSplitInValueAxis
+        distance = (max) / this.NoOfSplitInValueAxis;
       }
 
       distance = this.GetRoundToTenDigit(distance);
 
       var MinLimit = 0;
-      var MaxLimit = distance * this.NoOfSplitInValueAxis;
+      var MaxLimit = distance * (this.NoOfSplitInValueAxis);
 
       var StartX: number = this._marginX;
       var StartY: number = this.Height - this._marginY;
@@ -208,77 +211,96 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       this.context.stroke();
       this.context.closePath();
 
-      /* Draw X axis line */
-      let hDistance = (this.Width - this.MarginX - spaceFromRightXAxis) / this.NoOfSplitInValueAxis;
+      /* Draw y axis line */
+      let vDistance = (StartY - spaceFromTopYAxis) / this.NoOfSplitInValueAxis;
 
-      /* Draw X Axis */
+      /* Draw Y Axis */
       for (let index = 0; index <= this.NoOfSplitInValueAxis; index++) {
-        let xDisplayValue = Math.round(distance * index);
-        let xPoint = Math.round((hDistance * index) + this.MarginX);
+        let yDisplayValue = Math.round(distance * (this.NoOfSplitInValueAxis - index));
+        let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
 
-        this.VerticalLineInXAxis(xPoint, StartY);
-        this.DrawVerticalLine(xPoint, 0);
-        this.VerticalLineDisplayValueInXAxis(xDisplayValue.toString(), xPoint, StartY);
+        this.HorizontalLineInYAxis(StartX, yPoint);
+        this.DrawHorizontalLine(StartX, yPoint);
+        this.HorizontalLineDisplayValueInYAxis(yDisplayValue.toString(), StartX, yPoint);
       }
 
-
       /* Draw the x Axis */
-      var eachBarGroupLength = (this.Height - this.MarginY) / itemCount;
-      var eachBarLength = eachBarGroupLength / (this.Columns.length + this.GapBetweenBars);
-      let yPoint = StartY;
+      let maxBarsPerGroup = 1;
+      var eachBarGroupLength = (this.Width - StartX) / itemCount;
+      var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
+      let xPoint = StartX;
 
       for (let index = 0; index < itemCount; index++) {
 
-        let yAxisName = this.yAxisItemNames[index];
+        let xAxisName = this.xAxisItemNames[index];
 
         if (this.GapBetweenBars == 1) {
-          yPoint -= eachBarLength / 2;
+          xPoint += eachBarLength / 2;
         } else {
-          yPoint -= eachBarLength;
+          xPoint += eachBarLength;
         }
 
-        let nameHeight = 6;
-        let nameWidth = this.context.measureText(yAxisName);
-        let remWidth = eachBarGroupLength - nameHeight - (eachBarLength * this.GapBetweenBars);
+        let nameWidth = this.context.measureText(xAxisName);
+        let remWidth = eachBarGroupLength - nameWidth.width - (eachBarLength * this.GapBetweenBars);
 
-        let halfYPoint = remWidth / 2;
+        let halfXPoint = remWidth / 2;
 
-        /* Draw name on YAxis */
-        this.DrawYAxisName(yAxisName, this._marginX - nameWidth.width - 10, yPoint - halfYPoint);
+        /* Draw name on xAxis */
+        this.DrawXAxisName(xAxisName, xPoint + halfXPoint, this.Height - this._marginY + 15);
+
+        let previousY: number | undefined = StartY;
+        let ComputedValue = 0;
+        let halfValueXPoint: number | undefined = undefined;
 
         for (let x = 0; x < this.Columns.length; x++) {
           const element = this.Columns[x];
           let value = element.Values[index];
 
-          if (value) {
-            let xEndPoint = this.GetXEndPoint(value, distance, itemCount, hDistance);
+          if (value != undefined) {
+            let y = this.GetYStartPoint(value, distance, itemCount, vDistance, spaceFromTopYAxis);
 
             let color = typeof element.barItemsBackColor === 'string' ?
-              element.barItemsBackColor : element.barItemsBackColor.length > 0  && element.barItemsBackColor[index] ?
+              element.barItemsBackColor : element.barItemsBackColor.length > 0 && element.barItemsBackColor[index] ?
                 element.barItemsBackColor[index] : "purple";
 
             /* Draw Bar */
-            this.DrawBar(this.MarginX, yPoint - eachBarLength, xEndPoint, eachBarLength, color);
+            let diff = StartY - y;
+            let yPoint = 0;
+
+            if (previousY != undefined)
+              yPoint = previousY - diff;
+
+            this.DrawBar(xPoint, yPoint, eachBarLength, diff, color);
 
             /* Draw Text on top of Bar */
+            let valueXpoint = this.getWidthFromString(value.toString());
+            let remXWidth = eachBarLength - valueXpoint;
+
             let foreColor = typeof element.barItemsForeColor === 'string' ?
               element.barItemsForeColor : element.barItemsForeColor.length > 0 && element.barItemsForeColor[index] ?
                 element.barItemsForeColor[index] : "black";
 
-            let metrics = this.context.measureText(value.toString());
-            let xTextPoint = xEndPoint + this.MarginX - metrics.width - 15;
-            let yTextPoint = yPoint - (eachBarLength / 3);
-            this.DrawText(value.toString(), xTextPoint, yTextPoint, foreColor);
+            halfValueXPoint = remXWidth / 2;
 
+            this.DrawText(value.toString(), xPoint + halfValueXPoint, yPoint + 15, foreColor);
+            ComputedValue += value;
+            previousY = yPoint;
           }
+        }
 
-          yPoint -= eachBarLength;
+        /* Draw total value on top of Bar */
+        let valueXpoint = this.getWidthFromString(ComputedValue.toString());
+        let remXWidth = eachBarLength - valueXpoint;
+        halfValueXPoint = remXWidth / 2;
+
+        if (halfValueXPoint) {
+          this.DrawText(ComputedValue.toString(), xPoint + halfValueXPoint, previousY - 5, "gray");
         }
 
         if (this.GapBetweenBars == 1) {
-          yPoint -= eachBarLength / 2;
+          xPoint += eachBarLength + eachBarLength / 2;
         } else {
-          yPoint -= eachBarLength;
+          xPoint += eachBarLength + eachBarLength;
         }
 
       }
@@ -295,13 +317,13 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     return distance;
   }
 
-  private GetXEndPoint(displayValue: number, distance: number, itemcount: number, hDistance: number) {
-    let index = (displayValue / distance);
-    let xPoint = Math.round((hDistance * index));
-    return xPoint;
+  private GetYStartPoint(displayValue: number, distance: number, itemcount: number, vDistance: number, spaceFromTopYAxis: number) {
+    let index = -(displayValue / distance) + this.NoOfSplitInValueAxis;
+    let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
+    return yPoint;
   }
 
-  private DrawYAxisName(name: string, xPoint: number, yPoint: number) {
+  private DrawXAxisName(name: string, xPoint: number, yPoint: number) {
     if (this.context) {
       let startY = yPoint;
       this.context.beginPath
@@ -325,13 +347,15 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     }
   }
 
-  private VerticalLineDisplayValueInXAxis(value: string, x: number, ypoint: number) {
+  private HorizontalLineDisplayValueInYAxis(value: string, x: number, ypoint: number) {
     if (this.context) {
       this.context.beginPath();
       let metrics = this.context.measureText(value);
 
-      let StartY = ypoint + 15;
-      let StartX = x - (metrics.width / 2);
+      let StartX = x - 7 - metrics.width;
+      let StartY = ypoint + 3;
+      let EndX = x - 7;
+      let EndY = ypoint;
 
       this.context.fillStyle = "gray";
       this.context.moveTo(StartX, StartY);
@@ -342,27 +366,27 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     }
   }
 
-  private DrawVerticalLine(x: number, ypoint: number) {
+  private DrawHorizontalLine(x: number, ypoint: number) {
     if (this.context) {
       this.context.beginPath();
-      let startY = ypoint;
-      let endY = this.Height - this._marginY;
+      let startX = x;
+      let endX = x + this.Width - this._marginX;
       this.context.lineWidth = 0.4;
       this.context.strokeStyle = "gray";
-      this.context.moveTo(x, startY);
-      this.context.lineTo(x, endY);
+      this.context.moveTo(startX, ypoint);
+      this.context.lineTo(endX, ypoint);
       this.context.stroke();
       this.context.closePath();
     }
   }
 
-  private VerticalLineInXAxis(x: number, ypoint: number) {
+  private HorizontalLineInYAxis(x: number, ypoint: number) {
     if (this.context) {
       this.context.beginPath();
-      let StartY = ypoint - 5;
-      let StartX = x;
-      let EndY = ypoint + 5;
-      let EndX = x;
+      let StartX = x - 5;
+      let StartY = ypoint;
+      let EndX = x + 5;
+      let EndY = ypoint;
 
       this.context.strokeStyle = "gray";
       this.context.moveTo(StartX, StartY);

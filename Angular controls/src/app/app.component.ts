@@ -50,6 +50,7 @@ import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechar
 import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
 import { BarChartItem } from './Controls/Models/BarChartItem';
 import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
+import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-vertical/rstackedbarchart-vertical.component';
 
 @Component({
   selector: 'app-root',
@@ -93,7 +94,8 @@ import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rb
     RPieChartComponent,
     RStepperHorizontalComponent,
     RBarChartVerticalComponent,
-    RBarChartHorizontalComponent
+    RBarChartHorizontalComponent,
+    RStackedBarChartVerticalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -174,7 +176,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   gridItems1:any[] = [];
   selectDropdownItems: DropdownModel[] = [];
 
-  showVerticalItems: boolean =true;
+  showVerticalItems: boolean = false;
 
   dates: string [] = [];
   dates1: string [] = [];
@@ -187,10 +189,13 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   stepperAlign: RStateAlignment = RStateAlignment.OnTop;  
 
   barChartItems: BarChartItem[] = []
-  barChartXAxisItems: string[] = [];
+  barChartXAxisItemNames: string[] = [];
 
   barChartItems1: BarChartItem[] = []
-  barChartXAxisItems1: string[] = [];
+  barChartXAxisItemNames1: string[] = [];
+
+  stackedbarChartItems1: BarChartItem[] = []
+  stackedbarChartXAxisItemNames1: string[] = [];
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -249,6 +254,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createPieItems();
       this.createDonutItems();
       this.createBarCharts();
+      this.createStackedBarCharts();
   }
 
   ngAfterContentChecked(): void {
@@ -256,15 +262,22 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   createBarCharts(){
-    this.barChartXAxisItems = ["2000", "2001", "2002","2003"];
+    this.barChartXAxisItemNames = ["2000", "2001", "2002","2003"];
     this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "blue", "white"));
     this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 78], "red", "white"));
     this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
 
-    this.barChartXAxisItems1 = ["Tomato", "Potato", "Onion","Oil"];
+    this.barChartXAxisItemNames1 = ["Tomato", "Potato", "Onion","Oil"];
     this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "purple", "white"));
     this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 78], "orange", "white"));
     this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
+  }
+
+  createStackedBarCharts(){
+    this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
+    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 1850, 1650, 2700, 2400, 1800], "blue", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [465, 377, 486, 378, 500, 450, 350, 350], "red", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 758, 700, 1200, 800, 1400], ["cyan","yellow","green", "gray"], "white"));    
   }
 
   createDonutItems(){

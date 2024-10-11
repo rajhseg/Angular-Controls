@@ -8,7 +8,7 @@
     <div *ngIf="IsRendered"  style="position: relative; align-content: center;" 
             [ngStyle]="{'bottom': '30px', 'height': DataListHeight+'px'}">
 
-        <div class="dataContainer" [ngStyle]="{'width': (Width - Margin) +'px'}">
+        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px'}">
             <div class="data" *ngFor="let itm of this.Columns">
                 
                 <ng-container *ngIf="isPropString(itm.barItemsBackColor)">

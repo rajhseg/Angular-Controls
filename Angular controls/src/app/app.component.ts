@@ -264,12 +264,12 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   createBarCharts(){
     this.barChartXAxisItemNames = ["2000", "2001", "2002","2003"];
     this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "blue", "white"));
-    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 78], "red", "white"));
+    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 5], "red", "white"));
     this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
 
     this.barChartXAxisItemNames1 = ["Tomato", "Potato", "Onion","Oil"];
     this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "purple", "white"));
-    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 78], "orange", "white"));
+    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 5], "orange", "white"));
     this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
   }
 

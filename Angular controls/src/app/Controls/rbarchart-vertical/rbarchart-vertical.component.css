@@ -36,7 +36,7 @@
 .title {
     float: left;
     margin-right: 5px;
-    color: black;
+    color: gray;
     padding: 5px;
     text-overflow: ellipsis;
 }

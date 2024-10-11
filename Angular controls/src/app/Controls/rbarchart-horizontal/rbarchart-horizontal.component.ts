@@ -12,9 +12,37 @@ import { WindowHelper } from '../windowObject';
 })
 export class RBarChartHorizontalComponent implements AfterViewInit {
 
-
   private _width: number = 300;
   private _height: number = 300;
+
+  private _xAxisTitle: string = "";
+  private _yAxisTitle: string = "";
+
+  private _textColor: string = "gray";
+
+  @Input()
+  public set TextColor(val: string){
+    this._textColor = val;
+  }
+  public get TextColor(): string {
+    return this._textColor;
+  }
+  
+  @Input()
+  public set XAxisTitle(val: string){
+    this._xAxisTitle = val;
+  }
+  public get XAxisTitle(): string {
+    return this._xAxisTitle;
+  }
+
+  @Input()
+  public set YAxisTitle(val: string) {
+    this._yAxisTitle = val;
+  }
+  public get YAxisTitle(): string {
+    return this._yAxisTitle;
+  }
 
   private _noOfSplitInValueAxis: number = 4;
 
@@ -146,6 +174,10 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     return 50;
   }
 
+  getTextHeight(met: TextMetrics){
+    return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
+  }
+  
   getNameIndicator(itm: BarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
@@ -198,15 +230,47 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       this.context.beginPath();
       this.context.moveTo(StartX, StartY);
       this.context.lineTo(StartX, 0);
-      this.context.strokeStyle = "gray";
+      this.context.strokeStyle = this.TextColor;
       this.context.stroke();
 
       /* Draw Horizontal Line */
       this.context.moveTo(StartX, StartY);
       this.context.lineTo(this.Width, StartY);
-      this.context.strokeStyle = "gray";
+      this.context.strokeStyle = this.TextColor;
       this.context.stroke();
       this.context.closePath();
+
+      /* Draw Title on x-axis */
+      this.context.beginPath();
+      
+      let met = this.context.measureText(this.XAxisTitle);
+      let xTextPoint = (this.Width - this.MarginX)/2 + this.MarginX;
+      xTextPoint = xTextPoint - (met.width/2);
+      let yTextPoint = this.Height - 10;
+
+      this.context.save();
+      this.context.fillStyle = this.TextColor;
+      this.context.fillText(this.XAxisTitle, xTextPoint, yTextPoint);
+      this.context.restore();
+
+      this.context.closePath();
+
+      /* Draw Title On Y axis */      
+      this.context.beginPath();
+      this.context.save();
+
+      met = this.context.measureText(this.XAxisTitle);
+      yTextPoint = (this.Height - this.MarginY)/2;
+      yTextPoint = yTextPoint + (met.width/2);
+      xTextPoint = 15;            
+      this.context.fillStyle = this.TextColor;
+      this.context.translate(xTextPoint, yTextPoint);
+      this.context.rotate((Math.PI/180) * 270);
+      this.context.fillText(this.YAxisTitle, 0, 0);      
+      
+      this.context.restore();
+      this.context.closePath();
+      
 
       /* Draw X axis line */
       let hDistance = (this.Width - this.MarginX - spaceFromRightXAxis) / this.NoOfSplitInValueAxis;
@@ -263,13 +327,21 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
             /* Draw Text on top of Bar */
             let foreColor = typeof element.barItemsForeColor === 'string' ?
               element.barItemsForeColor : element.barItemsForeColor.length > 0 && element.barItemsForeColor[index] ?
-                element.barItemsForeColor[index] : "black";
+                element.barItemsForeColor[index] : this.TextColor;
 
             let metrics = this.context.measureText(value.toString());
             let xTextPoint = xEndPoint + this.MarginX - metrics.width - 15;
             let yTextPoint = yPoint - (eachBarLength / 3);
-            this.DrawText(value.toString(), xTextPoint, yTextPoint, foreColor);
 
+            let xTextOnBar = 0;
+            if(xTextPoint <= (this.MarginX)){
+              xTextOnBar = this.MarginX + xEndPoint + 5;
+              foreColor = this.TextColor;
+            } else {
+              xTextOnBar = xTextPoint;
+            }
+
+            this.DrawText(value.toString(), xTextOnBar, yTextPoint, foreColor);
           }
 
           yPoint -= eachBarLength;
@@ -306,10 +378,10 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       let startY = yPoint;
       this.context.beginPath
       this.context.moveTo(xPoint, startY);
-      this.context.fillStyle = "gray";
+      this.context.fillStyle = this.TextColor;
       this.context.fillText(name, xPoint, startY);
       this.context.fill();
-      this.context.strokeStyle = "gray";
+      this.context.strokeStyle = this.TextColor;
       this.context.stroke();
       this.context.closePath();
     }
@@ -333,7 +405,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       let StartY = ypoint + 15;
       let StartX = x - (metrics.width / 2);
 
-      this.context.fillStyle = "gray";
+      this.context.fillStyle = this.TextColor;
       this.context.moveTo(StartX, StartY);
       this.context.fillText(value, StartX, StartY);
       this.context.fill();
@@ -348,7 +420,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       let startY = ypoint;
       let endY = this.Height - this._marginY;
       this.context.lineWidth = 0.4;
-      this.context.strokeStyle = "gray";
+      this.context.strokeStyle = this.TextColor;
       this.context.moveTo(x, startY);
       this.context.lineTo(x, endY);
       this.context.stroke();
@@ -364,7 +436,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       let EndY = ypoint + 5;
       let EndX = x;
 
-      this.context.strokeStyle = "gray";
+      this.context.strokeStyle = this.TextColor;
       this.context.moveTo(StartX, StartY);
       this.context.lineTo(EndX, EndY);
 

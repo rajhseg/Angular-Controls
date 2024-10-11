@@ -276,7 +276,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   createStackedBarCharts(){
     this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
     this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 1850, 1650, 2700, 2400, 1800], "blue", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [465, 377, 486, 378, 500, 450, 350, 350], "red", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [465, 377, 486, 378, 500, 450, 5, 350], "red", "white"));
     this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 758, 700, 1200, 800, 1400], ["cyan","yellow","green", "gray"], "white"));    
   }
 

@@ -1,6 +1,6 @@
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { BarChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
+import { BarChartItem, DrawTextItem, SpaceBetweenBars } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
 @Component({
@@ -176,6 +176,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
   getTextHeight(met: TextMetrics){
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
+  
   getNameIndicator(itm: BarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
@@ -292,6 +293,8 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
       var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
       let xPoint = StartX;
 
+      let drawTexts: DrawTextItem[] = [];
+
       for (let index = 0; index < itemCount; index++) {
 
         let xAxisName = this.xAxisItemNames[index];
@@ -344,7 +347,13 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
 
             halfValueXPoint = remXWidth / 2;
 
-            this.DrawText(value.toString(), xPoint + halfValueXPoint, yPoint + 15, foreColor);
+            let met = this.context.measureText(value.toString());
+            let textHeight = this.getTextHeight(met);
+            let yTextOnBar = 0;
+            
+            yTextOnBar = yPoint + diff/2 + textHeight/2;
+            
+            drawTexts.push(new DrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
             ComputedValue += value;
             previousY = yPoint;
           }
@@ -367,6 +376,11 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
 
       }
 
+      for (let index = 0; index < drawTexts.length; index++) {
+        const ele = drawTexts[index];
+        this.DrawText(ele.value.toString(), ele.x, ele.y, ele.color);
+      }
+      
       this.IsRendered = true;
     }
   }
@@ -462,17 +476,11 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
   private DrawText(text: string, x: number, y: number, forecolor: string, rotate: number | undefined = undefined) {
     if (this.context) {
       this.context.beginPath();
-
       this.context.strokeStyle = forecolor;
       this.context.fillStyle = forecolor;
-      this.context.fillText(text, x, y);
-
-      if (rotate != undefined)
-        this.context.rotate(rotate);
-
+      this.context.fillText(text, x, y);    
       this.context.fill();
       this.context.stroke();
-
       this.context.closePath();
     }
   }

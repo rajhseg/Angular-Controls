@@ -339,6 +339,7 @@ RStackedRangeBarChart Vertical Control
 ![image](https://github.com/user-attachments/assets/16a25508-e348-4063-b570-da869f06988e)
 
 <br/>
+
 ![image](https://github.com/user-attachments/assets/cc2fc632-e1e9-4078-823c-085eae977c95)
 
 <br />

@@ -4,13 +4,14 @@ import { BarChartItem, DrawTextItem, SpaceBetweenBars } from '../Models/BarChart
 import { WindowHelper } from '../windowObject';
 
 @Component({
-  selector: 'rstackedbarchart-vertical',
+  selector: 'rstackedrangebarchart-vertical',
   standalone: true,
   imports: [NgIf, NgStyle, NgForOf],
-  templateUrl: './rstackedbarchart-vertical.component.html',
-  styleUrl: './rstackedbarchart-vertical.component.css'
+  templateUrl: './rstackedrangebarchart-vertical.component.html',
+  styleUrl: './rstackedrangebarchart-vertical.component.css'
 })
-export class RStackedBarChartVerticalComponent implements AfterViewInit {
+export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
+
 
   private _width: number = 300;
   private _height: number = 300;
@@ -196,34 +197,53 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
       let spaceFromTopYAxis = 25;
 
       var valueList = [];
+      var minusValuesList = [];
+
       for (let index = 0; index < this.xAxisItemNames.length; index++) {
         const element = this.xAxisItemNames[index];
 
         var itm = 0;
-
+        var minusitm = 0;
         for (let col = 0; col < this.Columns.length; col++) {
           const clmn = this.Columns[col];
 
-          if (clmn.Values[index] != undefined)
-          {
-            if(clmn.Values[index] < 0)
-              itm = itm - clmn.Values[index];
-            else
+          if (clmn.Values[index] != undefined) {
+            if(clmn.Values[index] < 0){
+              minusitm = minusitm - clmn.Values[index];
+            } else {
               itm += clmn.Values[index];
+            }
           }
+            
         }
 
+        minusValuesList.push(minusitm);
         valueList.push(itm);
       }
 
-      min = this.MinArray(valueList);
+      min = -this.MaxArray(minusValuesList);
       max = this.MaxArray(valueList);
 
       var distance: number = 0;
       var itemCount = this.xAxisItemNames.length;
-
+      let noOfMinusValue = 0;
+      let fromIndexForMinus = this.NoOfSplitInValueAxis +1;
+      
+      
       if (min != undefined && max != undefined) {
-        distance = (max) / this.NoOfSplitInValueAxis;
+        if(min<0){
+          let noOfsplit = Math.ceil(this.NoOfSplitInValueAxis/2);          
+          //distance = (-min + max) / this.NoOfSplitInValueAxis;
+          distance = (max) / this.NoOfSplitInValueAxis;
+        } else {
+          distance = (max) / this.NoOfSplitInValueAxis;
+        }
+      }
+
+      if(min < 0) {
+        noOfMinusValue = -Math.ceil(-min/distance);
+        this.NoOfSplitInValueAxis = this.NoOfSplitInValueAxis - noOfMinusValue;
+        fromIndexForMinus = this.NoOfSplitInValueAxis + noOfMinusValue; 
       }
 
       distance = this.GetRoundToTenDigit(distance);
@@ -281,10 +301,21 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
       
       /* Draw y axis line */
       let vDistance = (StartY - spaceFromTopYAxis) / this.NoOfSplitInValueAxis;
+      let decValue = noOfMinusValue;
 
       /* Draw Y Axis */
+      let minusInc = 0;
       for (let index = 0; index <= this.NoOfSplitInValueAxis; index++) {
-        let yDisplayValue = Math.round(distance * (this.NoOfSplitInValueAxis - index));
+
+        let yDisplayValue = 0;
+
+        if(index > fromIndexForMinus){
+          yDisplayValue = distance * --minusInc;
+          decValue++;
+        } else {
+          yDisplayValue = Math.round(distance * (this.NoOfSplitInValueAxis - index + decValue));
+        }
+
         let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
 
         this.HorizontalLineInYAxis(StartX, yPoint);
@@ -297,6 +328,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
       var eachBarGroupLength = (this.Width - StartX) / itemCount;
       var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
       let xPoint = StartX;
+      let zeroPoint  = this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis);
 
       let drawTexts: DrawTextItem[] = [];
 
@@ -318,8 +350,14 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
         /* Draw name on xAxis */
         this.DrawXAxisName(xAxisName, xPoint + halfXPoint, this.Height - this._marginY + 15);
 
-        let previousY: number | undefined = StartY;
+        let previousPlusY: number | undefined = noOfMinusValue < 0 ? 
+                  this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis) : StartY;
+        
+        let PreviousMinusY: number | undefined = this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis);
+
         let ComputedValue = 0;
+        let minusComputedValue = 0;
+
         let halfValueXPoint: number | undefined = undefined;
 
         for (let x = 0; x < this.Columns.length; x++) {
@@ -327,24 +365,35 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
           let value = element.Values[index];
 
           if (value != undefined) {
-            
-            if(value<0)
-              value = -value;
-
-            let y = this.GetYStartPoint(value, distance, itemCount, vDistance, spaceFromTopYAxis);
+            let y = this.GetYStartPoint(noOfMinusValue, value, distance, itemCount, vDistance, spaceFromTopYAxis);
 
             let color = typeof element.barItemsBackColor === 'string' ?
               element.barItemsBackColor : element.barItemsBackColor.length > 0 && element.barItemsBackColor[index] ?
                 element.barItemsBackColor[index] : "purple";
 
             /* Draw Bar */
-            let diff = StartY - y;
+            let diff = 0;
+
+            if(noOfMinusValue < 0) {              
+              diff = zeroPoint - y;
+            } else {
+             diff = StartY - y;
+            }
+
             let yPoint = 0;
 
-            if (previousY != undefined)
-              yPoint = previousY - diff;
+            if (previousPlusY != undefined)
+              yPoint = previousPlusY - diff;
 
-            this.DrawBar(xPoint, yPoint, eachBarLength, diff, color);
+            if(value > 0 && noOfMinusValue < 0){
+              this.DrawBar(xPoint, yPoint, eachBarLength, diff, color);
+            }
+            else if(value< 0 && noOfMinusValue < 0){              
+              this.DrawBar(xPoint, PreviousMinusY, eachBarLength, -diff, color);
+            }
+            else {
+              this.DrawBar(xPoint, yPoint, eachBarLength, diff, color);
+            }
 
             /* Draw Text on top of Bar */
             let valueXpoint = this.getWidthFromString(value.toString());
@@ -359,24 +408,47 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
             let met = this.context.measureText(value.toString());
             let textHeight = this.getTextHeight(met);
             let yTextOnBar = 0;
-            
-            yTextOnBar = yPoint + diff/2 + textHeight/2;
-            
-            drawTexts.push(new DrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
-            ComputedValue += value;
-            previousY = yPoint;
+                                    
+            if(value < 0) {
+              yTextOnBar = PreviousMinusY - (diff/2) + textHeight/2;              
+              drawTexts.push(new DrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
+            } else {
+              yTextOnBar = yPoint + diff/2 + textHeight/2;
+              drawTexts.push(new DrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
+            }
+
+            if(value < 0) {
+              PreviousMinusY = PreviousMinusY - diff;
+              minusComputedValue += value;
+            } else {
+              previousPlusY = yPoint;
+              ComputedValue += value;
+            }
+
           }
         }
 
-        /* Draw total value on top of Bar */
+        /* Draw total value on top of plus Bar */
         let valueXpoint = this.getWidthFromString(ComputedValue.toString());
         let remXWidth = eachBarLength - valueXpoint;
         halfValueXPoint = remXWidth / 2;
 
         if (halfValueXPoint) {
-          this.DrawText(ComputedValue.toString(), xPoint + halfValueXPoint, previousY - 5, this.TextColor);
+          if(ComputedValue > 0)
+              this.DrawText(ComputedValue.toString(), xPoint + halfValueXPoint, previousPlusY - 5, this.TextColor);
         }
 
+        /* Draw total value on top of minus bar */
+        valueXpoint = this.getWidthFromString(minusComputedValue.toString());
+        remXWidth = eachBarLength - valueXpoint;
+        halfValueXPoint = remXWidth / 2;
+
+        if (halfValueXPoint) {
+          if(minusComputedValue < 0)
+            this.DrawText(minusComputedValue.toString(), xPoint + halfValueXPoint, PreviousMinusY + 10, this.TextColor);
+        }
+
+        /* Create Gap */
         if (this.GapBetweenBars == 1) {
           xPoint += eachBarLength + eachBarLength / 2;
         } else {
@@ -402,8 +474,14 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
     return distance;
   }
 
-  private GetYStartPoint(displayValue: number, distance: number, itemcount: number, vDistance: number, spaceFromTopYAxis: number) {
-    let index = -(displayValue / distance) + this.NoOfSplitInValueAxis;
+  private GetZeroYPoint(noOfMinus: number, vDistance: number, spaceFromTopYAxis: number){
+    let index = noOfMinus + this.NoOfSplitInValueAxis;
+    let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
+    return yPoint;
+  }
+
+  private GetYStartPoint(noOfMinus: number, displayValue: number, distance: number, itemcount: number, vDistance: number, spaceFromTopYAxis: number) {
+    let index = -(displayValue / distance) + this.NoOfSplitInValueAxis + noOfMinus;
     let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
     return yPoint;
   }
@@ -531,5 +609,6 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
 
     return true;
   }
+
 
 }

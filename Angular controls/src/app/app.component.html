@@ -89,6 +89,18 @@
   </rstackedbarchart-vertical>
 
   <br/>
+  <rstackedrangebarchart-vertical style="float:left" [MarginX]="60" [Width]="500" 
+      [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
+      [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" [Columns]="stackedrangebarChartItems1">
+  </rstackedrangebarchart-vertical>
+
+  <rstackedrangebarchart-vertical [MarginX]="60" [Width]="500" 
+      [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
+      [xAxisItemNames]="stackedrangebarChartXAxisItemNames" [Columns]="stackedrangebarChartItems">
+  </rstackedrangebarchart-vertical>
+
+
+  <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
     (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
   </rcolorpicker>
@@ -755,6 +767,25 @@
         </rstepper-horizontal>
 
       </rtab>
+      
+      <rtab  *tabidfor="{'TabId':'tab15', 'HeaderText':'StackedBarChart Vertical', 'Context': this}">
+        
+        <rstackedbarchart-vertical [MarginX]="60" [Width]="500" 
+          [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
+          [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
+        </rstackedbarchart-vertical>
+
+      </rtab>
+
+      <rtab  *tabidfor="{'TabId':'tab16', 'HeaderText':'StackedRangeBarChart Vertical', 'Context': this}">
+          
+          <rstackedrangebarchart-vertical [MarginX]="60" [Width]="500" 
+            [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
+            [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" [Columns]="stackedrangebarChartItems1">
+          </rstackedrangebarchart-vertical>
+
+      </rtab>
+
     </rtabs>
 
     <rtabs #tabCom1 [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
@@ -1012,6 +1043,36 @@
           [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
         
       </rtab>
+
+      <rtab  *tabidfor="{'TabId':'tab34', 'HeaderText':'BarChart Vertical', 'Context': this}">
+        <br/>
+
+        <rbarchart-vertical style="float:left" [Width]="400"
+          [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
+          [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
+        </rbarchart-vertical>
+      
+        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1" 
+          [Columns]="barChartItems1"></rbarchart-vertical>
+      
+        <br/>      
+      </rtab>
+
+      
+      <rtab  *tabidfor="{'TabId':'tab35', 'HeaderText':'BarChart Horizontal', 'Context': this}">
+          <br/>
+          
+          <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400" 
+                  [yAxisItemNames]="barChartXAxisItemNames" [MarginX]="60" 
+                  [YAxisTitle]="'Company profit per year'" [XAxisTitle]="'Profit Percentage'"
+                  [Columns]="barChartItems">
+          </rbarchart-horizontal>
+          
+          <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1" 
+                  [Columns]="barChartItems1">
+          </rbarchart-horizontal>
+      </rtab>
+      
     </rtabs>
   </div>
 

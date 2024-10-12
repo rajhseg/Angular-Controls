@@ -51,6 +51,7 @@ import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarch
 import { BarChartItem } from './Controls/Models/BarChartItem';
 import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
 import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-vertical/rstackedbarchart-vertical.component';
+import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component';
 
 @Component({
   selector: 'app-root',
@@ -95,7 +96,8 @@ import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-v
     RStepperHorizontalComponent,
     RBarChartVerticalComponent,
     RBarChartHorizontalComponent,
-    RStackedBarChartVerticalComponent
+    RStackedBarChartVerticalComponent,
+    RStackedRangeBarChartVerticalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -197,6 +199,12 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   stackedbarChartItems1: BarChartItem[] = []
   stackedbarChartXAxisItemNames1: string[] = [];
 
+  stackedrangebarChartItems1: BarChartItem[] = []
+  stackedrangebarChartXAxisItemNames1: string[] = [];
+
+  stackedrangebarChartItems: BarChartItem[] = []
+  stackedrangebarChartXAxisItemNames: string[] = [];
+
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
   
@@ -275,10 +283,22 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createStackedBarCharts(){
     this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 1850, 1650, 2700, 2400, 1800], "blue", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [465, 377, 486, 378, 500, 450, 5, 350], "red", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 350, 1650, 2700, 2400, 1800], "blue", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, 150, 200, 450, 5, 350], "red", "white"));
     this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 758, 700, 1200, 800, 1400], ["cyan","yellow","green", "gray"], "white"));    
+
+    this.stackedrangebarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
+    this.stackedrangebarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, -610, 1650, 3000, 2400, -1800], "blue", "white"));
+    this.stackedrangebarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, -610, -1590, 450, 5, 350], "red", "white"));
+    this.stackedrangebarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, -758, 700, 1200, 800, 1400], ["cyan","yellow","green", "gray"], "white"));    
+        
+    this.stackedrangebarChartXAxisItemNames = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
+    this.stackedrangebarChartItems.push(new BarChartItem("Food Expenses", [25, 20, 15, -61, 60, 30, 24, -18], "blue", "white"));
+    this.stackedrangebarChartItems.push(new BarChartItem("Vehicle Expenses", [16, 30, 40, -60, -15, 50, 5, 35], "red", "white"));
+    this.stackedrangebarChartItems.push(new BarChartItem("Dress Expenses", [10, 17, 10, 58, 70, 20, 60, 14], ["cyan","yellow","green", "gray"], "white"));    
+
   }
+
 
   createDonutItems(){
     let pieItem1 = new RDonutChartItem(24,'Cricket', 'blue', 'white');

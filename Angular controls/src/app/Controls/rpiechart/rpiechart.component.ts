@@ -18,6 +18,9 @@ export class RPieChartComponent {
   TextForeColor: string = 'white';
 
   @Input()
+  LineColorBetweenBars: string = 'white';
+
+  @Input()
   RotateTextToInlineAngle: boolean = false;
 
   @Input()
@@ -139,8 +142,9 @@ export class RPieChartComponent {
 
         this.context.moveTo(x, y);
         this.context?.arc(x, y, radius - 10, previousAngle, (previousAngle + end1), false);
-        this.context.fillStyle = element.BackgroundColor;
-        this.context.strokeStyle = 'white';
+        this.context.fillStyle = element.BackgroundColor; 
+        this.context.lineWidth = 0.4;       
+        this.context.strokeStyle = this.LineColorBetweenBars;
         this.context.shadowBlur = this.ShadowBlur;
         this.context.shadowColor = this.ShadowColor;
 
@@ -184,8 +188,9 @@ export class RPieChartComponent {
 
       this.context.beginPath();
       this.context.moveTo(x, y);
-      this.context.lineTo(x + x - 10, y);
-      this.context.lineWidth = 2;
+      this.context.lineTo(x + x - 10, y);      
+      this.context.lineWidth = 0.4;
+      this.context.strokeStyle = this.LineColorBetweenBars;
       this.context.shadowBlur = 10;
       this.context.shadowColor = this.ShadowColor;
       this.context.stroke();

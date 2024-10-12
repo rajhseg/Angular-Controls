@@ -307,7 +307,7 @@ RDonutChart Control
 RPieChart Control
 ----------------------------------
 
-![image](https://github.com/user-attachments/assets/d84d2985-80a1-4d4a-b8b2-081096601f18)
+![image](https://github.com/user-attachments/assets/8eab1c22-7d4f-4843-ad86-dc6dc9e53bb0)
 
 <br/>
 <br/>

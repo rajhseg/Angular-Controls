@@ -137,22 +137,30 @@
   <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
   <br />
 
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'#13297A'" (ButtonClick)="nextStepH()">Move to Next Step
   </rbutton>
-  <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'teal'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
 
   <br />
 
   <div>
-    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" [Items]="seqHorizontalItems"
+    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
+      [ActiveForeColor]="'#13297A'"
+      [PendingForeColor]="'teal'"
+      [CompletedForeColor]="'darkblue'"
+      [Items]="seqHorizontalItems"
       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="false"
-      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
+      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'#13297A'"></rstate-horizontal>
 
   </div>
   <div>
-    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" [Items]="seqHorizontalItems"
+    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
+      [ActiveForeColor]="'#13297A'"
+      [PendingForeColor]="'teal'"
+      [CompletedForeColor]="'darkblue'"
+      [Items]="seqHorizontalItems"
       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="true"
-      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
+      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'#13297A'"></rstate-horizontal>
 
   </div>
   <br />
@@ -199,10 +207,11 @@
   <br />
   <br />
 
-  <rnumeric [(ngModel)]="rangeValue1"></rnumeric>
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'teal'" [MinusBackgroundColor]="'teal'"
+    [BottomLineColor]="'teal'" [LabelTextForeColor]="'teal'" [(ngModel)]="rangeValue1"></rnumeric>
 
-  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'"
-    [BottomLineColor]="'orangered'" [LabelTextForeColor]="'orangered'" [(ngModel)]="rangeValue1"></rnumeric>
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'#13297A'" [MinusBackgroundColor]="'#13297A'"
+    [BottomLineColor]="'#13297A'" [LabelTextForeColor]="'#13297A'" [(ngModel)]="rangeValue1"></rnumeric>
 
   <br />
 
@@ -235,7 +244,8 @@
     <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
     <br/>
     <br/>
-    <revents-schedule [ShowMarker]="true" [ShowScrollBar]="false" [DisplayDatesOnLoad]="dates" [SelectedDate]="selectedDate" 
+    <revents-schedule [ContainerBackgroundColor]="'#13297A'" [EventBackgroundColor]="'#13297A'" 
+          [ShowMarker]="true" [ShowScrollBar]="false" [DisplayDatesOnLoad]="dates" [SelectedDate]="selectedDate" 
           [ScheduleItems]="scheduleItems"></revents-schedule>
     <br/>
     <div style="float: left;padding-right:30px">
@@ -244,14 +254,14 @@
         [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
 
-    <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
+    <rgrid [Items]="gridItems" [HeaderBackgroundColor]="'#13297A'" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
           <span>{{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'#13297A'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="rcell.Value" />
         </ng-template>
       </rcolumn>
@@ -262,7 +272,7 @@
           <span>{{Item.Name}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'#13297A'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -272,8 +282,8 @@
           <span>{{Item.Age}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rnumeric [BottomLineColor]="'rgb(35, 206, 236)'"  
-          [MinusBackgroundColor]="'rgb(35, 206, 236)'" [PlusBackgroundColor]="'rgb(35, 206, 236)'"
+          <rnumeric [BottomLineColor]="'#13297A'"  
+          [MinusBackgroundColor]="'#13297A'" [PlusBackgroundColor]="'#13297A'"
           [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
         </ng-template>
       </rcolumn>
@@ -285,7 +295,7 @@
           <span>{{Item.Education.Higher.Course}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'#13297A'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -295,7 +305,7 @@
           <span>{{Item.Age + 4}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="'rgb(35, 206, 236)'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="'#13297A'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -316,7 +326,11 @@
   <br />
   <br />
 
-  <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"  [ShowStateHorizontal]="showVerticalItems"
+  <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530" 
+      [HorizontalItemActiveBackColor]="'#13297A'" [HorizontalItemPendingForeColor]="'white'"
+      [HorizontalItemPendingBackColor]="'teal'"
+      [HorizontalItemStripLineColor]="'#13297A'"
+      [ShowStateHorizontal]="showVerticalItems"
       (OnCompletedClick)="StepsCompleted($event)">
 
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
@@ -358,16 +372,17 @@
       <ng-template rstepview>
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="'blue'"
+          [HeaderBackgroundColor]="'#13297A'"
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
-        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
+        <rbutton [BackgroundColor]="'#13297A'" (ButtonClick)="stepOneSave($event)">
           Save        
         </rbutton>
 
       </ng-template>
     </rstep>
-    <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+    <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" 
+           [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="'blue'"
@@ -444,7 +459,9 @@
   <br/>
   <br />
 
-  <rstepper-vertical [ContentWidth]="800" [ContentHeight]="700"  (OnCompletedClick)="StepsCompleted($event)"
+  <rstepper-vertical [VerticalItemStripLineColor]="'#13297A'" [VerticalItemActiveBackColor]="'#13297A'"
+    [VerticalItemPendingBackColor]="'teal'"
+   [ContentWidth]="800" [ContentHeight]="700"  (OnCompletedClick)="StepsCompleted($event)"
    [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
 
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
@@ -486,10 +503,10 @@
       <ng-template rstepview>
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="'blue'"
+          [HeaderBackgroundColor]="'#13297A'"
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
-        <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
+        <rbutton [BackgroundColor]="'#13297A'" (ButtonClick)="stepOneSave($event)">
           Save        
         </rbutton>
 
@@ -525,13 +542,13 @@
   <br />
   <div>
     <br />
-    <rbutton BackgroundColor="green" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One
+    <rbutton BackgroundColor="#13297A" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One
       Tab</rbutton>
     <br />
     <div>
       <label>Tab Index</label>
       <input type="text" [(ngModel)]="deltabindex" />
-      <rbutton [ButtonWidth]="'150px'" (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
+      <rbutton [BackgroundColor]="'teal'" [ButtonWidth]="'150px'" (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
     </div>
     <br />
   </div>

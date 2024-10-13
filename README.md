@@ -314,7 +314,8 @@ RPieChart Control
 
 RBarChart Vertical Control
 -----------------------------------
-![image](https://github.com/user-attachments/assets/f220c11d-0083-4844-b562-5aa44f52173c)
+
+![image](https://github.com/user-attachments/assets/98c3f2dc-a8e6-4a7f-bb80-111c3804f91b)
 
 
 <br/>
@@ -322,25 +323,30 @@ RBarChart Vertical Control
 
 RBarChart Horizontal Control
 ------------------------------------
-![image](https://github.com/user-attachments/assets/75d0756a-af0a-4142-9aba-663256946837)
+
+![image](https://github.com/user-attachments/assets/b06aea17-908c-444e-a6cb-37b69261c51f)
 
 <br/>
 <br/>
 
 RStackedBarChart Vertical Control
 -------------------------------------
-![image](https://github.com/user-attachments/assets/46c4dc8d-13aa-41ec-a459-c9cf43e6e9a5)
+
+![image](https://github.com/user-attachments/assets/518fca67-e78e-4abe-82d8-8cbd8c9b70d1)
 
 <br/>
 <br/>
 
 RStackedRangeBarChart Vertical Control
 ---------------------------------------
-![image](https://github.com/user-attachments/assets/16a25508-e348-4063-b570-da869f06988e)
+
+![image](https://github.com/user-attachments/assets/fa764927-e5ce-4c9b-8d78-ec4c965693d7)
+
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/cc2fc632-e1e9-4078-823c-085eae977c95)
+![image](https://github.com/user-attachments/assets/afad1209-7b00-4afe-b226-d7412d752616)
+
 
 <br />
 <br />

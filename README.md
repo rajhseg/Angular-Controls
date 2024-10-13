@@ -314,8 +314,8 @@ RPieChart Control
 
 RBarChart Vertical Control
 -----------------------------------
-![image](https://github.com/user-attachments/assets/f220c11d-0083-4844-b562-5aa44f52173c)
 
+![image](https://github.com/user-attachments/assets/98c3f2dc-a8e6-4a7f-bb80-111c3804f91b)
 
 <br/>
 <br/>

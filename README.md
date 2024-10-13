@@ -25,7 +25,8 @@ button control
 Textbox Control
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/881eccd2-34e6-4185-bc03-df49400c2a04)
+![image](https://github.com/user-attachments/assets/d3ce1142-0872-4692-903d-9c9a5ec65a15)
+
 
 <br />
 <br />
@@ -33,7 +34,9 @@ Textbox Control
 
 PasswordBox Control
 -------------------------
-![image](https://github.com/user-attachments/assets/5493660c-b221-4b38-9103-e8524ca5027a)
+
+![image](https://github.com/user-attachments/assets/7ffa61ae-545e-4150-8cb4-567628029ca1)
+
 
 <br />
 <br />
@@ -130,7 +133,8 @@ Rstate-Vertical Control
 Slider
 -----------------------------
 
-![image](https://github.com/user-attachments/assets/f68d20ec-2f51-4fad-8c51-531901c53533)
+![image](https://github.com/user-attachments/assets/a324e6db-dcd3-4d0e-b587-2f494d1271fb)
+
 
 <br />
 <br />
@@ -150,7 +154,9 @@ Slider
 
 Switch Control
 --------------------
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/51bbbada-3843-4cfe-9bc9-0d67fa97d8b3)
+
+![image](https://github.com/user-attachments/assets/1c667909-0874-4c76-a459-f5e44fb5a1f2)
+
 
 <br />
 <br />
@@ -199,9 +205,8 @@ Tab Control
 
 FileUpload Control
 --------------------------------
-![image](https://github.com/user-attachments/assets/f7178107-123d-4ff4-ad55-6a7c9aac5c55)
 
-![image](https://github.com/user-attachments/assets/191cb697-c16a-45d0-b12d-6087fe1345c0)
+![image](https://github.com/user-attachments/assets/49f60742-0bcf-49cc-b5da-32f690cbf2ab)
 
 <br />
 
@@ -225,7 +230,8 @@ Numeric Control
 Timer Control
 -----------------------------------
 
-![image](https://github.com/user-attachments/assets/9d19f3d5-c75f-4d20-8883-bf8b0d396a69)
+![image](https://github.com/user-attachments/assets/950ed14d-9157-464b-9b25-9bbba04fad16)
+
 
 
 <br/>
@@ -235,7 +241,8 @@ TimeSelector
 -------------------------------------
 <br/>
 
-![image](https://github.com/user-attachments/assets/33657a6c-f9a4-47d6-a5ba-14336e38060e)
+![image](https://github.com/user-attachments/assets/b7410684-4682-458c-a9a8-0f28c7b3d61b)
+
 
 
 <br/>

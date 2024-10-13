@@ -4,8 +4,10 @@
 
     <rstarrating [starWidth]="starWidth"></rstarrating>
 
-    <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
-    <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
+    <rstarrating [starWidth]="starWidth" [starColor]="'teal'" [(ngModel)]="starValue"></rstarrating> 
+    <rstarrating [starWidth]="starWidth" [starColor]="'#13297A'"></rstarrating>
+
+    {{starValue}}
 
     <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" Width="112px" DropDownContentWidth="122px">
     </rdropdown>
@@ -113,18 +115,26 @@
   </rtree>
   <br />
 
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStep()">Move to Next Step
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'#13297A'" (ButtonClick)="nextStep()">Move to Next Step
   </rbutton>
-  <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'teal'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
 
   <br />
 
   <br />
   <br />
 
-  <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" [(ngModel)]="StepperSelectedItem"
-    [IsDisplayStepNo]="true" [PendingBackgroundColor]="'orange'" [PendingForeColor]="'white'" [ContentWidth]="'140px'"
-    (OnActiveValueChanged)="seqValueChanged($event)" [ActiveBackgroundColor]="'blue'"></rstate-vertical>
+  <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
+    [(ngModel)]="StepperSelectedItem"
+    [CompletedBackgroundColor]="'darkblue'"
+    [StripLineColor]="'#13297A'"
+    [IsDisplayStepNo]="true" 
+    [PendingBackgroundColor]="'teal'" 
+    [PendingForeColor]="'white'" 
+    [ContentWidth]="'140px'"
+    (OnActiveValueChanged)="seqValueChanged($event)" 
+    [ActiveBackgroundColor]="'#13297A'">
+  </rstate-vertical>
 
   <br />
 

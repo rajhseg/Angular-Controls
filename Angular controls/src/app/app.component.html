@@ -138,13 +138,13 @@
 
   <br />
 
-  <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
+  <rslider [IsDisplayValue]="true" [BackgroundColor]="'teal'" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
   </rslider>
   <br />
-  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25" [MaxValue]="75">
+  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'#13297A'" [MinValue]="25" [MaxValue]="75">
   </rslider>
   <br />
-  <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'"></rslider>
+  <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'#13297A'"></rslider>
   <br />
 
   <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'#13297A'" (ButtonClick)="nextStepH()">Move to Next Step
@@ -192,27 +192,29 @@
     <br />
 
   <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'" 
-      [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" 
+      [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="'#13297A'" 
+      [IconForeColor]="'#13297A'"
       (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
   </rfileupload>
 
   </div>
-  
+ 
+  <br />
  <br />
  <br />
   <div>
-    <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
-    <rtextbox [LabelText]="'Email'"></rtextbox>
-    <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
+    <rtextbox [(ngModel)]="userName" [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
+    <rtextbox [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [LabelText]="'Email'"></rtextbox>
+    <rtextbox [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
   </div>
 
   <br />
   <div>
-    <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
+    <rtextbox [IsPasswordBox]="true" [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
       [LabelText]="'Password'"></rtextbox>
-    <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'"
+    <rtextbox [IsPasswordBox]="true" [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'"
       [LabelText]="'Confirm Password'"></rtextbox>
-    <rbutton>Submit</rbutton>
+    <rbutton [BackgroundColor]="'#13297A'">Submit</rbutton>
   </div>
   <br />
   <br />
@@ -225,28 +227,42 @@
 
   <br />
 
-  <rtimer [EnableShadowEffect]="false"></rtimer>
-  <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="'orangered'" [MinuteForeColor]="'orangered'"
-    [SecondsForeColor]="'orangered'" [DisplayTextForeColor]="'orangered'" [EnableShadowEffect]="false"
-    [CircularWidth]="70"></rtimer>
+  <rtimer [FlatStyleForeColor]="'#13297A'" [DisplayTextForeColor]="'#13297A'" [EnableShadowEffect]="false">    
+  </rtimer>
+
+  <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="'#13297A'" [MinuteForeColor]="'#13297A'"
+    [SecondsForeColor]="'#13297A'" [DisplayTextForeColor]="'#13297A'" [EnableShadowEffect]="false"
+    [CircularWidth]="70">
+  </rtimer>
 
   <br />
 
-  <rtimeselector [(ngModel)]="time1"></rtimeselector>
+  <rtimeselector [ButtonBackgroundColor]="'#13297A'" [TextBottomLineColor]="'#13297A'" 
+    [SelectedItemBackgroundColor]="'#13297A'" [(ngModel)]="time1"></rtimeselector>
 
-  <rtimeselector [(ngModel)]="time2"></rtimeselector>
+  <rtimeselector [ButtonBackgroundColor]="'#13297A'" [TextBottomLineColor]="'#13297A'" 
+    [SelectedItemBackgroundColor]="'#13297A'" [(ngModel)]="time2"></rtimeselector>
+
   <br />
 
-  <rtimeselector [LabelText]="'Arriving Time'" [(ngModel)]="time3" [Is24HourFormat]="false"
+  <rtimeselector [ButtonBackgroundColor]="'#13297A'" [LabelText]="'Arriving Time'" 
+    [TextBottomLineColor]="'#13297A'" [SelectedItemBackgroundColor]="'#13297A'"
+    [(ngModel)]="time3" [Is24HourFormat]="false"
     [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector>
+
   <br />
   <br />
 
   <br />
   <br />
+  
   <div>
+    
     <br />
     
+    <br />
+    <br />
+    <br />
     <br />
     <br />
     <br />
@@ -326,19 +342,17 @@
   <br />
   <br />
   
-  <rswitch [DisplayLabel]="'Change Display Type'"  (checked)="changeStepperDisplayType($event)"></rswitch>
-  {{stepperDisplayType}}
+  <rswitch [DisplayLabel]="'Change Display Type'" [SwitchBackColor]="'#13297A'" (checked)="changeStepperDisplayType($event)"></rswitch>
 
-  <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
-  {{showVerticalItems}}
+  <rswitch [DisplayLabel]="'Show Vertical'" [SwitchBackColor]="'teal'" (checked)="changeShow($event)"></rswitch>
 
   <br/>
   <br />
   <br />
 
   <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530" 
-      [HorizontalItemActiveBackColor]="'#13297A'" [HorizontalItemPendingForeColor]="'white'"
-      [HorizontalItemPendingBackColor]="'teal'"
+      [HorizontalItemActiveBackColor]="'#13297A'" [HorizontalItemPendingForeColor]="'teal'"
+      [HorizontalItemPendingBackColor]="'white'"
       [HorizontalItemStripLineColor]="'#13297A'"
       [ShowStateHorizontal]="showVerticalItems"
       (OnCompletedClick)="StepsCompleted($event)">

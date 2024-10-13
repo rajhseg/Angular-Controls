@@ -1,7 +1,9 @@
 <div [id]="Id" class="rtimeselectorwindowclose">
   <div>
     <div style="display: flex;width: fit-content;">
-      <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="110" 
+      <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" 
+          [LabelForeColor]="TextBottomLineColor"
+          [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="110" 
           [IsReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
       <rbutton class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"
           [ButtonHeight]="'34px'"

@@ -61,6 +61,15 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   HorizontalItemPendingForeColor: string = 'orange';
 
   @Input()
+  RStateItemCompletedColor: string = 'darkblue';
+
+  @Input()
+  RStateItemActiveColor: string = '#13297A';
+
+  @Input()
+  RStateItemPendingColor: string = 'teal';
+
+  @Input()
   NextButtonBackColor: string = 'blue';
 
   @Input()

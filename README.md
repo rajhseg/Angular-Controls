@@ -317,12 +317,14 @@ RBarChart Vertical Control
 
 ![image](https://github.com/user-attachments/assets/98c3f2dc-a8e6-4a7f-bb80-111c3804f91b)
 
+
 <br/>
 <br/>
 
 RBarChart Horizontal Control
 ------------------------------------
-![image](https://github.com/user-attachments/assets/75d0756a-af0a-4142-9aba-663256946837)
+
+![image](https://github.com/user-attachments/assets/b06aea17-908c-444e-a6cb-37b69261c51f)
 
 <br/>
 <br/>

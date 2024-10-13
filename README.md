@@ -322,7 +322,8 @@ RBarChart Vertical Control
 
 RBarChart Horizontal Control
 ------------------------------------
-![image](https://github.com/user-attachments/assets/75d0756a-af0a-4142-9aba-663256946837)
+
+![image](https://github.com/user-attachments/assets/b06aea17-908c-444e-a6cb-37b69261c51f)
 
 <br/>
 <br/>

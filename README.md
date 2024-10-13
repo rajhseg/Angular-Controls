@@ -227,9 +227,7 @@ Numeric Control
 Timer Control
 -----------------------------------
 
-![image](https://github.com/user-attachments/assets/950ed14d-9157-464b-9b25-9bbba04fad16)
-
-
+![image](https://github.com/user-attachments/assets/786c0f3a-7d4e-4bff-81f7-79c7a71497b2)
 
 <br/>
 <br />

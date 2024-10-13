@@ -271,31 +271,31 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createBarCharts(){
     this.barChartXAxisItemNames = ["2000", "2001", "2002","2003"];
-    this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "blue", "white"));
-    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 5], "red", "white"));
-    this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
+    this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "teal", "white"));
+    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 5], "#13297A", "white"));
+    this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], "gray", "white"));    
 
     this.barChartXAxisItemNames1 = ["Tomato", "Potato", "Onion","Oil"];
-    this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "purple", "white"));
-    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 5], "orange", "white"));
-    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], ["cyan","yellow","green", "gray"], "white"));    
+    this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "teal", "white"));
+    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 5], "#13297A", "white"));
+    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], "gray", "white"));    
   }
 
   createStackedBarCharts(){
     this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 350, 1650, 2700, 2400, 1800], "blue", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, 150, 200, 450, 5, 350], "red", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 758, 700, 1200, 800, 1400], ["cyan","yellow","green", "gray"], "white"));    
+    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 350, 1650, 2700, 2400, 1800], "#13297A", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, 150, 200, 450, 5, 350], "teal", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 758, 700, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
 
     this.stackedrangebarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedrangebarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, -610, 1650, 3000, 2400, -1800], "blue", "white"));
-    this.stackedrangebarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, -610, -1590, 450, 5, 350], "red", "white"));
-    this.stackedrangebarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, -758, 700, 1200, 800, 1400], ["cyan","yellow","green", "gray"], "white"));    
+    this.stackedrangebarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, -610, 1650, 3000, 2400, -1800], "#13297A", "white"));
+    this.stackedrangebarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, -610, -1590, 450, 5, 350], "teal", "white"));
+    this.stackedrangebarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, -758, 700, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
         
     this.stackedrangebarChartXAxisItemNames = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedrangebarChartItems.push(new BarChartItem("Food Expenses", [25, 20, 15, -61, 60, 30, 24, -18], "blue", "white"));
-    this.stackedrangebarChartItems.push(new BarChartItem("Vehicle Expenses", [16, 30, 40, -60, -15, 50, 5, 35], "red", "white"));
-    this.stackedrangebarChartItems.push(new BarChartItem("Dress Expenses", [10, 17, 10, 58, 70, 20, 60, 14], ["cyan","yellow","green", "gray"], "white"));    
+    this.stackedrangebarChartItems.push(new BarChartItem("Food Expenses", [25, 20, 15, -61, 60, 30, 24, -18], "#13297A", "white"));
+    this.stackedrangebarChartItems.push(new BarChartItem("Vehicle Expenses", [16, 30, 40, -60, -15, 50, 5, 35], "teal", "white"));
+    this.stackedrangebarChartItems.push(new BarChartItem("Dress Expenses", [10, 17, 10, 58, 70, 20, 60, 14], ["gray","grey","darkgreen", "grey"], "white"));    
 
   }
 

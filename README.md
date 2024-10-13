@@ -120,7 +120,9 @@ rstate-horizontal Control
 
 Rstate-Vertical Control 
 ----------------------------------------------
-![image](https://github.com/user-attachments/assets/1963ee77-1817-49dd-86bf-76405cdde62c)
+
+![image](https://github.com/user-attachments/assets/867c1717-17de-4ba2-8451-962d8639f3ab)
+
 
 <br />
 <br />
@@ -137,7 +139,9 @@ Slider
 
  StarRating Control
 ---------------------
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/802c17b4-753a-4dae-8dd1-9c7cefd39f78)
+
+![image](https://github.com/user-attachments/assets/07f5898f-9dac-41e2-8704-14ee08569835)
+
 
 <br />
 <br />

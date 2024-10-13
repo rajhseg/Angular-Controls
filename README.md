@@ -15,9 +15,8 @@ Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical etc.
 button control
 --------------------------------------
 
-![image](https://github.com/user-attachments/assets/c95d1ba1-c6fb-4672-be5b-7b994ab89992)
+![image](https://github.com/user-attachments/assets/da97e34e-6d51-49a0-a2dd-537ed3a82b64)
 
-![image](https://github.com/user-attachments/assets/91c0f233-af11-4a8a-81d7-bf70a431528a)
 
 <br />
 <br />

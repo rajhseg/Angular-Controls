@@ -270,8 +270,11 @@
     <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
     <br/>
     <br/>
-    <revents-schedule [ContainerBackgroundColor]="'#13297A'" [EventBackgroundColor]="'#13297A'" 
-          [ShowMarker]="true" [ShowScrollBar]="false" [DisplayDatesOnLoad]="dates" [SelectedDate]="selectedDate" 
+    <revents-schedule [ContainerBackgroundColor]="'#13297A'" 
+          [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
+          [EventBackgroundColor]="'#13297A'" 
+          [ShowMarker]="true" [ShowScrollBar]="false" [DisplayDatesOnLoad]="dates" 
+          [SelectedDate]="selectedDate" 
           [ScheduleItems]="scheduleItems"></revents-schedule>
     <br/>
     <div style="float: left;padding-right:30px">

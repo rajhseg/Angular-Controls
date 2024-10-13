@@ -266,8 +266,7 @@ REventsSchedule
 -------------------------------
 <br/>
 
-![image](https://github.com/user-attachments/assets/54be9ab0-68c3-4e4c-be72-70fc4cda3214)
-
+![image](https://github.com/user-attachments/assets/97e54714-093f-46f7-b1ad-3e7dff7580a4)
 
 <br/>
 <br />

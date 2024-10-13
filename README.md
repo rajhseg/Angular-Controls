@@ -53,7 +53,6 @@ group panel Control
 
  Calender Control
 -------------------
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/2737eafb-8ec4-4347-93ac-960d81d2c241)
 
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/0e341bf3-7a02-4aa5-9ac0-f2ddf2092aac)
 
@@ -74,8 +73,6 @@ group panel Control
 RSelectDropdown Control
 -------------------------------
 <br/>
-
-![image](https://github.com/user-attachments/assets/4ae23074-74ed-4e27-874f-e1f1dad2e63a)
 
 ![image](https://github.com/user-attachments/assets/c2a0fe58-eded-4e32-a83c-933076b4dce8)
 
@@ -144,7 +141,7 @@ Slider
  StarRating Control
 ---------------------
 
-![image](https://github.com/user-attachments/assets/07f5898f-9dac-41e2-8704-14ee08569835)
+![image](https://github.com/user-attachments/assets/e68f64ce-fca9-4a74-86fd-019320114a23)
 
 
 <br />

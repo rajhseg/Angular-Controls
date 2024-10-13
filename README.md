@@ -241,11 +241,13 @@ RGrid Control
 
 ### ViewMode
 
-![image](https://github.com/user-attachments/assets/9915b4f0-1ea6-45f2-924c-ab893753479b)
+![image](https://github.com/user-attachments/assets/b0065581-7891-4992-a796-7748861b8dbd)
+
 
 ### EditMode
 
-![image](https://github.com/user-attachments/assets/39b7c50c-540d-485a-92de-911a6fb8e027)
+![image](https://github.com/user-attachments/assets/17773064-5fc6-4d82-8473-ab288820b7b2)
+
 
 <br/>
 <br />

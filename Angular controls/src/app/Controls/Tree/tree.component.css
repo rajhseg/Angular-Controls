@@ -21,7 +21,7 @@
   
   .symbol::before {
     content: "\25B6"; 
-    color: #00c7ba;
+    color: var(--expandcolor);
     display: inline-block;
     margin-right: 8px;
   }

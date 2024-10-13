@@ -21,7 +21,7 @@
 
 .check::before {
     content: "\2713";    
-    color: #00c7ba;
+    color: var(--color);
     display: inline-block;
     margin-right: 8px;
     position:relative;

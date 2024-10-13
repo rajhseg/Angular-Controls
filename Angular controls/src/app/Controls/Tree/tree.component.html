@@ -2,13 +2,15 @@
     <ul>
         <li style="font-size: small; padding: 3px;" *ngFor="let Item of Items" 
             [ngClass]="{'moveleftforchild': Item.IsHaveChild}">
-            <span *ngIf="Item.IsHaveChild" class="symbol" (click)="expandTree($event, Item)">                
+            <span *ngIf="Item.IsHaveChild" class="symbol" (click)="expandTree($event, Item)" 
+                [ngStyle]="{'--expandcolor': ExpandIconColor}">                
             </span>    
             <span style="vertical-align: middle; padding-right: 5px;" *ngIf="Item.IsHaveItemImage">
                 <img width="22px" height="22px" [src]="Item.GetImageSrc" />
             </span>
             <span style="cursor: pointer;" (click)="onSelected($event, Item)">{{Item.DisplayText}}</span>
-            <rtree *ngIf="Item.IsHaveChild" class="childrens" [Items]="Item.Childrens"
+            <rtree *ngIf="Item.IsHaveChild" class="childrens" [Items]="Item.Childrens" 
+                        [ExpandIconColor]="ExpandIconColor"
                         (onItemSelected)="onChildSelected($event)"
                         (onExpandClicked)="OnChildExpandClicked($event)">                
             </rtree>

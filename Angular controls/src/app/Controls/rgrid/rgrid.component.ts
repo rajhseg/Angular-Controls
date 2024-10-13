@@ -44,6 +44,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   currentPage: number = 1;
 
+  @Input()
+  GroupByIconColor: string = "#00c7ba";
+
   @Output()
   OnCellValueChanged = new EventEmitter<RCell>();
 

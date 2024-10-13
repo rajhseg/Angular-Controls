@@ -117,6 +117,7 @@
                     <tr style="border-bottom: 1px solid lightgray;">
                         <td colspan="2">
                             <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"
+                                [ngStyle]="{'--groupbyiconcolor': GroupByIconColor}"
                                 (click)="expandGroup($event, grpitem)">
                             </span>
                             <span style="text-overflow: ellipsis;">{{getGroupHeaderAsString(grpitem)}}</span>

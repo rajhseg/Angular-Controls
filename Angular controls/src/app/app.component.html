@@ -111,7 +111,7 @@
     [IsDisplayColorCode]="false"></rcolorpicker>
   <br />
   <br />
-  <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
+  <rtree [ExpandIconColor]="'#13297A'" [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
   <br />
 
@@ -176,7 +176,7 @@
   <br />
   <div style="display: flex;">
     <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="false">
-      <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
+      <rcheckbox [LabelColor]="'teal'" [CheckedColor]="'#13297A'" [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
     </rgroup-panel>
@@ -279,11 +279,13 @@
     <br/>
     <div style="float: left;padding-right:30px">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-        [HeaderBackgroundColor]="'blue'"
+        [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'"
         [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
 
-    <rgrid [Items]="gridItems" [HeaderBackgroundColor]="'#13297A'" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
+    <rgrid [Items]="gridItems" [GroupByIconColor]="'#13297A'" 
+            [HeaderBackgroundColor]="'#13297A'" (OnItemsChanged)="itemsChanged($event)" 
+            [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">

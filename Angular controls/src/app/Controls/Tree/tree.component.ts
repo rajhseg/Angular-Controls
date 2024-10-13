@@ -1,11 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, output, Output } from '@angular/core';
 import { RTreeItem } from './TreeModel';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'rtree',
   standalone: true,
-  imports: [NgForOf, NgIf, NgClass],
+  imports: [NgForOf, NgIf, NgClass, NgStyle],
   templateUrl: './tree.component.html',
   styleUrl: './tree.component.css'
 })
@@ -18,6 +18,9 @@ export class RTreeComponent {
 
   @Output()
   onItemSelected = new EventEmitter<RTreeItem>();
+
+  @Input()
+  ExpandIconColor: string = "#00c7ba";
 
   @Input()
   set Items(value: RTreeItem [] | undefined){        

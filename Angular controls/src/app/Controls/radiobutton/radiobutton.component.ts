@@ -43,6 +43,9 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
 
   onTouch: Function = () => { };
 
+  @Input()
+  LabelColor: string = "black";
+
   constructor(private service: RadioButtonService) {
     this.service.AddInstance(this);
   }

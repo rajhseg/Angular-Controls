@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CheckboxEventArgs, CheckboxService } from './checkbox.service';
@@ -6,7 +6,7 @@ import { CheckboxEventArgs, CheckboxService } from './checkbox.service';
 @Component({
   selector: 'rcheckbox',
   standalone: true,
-  imports: [NgClass, NgIf],
+  imports: [NgClass, NgIf, NgStyle],
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.css',
   providers: [{
@@ -45,6 +45,12 @@ export class RCheckboxComponent implements ControlValueAccessor {
   onChange: Function = () => { };
 
   onTouch: Function = () => { };
+
+  @Input()
+  CheckedColor: string = "#00c7ba";
+
+  @Input()
+  LabelColor: string = "black";
 
   constructor(private service: CheckboxService) {
     this.service.AddInstance(this);

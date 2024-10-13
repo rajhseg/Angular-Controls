@@ -91,7 +91,7 @@
 
 .symbol::before {
  content: "\25B6";
- color: rgb(35, 206, 236);
+ color: var(--groupbyiconcolor);
  display: inline-block;
  margin-right: 8px;
 }

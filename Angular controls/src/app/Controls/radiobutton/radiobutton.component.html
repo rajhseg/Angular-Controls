@@ -1,5 +1,5 @@
 <div style="display: flex;cursor: pointer; align-items: center;" (click)="check($event)">
-    <div *ngIf="!DisplayTextRightAlign" class="label">
+    <div *ngIf="!DisplayTextRightAlign" class="label" [ngStyle]="{ 'color': LabelColor}">
         {{DisplayText}}
     </div>
     <div class="checkroot">
@@ -8,7 +8,7 @@
         </span>
     </div>
 
-    <div *ngIf="DisplayTextRightAlign" class="label">
+    <div *ngIf="DisplayTextRightAlign" class="label" [ngStyle]="{ 'color': LabelColor}">
         {{DisplayText}}
     </div>
 </div>

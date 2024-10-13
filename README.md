@@ -299,7 +299,8 @@ RStepperHorizontal
 RDonutChart Control
 ----------------------------------
 
-![image](https://github.com/user-attachments/assets/d0b7a1f6-9b0d-4981-8a63-2b568824625a)
+![image](https://github.com/user-attachments/assets/30ac5cd0-0750-4969-a13d-85825520a637)
+
 
 <br />
 <br />
@@ -307,7 +308,8 @@ RDonutChart Control
 RPieChart Control
 ----------------------------------
 
-![image](https://github.com/user-attachments/assets/8eab1c22-7d4f-4843-ad86-dc6dc9e53bb0)
+![image](https://github.com/user-attachments/assets/2c46f4d3-351c-4d05-b0b0-d6a491a923f0)
+
 
 <br/>
 <br/>

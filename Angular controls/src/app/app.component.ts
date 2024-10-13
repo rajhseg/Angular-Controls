@@ -301,12 +301,12 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
 
   createDonutItems(){
-    let pieItem1 = new RDonutChartItem(24,'Cricket', 'blue', 'white');
+    let pieItem1 = new RDonutChartItem(24,'Cricket', 'grey', 'white');
     let pieItem2 = new RDonutChartItem(35,'Volleyball', 'purple', 'white');
-    let pieItem3 = new RDonutChartItem(12,'Tennis', 'yellow', 'white');
-    let pieItem4 = new RDonutChartItem(44,'BaseBall', '#6CEBC5', 'white');
-    let pieItem5 = new RDonutChartItem(14,'Hockey', 'orangered', 'white');
-    let pieItem6 = new RDonutChartItem(44,'Football', 'green', 'white');
+    let pieItem3 = new RDonutChartItem(12,'Tennis', 'gray', 'white');
+    let pieItem4 = new RDonutChartItem(44,'BaseBall', 'teal', 'white');
+    let pieItem5 = new RDonutChartItem(14,'Hockey', 'darkblue', 'white');
+    let pieItem6 = new RDonutChartItem(44,'Football', '#13297A', 'white');
 
     this.pieItems.push(pieItem1);
     this.pieItems.push(pieItem2);
@@ -325,12 +325,12 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
   
   createPieItems(){
-    let pieItem1 = new RPieChartItem(24,'Cricket', 'blue', 'white');
+    let pieItem1 = new RPieChartItem(24,'Cricket', 'grey', 'white');
     let pieItem2 = new RPieChartItem(35,'Volleyball', 'purple', 'white');
-    let pieItem3 = new RPieChartItem(12,'Tennis', 'yellow', 'white');
-    let pieItem4 = new RPieChartItem(44,'BaseBall', '#6CEBC5', 'white');
-    let pieItem5 = new RPieChartItem(14,'Hockey', 'orangered', 'white');
-    let pieItem6 = new RPieChartItem(44,'Football', 'green', 'white');
+    let pieItem3 = new RPieChartItem(12,'Tennis', 'gray', 'white');
+    let pieItem4 = new RPieChartItem(44,'BaseBall', 'teal', 'white');
+    let pieItem5 = new RPieChartItem(14,'Hockey', 'darkblue', 'white');
+    let pieItem6 = new RPieChartItem(44,'Football', '#13297A', 'white');
 
     this.pieItems1.push(pieItem1);
     this.pieItems1.push(pieItem2);

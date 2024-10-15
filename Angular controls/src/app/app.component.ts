@@ -278,9 +278,23 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   createScatterChart() {
-    let item1: ScatterChartItem = new ScatterChartItem("City 1", this.bColor, [new Graph(10,20), new Graph(15,35), new Graph(20,65), new Graph(14, 30)]);
-    let item2: ScatterChartItem = new ScatterChartItem("City 2", "red", [new Graph(15,40), new Graph(18,55), new Graph(20,58)]);
-    let item3: ScatterChartItem = new ScatterChartItem("City 3", this.tColor, [new Graph(14,35), new Graph(25,45), new Graph(40,85)]);    
+    let item1: ScatterChartItem = new ScatterChartItem("City 1", this.bColor, [
+       new Graph(10,20), new Graph(15,35), new Graph(20,65), new Graph(14, 30)
+      ,new Graph(30,63), new Graph(35,78), new Graph(24,53), new Graph(26, 56)
+      ,new Graph(20,42), new Graph(14,31), new Graph(34,75), new Graph(28, 72)
+    ]);
+    
+    let item2: ScatterChartItem = new ScatterChartItem("City 2", "red", [
+      new Graph(15,40), new Graph(18,55), new Graph(20,58)
+      ,new Graph(45,83), new Graph(28,48), new Graph(44,83), new Graph(16, 26)
+      ,new Graph(60,62), new Graph(64,61), new Graph(54,75), new Graph(68, 72)
+    ]);
+
+    let item3: ScatterChartItem = new ScatterChartItem("City 3", this.tColor, [
+      new Graph(14,35), new Graph(25,45), new Graph(40,85)
+      ,new Graph(40,63), new Graph(55,78), new Graph(54,53), new Graph(66, 56)
+      ,new Graph(20,32), new Graph(14,41), new Graph(34,75), new Graph(68, 72)
+    ]);    
 
     this.scatterModel = [item1, item2, item3];
   }

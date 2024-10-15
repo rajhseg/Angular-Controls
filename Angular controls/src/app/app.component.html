@@ -4,8 +4,8 @@
 
     <rstarrating [starWidth]="starWidth"></rstarrating>
 
-    <rstarrating [starWidth]="starWidth" [starColor]="'teal'" [(ngModel)]="starValue"></rstarrating> 
-    <rstarrating [starWidth]="starWidth" [starColor]="'#13297A'"></rstarrating>
+    <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating> 
+    <rstarrating [starWidth]="starWidth" [starColor]="bColor"></rstarrating>
 
     {{starValue}}
 
@@ -101,6 +101,10 @@
       [xAxisItemNames]="stackedrangebarChartXAxisItemNames" [Columns]="stackedrangebarChartItems">
   </rstackedrangebarchart-vertical>
 
+  <br />
+  
+  <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel">    
+  </rscatterchart>
 
   <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
@@ -111,13 +115,13 @@
     [IsDisplayColorCode]="false"></rcolorpicker>
   <br />
   <br />
-  <rtree [ExpandIconColor]="'#13297A'" [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
+  <rtree [ExpandIconColor]="bColor" [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
   <br />
 
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'#13297A'" (ButtonClick)="nextStep()">Move to Next Step
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStep()">Move to Next Step
   </rbutton>
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'teal'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="tColor" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
 
   <br />
 
@@ -127,56 +131,56 @@
   <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
     [(ngModel)]="StepperSelectedItem"
     [CompletedBackgroundColor]="'darkblue'"
-    [StripLineColor]="'#13297A'"
+    [StripLineColor]="bColor"
     [IsDisplayStepNo]="true" 
-    [PendingBackgroundColor]="'teal'" 
+    [PendingBackgroundColor]="tColor" 
     [PendingForeColor]="'white'" 
     [ContentWidth]="'140px'"
     (OnActiveValueChanged)="seqValueChanged($event)" 
-    [ActiveBackgroundColor]="'#13297A'">
+    [ActiveBackgroundColor]="bColor">
   </rstate-vertical>
 
   <br />
 
-  <rslider [IsDisplayValue]="true" [BackgroundColor]="'teal'" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
+  <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
   </rslider>
   <br />
-  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'#13297A'" [MinValue]="25" [MaxValue]="75">
+  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="bColor" [MinValue]="25" [MaxValue]="75">
   </rslider>
   <br />
-  <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'#13297A'"></rslider>
+  <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="bColor"></rslider>
   <br />
 
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'#13297A'" (ButtonClick)="nextStepH()">Move to Next Step
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStepH()">Move to Next Step
   </rbutton>
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'teal'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="tColor" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
 
   <br />
 
   <div>
     <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-      [ActiveForeColor]="'#13297A'"
-      [PendingForeColor]="'teal'"
+      [ActiveForeColor]="bColor"
+      [PendingForeColor]="tColor"
       [CompletedForeColor]="'darkblue'"
       [Items]="seqHorizontalItems"
       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="false"
-      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'#13297A'"></rstate-horizontal>
+      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
   </div>
   <div>
     <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-      [ActiveForeColor]="'#13297A'"
-      [PendingForeColor]="'teal'"
+      [ActiveForeColor]="bColor"
+      [PendingForeColor]="tColor"
       [CompletedForeColor]="'darkblue'"
       [Items]="seqHorizontalItems"
       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="true"
-      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'#13297A'"></rstate-horizontal>
+      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
   </div>
   <br />
   <div style="display: flex;">
     <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="false">
-      <rcheckbox [LabelColor]="'teal'" [CheckedColor]="'#13297A'" [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
+      <rcheckbox [LabelColor]="tColor" [CheckedColor]="bColor" [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
     </rgroup-panel>
@@ -192,8 +196,8 @@
     <br />
 
   <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'" 
-      [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="'#13297A'" 
-      [IconForeColor]="'#13297A'"
+      [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor" 
+      [IconForeColor]="bColor"
       (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
   </rfileupload>
 
@@ -203,50 +207,50 @@
  <br />
  <br />
   <div>
-    <rtextbox [(ngModel)]="userName" [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
-    <rtextbox [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [LabelText]="'Email'"></rtextbox>
-    <rtextbox [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
+    <rtextbox [(ngModel)]="userName" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
+    <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'"></rtextbox>
+    <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
   </div>
 
   <br />
   <div>
-    <rtextbox [IsPasswordBox]="true" [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
+    <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
       [LabelText]="'Password'"></rtextbox>
-    <rtextbox [IsPasswordBox]="true" [BottomLineColor]="'#13297A'" [LabelForeColor]="'#13297A'" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'"
+    <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'"
       [LabelText]="'Confirm Password'"></rtextbox>
-    <rbutton [BackgroundColor]="'#13297A'">Submit</rbutton>
+    <rbutton [BackgroundColor]="bColor">Submit</rbutton>
   </div>
   <br />
   <br />
 
-  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'teal'" [MinusBackgroundColor]="'teal'"
-    [BottomLineColor]="'teal'" [LabelTextForeColor]="'teal'" [(ngModel)]="rangeValue1"></rnumeric>
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="tColor" [MinusBackgroundColor]="tColor"
+    [BottomLineColor]="tColor" [LabelTextForeColor]="tColor" [(ngModel)]="rangeValue1"></rnumeric>
 
-  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'#13297A'" [MinusBackgroundColor]="'#13297A'"
-    [BottomLineColor]="'#13297A'" [LabelTextForeColor]="'#13297A'" [(ngModel)]="rangeValue1"></rnumeric>
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="bColor" [MinusBackgroundColor]="bColor"
+    [BottomLineColor]="bColor" [LabelTextForeColor]="bColor" [(ngModel)]="rangeValue1"></rnumeric>
 
   <br />
 
-  <rtimer [FlatStyleForeColor]="'#13297A'" [DisplayTextForeColor]="'#13297A'" [EnableShadowEffect]="false">    
+  <rtimer [FlatStyleForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false">    
   </rtimer>
 
-  <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="'#13297A'" [MinuteForeColor]="'#13297A'"
-    [SecondsForeColor]="'#13297A'" [DisplayTextForeColor]="'#13297A'" [EnableShadowEffect]="false"
+  <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="bColor" [MinuteForeColor]="bColor"
+    [SecondsForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false"
     [CircularWidth]="70">
   </rtimer>
 
   <br />
 
-  <rtimeselector [ButtonBackgroundColor]="'#13297A'" [TextBottomLineColor]="'#13297A'" 
-    [SelectedItemBackgroundColor]="'#13297A'" [(ngModel)]="time1"></rtimeselector>
+  <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor" 
+    [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
 
-  <rtimeselector [ButtonBackgroundColor]="'#13297A'" [TextBottomLineColor]="'#13297A'" 
-    [SelectedItemBackgroundColor]="'#13297A'" [(ngModel)]="time2"></rtimeselector>
+  <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor" 
+    [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time2"></rtimeselector>
 
   <br />
 
-  <rtimeselector [ButtonBackgroundColor]="'#13297A'" [LabelText]="'Arriving Time'" 
-    [TextBottomLineColor]="'#13297A'" [SelectedItemBackgroundColor]="'#13297A'"
+  <rtimeselector [ButtonBackgroundColor]="bColor" [LabelText]="'Arriving Time'" 
+    [TextBottomLineColor]="bColor" [SelectedItemBackgroundColor]="bColor"
     [(ngModel)]="time3" [Is24HourFormat]="false"
     [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector>
 
@@ -270,9 +274,9 @@
     <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
     <br/>
     <br/>
-    <revents-schedule [ContainerBackgroundColor]="'#13297A'" 
-          [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
-          [EventBackgroundColor]="'#13297A'" 
+    <revents-schedule [ContainerBackgroundColor]="bColor" 
+          [ContainerBorderColor]="tColor" [EventBorderColor]="tColor"
+          [EventBackgroundColor]="bColor" 
           [ShowMarker]="true" [ShowScrollBar]="false" [DisplayDatesOnLoad]="dates" 
           [SelectedDate]="selectedDate" 
           [ScheduleItems]="scheduleItems"></revents-schedule>
@@ -283,8 +287,8 @@
         [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
 
-    <rgrid [Items]="gridItems" [GroupByIconColor]="'#13297A'" 
-            [HeaderBackgroundColor]="'#13297A'" (OnItemsChanged)="itemsChanged($event)" 
+    <rgrid [Items]="gridItems" [GroupByIconColor]="bColor" 
+            [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)" 
             [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
@@ -292,7 +296,7 @@
           <span>{{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-          <rtextbox [BottomLineColor]="'#13297A'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="rcell.Value" />
         </ng-template>
       </rcolumn>
@@ -303,7 +307,7 @@
           <span>{{Item.Name}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="'#13297A'" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -313,8 +317,8 @@
           <span>{{Item.Age}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rnumeric [BottomLineColor]="'#13297A'"  
-          [MinusBackgroundColor]="'#13297A'" [PlusBackgroundColor]="'#13297A'"
+          <rnumeric [BottomLineColor]="bColor"  
+          [MinusBackgroundColor]="bColor" [PlusBackgroundColor]="bColor"
           [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
         </ng-template>
       </rcolumn>
@@ -326,7 +330,7 @@
           <span>{{Item.Education.Higher.Course}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="'#13297A'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -336,7 +340,7 @@
           <span>{{Item.Age + 4}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="'#13297A'"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -347,18 +351,18 @@
   <br />
   <br />
   
-  <rswitch [DisplayLabel]="'Change Display Type'" [SwitchBackColor]="'#13297A'" (checked)="changeStepperDisplayType($event)"></rswitch>
+  <rswitch [DisplayLabel]="'Change Display Type'" [SwitchBackColor]="bColor" (checked)="changeStepperDisplayType($event)"></rswitch>
 
-  <rswitch [DisplayLabel]="'Show Vertical'" [SwitchBackColor]="'teal'" (checked)="changeShow($event)"></rswitch>
+  <rswitch [DisplayLabel]="'Show Vertical'" [SwitchBackColor]="tColor" (checked)="changeShow($event)"></rswitch>
 
   <br/>
   <br />
   <br />
 
   <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530" 
-      [HorizontalItemActiveBackColor]="'#13297A'" [HorizontalItemPendingForeColor]="'teal'"
+      [HorizontalItemActiveBackColor]="bColor" [HorizontalItemPendingForeColor]="tColor"
       [HorizontalItemPendingBackColor]="'white'"
-      [HorizontalItemStripLineColor]="'#13297A'"
+      [HorizontalItemStripLineColor]="bColor"
       [ShowStateHorizontal]="showVerticalItems"
       (OnCompletedClick)="StepsCompleted($event)">
 
@@ -401,10 +405,10 @@
       <ng-template rstepview>
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="'#13297A'"
+          [HeaderBackgroundColor]="bColor"
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
-        <rbutton [BackgroundColor]="'#13297A'" (ButtonClick)="stepOneSave($event)">
+        <rbutton [BackgroundColor]="bColor" (ButtonClick)="stepOneSave($event)">
           Save        
         </rbutton>
 
@@ -488,8 +492,8 @@
   <br/>
   <br />
 
-  <rstepper-vertical [VerticalItemStripLineColor]="'#13297A'" [VerticalItemActiveBackColor]="'#13297A'"
-    [VerticalItemPendingBackColor]="'teal'"
+  <rstepper-vertical [VerticalItemStripLineColor]="bColor" [VerticalItemActiveBackColor]="bColor"
+    [VerticalItemPendingBackColor]="tColor"
    [ContentWidth]="800" [ContentHeight]="700"  (OnCompletedClick)="StepsCompleted($event)"
    [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
 
@@ -532,10 +536,10 @@
       <ng-template rstepview>
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="'#13297A'"
+          [HeaderBackgroundColor]="bColor"
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
-        <rbutton [BackgroundColor]="'#13297A'" (ButtonClick)="stepOneSave($event)">
+        <rbutton [BackgroundColor]="bColor" (ButtonClick)="stepOneSave($event)">
           Save        
         </rbutton>
 
@@ -571,13 +575,13 @@
   <br />
   <div>
     <br />
-    <rbutton BackgroundColor="#13297A" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One
+    <rbutton [BackgroundColor]="bColor" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One
       Tab</rbutton>
     <br />
     <div>
       <label>Tab Index</label>
       <input type="text" [(ngModel)]="deltabindex" />
-      <rbutton [BackgroundColor]="'teal'" [ButtonWidth]="'150px'" (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
+      <rbutton [BackgroundColor]="tColor" [ButtonWidth]="'150px'" (ButtonClick)="DeleteTabBasedOnIndex()">Delete Tab(index)</rbutton>
     </div>
     <br />
   </div>

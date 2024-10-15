@@ -48,10 +48,11 @@ import { RDonutChartComponent, RDonutChartItem } from "./Controls/rdonutchart/rd
 import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
 import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
 import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
-import { BarChartItem } from './Controls/Models/BarChartItem';
+import { BarChartItem, Graph, ScatterChartItem } from './Controls/Models/BarChartItem';
 import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
 import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-vertical/rstackedbarchart-vertical.component';
 import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component';
+import { RScatterChartComponent } from './Controls/rscatterchart/rscatterchart.component';
 
 @Component({
   selector: 'app-root',
@@ -97,7 +98,8 @@ import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrange
     RBarChartVerticalComponent,
     RBarChartHorizontalComponent,
     RStackedBarChartVerticalComponent,
-    RStackedRangeBarChartVerticalComponent
+    RStackedRangeBarChartVerticalComponent,
+    RScatterChartComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -204,6 +206,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   stackedrangebarChartItems: BarChartItem[] = []
   stackedrangebarChartXAxisItemNames: string[] = [];
+  
+  scatterModel: ScatterChartItem[] = [];
+
+  bColor: string = '#13297A';
+  tColor: string = 'teal';
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -263,10 +270,19 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createDonutItems();
       this.createBarCharts();
       this.createStackedBarCharts();
+      this.createScatterChart();
   }
 
   ngAfterContentChecked(): void {
     this.cdr.detectChanges();
+  }
+
+  createScatterChart() {
+    let item1: ScatterChartItem = new ScatterChartItem("City 1", this.bColor, [new Graph(10,20), new Graph(15,35), new Graph(20,65), new Graph(14, 30)]);
+    let item2: ScatterChartItem = new ScatterChartItem("City 2", "red", [new Graph(15,40), new Graph(18,55), new Graph(20,58)]);
+    let item3: ScatterChartItem = new ScatterChartItem("City 3", this.tColor, [new Graph(14,35), new Graph(25,45), new Graph(40,85)]);    
+
+    this.scatterModel = [item1, item2, item3];
   }
 
   createBarCharts(){

@@ -5,7 +5,19 @@ export class BarChartItem {
         public Values: number[],
         public barItemsBackColor: string[] | string,
         public barItemsForeColor: string[] | string
-    ){
+    ) {
+
+    }
+}
+
+export class ScatterChartItem {
+    constructor(public ItemName: string, public ItemColor: string, public Values: Graph[] = []) {
+
+    }
+}
+
+export class Graph {
+    constructor(public xPoint: number, public yPoint: number) {
 
     }
 }

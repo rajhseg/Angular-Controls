@@ -10,6 +10,12 @@ export class BarChartItem {
     }
 }
 
+export class LineChartItem {
+    constructor(public ItemName: string, public ItemColor: string, public Values: number[] = []){
+
+    }
+}
+
 export class ScatterChartItem {
     constructor(public ItemName: string, public ItemColor: string, public Values: Graph[] = []) {
 

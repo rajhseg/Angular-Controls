@@ -106,6 +106,10 @@
   <rscatterchart [Width]="400" [Height]="400" [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel">    
   </rscatterchart>
 
+  <rlinechart-vertical [XAxisTitle]="'Days'" [YAxisTitle]="'Price'" [Width]="400" [Height]="400" 
+        [XAxisItemNames]="lineChartXAxisNames" [Items]="lineChartItems">
+  </rlinechart-vertical>
+
   <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
     (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">

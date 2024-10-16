@@ -48,11 +48,12 @@ import { RDonutChartComponent, RDonutChartItem } from "./Controls/rdonutchart/rd
 import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
 import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
 import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
-import { BarChartItem, Graph, ScatterChartItem } from './Controls/Models/BarChartItem';
+import { BarChartItem, Graph, LineChartItem, ScatterChartItem } from './Controls/Models/BarChartItem';
 import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
 import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-vertical/rstackedbarchart-vertical.component';
 import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component';
 import { RScatterChartComponent } from './Controls/rscatterchart/rscatterchart.component';
+import { RLineChartVerticalComponent } from './Controls/rlinechart-vertical/rlinechart-vertical.component';
 
 @Component({
   selector: 'app-root',
@@ -99,7 +100,8 @@ import { RScatterChartComponent } from './Controls/rscatterchart/rscatterchart.c
     RBarChartHorizontalComponent,
     RStackedBarChartVerticalComponent,
     RStackedRangeBarChartVerticalComponent,
-    RScatterChartComponent
+    RScatterChartComponent, 
+    RLineChartVerticalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -209,6 +211,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   
   scatterModel: ScatterChartItem[] = [];
 
+  lineChartItems: LineChartItem[] = [];
+  lineChartXAxisNames: string[] = [];
+
   bColor: string = '#13297A';
   tColor: string = 'teal';
 
@@ -271,10 +276,20 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createBarCharts();
       this.createStackedBarCharts();
       this.createScatterChart();
+      this.createLineChart();
   }
 
   ngAfterContentChecked(): void {
     this.cdr.detectChanges();
+  }
+
+  createLineChart() {
+    let item1 = new LineChartItem("Soap", "teal", [25, 45, 12, 35, 18, 17, 40]);
+    let item2 = new LineChartItem("ToothPowder", "darkblue", [35, 75, 18, 45, 16, 27, 60]);
+    let item3 = new LineChartItem("Juice", "orangered", [15, 26, 38, 25, 46, 37, 70]);
+    
+    this.lineChartXAxisNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    this.lineChartItems = [item1, item2, item3];
   }
 
   createScatterChart() {

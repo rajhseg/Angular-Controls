@@ -1,21 +1,18 @@
-
-
-
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, ScatterChartItem } from '../Models/BarChartItem';
+import { LineChartItem } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
-
 @Component({
-  selector: 'rscatterchart',
+  selector: 'rlinechart-vertical',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle, NgClass],
-  templateUrl: './rscatterchart.component.html',
-  styleUrl: './rscatterchart.component.css'
+  templateUrl: './rlinechart-vertical.component.html',
+  styleUrl: './rlinechart-vertical.component.css'
 })
-export class RScatterChartComponent implements AfterViewInit {
+export class RLineChartVerticalComponent implements AfterViewInit {
 
+  
   private _width: number = 300;
   private _height: number = 300;
 
@@ -51,19 +48,21 @@ export class RScatterChartComponent implements AfterViewInit {
     return this._yAxisTitle;
   }
 
-  private _noOfSplitInXAxis: number = 4;
+  private _xAxisItemNames: string[] = [];
 
   @Input()
-  public set NoOfSplitInXAxis(val: number) {
-
-    if (val < 3) {
-      val = 3;
-    }
-
-    this._noOfSplitInXAxis = val;
+  public set XAxisItemNames(val: string[]){
+    if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
+      this._xAxisItemNames = val;
+      this.RenderLineChart();
+    }    
   }
+  public get XAxisItemNames(): string[] {
+    return this._xAxisItemNames;
+  }
+
   public get NoOfSplitInXAxis(): number {
-    return this._noOfSplitInXAxis;
+    return this._xAxisItemNames.length;
   }
 
   private _noOfSplitInYAxis: number = 4;
@@ -116,16 +115,16 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   DataListHeight: number = 50;
 
-  private _items: ScatterChartItem[] = [];
+  private _items: LineChartItem[] = [];
 
   @Input()
-  public set Items(val: ScatterChartItem[]) {
-    if (!this.IsScatterItemListEqual(val, this._items)) {
+  public set Items(val: LineChartItem[]) {
+    if (!this.IsLineItemListEqual(val, this._items)) {
       this._items = val;
-      this.RenderScatterChart();
+      this.RenderLineChart();
     }
   }
-  public get Items(): ScatterChartItem[] {
+  public get Items(): LineChartItem[] {
     return this._items;
   }
 
@@ -144,7 +143,7 @@ export class RScatterChartComponent implements AfterViewInit {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {
         this.context = this.bar.nativeElement.getContext('2d');
-        this.RenderScatterChart();
+        this.RenderLineChart();
       }
     }
   }
@@ -162,16 +161,11 @@ export class RScatterChartComponent implements AfterViewInit {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
-  getNameIndicator(itm: BarChartItem) {
-    return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
-      itm.barItemsBackColor[0] : "orangered";
-  }
-
   isPropString(prop: any) {
     return typeof prop === 'string';
   }
 
-  RenderScatterChart() {
+  RenderLineChart() {
     this.IsRendered = false;
 
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
@@ -180,20 +174,16 @@ export class RScatterChartComponent implements AfterViewInit {
 
       let spaceFromTopYAxis = 25;
       let spaceFromRightXAxis = 25;
-
-      let xValues: number[] = [];
+      
       let yValues: number[] = [];
 
       for (let index = 0; index < this.Items.length; index++) {
-        const element = this.Items[index];
-        let _x = element.Values.map(x => x.xPoint);
-        let _y = element.Values.map(y => y.yPoint);
-
-        xValues = [...xValues, ..._x];
+        const element = this.Items[index];        
+        let _y = element.Values.map(y => y);        
         yValues = [...yValues, ..._y];
       }
 
-      if (xValues && yValues) {
+      if (yValues) {
 
         min = this.MinArray(yValues);
         max = this.MaxArray(yValues);
@@ -271,21 +261,16 @@ export class RScatterChartComponent implements AfterViewInit {
           this.HorizontalLineDisplayValueInYAxis(yDisplayValue.toString(), StartX, yPoint);
         }
 
-        /* Draw X Axis Line */
-        let xmin = this.MinArray(xValues);
-        let xmax = this.MaxArray(xValues);
-
-        let xdistance = 0;
-        if (xmin != undefined && xmax != undefined) {
-          xdistance = (xmax) / this.NoOfSplitInXAxis;
-        }
-
+        /* Draw X Axis Line */        
+        let xdistance = 0;        
+        xdistance = (this.Width - this.MarginX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
+        
         xdistance = this.GetRoundToTenDigit(xdistance);
         let xvDistance = (this.Width - StartX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
 
-        for (let index = 1; index <= this.NoOfSplitInXAxis; index++) {
-          let xDisplayValue = xdistance * index;
-          let xPoint = (xvDistance * index) + StartX;
+        for (let index = 0; index < this.NoOfSplitInXAxis; index++) {
+          let xDisplayValue = this.XAxisItemNames[index];
+          let xPoint = ( xvDistance * (index +1) ) + StartX;
           let yPoint = this.Height - this.MarginY;
 
           this.DrawVerticalLine(xPoint, yPoint);
@@ -293,24 +278,39 @@ export class RScatterChartComponent implements AfterViewInit {
           this.DrawVerticalLineDisplayValueInXAxis(xDisplayValue.toString(), xPoint, yPoint);
         }
 
+
         for (let index = 0; index < this.Items.length; index++) {
           const element = this.Items[index];
 
+          let prevX = this.MarginX;
+          let prevY = this.Height - this.MarginY;
+  
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
+            
+            let xPoint = xvDistance * (v + 1) + this.MarginX;
 
-            let indx = item.xPoint / xdistance
-            let xPoint = xvDistance * indx + StartX;
-
-            let yindx = -(item.yPoint / ydistance) + this.NoOfSplitInYAxis;
+            let yindx = -(item / ydistance) + this.NoOfSplitInYAxis;
             let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
 
             this.Plot(xPoint, yPoint, element.ItemColor);
+
+            /* Plot Line */
+            this.context.beginPath();
+            this.context.strokeStyle = element.ItemColor;
+            this.context.moveTo(prevX, prevY);
+            this.context.lineTo(xPoint, yPoint);
+            this.context.stroke();
+            this.context.closePath();
+
+            prevX = xPoint;
+            prevY = yPoint;
           }
 
         }
 
       }
+
       this.IsRendered = true;
     }
   }
@@ -480,7 +480,7 @@ export class RScatterChartComponent implements AfterViewInit {
     })
   }
 
-  private IsScatterItemListEqual(a: ScatterChartItem[] | null | undefined, b: ScatterChartItem[] | null | undefined) {
+  private IsLineItemListEqual(a: LineChartItem[] | null | undefined, b: LineChartItem[] | null | undefined) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;
@@ -496,10 +496,8 @@ export class RScatterChartComponent implements AfterViewInit {
       let element2 = b[index];
 
       if (element1.ItemName != element2.ItemName || element1.ItemColor != element2.ItemColor ||
-        element1.Values.map(x => x.xPoint).toString() != element2.Values.map(x => x.xPoint).toString() ||
-        element1.Values.map(x => x.yPoint).toString() != element2.Values.map(x => x.yPoint).toString()
-      ) {
-        return false;
+        element1.Values.map(x => x).toString() != element2.Values.map(x => x).toString()) {
+          return false;
       }
     }
 

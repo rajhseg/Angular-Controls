@@ -351,3 +351,14 @@ RScatterChart
 
 <br />
 <br/>
+
+RLineChart
+----------------------------------
+
+![image](https://github.com/user-attachments/assets/949ac694-38ff-4c5a-9c5e-3e54c0ddc905)
+
+
+<br/>
+<br/>
+
+

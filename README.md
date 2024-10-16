@@ -350,7 +350,6 @@ RScatterChart
 ![image](https://github.com/user-attachments/assets/b84c2a6a-e88d-4b88-8246-296c46382b00)
 
 <br />
-<br/>
 
 RLineChart
 ----------------------------------

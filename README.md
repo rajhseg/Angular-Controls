@@ -244,16 +244,15 @@ TimeSelector
 
 RGrid Control
 ------------------------------
-<br/>
 
 ### ViewMode
 
-![image](https://github.com/user-attachments/assets/b0065581-7891-4992-a796-7748861b8dbd)
+![image](https://github.com/user-attachments/assets/20e621ef-9491-44b3-a2f1-c9c88573b39b)
 
 
 ### EditMode
 
-![image](https://github.com/user-attachments/assets/17773064-5fc6-4d82-8473-ab288820b7b2)
+![image](https://github.com/user-attachments/assets/82b9bfe6-0c96-4065-8e03-5a4e11a896ba)
 
 
 <br/>
@@ -348,7 +347,7 @@ RStackedRangeBarChart Vertical Control
 RScatterChart
 ----------------------------------
 
-![image](https://github.com/user-attachments/assets/ab6cdd72-816c-4f0c-bae4-cbcc6639ce4e)
+![image](https://github.com/user-attachments/assets/b84c2a6a-e88d-4b88-8246-296c46382b00)
 
 <br />
 <br/>

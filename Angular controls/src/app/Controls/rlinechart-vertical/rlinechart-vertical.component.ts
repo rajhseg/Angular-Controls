@@ -35,6 +35,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @Input()
   public set XAxisTitle(val: string) {
     this._xAxisTitle = val;
+    this.RenderLineChart();
   }
   public get XAxisTitle(): string {
     return this._xAxisTitle;
@@ -43,6 +44,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @Input()
   public set YAxisTitle(val: string) {
     this._yAxisTitle = val;
+    this.RenderLineChart();
   }
   public get YAxisTitle(): string {
     return this._yAxisTitle;
@@ -78,6 +80,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @Input()
   public set Width(val: number) {
     this._width = val;
+    this.RenderLineChart();
   }
   public get Width(): number {
     return this._width;
@@ -107,6 +110,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @Input()
   public set Height(val: number) {
     this._height = val;
+    this.RenderLineChart();
   }
   public get Height(): number {
     return this._height;
@@ -293,15 +297,11 @@ export class RLineChartVerticalComponent implements AfterViewInit {
             let yindx = -(item / ydistance) + this.NoOfSplitInYAxis;
             let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
 
+            /* Plot Circle */
             this.Plot(xPoint, yPoint, element.ItemColor);
 
             /* Plot Line */
-            this.context.beginPath();
-            this.context.strokeStyle = element.ItemColor;
-            this.context.moveTo(prevX, prevY);
-            this.context.lineTo(xPoint, yPoint);
-            this.context.stroke();
-            this.context.closePath();
+            this.PlotLine(xPoint, yPoint, prevX, prevY, element.ItemColor);
 
             prevX = xPoint;
             prevY = yPoint;
@@ -312,6 +312,17 @@ export class RLineChartVerticalComponent implements AfterViewInit {
       }
 
       this.IsRendered = true;
+    }
+  }
+
+  private PlotLine(xPoint: number, yPoint: number, prevX: number, prevY: number, color: string){
+    if(this.context){
+      this.context.beginPath();
+      this.context.strokeStyle = color;
+      this.context.moveTo(prevX, prevY);
+      this.context.lineTo(xPoint, yPoint);
+      this.context.stroke();
+      this.context.closePath();
     }
   }
 

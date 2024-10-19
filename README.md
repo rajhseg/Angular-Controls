@@ -334,11 +334,9 @@ RStackedRangeBarChart Vertical Control
 
 ![image](https://github.com/user-attachments/assets/fa764927-e5ce-4c9b-8d78-ec4c965693d7)
 
-
 <br/>
 
 ![image](https://github.com/user-attachments/assets/afad1209-7b00-4afe-b226-d7412d752616)
-
 
 <br />
 <br />
@@ -350,4 +348,13 @@ RScatterChart
 ![image](https://github.com/user-attachments/assets/b84c2a6a-e88d-4b88-8246-296c46382b00)
 
 <br />
+
+RLineChart
+----------------------------------
+
+![image](https://github.com/user-attachments/assets/949ac694-38ff-4c5a-9c5e-3e54c0ddc905)
+
 <br/>
+
+
+

@@ -356,5 +356,10 @@ RLineChart
 
 <br/>
 
+RStackedBarChart Horizontal
+--------------------------------
 
+![image](https://github.com/user-attachments/assets/e39aaa51-8cb3-44a1-ae11-acfa23751bdd)
+
+<br/>
 

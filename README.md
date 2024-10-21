@@ -59,16 +59,12 @@ group panel Control
 <br />
 <br />
 
-
-
  Dropdown Control
 -------------------
 ![image](https://github.com/user-attachments/assets/27655d87-7699-455a-ac3e-f6696709c52a)
 
-
 <br />
 <br />
-
 
 RSelectDropdown Control
 -------------------------------
@@ -76,8 +72,6 @@ RSelectDropdown Control
 
 ![image](https://github.com/user-attachments/assets/c2a0fe58-eded-4e32-a83c-933076b4dce8)
 
-
-<br/>
 <br/>
 
 
@@ -87,7 +81,6 @@ Tree Control
 
 <br />
 <br />
-
 
 
 Checkbox

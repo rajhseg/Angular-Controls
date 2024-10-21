@@ -187,7 +187,217 @@ export class RStackedBarChartHorizontalComponent {
   }
 
   RenderBarChart() {
-    
+    this.IsRendered = false;
+
+    if (this.bar && this.context && this.Columns.length > 0 && this.yAxisItemNames.length > 0) {
+      let min: number | undefined = undefined;
+      let max: number | undefined = undefined;
+
+      let spaceFromRightXAxis = 25;
+
+      var valueList = [];
+      for (let index = 0; index < this.yAxisItemNames.length; index++) {
+        const element = this.yAxisItemNames[index];
+
+        var itm = 0;
+
+        for (let col = 0; col < this.Columns.length; col++) {
+          const clmn = this.Columns[col];
+
+          if (clmn.Values[index] != undefined)
+          {
+            if(clmn.Values[index] < 0)
+              itm = itm - clmn.Values[index];
+            else
+              itm += clmn.Values[index];
+          }
+        }
+
+        valueList.push(itm);
+      }
+
+      min = this.MinArray(valueList);
+      max = this.MaxArray(valueList);
+
+      var distance: number = 0;
+      var itemCount = this.yAxisItemNames.length;
+
+      if (min != undefined && max != undefined) {
+        distance = (max) / this.NoOfSplitInValueAxis;
+      }
+
+      distance = this.GetRoundToTenDigit(distance);
+
+      var MinLimit = 0;
+      var MaxLimit = distance * (this.NoOfSplitInValueAxis);
+
+      var StartX: number = this._marginX;
+      var StartY: number = this.Height - this._marginY;
+
+      /* Draw Vertical Line */
+      this.context.beginPath();
+      this.context.moveTo(StartX, StartY);
+      this.context.lineTo(StartX, 0);
+      this.context.strokeStyle = this.TextColor;
+      this.context.stroke();
+
+      /* Draw Horizontal Line */
+      this.context.moveTo(StartX, StartY);
+      this.context.lineTo(this.Width, StartY);
+      this.context.strokeStyle = this.TextColor;
+      this.context.stroke();
+      this.context.closePath();
+
+      /* Draw Title on x-axis */
+      this.context.beginPath();
+      
+      let met = this.context.measureText(this.XAxisTitle);
+      let xTextPoint = (this.Width - this.MarginX)/2 + this.MarginX;
+      xTextPoint = xTextPoint - (met.width/2);
+      let yTextPoint = this.Height - 10;
+
+      this.context.save();
+      this.context.fillStyle = this.TextColor;
+      this.context.fillText(this.XAxisTitle, xTextPoint, yTextPoint);
+      this.context.restore();
+
+      this.context.closePath();
+
+      /* Draw Title On Y axis */      
+      this.context.beginPath();
+      this.context.save();
+
+      met = this.context.measureText(this.XAxisTitle);
+      yTextPoint = (this.Height - this.MarginY)/2;
+      yTextPoint = yTextPoint + (met.width/2);
+      xTextPoint = 15;            
+      this.context.fillStyle = this.TextColor;
+      this.context.translate(xTextPoint, yTextPoint);
+      this.context.rotate((Math.PI/180) * 270);
+      this.context.fillText(this.YAxisTitle, 0, 0);      
+      
+      this.context.restore();
+      this.context.closePath();      
+
+      /* Draw x axis line */
+      let vDistance = (this.Width - this.MarginX - spaceFromRightXAxis) / this.NoOfSplitInValueAxis;
+
+     /* Draw x Axis */
+      for (let index = 0; index <= this.NoOfSplitInValueAxis; index++) {
+        let xDisplayValue = Math.round(distance * index);
+        let xPoint = Math.round(vDistance * index) + this.MarginX;
+        this.VerticalLineInXAxis(xPoint, StartY);
+        this.DrawVerticalLine(xPoint, StartY);
+        this.VerticalLineDisplayValueInXAxis(xDisplayValue.toString(), xPoint, StartY);
+      }
+
+      /* Draw the y Axis */
+      let maxBarsPerGroup = 1;
+      var eachBarGroupLength = (this.Height - this.MarginY) / itemCount;
+      var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
+      let yPoint = StartY;
+
+      console.log("Horizontal");
+
+      let drawTexts: DrawTextItem[] = [];
+
+      for (let index = 0; index < itemCount; index++) {
+
+        let yAxisName = this.yAxisItemNames[index];
+
+        if (this.GapBetweenBars == 1) {
+          yPoint = yPoint - eachBarLength / 2;
+        } else {
+          yPoint = yPoint - eachBarLength;
+        }
+
+        let xPoint = StartX;
+        let nameWidth = this.context.measureText(yAxisName);
+        let remWidth = eachBarGroupLength - nameWidth.width - (eachBarLength * this.GapBetweenBars);
+
+        let halfYPoint = remWidth / 2;        
+
+        /* Draw name on yAxis */
+        this.DrawYAxisName(yAxisName, this.MarginX - 25 , yPoint - halfYPoint);        
+
+        let previousX: number | undefined = StartX;
+        let ComputedValue = 0;
+        let halfValueXPoint: number | undefined = undefined;
+
+        for (let x = 0; x < this.Columns.length; x++) {
+          const element = this.Columns[x];
+          let value = element.Values[index];
+
+          if (value != undefined) {
+            
+            if(value<0)
+              value = -value;
+
+            let x = this.GetXStartPoint(value, distance, itemCount, vDistance, spaceFromRightXAxis);
+
+            let color = typeof element.barItemsBackColor === 'string' ?
+              element.barItemsBackColor : element.barItemsBackColor.length > 0 && element.barItemsBackColor[index] ?
+                element.barItemsBackColor[index] : "purple";
+
+            /* Draw Bar */
+            let diff =  x - (StartX as any) as number; 
+            
+            if(diff < 0)
+              diff = -diff;
+
+            if (previousX != undefined)
+               xPoint = previousX;
+            
+            this.DrawBar(xPoint, yPoint, x, eachBarLength, color);
+
+            /* Draw Text on top of Bar */
+            let valueXpoint = this.getWidthFromString(value.toString());
+            let remXWidth = eachBarLength - valueXpoint;
+
+            let foreColor = typeof element.barItemsForeColor === 'string' ?
+              element.barItemsForeColor : element.barItemsForeColor.length > 0 && element.barItemsForeColor[index] ?
+                element.barItemsForeColor[index] : this.TextColor;
+
+            halfValueXPoint = remXWidth / 2;
+
+            let met = this.context.measureText(value.toString());
+            let textHeight = this.getTextHeight(met);
+            let yTextOnBar = 0;
+            
+            yTextOnBar = yPoint + diff/2 + textHeight/2;
+            
+            drawTexts.push(new DrawTextItem(value.toString(), x + halfValueXPoint, yTextOnBar, foreColor));            
+            ComputedValue += value;
+            previousX = xPoint + x;
+          }
+        }
+
+        /* Draw total value on top of Bar */        
+        let met = this.context.measureText(ComputedValue.toString());
+        let valheight = this.getTextHeight(met);
+        let remXWidth = eachBarLength - valheight;
+        let halfValueYPoint = remXWidth / 2;
+
+        if (halfValueYPoint) {
+          this.DrawText(ComputedValue.toString(), previousX + 1, yPoint - halfValueYPoint, this.TextColor);
+        }
+
+        if (this.GapBetweenBars == 1) {
+          yPoint = yPoint - eachBarLength - eachBarLength / 2;
+        } else {
+          yPoint = yPoint - eachBarLength - eachBarLength;
+        }
+
+      }
+
+      // for (let index = 0; index < drawTexts.length; index++) {
+      //   const ele = drawTexts[index];
+      //   this.DrawText(ele.value.toString(), ele.x, ele.y, ele.color);
+      // }
+      
+      this.IsRendered = true;
+    }
+
   }
 
   private GetRoundToTenDigit(distance: number) {
@@ -198,14 +408,14 @@ export class RStackedBarChartHorizontalComponent {
     return distance;
   }
 
-  private GetYStartPoint(displayValue: number, distance: number, itemcount: number, vDistance: number, spaceFromTopYAxis: number) {
-    let index = -(displayValue / distance) + this.NoOfSplitInValueAxis;
-    let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
-    return yPoint;
+  private GetXStartPoint(displayValue: number, distance: number, itemcount: number, vDistance: number, spaceFromRightXAxis: number) {
+    let index = (displayValue / distance);
+    let xPoint = Math.round((vDistance * index));
+    return xPoint;
   }
 
-  private DrawXAxisName(name: string, xPoint: number, yPoint: number) {
-    if (this.context) {
+  private DrawYAxisName(name: string, xPoint: number, yPoint: number) {
+    if (this.context) {      
       let startY = yPoint;
       this.context.beginPath
       this.context.moveTo(xPoint, startY);
@@ -220,24 +430,23 @@ export class RStackedBarChartHorizontalComponent {
 
   private DrawBar(startX: number, startY: number, xdistance: number, yDistance: number, color: string) {
     if (this.context) {
+      console.log(" startx : "+ startX +" starty: "+startY+ " xdistance: "+xdistance+" yDistance: "+yDistance);
       this.context.beginPath();
       this.context.fillStyle = color;
-      this.context.fillRect(startX, startY, xdistance, yDistance);
+      this.context.fillRect(startX, startY - yDistance, xdistance, yDistance);
       this.context.fill();
       this.context.closePath();
     }
   }
 
-  private HorizontalLineDisplayValueInYAxis(value: string, x: number, ypoint: number) {
+  private VerticalLineDisplayValueInXAxis(value: string, x: number, ypoint: number) {
     if (this.context) {
       this.context.beginPath();
       let metrics = this.context.measureText(value);
 
-      let StartX = x - 7 - metrics.width;
-      let StartY = ypoint + 3;
-      let EndX = x - 7;
-      let EndY = ypoint;
-
+      let StartX = x - metrics.width/2;
+      let StartY = ypoint + 15;
+      
       this.context.fillStyle = this.TextColor;
       this.context.moveTo(StartX, StartY);
       this.context.fillText(value, StartX, StartY);
@@ -247,27 +456,27 @@ export class RStackedBarChartHorizontalComponent {
     }
   }
 
-  private DrawHorizontalLine(x: number, ypoint: number) {
+  private DrawVerticalLine(x: number, ypoint: number) {
     if (this.context) {
       this.context.beginPath();
-      let startX = x;
-      let endX = x + this.Width - this._marginX;
+      let startY = ypoint;
+      let endY = 0;
       this.context.lineWidth = 0.4;
       this.context.strokeStyle = this.TextColor;
-      this.context.moveTo(startX, ypoint);
-      this.context.lineTo(endX, ypoint);
+      this.context.moveTo(x, startY);
+      this.context.lineTo(x, endY);
       this.context.stroke();
       this.context.closePath();
     }
   }
 
-  private HorizontalLineInYAxis(x: number, ypoint: number) {
+  private VerticalLineInXAxis(x: number, ypoint: number) {
     if (this.context) {
       this.context.beginPath();
-      let StartX = x - 5;
-      let StartY = ypoint;
-      let EndX = x + 5;
-      let EndY = ypoint;
+      let StartX = x;
+      let StartY = ypoint - 5;
+      let EndX = x;
+      let EndY = ypoint + 5;
 
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(StartX, StartY);

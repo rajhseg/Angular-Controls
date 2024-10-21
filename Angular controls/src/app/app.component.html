@@ -90,6 +90,13 @@
       [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
   </rstackedbarchart-vertical>
 
+    
+  <rstackedbarchart-horizontal [Width]="400" [Height]="400" 
+      [MarginX]="50" [MarginY]="50"
+      [yAxisItemNames]="stackedbarChartXAxisItemNames1" 
+      [Columns]="stackedbarChartItems1">
+  </rstackedbarchart-horizontal>
+  
   <br/>
   <rstackedrangebarchart-vertical style="float:left" [MarginX]="60" [Width]="500" 
       [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
@@ -102,6 +109,7 @@
   </rstackedrangebarchart-vertical>
 
   <br />
+
   
   <rscatterchart [Width]="400" [Height]="400" [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel">    
   </rscatterchart>
@@ -109,6 +117,8 @@
   <rlinechart-vertical [XAxisTitle]="'Days'" [YAxisTitle]="'Price'" [Width]="400" [Height]="400" 
         [XAxisItemNames]="lineChartXAxisNames" [Items]="lineChartItems">
   </rlinechart-vertical>
+
+  <br/>
 
   <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"

@@ -54,6 +54,7 @@ import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-v
 import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component';
 import { RScatterChartComponent } from './Controls/rscatterchart/rscatterchart.component';
 import { RLineChartVerticalComponent } from './Controls/rlinechart-vertical/rlinechart-vertical.component';
+import { RStackedBarChartHorizontalComponent } from './Controls/rstackedbarchart-horizontal/rstackedbarchart-horizontal.component';
 
 @Component({
   selector: 'app-root',
@@ -101,7 +102,8 @@ import { RLineChartVerticalComponent } from './Controls/rlinechart-vertical/rlin
     RStackedBarChartVerticalComponent,
     RStackedRangeBarChartVerticalComponent,
     RScatterChartComponent, 
-    RLineChartVerticalComponent
+    RLineChartVerticalComponent,
+    RStackedBarChartHorizontalComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })

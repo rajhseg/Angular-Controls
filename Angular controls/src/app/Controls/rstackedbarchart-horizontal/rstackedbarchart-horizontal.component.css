@@ -1,0 +1,43 @@
+
+
+
+:host{
+    width: fit-content;    
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    width: fit-content;    
+}
+
+
+.data {
+    font-size: small;
+    display: flex;
+    flex-direction: row;    
+    align-items: center;    
+}
+
+.dataContainer {
+    float: left; 
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: center;    
+    position: relative;
+    left: 30px;   
+}
+
+.indicator {
+    width: 5px; 
+    height: 5px;
+    float: left;
+    margin-right: 4px;
+}
+
+.title {
+    float: left;
+    margin-right: 5px;
+    color: gray;
+    padding: 5px;
+    text-overflow: ellipsis;
+}

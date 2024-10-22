@@ -211,7 +211,7 @@ ColorPicker
 Numeric Control
 ---------------------------------
 
-![image](https://github.com/user-attachments/assets/70704e66-18a9-44ad-8f25-21dec2d0cb5e)
+![image](https://github.com/user-attachments/assets/ca16b9ea-73a5-4453-9efa-db6d9d7efd96)
 
 
 <br />

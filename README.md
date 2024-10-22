@@ -145,7 +145,7 @@ Slider
 Switch Control
 --------------------
 
-![image](https://github.com/user-attachments/assets/1c667909-0874-4c76-a459-f5e44fb5a1f2)
+![image](https://github.com/user-attachments/assets/a11723a2-3a2d-4345-b5e0-d6fd798f3e8d)
 
 
 <br />

@@ -25,8 +25,7 @@ button control
 Textbox Control
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/d3ce1142-0872-4692-903d-9c9a5ec65a15)
-
+![image](https://github.com/user-attachments/assets/059f9e81-dd8f-47a0-875e-1eb4efc89e97)
 
 <br />
 <br />
@@ -35,8 +34,7 @@ Textbox Control
 PasswordBox Control
 -------------------------
 
-![image](https://github.com/user-attachments/assets/7ffa61ae-545e-4150-8cb4-567628029ca1)
-
+![image](https://github.com/user-attachments/assets/49175ae5-f6f7-4c3b-8b6d-ac82d268c914)
 
 <br />
 <br />

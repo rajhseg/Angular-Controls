@@ -29,7 +29,7 @@ export class Graph {
 }
 
 export class DrawTextItem {
-    constructor(public value: string, public x: number, public y: number, public color: string) {
+    constructor(public value: string, public x: number, public y: number, public color: string, public rotate: boolean = false) {
 
     }
 }

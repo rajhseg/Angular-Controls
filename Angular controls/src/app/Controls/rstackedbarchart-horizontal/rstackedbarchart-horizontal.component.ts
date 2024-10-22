@@ -313,7 +313,8 @@ export class RStackedBarChartHorizontalComponent {
 
         let xPoint = StartX;
         let nameWidth = this.context.measureText(yAxisName);
-        let remWidth = eachBarGroupLength - nameWidth.width - (eachBarLength * this.GapBetweenBars);
+        let nameHeight = this.getTextHeight(nameWidth);
+        let remWidth = eachBarGroupLength - (eachBarLength * this.GapBetweenBars) - nameHeight/2;
 
         let halfYPoint = remWidth / 2;        
 
@@ -363,10 +364,20 @@ export class RStackedBarChartHorizontalComponent {
             let met = this.context.measureText(value.toString());
             let textHeight = this.getTextHeight(met);
             let yTextOnBar = 0;
+            let rotate = false;
+
+            yTextOnBar = (eachBarLength - textHeight)/2;
             
-            yTextOnBar = yPoint + diff/2 + textHeight/2;
-            
-            drawTexts.push(new DrawTextItem(value.toString(), x + halfValueXPoint, yTextOnBar, foreColor));            
+            if(met.width >  x){
+              rotate = true;
+            }
+
+            if(rotate) {
+              drawTexts.push(new DrawTextItem(value.toString(), xPoint + x - 2, yPoint, foreColor, rotate));            
+            } else {
+              drawTexts.push(new DrawTextItem(value.toString(), xPoint + x - met.width - 3, yPoint - yTextOnBar, foreColor, rotate));            
+            }
+
             ComputedValue += value;
             previousX = xPoint + x;
           }
@@ -390,10 +401,10 @@ export class RStackedBarChartHorizontalComponent {
 
       }
 
-      // for (let index = 0; index < drawTexts.length; index++) {
-      //   const ele = drawTexts[index];
-      //   this.DrawText(ele.value.toString(), ele.x, ele.y, ele.color);
-      // }
+      for (let index = 0; index < drawTexts.length; index++) {
+        const ele = drawTexts[index];
+        this.DrawText(ele.value.toString(), ele.x, ele.y, ele.color, ele.rotate);
+      }
       
       this.IsRendered = true;
     }
@@ -487,12 +498,23 @@ export class RStackedBarChartHorizontalComponent {
     }
   }
 
-  private DrawText(text: string, x: number, y: number, forecolor: string, rotate: number | undefined = undefined) {
+  private DrawText(text: string, x: number, y: number, forecolor: string, rotate: boolean = false) {
     if (this.context) {
       this.context.beginPath();
       this.context.strokeStyle = forecolor;
       this.context.fillStyle = forecolor;
-      this.context.fillText(text, x, y);    
+
+      if(rotate) {
+        this.context.save();
+        this.context.translate(x, y);
+        this.context.rotate((Math.PI/180) * 270);
+        this.context.fillText(text, 0, 0); 
+        this.context.restore();
+      }
+      else {
+        this.context.fillText(text, x, y);    
+      }
+
       this.context.fill();
       this.context.stroke();
       this.context.closePath();

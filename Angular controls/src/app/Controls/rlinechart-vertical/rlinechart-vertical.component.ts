@@ -286,8 +286,8 @@ export class RLineChartVerticalComponent implements AfterViewInit {
         for (let index = 0; index < this.Items.length; index++) {
           const element = this.Items[index];
 
-          let prevX = this.MarginX;
-          let prevY = this.Height - this.MarginY;
+          let prevX = undefined;
+          let prevY = undefined;
   
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
@@ -301,7 +301,10 @@ export class RLineChartVerticalComponent implements AfterViewInit {
             this.Plot(xPoint, yPoint, element.ItemColor);
 
             /* Plot Line */
-            this.PlotLine(xPoint, yPoint, prevX, prevY, element.ItemColor);
+            if(prevX != undefined && prevY != undefined)
+            {
+              this.PlotLine(xPoint, yPoint, prevX, prevY, element.ItemColor);
+            }
 
             prevX = xPoint;
             prevY = yPoint;

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { WindowHelper } from '../windowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 
@@ -77,7 +77,7 @@ export class RDonutChartComponent implements AfterViewInit {
 
   context: CanvasRenderingContext2D | null | undefined = null;
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -186,6 +186,7 @@ export class RDonutChartComponent implements AfterViewInit {
       this.progressCanvas.nativeElement.style.opacity = this.Opacity;
 
       this.IsRendered = true;
+      this.cdr.detectChanges();
     }
   }
 

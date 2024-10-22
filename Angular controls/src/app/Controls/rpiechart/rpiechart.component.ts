@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { WindowHelper } from '../windowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 
@@ -79,7 +79,7 @@ export class RPieChartComponent {
 
   context: CanvasRenderingContext2D | null | undefined = null;
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -201,6 +201,7 @@ export class RPieChartComponent {
       this.progressCanvas.nativeElement.style.opacity = this.Opacity;
 
       this.IsRendered = true;
+      this.cdr.detectChanges();
     }
   }
 

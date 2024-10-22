@@ -216,8 +216,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   lineChartItems: LineChartItem[] = [];
   lineChartXAxisNames: string[] = [];
 
-  bColor: string = '#13297A';
-  tColor: string = 'teal';
+  bColor: string = 'blue'; //'#13297A';
+  tColor: string = 'orangered'; //teal';
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;

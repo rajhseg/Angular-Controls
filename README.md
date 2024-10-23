@@ -224,7 +224,6 @@ Timer Control
 
 TimeSelector
 -------------------------------------
-<br/>
 
 ![image](https://github.com/user-attachments/assets/3af32442-7d88-4c53-84f9-1d4ace726636)
 

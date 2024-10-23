@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { LineChartItem } from '../Models/BarChartItem';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { LineChartItem, PopupChartItem } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
 @Component({
@@ -116,8 +116,13 @@ export class RLineChartVerticalComponent implements AfterViewInit {
     return this._height;
   }
 
+  PopupItems: PopupChartItem[] = [];
+
   @Input()
   DataListHeight: number = 50;
+
+  @Input()
+  PopupBackColor: string = "lightgray";
 
   private _items: LineChartItem[] = [];
 
@@ -139,17 +144,81 @@ export class RLineChartVerticalComponent implements AfterViewInit {
 
   public IsRendered: boolean = false;
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
   }
 
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {
-        this.context = this.bar.nativeElement.getContext('2d');
+        this.context = this.bar.nativeElement.getContext('2d');   
+        this.bar.nativeElement.onmousemove = this.MouseMove.bind(this);     
         this.RenderLineChart();
       }
     }
+  }
+
+  MouseMove(event: MouseEvent) {
+    if(this.context && this.bar){            
+      this.context?.beginPath();      
+      this.context.clearRect(0, 0, this.Width, this.Height);
+      this.context.closePath();
+
+      this.RenderLineChart();
+
+      let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
+
+      if(item) {
+        
+        let lineItem = item.Item as LineChartItem;
+        let x = event.offsetX + 10;
+        let y = event.offsetY;
+        let met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());
+        let met1 = this.context.measureText(this.XAxisItemNames[item.ValueIndex]);
+
+        let xtitle = this.context.measureText(this.XAxisTitle);
+        let ytitle = this.context.measureText(this.YAxisTitle);
+
+        let textWidth =  5 + met.width + met1.width + xtitle.width + ytitle.width;
+
+        if(x + textWidth > this.Width) {          
+          x = x - textWidth - 20;
+        }
+          
+        this.context.beginPath();
+        this.context.fillStyle = this.PopupBackColor;
+        this.context.rect(x, y, textWidth, 40); 
+        this.context.fill();
+        this.context.closePath();
+
+        this.context.beginPath();            
+        this.context.save();
+        
+        this.context.strokeStyle = item.ItemColor;
+        this.context.fillStyle = item.ItemColor;
+        this.context.fillText(" "+this.XAxisTitle+" : "+ this.XAxisItemNames[item.ValueIndex], x + 5, y + 15);
+        this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 35);           
+        this.context.stroke();
+        
+        this.context.restore();
+        this.context?.closePath();            
+      }
+    }
+  }
+
+  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+
+    let boundaryRange = 3;
+
+    for (let index = 0; index < this.PopupItems.length; index++) {
+      const element = this.PopupItems[index];
+      if(x>= element.x1 - boundaryRange && x<= element.x2 + boundaryRange 
+        && y>= element.y1 - boundaryRange && y <= element.y2 + boundaryRange){
+        return element;
+      }
+    }
+
+    return undefined;
   }
 
   getWidthFromString(value: string): number {
@@ -171,6 +240,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
 
   RenderLineChart() {
     this.IsRendered = false;
+    this.PopupItems = [];
 
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
@@ -300,6 +370,9 @@ export class RLineChartVerticalComponent implements AfterViewInit {
             /* Plot Circle */
             this.Plot(xPoint, yPoint, element.ItemColor);
 
+            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
+                  yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
+
             /* Plot Line */
             if(prevX != undefined && prevY != undefined)
             {
@@ -315,6 +388,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
       }
 
       this.IsRendered = true;
+      this.cdr.detectChanges();
     }
   }
 
@@ -337,7 +411,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
       this.context.ellipse(x, y, this.PlotItemSize, this.PlotItemSize, 0, 0, 2 * Math.PI);
       this.context.stroke();
       this.context.fill();
-      this.context.closePath();
+      this.context.closePath();      
     }
   }
 

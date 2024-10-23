@@ -295,10 +295,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   createScatterChart() {
+
     let item1: ScatterChartItem = new ScatterChartItem("City 1", this.bColor, [
-       new Graph(10,20), new Graph(15,35), new Graph(20,65), new Graph(14, 30)
+       new Graph(2,8), new Graph(15,35), new Graph(20,65), new Graph(14, 30)
       ,new Graph(30,63), new Graph(35,78), new Graph(24,53), new Graph(26, 56)
-      ,new Graph(20,42), new Graph(14,31), new Graph(34,75), new Graph(28, 72)
+      ,new Graph(20,42), new Graph(14,31), new Graph(34,75), new Graph(48, 72)
     ]);
     
     let item2: ScatterChartItem = new ScatterChartItem("City 2", "red", [
@@ -314,6 +315,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     ]);    
 
     this.scatterModel = [item1, item2, item3];
+    
   }
 
   createBarCharts(){

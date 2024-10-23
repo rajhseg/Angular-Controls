@@ -1,5 +1,5 @@
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { BarChartItem, DrawTextItem, SpaceBetweenBars } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
@@ -151,7 +151,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
 
   public IsRendered: boolean = false;
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -391,6 +391,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
       }
       
       this.IsRendered = true;
+      this.cdr.detectChanges();
     }
   }
 

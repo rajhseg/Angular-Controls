@@ -1,5 +1,5 @@
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { BarChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
@@ -152,7 +152,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   public IsRendered: boolean = false;
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -356,6 +356,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       }
 
       this.IsRendered = true;
+      this.cdr.detectChanges();
     }
   }
 

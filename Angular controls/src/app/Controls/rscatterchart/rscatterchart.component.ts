@@ -2,8 +2,8 @@
 
 
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, ScatterChartItem } from '../Models/BarChartItem';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { BarChartItem, DrawTextItem, PopupChartItem, ScatterChartItem } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
 
@@ -116,8 +116,11 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   DataListHeight: number = 50;
 
-  private _items: ScatterChartItem[] = [];
+  @Input()
+  PopupBackColor: string = "lightgray";
 
+  private _items: ScatterChartItem[] = [];
+  
   @Input()
   public set Items(val: ScatterChartItem[]) {
     if (!this.IsScatterItemListEqual(val, this._items)) {
@@ -134,9 +137,11 @@ export class RScatterChartComponent implements AfterViewInit {
 
   context: CanvasRenderingContext2D | null = null;
 
+  PopupItems: PopupChartItem[] = [];
+
   public IsRendered: boolean = false;
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -144,9 +149,73 @@ export class RScatterChartComponent implements AfterViewInit {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {
         this.context = this.bar.nativeElement.getContext('2d');
+        this.bar.nativeElement.onmousemove = this.MouseMove.bind(this);
         this.RenderScatterChart();
       }
     }
+  }
+
+  
+  MouseMove(event: MouseEvent) {
+    if(this.context && this.bar){            
+      this.context?.beginPath();      
+      this.context.clearRect(0, 0, this.Width, this.Height);
+      this.context.closePath();
+
+      this.RenderScatterChart();
+
+      let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
+
+      if(item) {      
+        let lineItem = item.Item as ScatterChartItem;
+        let x = event.offsetX + 10;
+        let y = event.offsetY;
+        let met = this.context.measureText(lineItem.Values[item.ValueIndex].xPoint.toString());
+        let met1 = this.context.measureText(lineItem.Values[item.ValueIndex].yPoint.toString());
+
+        let xtitle = this.context.measureText(this.XAxisTitle);
+        let ytitle = this.context.measureText(this.YAxisTitle);
+
+        let textWidth =  5 + met.width + met1.width + xtitle.width + ytitle.width;
+
+        if(x + textWidth > this.Width) {          
+          x = x - textWidth - 20;
+        }
+               
+        this.context.beginPath();
+        this.context.fillStyle = this.PopupBackColor;
+        this.context.rect(x, y, textWidth, 40); 
+        this.context.fill();
+        this.context.closePath();
+        
+        this.context.beginPath();      
+        this.context.save();
+        
+        this.context.strokeStyle = item.ItemColor;
+        this.context.fillStyle = item.ItemColor;
+        this.context.fillText(" "+this.XAxisTitle+" : "+ lineItem.Values[item.ValueIndex].xPoint, x + 5, y + 15);
+        this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex].yPoint, x + 5, y + 35);
+
+        this.context.stroke();
+        this.context.restore();
+        this.context?.closePath();  
+      }
+    }
+  }
+
+  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+
+    let boundaryRange = 3;
+
+    for (let index = 0; index < this.PopupItems.length; index++) {
+      const element = this.PopupItems[index];
+      if(x>= element.x1 - boundaryRange && x<= element.x2 + boundaryRange 
+        && y>= element.y1 - boundaryRange && y <= element.y2 + boundaryRange){
+        return element;
+      }
+    }
+
+    return undefined;
   }
 
   getWidthFromString(value: string): number {
@@ -304,14 +373,21 @@ export class RScatterChartComponent implements AfterViewInit {
 
             let yindx = -(item.yPoint / ydistance) + this.NoOfSplitInYAxis;
             let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
-
+            
             this.Plot(xPoint, yPoint, element.ItemColor);
+
+            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize,
+              yPoint + this.PlotItemSize, element, v, index, element.ItemColor
+            ));
+
           }
 
         }
 
       }
+
       this.IsRendered = true;
+      this.cdr.detectChanges();
     }
   }
 

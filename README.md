@@ -297,6 +297,8 @@ RBarChart Vertical Control
 
 ![image](https://github.com/user-attachments/assets/98c3f2dc-a8e6-4a7f-bb80-111c3804f91b)
 
+![image](https://github.com/user-attachments/assets/b31ecdfc-ec01-40cb-946b-aca0d5651793)
+
 
 <br/>
 <br/>

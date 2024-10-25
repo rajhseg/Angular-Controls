@@ -320,14 +320,14 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createBarCharts(){
     this.barChartXAxisItemNames = ["2000", "2001", "2002","2003"];
-    this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "teal", "white"));
-    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 5], "#13297A", "white"));
-    this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], "gray", "white"));    
+    this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "#1E96EB", "white"));
+    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 5], "#EF41E5", "white"));
+    this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], "#C7CBCF", "white"));    
 
     this.barChartXAxisItemNames1 = ["Tomato", "Potato", "Onion","Oil"];
-    this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "teal", "white"));
-    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 5], "#13297A", "white"));
-    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], "gray", "white"));    
+    this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "#1E96EB", "white"));
+    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 5], "#EF41E5", "white"));
+    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], "#C7CBCF", "white"));    
   }
 
   createStackedBarCharts(){

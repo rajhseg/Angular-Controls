@@ -5,7 +5,7 @@ This Repo is under development so there may be some issues you can face while us
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
 switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
 Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RStepperHorizontal, RDonutChart, RPieChart, RBarChart Vertical, RBarChart 
-Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterChart, RLineChart etc.
+Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterChart, RLineChart, RStackedBarChart Horizontal etc.
 
 
 <br />
@@ -224,10 +224,8 @@ Timer Control
 
 TimeSelector
 -------------------------------------
-<br/>
 
-![image](https://github.com/user-attachments/assets/b7410684-4682-458c-a9a8-0f28c7b3d61b)
-
+![image](https://github.com/user-attachments/assets/3af32442-7d88-4c53-84f9-1d4ace726636)
 
 <br/>
 <br/>
@@ -297,7 +295,7 @@ RPieChart Control
 RBarChart Vertical Control
 -----------------------------------
 
-![image](https://github.com/user-attachments/assets/98c3f2dc-a8e6-4a7f-bb80-111c3804f91b)
+![image](https://github.com/user-attachments/assets/b31ecdfc-ec01-40cb-946b-aca0d5651793)
 
 
 <br/>
@@ -328,7 +326,6 @@ RStackedRangeBarChart Vertical Control
 
 ![image](https://github.com/user-attachments/assets/afad1209-7b00-4afe-b226-d7412d752616)
 
-<br />
 <br />
 
 

@@ -176,7 +176,14 @@ export class RScatterChartComponent implements AfterViewInit {
         let xtitle = this.context.measureText(this.XAxisTitle);
         let ytitle = this.context.measureText(this.YAxisTitle);
 
-        let textWidth =  5 + met.width + met1.width + xtitle.width + ytitle.width;
+        //let textWidth =  5 + met.width + met1.width + xtitle.width + ytitle.width;
+
+        let w1 = met.width + xtitle.width;
+        let w2 = met1.width + ytitle.width;
+
+        let width = Math.max(w1, w2);
+
+        let textWidth =  25 + width;
 
         if(x + textWidth > this.Width) {          
           x = x - textWidth - 20;

@@ -147,6 +147,10 @@ export class RBarChartVerticalComponent implements AfterViewInit {
   @Input()
   PopupBackColor: string = "lightgray";
 
+  @Input()
+  PopupForeColor: string | undefined = undefined;
+
+
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
   bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
@@ -233,8 +237,8 @@ export class RBarChartVerticalComponent implements AfterViewInit {
         this.context.beginPath();      
         this.context.save();
         
-        this.context.strokeStyle = item.ItemColor;
-        this.context.fillStyle = item.ItemColor;
+        this.context.strokeStyle = this.PopupForeColor ?? item.ItemColor;
+        this.context.fillStyle = this.PopupForeColor ?? item.ItemColor;
         this.context.fillText(" "+this.XAxisTitle+" : "+ this.xAxisItemNames[item.ValueIndex], x + 5, y + 15);
         this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 35);
 

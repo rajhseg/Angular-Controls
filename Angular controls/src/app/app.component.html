@@ -72,12 +72,14 @@
     <rstep [Title]="'BarChart Vertical'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rbarchart-vertical style="float:left" [Width]="400" [PopupBackColor]="'white'"
+        <rbarchart-vertical style="float:left" [Width]="400" 
+          [PopupBackColor]="'black'" [PopupForeColor]="'white'"
           [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
           [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
         </rbarchart-vertical>
     
-        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1" [PopupBackColor]="'white'"
+        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1" 
+          [PopupBackColor]="'white'" [PopupForeColor]="'black'"
           [Columns]="barChartItems1"></rbarchart-vertical>
     
       </ng-template>
@@ -86,14 +88,15 @@
     <rstep [Title]="'BarChart Horizontal'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400" [PopupBackColor]="'white'"
+        <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400" 
+                [PopupBackColor]="'black'" [PopupForeColor]="'white'"
                 [yAxisItemNames]="barChartXAxisItemNames" [MarginX]="60" 
                 [YAxisTitle]="'Company profit per year'" [XAxisTitle]="'Profit Percentage'"
                 [Columns]="barChartItems">
         </rbarchart-horizontal>
 
         <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1" 
-                [PopupBackColor]="'white'"
+                [PopupBackColor]="'black'" [PopupForeColor]="'white'"
                 [Columns]="barChartItems1">
         </rbarchart-horizontal>
 

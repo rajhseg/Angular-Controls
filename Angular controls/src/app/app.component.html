@@ -348,7 +348,7 @@
     <br/>
     <revents-schedule [ContainerBackgroundColor]="'#13297A'" 
           [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
-          [EventBackgroundColor]="'#13297A'" 
+          [EventBackgroundColor]="'#13297A'"  [MarkerBackgroundColor]="'#c3c3f1'"
           [ShowMarker]="true" [ShowScrollBar]="false" [DisplayDatesOnLoad]="dates" 
           [SelectedDate]="selectedDate" 
           [ScheduleItems]="scheduleItems"></revents-schedule>
@@ -672,7 +672,9 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">
         <div style="display: flex;">
-          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" [ShowFilesAsDropdownContainer]="true"
+          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" 
+            [ShowFilesListMaximumHeight]="'145px'" [EnableMaximumHeightForShowFiles]="true"
+            [ShowFilesAsDropdownContainer]="true"
             (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
       </rtab>

@@ -502,14 +502,14 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     evItem.ChannelItems.push(ritem);
     evItem.ChannelItems.push(ritem);
 
-    items["14-09-2024"] = evItem;
-    items["19-09-2024"] = evItem;
-    items["20-09-2024"] = evItem;
+    items["27-10-2024"] = evItem;
+    items["29-10-2024"] = evItem;
+    items["30-10-2024"] = evItem;
 
     this.dates = ["14-09-2024","15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
 
     this.dates1 = ["15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
-    this.selectedDate = "19-09-2024";
+    this.selectedDate = "27-10-2024";
 
     this.scheduleItems = items;
   }

@@ -1,6 +1,6 @@
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, SpaceBetweenBars } from '../Models/BarChartItem';
+import { BarChartItem, DrawTextItem, PopupChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
 @Component({
@@ -149,6 +149,14 @@ export class RStackedBarChartHorizontalComponent {
 
   context: CanvasRenderingContext2D | null = null;
 
+  @Input()
+  PopupBackColor: string = "lightgray";
+
+  @Input()
+  PopupForeColor: string | undefined = undefined;
+
+  PopupItems: PopupChartItem[] = [];
+
   public IsRendered: boolean = false;
 
   constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
@@ -159,9 +167,78 @@ export class RStackedBarChartHorizontalComponent {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {
         this.context = this.bar.nativeElement.getContext('2d');
+        this.bar.nativeElement.onmousemove = this.MouseMove.bind(this); 
         this.RenderBarChart();
       }
     }
+  }
+
+  
+  MouseMove(event: MouseEvent) {
+    if(this.context && this.bar){            
+      this.context?.beginPath();      
+      this.context.clearRect(0, 0, this.Width, this.Height);
+      this.context.closePath();
+
+      this.RenderBarChart();
+
+      let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
+
+      if(item) {      
+        let lineItem = item.Item as BarChartItem;
+        let x = event.offsetX + 10;
+        let y = event.offsetY;
+        let met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());
+        let met1 = this.context.measureText(this.yAxisItemNames[item.ValueIndex].toString());
+
+        let xtitle = this.context.measureText(this.XAxisTitle);
+        let ytitle = this.context.measureText(this.YAxisTitle);
+
+        let w1 = met.width + xtitle.width;
+        let w2 = met1.width + ytitle.width;
+
+        let width = Math.max(w1, w2);
+
+        let textWidth =  25 + width;
+
+        if(x + textWidth > this.Width) {          
+          x = x - textWidth - 20;
+        }
+               
+        this.context.beginPath();
+        this.context.fillStyle = this.PopupBackColor;
+        this.context.rect(x, y, textWidth, 40); 
+        this.context.fill();
+        this.context.closePath();
+        
+        this.context.beginPath();      
+        this.context.save();
+        
+        this.context.strokeStyle = this.PopupForeColor ?? item.ItemColor;
+        this.context.fillStyle = this.PopupForeColor ?? item.ItemColor;
+        this.context.fillText(" "+this.XAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 15);
+        this.context.fillText(" "+this.YAxisTitle+" : "+ this.yAxisItemNames[item.ValueIndex], x + 5, y + 35);
+
+        this.context.stroke();
+        this.context.restore();
+        this.context?.closePath();  
+      }
+    }
+  }
+
+  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+
+    let boundaryRange = 3;
+
+    for (let index = 0; index < this.PopupItems.length; index++) {
+      const element = this.PopupItems[index];
+      if(x>= element.x1 - boundaryRange && x<= element.x2 + boundaryRange 
+        && y>= element.y1 - boundaryRange && y <= element.y2 + boundaryRange){
+        return element;
+      }
+    }
+
+    return undefined;
   }
 
   getWidthFromString(value: string): number {
@@ -350,6 +427,9 @@ export class RStackedBarChartHorizontalComponent {
                xPoint = previousX;
             
             this.DrawBar(xPoint, yPoint, x, eachBarLength, color);
+
+            this.PopupItems.push(new PopupChartItem(xPoint, yPoint - eachBarLength, xPoint + x, 
+              yPoint, element, index, x, color));
 
             /* Draw Text on top of Bar */
             let valueXpoint = this.getWidthFromString(value.toString());

@@ -80,6 +80,12 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   onChange: any = () => { };
   onTouch: any = () => { };
 
+  @Input()
+  Width: string = '170px';
+
+  @Input()
+  Height: string = '15px';
+
   @Output()
   onDateSelected = new EventEmitter<Date>(); // output<Date>();
 
@@ -140,6 +146,17 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   get IsCalenderOpen(): boolean {
     return this._showCalender;
+  }
+
+  public get IconSize(): string {
+    let val = parseInt(this.Height.replace(/[^-\d\.]/g, ''));
+    return (val + 7) + 'px'    
+  }
+
+  public get TopPx(): string {
+    let val = parseInt(this.Height.replace(/[^-\d\.]/g, ''));
+    let rem = val/10;
+    return '-'+ (rem * 2) + 'px';
   }
 
   @Output()

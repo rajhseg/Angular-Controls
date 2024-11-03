@@ -9,6 +9,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { WindowHelper } from '../windowObject';
+import { RFilterComponent } from '../rfilter/rfilter.component';
 
 @Component({
   selector: 'rgrid',
@@ -16,7 +17,8 @@ import { WindowHelper } from '../windowObject';
   imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,
     KeyValuePipe,
     NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, CdkDragPreview,
-    ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent],
+    ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent,
+    RFilterComponent],
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

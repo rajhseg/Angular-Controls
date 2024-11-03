@@ -1,21 +1,20 @@
 
 
-
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, PopupChartItem, ScatterChartItem } from '../Models/BarChartItem';
+import { AreaChartItem, PopupChartItem } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
-
 @Component({
-  selector: 'rscatterchart',
+  selector: 'rareachart',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle, NgClass],
-  templateUrl: './rscatterchart.component.html',
-  styleUrl: './rscatterchart.component.css'
+  templateUrl: './rareachart.component.html',
+  styleUrl: './rareachart.component.css'
 })
-export class RScatterChartComponent implements AfterViewInit {
+export class RAreaChartComponent implements AfterViewInit {
 
+  
   private _width: number = 300;
   private _height: number = 300;
 
@@ -38,6 +37,7 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   public set XAxisTitle(val: string) {
     this._xAxisTitle = val;
+    this.RenderLineChart();
   }
   public get XAxisTitle(): string {
     return this._xAxisTitle;
@@ -46,24 +46,27 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   public set YAxisTitle(val: string) {
     this._yAxisTitle = val;
+    this.RenderLineChart();
   }
   public get YAxisTitle(): string {
     return this._yAxisTitle;
   }
 
-  private _noOfSplitInXAxis: number = 4;
+  private _xAxisItemNames: string[] = [];
 
   @Input()
-  public set NoOfSplitInXAxis(val: number) {
-
-    if (val < 3) {
-      val = 3;
-    }
-
-    this._noOfSplitInXAxis = val;
+  public set xAxisItemNames(val: string[]){
+    if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
+      this._xAxisItemNames = val;
+      this.RenderLineChart();
+    }    
   }
+  public get xAxisItemNames(): string[] {
+    return this._xAxisItemNames;
+  }
+
   public get NoOfSplitInXAxis(): number {
-    return this._noOfSplitInXAxis;
+    return this._xAxisItemNames.length;
   }
 
   private _noOfSplitInYAxis: number = 4;
@@ -79,6 +82,7 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   public set Width(val: number) {
     this._width = val;
+    this.RenderLineChart();
   }
   public get Width(): number {
     return this._width;
@@ -108,10 +112,13 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   public set Height(val: number) {
     this._height = val;
+    this.RenderLineChart();
   }
   public get Height(): number {
     return this._height;
   }
+
+  PopupItems: PopupChartItem[] = [];
 
   @Input()
   DataListHeight: number = 50;
@@ -125,27 +132,31 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   PopupBackgroundOpacity: number = 1;
 
-  private _items: ScatterChartItem[] = [];
-  
+  private _items: AreaChartItem[] = [];
+
   @Input()
-  public set Items(val: ScatterChartItem[]) {
-    if (!this.IsScatterItemListEqual(val, this._items)) {
+  public set Items(val: AreaChartItem[]) {
+    if (!this.IsLineItemListEqual(val, this._items)) {
       this._items = val;
-      this.RenderScatterChart();
+      this.RenderLineChart();
     }
   }
-  public get Items(): ScatterChartItem[] {
+  public get Items(): AreaChartItem[] {
     return this._items;
   }
+
+  @Input()
+  EnablePlotOnPoints: boolean = false;
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
   bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
   context: CanvasRenderingContext2D | null = null;
 
-  PopupItems: PopupChartItem[] = [];
-
   public IsRendered: boolean = false;
+
+  @Input()
+  AreaOpacity: number = 0.2;
 
   constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
@@ -154,30 +165,32 @@ export class RScatterChartComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {
-        this.context = this.bar.nativeElement.getContext('2d');
-        this.bar.nativeElement.onmousemove = this.MouseMove.bind(this);
-        this.RenderScatterChart();
+        this.context = this.bar.nativeElement.getContext('2d');   
+        this.bar.nativeElement.onmousemove = this.MouseMove.bind(this);     
+        this.RenderLineChart();
       }
     }
   }
 
-  
   MouseMove(event: MouseEvent) {
     if(this.context && this.bar){            
       this.context?.beginPath();      
       this.context.clearRect(0, 0, this.Width, this.Height);
       this.context.closePath();
 
-      this.RenderScatterChart();
+      this.RenderLineChart();
 
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
-      if(item) {      
-        let lineItem = item.Item as ScatterChartItem;
+      if(item) {
+        
+        this.Plot(item.x1, item.y1, item.ItemColor);
+
+        let lineItem = item.Item as AreaChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
-        let met = this.context.measureText(lineItem.Values[item.ValueIndex].xPoint.toString());
-        let met1 = this.context.measureText(lineItem.Values[item.ValueIndex].yPoint.toString());
+        let met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());
+        let met1 = this.context.measureText(this.xAxisItemNames[item.ValueIndex]);
 
         let xtitle = this.context.measureText(this.XAxisTitle);
         let ytitle = this.context.measureText(this.YAxisTitle);
@@ -192,7 +205,7 @@ export class RScatterChartComponent implements AfterViewInit {
         if(x + textWidth > this.Width) {          
           x = x - textWidth - 20;
         }
-               
+          
         let height = 40;
         if(y + height > this.Height) {
           y = y - height;
@@ -206,18 +219,18 @@ export class RScatterChartComponent implements AfterViewInit {
         this.context.fill();
         this.context.restore();
         this.context.closePath();
-        
-        this.context.beginPath();      
+
+        this.context.beginPath();            
         this.context.save();
         
         this.context.strokeStyle = this.PopupForeColor ?? item.ItemColor;
         this.context.fillStyle = this.PopupForeColor ?? item.ItemColor;
-        this.context.fillText(" "+this.XAxisTitle+" : "+ lineItem.Values[item.ValueIndex].xPoint, x + 5, y + 15);
-        this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex].yPoint, x + 5, y + 35);
-
+        this.context.fillText(" "+this.XAxisTitle+" : "+ this.xAxisItemNames[item.ValueIndex], x + 5, y + 15);
+        this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 35);           
         this.context.stroke();
+        
         this.context.restore();
-        this.context?.closePath();  
+        this.context?.closePath();            
       }
     }
   }
@@ -250,17 +263,13 @@ export class RScatterChartComponent implements AfterViewInit {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
-  getNameIndicator(itm: BarChartItem) {
-    return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
-      itm.barItemsBackColor[0] : "orangered";
-  }
-
   isPropString(prop: any) {
     return typeof prop === 'string';
   }
 
-  RenderScatterChart() {
+  RenderLineChart() {
     this.IsRendered = false;
+    this.PopupItems = [];
 
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
@@ -268,20 +277,16 @@ export class RScatterChartComponent implements AfterViewInit {
 
       let spaceFromTopYAxis = 25;
       let spaceFromRightXAxis = 25;
-
-      let xValues: number[] = [];
+      
       let yValues: number[] = [];
 
       for (let index = 0; index < this.Items.length; index++) {
-        const element = this.Items[index];
-        let _x = element.Values.map(x => x.xPoint);
-        let _y = element.Values.map(y => y.yPoint);
-
-        xValues = [...xValues, ..._x];
+        const element = this.Items[index];        
+        let _y = element.Values.map(y => y);        
         yValues = [...yValues, ..._y];
       }
 
-      if (xValues && yValues) {
+      if (yValues) {
 
         min = this.MinArray(yValues);
         max = this.MaxArray(yValues);
@@ -359,21 +364,16 @@ export class RScatterChartComponent implements AfterViewInit {
           this.HorizontalLineDisplayValueInYAxis(yDisplayValue.toString(), StartX, yPoint);
         }
 
-        /* Draw X Axis Line */
-        let xmin = this.MinArray(xValues);
-        let xmax = this.MaxArray(xValues);
-
-        let xdistance = 0;
-        if (xmin != undefined && xmax != undefined) {
-          xdistance = (xmax) / this.NoOfSplitInXAxis;
-        }
-
+        /* Draw X Axis Line */        
+        let xdistance = 0;        
+        xdistance = (this.Width - this.MarginX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
+        
         xdistance = this.GetRoundToTenDigit(xdistance);
         let xvDistance = (this.Width - StartX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
 
-        for (let index = 1; index <= this.NoOfSplitInXAxis; index++) {
-          let xDisplayValue = xdistance * index;
-          let xPoint = (xvDistance * index) + StartX;
+        for (let index = 0; index < this.NoOfSplitInXAxis; index++) {
+          let xDisplayValue = this.xAxisItemNames[index];
+          let xPoint = ( xvDistance * (index +1) ) + StartX;
           let yPoint = this.Height - this.MarginY;
 
           this.DrawVerticalLine(xPoint, yPoint);
@@ -381,32 +381,96 @@ export class RScatterChartComponent implements AfterViewInit {
           this.DrawVerticalLineDisplayValueInXAxis(xDisplayValue.toString(), xPoint, yPoint);
         }
 
+
         for (let index = 0; index < this.Items.length; index++) {
           const element = this.Items[index];
 
+          let prevX = undefined;
+          let prevY = undefined;
+  
+          let areaItems: PopupChartItem[] = [];
+          
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
-
-            let indx = item.xPoint / xdistance
-            let xPoint = xvDistance * indx + StartX;
-
-            let yindx = -(item.yPoint / ydistance) + this.NoOfSplitInYAxis;
-            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
             
-            this.Plot(xPoint, yPoint, element.ItemColor);
+            let xPoint = xvDistance * (v + 1) + this.MarginX;
 
-            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize,
-              yPoint + this.PlotItemSize, element, v, index, element.ItemColor
-            ));
+            let yindx = -(item / ydistance) + this.NoOfSplitInYAxis;
+            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
 
+            /* Plot Circle */
+            if(this.EnablePlotOnPoints) {
+              this.Plot(xPoint, yPoint, element.ItemColor);
+            }
+
+            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
+                  yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
+
+            areaItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
+                    yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
+  
+            /* Plot Line */
+            if(prevX != undefined && prevY != undefined)
+            {
+              this.PlotLine(xPoint, yPoint, prevX, prevY, element.ItemColor);
+            }
+
+            prevX = xPoint;
+            prevY = yPoint;
           }
 
-        }
+            /* Draw Area */
+            if(areaItems.length > 0) {
+              
+              let x1 = areaItems[0].x1;
+              let y1 = areaItems[0].y1;
+              let x2 = areaItems[areaItems.length - 1].x1;
+              let y2 = areaItems[areaItems.length - 1].y1;
+              
+              this.context.beginPath();
+              this.context.save();
+              this.context.globalAlpha = 0.2;
+              this.context.fillStyle =  areaItems[0].ItemColor;
+              this.context.strokeStyle = areaItems[0].ItemColor;
 
+              this.context.moveTo(x2, y2);
+              this.context.lineTo(x2, StartY);
+              this.context.stroke();
+
+              this.context.lineTo(x1, StartY);
+              this.context.stroke();
+
+              this.context.lineTo(x1, y1);
+              this.context.stroke();
+
+
+              for (let index = 1; index < areaItems.length; index++) {
+                const _popup = areaItems[index];
+                this.context.lineTo(_popup.x1, _popup.y1);
+              }
+
+              this.context.fill();
+              this.context.restore();      
+              this.context.closePath();      
+            }            
+
+        }
+  
       }
 
       this.IsRendered = true;
       this.cdr.detectChanges();
+    }
+  }
+
+  private PlotLine(xPoint: number, yPoint: number, prevX: number, prevY: number, color: string){
+    if(this.context){
+      this.context.beginPath();
+      this.context.strokeStyle = color;      
+      this.context.moveTo(prevX, prevY);
+      this.context.lineTo(xPoint, yPoint);
+      this.context.stroke();
+      this.context.closePath();
     }
   }
 
@@ -418,7 +482,7 @@ export class RScatterChartComponent implements AfterViewInit {
       this.context.ellipse(x, y, this.PlotItemSize, this.PlotItemSize, 0, 0, 2 * Math.PI);
       this.context.stroke();
       this.context.fill();
-      this.context.closePath();
+      this.context.closePath();      
     }
   }
 
@@ -575,7 +639,7 @@ export class RScatterChartComponent implements AfterViewInit {
     })
   }
 
-  private IsScatterItemListEqual(a: ScatterChartItem[] | null | undefined, b: ScatterChartItem[] | null | undefined) {
+  private IsLineItemListEqual(a: AreaChartItem[] | null | undefined, b: AreaChartItem[] | null | undefined) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;
@@ -591,10 +655,8 @@ export class RScatterChartComponent implements AfterViewInit {
       let element2 = b[index];
 
       if (element1.ItemName != element2.ItemName || element1.ItemColor != element2.ItemColor ||
-        element1.Values.map(x => x.xPoint).toString() != element2.Values.map(x => x.xPoint).toString() ||
-        element1.Values.map(x => x.yPoint).toString() != element2.Values.map(x => x.yPoint).toString()
-      ) {
-        return false;
+        element1.Values.map(x => x).toString() != element2.Values.map(x => x).toString()) {
+          return false;
       }
     }
 

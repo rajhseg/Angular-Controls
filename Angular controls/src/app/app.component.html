@@ -2,6 +2,8 @@
 
   <div>
 
+    <rfilter></rfilter>
+        
     <rstarrating [starWidth]="starWidth"></rstarrating>
 
     <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating> 
@@ -152,7 +154,7 @@
     <rstep [Title]="'RLineChart'" [IsStepValid]="true">
       <ng-template rstepview>
         
-          <rlinechart-vertical [XAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'" 
+          <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'" 
               [YAxisTitle]="'Price'"
               [Items]="lineChartItems"  [Width]="400" [Height]="400" >
           </rlinechart-vertical>
@@ -160,6 +162,31 @@
       </ng-template>
     </rstep>
 
+    
+    <rstep [Title]="'RAreaChart'" [IsStepValid]="true">
+      <ng-template rstepview>
+        
+          <rareachart [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'" 
+              [YAxisTitle]="'Price'"
+              [Items]="lineChartItems"  [Width]="400" [Height]="400" >
+          </rareachart>
+
+      </ng-template>
+    </rstep>
+
+    
+    <rstep [Title]="'RAllocationBarChart'" [IsStepValid]="true">
+      <ng-template rstepview>
+        
+          <rallocated-barchart [xAxisItemNames]="barChartXAxisItemNames2"               
+              [PopupBackColor]="'black'" [PopupForeColor]="'white'"
+              [XAxisTitle]="'Month'" 
+              [YAxisTitle]="'Money'"
+              [Columns]="barChartItems2"  [Width]="400" [Height]="400" >
+          </rallocated-barchart>
+
+      </ng-template>
+    </rstep>
 
     <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
@@ -451,7 +478,8 @@
           </ng-template>
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" 
+            [DropDownContentWidth]="'130px'">
         </rselectdropdown>
   
         <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
@@ -477,7 +505,7 @@
       <ng-template rstepview>
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="bColor"
+          [HeaderBackgroundColor]="bColor"  
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
         <rbutton [BackgroundColor]="bColor" (ButtonClick)="stepOneSave($event)">

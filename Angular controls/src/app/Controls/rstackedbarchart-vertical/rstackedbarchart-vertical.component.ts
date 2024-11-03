@@ -155,6 +155,9 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
   @Input()
   PopupForeColor: string | undefined = undefined;
 
+  @Input()
+  PopupBackgroundOpacity: number = 1;
+
   PopupItems: PopupChartItem[] = [];
 
   public IsRendered: boolean = false;
@@ -225,11 +228,19 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
         if(x + textWidth > this.Width) {          
           x = x - textWidth - 20;
         }
-               
+         
+        let height = 40;
+        if(y + height > this.Height) {
+          y = y - height;
+        }
+
         this.context.beginPath();
+        this.context.save();
+        this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
         this.context.rect(x, y, textWidth, 40); 
         this.context.fill();
+        this.context.restore();
         this.context.closePath();
         
         this.context.beginPath();      

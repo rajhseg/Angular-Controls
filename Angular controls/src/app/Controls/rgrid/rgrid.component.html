@@ -22,11 +22,16 @@
                         (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
                         (click)="sortColumn(header)" *ngFor="let header of Headers">
 
-                        {{header.HeaderText}}
+                        <span style="float: left;">
+                            {{header.HeaderText}}
+                        </span>
+                        
+                        <!-- <rfilter [Color]="'white'"></rfilter> -->
 
                         <span *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt"></span>
+                        
 
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
@@ -42,12 +47,18 @@
                         (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
                         (click)="sortColumn(header)" *ngFor="let header of Headers">
 
-                        {{header.HeaderText}}
+
+                        <span style="float: left;">
+                            {{header.HeaderText}}
+                        </span>
+
+                        <!-- <rfilter [Color]="'white'"></rfilter> -->
 
                         <span *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt"></span>
-
+                        
+                        
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
                         </div>

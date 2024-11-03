@@ -48,13 +48,16 @@ import { RDonutChartComponent, RDonutChartItem } from "./Controls/rdonutchart/rd
 import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
 import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
 import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
-import { BarChartItem, Graph, LineChartItem, ScatterChartItem } from './Controls/Models/BarChartItem';
+import { AllocatedBarChartItem, AllocationData, BarChartItem, Graph, LineChartItem, ScatterChartItem } from './Controls/Models/BarChartItem';
 import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
 import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-vertical/rstackedbarchart-vertical.component';
 import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component';
 import { RScatterChartComponent } from './Controls/rscatterchart/rscatterchart.component';
 import { RLineChartVerticalComponent } from './Controls/rlinechart-vertical/rlinechart-vertical.component';
 import { RStackedBarChartHorizontalComponent } from './Controls/rstackedbarchart-horizontal/rstackedbarchart-horizontal.component';
+import { RAreaChartComponent } from './Controls/rareachart/rareachart.component';
+import { RAllocatedBarChartComponent } from './Controls/rallocated-barchart/rallocated-barchart.component';
+import { RFilterComponent } from './Controls/rfilter/rfilter.component';
 
 @Component({
   selector: 'app-root',
@@ -103,7 +106,10 @@ import { RStackedBarChartHorizontalComponent } from './Controls/rstackedbarchart
     RStackedRangeBarChartVerticalComponent,
     RScatterChartComponent, 
     RLineChartVerticalComponent,
-    RStackedBarChartHorizontalComponent
+    RStackedBarChartHorizontalComponent,
+    RAreaChartComponent,
+    RAllocatedBarChartComponent,
+    RFilterComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -201,6 +207,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   barChartItems1: BarChartItem[] = []
   barChartXAxisItemNames1: string[] = [];
+
+  barChartItems2: AllocatedBarChartItem[] = []
+  barChartXAxisItemNames2: string[] = [];
 
   stackedbarChartItems1: BarChartItem[] = []
   stackedbarChartXAxisItemNames1: string[] = [];
@@ -327,7 +336,19 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.barChartXAxisItemNames1 = ["Tomato", "Potato", "Onion","Oil"];
     this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "#1E96EB", "white"));
     this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 5], "#EF41E5", "white"));
-    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], "#C7CBCF", "white"));    
+    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], "#C7CBCF", "white"));  
+    
+    
+    this.barChartXAxisItemNames2 = ["Jan", "Feb", "Mar", "Apr", "May"];
+
+    let dat1 = new AllocationData(8000, 6000);
+    let dat2 = new AllocationData(6800, 4500);
+    let dat3 = new AllocationData(6500, 5000);
+    let dat4 = new AllocationData(7000, 4000);
+    let dat5 = new AllocationData(5500, 5000);
+
+    this.barChartItems2.push(new AllocatedBarChartItem("Company A",[dat1, dat3, dat4, dat2, dat5], "#1E96EB", "white", "Allocated Money","Spent Money"));
+    this.barChartItems2.push(new AllocatedBarChartItem("Company B",[dat3, dat2, dat1, dat5, dat4],"#EF41E5", "white"));
   }
 
   createStackedBarCharts(){

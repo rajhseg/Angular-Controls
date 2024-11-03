@@ -57,6 +57,9 @@ export class RNumericComponent implements ControlValueAccessor {
   @Input()
   public PlusForeColor: string = "white";
 
+  @Input()
+  public IsReadOnly: boolean = false;
+
   onChanged: Function = () =>{};
   onTouched: Function = () => {};
 
@@ -70,11 +73,11 @@ export class RNumericComponent implements ControlValueAccessor {
   }
 
   public Dec(){
-    this.Value = this._value -1;
+    this.Value = Number.parseInt(this._value.toString()) -1;
   }
 
   public Inc(){
-    this.Value = this._value + 1;
+    this.Value = Number.parseInt(this._value.toString()) + 1;
   }
 
   writeValue(obj: any): void {

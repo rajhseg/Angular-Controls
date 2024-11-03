@@ -1,0 +1,37 @@
+
+
+
+.dropdown-content {
+    visibility: collapse;
+    position: absolute;
+    background-color: #f1f1f1;
+    overflow: visible;        
+    z-index: 10;
+    margin-top: 2px;
+    border: 1px solid lightgray;    
+  }
+
+  .container {
+    position: relative;
+    left: 15px;
+    width: 170px;
+  }
+  
+  .space {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .num {
+    position: relative;
+    left: 6px;
+    top: -8px;
+  }
+
+  :host {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 3px; 
+    padding-right: 3px;  
+  }

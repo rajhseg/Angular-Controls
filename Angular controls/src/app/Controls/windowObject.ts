@@ -29,6 +29,10 @@ export class WindowHelper {
 
     GenerateUniqueId(){
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
-    }   
+    }  
+    
+    GetIntValueFromCssUnits(val: string): number {
+        return parseInt(val.replace(/[^-\d\.]/g, ''));
+    }
      
 }

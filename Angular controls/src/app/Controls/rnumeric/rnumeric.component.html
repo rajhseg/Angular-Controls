@@ -1,11 +1,13 @@
 
 
-<div [ngStyle]="{}" 
+<div [ngStyle]="{}" [ngStyle]="{ 'pointer-events': IsReadOnly ? 'none': '' }"
     class="sh" style="display: flex;flex-direction: row;">  
-    <rtextbox [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
-        [IsReadOnly]="true" [BottomLineColor]="BottomLineColor" [LabelText]="''" 
+
+    <rtextbox [IsReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
+        [BottomLineColor]="BottomLineColor" [LabelText]="''" 
         [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth"
-        [(ngModel)]="Value"></rtextbox>    
+        [(ngModel)]="Value">
+    </rtextbox>    
 
     <rbutton [ngStyle]="{ 'top':'-1px'}" 
                 [ButtonHeight]="'20px'"

@@ -10,7 +10,30 @@ export class BarChartItem {
     }
 }
 
+export class AllocatedBarChartItem {
+    constructor(
+        public DisplayName: string, 
+        public Values: AllocationData[],
+        public barItemsBackColor: string[] | string,
+        public barItemsForeColor: string[] | string, 
+        public AllocatedDisplayName: string = 'Allocated',
+        public SpentDisplayName: string = 'Spent') {
+
+        }
+}
+
+export class AllocationData {
+    constructor(public Allocated: number, public Spent: number) {
+
+    }
+}
 export class LineChartItem {
+    constructor(public ItemName: string, public ItemColor: string, public Values: number[] = []){
+
+    }
+}
+
+export class AreaChartItem {
     constructor(public ItemName: string, public ItemColor: string, public Values: number[] = []){
 
     }

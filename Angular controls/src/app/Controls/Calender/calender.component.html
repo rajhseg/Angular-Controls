@@ -2,11 +2,12 @@
 <div #startElement style="position: relative;" [id]="Id" class="rcal rcalenderWindowsClose" *ngIf="IsWindowsOs || IsLinuxOs">
     <div class="rcalinputdiv" style="display: flex;flex-direction: row;">
 
-        <input class="calendarinput" (click)="openCalenderFromInput($event)" type="text" 
+        <input [ngStyle]="{'height': Height, 'width': Width }"
+            class="calendarinput" (click)="openCalenderFromInput($event)" type="text" 
             [(ngModel)]="Value" />
 
         <div class="calIconContainer" #openbtn (click)="openCalender($event)">
-            <b *ngIf="IsWindowsOs || IsLinuxOs"
+            <b *ngIf="IsWindowsOs || IsLinuxOs" [ngStyle]="{ 'font-size': IconSize, 'top': TopPx }"
                 [ngClass]="{ 'calIcon': IsWindowsOs, 'calIconLinux': IsLinuxOs}">&#9782;</b>
         </div>
     </div>

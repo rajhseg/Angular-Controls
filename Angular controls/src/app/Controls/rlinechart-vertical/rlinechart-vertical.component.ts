@@ -53,13 +53,13 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   private _xAxisItemNames: string[] = [];
 
   @Input()
-  public set XAxisItemNames(val: string[]){
+  public set xAxisItemNames(val: string[]){
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
       this._xAxisItemNames = val;
       this.RenderLineChart();
     }    
   }
-  public get XAxisItemNames(): string[] {
+  public get xAxisItemNames(): string[] {
     return this._xAxisItemNames;
   }
 
@@ -127,6 +127,9 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @Input()
   PopupForeColor: string | undefined = undefined;
 
+  @Input()
+  PopupBackgroundOpacity: number = 1;
+
   private _items: LineChartItem[] = [];
 
   @Input()
@@ -177,7 +180,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
         let x = event.offsetX + 10;
         let y = event.offsetY;
         let met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());
-        let met1 = this.context.measureText(this.XAxisItemNames[item.ValueIndex]);
+        let met1 = this.context.measureText(this.xAxisItemNames[item.ValueIndex]);
 
         let xtitle = this.context.measureText(this.XAxisTitle);
         let ytitle = this.context.measureText(this.YAxisTitle);
@@ -193,10 +196,18 @@ export class RLineChartVerticalComponent implements AfterViewInit {
           x = x - textWidth - 20;
         }
           
+        let height = 40;
+        if(y + height > this.Height) {
+          y = y - height;
+        }
+
         this.context.beginPath();
+        this.context.save();
+        this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
         this.context.rect(x, y, textWidth, 40); 
         this.context.fill();
+        this.context.restore();
         this.context.closePath();
 
         this.context.beginPath();            
@@ -204,7 +215,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
         
         this.context.strokeStyle = this.PopupForeColor ?? item.ItemColor;
         this.context.fillStyle = this.PopupForeColor ?? item.ItemColor;
-        this.context.fillText(" "+this.XAxisTitle+" : "+ this.XAxisItemNames[item.ValueIndex], x + 5, y + 15);
+        this.context.fillText(" "+this.XAxisTitle+" : "+ this.xAxisItemNames[item.ValueIndex], x + 5, y + 15);
         this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 35);           
         this.context.stroke();
         
@@ -351,7 +362,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
         let xvDistance = (this.Width - StartX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
 
         for (let index = 0; index < this.NoOfSplitInXAxis; index++) {
-          let xDisplayValue = this.XAxisItemNames[index];
+          let xDisplayValue = this.xAxisItemNames[index];
           let xPoint = ( xvDistance * (index +1) ) + StartX;
           let yPoint = this.Height - this.MarginY;
 

@@ -359,7 +359,13 @@ RAreaChart
 <br/>
 
 
+RAllocationBarChart
+---------------------------------
 
+![image](https://github.com/user-attachments/assets/ee942731-e84c-4f2b-a7e1-2e901958e3d4)
+
+
+<br />
 
 
 

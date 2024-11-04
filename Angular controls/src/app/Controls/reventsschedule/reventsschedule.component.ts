@@ -313,12 +313,11 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
     let startDate = this.DisplayDatesOnLoad[0];
     let parts = startDate.split("-");
-    let dt = new Date();
-    dt.setDate(parseInt(parts[0]));
-    dt.setMonth(parseInt(parts[1]) - 1);
-    dt.setFullYear(parseInt(parts[2]));
 
-    let list = this.GenerateDates(dt, -this.NoOfDatesToShowOnHeader);
+    let enm = Date.parse(parts[2]+" "+parts[1]+" "+parts[0]);
+    let date = new Date(enm);
+        
+    let list = this.GenerateDates(date, -this.NoOfDatesToShowOnHeader);
     this.DisplayDatesOnLoad = list;
     this.SelectedDate = this.DisplayDatesOnLoad[this.DisplayDatesOnLoad.length - 1];
   }
@@ -326,12 +325,11 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   NextPage() {
     let startDate = this.DisplayDatesOnLoad[this.DisplayDatesOnLoad.length - 1];
     let parts = startDate.split("-");
-    let dt = new Date();
-    dt.setDate(parseInt(parts[0]));
-    dt.setMonth(parseInt(parts[1]) - 1);
-    dt.setFullYear(parseInt(parts[2]));
+    
+    let enm = Date.parse(parts[2]+" "+parts[1]+" "+parts[0]);
+    let date = new Date(enm);    
 
-    let list = this.GenerateDates(dt, this.NoOfDatesToShowOnHeader);
+    let list = this.GenerateDates(date, this.NoOfDatesToShowOnHeader);
     this.DisplayDatesOnLoad = list;
     this.SelectedDate = this.DisplayDatesOnLoad[0];
   }
@@ -417,7 +415,10 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   }
 
   getDate(dt: Date, addDays: number): string {
-    let date = new Date(new Date().setDate(dt.getDate() + addDays))
+    let k = new Date(dt);
+    k.setDate(k.getDate() + addDays);    
+
+    let date = k;
     let yr = date.getFullYear();
     let mon = date.getMonth() + 1;
     let day = date.getDate();
@@ -428,8 +429,11 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   getDateFromString(dt: string, addDays: number): string {
     let parts = dt.split("-");
-    let _str = (new Date()).setFullYear(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0])+ addDays);
-    let date = new Date(_str)
+
+    let enm = Date.parse(parts[2]+" "+parts[1]+" "+parts[0]);
+    let date = new Date(enm);
+    date.setDate(date.getDate() + addDays);
+
     let yr = date.getFullYear();
     let mon = date.getMonth() + 1;
     let day = date.getDate();

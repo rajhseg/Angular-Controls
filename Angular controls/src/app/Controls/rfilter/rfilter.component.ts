@@ -7,6 +7,7 @@ import { CalenderComponent } from "../Calender/calender.component";
 import { WindowHelper } from '../windowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DropdownModel } from '../dropdown/dropdownmodel';
 
 @Component({
   selector: 'rfilter',
@@ -45,6 +46,9 @@ export class RFilterComponent {
   BackgroundColor: string = 'white';
 
   @Input()
+  Align: RFilterAlign = RFilterAlign.Right;
+
+  @Input()
   ForeColor: string = 'black';
 
   @Input()
@@ -61,7 +65,7 @@ export class RFilterComponent {
 
   Id: string = '';
 
-  ContainsList: string | undefined = undefined;
+  ContainsList: DropdownModel[] | undefined = undefined;
   LessThanNumber: number | undefined = undefined;
   LessThanDate: string | undefined = undefined;
   GreaterThanNumber: number | undefined = undefined;
@@ -137,10 +141,15 @@ export class RFilterApplyModel {
   constructor(
     public ColumnName: string, 
     public Type: RFilterDataType, 
-    public Contains: string|undefined,
+    public Contains: DropdownModel[] |undefined,
     public LesserThan: number | string | undefined, 
     public  GreaterThan: number | string | undefined
   ){
 
   }
+}
+
+export enum RFilterAlign{
+  Left = 0,
+  Right,
 }

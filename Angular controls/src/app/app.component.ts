@@ -57,7 +57,7 @@ import { RLineChartVerticalComponent } from './Controls/rlinechart-vertical/rlin
 import { RStackedBarChartHorizontalComponent } from './Controls/rstackedbarchart-horizontal/rstackedbarchart-horizontal.component';
 import { RAreaChartComponent } from './Controls/rareachart/rareachart.component';
 import { RAllocatedBarChartComponent } from './Controls/rallocated-barchart/rallocated-barchart.component';
-import { RFilterComponent } from './Controls/rfilter/rfilter.component';
+import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } from './Controls/rfilter/rfilter.component';
 
 @Component({
   selector: 'app-root',
@@ -192,6 +192,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   showVerticalItems: boolean = false;
 
+  numbers: string[] = ["1","2","3","4","5"];
+  filterAlign: RFilterAlign = RFilterAlign.Right;
+  filterDataType: RFilterDataType = RFilterDataType.NumberType;
+
   dates: string [] = [];
   dates1: string [] = [];
   selectedDate: string = "";
@@ -227,6 +231,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   bColor: string = 'blue'; //'#13297A';
   tColor: string = 'orangered'; //teal';
+
+
 
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
@@ -292,6 +298,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.cdr.detectChanges();
+  }
+
+  filterApplied(model: RFilterApplyModel){
+    console.log("Filter Applied");
+    console.log(model);
   }
 
   createLineChart() {

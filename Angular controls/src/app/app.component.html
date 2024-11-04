@@ -1,15 +1,21 @@
 <div>
 
   <div>
-
-    <rfilter></rfilter>
+   
         
-    <rstarrating [starWidth]="starWidth"></rstarrating>
+    <rstarrating [starWidth]="starWidth"></rstarrating> 
+    
 
     <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating> 
     <rstarrating [starWidth]="starWidth" [starColor]="bColor"></rstarrating>
 
-    {{starValue}}
+    
+    <div style="float:left; margin-left: 200px;">
+      <rfilter [ColumnName]="'Name'" [ItemValues]="numbers" [Align]="filterAlign" 
+        [DataType]="filterDataType" (ApplyCallback)="filterApplied($event)"></rfilter>
+    </div>
+
+    {{starValue}}  
 
     <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" Width="112px" DropDownContentWidth="122px">
     </rdropdown>

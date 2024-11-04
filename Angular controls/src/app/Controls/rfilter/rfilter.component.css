@@ -28,6 +28,12 @@
     top: -8px;
   }
 
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
   :host {
     display: flex;
     height: fit-content;

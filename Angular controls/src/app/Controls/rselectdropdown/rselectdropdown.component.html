@@ -1,20 +1,20 @@
 <div #startElement [id]="Id" class="dropdown rselectdropdownWindowClose">
   <input (click)="openDropdown($event)" readonly class="inpdrop" type="text" [value]="SelectedDisplay"
-    [ngStyle]="{'width':Width}">
+    [ngStyle]="{'width':Width + 'px' }">
   <button #openbtn (click)="openDropdown($event)" class="dropdownbtn">
     <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
   </button>
   <div *ngIf="IsDropDownOpen" #myDropdown id="myDropdown" (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)"
-    class="dropdown-content" style="background-color: white;" [ngStyle]="{'minWidth':DropDownContentWidth, 
+    class="dropdown-content" style="background-color: white;" [ngStyle]="{'minWidth':DropDownContentWidth + 'px', 
           'visibility':IsDropDownOpen ? 'visible': 'collapse',
           'background-color': BackgroundColor,
           'color': ForeColor,
-          'height': DropDownContentHeight,
+          'height': DropDownContentHeight + 'px',
           ' box-shadow': EnableShadowOnDropdown ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px': ''
           }">
 
       <div *ngIf="EnableFilterOption">
-        <rtextbox [TextBoxWidth]="getFilterBoxWidth(DropDownContentWidth)" [EnableMarginTextBottom]="false" [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"></rtextbox>        
+        <rtextbox [TextBoxWidth]="getFilterBoxWidth(DropDownContentWidth + 'px')" [EnableMarginTextBottom]="false" [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"></rtextbox>        
       </div>
 
     <ng-content></ng-content>

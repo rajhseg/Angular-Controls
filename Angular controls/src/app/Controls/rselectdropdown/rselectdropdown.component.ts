@@ -49,7 +49,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   EnableShadowOnDropdown: boolean = true;
 
   @Input()
-  DropDownContentHeight: string = "200px";
+  DropDownContentHeight: number = 200;
 
   @ContentChild(ROptionsTemplateDirective, {read: TemplateRef<any>}) 
   OptionsTemplate!: TemplateRef<any>;
@@ -99,10 +99,10 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   isSelectAllChecked: boolean = false;
 
   @Input()
-  Width: string = '80px';
+  Width: number = 80;
 
   @Input()
-  DropDownContentWidth: string = '120px';
+  DropDownContentWidth: number = 120;
 
   @Output()
   change = new EventEmitter<any>(); 

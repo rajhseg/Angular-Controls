@@ -35,7 +35,7 @@ export class RStateVerticalComponent implements ControlValueAccessor {
   public StepNoForeColor: string = "white";
   
   @Input()
-  public ContentWidth: string = "250px";
+  public ContentWidth: number = 250;
 
   @Input()
   public CompletedForeColor: string = "white";

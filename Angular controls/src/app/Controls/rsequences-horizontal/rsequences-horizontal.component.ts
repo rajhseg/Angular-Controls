@@ -39,7 +39,7 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
   
 
   @Input()
-  public ContentWidth: string = "100px";
+  public ContentWidth: number = 100;
 
   @Input()
   public CompletedForeColor: string = "orange";

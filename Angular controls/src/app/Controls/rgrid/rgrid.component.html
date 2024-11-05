@@ -72,7 +72,7 @@
                 </td>
             </tr>
         </thead>
-        <tbody [ngStyle]="{'height': TableHeight}">
+        <tbody [ngStyle]="{ 'height': TableHeight + 'px' }">
 
             <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                 <tr *ngFor="let item of ShowItems.Rows">

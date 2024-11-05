@@ -4,7 +4,7 @@
             <div [ngStyle]="{ 
                     'background-color' : ContainerBackgroundColor,
                     'height': '30px',
-                    'width': Width,
+                    'width': Width+'px',
                     'border': '1px solid '+ContainerBorderColor 
                     }"  class="times">
 
@@ -27,8 +27,8 @@
             <div class="content">
                                 
                 <div [ngStyle]="{
-                    'height': Height,
-                    'width': Width,
+                    'height': Height + 'px',
+                    'width': Width + 'px',
                     'border': '1px solid '+ContainerBorderColor ,
                     'background-color': ContainerBackgroundColor 
                     }"

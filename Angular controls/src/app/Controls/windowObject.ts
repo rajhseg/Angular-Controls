@@ -34,5 +34,10 @@ export class WindowHelper {
     GetIntValueFromCssUnits(val: string): number {
         return parseInt(val.replace(/[^-\d\.]/g, ''));
     }
+
+    GetUnitFromCssUnits(val: string): string {
+        let result = val.replace(/[0-9,.]/g, '');
+        return result;
+    }
      
 }

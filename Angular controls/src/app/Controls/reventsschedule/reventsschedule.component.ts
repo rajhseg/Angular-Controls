@@ -31,10 +31,10 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   MinutesForEachCell: number = 30;
 
   @Input()
-  Height: string = "350px";
+  Height: number = 350;
 
   @Input()
-  Width: string = "720px";
+  Width: number = 720;
 
   @Input()
   ShowScrollBar: boolean = false;
@@ -305,7 +305,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
       let height = (count * this.VerticalHeaderHeight) + count;
       return height + 'px';
     } else {
-      return this.Height;
+      return this.Height + 'px';
     }
   }
 

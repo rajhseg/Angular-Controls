@@ -199,7 +199,7 @@
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
           <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
           Save        
@@ -240,7 +240,7 @@
     [IsDisplayStepNo]="true" 
     [PendingBackgroundColor]="tColor" 
     [PendingForeColor]="'white'" 
-    [ContentWidth]="'140px'"
+    [ContentWidth]="140"
     (OnActiveValueChanged)="seqValueChanged($event)" 
     [ActiveBackgroundColor]="bColor">
   </rstate-vertical>
@@ -268,7 +268,7 @@
       [PendingForeColor]="tColor"
       [CompletedForeColor]="'darkblue'"
       [Items]="seqHorizontalItems"
-      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="false"
+      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="false"
       (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
   </div>
@@ -278,7 +278,7 @@
       [PendingForeColor]="tColor"
       [CompletedForeColor]="'darkblue'"
       [Items]="seqHorizontalItems"
-      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'" [IsDisplayStepNo]="true"
+      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="true"
       (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
   </div>
@@ -389,7 +389,7 @@
     <div style="float: left;padding-right:30px">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
         [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'"
-        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
     </div>
 
     <rgrid [Items]="gridItems" [GroupByIconColor]="bColor" 
@@ -474,7 +474,7 @@
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
+        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="200">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -485,13 +485,13 @@
         </rselectdropdown>
   
         <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" 
-            [DropDownContentWidth]="'130px'">
+            [DropDownContentWidth]="130">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
+        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="130">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
+        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="200">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -501,9 +501,9 @@
           </ng-template>
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items" [DropDownContentWidth]="'130px'"></rselectdropdown>
+        <rselectdropdown [Items]="items" [DropDownContentWidth]="130"></rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="130"></rselectdropdown>
   
       </ng-template>
     </rstep>
@@ -512,7 +512,7 @@
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="bColor"  
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
         <br />
         <rbutton [BackgroundColor]="bColor" (ButtonClick)="stepOneSave($event)">
           Save        
@@ -525,7 +525,7 @@
       <ng-template rstepview>
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
 
           <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -538,7 +538,7 @@
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
           <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
           Save        
@@ -551,7 +551,7 @@
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
         
-        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
+        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="200">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -561,13 +561,13 @@
           </ng-template>
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="130">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
+        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="130">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
+        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="200">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -577,9 +577,9 @@
           </ng-template>
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items" [DropDownContentWidth]="'130px'"></rselectdropdown>
+        <rselectdropdown [Items]="items" [DropDownContentWidth]="130"></rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
+        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="130"></rselectdropdown>
   
       </ng-template>
     </rstep>
@@ -763,7 +763,7 @@
       
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
                 Save        
@@ -775,7 +775,7 @@
             <ng-template rstepview>
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
       
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -788,7 +788,7 @@
       
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
                 Save        
@@ -809,7 +809,7 @@
 
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
                 Save        
@@ -821,7 +821,7 @@
             <ng-template rstepview>
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
 
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -834,7 +834,7 @@
 
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
                 Save        
@@ -915,14 +915,14 @@
 
         <div>
           <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
-            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'"
+            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
             [IsDisplayStepNo]="false" [CompletedForeColor]="'red'"
             (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
 
         </div>
         <div>
           <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
-            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="'110px'"
+            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
             [IsDisplayStepNo]="true" (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
             [StripLineColor]="'blue'"></rstate-horizontal>
 
@@ -985,7 +985,7 @@
       <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rgrid', 'Context': this}">
         <div style="float: left;padding-right:30px">
           <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                  [TableHeight]="'200px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
+                  [TableHeight]="200" [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
 
         <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
@@ -1048,7 +1048,7 @@
 
       <rtab *tabidfor="{'TabId':'tab30', 'HeaderText':'rselectdropdown', 'Context': this}">
         <div>
-          <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
+          <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="200">
             <ng-template optionstemplate let-Item>
               <div>
                 <span>{{Item.Value.Id}}</span>
@@ -1058,13 +1058,14 @@
             </ng-template>
           </rselectdropdown>
 
-          <rselectdropdown [EnableFilterOption]="false" [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'130px'">
+          <rselectdropdown [EnableFilterOption]="false" [Items]="items" [IsMulti]="true" 
+              [(ngModel)]="multiValue" [DropDownContentWidth]="130">
           </rselectdropdown>
 
-          <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
+          <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="130">
           </rselectdropdown>
 
-          <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
+          <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="200">
             <ng-template optionstemplate let-Item>
               <div>
                 <span>{{Item.Value.Id}}</span>
@@ -1074,16 +1075,16 @@
             </ng-template>
           </rselectdropdown>
 
-          <rselectdropdown [Items]="items" [DropDownContentWidth]="'130px'"></rselectdropdown>
+          <rselectdropdown [Items]="items" [DropDownContentWidth]="130"></rselectdropdown>
 
-          <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'">
+          <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="130">
           </rselectdropdown>
 
         </div>
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab31', 'HeaderText':'rEventsSchedule', 'Context': this}">        
-        <revents-schedule [Width]="'740px'" [ScheduleItems]="scheduleItems"></revents-schedule>
+        <revents-schedule [Width]="740" [ScheduleItems]="scheduleItems"></revents-schedule>
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rdonutchart', 'Context': this}">

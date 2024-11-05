@@ -59,7 +59,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   ItemsPerPage!: DropdownModel;
 
   @Input()
-  TableHeight: string = "200px";
+  TableHeight: number = 200;
 
   @Input()
   ShowEditUpdate: boolean = true;

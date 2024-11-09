@@ -375,4 +375,29 @@ RFilter
 <br />
 
 
+RSeriesChart
+--------------------------------------
+
+# YSeriesChart
+
+![image](https://github.com/user-attachments/assets/d4ff94ad-3303-4c58-9e2e-ff7e1035a68e)
+
+![image](https://github.com/user-attachments/assets/1991fb09-1b33-4f59-8c18-ac300af2d753)
+
+<br />
+
+# GraphSeriesChart
+
+
+
+<br/>
+
+
+
+
+
+
+
+
+
 

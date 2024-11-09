@@ -370,7 +370,7 @@ RAllocationBarChart
 RFilter
 -------------------------------------
 
-![image](https://github.com/user-attachments/assets/0adca0bf-a6cd-43e9-93df-b3577100af1f)
+![image](https://github.com/user-attachments/assets/70f4fba1-9e1f-401d-a481-a9bdc0f029be)
 
 <br />
 

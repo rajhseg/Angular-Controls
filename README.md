@@ -388,6 +388,7 @@ RSeriesChart
 
 #### GraphSeriesChart
 
+![image](https://github.com/user-attachments/assets/70cc94eb-0e1a-4ee2-8afe-575199c19516)
 
 
 <br/>

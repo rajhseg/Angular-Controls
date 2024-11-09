@@ -378,7 +378,7 @@ RFilter
 RSeriesChart
 --------------------------------------
 
-# YSeriesChart
+#### YSeriesChart
 
 ![image](https://github.com/user-attachments/assets/d4ff94ad-3303-4c58-9e2e-ff7e1035a68e)
 
@@ -386,7 +386,7 @@ RSeriesChart
 
 <br />
 
-# GraphSeriesChart
+#### GraphSeriesChart
 
 
 

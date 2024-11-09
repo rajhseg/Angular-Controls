@@ -297,7 +297,8 @@ export class RAllocatedBarChartComponent {
     if (this.bar && this.context && this.Columns.length > 0 && this.xAxisItemNames.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
-
+      this.context.clearRect(0, 0, this.Width, this.Height);
+      
       let spaceFromTopYAxis = 25;
 
       for (let index = 0; index < this.Columns.length; index++) {

@@ -282,7 +282,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
     if (this.bar && this.context && this.Columns.length > 0 && this.yAxisItemNames.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
-
+      this.context.clearRect(0, 0, this.Width, this.Height);
       let spaceFromRightXAxis = 25;
 
       for (let index = 0; index < this.Columns.length; index++) {

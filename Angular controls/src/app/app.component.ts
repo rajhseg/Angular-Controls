@@ -48,7 +48,7 @@ import { RDonutChartComponent, RDonutChartItem } from "./Controls/rdonutchart/rd
 import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
 import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
 import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
-import { AllocatedBarChartItem, AllocationData, BarChartItem, Graph, LineChartItem, ScatterChartItem } from './Controls/Models/BarChartItem';
+import { AllocatedBarChartItem, AllocationData, BarChartItem, Graph, LineChartItem, ScatterChartItem, YSeriesChartItem, GraphSeriesChartItem } from './Controls/Models/BarChartItem';
 import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
 import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-vertical/rstackedbarchart-vertical.component';
 import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component';
@@ -58,6 +58,7 @@ import { RStackedBarChartHorizontalComponent } from './Controls/rstackedbarchart
 import { RAreaChartComponent } from './Controls/rareachart/rareachart.component';
 import { RAllocatedBarChartComponent } from './Controls/rallocated-barchart/rallocated-barchart.component';
 import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } from './Controls/rfilter/rfilter.component';
+import { RSeriesChartComponent } from './Controls/rserieschart/rserieschart.component';
 
 @Component({
   selector: 'app-root',
@@ -109,7 +110,8 @@ import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } fr
     RStackedBarChartHorizontalComponent,
     RAreaChartComponent,
     RAllocatedBarChartComponent,
-    RFilterComponent
+    RFilterComponent,
+    RSeriesChartComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -232,8 +234,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   bColor: string = 'blue'; //'#13297A';
   tColor: string = 'orangered'; //teal';
 
-
-
+  nums2: number[] = [];
+  seriesModel2: YSeriesChartItem[] = [];
+  seriesModel: YSeriesChartItem[] = [];
+  seriesModel1: GraphSeriesChartItem[] = [];
+  
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
   
@@ -294,6 +299,57 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createStackedBarCharts();
       this.createScatterChart();
       this.createLineChart();
+      this.createSeriesChart();
+  }
+
+  createSeriesChart(){
+    let nums: number[] = [];
+    let graphnums: Graph[] = [];
+
+    for (let index = 0; index < 50; index++) {
+      nums.push(this.GenRandomNum(1, 100));      
+    }
+
+    for (let index = 1; index < 80; index++) {
+      graphnums.push(new Graph(index, this.GenRandomNum(1, 100)));      
+    }
+
+    graphnums.push(new Graph(80, 45));
+
+    console.log(nums);
+
+    this.seriesModel.push(new YSeriesChartItem("Foo", "blue", nums));
+
+    nums = [];
+
+    for (let index = 0; index < 50; index++) {
+      nums.push(this.GenRandomNum(1, 100));      
+    }
+
+    this.seriesModel.push(new YSeriesChartItem("Too", "orangered", nums));
+
+    this.seriesModel1.push(new GraphSeriesChartItem("Foo", "orangered", graphnums));
+       
+    for (let index = 0; index < 50; index++) {
+      this.nums2.push(this.GenRandomNum(1, 100));      
+    }
+
+    this.seriesModel2.push(new YSeriesChartItem("Computer", "blue", this.nums2));
+
+  }
+
+  realTimeCharts(evt: any){    
+    let j = this.nums2.slice(1);
+    let n1 = this.GenRandomNum(1, 100);
+    j.push(n1);
+    this.seriesModel2 = [];
+    this.seriesModel2.push(new YSeriesChartItem("Computer", "blue", j));
+    this.nums2 = j;
+  }
+
+  GenRandomNum(min: number, max: number): number{
+    let num = Math.floor(Math.random() * (max-min)+ min);
+    return num;
   }
 
   ngAfterContentChecked(): void {

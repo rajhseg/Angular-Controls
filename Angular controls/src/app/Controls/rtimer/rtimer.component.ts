@@ -30,6 +30,9 @@ export class RTimerComponent implements OnInit, OnDestroy {
   allDisplayTypes = TimerType;
 
   @Input()
+  IsHidden: boolean = false;
+
+  @Input()
   EnableShadowEffect: boolean = false;
 
   @Input()

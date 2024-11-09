@@ -264,7 +264,8 @@ export class RLineChartVerticalComponent implements AfterViewInit {
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
-
+      this.context.clearRect(0, 0, this.Width, this.Height);
+      
       let spaceFromTopYAxis = 25;
       let spaceFromRightXAxis = 25;
       

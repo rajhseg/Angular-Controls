@@ -1,20 +1,17 @@
-
-
-
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, PopupChartItem, ScatterChartItem } from '../Models/BarChartItem';
+import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { BarChartItem, Graph, PopupChartItem, YSeriesChartItem, GraphSeriesChartItem } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
-
+import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'rscatterchart',
+  selector: 'rserieschart',
   standalone: true,
-  imports: [NgFor, NgIf, NgStyle, NgClass],
-  templateUrl: './rscatterchart.component.html',
-  styleUrl: './rscatterchart.component.css'
+  imports: [NgIf, NgStyle, NgClass, NgForOf],
+  templateUrl: './rserieschart.component.html',
+  styleUrl: './rserieschart.component.css'
 })
-export class RScatterChartComponent implements AfterViewInit {
+export class RSeriesChartComponent {
+
 
   private _width: number = 300;
   private _height: number = 300;
@@ -125,16 +122,21 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   PopupBackgroundOpacity: number = 1;
 
-  private _items: ScatterChartItem[] = [];
+  public IsYSeriesChart: boolean = false;
+
+  @Input()
+  FillAreaColor: boolean = false;
+
+  private _items: YSeriesChartItem[] | GraphSeriesChartItem[] = [];
   
   @Input()
-  public set Items(val: ScatterChartItem[]) {
+  public set Items(val: YSeriesChartItem[] | GraphSeriesChartItem[]) {
     if (!this.IsScatterItemListEqual(val, this._items)) {
       this._items = val;
-      this.RenderScatterChart();
+      this.RenderSeriesChart();
     }
   }
-  public get Items(): ScatterChartItem[] {
+  public get Items(): any {
     return this._items;
   }
 
@@ -156,7 +158,7 @@ export class RScatterChartComponent implements AfterViewInit {
       if (this.bar != undefined) {
         this.context = this.bar.nativeElement.getContext('2d');
         this.bar.nativeElement.onmousemove = this.MouseMove.bind(this);
-        this.RenderScatterChart();
+        this.RenderSeriesChart();
       }
     }
   }
@@ -168,22 +170,34 @@ export class RScatterChartComponent implements AfterViewInit {
       this.context.clearRect(0, 0, this.Width, this.Height);
       this.context.closePath();
 
-      this.RenderScatterChart();
+      this.RenderSeriesChart();
 
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
       if(item) {      
-        let lineItem = item.Item as ScatterChartItem;
+        let lineItem = item.Item as any;
         let x = event.offsetX + 10;
         let y = event.offsetY;
-        let met = this.context.measureText(lineItem.Values[item.ValueIndex].xPoint.toString());
-        let met1 = this.context.measureText(lineItem.Values[item.ValueIndex].yPoint.toString());
+        let yaxisChart = !(lineItem.Values[item.ValueIndex] instanceof Graph);
+
+        let met : TextMetrics | undefined = undefined;
+        let met1 : TextMetrics | undefined = undefined;
+
+        if(!this.IsYSeriesChart){
+           met = this.context.measureText((lineItem.Values[item.ValueIndex] as Graph).xPoint.toString());
+           met1 = this.context.measureText((lineItem.Values[item.ValueIndex] as Graph).yPoint.toString());  
+        } else {
+           met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());           
+        }
 
         let xtitle = this.context.measureText(this.XAxisTitle);
         let ytitle = this.context.measureText(this.YAxisTitle);
 
         let w1 = met.width + xtitle.width;
-        let w2 = met1.width + ytitle.width;
+        let w2 = 0;
+
+        if(met1!=undefined)
+          w2 = met1.width + ytitle.width;
 
         let width = Math.max(w1, w2);
 
@@ -212,8 +226,13 @@ export class RScatterChartComponent implements AfterViewInit {
         
         this.context.strokeStyle = this.PopupForeColor ?? item.ItemColor;
         this.context.fillStyle = this.PopupForeColor ?? item.ItemColor;
-        this.context.fillText(" "+this.XAxisTitle+" : "+ lineItem.Values[item.ValueIndex].xPoint, x + 5, y + 15);
-        this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex].yPoint, x + 5, y + 35);
+
+        if(this.IsYSeriesChart) {
+          this.context.fillText(" "+this.XAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 15);
+        } else {
+          this.context.fillText(" "+this.XAxisTitle+" : "+ (lineItem.Values[item.ValueIndex] as Graph).xPoint, x + 5, y + 15);
+          this.context.fillText(" "+this.YAxisTitle+" : "+ (lineItem.Values[item.ValueIndex] as Graph).yPoint, x + 5, y + 35);
+        }        
 
         this.context.stroke();
         this.context.restore();
@@ -259,27 +278,36 @@ export class RScatterChartComponent implements AfterViewInit {
     return typeof prop === 'string';
   }
 
-  RenderScatterChart() {
+  RenderSeriesChart() {
     this.IsRendered = false;
-
+    
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
-      this.context.clearRect(0, 0, this.Width, this.Height);
       
+      this.context.clearRect(0, 0, this.Width, this.Height);      
+
       let spaceFromTopYAxis = 25;
       let spaceFromRightXAxis = 25;
+
+      if(this.Items[0] instanceof YSeriesChartItem)
+        this.IsYSeriesChart = true;
 
       let xValues: number[] = [];
       let yValues: number[] = [];
 
       for (let index = 0; index < this.Items.length; index++) {
-        const element = this.Items[index];
-        let _x = element.Values.map(x => x.xPoint);
-        let _y = element.Values.map(y => y.yPoint);
+        
+        const element = this.IsYSeriesChart ? 
+                  this.Items[index] as YSeriesChartItem : 
+                  this.Items[index] as GraphSeriesChartItem;
+
+        let _x = element.Values.map(x => x instanceof Graph ? x.xPoint : 0);
+        let _y = element.Values.map(y => y instanceof Graph ? y.yPoint : y);
 
         xValues = [...xValues, ..._x];
         yValues = [...yValues, ..._y];
+
       }
 
       if (xValues && yValues) {
@@ -363,44 +391,113 @@ export class RScatterChartComponent implements AfterViewInit {
         /* Draw X Axis Line */
         let xmin = this.MinArray(xValues);
         let xmax = this.MaxArray(xValues);
-
         let xdistance = 0;
-        if (xmin != undefined && xmax != undefined) {
+        let isYSeriesChart = false;
+
+        if(xmin == 0 && xmax == 0) {
+          xdistance = (this.Width - StartX ) / yValues.length;
+          isYSeriesChart = true;
+        }        
+        else if (xmin != undefined && xmax != undefined) {
           xdistance = (xmax) / this.NoOfSplitInXAxis;
         }
 
         xdistance = this.GetRoundToTenDigit(xdistance);
         let xvDistance = (this.Width - StartX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
+        
+        if(xmin == 0 && xmax == 0) {
+          xvDistance = (this.Width - StartX ) / (yValues.length/this.Items.length);
+        }       
 
-        for (let index = 1; index <= this.NoOfSplitInXAxis; index++) {
-          let xDisplayValue = xdistance * index;
-          let xPoint = (xvDistance * index) + StartX;
-          let yPoint = this.Height - this.MarginY;
+        if(!isYSeriesChart){
+          for (let index = 1; index <= this.NoOfSplitInXAxis; index++) {
+            let xDisplayValue = xdistance * index;
+            let xPoint = (xvDistance * index) + StartX;
+            let yPoint = this.Height - this.MarginY;
 
-          this.DrawVerticalLine(xPoint, yPoint);
-          this.DrawVerticalLineInXAxis(xPoint, yPoint);
-          this.DrawVerticalLineDisplayValueInXAxis(xDisplayValue.toString(), xPoint, yPoint);
+            this.DrawVerticalLine(xPoint, yPoint);
+            this.DrawVerticalLineInXAxis(xPoint, yPoint);
+            this.DrawVerticalLineDisplayValueInXAxis(xDisplayValue.toString(), xPoint, yPoint);
+          }
         }
+
+        let prevX = undefined;
+        let prevY = undefined;
 
         for (let index = 0; index < this.Items.length; index++) {
           const element = this.Items[index];
-
+          let prevX = undefined;
+          let prevY = undefined;
+          
+          let areaItems: PopupChartItem[] = [];
+          
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
 
-            let indx = item.xPoint / xdistance
-            let xPoint = xvDistance * indx + StartX;
-
-            let yindx = -(item.yPoint / ydistance) + this.NoOfSplitInYAxis;
-            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
+            let indx = item instanceof Graph ? item.xPoint / xdistance : item;
+            let xPoint = undefined;
             
-            this.Plot(xPoint, yPoint, element.ItemColor);
+            if(isYSeriesChart){
+              xPoint = StartX +  (xvDistance * (v + 1));
+            } else {
+              xPoint = xvDistance * indx + StartX;
+            }
+
+            let yindx = -(item instanceof Graph ? item.yPoint / ydistance : item/ydistance  ) + this.NoOfSplitInYAxis;
+            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
+                        
+            /* Plot Line */
+            if(prevX != undefined && prevY != undefined)
+            {
+              this.PlotLine(xPoint, yPoint, prevX, prevY, element.ItemColor);
+            }
+  
+            prevX = xPoint;
+            prevY = yPoint;
 
             this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize,
               yPoint + this.PlotItemSize, element, v, index, element.ItemColor
             ));
 
+            areaItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
+              yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
+            
           }
+
+          /* Draw Area */
+          if(areaItems.length > 0 && this.FillAreaColor) {
+              
+            let x1 = areaItems[0].x1;
+            let y1 = areaItems[0].y1;
+            let x2 = areaItems[areaItems.length - 1].x1;
+            let y2 = areaItems[areaItems.length - 1].y1;
+            
+            this.context.beginPath();
+            this.context.save();
+            this.context.globalAlpha = 0.2;
+            this.context.fillStyle =  areaItems[0].ItemColor;
+            this.context.strokeStyle = areaItems[0].ItemColor;
+
+            this.context.moveTo(x2, y2);
+            this.context.lineTo(x2, StartY);
+            this.context.stroke();
+
+            this.context.lineTo(x1, StartY);
+            this.context.stroke();
+
+            this.context.lineTo(x1, y1);
+            this.context.stroke();
+
+
+            for (let index = 1; index < areaItems.length; index++) {
+              const _popup = areaItems[index];
+              this.context.lineTo(_popup.x1, _popup.y1);
+            }
+
+            this.context.fill();
+            this.context.restore();      
+            this.context.closePath();      
+          }            
 
         }
 
@@ -408,6 +505,20 @@ export class RScatterChartComponent implements AfterViewInit {
 
       this.IsRendered = true;
       this.cdr.detectChanges();
+    }
+  }
+
+  private PlotLine(xPoint: number, yPoint: number, prevX: number, prevY: number, color: string){
+    if(this.context){
+      this.context.beginPath();
+      this.context.save();
+      this.context.lineWidth = 0.5;
+      this.context.strokeStyle = color;
+      this.context.moveTo(prevX, prevY);
+      this.context.lineTo(xPoint, yPoint);
+      this.context.stroke();
+      this.context.restore();
+      this.context.closePath();
     }
   }
 
@@ -576,7 +687,7 @@ export class RScatterChartComponent implements AfterViewInit {
     })
   }
 
-  private IsScatterItemListEqual(a: ScatterChartItem[] | null | undefined, b: ScatterChartItem[] | null | undefined) {
+  private IsScatterItemListEqual(a: YSeriesChartItem[] | GraphSeriesChartItem[] | null | undefined, b: YSeriesChartItem[] | GraphSeriesChartItem[] |  null | undefined) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;
@@ -590,10 +701,10 @@ export class RScatterChartComponent implements AfterViewInit {
     for (let index = 0; index < a.length; index++) {
       let element1 = a[index];
       let element2 = b[index];
-
+      
       if (element1.ItemName != element2.ItemName || element1.ItemColor != element2.ItemColor ||
-        element1.Values.map(x => x.xPoint).toString() != element2.Values.map(x => x.xPoint).toString() ||
-        element1.Values.map(x => x.yPoint).toString() != element2.Values.map(x => x.yPoint).toString()
+        element1.Values.map(x => (x instanceof Graph) ? x.xPoint : x).toString() != element2.Values.map(x => x instanceof Graph ? x.xPoint : x).toString() ||
+        element1.Values.map(x => (x instanceof Graph) ? x.yPoint : x).toString() != element2.Values.map(x => x instanceof Graph ? x.yPoint : x).toString()
       ) {
         return false;
       }
@@ -601,5 +712,6 @@ export class RScatterChartComponent implements AfterViewInit {
 
     return true;
   }
+
 
 }

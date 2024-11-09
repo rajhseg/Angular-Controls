@@ -283,6 +283,8 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
 
+      this.context.clearRect(0, 0, this.Width, this.Height);
+      
       let spaceFromTopYAxis = 25;
 
       var valueList = [];

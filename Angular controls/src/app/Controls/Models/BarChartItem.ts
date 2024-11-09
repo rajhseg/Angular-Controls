@@ -45,6 +45,20 @@ export class ScatterChartItem {
     }
 }
 
+export class GraphSeriesChartItem {
+    constructor(public ItemName: string, public ItemColor: string, public Values: Graph[] = []) {
+
+    }
+}
+
+
+export class YSeriesChartItem {
+    constructor(public ItemName: string, public ItemColor: string, public Values: number[] = []) {
+
+    }
+}
+
+
 export class Graph {
     constructor(public xPoint: number, public yPoint: number) {
 

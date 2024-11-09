@@ -14,8 +14,32 @@
       <rfilter [ColumnName]="'Name'" [ItemValues]="numbers" [Align]="filterAlign" 
         [DataType]="filterDataType" (ApplyCallback)="filterApplied($event)"></rfilter>
     </div>
-
+    
     {{starValue}}  
+  
+  <rtimer style="margin-left:100px" [FlatStyleForeColor]="bColor" 
+          [DisplayTextForeColor]="bColor" [IsHidden]="true"
+          [CallbackAfterCertainSeconds]="1"
+          [DisplayType]="0"
+          (CallbackTriggeredAfterCertainSeconds)="realTimeCharts($event)"
+          [EnableShadowEffect]="false">    
+  </rtimer>
+
+    <rserieschart [XAxisTitle]="'Disk'" 
+      [YAxisTitle]="'Speed'" [FillAreaColor]="true"
+      [Width]="400" [Height]="400" 
+      [Items]="seriesModel2"></rserieschart>
+      
+    <rserieschart [XAxisTitle]="'Elements'" 
+      [YAxisTitle]="'Values'"
+      [Width]="400" [Height]="400" 
+      [Items]="seriesModel"></rserieschart>
+
+      <rserieschart [XAxisTitle]="'Elements'" 
+      [YAxisTitle]="'Values'"
+      [Width]="400" [Height]="400" 
+      [Items]="seriesModel1"></rserieschart>
+
 
     <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" Width="112px" DropDownContentWidth="122px">
     </rdropdown>

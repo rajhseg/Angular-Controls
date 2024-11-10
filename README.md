@@ -9,7 +9,6 @@ Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterC
 
 
 <br />
-<br />
 
 button control
 --------------------------------------

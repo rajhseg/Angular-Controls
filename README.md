@@ -233,12 +233,12 @@ TimeSelector
 RGrid Control
 ------------------------------
 
-### ViewMode
+#### ViewMode
 
 ![image](https://github.com/user-attachments/assets/20e621ef-9491-44b3-a2f1-c9c88573b39b)
 
 
-### EditMode
+#### EditMode
 
 ![image](https://github.com/user-attachments/assets/82b9bfe6-0c96-4065-8e03-5a4e11a896ba)
 
@@ -373,6 +373,32 @@ RFilter
 ![image](https://github.com/user-attachments/assets/70f4fba1-9e1f-401d-a481-a9bdc0f029be)
 
 <br />
+
+
+RSeriesChart
+--------------------------------------
+
+#### YSeriesChart
+
+![image](https://github.com/user-attachments/assets/d4ff94ad-3303-4c58-9e2e-ff7e1035a68e)
+
+![image](https://github.com/user-attachments/assets/1991fb09-1b33-4f59-8c18-ac300af2d753)
+
+<br />
+
+#### GraphSeriesChart
+
+![image](https://github.com/user-attachments/assets/70cc94eb-0e1a-4ee2-8afe-575199c19516)
+
+
+<br/>
+
+
+
+
+
+
+
 
 
 

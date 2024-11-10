@@ -169,6 +169,9 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
   selectSingleValue($event: Event, selValue: DropDownItemModel) {
 
+    $event.stopPropagation();
+    $event.preventDefault();
+
     this.ComplexItems.forEach(x => x.IsSelected = false);
 
     this.SelectedIndex = this.ComplexItems.findIndex((x) => this.ObjEquals(x, selValue));
@@ -240,12 +243,18 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   }
 
   checkValue($event: CheckboxEventArgs, value: DropDownItemModel) {
+    $event.event?.stopPropagation();
+    $event.event?.preventDefault();
+
     this.AssignItems(value, $event.isChecked);
     this.loadSelectedItems();
     this.NotifyToModel();
   }
 
   selectall($event: CheckboxEventArgs) {
+    $event.event?.stopPropagation();
+    $event.event?.preventDefault();
+
     this.ComplexItems.forEach(x => {
       this.AssignItems(x, $event.isChecked);
     });
@@ -378,6 +387,9 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   }
 
   openDropdown(evt: Event) {
+    
+    evt.stopPropagation();
+    evt.preventDefault();
 
     // this.popupService.CloseAllPopupsOnOpen(this);
     var currentValueToSet = !this.IsDropDownOpen;

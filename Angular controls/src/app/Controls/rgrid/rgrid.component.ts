@@ -9,7 +9,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { WindowHelper } from '../windowObject';
-import { RFilterComponent } from '../rfilter/rfilter.component';
+import { RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
 
 @Component({
   selector: 'rgrid',
@@ -548,6 +548,59 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     } else {
       this.filterPerPage();
     }
+  }
+
+  GetDataType(header : RGridHeader){
+
+    if(this.Items.length > 0){
+      let val = this.Items[0][header.PropToBind];
+      let ty = typeof(val);
+
+      if(ty=='number'){
+        return RFilterDataType.NumberType;
+      }
+      else if(ty == 'string'){
+        return RFilterDataType.StringType;
+      } else if(ty=='object'){
+        if(val instanceof Date){
+          return RFilterDataType.DateType;
+        }
+      }
+    }
+
+    return RFilterDataType.StringType;
+  }
+
+  GetUniqueValues(header: RGridHeader): DropdownModel[] {
+    let values: any[] = [];
+    let dValues: DropdownModel[] = [];
+
+    if(this.Items.length > 0){
+      for (let index = 0; index < this.Items.length; index++) {
+        const element = this.Items[index];
+        let val = element[header.PropToBind];
+        
+        if(values.find(x=>x==val) == undefined) {
+          if(this.GetDataType(header) == RFilterDataType.NumberType) {
+            values.push(Number.parseInt(val));            
+          } else {
+            values.push(val);            
+          }
+        }        
+      }
+    }
+
+    if(this.GetDataType(header) == RFilterDataType.NumberType)
+      values = values.sort((a,b)=> a - b);
+    else
+      values = values.sort();
+
+      for (let index = 0; index < values.length; index++) {
+        const element = values[index];
+        dValues.push(new DropdownModel(element, element));
+      }
+
+      return dValues;
   }
 
   adjustPageValue() {

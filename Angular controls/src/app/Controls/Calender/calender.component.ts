@@ -379,10 +379,16 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   // }
 
   openCalenderFromInput($evt: Event) {
+    $evt.stopPropagation();
+    $evt.preventDefault();
+
     this.openCalender($evt, true);
   }
 
   openCalender($evt: Event, isopenFromInput: boolean = false) {
+
+    $evt.stopPropagation();
+    $evt.preventDefault();
 
     this.IsChildOfAnotherControlClicked = false;
 
@@ -453,6 +459,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
   addPrevYears($evt: Event) {
+    $evt.preventDefault();
+    $evt.stopPropagation();
+
     if (this.totalYears.length > 0) {
       let value = this.totalYears[0].Value;
       for (let i: number = value - 1; i >= (value - 20); i--) {
@@ -462,6 +471,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
   addNextYears($evt: Event) {
+    $evt.preventDefault();
+    $evt.stopPropagation();
+    
     if (this.totalYears.length > 0) {
       let value = this.totalYears[this.totalYears.length - 1].Value;
       for (let i: number = value + 1; i <= (value + 20); i++) {
@@ -483,7 +495,10 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     }
   }
 
-  selectDate(day: Day) {
+  selectDate($evt: Event, day: Day) {
+
+    $evt.stopPropagation();
+    $evt.preventDefault();
 
     if (this.IsChildOfAnotherControl) {
       this.IsChildOfAnotherControlClicked = true;
@@ -528,7 +543,10 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     this.IsCalenderOpen = false;
   }
 
-  previousMonth() {
+  previousMonth($evt: Event) {
+
+    $evt.preventDefault();
+    $evt.stopPropagation();
 
     if (this.year) {
       if (this.month.Value == 0) {
@@ -544,7 +562,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     }
   }
 
-  nextMonth() {
+  nextMonth($evt: Event) {
+    $evt.stopPropagation();
+    $evt.preventDefault();
 
     if (this.year) {
       if (this.month.Value == 11) {

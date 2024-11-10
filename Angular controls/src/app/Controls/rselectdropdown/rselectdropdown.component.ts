@@ -180,6 +180,9 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
 
   selectSingleValue($event: Event, selValue: RSelectItemModel) {
 
+    $event.preventDefault();
+    $event.stopPropagation();
+
     this.ComplexItems.forEach(x => x.IsSelected = false);
 
     this.SelectedIndex = this.ComplexItems.findIndex((x) => this.ObjEquals(x, selValue));
@@ -251,17 +254,26 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   }
 
   checkValue($event: CheckboxEventArgs, value: RSelectItemModel) {
+    $event.event?.preventDefault();
+    $event.event?.stopPropagation();
+
     this.AssignItems(value, $event.isChecked);
     this.loadSelectedItems();
     this.NotifyToModel();    
   }
 
   selectallFromSpan($event: Event){
+    $event.stopPropagation();
+    $event.preventDefault();
+
     this.isSelectAllChecked = !this.isSelectAllChecked;
     this.selectall({event: $event, isChecked : this.isSelectAllChecked});
   }
 
   selectall($event: CheckboxEventArgs) {
+    $event.event?.stopPropagation();
+    $event.event?.preventDefault();
+
     this.ComplexItems.forEach(x => {
       this.AssignItems(x, this.isSelectAllChecked);
     });
@@ -340,7 +352,10 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     this.IsDropDownOpen = false;
   }
 
-  windowOnClick($event: Event) {        
+  windowOnClick($event: Event) {   
+    $event.preventDefault();
+    $event.stopPropagation();
+         
     let i =15;
     let element = $event.srcElement;
     let sameelementClicked: boolean = false;
@@ -363,7 +378,10 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
         this.IsDropDownOpen = false;
   }
 
-  openDropdown(evt: Event) {  
+  openDropdown(evt: Event) {
+    evt.stopPropagation();
+    evt.preventDefault();
+      
     var currentValueToSet = !this.IsDropDownOpen;
     if (currentValueToSet) {
 

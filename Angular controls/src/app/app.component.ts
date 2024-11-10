@@ -194,7 +194,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   showVerticalItems: boolean = false;
 
-  numbers: string[] = ["1","2","3","4","5"];
+  numbers: DropdownModel[] = [];
   filterAlign: RFilterAlign = RFilterAlign.Right;
   filterDataType: RFilterDataType = RFilterDataType.NumberType;
 

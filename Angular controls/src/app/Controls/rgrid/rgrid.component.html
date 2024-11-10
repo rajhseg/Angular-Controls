@@ -20,18 +20,21 @@
                         'height':'20px'} " class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
                         (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
-                        (click)="sortColumn(header)" *ngFor="let header of Headers">
+                        *ngFor="let header of Headers">
 
                         <span style="float: left;">
                             {{header.HeaderText}}
-                        </span>
-                        
-                        <!-- <rfilter [Color]="'white'"></rfilter> -->
+                        </span>                                                
 
-                        <span *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
-                        <span *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
-                        <span *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt"></span>
+                        <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
+                        <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
+                        <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
                         
+                        <!-- <rfilter 
+                            [ItemValues]="GetUniqueValues(header)"
+                            [ColumnName]="header.ColumnName" 
+                            [DataType]="GetDataType(header)"
+                            style="float: left;" [Color]="'white'"></rfilter> -->
 
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
@@ -41,23 +44,26 @@
                 </ng-container>
 
                 <ng-container *ngIf="ColumnsNotDefined">
-                    <td style="cursor: pointer;min-width: 85px;min-height: 40px;"
+                    <td style="cursor: pointer;min-width: 115px;min-height: 40px;"
                         [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}" class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
                         (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
-                        (click)="sortColumn(header)" *ngFor="let header of Headers">
+                         *ngFor="let header of Headers">
 
 
                         <span style="float: left;">
                             {{header.HeaderText}}
                         </span>
-
-                        <!-- <rfilter [Color]="'white'"></rfilter> -->
-
-                        <span *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
-                        <span *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
-                        <span *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt"></span>
                         
+                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
+                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
+                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
+                        
+                        <!-- <rfilter style="float: left;" 
+                            [ColumnName]="header.ColumnName" 
+                            [DataType]="GetDataType(header)"
+                            [ItemValues]="GetUniqueValues(header)"
+                            [Color]="'white'"></rfilter> -->
                         
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
@@ -217,7 +223,7 @@
 </div>
 
 <ng-template #viewmode let-cell="CellInfo">
-    <div [ngStyle]="{'width': EditModeEnabled ? '84px' : '85px'}">{{cell.Value}}</div>
+    <div [ngStyle]="{'width': EditModeEnabled ? '84px' : '115px'}">{{cell.Value}}</div>
 </ng-template>
 
 <ng-template #editmode let-cell="CellInfo">

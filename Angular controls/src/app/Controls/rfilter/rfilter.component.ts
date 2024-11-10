@@ -55,7 +55,7 @@ export class RFilterComponent {
   EnableShadowOnDropdown: boolean = true;
 
   @Input()
-  ItemValues: string[] = [];
+  ItemValues: DropdownModel[] = [];
 
   @Input()
   ColumnName: string = '';
@@ -77,7 +77,7 @@ export class RFilterComponent {
     this.Id = windowHelper.GenerateUniqueId();   
   }
 
-  FilterToggle(evt: Event){
+  FilterToggle(evt: Event){    
     evt.stopPropagation();
     evt.preventDefault();
     
@@ -87,7 +87,10 @@ export class RFilterComponent {
   @Output()
   ApplyCallback = new EventEmitter<RFilterApplyModel>();
 
-  Clear(){
+  Clear($evt: Event){
+    $evt.stopPropagation();
+    $evt.preventDefault();
+
     this.ContainsList = undefined;
     this.LessThanNumber = undefined;
     this.LessThanDate = undefined;
@@ -96,7 +99,10 @@ export class RFilterComponent {
     this.IsFilteredApplied = false;
   }
 
-  Apply(){
+  Apply($evt: Event){
+    $evt.stopPropagation();
+    $evt.preventDefault();
+    
     this.IsFilteredApplied = true;  
     let lesser = this.DataType == RFilterDataType.NumberType ? this.LessThanNumber : this.LessThanDate;
     let greater = this.DataType == RFilterDataType.NumberType ? this.GreaterThanNumber : this.GreaterThanDate;

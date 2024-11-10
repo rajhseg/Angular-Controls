@@ -336,7 +336,9 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
 
 
 
-  toggle($event: any) {
+  toggle($event: Event) {
+    $event.stopPropagation();
+    $event.preventDefault();
     this.IsColorPickerOpen = !this.IsColorPickerOpen;
   }
 

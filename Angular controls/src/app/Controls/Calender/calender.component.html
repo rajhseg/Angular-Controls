@@ -14,7 +14,7 @@
     <div class="calender" #calmodal *ngIf="IsCalenderOpen">
         <div class="week">
             <div>
-                <a (click)="previousMonth()" class="atag previous around">&#8249;</a>
+                <a (click)="previousMonth($event)" class="atag previous around">&#8249;</a>
             </div>
 
             <div class="mnyr">
@@ -38,7 +38,7 @@
             </div>
 
             <div>
-                <a (click)="nextMonth()" class="atag next around">&#8250;</a>
+                <a (click)="nextMonth($event)" class="atag next around">&#8250;</a>
             </div>
         </div>
         <div class="week">
@@ -51,7 +51,7 @@
             <div class="day dayheader">Sat</div>
         </div>
         <div class="week" *ngFor="let week of currentMonth?.weeks">
-            <div (click)="selectDate(day)" class="day" *ngFor="let day of week.days"
+            <div (click)="selectDate($event, day)" class="day" *ngFor="let day of week.days"
                 [ngClass]="{ 'notCurrentMonth': !day.isActiveMonth}">
                 <div [ngClass]="{'selday':day.isSelected, 'notactive': !day.isActiveMonth}"
                     [ngStyle]="{'backgroundColor': day.isSelected ? SelectedItemBackGroundColor : ''}">

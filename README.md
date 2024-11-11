@@ -17,8 +17,6 @@ button control
 
 
 <br />
-<br />
-
 
 Textbox Control
 --------------------------------

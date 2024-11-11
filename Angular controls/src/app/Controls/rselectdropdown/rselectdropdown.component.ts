@@ -379,9 +379,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   }
 
   openDropdown(evt: Event) {
-    evt.stopPropagation();
-    evt.preventDefault();
-      
+    
     var currentValueToSet = !this.IsDropDownOpen;
     if (currentValueToSet) {
 

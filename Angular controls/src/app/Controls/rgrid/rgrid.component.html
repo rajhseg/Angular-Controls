@@ -30,11 +30,12 @@
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
                         
-                        <!-- <rfilter 
-                            [ItemValues]="GetUniqueValues(header)"
+                        <rfilter 
+                            [ItemValues]="ColValues"
                             [ColumnName]="header.ColumnName" 
                             [DataType]="GetDataType(header)"
-                            style="float: left;" [Color]="'white'"></rfilter> -->
+                            style="float: left;" [Color]="'white'">
+                        </rfilter> 
 
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
@@ -59,11 +60,12 @@
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
                         
-                        <!-- <rfilter style="float: left;" 
+                        <rfilter style="float: left;" 
                             [ColumnName]="header.ColumnName" 
                             [DataType]="GetDataType(header)"
-                            [ItemValues]="GetUniqueValues(header)"
-                            [Color]="'white'"></rfilter> -->
+                            [ItemValues]="ColValues"
+                            [Color]="'white'">
+                        </rfilter> 
                         
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}

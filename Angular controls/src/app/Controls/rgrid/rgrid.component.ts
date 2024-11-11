@@ -34,6 +34,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   private _items: any[] = [];
 
+  public ColValues: DropdownModel[] = [];
+
   private indxKey: string = "rgrid_index";
 
   Headers: RGridHeader[] = [];
@@ -122,6 +124,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
     this.PageItems = ditems;
     this.ItemsPerPage = new DropdownModel(10, "10");
+
+    this.ColValues.push(new DropdownModel(1,"1"));
+    this.ColValues.push(new DropdownModel(2,"2"));
+    this.ColValues.push(new DropdownModel(3,"3"));
+    this.ColValues.push(new DropdownModel(4,"4"));
+    this.ColValues.push(new DropdownModel(5,"5"));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

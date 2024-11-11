@@ -33,8 +33,10 @@
 
                 <span [ngStyle]="{'color': TextColor}">Contains</span>
                                             
-                <div style="margin-top: 5px; margin-bottom: 15px;" >
+                <div style="margin-top: 5px; margin-bottom: 15px;font-size: 16px;" 
+                        [ngStyle]="{ 'color': ForeColor}">
                     <rselectdropdown [Items]="ItemValues" [IsMulti]="true" 
+                                 [ForeColor]="'gray'"
                                  [Width]="165" [(ngModel)]="ContainsList"
                                  [DropDownContentWidth]="165">
                     </rselectdropdown>                

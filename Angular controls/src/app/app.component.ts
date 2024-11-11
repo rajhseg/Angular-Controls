@@ -300,6 +300,15 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createScatterChart();
       this.createLineChart();
       this.createSeriesChart();
+      this.populateFilters();
+  }
+
+  populateFilters(){
+    this.numbers.push(new DropdownModel("1","1"));
+    this.numbers.push(new DropdownModel("2","2"));
+    this.numbers.push(new DropdownModel("3","3"));
+    this.numbers.push(new DropdownModel("4","4"));
+    this.numbers.push(new DropdownModel("5","5"));
   }
 
   createSeriesChart(){

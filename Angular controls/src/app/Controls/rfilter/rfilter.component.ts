@@ -77,10 +77,7 @@ export class RFilterComponent {
     this.Id = windowHelper.GenerateUniqueId();   
   }
 
-  FilterToggle(evt: Event){    
-    evt.stopPropagation();
-    evt.preventDefault();
-    
+  FilterToggle(evt: Event){        
     this.IsFilterOpen = !this.IsFilterOpen;
   }
 

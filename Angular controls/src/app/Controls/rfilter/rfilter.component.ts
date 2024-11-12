@@ -1,12 +1,12 @@
 import { NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RNumericComponent } from "../rnumeric/rnumeric.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { CalenderComponent } from "../Calender/calender.component";
 import { WindowHelper } from '../windowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../dropdown/dropdownmodel';
 
 @Component({
@@ -19,9 +19,16 @@ import { DropdownModel } from '../dropdown/dropdownmodel';
   styleUrl: './rfilter.component.css',
   host: {
     "(window:click)": "windowOnClick($event)"
-  }
+  },
+  providers:[
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(()=> RFilterComponent),
+      multi: true
+    }
+  ]
 })
-export class RFilterComponent {
+export class RFilterComponent implements ControlValueAccessor {
 
   @Input()
   DataType: RFilterDataType = RFilterDataType.StringType;
@@ -58,6 +65,43 @@ export class RFilterComponent {
   ItemValues: DropdownModel[] = [];
 
   @Input()
+  public set ItemModel(value: any) {
+
+    if(value==undefined || value==null)
+      return;
+
+    let values: any[] = [];
+    let dValues: DropdownModel[] = [];
+
+    if(value.length > 0){
+      for (let index = 0; index < value.length; index++) {
+        const element = value[index];
+        let val = element[this.ColumnName];
+        
+        if(values.find(x=>x==val) == undefined) {
+          if(this.DataType == RFilterDataType.NumberType) {
+            values.push(Number.parseInt(val));            
+          } else {
+            values.push(val);            
+          }
+        }        
+      }
+    }
+
+    if(this.DataType == RFilterDataType.NumberType)
+      values = values.sort((a,b)=> a - b);
+    else
+      values = values.sort();
+
+      for (let index = 0; index < values.length; index++) {
+        const element = values[index];
+        dValues.push(new DropdownModel(element, element));
+      }
+
+     this.ItemValues = dValues;
+  }
+
+  @Input()
   ColumnName: string = '';
   
   @Input()
@@ -73,8 +117,49 @@ export class RFilterComponent {
 
   @ViewChild('myDropdown', { read: ElementRef}) mydropDown!: ElementRef;
 
+  onChanged = (obj: RFilterApplyModel)=>{};
+  onTouched = (obj: RFilterApplyModel)=> {};
+
+  @Output()
+  valueChanged = new EventEmitter<RFilterApplyModel>();
+
+
   constructor(private windowHelper: WindowHelper){
     this.Id = windowHelper.GenerateUniqueId();   
+  }
+
+  writeValue(obj: RFilterApplyModel): void {
+    if(obj != undefined && obj != null){
+      this.ContainsList = obj.Contains;
+      this.ColumnName = obj.ColumnName;
+      this.DataType = obj.Type;
+
+      if(this.DataType == RFilterDataType.DateType) {
+        this.GreaterThanDate = obj.GreaterThan as string;
+        this.LessThanDate = obj.LesserThan as string;
+      }
+
+      if(this.DataType == RFilterDataType.NumberType){
+        this.GreaterThanNumber = obj.GreaterThan as number;
+        this.LessThanNumber = obj.LesserThan as number;
+      }
+
+      this.IsFilteredApplied = obj.IsFiltered;
+    }
+
+    this.valueChanged.emit(obj);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChanged = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    
   }
 
   FilterToggle(evt: Event){        
@@ -94,6 +179,15 @@ export class RFilterComponent {
     this.GreaterThanNumber = undefined;
     this.GreaterThanDate = undefined;
     this.IsFilteredApplied = false;
+
+    let model = new RFilterApplyModel(true, false, this.ColumnName, this.DataType, this.ContainsList, undefined, undefined);
+    this.ApplyCallback.emit(model);  
+    
+    this.onChanged(model);
+    this.onTouched(model);
+    this.valueChanged.emit(model);
+
+    this.IsFilterOpen = false;
   }
 
   Apply($evt: Event){
@@ -104,8 +198,14 @@ export class RFilterComponent {
     let lesser = this.DataType == RFilterDataType.NumberType ? this.LessThanNumber : this.LessThanDate;
     let greater = this.DataType == RFilterDataType.NumberType ? this.GreaterThanNumber : this.GreaterThanDate;
 
-    let model = new RFilterApplyModel(this.ColumnName, this.DataType, this.ContainsList, lesser, greater);
+    let model = new RFilterApplyModel(false, true, this.ColumnName, this.DataType, this.ContainsList, lesser, greater);
     this.ApplyCallback.emit(model);  
+
+    this.onChanged(model);
+    this.onTouched(model);
+    this.valueChanged.emit(model);
+    
+    this.IsFilterOpen = false;
   }
   
   windowOnClick($event: Event) {        
@@ -142,6 +242,8 @@ export enum RFilterDataType {
 
 export class RFilterApplyModel {
   constructor(
+    public IsCleared: boolean,
+    public IsFiltered: boolean,
     public ColumnName: string, 
     public Type: RFilterDataType, 
     public Contains: DropdownModel[] |undefined,

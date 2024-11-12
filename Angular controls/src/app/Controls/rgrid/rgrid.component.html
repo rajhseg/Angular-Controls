@@ -30,12 +30,14 @@
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
                         
-                        <rfilter 
-                            [ItemValues]="ColValues"
+                        <!-- <rfilter 
+                            [ItemModel]="BackupItems"
                             [ColumnName]="header.ColumnName" 
                             [DataType]="GetDataType(header)"
+                            (ApplyCallback)="ApplyFilter($event)"
+                            [(ngModel)]="filterModel[header.ColumnName]"
                             style="float: left;" [Color]="'white'">
-                        </rfilter> 
+                        </rfilter>  -->
 
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
@@ -59,13 +61,16 @@
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
-                        
+                    
+                        <!--                         
                         <rfilter style="float: left;" 
                             [ColumnName]="header.ColumnName" 
                             [DataType]="GetDataType(header)"
-                            [ItemValues]="ColValues"
+                            [ItemModel]="BackupItems"
+                            (ApplyCallback)="ApplyFilter($event)"
+                            [(ngModel)]="filterModel[header.ColumnName]"
                             [Color]="'white'">
-                        </rfilter> 
+                        </rfilter>  -->
                         
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}

@@ -9,7 +9,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { WindowHelper } from '../windowObject';
-import { RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
+import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
 
 @Component({
   selector: 'rgrid',
@@ -46,7 +46,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   PageItems: DropdownModel[] = []
 
-  currentPage: number = 1;
+  currentPage: number = 1;  
 
   @Input()
   GroupByIconColor: string = "#00c7ba";
@@ -104,9 +104,24 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   onChanged: Function = () => { };
   onTouched: Function = () => { };
 
+  public BackupItems: any[] = [];
+  private IsFilteredApplied: boolean = false;
+  private IsUpdateFromFilter: boolean = false;
+  filterModel: any = {};
+
   @Input()
   public set Items(value: any[]) {
     this.RenderUI(value);
+    
+    if(!this.IsUpdateFromFilter)
+    {
+      if(value!= undefined && value!=null)
+        this.BackupItems = value.slice();
+      else
+        this.BackupItems = [];
+    }
+
+    this.IsUpdateFromFilter = false;
   }
   public get Items(): any[] {
     return this._items;
@@ -418,7 +433,11 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       if (this.Columns && this.Columns.length > 0) {
         this.ColumnsNotDefined = false;
           setTimeout(() => {
-            this.ExtractHeadersFromTemplate();
+
+            if(!this.IsFilteredApplied){
+              this.ExtractHeadersFromTemplate();
+            }
+
             this.DataItems = this.PopulateData();
             this.AssignEditRowWhenLoad();
             this.filterPerPage();
@@ -431,7 +450,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         if (this.ColumnsNotDefined) {
           setTimeout(()=>{
 
-            this.ExtractHeader();
+            if(!this.IsFilteredApplied) {
+              this.ExtractHeader();
+            }
+
             this.DataItems = this.PopulateDefaultData();
             this.AssignEditRowWhenLoad();
             this.filterPerPage();
@@ -609,6 +631,149 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       }
 
       return dValues;
+  }
+
+  ApplyFilter(filter: RFilterApplyModel) {
+        
+    this.IsUpdateFromFilter = true;
+
+    if(filter.IsCleared){
+
+      delete this.filterModel[filter.ColumnName];
+
+      if(Object.keys(this.filterModel).length == 0) {
+        this.IsFilteredApplied = false;      
+        this.Items = this.BackupItems.slice();
+        return;
+      } else {
+        this.ApplyFilterOnClear(); 
+        return;       
+      }      
+
+    } else{
+      if(!this.IsFilteredApplied){
+        this.IsFilteredApplied = true;        
+      }
+    }
+    
+    if(filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined)
+      return;
+
+    var filteredIndexes: number[] = [];
+    
+    /* apply filter */
+    for (let index = 0; index < this.Items.length; index++) {
+      const element = this.Items[index];
+      
+      let val = element[filter.ColumnName];
+
+      if(filter.Contains?.map(x=>x.Value).find(x=>x==val)!=undefined){
+        filteredIndexes.push(index);
+      }
+
+      if(filter.GreaterThan!=undefined && filter.LesserThan!=undefined
+        && val > filter.GreaterThan && val < filter.LesserThan)
+      {
+        if(filteredIndexes.find(x=>x==index)==undefined){
+          filteredIndexes.push(index);
+        }
+      }
+
+      
+      if(filter.GreaterThan!=undefined && filter.LesserThan==undefined
+        && val > filter.GreaterThan)
+      {
+        if(filteredIndexes.find(x=>x==index)==undefined){
+          filteredIndexes.push(index);
+        }
+      }
+
+      
+      if(filter.GreaterThan==undefined && filter.LesserThan!=undefined
+        && val < filter.LesserThan)
+      {
+        if(filteredIndexes.find(x=>x==index)==undefined){
+          filteredIndexes.push(index);
+        }
+      }
+
+    }
+
+    var filteredValues= [];
+
+    for (let index = 0; index < filteredIndexes.length; index++) {
+      const element = filteredIndexes[index];
+      let eachValue = this.Items[element];
+      filteredValues.push(eachValue);
+    }
+
+    this.Items = filteredValues.slice();    
+  }
+
+  ApplyFilterOnClear(){
+
+    let newIndexes = [];
+
+    var filteredIndexes: number[] = [];
+
+    for (let index = 0; index < this.BackupItems.length; index++) {
+      newIndexes.push(index);
+    }
+
+    /* apply filter */
+    let keys = Object.keys(this.filterModel);
+
+    for (let index = 0; index < keys.length; index++) {
+      const keyname = keys[index];
+      let filter = this.filterModel[keyname] as RFilterApplyModel;
+
+      filteredIndexes = newIndexes.slice();
+      newIndexes = [];
+
+      for (let index = 0; index < filteredIndexes.length; index++) {
+        const ind = filteredIndexes[index];
+
+        let val = this.BackupItems[ind][keyname];
+
+        if (filter.Contains?.map(x => x.Value).find(x => x == val) != undefined) {
+          newIndexes.push(index);
+        }
+
+        if (filter.GreaterThan != undefined && filter.LesserThan != undefined
+          && val > filter.GreaterThan && val < filter.LesserThan) {
+          if (newIndexes.find(x => x == index) == undefined) {
+            newIndexes.push(index);
+          }
+        }
+
+
+        if (filter.GreaterThan != undefined && filter.LesserThan == undefined
+          && val > filter.GreaterThan) {
+          if (newIndexes.find(x => x == index) == undefined) {
+            newIndexes.push(index);
+          }
+        }
+
+
+        if (filter.GreaterThan == undefined && filter.LesserThan != undefined
+          && val < filter.LesserThan) {
+          if (newIndexes.find(x => x == index) == undefined) {
+            newIndexes.push(index);
+          }
+        }
+
+      }
+    }
+
+    var filteredValues = [];
+
+    for (let index = 0; index < newIndexes.length; index++) {
+      const element = newIndexes[index];
+      let eachValue = this.BackupItems[element];
+      filteredValues.push(eachValue);
+    }
+
+    this.Items = filteredValues.slice();    
   }
 
   adjustPageValue() {

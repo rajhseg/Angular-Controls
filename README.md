@@ -31,7 +31,6 @@ PasswordBox Control
 ![image](https://github.com/user-attachments/assets/49175ae5-f6f7-4c3b-8b6d-ac82d268c914)
 
 <br />
-<br />
 
 
 group panel Control

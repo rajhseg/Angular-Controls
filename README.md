@@ -48,12 +48,14 @@ group panel Control
 
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/0e341bf3-7a02-4aa5-9ac0-f2ddf2092aac)
 
+
 <br />
 <br />
 
  Dropdown Control
 -------------------
 ![image](https://github.com/user-attachments/assets/27655d87-7699-455a-ac3e-f6696709c52a)
+
 
 <br />
 <br />

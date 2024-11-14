@@ -29,7 +29,8 @@
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
-                                                
+                                                                                                                              
+
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
                         </div>
@@ -53,7 +54,7 @@
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>                                            
 
-
+                        
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
                         </div>

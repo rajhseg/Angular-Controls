@@ -6,6 +6,8 @@
     <rtextbox [IsReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
         [BottomLineColor]="BottomLineColor" [LabelText]="''" 
         [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth"
+        (keypress)="keyPress($event)"
+        (paste)="onPaste($event)"
         [(ngModel)]="Value">
     </rtextbox>    
 

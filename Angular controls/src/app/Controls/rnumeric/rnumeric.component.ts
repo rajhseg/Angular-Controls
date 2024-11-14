@@ -105,4 +105,28 @@ export class RNumericComponent implements ControlValueAccessor {
     
   }
 
+  keyPress($event: KeyboardEvent){
+    let evt = $event || window.event;
+
+    var regex = /[0-9]|\./;
+    if(!regex.test($event.key)){
+      return false;
+    }
+
+    return true;
+  }
+
+  onPaste($event: ClipboardEvent){
+    let clip = $event.clipboardData;
+    let text = clip?.getData('text');
+    
+    if(text) {
+      var regex = /[0-9]|\./;
+      if(!regex.test(text)){
+        return false;
+      }
+    }
+    
+    return true;
+  }
 }

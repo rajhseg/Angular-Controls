@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgZone, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
@@ -127,7 +127,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     return this._items;
   }
 
-  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
+  constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
     let ditems: DropdownModel[] = [];
     ditems.push(new DropdownModel(5, "5"));
     ditems.push(new DropdownModel(10, "10"));
@@ -432,9 +432,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     if (this.winObj.isExecuteInBrowser()) {
       if (this.Columns && this.Columns.length > 0) {
         this.ColumnsNotDefined = false;
+
+        this.zone.run(() => {
+
           setTimeout(() => {
 
-            if(!this.IsFilteredApplied){
+            if (!this.IsFilteredApplied) {
               this.ExtractHeadersFromTemplate();
             }
 
@@ -445,25 +448,32 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
             this.sortData();
             this.cdr.detectChanges();
           }, 500);
-          this.cdr.detectChanges();
+
+        });        
+
       } else {
         this.ColumnsNotDefined = true;
         if (this.ColumnsNotDefined) {
-          setTimeout(()=>{
 
-            if(!this.IsFilteredApplied) {
-              this.ExtractHeader();
-            }
+          this.zone.run(() => {
 
-            this.DataItems = this.PopulateDefaultData();
-            this.AssignEditRowWhenLoad();
-            this.filterPerPage();
-            // this.createGroup();
-            this.sortData();
-            this.cdr.detectChanges();
+            setTimeout(() => {
 
-          }, 500); 
-          this.cdr.detectChanges();     
+              if (!this.IsFilteredApplied) {
+                this.ExtractHeader();
+              }
+
+              this.DataItems = this.PopulateDefaultData();
+              this.AssignEditRowWhenLoad();
+              this.filterPerPage();
+              // this.createGroup();
+              this.sortData();
+              this.cdr.detectChanges();
+
+            }, 500);
+
+          });
+
         }
       }
     }
@@ -667,13 +677,14 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       }
 
       if(!isanyFilter) {
-        this.IsFilteredApplied = false;      
-        this.Items = this.BackupItems.slice();
-        this.FirstPage();
+        this.IsFilteredApplied = false; 
+        this.Items = [];             
+        this.currentPage = 1;
+        this.Items = this.BackupItems.slice();                      
         return;
       } else {
-        this.ApplyFilterOnClick(); 
-        this.FirstPage();
+        this.currentPage = 1;
+        this.ApplyFilterOnClick();         
         return;       
       }      
 
@@ -686,8 +697,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     if(filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined)
       return;
 
-    this.ApplyFilterOnClick(); 
-    this.FirstPage();    
+    this.currentPage = 1;
+    this.ApplyFilterOnClick();     
   }
 
   ApplyFilterOnClick(){

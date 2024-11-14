@@ -15,7 +15,7 @@ button control
 
 ![image](https://github.com/user-attachments/assets/da97e34e-6d51-49a0-a2dd-537ed3a82b64)
 
-
+<br />
 <br />
 
 Textbox Control
@@ -23,6 +23,7 @@ Textbox Control
 
 ![image](https://github.com/user-attachments/assets/059f9e81-dd8f-47a0-875e-1eb4efc89e97)
 
+<br />
 <br />
 
 PasswordBox Control
@@ -32,7 +33,6 @@ PasswordBox Control
 
 <br />
 <br />
-
 
 group panel Control
 --------------------------------------
@@ -48,12 +48,14 @@ group panel Control
 
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/0e341bf3-7a02-4aa5-9ac0-f2ddf2092aac)
 
+
 <br />
 <br />
 
  Dropdown Control
 -------------------
 ![image](https://github.com/user-attachments/assets/27655d87-7699-455a-ac3e-f6696709c52a)
+
 
 <br />
 <br />

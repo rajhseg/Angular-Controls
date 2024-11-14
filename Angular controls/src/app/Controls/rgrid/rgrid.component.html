@@ -29,8 +29,7 @@
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
-                        
-
+                                                
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
                         </div>
@@ -52,9 +51,9 @@
                         
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
-                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
-                    
-                        
+                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>                                            
+
+
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
                         </div>
@@ -213,10 +212,10 @@
 </div>
 
 <ng-template #viewmode let-cell="CellInfo">
-    <div [ngStyle]="{'width': EditModeEnabled ? '84px' : '115px'}">{{cell.Value}}</div>
+    <div style="text-overflow: ellipsis; overflow: hidden;" [ngStyle]="{'width': EditModeEnabled ? '115px' : '115px'}">{{cell.Value}}</div>
 </ng-template>
 
 <ng-template #editmode let-cell="CellInfo">
-    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="69" [EnableMarginTextBottom]="false" [TextBoxHeight]="12" [(ngModel)]="cell.Value">
+    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="100.5" [EnableMarginTextBottom]="false" [TextBoxHeight]="12" [(ngModel)]="cell.Value">
     </rtextbox>
 </ng-template>

@@ -63,7 +63,7 @@
   
   <rstepper-vertical [VerticalItemStripLineColor]="bColor" [VerticalItemActiveBackColor]="bColor"
     [VerticalItemPendingBackColor]="tColor"
-   [ContentWidth]="800" [ContentHeight]="500"  (OnCompletedClick)="StepsCompleted($event)"
+   [ContentWidth]="1000" [ContentHeight]="540"  (OnCompletedClick)="StepsCompleted($event)"
    [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
 
     <rstep [Title]="'RDonutChart'" [IsStepValid]="true">
@@ -218,7 +218,8 @@
       </ng-template>
     </rstep>
 
-    <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
+    <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" 
+        [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 

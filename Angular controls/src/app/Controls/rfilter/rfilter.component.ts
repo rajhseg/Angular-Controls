@@ -80,9 +80,16 @@ export class RFilterComponent implements ControlValueAccessor {
         
         if(values.find(x=>x==val) == undefined) {
           if(this.DataType == RFilterDataType.NumberType) {
-            values.push(Number.parseInt(val));            
+            let num = Number.parseInt(val);
+            
+            if(values.find(x=>x==num)==undefined && num!=undefined)
+              values.push(num);            
+
           } else {
-            values.push(val);            
+            
+            if(values.find(x=>x.toString() == val.toString())==undefined && val!=undefined)
+              values.push(val);            
+
           }
         }        
       }
@@ -194,9 +201,37 @@ export class RFilterComponent implements ControlValueAccessor {
     $evt.stopPropagation();
     $evt.preventDefault();
     
-    this.IsFilteredApplied = true;  
-    let lesser = this.DataType == RFilterDataType.NumberType ? this.LessThanNumber : this.LessThanDate;
-    let greater = this.DataType == RFilterDataType.NumberType ? this.GreaterThanNumber : this.GreaterThanDate;
+    let isFloatLesser = false;
+    let isFloatGreater = false;
+
+    if(this.DataType == RFilterDataType.NumberType && this.LessThanNumber){
+      isFloatLesser = this.LessThanNumber?.toString().split(".").length > 1
+    }
+    
+    if(this.DataType == RFilterDataType.NumberType && this.GreaterThanNumber){
+      isFloatGreater = this.GreaterThanNumber?.toString().split(".").length > 1
+    }
+
+    
+    if(this.ContainsList == undefined && this.LessThanNumber == undefined && this.LessThanDate == undefined &&
+      this.GreaterThanNumber == undefined && this.GreaterThanDate == undefined) 
+    {
+      this.IsFilteredApplied == false;
+    }
+    else 
+    {
+      this.IsFilteredApplied = true;  
+    }
+
+    let lesser = this.DataType == RFilterDataType.NumberType ? 
+        this.LessThanNumber==undefined ? undefined : 
+            isFloatLesser ? parseFloat(this.LessThanNumber.toString()) 
+              : parseInt(this.LessThanNumber.toString()) : this.LessThanDate;
+
+    let greater = this.DataType == RFilterDataType.NumberType ? 
+    this.GreaterThanNumber == undefined ? undefined : 
+        isFloatGreater ? parseFloat(this.GreaterThanNumber.toString()) 
+              : parseInt(this.GreaterThanNumber.toString()) : this.GreaterThanDate;
 
     let model = new RFilterApplyModel(false, true, this.ColumnName, this.DataType, this.ContainsList, lesser, greater);
     this.ApplyCallback.emit(model);  

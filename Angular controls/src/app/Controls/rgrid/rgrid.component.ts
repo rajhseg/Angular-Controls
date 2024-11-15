@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { AsyncPipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgZone, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
@@ -27,7 +27,8 @@ import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => RGridComponent),
       multi: true
-    }
+    },
+    DatePipe
   ]
 })
 export class RGridComponent implements AfterContentInit, AfterViewInit, ControlValueAccessor, OnChanges {
@@ -74,6 +75,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   @Input()
   HeaderForeColor: string = "white";
+
+  @Input()
+  FilterDateFormat: string = 'MM-dd-yyyy';
+
 
   EditModeEnabled: boolean = false;
 
@@ -127,7 +132,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     return this._items;
   }
 
-  constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
+  constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: WindowHelper,
+    private datePipe: DatePipe
+  ) {
     let ditems: DropdownModel[] = [];
     ditems.push(new DropdownModel(5, "5"));
     ditems.push(new DropdownModel(10, "10"));
@@ -748,16 +755,25 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         
         if(filter.Type==RFilterDataType.DateType) {
 
-          if(filter.LesserThan!=undefined){        
-            let parts = filter.LesserThan.toString().split("-");
-            filterLesser = Date.parse(parts[1]+"-"+parts[0]+"-"+parts[2]);        
-            filterLesser = new Date(filterLesser);          
+          if(filter.LesserThan!=undefined){   
+            let nospaceObj = filter.LesserThan.toString().replace(/\s/g,'');
+            let nospaceFormat = this.FilterDateFormat.replace(/\s/g,'');
+         
+            let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+            
+            if(dstr)
+              filterLesser = new Date(Date.parse(dstr));                                  
           }
           
-          if(filter.GreaterThan!=undefined){        
-            let parts = filter.GreaterThan.toString().split("-");
-            filterGreater = Date.parse(parts[1]+"-"+parts[0]+"-"+parts[2]);      
-            filterGreater = new Date(filterGreater);          
+          if(filter.GreaterThan!=undefined){  
+            
+            let nospaceObj = filter.GreaterThan.toString().replace(/\s/g,'');
+            let nospaceFormat = this.FilterDateFormat.replace(/\s/g,'');
+         
+            let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+              
+            if(dstr)
+              filterGreater = new Date(Date.parse(dstr));                           
           }
 
         }

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
-import { NgFor, NgClass, CommonModule, NgIf, NgStyle } from '@angular/common';
+import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RDropdownComponent } from '../dropdown/dropdown.component';
 
@@ -14,7 +14,9 @@ import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 @Component({
   selector: 'rcalender',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, NgStyle, FormsModule,RTextboxComponent,ReactiveFormsModule, RDropdownComponent],
+  imports: [NgFor, NgIf, NgClass, 
+      NgStyle, FormsModule,RTextboxComponent,ReactiveFormsModule, 
+      RDropdownComponent],
   templateUrl: './calender.component.html',
   styleUrl: './calender.component.css',
   providers: [
@@ -22,7 +24,8 @@ import { RTextboxComponent } from '../rtextbox/rtextbox.component';
       provide: NG_VALUE_ACCESSOR,
       multi: true,
       useExisting: forwardRef(() => CalenderComponent)
-    }
+    },
+    DatePipe
   ],
   host: {
     "(window:click)": "windowOnClick($event)"
@@ -82,6 +85,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   @Input()
   Width: string = '170px';
+
+  @Input()
+  DateFormat: string = 'MM-dd-yyyy';
 
   @Input()
   Height: string = '15px';
@@ -174,7 +180,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
   constructor(private calService: CalenderService, private popupService: PopupService,
-    private windowHelper: WindowHelper) {
+    private windowHelper: WindowHelper, private datePipe: DatePipe) {
 
     if (this.windowHelper.isExecuteInBrowser()) {
       this.IsWindowsOs = navigator.platform == "Win32";
@@ -247,18 +253,15 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   RenderUI(obj: string | Date) {
     if (obj != undefined && obj != '') {
-      if (typeof (obj) === 'string' && obj.match(this.dateReg)) {
-        let dateParts = null;
+      if (typeof (obj) === 'string') {
+        
+        let nospaceObj = obj.replace(/\s/g,'');
+        let nospaceFormat = this.DateFormat.replace(/\s/g,'');
 
-        dateParts = obj.split('-');
-
-        if (dateParts.length == 0)
-          dateParts = obj.split('/');
-
-        if (dateParts.length == 0)
-          dateParts = obj.split('.');
-
-        this.selectedDate = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
+        let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+        if(dstr)
+          this.selectedDate = new Date(Date.parse(dstr));       
+        
       } else if (obj instanceof Date) {
         this.selectedDate = obj;
       } else {
@@ -703,17 +706,20 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
   getDateString(date: Date): string {
-    const today = date;
-    const yyyy = today.getFullYear();
-    let mm: any = today.getMonth() + 1;
-    let dd: any = today.getDate();
+    // const today = date;
+    // const yyyy = today.getFullYear();
+    // let mm: any = today.getMonth() + 1;
+    // let dd: any = today.getDate();
 
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
+    // if (dd < 10) dd = '0' + dd;
+    // if (mm < 10) mm = '0' + mm;
 
-    const formattedToday = dd + '-' + mm + '-' + yyyy;
+    // const formattedToday = dd + '-' + mm + '-' + yyyy;
 
-    return formattedToday;
+    // return formattedToday;
+
+    let formatDate = this.datePipe.transform(date, this.DateFormat);
+    return formatDate ?? '';
   }
 
   isDateEqual(a: Date, b: Date) {

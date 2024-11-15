@@ -53,7 +53,7 @@
                    style="left:13px"></rnumeric>
 
                 <rcalender *ngIf="DataType=='date'" 
-                    [(ngModel)]="LessThanDate"
+                    [(ngModel)]="LessThanDate" [DateFormat]="DateFormat"
                     style="position: relative; left: -12px;"></rcalender>
             </div>
 
@@ -67,7 +67,7 @@
                 </rnumeric>
 
                 <rcalender *ngIf="DataType =='date'"
-                    [(ngModel)]="GreaterThanDate" 
+                    [(ngModel)]="GreaterThanDate" [DateFormat]="DateFormat"
                     style="position: relative; left: -12px;"></rcalender>
             </div>
 

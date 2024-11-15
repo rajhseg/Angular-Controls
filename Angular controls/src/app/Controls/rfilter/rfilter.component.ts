@@ -1,4 +1,4 @@
-import { NgIf, NgStyle } from '@angular/common';
+import { DatePipe, NgIf, NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RNumericComponent } from "../rnumeric/rnumeric.component";
@@ -25,11 +25,15 @@ import { DropdownModel } from '../dropdown/dropdownmodel';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(()=> RFilterComponent),
       multi: true
-    }
+    },
+    DatePipe
   ]
 })
 export class RFilterComponent implements ControlValueAccessor {
 
+  @Input()
+  DateFormat: string = 'MM-dd-yyyy';
+  
   @Input()
   DataType: RFilterDataType = RFilterDataType.StringType;
 
@@ -85,6 +89,11 @@ export class RFilterComponent implements ControlValueAccessor {
             if(values.find(x=>x==num)==undefined && num!=undefined)
               values.push(num);            
 
+          } else if(this.DataType == RFilterDataType.DateType){
+                        
+            if(values.find(x=>x.toString() == val.toString())==undefined && val!=undefined)
+              values.push(val);            
+            
           } else {
             
             if(values.find(x=>x.toString() == val.toString())==undefined && val!=undefined)
@@ -131,7 +140,7 @@ export class RFilterComponent implements ControlValueAccessor {
   valueChanged = new EventEmitter<RFilterApplyModel>();
 
 
-  constructor(private windowHelper: WindowHelper){
+  constructor(private windowHelper: WindowHelper, private datePipe: DatePipe){
     this.Id = windowHelper.GenerateUniqueId();   
   }
 

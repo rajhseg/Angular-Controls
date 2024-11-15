@@ -42,9 +42,8 @@ group panel Control
 <br />
 <br />
 
-
- Calender Control
--------------------
+Calender Control
+-------------------------------
 
 ![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/0e341bf3-7a02-4aa5-9ac0-f2ddf2092aac)
 
@@ -62,12 +61,11 @@ group panel Control
 
 RSelectDropdown Control
 -------------------------------
-<br/>
 
 ![image](https://github.com/user-attachments/assets/c2a0fe58-eded-4e32-a83c-933076b4dce8)
 
 <br/>
-
+<br/>
 
 Tree Control
 --------------------------

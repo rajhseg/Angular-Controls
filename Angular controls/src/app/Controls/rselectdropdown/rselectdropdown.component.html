@@ -1,11 +1,13 @@
 <div #startElement [id]="Id" class="dropdown rselectdropdownWindowClose">
   <input (click)="openDropdown($event)" readonly class="inpdrop" type="text" [value]="SelectedDisplay"
+    style="padding-right: 20px;"
     [ngStyle]="{'width':Width + 'px' }">
   <button #openbtn (click)="openDropdown($event)" class="dropdownbtn">
     <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
   </button>
   <div *ngIf="IsDropDownOpen" #myDropdown id="myDropdown" (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)"
-    class="dropdown-content" style="background-color: white;" [ngStyle]="{'minWidth':DropDownContentWidth + 'px', 
+    class="dropdown-content" style="background-color: white; overflow-x: hidden;text-overflow: ellipsis;" 
+        [ngStyle]="{'maxWidth':DropDownContentWidth + 'px', 
           'visibility':IsDropDownOpen ? 'visible': 'collapse',
           'background-color': BackgroundColor,
           'color': ForeColor,
@@ -19,14 +21,16 @@
 
     <ng-content></ng-content>
 
-    <div *ngIf="IsMulti" style="cursor: pointer;">
+    <div *ngIf="IsMulti" style="cursor: pointer;overflow: hidden;text-overflow: ellipsis;" 
+          [ngStyle]="{'maxWidth': DropDownContentWidth + 'px' }">
+
       <div class="option-content" style="padding-left:6px;padding-top:6px;cursor: pointer;display: flex;">
         <rcheckbox style="width: auto;padding: 6px;" (OnClick)="selectall($event)" 
             [IsChecked]="isSelectAllChecked" [(ngModel)]="isSelectAllChecked"
             [DisplayText]="'' ">
         </rcheckbox>
         
-        <div (click)="selectallFromSpan($event)" style="padding-top: 12px;width: 100%;">
+        <div (click)="selectallFromSpan($event)" style="padding-top: 12px;width: 100%;text-align: left;">
           <span>Select All</span>          
         </div>
 
@@ -40,7 +44,7 @@
             [DisplayText]="''"></rcheckbox>
 
             <div (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)" 
-                style="display: flex;flex-direction: row;align-self: center;width: 100%;">
+                style="display: flex;flex-direction: row;align-self: center;width: 100%;text-align: left;">
 
                 <ng-container *ngIf="OptionsTemplate==undefined">
                   {{item.DisplayValue}}
@@ -59,10 +63,13 @@
       </div>
     </div>
 
-    <div *ngIf="!IsMulti">
+    <div *ngIf="!IsMulti" style="overflow: hidden;text-overflow: ellipsis;" 
+        [ngStyle]="{'maxWidth': DropDownContentWidth + 'px' }">
       <div class="option-content">
-        <div class="item" style="padding-top:8px; padding-bottom: 10px;" (click)="selectSingleValue($event, item)"
-          *ngFor="let item of ComplexItems | rfilter: SearchItem" [ngClass]="{'dropdown-content-selected': item.IsSelected}">
+        <div class="item" style="padding-top:8px; padding-bottom: 10px; text-align: left;" 
+          (click)="selectSingleValue($event, item)"
+          *ngFor="let item of ComplexItems | rfilter: SearchItem" 
+          [ngClass]="{'dropdown-content-selected': item.IsSelected}">
           
           <ng-container *ngIf="OptionsTemplate==undefined">
             {{item.DisplayValue}}

@@ -96,13 +96,13 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   SearchItem: string = "";
 
   @Input()
-  Width: string = '80px';
+  Width: number = 80;
 
   @Input()
-  DropDownContentWidth: string = '120px';
+  DropDownContentWidth: number = 120;
 
   @Input()
-  DropDownContentHeight: string = "200px";
+  DropDownContentHeight: number = 200;
 
   @Input()
   EnableShadowOnDropdown: boolean = true;
@@ -133,6 +133,10 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     return this._show;
   }
 
+
+  public get ContainerWidth(): number {
+    return this.getFilterBoxWidth(this.DropDownContentWidth +'px');
+  }
 
   SelectedItems: DropdownModel[] | string[] | number[] | any[] = [];
   SelectedIndexes: number[] = [];
@@ -251,6 +255,15 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     this.NotifyToModel();
   }
 
+  
+  selectallFromSpan($event: Event){
+    $event.stopPropagation();
+    $event.preventDefault();
+
+    this.isSelectAllChecked = !this.isSelectAllChecked;
+    this.selectall({event: $event, isChecked : this.isSelectAllChecked});
+  }
+  
   selectall($event: CheckboxEventArgs) {
     $event.event?.stopPropagation();
     $event.event?.preventDefault();

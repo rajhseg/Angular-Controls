@@ -73,10 +73,18 @@ export class RNumericComponent implements ControlValueAccessor {
   }
 
   public Dec(){
+    
+    if(this._value==undefined)
+      this._value = 0;
+
     this.Value = Number.parseInt(this._value.toString()) -1;
   }
 
   public Inc(){
+
+    if(this._value==undefined)
+      this._value = 0;
+
     this.Value = Number.parseInt(this._value.toString()) + 1;
   }
 

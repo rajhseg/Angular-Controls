@@ -611,7 +611,14 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     }
   }
 
-  GetDataType(header : RGridHeader){
+  GetDataType(header : RGridHeader, filter: any){
+
+    if(filter){
+      let g = filter as RFilterApplyModel;
+      if(g  && g.Type){
+        return g.Type;
+      }
+    }
 
     if(this.Items.length > 0){
       let val = this.Items[0][header.PropToBind];
@@ -642,7 +649,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         let val = element[header.PropToBind];
         
         if(values.find(x=>x==val) == undefined) {
-          if(this.GetDataType(header) == RFilterDataType.NumberType) {
+          if(this.GetDataType(header, this.filterModel[header.ColumnName]) == RFilterDataType.NumberType) {
             values.push(Number.parseInt(val));            
           } else {
             values.push(val);            
@@ -651,7 +658,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       }
     }
 
-    if(this.GetDataType(header) == RFilterDataType.NumberType)
+    if(this.GetDataType(header, this.filterModel[header.ColumnName]) == RFilterDataType.NumberType)
       values = values.sort((a,b)=> a - b);
     else
       values = values.sort();
@@ -778,7 +785,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
         }
 
-        if(filter.Contains==undefined && filter.LesserThan==undefined && filter.GreaterThan==undefined){
+        if(filter.Contains==undefined && (filter.LesserThan==undefined || filter.LesserThan=='') 
+            && (filter.GreaterThan==undefined || filter.GreaterThan=='') ){
           newIndexes = filteredIndexes.slice();
           continue;
         }

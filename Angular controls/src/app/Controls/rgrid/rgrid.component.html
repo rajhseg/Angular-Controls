@@ -1,9 +1,10 @@
-<div class="display: flex;" class="root" cdkDropListGroup>
+<div class="display: flex;" class="root" cdkDropListGroup *ngIf="Headers.length > 0">
     <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">
-        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" [ngStyle]="{ 'width': grpheader.Width,
-            'background-color':HeaderBackgroundColor, 'color': HeaderForeColor
-         }">
+        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" 
+            [ngStyle]="{ 'width': grpheader.Width,
+                'background-color':HeaderBackgroundColor, 'color': HeaderForeColor
+            }">
             {{grpheader.HeaderText}}
             <span (click)="removeFromGroup(grpheader)" [ngStyle]="{'color': HeaderForeColor}" class="rbtn">&#10006;</span>
         </div>
@@ -54,6 +55,7 @@
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>                                            
 
+                        
 
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
@@ -74,7 +76,8 @@
                 <tr *ngFor="let item of ShowItems.Rows">
                     
                     <ng-container *ngIf="!ColumnsNotDefined">
-                        <td *ngFor="let header of Headers" style="cursor: pointer;" [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
+                        <td *ngFor="let header of Headers" style="cursor: pointer;" 
+                            [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
                     'height': EditModeEnabled ? header.EditModeHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : ''}">
 
                             <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">

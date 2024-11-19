@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -50,7 +50,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   set Value(val: string) {
     if (this._value != val) {
       this.IsValueChanged = true;
-      this._value = val;
+      this._value = val;           
     }
   }
   get Value(): string {
@@ -180,7 +180,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
   constructor(private calService: CalenderService, private popupService: PopupService,
-    private windowHelper: WindowHelper, private datePipe: DatePipe) {
+    private windowHelper: WindowHelper, private datePipe: DatePipe, private cdr: ChangeDetectorRef) {
 
     if (this.windowHelper.isExecuteInBrowser()) {
       this.IsWindowsOs = navigator.platform == "Win32";
@@ -251,53 +251,105 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   }
 
-  RenderUI(obj: string | Date) {
-    if (obj != undefined && obj != '') {
-      if (typeof (obj) === 'string') {
-        
-        let nospaceObj = obj.replace(/\s/g,'');
-        let nospaceFormat = this.DateFormat.replace(/\s/g,'');
+  OnBlur($event: any){
+    if(this.selectedDate!=undefined && this.selectedDate!=null && this.Value.trim() !=''){
 
+      let nospaceObj = this.Value.replace(/\s/g, '');
+      let nospaceFormat = this.DateFormat.replace(/\s/g, '');
+      
+      if(nospaceObj.length == nospaceFormat.length) {
         let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
-        if(dstr)
-          this.selectedDate = new Date(Date.parse(dstr));       
-        
-      } else if (obj instanceof Date) {
-        this.selectedDate = obj;
+      
+        if (dstr)
+          this.selectedDate = new Date(Date.parse(dstr));
+      }
+      
+      this.SetDate(this.selectedDate);
+      this.cdr.detectChanges();
+    } else {
+      if(this.Value.trim()==''){
+        this.clearDate();
+      }
+    }
+  }
+
+  RenderUI(obj: string | Date) {
+    try {
+      if (obj != undefined && obj != '') {
+        if (typeof (obj) === 'string') {
+
+          let nospaceObj = obj.replace(/\s/g, '');
+          let nospaceFormat = this.DateFormat.replace(/\s/g, '');
+          
+          if(nospaceObj.length == nospaceFormat.length) {
+            let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+          
+            if (dstr)
+              this.selectedDate = new Date(Date.parse(dstr));
+          } 
+
+        } else if (obj instanceof Date) {
+          this.selectedDate = obj;
+        } else {
+          this.selectedDate = null;
+        }
       } else {
         this.selectedDate = null;
       }
-    } else {
-      this.selectedDate = null;
+
+      if (this.selectedDate != null) {
+        let _yr = this.selectedDate.getFullYear();
+
+        if (this.totalYears.findIndex(x => x.Value == _yr) != -1)
+          this.loadYears(_yr);
+
+        this.year = this.totalYears.find(x => x.Value == _yr);
+
+
+        let _mth = this.selectedDate.getMonth();
+        this.month = this.monthNames[_mth];
+
+        this.LoadMonth(this.selectedDate, true);
+
+      } else {
+        let _yr = new Date().getFullYear();
+
+        if (this.totalYears.findIndex(x => x.Value == _yr) != -1)
+          this.loadYears(_yr);
+
+        this.year = this.totalYears.find(x => x.Value == _yr);
+
+        let _mth = new Date().getMonth();
+        this.month = this.monthNames[_mth];
+
+        this.LoadMonth(new Date(), false);
+      }
+
+      if (this.selectedDate == undefined || this.selectedDate == null) {
+        this.clearDate();
+      }
+    } catch (error) {
+      this.clearDate();
+    }
+  }
+
+  clearDate(){
+    this.selectedDate = null;  
+    this.Value = '';            
+    this.onChange(this._value);
+    this.onTouch(this._value);
+    this.onDateSelected.emit(undefined);  
+
+    if(this.currentMonth) {
+      for (let index = 0; index < this.currentMonth.weeks.length; index++) {
+        const _vk = this.currentMonth.weeks[index];
+        for (let _vkindex = 0; _vkindex < _vk.days.length; _vkindex++) {
+          const element = _vk.days[_vkindex];
+          element.isSelected = false;
+        }
+      }
     }
 
-    if (this.selectedDate != null) {
-      let _yr = this.selectedDate.getFullYear();
-
-      if (this.totalYears.findIndex(x => x.Value == _yr) != -1)
-        this.loadYears(_yr);
-
-      this.year = this.totalYears.find(x => x.Value == _yr);
-
-
-      let _mth = this.selectedDate.getMonth();
-      this.month = this.monthNames[_mth];
-
-      this.LoadMonth(this.selectedDate, true);
-
-    } else {
-      let _yr = new Date().getFullYear();
-
-      if (this.totalYears.findIndex(x => x.Value == _yr) != -1)
-        this.loadYears(_yr);
-
-      this.year = this.totalYears.find(x => x.Value == _yr);
-
-      let _mth = new Date().getMonth();
-      this.month = this.monthNames[_mth];
-
-      this.LoadMonth(new Date(), false);
-    }
   }
 
   writeValue(obj: string | Date): void {
@@ -521,6 +573,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
         day.isSelected = false;
         this.selectedDate = null;
         this.Value = '';
+        this.onChange(this.Value);
+        this.onTouch(this.Value);
+        this.onDateSelected.emit(undefined);
       }
     }
   }

@@ -34,8 +34,15 @@ export class RFilterComponent implements ControlValueAccessor {
   @Input()
   DateFormat: string = 'MM-dd-yyyy';
   
+  _dataType:RFilterDataType = RFilterDataType.StringType;
+
   @Input()
-  DataType: RFilterDataType = RFilterDataType.StringType;
+  public set DataType(value: RFilterDataType){
+    this._dataType = value;
+  }
+  public get DataType(): RFilterDataType {
+    return this._dataType;
+  }
 
   @Input()
   TextColor: string = 'gray';

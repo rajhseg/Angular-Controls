@@ -4,6 +4,7 @@
 
         <input [ngStyle]="{'height': Height, 'width': Width }"
             class="calendarinput" (click)="openCalenderFromInput($event)" type="text" 
+            (blur)="OnBlur($event)"           
             [(ngModel)]="Value" />
 
         <div class="calIconContainer" #openbtn (click)="openCalender($event)">

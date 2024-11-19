@@ -194,9 +194,10 @@
                             <div class="pageItem" (click)="FirstPage()">&#171;</div>
                             <div class="pageItem" (click)="PreviousPage()">&#8249;</div>
                             <div class="pageItemDropdown">
-                                <rdropdown [DropDownContentHeight]="100" [Items]="PageItems" 
-                                    [DropDownContentWidth]="90" [EnableFilterOption]="false"
-                                    (change)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage"></rdropdown>
+                                <rdropdown [DropDownContentHeight]="100" [Items]="PageItems"                                     
+                                     [EnableFilterOption]="false"
+                                    (change)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage">
+                                </rdropdown>
                             </div>
                             <div class="pageItem" (click)="NextPage()">&#8250;</div>
                             <div class="pageItem" (click)="LastPage()">&#187;</div>

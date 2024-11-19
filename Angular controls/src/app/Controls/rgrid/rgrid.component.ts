@@ -778,6 +778,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
         }
 
+        if(filter.Contains==undefined && filter.LesserThan==undefined && filter.GreaterThan==undefined){
+          newIndexes = filteredIndexes.slice();
+          continue;
+        }
 
         for (let index = 0; index < filteredIndexes.length; index++) {
           const ind = filteredIndexes[index];

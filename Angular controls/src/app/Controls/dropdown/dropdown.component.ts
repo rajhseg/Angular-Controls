@@ -98,8 +98,15 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   @Input()
   Width: number = 80;
 
+  dropDownContentWidth: number = 105;
+
   @Input()
-  DropDownContentWidth: number = 120;
+  public set DropDownContentWidth(value: number){
+    this.dropDownContentWidth = value;
+  }
+  public get DropDownContentWidth(): number {
+    return this.dropDownContentWidth;
+  }
 
   @Input()
   DropDownContentHeight: number = 200;

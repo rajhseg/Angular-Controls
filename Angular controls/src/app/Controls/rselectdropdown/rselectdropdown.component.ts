@@ -102,7 +102,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   Width: number = 80;
 
   @Input()
-  DropDownContentWidth: number = 120;
+  DropDownContentWidth: number = 105;
 
   @Output()
   change = new EventEmitter<any>(); 

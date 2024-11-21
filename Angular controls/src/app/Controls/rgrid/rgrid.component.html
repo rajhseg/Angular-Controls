@@ -30,8 +30,16 @@
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
-
                         
+                        <rfilter [DateFormat]="FilterDateFormat"
+                            [ItemModel]="BackupItems"
+                            [ColumnName]="header.ColumnName" 
+                            [DataType]="GetDataType(header, filterModel[header.ColumnName])"
+                            (ApplyCallback)="ApplyFilter($event)"
+                            [(ngModel)]="filterModel[header.ColumnName]"
+                            style="float: left;" [Color]="'white'">
+                        </rfilter> 
+
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}
                         </div>
@@ -54,8 +62,16 @@
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>                                            
-
                         
+                        <rfilter style="float: left;" 
+                            [DateFormat]="FilterDateFormat"
+                            [ColumnName]="header.ColumnName" 
+                            [DataType]="GetDataType(header, filterModel[header.ColumnName])"
+                            [ItemModel]="BackupItems"
+                            (ApplyCallback)="ApplyFilter($event)"
+                            [(ngModel)]="filterModel[header.ColumnName]"
+                            [Color]="'white'">
+                        </rfilter> 
 
                         <div *cdkDragPreview class="preview">
                             {{header.HeaderText}}

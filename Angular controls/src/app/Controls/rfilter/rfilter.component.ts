@@ -44,6 +44,8 @@ export class RFilterComponent implements ControlValueAccessor {
     return this._dataType;
   }
 
+  public dropdownMaxChars: number = 178;
+
   @Input()
   TextColor: string = 'gray';
 
@@ -72,8 +74,30 @@ export class RFilterComponent implements ControlValueAccessor {
   @Input()
   EnableShadowOnDropdown: boolean = true;
 
+  itemValues: DropdownModel[] = [];
+
   @Input()
-  ItemValues: DropdownModel[] = [];
+  public set ItemValues(val: DropdownModel[]){
+    this.itemValues = val;
+
+    let wth = 0;
+
+    for (let index = 0; index < val.length; index++) {
+      const element = val[index];
+      let len = element.DisplayValue.toString().length;
+      if (len > wth) {
+        wth = len;
+      }
+    }
+
+    if (this.dropdownMaxChars < wth * 10)
+      this.dropdownMaxChars = wth * 10;
+
+  }
+
+  public get ItemValues(): DropdownModel[] {
+    return this.itemValues;
+  }
 
   @Input()
   public set ItemModel(value: any) {
@@ -121,6 +145,19 @@ export class RFilterComponent implements ControlValueAccessor {
         dValues.push(new DropdownModel(element, element));
       }
 
+    let wth = 0;
+
+     for (let index = 0; index < dValues.length; index++) {
+      const element = dValues[index];
+      let len = element.DisplayValue.toString().length;
+      if(len> wth){
+        wth = len;
+      }
+     }
+
+     if(this.dropdownMaxChars < wth * 10)
+      this.dropdownMaxChars = wth * 10;     
+     
      this.ItemValues = dValues;
   }
 
@@ -210,7 +247,7 @@ export class RFilterComponent implements ControlValueAccessor {
     this.onTouched(model);
     this.valueChanged.emit(model);
 
-    this.IsFilterOpen = false;
+    this.IsFilterOpen = false;    
   }
 
   Apply($evt: Event){
@@ -219,6 +256,14 @@ export class RFilterComponent implements ControlValueAccessor {
     
     let isFloatLesser = false;
     let isFloatGreater = false;
+
+    if(this.LessThanNumber != undefined && this.LessThanNumber.toString().trim() ==''){
+      this.LessThanNumber = undefined;
+    }
+    
+    if(this.GreaterThanNumber != undefined && this.GreaterThanNumber.toString().trim() ==''){
+      this.GreaterThanNumber = undefined;
+    }
 
     if(this.DataType == RFilterDataType.NumberType && this.LessThanNumber){
       isFloatLesser = this.LessThanNumber?.toString().split(".").length > 1
@@ -229,10 +274,12 @@ export class RFilterComponent implements ControlValueAccessor {
     }
 
     
-    if(this.ContainsList == undefined && this.LessThanNumber == undefined && this.LessThanDate == undefined &&
-      this.GreaterThanNumber == undefined && this.GreaterThanDate == undefined) 
+    if(this.ContainsList == undefined && this.LessThanNumber == undefined && 
+      (this.LessThanDate == undefined || this.LessThanDate =='') &&
+      this.GreaterThanNumber == undefined && 
+      (this.GreaterThanDate == undefined || this.GreaterThanDate ==''))
     {
-      this.IsFilteredApplied == false;
+      this.IsFilteredApplied = false;
     }
     else 
     {
@@ -248,7 +295,7 @@ export class RFilterComponent implements ControlValueAccessor {
     this.GreaterThanNumber == undefined ? undefined : 
         isFloatGreater ? parseFloat(this.GreaterThanNumber.toString()) 
               : parseInt(this.GreaterThanNumber.toString()) : this.GreaterThanDate;
-
+    
     let model = new RFilterApplyModel(false, true, this.ColumnName, this.DataType, this.ContainsList, lesser, greater);
     this.ApplyCallback.emit(model);  
 

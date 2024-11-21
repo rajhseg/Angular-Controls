@@ -613,13 +613,6 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   GetDataType(header : RGridHeader, filter: any){
 
-    if(filter){
-      let g = filter as RFilterApplyModel;
-      if(g  && g.Type){
-        return g.Type;
-      }
-    }
-
     if(this.Items.length > 0){
       let val = this.Items[0][header.PropToBind];
       let ty = typeof(val);
@@ -633,6 +626,13 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         if(val instanceof Date){
           return RFilterDataType.DateType;
         }
+      }
+    }
+
+    if(filter){
+      let g = filter as RFilterApplyModel;
+      if(g  && g.Type){
+        return g.Type;
       }
     }
 
@@ -708,8 +708,11 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       }
     }
     
-    if(filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined)
+    if(filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined){
+      this.currentPage = 1;
+      this.ApplyFilterOnClick();   
       return;
+    }
 
     this.currentPage = 1;
     this.ApplyFilterOnClick();     

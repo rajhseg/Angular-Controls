@@ -413,9 +413,9 @@
           [SelectedDate]="selectedDate" 
           [ScheduleItems]="scheduleItems"></revents-schedule>
     <br/>
-    <div style="float: left;padding-right:30px">
+    <div style="padding-right:30px">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-        [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'"
+        [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false"
         [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
     </div>
 

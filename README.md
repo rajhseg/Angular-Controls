@@ -15,7 +15,7 @@ button control
 
 ![image](https://github.com/user-attachments/assets/da97e34e-6d51-49a0-a2dd-537ed3a82b64)
 
-<br />
+
 <br />
 
 Textbox Control
@@ -23,7 +23,7 @@ Textbox Control
 
 ![image](https://github.com/user-attachments/assets/059f9e81-dd8f-47a0-875e-1eb4efc89e97)
 
-<br />
+
 <br />
 
 PasswordBox Control
@@ -31,7 +31,7 @@ PasswordBox Control
 
 ![image](https://github.com/user-attachments/assets/49175ae5-f6f7-4c3b-8b6d-ac82d268c914)
 
-<br />
+
 <br />
 
 group panel Control

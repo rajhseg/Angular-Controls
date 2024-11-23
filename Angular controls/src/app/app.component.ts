@@ -59,6 +59,7 @@ import { RAreaChartComponent } from './Controls/rareachart/rareachart.component'
 import { RAllocatedBarChartComponent } from './Controls/rallocated-barchart/rallocated-barchart.component';
 import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } from './Controls/rfilter/rfilter.component';
 import { RSeriesChartComponent } from './Controls/rserieschart/rserieschart.component';
+import { CssUnit, CssUnitsService, RelativeUnitType } from './Controls/css-units.service';
 
 @Component({
   selector: 'app-root',
@@ -244,7 +245,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   
   @ViewChild('sequhorizontal', {read: RStateHorizontalComponent}) sequhorizontal!: RStateHorizontalComponent;
 
-  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper, private ngZone: NgZone, private mod: NgModuleRef<any>) {    
+  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper, private ngZone: NgZone, 
+    private mod: NgModuleRef<any>) {  
+
       this.items.push(new DropdownModel("0", "Jan aaaaaaaaaaaaaa"));
       this.items.push(new DropdownModel("1", "Feb"));
       this.items.push(new DropdownModel("2", "Mar"));
@@ -300,7 +303,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createScatterChart();
       this.createLineChart();
       this.createSeriesChart();
-      this.populateFilters();
+      this.populateFilters();      
   }
 
   populateFilters(){

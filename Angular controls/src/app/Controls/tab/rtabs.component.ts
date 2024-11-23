@@ -224,8 +224,8 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
         this.ispopuphidden = false;
         let _item = (event.item.data as TabHeaderWithTabId)
         let mEvent = (event.event as MouseEvent);
-        _item.X = mEvent.screenX;
-        _item.Y = mEvent.screenY;
+        _item.X = mEvent.pageX;
+        _item.Y = mEvent.pageY;
 
         this.draggedTabs.push(_item);
 

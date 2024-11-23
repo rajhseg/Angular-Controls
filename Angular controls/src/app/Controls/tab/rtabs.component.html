@@ -52,7 +52,8 @@
     </div>
 
     <ng-container>
-      <div class="tabcontent" [style.width]="TabWidth" [style.height]="TabHeight">
+      <div class="tabcontent" [style.width]="TabWidth" [style.height]="TabHeight" 
+            style="cursor: pointer;">
         <div id="rdraggedtabcontent_{{header.TabId}}" class="tab active">
           <ng-container
             *ngTemplateOutlet="header.tabTemplateRef.templateRef; context:header.tabTemplateRef.ContextInstance"></ng-container>

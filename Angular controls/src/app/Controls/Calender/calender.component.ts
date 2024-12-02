@@ -10,13 +10,14 @@ import { IPopupCloseInterface, PopupService } from '../popup.service';
 import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
+import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
 
 @Component({
   selector: 'rcalender',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, 
-      NgStyle, FormsModule,RTextboxComponent,ReactiveFormsModule, 
-      RDropdownComponent],
+  imports: [NgFor, NgIf, NgClass,
+    NgStyle, FormsModule, RTextboxComponent, ReactiveFormsModule,
+    RDropdownComponent],
   templateUrl: './calender.component.html',
   styleUrl: './calender.component.css',
   providers: [
@@ -48,11 +49,11 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   IsValueChanged: boolean = false;
 
   set Value(val: string) {
-    if (this._value != val) {
-      this.IsValueChanged = true;
-      this._value = val;           
-    }
+    if(val != this._value && !this.ReadOnly){
+      this._value = val; 
+    }   
   }
+
   get Value(): string {
     return this._value;
   }
@@ -84,6 +85,15 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   onTouch: any = () => { };
 
   @Input()
+  Font: string = '';
+
+  @Input()
+  ReadOnly: boolean = false;
+
+  @Input()
+  Disabled: boolean = false;
+
+  @Input()
   Width: string = '170px';
 
   @Input()
@@ -95,19 +105,19 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   @Output()
   onDateSelected = new EventEmitter<Date>(); // output<Date>();
 
-  @ViewChild('calmodal', { read: ElementRef}) calModal!: ElementRef;
+  @ViewChild('calmodal', { read: ElementRef }) calModal!: ElementRef;
 
   @Input()
   EnableFilterOptionForYear: boolean = true;
 
   @Input()
   EnableFilterOptionForMonth: boolean = true;
-  
+
   @Input()
   IsChildOfAnotherControl: boolean = false;
 
-  @ViewChild('openbtn', { read: ElementRef}) openBtn!: ElementRef;  
-  @ViewChild('startElement', { read: ElementRef}) startElement!: ElementRef;
+  @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
 
 
   IsChildOfAnotherControlClicked: boolean = false;
@@ -115,6 +125,26 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   IsWindowsOs: boolean = false;
 
   IsLinuxOs: boolean = false;
+
+  DDEBottom: string = '';
+
+  DDETop: string = '';
+
+  DDELeft: string = '';
+
+  DDERight: string = '';
+
+  get DDEWidth() : string {
+    return  '285px';
+  }
+
+  get DDEHeight(): string {
+    if(this.currentMonth?.weeks.length == 6) {
+      return '235px';
+    } else {
+      return '205px';
+    }
+  }
 
   @Input()
   ParentComponent: any | undefined = undefined;
@@ -128,7 +158,6 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   get SelectedItemBackGroundColor(): string {
     return this._selectedItemBackColor;
   }
-
 
   private _showCalender: boolean = false;
 
@@ -155,14 +184,24 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
   public get IconSize(): string {
-    let val = parseInt(this.Height.replace(/[^-\d\.]/g, ''));
-    return (val + 7) + 'px'    
+
+    if (this.eleRef.nativeElement) {
+      let val = this.cssUnit.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+      return (val + 7) + CssUnit.Px.toString();
+    }
+
+    return '';
   }
 
   public get TopPx(): string {
-    let val = parseInt(this.Height.replace(/[^-\d\.]/g, ''));
-    let rem = val/10;
-    return '-'+ (rem * 2) + 'px';
+
+    if (this.eleRef.nativeElement) {
+      let val = this.cssUnit.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+      let rem = val / 10;
+      return '-' + (rem * 2) + CssUnit.Px.toString();
+    }
+
+    return '';
   }
 
   @Output()
@@ -180,7 +219,8 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
   constructor(private calService: CalenderService, private popupService: PopupService,
-    private windowHelper: WindowHelper, private datePipe: DatePipe, private cdr: ChangeDetectorRef) {
+    private windowHelper: WindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
+    private cdr: ChangeDetectorRef, private cssUnit: CssUnitsService) {
 
     if (this.windowHelper.isExecuteInBrowser()) {
       this.IsWindowsOs = navigator.platform == "Win32";
@@ -203,16 +243,15 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
 
-    
-    let i =15;
+    let i = 15;
     let element = evt.srcElement;
     let sameelementClicked: boolean = false;
     let elementId: string | undefined = undefined;
 
-    while(element!=undefined && i>-1){
-      if((element as HTMLElement).classList.contains('rcalenderWindowsClose')){
+    while (element != undefined && i > -1) {
+      if ((element as HTMLElement).classList.contains('rcalenderWindowsClose')) {
         elementId = (element as HTMLElement).id;
-        if(elementId==this.Id) {
+        if (elementId == this.Id) {
           sameelementClicked = true;
         }
         break;
@@ -222,8 +261,8 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
       element = (element as HTMLElement).parentElement;
     }
 
-    if(!sameelementClicked)
-        this.IsCalenderOpen = false;
+    if (!sameelementClicked)
+      this.IsCalenderOpen = false;
 
     // if (!tar.matches('.calIcon')
     //   && !tar.matches('.dropdown-content-selected')
@@ -251,23 +290,23 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   }
 
-  OnBlur($event: any){
-    if(this.selectedDate!=undefined && this.selectedDate!=null && this.Value.trim() !=''){
+  OnBlur($event: any) {
+    if (this.selectedDate != undefined && this.selectedDate != null && this.Value.trim() != '') {
 
       let nospaceObj = this.Value.replace(/\s/g, '');
       let nospaceFormat = this.DateFormat.replace(/\s/g, '');
-      
-      if(nospaceObj.length == nospaceFormat.length) {
+
+      if (nospaceObj.length == nospaceFormat.length) {
         let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
-      
+
         if (dstr)
           this.selectedDate = new Date(Date.parse(dstr));
       }
-      
+
       this.SetDate(this.selectedDate);
       this.cdr.detectChanges();
     } else {
-      if(this.Value.trim()==''){
+      if (this.Value.trim() == '') {
         this.clearDate();
       }
     }
@@ -280,13 +319,13 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
           let nospaceObj = obj.replace(/\s/g, '');
           let nospaceFormat = this.DateFormat.replace(/\s/g, '');
-          
-          if(nospaceObj.length == nospaceFormat.length) {
+
+          if (nospaceObj.length == nospaceFormat.length) {
             let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
-          
+
             if (dstr)
               this.selectedDate = new Date(Date.parse(dstr));
-          } 
+          }
 
         } else if (obj instanceof Date) {
           this.selectedDate = obj;
@@ -300,7 +339,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
       if (this.selectedDate != null) {
         let _yr = this.selectedDate.getFullYear();
 
-        if (this.totalYears.findIndex(x => x.Value == _yr) != -1)
+        if (this.totalYears.findIndex(x => x.Value == _yr) == -1)
           this.loadYears(_yr);
 
         this.year = this.totalYears.find(x => x.Value == _yr);
@@ -314,7 +353,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
       } else {
         let _yr = new Date().getFullYear();
 
-        if (this.totalYears.findIndex(x => x.Value == _yr) != -1)
+        if (this.totalYears.findIndex(x => x.Value == _yr) == -1)
           this.loadYears(_yr);
 
         this.year = this.totalYears.find(x => x.Value == _yr);
@@ -333,14 +372,14 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     }
   }
 
-  clearDate(){
-    this.selectedDate = null;  
-    this.Value = '';            
+  clearDate() {
+    this.selectedDate = null;
+    this._value = '';
     this.onChange(this._value);
     this.onTouch(this._value);
-    this.onDateSelected.emit(undefined);  
+    this.onDateSelected.emit(undefined);
 
-    if(this.currentMonth) {
+    if (this.currentMonth) {
       for (let index = 0; index < this.currentMonth.weeks.length; index++) {
         const _vk = this.currentMonth.weeks[index];
         for (let _vkindex = 0; _vkindex < _vk.days.length; _vkindex++) {
@@ -352,9 +391,19 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   }
 
-  writeValue(obj: string | Date): void {
-    this.RenderUI(obj);
-    this.NotifyToUI();
+  writeValue(obj: string | Date): void {  
+    let rd = this.ReadOnly;
+    
+    try {
+      this.ReadOnly = false;
+      this.RenderUI(obj);
+      this.NotifyToUI();      
+    }
+    catch{
+
+    }
+
+    this.ReadOnly = rd;
   }
 
   registerOnChange(fn: any): void {
@@ -366,7 +415,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this.Disabled = isDisabled;
   }
 
   ngOnDestroy(): void {
@@ -391,47 +440,8 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   }
 
   WindowClick(event: any) {
-    // let tar: any = event.target;
-    // let anyoneCalenderSelectIsTriggered: boolean = false;
 
-    // this.calService.GetAllInstance().forEach(x => {
-    //   if (x.isSelectDayTriggered) {
-    //     anyoneCalenderSelectIsTriggered = true;
-    //   }
-    // });
-
-    // this.calService.GetAllInstance().forEach(x => {
-    //   x.isSelectDayTriggered = false;
-    // });
-
-    // let isClickedAsChild: boolean = false;
-
-    // this.calService.GetAllInstance().forEach(x => {
-    //   if (x.IsChildOfAnotherControlClicked) {
-    //     isClickedAsChild = true;
-    //   }
-    // });
-
-    // if (!tar.matches('.calIcon')
-    //   && !tar.matches('.dropdown-content-template')
-    //   && !tar.matches('.around')
-    //   && !tar.matches('.inpdrop')
-    //   && !tar.matches('.dayheader')
-    //   && !tar.matches('.calender')
-    //   && !tar.matches('.week')
-    //   && !tar.matches('.mnyr')
-    //   && !tar.matches('.notactive')
-    //   && !anyoneCalenderSelectIsTriggered
-    // ) {
-    //   this.closeAllDropdowns(null, true);
-    // }
   }
-
-  // closeAllDropdowns(ins: CalenderComponent | null, onwindowClick: boolean = false) {
-  //   this.calService.GetAllInstance().forEach(x => {
-  //     x.IsCalenderOpen = false;
-  //   });
-  // }
 
   openCalenderFromInput($evt: Event) {
     $evt.stopPropagation();
@@ -452,7 +462,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     this.popupService.CloseAllPopupsOnOpen(this);
 
     if (isopenFromInput) {
-      currentValueToSet = true;
+      currentValueToSet = !this.IsCalenderOpen; //true;
     } else {
       currentValueToSet = !this.IsCalenderOpen;
     }
@@ -464,40 +474,59 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
     this.RenderUI(this.Value);
     this.NotifyToModel();
-    $evt.stopPropagation();    
+    $evt.stopPropagation();
+    this.AttachDropdown();
   }
 
-    
-  AttachDropdown(){
-    let windowHeight = this.winObj.innerHeight;  
 
-    if(this.openBtn.nativeElement && this.calModal.nativeElement){
+  AttachDropdown() {
+    let windowHeight = this.winObj.innerHeight;
+
+    if (this.openBtn.nativeElement) {
+
+      const exp = /(-?[\d.]+)([a-z%]*)/;
+
       let btn = this.openBtn.nativeElement as HTMLElement;
-      let dropDownElement = this.calModal.nativeElement as HTMLElement;
-      let dropDownHeight = dropDownElement.clientHeight;
-      let btnPosTop = btn.getBoundingClientRect().top;
+      let res = this.DDEHeight.match(exp);
 
-      if(windowHeight - btnPosTop < dropDownHeight){
-        dropDownElement.style.bottom = '120%';
-        dropDownElement.style.top = 'auto';
-      } else {
-        dropDownElement.style.top = '110%';
-        dropDownElement.style.bottom = 'auto';        
+      if (res) {
+        let dropDownHeight = parseFloat(res[1].toString());
+        let btnPosTop = btn.getBoundingClientRect().top;
         
+        if (windowHeight - btnPosTop < dropDownHeight) {
+          this.DDEBottom = '120%';
+          this.DDETop = 'auto';
+        } else {
+          this.DDETop = '110%';
+          this.DDEBottom = 'auto';
+        }
       }
-    }
 
-    let windowWidth = this.winObj.innerWidth;
-    if(this.startElement.nativeElement && this.calModal.nativeElement){
-      let start = this.startElement.nativeElement as HTMLElement;
-      let dropDownElement = this.calModal.nativeElement as HTMLElement;
-      let dropDownWidth = dropDownElement.clientWidth;
-      let startPos = start.getBoundingClientRect();      
-      
-      if(windowWidth - startPos.left < dropDownWidth){
-        dropDownElement.style.left = (startPos.right - startPos.left - dropDownWidth) - 5 + 'px';
-      } else {
-        dropDownElement.style.left ='0px';        
+      let windowWidth = this.winObj.innerWidth;
+      if (this.startElement.nativeElement) {
+        let start = this.startElement.nativeElement as HTMLElement;
+        let res = this.DDEWidth.match(exp);
+
+        if (res) {
+          let dropDownWidth = parseFloat(res[1].toString());
+
+          // dropDownWidth = dropDownWidth + padding(left, right) + border + margin;
+          dropDownWidth = dropDownWidth + (10 * 2) + (1 * 2) + 0;
+
+          let startPos = start.getBoundingClientRect();
+
+          if (windowWidth > dropDownWidth + startPos.left) {
+            this.DDELeft = '0px';
+            this.DDERight = 'auto';
+          } else {
+            let moveRight = dropDownWidth - startPos.width;
+            this.DDELeft = 'auto';
+
+            if (moveRight > 0)
+              this.DDERight = '0px';
+          }
+        }
+
       }
     }
   }
@@ -528,7 +557,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   addNextYears($evt: Event) {
     $evt.preventDefault();
     $evt.stopPropagation();
-    
+
     if (this.totalYears.length > 0) {
       let value = this.totalYears[this.totalYears.length - 1].Value;
       for (let i: number = value + 1; i <= (value + 20); i++) {
@@ -552,30 +581,34 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   selectDate($evt: Event, day: Day) {
 
-    $evt.stopPropagation();
-    $evt.preventDefault();
+    if (!this.ReadOnly) {
+      $evt.stopPropagation();
+      $evt.preventDefault();
 
-    if (this.IsChildOfAnotherControl) {
-      this.IsChildOfAnotherControlClicked = true;
-    }
+      if (this.IsChildOfAnotherControl) {
+        this.IsChildOfAnotherControlClicked = true;
+      }
 
-    this.isSelectDayTriggered = true;
+      this.isSelectDayTriggered = true;
 
-    this.monthDropDownControl.closeDropdown();
-    this.yearDropDownControl.closeDropdown();
+      this.monthDropDownControl.closeDropdown();
+      this.yearDropDownControl.closeDropdown();
 
-    if (day.isActiveMonth) {
-      if (!day.isSelected && this.year) {
-        let cdate = new Date(this.year.Value, this.month.Value, day.num);
-        this.selectedDate = cdate;
-        this.SetDate(this.selectedDate);
-      } else {
-        day.isSelected = false;
-        this.selectedDate = null;
-        this.Value = '';
-        this.onChange(this.Value);
-        this.onTouch(this.Value);
-        this.onDateSelected.emit(undefined);
+      if (day.isActiveMonth) {
+        if (!day.isSelected && this.year) {
+          let cdate = new Date(this.year.Value, this.month.Value, day.num);
+          this.selectedDate = cdate;
+          this.SetDate(this.selectedDate);
+        } else {
+          day.isSelected = false;
+          this.selectedDate = null;
+          this._value = '';
+          this.onChange(this.Value);
+          this.onTouch(this.Value);
+          this.onDateSelected.emit(undefined);
+        }
+
+        this.IsCalenderOpen = false;
       }
     }
   }
@@ -720,12 +753,12 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     this.currentMonth = new Month(allWeeks);
 
     if (this.selectedDate) {
-      this.Value = this.getDateString(this.selectedDate);    
+      this._value = this.getDateString(this.selectedDate);
     }
 
   }
 
-  NotifyToModel(){
+  NotifyToModel() {
     if (this.selectedDate) {
       this.onChange(this.Value);
       this.onTouch(this.Value);
@@ -733,8 +766,8 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     }
   }
 
-  NotifyToUI(){
-    if (this.selectedDate) {      
+  NotifyToUI() {
+    if (this.selectedDate) {
       this.onDateSelected.emit(this.selectedDate);
     }
   }
@@ -753,7 +786,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     });
 
     if (this.selectedDate) {
-      this.Value = this.getDateString(this.selectedDate);
+      this._value = this.getDateString(this.selectedDate);
       this.onChange(this.Value);
       this.onTouch(this.Value);
       this.onDateSelected.emit(this.selectedDate);

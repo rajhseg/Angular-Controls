@@ -2,17 +2,25 @@
 <div #startElement style="position: relative;" [id]="Id" class="rcal dropdown rcalenderWindowsClose" *ngIf="IsWindowsOs || IsLinuxOs">
     <div class="rcalinputdiv" style="display: flex;flex-direction: row;">
 
-        <input [ngStyle]="{'height': Height, 'width': Width }"
-            class="calendarinput" (click)="openCalenderFromInput($event)" type="text" 
+        <input [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 
+                            'pointer-events':(Disabled || ReadOnly) ? 'none': '' }"
+            [readOnly]="ReadOnly" [disabled]="Disabled"
+            class="calendarinput" (click)="openCalenderFromInput($event)" type="text"              
             (blur)="OnBlur($event)"           
             [(ngModel)]="Value" />
 
-        <div class="calIconContainer" #openbtn (click)="openCalender($event)">
+        <div class="calIconContainer" #openbtn (click)="openCalender($event)"
+            [ngClass]="{'dis': (Disabled || ReadOnly) }">
             <b *ngIf="IsWindowsOs || IsLinuxOs" [ngStyle]="{ 'font-size': IconSize, 'top': TopPx }"
                 [ngClass]="{ 'calIcon': IsWindowsOs, 'calIconLinux': IsLinuxOs}">&#9782;</b>
         </div>
     </div>
-    <div class="calender" #calmodal *ngIf="IsCalenderOpen">
+    <div class="calender" #calmodal [hidden]="!IsCalenderOpen" 
+            [ngStyle]="{
+                        'width': DDEWidth, 'height': DDEHeight, 
+                        'top':DDETop, 'bottom': DDEBottom,
+                        'left': DDELeft, 'right': DDERight 
+                        }">
         <div class="week">
             <div>
                 <a (click)="previousMonth($event)" class="atag previous around">&#8249;</a>

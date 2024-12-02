@@ -145,6 +145,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   rangeValue: number = 0.4;
   rangeValue1: number = 35;
   
+  selectedDate1:string = '11-05-2024';
+  
   ItemsPerPage = new DropdownModel(10, "10");
 
   timerDisplayType: TimerType = TimerType.Circle;
@@ -240,6 +242,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   seriesModel: YSeriesChartItem[] = [];
   seriesModel1: GraphSeriesChartItem[] = [];
   
+  CCol: string = "#6E1F66";
+
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
   
@@ -602,14 +606,14 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     evItem.ChannelItems.push(ritem);
     evItem.ChannelItems.push(ritem);
 
-    items["27-10-2024"] = evItem;
-    items["29-10-2024"] = evItem;
-    items["30-10-2024"] = evItem;
+    items["11-28-2024"] = evItem;
+    items["11-29-2024"] = evItem;
+    items["11-30-2024"] = evItem;
 
-    this.dates = ["14-09-2024","15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
+    this.dates = ["11-26-2024", "11-27-2024", "11-28-2024", "11-29-2024", "11-30-2024"];
 
-    this.dates1 = ["15-09-2024", "16-09-2024", "17-09-2024","18-09-2024"];
-    this.selectedDate = "27-10-2024";
+    this.dates1 = ["11-25-2024", "11-26-2024", "11-27-2024", "11-28-2024"];
+    this.selectedDate = "11-28-2024";
 
     this.scheduleItems = items;
   }

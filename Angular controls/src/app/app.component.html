@@ -237,14 +237,13 @@
 
   </rstepper-vertical>
 
-
   <br/>
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
     (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
   </rcolorpicker>
 
   <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Pending Color : '"
-    [IsDisplayColorCode]="false"></rcolorpicker>
+    [IsDisplayColorCode]="false"></rcolorpicker> 
   <br />
   <br />
   <rtree [ExpandIconColor]="bColor" [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
@@ -413,7 +412,7 @@
     <revents-schedule [ContainerBackgroundColor]="'#13297A'" 
           [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
           [EventBackgroundColor]="'#13297A'"  [MarkerBackgroundColor]="'white'"
-          [ShowMarker]="true" [ShowScrollBar]="true" [DisplayDatesOnLoad]="dates" 
+          [ShowMarker]="true" [ShowScrollBar]="true"
           [SelectedDate]="selectedDate" 
           [ScheduleItems]="scheduleItems"></revents-schedule>
     <br/>
@@ -1192,5 +1191,31 @@
   <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
   <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
 
+  <div style="float: left;">
 
+    <rcalender style="float: left;" [(ngModel)]="selectedDate1" [ReadOnly]="true"></rcalender>
+    <rcalender style="float: left;" [ReadOnly]="true"></rcalender>
+    <rcalender style="float: left;" [(ngModel)]="selectedDate1"></rcalender>
+    
+    <rcolorpicker style="float: left; margin-left: 150px;" 
+      [DisplayColorInHex]="false" 
+      [IsDisplayLabelText]="true" 
+      (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+    </rcolorpicker>
+    
+    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol" 
+      [DisplayColorInHex]="false" 
+      [IsDisplayLabelText]="true" 
+      (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+    </rcolorpicker>
+    
+    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol" 
+      [DisplayColorInHex]="false" 
+      [IsDisplayLabelText]="true" 
+      (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+    </rcolorpicker>
+
+    <input  type="color" [(ngModel)]="tColor"/>
+  </div>
+  
 </div>

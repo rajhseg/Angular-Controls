@@ -1,6 +1,6 @@
 
 .calender {
-    width: 285px;
+    /* width: 285px; */
     padding: 10px;
     /* margin: 10px 1px; */
     border: 1px solid #80808047;
@@ -9,7 +9,12 @@
     /* box-shadow: 8px 16px 0px rgba(0, 0, 0, 0.2); */
     position: absolute;
     z-index: 9999999;
-    background-color: white;
+    background-color: white;    
+}
+
+.dis{
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 .rcal{

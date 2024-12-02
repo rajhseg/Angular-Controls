@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { REventsHorizontalItem, REventsHorizontalTimeItems, REventsRenderDateSchedule, REventsRenderObj, REventsRenderChannelItem, REventsRenderSchedules, REventsSchedules, REventsVerticalChannels, RDateAndVerticalChannels } from './reventsschedule';
-import { NgForOf, NgIf, NgStyle } from '@angular/common';
+import { DatePipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { WindowHelper } from '../windowObject';
 import { setInterval } from 'timers';
 
@@ -9,7 +9,8 @@ import { setInterval } from 'timers';
   standalone: true,
   imports: [NgIf, NgForOf, NgStyle],
   templateUrl: './reventsschedule.component.html',
-  styleUrl: './reventsschedule.component.css'
+  styleUrl: './reventsschedule.component.css',
+  providers:[DatePipe]
 })
 export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
@@ -39,6 +40,9 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @Input()
   ShowScrollBar: boolean = false;
 
+  @Input()
+  DateDisplayFormat: string = 'MM-dd-yyyy';
+
   EachMinuteInPx: number = 6;
 
   EachCellInPx: number = this.MinutesForEachCell * this.EachMinuteInPx;
@@ -66,7 +70,19 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   public set DisplayDatesOnLoad(val: string[]) {
-    this._datesList = val;
+
+    let _dates = [];
+
+    for (let index = 0; index < val.length; index++) {
+      const element = val[index];
+      let selDate = this.getFormatDateFromString(element);
+      if (selDate) {
+        let disVal = this.getDisplayFormatDateString(selDate);
+        _dates.push(disVal);
+      }
+    }
+
+    this._datesList = _dates;
     this.NoOfDatesToShowOnHeader = this.DisplayDatesOnLoad.length;
   }
   public get DisplayDatesOnLoad(): string[] {
@@ -75,17 +91,22 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   public set SelectedDate(val: string) {
-    let _data = this.DisplayDatesOnLoad.filter(x=>x.toLowerCase() == val.toLowerCase());
-    
-    if(_data == undefined || _data.length < 1) {
-      let flist = this.GenerateDatesFromString(val, -2);
-      let slist = this.GenerateDatesFromString(val, 3);
-      this.DisplayDatesOnLoad = [...flist, val, ...slist];
-    } 
+    let selDate = this.getFormatDateFromString(val);
+    if (selDate) {
+      let disVal = this.getDisplayFormatDateString(selDate);
+      let _data = this.DisplayDatesOnLoad.filter(x => x.toLowerCase() == disVal.toLowerCase());
 
-    this._selectedDate = val;
-    this.isCurrentDate = this.isMatchedWithCurrentDate(val);
-    this.checkMarker();
+      if (_data == undefined || _data.length < 1) {
+        let flist = this.GenerateDatesFromString(val, -2);
+        let slist = this.GenerateDatesFromString(val, 3);
+        this._datesList = [...flist, disVal, ...slist];
+        this.NoOfDatesToShowOnHeader = this._datesList.length;
+      }
+
+      this._selectedDate = disVal;
+      this.isCurrentDate = this.isMatchedWithCurrentDate(disVal);
+      this.checkMarker();
+    }
   }
   public get SelectedDate(): string {
     return this._selectedDate;
@@ -116,112 +137,116 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
     for (let index = 0; index < keys.length; index++) {
       const element = keys[index];
-      let dateSchedules = val[element];
+      let _valid = this.datePipe.transform(element, this.DateDisplayFormat);
 
-      let chList = [];
+      if (_valid && _valid != null) {
+        let dateSchedules = val[element];
 
-      let dateSchedule = new REventsRenderDateSchedule();
+        let chList = [];
 
-      let _channelList = [];
+        let dateSchedule = new REventsRenderDateSchedule();
 
-      for (let j = 0; j < dateSchedules.ChannelItems.length; j++) {
-        const channel = dateSchedules.ChannelItems[j];
+        let _channelList = [];
 
-        let _vchannel = new REventsVerticalChannels();
-        _vchannel.DisplayTitle = channel.ChannelTitle;
-        _vchannel.ChannelImageUrl = channel.ChannelImageUrl;
-        _vchannel.EventDate = element;
-        _vchannel.ValueKey = channel.ValueKey;
-        chList.push(_vchannel);
+        for (let j = 0; j < dateSchedules.ChannelItems.length; j++) {
+          const channel = dateSchedules.ChannelItems[j];
 
-        let _renderChannelItem = new REventsRenderChannelItem();
-        _renderChannelItem.ChannelTitle = channel.ChannelTitle;
-        _renderChannelItem.ChannelImageUrl = channel.ChannelImageUrl;
-        _renderChannelItem.ValueKey = channel.ValueKey;
-        _renderChannelItem.CalculateStartAndEndTimeBasedOnDuration = channel.CalculateStartAndEndTimeBasedOnDuration;
-        _renderChannelItem.RenderEventsInContinousSequence = channel.RenderEventsInContinousSequence;
+          let _vchannel = new REventsVerticalChannels();
+          _vchannel.DisplayTitle = channel.ChannelTitle;
+          _vchannel.ChannelImageUrl = channel.ChannelImageUrl;
+          _vchannel.EventDate = element;
+          _vchannel.ValueKey = channel.ValueKey;
+          chList.push(_vchannel);
 
-        let startTimeinString = "00:00";
+          let _renderChannelItem = new REventsRenderChannelItem();
+          _renderChannelItem.ChannelTitle = channel.ChannelTitle;
+          _renderChannelItem.ChannelImageUrl = channel.ChannelImageUrl;
+          _renderChannelItem.ValueKey = channel.ValueKey;
+          _renderChannelItem.CalculateStartAndEndTimeBasedOnDuration = channel.CalculateStartAndEndTimeBasedOnDuration;
+          _renderChannelItem.RenderEventsInContinousSequence = channel.RenderEventsInContinousSequence;
 
-        for (let k = 0; k < channel.Events.length; k++) {
-          const _event = channel.Events[k];
-          let obj = new REventsRenderObj();
-          obj.DurationInMinutes = _event.DurationInMinutes;
+          let startTimeinString = "00:00";
 
-          if (_renderChannelItem.CalculateStartAndEndTimeBasedOnDuration) {
-            obj.StartTime = startTimeinString;
-            obj.EndTime = this.AddDurationToTimeString(startTimeinString, _event.DurationInMinutes);
-            startTimeinString = obj.EndTime;
-          } else {
-            obj.StartTime = _event.StartTime;
-            obj.EndTime = this.AddDurationToTimeString(_event.StartTime, _event.DurationInMinutes);
+          for (let k = 0; k < channel.Events.length; k++) {
+            const _event = channel.Events[k];
+            let obj = new REventsRenderObj();
+            obj.DurationInMinutes = _event.DurationInMinutes;
+
+            if (_renderChannelItem.CalculateStartAndEndTimeBasedOnDuration) {
+              obj.StartTime = startTimeinString;
+              obj.EndTime = this.AddDurationToTimeString(startTimeinString, _event.DurationInMinutes);
+              startTimeinString = obj.EndTime;
+            } else {
+              obj.StartTime = _event.StartTime;
+              obj.EndTime = this.AddDurationToTimeString(_event.StartTime, _event.DurationInMinutes);
+            }
+
+            obj.Title = _event.Title;
+            obj.WidthInPxForEventCell = this.EachMinuteInPx * _event.DurationInMinutes;
+            obj.Value = _event.Value;
+            _renderChannelItem.Events.push(obj);
           }
 
-          obj.Title = _event.Title;
-          obj.WidthInPxForEventCell = this.EachMinuteInPx * _event.DurationInMinutes;
-          obj.Value = _event.Value;
-          _renderChannelItem.Events.push(obj);
-        }
+          _renderChannelItem.Events.sort(this.EventsSort);
 
-        _renderChannelItem.Events.sort(this.EventsSort);
+          if (this.RenderOverLappingEvents) {
 
-        if (this.RenderOverLappingEvents) {
+            let cellStartingLeftOffset: number = 0;
 
-          let cellStartingLeftOffset: number = 0;
+            let previousObject: REventsRenderObj = new REventsRenderObj();
+            previousObject.EndTime = "";
+            previousObject.OffsetLeft = 0;
 
-          let previousObject: REventsRenderObj = new REventsRenderObj();
-          previousObject.EndTime = "";
-          previousObject.OffsetLeft = 0;
+            let minusPx = 0;
 
-          let minusPx = 0;
+            for (let p = 0; p < _renderChannelItem.Events.length; p++) {
+              const _evt = _renderChannelItem.Events[p];
 
-          for (let p = 0; p < _renderChannelItem.Events.length; p++) {
-            const _evt = _renderChannelItem.Events[p];
+              let _min = (cellStartingLeftOffset / 6);
+              let _endTime = this.AddDurationToTimeString("00:00", _min);
 
-            let _min = (cellStartingLeftOffset / 6);
-            let _endTime = this.AddDurationToTimeString("00:00", _min);
+              let differenceLeft = this.GetOffsetLeftForEvent(_endTime, _evt.StartTime);
+              let borders = this.GetBordersCountUptoTargetTimeCell(_evt.StartTime);
+              let calcBorder;
 
-            let differenceLeft = this.GetOffsetLeftForEvent(_endTime, _evt.StartTime);
-            let borders = this.GetBordersCountUptoTargetTimeCell(_evt.StartTime);
-            let calcBorder;
+              if (differenceLeft < 0) {
+                minusPx = minusPx + 2;
+              }
 
-            if (differenceLeft < 0) {
-              minusPx = minusPx + 2;
+              // ContinousSequence Events have 1 side border, others are having 2 side border for each Event
+              if (!_renderChannelItem.RenderEventsInContinousSequence) {
+                calcBorder = borders - (2 * p) - minusPx - 2; // minusPx is for OverlappingEvents, -1 is for border in vertical header
+              } else {
+                calcBorder = borders - (2 * p) - 2; // 2 is for borders
+              }
+
+              let mergedBorders = 0;
+              if (_evt.DurationInMinutes > this.MinutesForEachCell) {
+                // if cell takes more than one space, borders are merged that need to be add for each cell
+                mergedBorders = this.GetBordersMergedWithInCell(_evt.DurationInMinutes);
+              }
+
+              if (!_renderChannelItem.RenderEventsInContinousSequence && p == _renderChannelItem.Events.length - 1) {
+                //_evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;            
+                _evt.OffsetLeft = differenceLeft + calcBorder - 2;
+              } else {
+                _evt.OffsetLeft = differenceLeft + calcBorder;
+              }
+
+              previousObject = _evt;
+              cellStartingLeftOffset = cellStartingLeftOffset + _evt.WidthInPxForEventCell;
             }
-
-            // ContinousSequence Events have 1 side border, others are having 2 side border for each Event
-            if (!_renderChannelItem.RenderEventsInContinousSequence) {
-              calcBorder = borders - (2 * p) - minusPx - 2; // minusPx is for OverlappingEvents, -1 is for border in vertical header
-            } else {
-              calcBorder = borders - (2 * p) - 2; // 2 is for borders
-            }
-
-            let mergedBorders = 0;
-            if (_evt.DurationInMinutes > this.MinutesForEachCell) {
-              // if cell takes more than one space, borders are merged that need to be add for each cell
-              mergedBorders = this.GetBordersMergedWithInCell(_evt.DurationInMinutes);
-            }
-
-            if (!_renderChannelItem.RenderEventsInContinousSequence && p == _renderChannelItem.Events.length - 1) {
-              //_evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;            
-              _evt.OffsetLeft = differenceLeft + calcBorder - 2;
-            } else {
-              _evt.OffsetLeft = differenceLeft + calcBorder;
-            }
-
-            previousObject = _evt;
-            cellStartingLeftOffset = cellStartingLeftOffset + _evt.WidthInPxForEventCell;
           }
+
+          _channelList.push(_renderChannelItem);
         }
 
-        _channelList.push(_renderChannelItem);
+        dateSchedule.ChannelItems = _channelList;
+
+        this.VerticalChannelsList[element] = chList;
+
+        schedules[element] = dateSchedule;
       }
-
-      dateSchedule.ChannelItems = _channelList;
-
-      this.VerticalChannelsList[element] = chList;
-
-      schedules[element] = dateSchedule;
     }
 
     this._renderItems = schedules;
@@ -270,7 +295,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @Input()
   EventBorderColor: string = "#10C4C8";
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, private datePipe: DatePipe) {
     this.CalculateHorizontalHeaders();
 
     if (this.DisplayDatesOnLoad.length == 0) {
@@ -312,26 +337,24 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   PreviousPage() {
 
     let startDate = this.DisplayDatesOnLoad[0];
-    let parts = startDate.split("-");
-
-    let enm = Date.parse(parts[2]+" "+parts[1]+" "+parts[0]);
-    let date = new Date(enm);
+    let date = this.getFormatDateFromString(startDate);
         
-    let list = this.GenerateDates(date, -this.NoOfDatesToShowOnHeader);
-    this.DisplayDatesOnLoad = list;
-    this.SelectedDate = this.DisplayDatesOnLoad[this.DisplayDatesOnLoad.length - 1];
+    if(date) {
+      let list = this.GenerateDates(date, -this.NoOfDatesToShowOnHeader);
+      this.DisplayDatesOnLoad = list;
+      this.SelectedDate = this.DisplayDatesOnLoad[this.DisplayDatesOnLoad.length - 1];
+    }
   }
 
   NextPage() {
     let startDate = this.DisplayDatesOnLoad[this.DisplayDatesOnLoad.length - 1];
-    let parts = startDate.split("-");
-    
-    let enm = Date.parse(parts[2]+" "+parts[1]+" "+parts[0]);
-    let date = new Date(enm);    
+    let date = this.getFormatDateFromString(startDate);
 
-    let list = this.GenerateDates(date, this.NoOfDatesToShowOnHeader);
-    this.DisplayDatesOnLoad = list;
-    this.SelectedDate = this.DisplayDatesOnLoad[0];
+    if(date) {
+      let list = this.GenerateDates(date, this.NoOfDatesToShowOnHeader);
+      this.DisplayDatesOnLoad = list;
+      this.SelectedDate = this.DisplayDatesOnLoad[0];
+    }
   }
 
   GetDateCellWidth(): string {
@@ -402,12 +425,9 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   isMatchedWithCurrentDate(dte: string): boolean {
     let date = new Date();
-    let yr = date.getFullYear();
-    let mon = date.getMonth() + 1;
-    let day = date.getDate();
-    let parts = dte.split("-");
-
-    if (parseInt(parts[0]) == day && parseInt(parts[1]) == mon && parseInt(parts[2]) == yr) {
+    let dateString = this.datePipe.transform(date, this.DateDisplayFormat);
+    
+    if (dte.toLowerCase() == dateString?.toLowerCase()) {
       return true;
     }
 
@@ -419,27 +439,46 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     k.setDate(k.getDate() + addDays);    
 
     let date = k;
-    let yr = date.getFullYear();
-    let mon = date.getMonth() + 1;
-    let day = date.getDate();
 
-    let dateString = this.GetTimeInString(day) + "-" + this.GetTimeInString(mon) + "-" + this.GetTimeInString(yr);
-    return dateString;
+    let dateString = this.datePipe.transform(date, this.DateDisplayFormat);
+    return dateString ?? "";
+  }
+
+  getDisplayFormatDateString(dt: Date): string {
+    let dateString = this.datePipe.transform(dt, this.DateDisplayFormat);
+    return dateString ?? "";
+  }
+
+  getFormatDateFromString(dt: string): Date | undefined {
+
+    let nospaceObj = dt.replace(/\s/g, '');
+    let nospaceFormat = this.DateDisplayFormat.replace(/\s/g, '');
+
+    if (nospaceObj.length == nospaceFormat.length) {
+
+      let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+
+      if (dstr)
+      {
+        let date = new Date(Date.parse(dstr));
+        return date;
+      }
+    }
+
+    return undefined;
   }
 
   getDateFromString(dt: string, addDays: number): string {
-    let parts = dt.split("-");
 
-    let enm = Date.parse(parts[2]+" "+parts[1]+" "+parts[0]);
-    let date = new Date(enm);
-    date.setDate(date.getDate() + addDays);
+    let date = this.getFormatDateFromString(dt);
 
-    let yr = date.getFullYear();
-    let mon = date.getMonth() + 1;
-    let day = date.getDate();
+    if (date) {
+      date.setDate(date.getDate() + addDays);
+      let dateString = this.datePipe.transform(date, this.DateDisplayFormat);      
+      return dateString ?? "";
+    }
 
-    let dateString = this.GetTimeInString(day) + "-" + this.GetTimeInString(mon) + "-" + this.GetTimeInString(yr);
-    return dateString;
+    return "";
   }
 
   renderMarker() {

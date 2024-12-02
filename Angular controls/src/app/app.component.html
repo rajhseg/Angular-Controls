@@ -1218,4 +1218,68 @@
     <input  type="color" [(ngModel)]="tColor"/>
   </div>
   
+  <br/>
+  <br/>
+  <br/>
+  <div style="margin-top:30px;margin-bottom: 30px;float:left" cdkDropListGroup>
+    <rflattabs [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
+
+      <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'rcalender', 'Context':this }">
+        <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
+        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" 
+              [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
+        <rcalender></rcalender>
+      </rtab>
+
+      <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'rdropdown', 'Context':this }">
+        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="112" 
+            [DropDownContentWidth]="240">
+        </rdropdown>
+        {{selItem.Value}}
+
+        <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="240">
+        </rdropdown>
+
+        <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="112"
+          [DropDownContentWidth]="122">
+        </rdropdown>
+
+        <br />
+        <br />
+        <div>
+          Multiple Values Select Count :{{selItem.length}}
+          Single Value : {{singleValue.DisplayValue}}
+        </div>
+
+        <rstarrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
+        <rcalender></rcalender>
+      </rtab>
+
+      <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'rstarrating', 'Context':this }">
+        <rstarrating [starWidth]="starWidth"></rstarrating>
+        <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
+        <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
+      </rtab>
+
+
+      <rtab *tabidfor="{ 'TabId':'tab4', 'HeaderText':'rswitch', 'Context':this }">
+
+        <rswitch [DisplayLabel]="'MoveToCenter'"  (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+
+        <rswitch [DisplayLabel]="'MoveToCenter Copy'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+
+        <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+        </rswitch>
+
+        <span>Is Circle: {{IsCircleProgressBar}}</span>
+
+        <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
+          [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+
+      </rtab>
+
+    </rflattabs>
+  </div>
+
+
 </div>

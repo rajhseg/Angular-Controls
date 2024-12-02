@@ -69,3 +69,18 @@ export class TabIdForContext {
 
   }
 }
+
+
+export class TabHeaderWithTabId {
+  constructor(public tabTemplateRef: RTabIdFor, public TabId: string = '',
+    public headerText: string = '', public IsSelected: boolean = false,
+    public X: number = 0, public Y: number = 0) { }
+}
+
+export class TabOffsetTop {
+  constructor(public TabId: string,
+    public offsetTop: number
+  ) {
+
+  }
+}

@@ -1,5 +1,5 @@
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, Host, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
-import { RTabComponent, RTabIdFor } from "./tab.component";
+import { RTabComponent, RTabIdFor, TabHeaderWithTabId } from "./tab.component";
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup, CdkDragMove } from '@angular/cdk/drag-drop';
@@ -425,16 +425,3 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
 }
 
-export class TabHeaderWithTabId {
-  constructor(public tabTemplateRef: RTabIdFor, public TabId: string = '',
-    public headerText: string = '', public IsSelected: boolean = false,
-    public X: number = 0, public Y: number = 0) { }
-}
-
-export class TabOffsetTop {
-  constructor(public TabId: string,
-    public offsetTop: number
-  ) {
-
-  }
-}

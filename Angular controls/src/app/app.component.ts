@@ -60,6 +60,7 @@ import { RAllocatedBarChartComponent } from './Controls/rallocated-barchart/rall
 import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } from './Controls/rfilter/rfilter.component';
 import { RSeriesChartComponent } from './Controls/rserieschart/rserieschart.component';
 import { CssUnit, CssUnitsService, RelativeUnitType } from './Controls/css-units.service';
+import { RFlatTabsComponent } from './Controls/rflattabs/rflattabs.component';
 
 @Component({
   selector: 'app-root',
@@ -112,7 +113,8 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from './Controls/css-units
     RAreaChartComponent,
     RAllocatedBarChartComponent,
     RFilterComponent,
-    RSeriesChartComponent
+    RSeriesChartComponent,
+    RFlatTabsComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })

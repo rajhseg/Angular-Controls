@@ -1,0 +1,131 @@
+
+.tabheader {
+    float: left;    
+    display: flex;
+    width: fit-content;
+    border: none;
+    outline: none;
+    padding: 15px 12px;    
+    cursor: pointer;
+    background-color: gray;
+    color: white;
+  }
+  
+  .tabheaderContainer {    
+    background-color: gray;    
+    flex-wrap: wrap; 
+    display: flex;
+    min-height: 37px;
+  }
+  
+  .tabheader:hover {    
+    background-color: rgb(163, 163, 163);
+    color: white;
+  }
+  
+  .tabheader:hover.tabSelected {
+    background-color: white; 
+     color:black;
+  }
+
+  .tabSelected{       
+     background-color: white; 
+     color:black;    
+  }
+  
+  .tabcontent {
+    width: 100%;
+    height: 100%;
+    display: block;
+    top:-2px;
+    position: relative;
+    background-color: white;
+    overflow: auto;
+  }
+  
+  .tab {
+    padding: 15px 20px;
+    height: auto;
+    visibility: collapse;
+    display: none;
+  }
+  
+  .active {
+    visibility: visible;    
+    background-color: white;
+    display: block;
+    color: black;
+  }
+  
+  
+  .content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  :host {  
+    margin-top: 2px; 
+    margin-bottom: 2px;
+    width: fit-content;
+    display: inline-block;
+    background: #F4F5F6;    
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;    
+  }
+  
+  .rtabroot{    
+    background: #F4F5F6;     
+  }
+  
+  .draggedbox {  
+    /* border: solid 1px #ccd1d7; */
+    color: rgba(0, 0, 0, 0.87);
+    cursor: move;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    /* border-radius: 4px; */
+    position: absolute;
+    z-index: 9999999998;  
+    transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  }
+  
+  .draggedbox:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  
+  .draghandle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: move;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .cursorForDrag {
+    cursor: move;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 0.4em;;
+    height: 0.4em;;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #bdbbbb;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #5e5e5e;
+    border-radius: 10px;
+  } 
+  

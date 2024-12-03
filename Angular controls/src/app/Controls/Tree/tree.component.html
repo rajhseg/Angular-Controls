@@ -1,5 +1,5 @@
 
-    <ul>
+    <ul [id]="Id">
         <li style="font-size: small; padding: 3px;" *ngFor="let Item of Items" 
             [ngClass]="{'moveleftforchild': Item.IsHaveChild}">
             <span *ngIf="Item.IsHaveChild" class="symbol" (click)="expandTree($event, Item)" 

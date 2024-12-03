@@ -147,6 +147,8 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   @ViewChild('myDropdown', { read: ElementRef}) mydropDown!: ElementRef;
   @ViewChild('startElement', { read: ElementRef}) startElement!: ElementRef;
 
+  @HostBinding('id')
+  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   constructor(private windowHelper: WindowHelper) {
     this.Id = windowHelper.GenerateUniqueId();    

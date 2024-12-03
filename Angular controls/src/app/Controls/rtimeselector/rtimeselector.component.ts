@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -74,6 +74,9 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
   onTouched: Function = () => { };
 
   Id: string = "";
+
+  @HostBinding('id')
+  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   constructor(private windowHelper: WindowHelper) {
     this.LoadValues();

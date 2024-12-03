@@ -1,6 +1,7 @@
 import { NgStyle } from '@angular/common';
-import { Component, EventEmitter, Input, Output, forwardRef, output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output, forwardRef, output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rswitch',
@@ -39,6 +40,15 @@ export class SwitchComponent implements ControlValueAccessor {
 
   @Output()
   checked = new EventEmitter<boolean>(); // output<boolean>();
+
+  Id: string = '';
+
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
+  constructor(private winObj: WindowHelper){
+    this.Id = this.winObj.GenerateUniqueId();
+  }
 
   writeValue(obj: any): void {
     

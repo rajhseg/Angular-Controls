@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -76,8 +76,14 @@ export class RfileuploadComponent implements ControlValueAccessor {
   onChanged: Function = ()=> {};
   onTouched: Function = ()=> {};
 
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.windowHelper.GenerateUniqueId();
+
   constructor(private windowHelper: WindowHelper){
-    this.dropdownId = windowHelper.GenerateUniqueId();   
+    this.dropdownId = windowHelper.GenerateUniqueId(); 
+    this.Id = this.windowHelper.GenerateUniqueId();  
   }
 
   browse($event: Event) {

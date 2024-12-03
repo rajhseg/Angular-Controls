@@ -1,7 +1,8 @@
 import { CdkDrag, CdkDragMove, CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, Host, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rslider',
@@ -64,7 +65,13 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
   onTouch: Function = (value: number) => { };
 
-  constructor(@Host() private ele: ElementRef) {
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
+  constructor(@Host() private ele: ElementRef, private winObj: WindowHelper) {
+    this.Id = this.winObj.GenerateUniqueId();
     this.offsetLeft = (this.ele.nativeElement as HTMLElement).offsetLeft;
     // 12 offsetLeft + 2 + 1 +first position 1 = 16 
     // 16 + 200 = 216 + 20 = 236-1; layerX    

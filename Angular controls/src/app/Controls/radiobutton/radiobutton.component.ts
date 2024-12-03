@@ -1,7 +1,8 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonService, RadioEventArgs } from './radiobutton.service';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rradiobutton',
@@ -17,7 +18,11 @@ import { RadioButtonService, RadioEventArgs } from './radiobutton.service';
 })
 export class RRadiobuttonComponent implements ControlValueAccessor{
 
-  
+  @HostBinding('id')
+  HostElementId: string = this.windowHelper.GenerateUniqueId();
+
+  Id: string = '';
+
   @Input()
   IsChecked: boolean = false;
 
@@ -46,8 +51,9 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
   @Input()
   LabelColor: string = "black";
 
-  constructor(private service: RadioButtonService) {
+  constructor(private service: RadioButtonService, private windowHelper: WindowHelper) {
     this.service.AddInstance(this);
+    this.Id = this.windowHelper.GenerateUniqueId();
   }
 
   resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {

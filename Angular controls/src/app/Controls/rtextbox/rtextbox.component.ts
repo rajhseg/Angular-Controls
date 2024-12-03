@@ -1,5 +1,5 @@
 import { NgIf, NgStyle } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
 
@@ -79,8 +79,13 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
     return this._textboxValue;
   }
 
-  constructor(private winObj: WindowHelper) {
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
+  constructor(private winObj: WindowHelper) {
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   ngAfterViewInit(): void {

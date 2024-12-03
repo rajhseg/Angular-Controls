@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, Input, output, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, output, Output } from '@angular/core';
 import { RTreeItem } from './TreeModel';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rtree',
@@ -29,6 +30,15 @@ export class RTreeComponent {
   }
   get Items(): RTreeItem[] {
     return this._items;
+  }
+
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
+  constructor(private winObj: WindowHelper){
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   onSelected($event: Event, itemSelected: RTreeItem){

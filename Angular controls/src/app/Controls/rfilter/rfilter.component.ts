@@ -1,5 +1,5 @@
 import { DatePipe, NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RNumericComponent } from "../rnumeric/rnumeric.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
@@ -182,6 +182,9 @@ export class RFilterComponent implements ControlValueAccessor {
 
   @Output()
   valueChanged = new EventEmitter<RFilterApplyModel>();
+
+  @HostBinding('id')
+  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
 
   constructor(private windowHelper: WindowHelper, private datePipe: DatePipe){

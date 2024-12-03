@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, input, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostBinding, input, Input, ViewChild } from '@angular/core';
 import { AllocatedBarChartItem, PopupChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
@@ -169,8 +169,13 @@ export class RAllocatedBarChartComponent {
 
   public IsRendered: boolean = false;
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
+  Id: string = '';
+  
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   ngAfterViewInit(): void {

@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown" [id]="Id">
     <input [hidden]="true" multiple type="file" #rfile (change)="onFilesSelected($event)" />
     <div style="width: 285px;">
     <rgroup-panel [groupname]="'Files Upload'" [TitleForeColor]="TextForeColor" 

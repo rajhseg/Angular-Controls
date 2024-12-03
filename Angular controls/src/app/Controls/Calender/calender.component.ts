@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './CalenderModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -218,6 +218,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
+  @HostBinding('id')
+  HostElementId: string = '';
+
   constructor(private calService: CalenderService, private popupService: PopupService,
     private windowHelper: WindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
     private cdr: ChangeDetectorRef, private cssUnit: CssUnitsService) {
@@ -227,6 +230,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
       this.IsLinuxOs = navigator.platform.toLowerCase().includes("linux");
     }
 
+    this.HostElementId = this.windowHelper.GenerateUniqueId();
     this.Id = this.windowHelper.GenerateUniqueId();
     this.selectedDate = null;
     this.loadYears(new Date().getFullYear());

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, output } from '@angular/core';
 import { RProgressbarComponent } from '../progressbar/progressbar.component';
 import { ProgressBarDisplayType, ProgressBarType } from '../progressbar/progressbarType';
 import { WindowHelper } from '../windowObject';
@@ -130,7 +130,14 @@ export class RTimerComponent implements OnInit, OnDestroy {
     return this.second.toString()
   }
 
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
   constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+
+    this.Id = this.winObj.GenerateUniqueId();
 
     if (this.winObj.isExecuteInBrowser())
       this.window = window;

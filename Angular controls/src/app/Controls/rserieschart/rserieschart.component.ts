@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { BarChartItem, Graph, PopupChartItem, YSeriesChartItem, GraphSeriesChartItem } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -149,8 +149,13 @@ export class RSeriesChartComponent {
 
   public IsRendered: boolean = false;
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   ngAfterViewInit(): void {

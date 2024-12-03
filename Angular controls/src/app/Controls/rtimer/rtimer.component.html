@@ -1,7 +1,7 @@
 
 
 
-<div [ngStyle]="{'visibility': IsHidden ? 'collapse': 'visible', 'height': IsHidden ? '0px' : '', 'width': IsHidden ? '0px':'' }">
+<div [id]="Id" [ngStyle]="{'visibility': IsHidden ? 'collapse': 'visible', 'height': IsHidden ? '0px' : '', 'width': IsHidden ? '0px':'' }">
     <div [ngStyle]="{'padding': EnableShadowEffect ? '15px' : '','box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}"
         *ngIf="DisplayType == allDisplayTypes.Circle" style="display: flex;">
 

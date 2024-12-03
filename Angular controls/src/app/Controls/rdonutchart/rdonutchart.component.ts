@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { WindowHelper } from '../windowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 
@@ -76,9 +76,14 @@ export class RDonutChartComponent implements AfterViewInit {
   }
 
   context: CanvasRenderingContext2D | null | undefined = null;
+  
+  Id: string = '';
+
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
   constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
-
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   ngAfterViewInit(): void {

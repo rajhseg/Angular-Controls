@@ -157,6 +157,9 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   private winObj!: Window;
   private injector = inject(Injector);
 
+  @HostBinding('id')
+  HostElementId: string = this.windowHelper.GenerateUniqueId();
+
   constructor(private ddservice: DropdownService,
     private popupService: PopupService,
     private windowHelper: WindowHelper

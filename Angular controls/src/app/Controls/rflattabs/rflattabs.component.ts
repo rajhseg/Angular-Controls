@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, Host, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, Host, HostBinding, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent, RTabIdFor, TabHeaderWithTabId } from "../tab/tab.component";
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
@@ -92,6 +92,11 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
   
     @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;
   
+    Id: string = '';
+    
+    @HostBinding('id')
+    HostElementId: string = this.winobj.GenerateUniqueId();
+  
     constructor(private winobj: WindowHelper,
       private cdr: ChangeDetectorRef,
       private cfr: ComponentFactoryResolver,
@@ -102,6 +107,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
       private viewRef: ViewContainerRef,
       @Host() public hostElementRef: ElementRef
     ) {
+      this.Id = this.winobj.GenerateUniqueId();
       this.renderer = this.rendererFactory.createRenderer(null, null);
       // RTabService.GetInstance().AddTabsInstance(this);
     }

@@ -1,5 +1,5 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { ProgressBarDisplayType, ProgressBarType } from './progressbarType';
 import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 
@@ -29,6 +29,9 @@ export class RProgressbarComponent implements AfterViewInit, AfterViewChecked {
 
   @Input()
   EnableBackDrop: boolean = false;
+
+  @HostBinding('id')
+  Id: string = '';
 
   _foreColor: string = 'blue';
 
@@ -314,7 +317,7 @@ export class RProgressbarComponent implements AfterViewInit, AfterViewChecked {
   }
 
   constructor(private winobj: WindowHelper) {
-
+    this.Id = this.winobj.GenerateUniqueId();
   }
 
   ngAfterViewChecked(): void {

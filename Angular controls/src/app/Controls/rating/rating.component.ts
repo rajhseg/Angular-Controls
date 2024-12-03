@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
 
@@ -76,6 +76,9 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   Id: string = '';
+
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
   constructor(private winObj: WindowHelper){
     this.Id = this.winObj.GenerateUniqueId();

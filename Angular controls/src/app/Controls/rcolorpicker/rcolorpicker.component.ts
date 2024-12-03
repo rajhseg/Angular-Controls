@@ -1,5 +1,5 @@
 import { NgIf, NgStyle, UpperCasePipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, inject, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
 import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { RectShape } from './rectShape';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -134,6 +134,9 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
   private isMainColorPickerDrag: boolean = false;
 
   public Id: string = "";
+
+  @HostBinding('id')
+  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   public get GetRGBColorInNumbers(): string {
     return this.SelectedColorR + "," + this.SelectedColorG + "," + this.SelectedColorB;

@@ -1,4 +1,4 @@
-<div class="display: flex;" class="root" cdkDropListGroup *ngIf="Headers.length > 0">
+<div class="display: flex;" class="root" [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
     <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">
         <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" 

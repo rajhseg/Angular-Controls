@@ -40,7 +40,8 @@
   top:-2px;
   position: relative;
   background-color: #e7e7e9;
-  overflow: auto;
+  /* overflow: auto; */
+  overflow: visible;
 }
 
 .tab {
@@ -69,7 +70,8 @@
   margin-top: 2px; 
   margin-bottom: 2px;
   width: fit-content;
-  display: inline-block;
+  /* display: inline-block; */
+  display: inline-flex;
   background: #e7e7e9;
   border-radius: 30%;  
 }

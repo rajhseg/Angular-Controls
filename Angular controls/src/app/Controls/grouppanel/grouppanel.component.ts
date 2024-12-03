@@ -1,5 +1,6 @@
 import { NgStyle } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rgroup-panel',
@@ -21,5 +22,14 @@ IsItemsArrangeHorizontal: boolean = false;
 
 @Input()
 TitleForeColor: string = "gray";
+
+Id: string = '';
+
+@HostBinding('id')
+HostElementId: string = this.windowHelper.GenerateUniqueId();
+
+constructor(private windowHelper: WindowHelper){
+  this.Id = this.windowHelper.GenerateUniqueId();
+}
 
 }

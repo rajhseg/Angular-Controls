@@ -1,5 +1,5 @@
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { BarChartItem, DrawTextItem, PopupChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
 import { WindowHelper } from '../windowObject';
 
@@ -162,8 +162,13 @@ export class RStackedBarChartHorizontalComponent {
 
   public IsRendered: boolean = false;
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
+  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   ngAfterViewInit(): void {

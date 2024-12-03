@@ -1,7 +1,8 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CheckboxEventArgs, CheckboxService } from './checkbox.service';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rcheckbox',
@@ -51,8 +52,15 @@ export class RCheckboxComponent implements ControlValueAccessor {
 
   @Input()
   LabelColor: string = "black";
+  
+  @HostBinding('id')
+  HostElementId: string = '';
 
-  constructor(private service: CheckboxService) {
+  Id: string = '';
+
+  constructor(private windowHelper: WindowHelper, private service: CheckboxService) {
+    this.HostElementId = this.windowHelper.GenerateUniqueId();
+    this.Id = this.windowHelper.GenerateUniqueId();
     this.service.AddInstance(this);
   }
 

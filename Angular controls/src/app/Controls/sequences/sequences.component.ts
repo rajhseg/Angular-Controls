@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { RSequenceVerticalComponent } from "./sequence/sequence.component";
 import { RSequenceVerticalItem } from './sequence/sequenceitem';
 import { NgForOf } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rstate-vertical',
@@ -138,8 +139,13 @@ export class RStateVerticalComponent implements ControlValueAccessor {
   OnChanged: Function = (item: RSequenceVerticalItem) => { };
   OnTouched: Function = (item: RSequenceVerticalItem) => { };
 
-  constructor(private cdr: ChangeDetectorRef) {
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
+  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   notifyToModel() {

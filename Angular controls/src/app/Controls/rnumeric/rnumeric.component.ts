@@ -1,8 +1,9 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rnumeric',
@@ -70,6 +71,15 @@ export class RNumericComponent implements ControlValueAccessor {
   }
   public get Value(): number {
     return this._value;
+  }
+
+  Id: string = '';
+
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
+  constructor(private winObj: WindowHelper){
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   public Dec(){

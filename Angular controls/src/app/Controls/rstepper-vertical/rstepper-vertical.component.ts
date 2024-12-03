@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
 import { RStateAlignment, RStateDisplayType, RStepComponent } from '../rstep/rstep.component';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -174,8 +174,14 @@ export class RStepperVerticalComponent implements AfterContentInit {
     return this._activeStepNo;
   }
 
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
     this.seqItems = [];
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   

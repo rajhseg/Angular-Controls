@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, Input, OnDestroy, ViewChild } from '@angular/core';
 import { REventsHorizontalItem, REventsHorizontalTimeItems, REventsRenderDateSchedule, REventsRenderObj, REventsRenderChannelItem, REventsRenderSchedules, REventsSchedules, REventsVerticalChannels, RDateAndVerticalChannels } from './reventsschedule';
 import { DatePipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { WindowHelper } from '../windowObject';
@@ -295,9 +295,16 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @Input()
   EventBorderColor: string = "#10C4C8";
 
-  constructor(private winObj: WindowHelper, private datePipe: DatePipe) {
-    this.CalculateHorizontalHeaders();
+  Id: string = '';
 
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
+  constructor(private winObj: WindowHelper, private datePipe: DatePipe) {
+    this.Id = this.winObj.GenerateUniqueId();
+    
+    this.CalculateHorizontalHeaders();
+    
     if (this.DisplayDatesOnLoad.length == 0) {
       this.CalculateDates();
     }

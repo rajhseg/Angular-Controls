@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RSequenceHorizontalItem } from './rsequence-horizontal/sequenceitemhorizontal';
 import { NgForOf } from '@angular/common';
 import { RSequenceHorizontalComponent } from './rsequence-horizontal/rsequence-horizontal.component';
+import { WindowHelper } from '../windowObject';
 
 @Component({
   selector: 'rstate-horizontal',
@@ -126,8 +127,13 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
   OnChanged: Function = (item: RSequenceHorizontalItem) => { };
   OnTouched: Function = (item: RSequenceHorizontalItem) => { };
 
-  constructor(private cdr: ChangeDetectorRef) {
+  Id: string = '';
+  
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
 
+  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
+    this.Id = this.winObj.GenerateUniqueId();
   }
 
   notifyToModel() {

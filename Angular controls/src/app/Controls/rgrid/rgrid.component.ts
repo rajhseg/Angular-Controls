@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgZone, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, HostBinding, Input, NgZone, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
@@ -132,9 +132,15 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     return this._items;
   }
 
+  Id: string = '';
+
+  @HostBinding('id')
+  HostElementId: string = this.winObj.GenerateUniqueId();
+
   constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: WindowHelper,
     private datePipe: DatePipe
   ) {
+    this.Id = this.winObj.GenerateUniqueId();
     let ditems: DropdownModel[] = [];
     ditems.push(new DropdownModel(5, "5"));
     ditems.push(new DropdownModel(10, "10"));

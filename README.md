@@ -391,7 +391,7 @@ RSeriesChart
 RFlatTabs
 ------------------------------
 
-![image](https://github.com/user-attachments/assets/fbe46fa7-2305-41fe-b089-b8a346602123)
+![image](https://github.com/user-attachments/assets/ba64778a-ed66-4f9d-a0e1-e6599a521066)
 
 
 <br/>

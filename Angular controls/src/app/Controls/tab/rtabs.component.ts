@@ -186,6 +186,20 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
           this.dropDataExchange(event, false);
         }
 
+        
+        let _ex = this.draggedTabs.find((x: TabHeaderWithTabId) => x.TabId == _item.TabId);
+  
+        if(_ex){
+          let mevent = (event.event as MouseEvent);
+          _ex.X = mevent.pageX;
+
+          if(_ex.X - 100 > 0) {
+            _ex.X = _ex.X - 100;
+          }
+          
+          _ex.Y = mevent.pageY;
+        }
+
         if (this.draggedTabs.length == 0)
           this.ispopuphidden = true;
       }

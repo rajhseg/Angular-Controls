@@ -9,6 +9,7 @@ import { CheckboxEventArgs } from '../checkbox/checkbox.service';
 import { RCheckboxComponent } from '../checkbox/checkbox.component';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { RDropdownFilterPipe } from '../dropdown-filter.pipe';
+import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
 
 @Component({
   selector: 'rselectdropdown',
@@ -49,7 +50,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   EnableShadowOnDropdown: boolean = true;
 
   @Input()
-  DropDownContentHeight: number = 200;
+  DropDownContentHeight: string = '200px';
 
   @ContentChild(ROptionsTemplateDirective, {read: TemplateRef<any>}) 
   OptionsTemplate!: TemplateRef<any>;
@@ -99,10 +100,10 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   isSelectAllChecked: boolean = false;
 
   @Input()
-  Width: number = 80;
+  Width: string = '80px';
 
   @Input()
-  DropDownContentWidth: number = 105;
+  DropDownContentWidth: string = '105px';
 
   @Output()
   change = new EventEmitter<any>(); 
@@ -130,7 +131,30 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     return this._show;
   }
 
+  DDEBottom: string = '';
 
+  DDETop: string = '';
+
+  DDELeft: string = '';
+
+  DDERight: string = '';
+
+  
+  get DDEWidth() : string {
+    let val = this.cssUnit.ToPxValue(this.DropDownContentWidth, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
+    return val+ CssUnit.Px.toString();
+  }
+
+  get DDEHeight(): string {
+    let val = this.cssUnit.ToPxValue(this.DropDownContentHeight, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+    return val+ CssUnit.Px.toString();
+  }
+  
+  get TextBoxWidth(): string {
+    let val = this.cssUnit.ToPxValue(this.Width, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
+    return val+ CssUnit.Px.toString();
+  }
+  
   SelectedItems: DropdownModel[] | string[] | number[] | any[] = [];
   SelectedIndexes: number[] = [];
 
@@ -150,7 +174,9 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
-  constructor(private windowHelper: WindowHelper) {
+  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef,
+    private cssUnit: CssUnitsService
+  ) {
     this.Id = windowHelper.GenerateUniqueId();    
     this.winObj = inject(WINDOWOBJECT);
   }
@@ -393,43 +419,84 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
       this.firstTimeInit = false;
     }
 
-    this.IsDropDownOpen = currentValueToSet;    
+    this.IsDropDownOpen = currentValueToSet;   
+    
+    if(this.IsDropDownOpen){
+      this.AttachDropdown();
+    }
   }
 
-  
   AttachDropdown(){
     let windowHeight = this.winObj.innerHeight;    
+    const exp = /(-?[\d.]+)([a-z%]*)/;
+
     if(this.openBtn.nativeElement && this.mydropDown.nativeElement){
       let btn = this.openBtn.nativeElement as HTMLElement;
       let dropDownElement = this.mydropDown.nativeElement as HTMLElement;
       let dropDownHeight = dropDownElement.clientHeight;
       let btnPosTop = btn.getBoundingClientRect().top;
 
-      if(windowHeight - btnPosTop < dropDownHeight){
-        dropDownElement.style.bottom = '120%';
-        dropDownElement.style.top = 'auto';
+      
+      let isInTab = false;
+      let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
+      let tabTop, tabLeft;
+      let  i = 15;
+
+      while(element && element != null && i > 0){
+        if(element.nodeName.toLowerCase() == 'rflattabs' || element.nodeName.toLowerCase() == 'rtabs'){
+          isInTab = true;
+          break;
+        }
+
+        i--;
+        element = element.parentElement;
+      }
+
+      if(isInTab && element) {
+        let tabRect = element.getBoundingClientRect();
+        tabTop = tabRect.top;
+        tabLeft = tabRect.left;
       } else {
-        dropDownElement.style.top = '110%';
-        dropDownElement.style.bottom = 'auto';        
-        
+        tabTop = 0;          
+      }
+
+      if (windowHeight - btnPosTop < dropDownHeight && tabTop - btnPosTop > dropDownHeight) {      
+        this.DDEBottom = '120%';
+        this.DDETop = 'auto';
+      } else {
+        this.DDETop = '110%';
+        this.DDEBottom = 'auto';
       }
     }
-
+  
     let windowWidth = this.winObj.innerWidth;
-    if(this.startElement.nativeElement && this.mydropDown.nativeElement){
+    if (this.startElement.nativeElement) {
       let start = this.startElement.nativeElement as HTMLElement;
-      let dropDownElement = this.mydropDown.nativeElement as HTMLElement;
-      let dropDownWidth = dropDownElement.clientWidth;
-      let startPos = start.getBoundingClientRect();      
-      
-      if(windowWidth - startPos.left < dropDownWidth){
-        dropDownElement.style.left = (startPos.right - startPos.left - dropDownWidth) - 5 + 'px';
-      } else {
-        dropDownElement.style.left ='0px';        
+      let res = this.DDEWidth.match(exp);
+
+      if (res) {
+        let dropDownWidth = parseFloat(res[1].toString());
+
+        // dropDownWidth = dropDownWidth + padding(left, right) + border + margin;
+        dropDownWidth = dropDownWidth + (10 * 2) + (1 * 2) + 0;
+
+        let startPos = start.getBoundingClientRect();
+
+        if (windowWidth > dropDownWidth + startPos.left) {
+          this.DDELeft = '0px';
+          this.DDERight = 'auto';
+        } else {
+          let moveRight = dropDownWidth - startPos.width;
+          this.DDELeft = 'auto';
+
+          if (moveRight > 0)
+            this.DDERight = '0px';
+        }
       }
     }
   }
 
+  
   AssignItems(item: RSelectItemModel, val: boolean) {
 
     if (item instanceof RSelectItemModel) {

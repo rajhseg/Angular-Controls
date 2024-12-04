@@ -1,76 +1,73 @@
-
 <div [id]="Id" class="dropdown rdropdownWindowClose">
-  <input #startElement (click)="openDropdown($event)" readonly class="inpdrop" type="text" 
-    style="padding-right: 20px;"
-    [(ngModel)]="SelectedDisplay"
-    [ngStyle]="{'width': Width + 'px' }">
+  <input #startElement (click)="openDropdown($event)" readonly class="inpdrop" type="text" style="padding-right: 20px;"
+    [(ngModel)]="SelectedDisplay" [ngStyle]="{'width': TextBoxWidth }">
   <button #openbtn (click)="openDropdown($event)" class="dropdownbtn">
     <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
   </button>
-  <div *ngIf="IsDropDownOpen" #myDropdown id="myDropdown" (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)"
-    class="dropdown-content" style="background-color: white;overflow-x: hidden;text-overflow: ellipsis;" 
-      [ngStyle]="{'maxWidth': DropDownContentWidth + 'px', 
-        'width': DropDownContentWidth +'px',
-        'visibility':IsDropDownOpen ? 'visible': 'collapse',
+  <div [hidden]="!IsDropDownOpen" #myDropdown id="myDropdown" 
+      (scroll)="scrollHandler($event)" tabindex="1"
+    (focusout)="onBlur($event)" class="dropdown-content"
+    style="background-color: white;overflow-x: hidden;text-overflow: ellipsis;" 
+    [ngStyle]="{'maxWidth': DDEWidth,                 
         'background-color': BackgroundColor,
-        'color': ForeColor,
-        'height': DropDownContentHeight + 'px',
+        'color': ForeColor,        
         'border': '1px solid lightgray',
-        'box-shadow':EnableShadowOnDropdown ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : '' 
+        'box-shadow':EnableShadowOnDropdown ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : '' ,
+        'width': DDEWidth, 'height': DDEHeight, 
+        'top':DDETop, 'bottom': DDEBottom,
+        'left': DDELeft, 'right': DDERight 
         }">
 
 
     <div *ngIf="EnableFilterOption">
-      <rtextbox [TextBoxWidth]="getFilterBoxWidth(DropDownContentWidth+'px')" [EnableMarginTextBottom]="false" [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"></rtextbox>        
+      <rtextbox [TextBoxWidth]="getFilterBoxWidth(DDEWidth)" [EnableMarginTextBottom]="false"
+        [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"></rtextbox>
     </div>
 
-    <div *ngIf="IsMulti" style="cursor: pointer;overflow: hidden; text-overflow: ellipsis;" 
-        [ngStyle]="{ 'maxWidth': DropDownContentWidth +'px', 'width': DropDownContentWidth +'px' }">
+    <div *ngIf="IsMulti" style="cursor: pointer;overflow: hidden; text-overflow: ellipsis;"
+      [ngStyle]="{ 'maxWidth': DDEWidth, 'width': DDEWidth }">
       <div class="option-content" style="padding-left:6px;padding-top:6px;cursor: pointer;display: flex;">
-        
-        <rcheckbox style="width: auto;padding: 6px;" (OnClick)="selectall($event)"  
-              [(ngModel)]="isSelectAllChecked"
-              [IsChecked]="isSelectAllChecked" [DisplayText]="''">
+
+        <rcheckbox style="width: auto;padding: 6px;" (OnClick)="selectall($event)" [(ngModel)]="isSelectAllChecked"
+          [IsChecked]="isSelectAllChecked" [DisplayText]="''">
         </rcheckbox>
-        
+
         <div (click)="selectallFromSpan($event)" style="padding-top: 12px;width: 100%;text-align: left;">
-          <span>Select All</span>          
+          <span>Select All</span>
         </div>
 
       </div>
       <div class="option-content" style="padding-left:6px;">
 
-      <ng-container *ngFor="let item of ComplexItems| rfilter: SearchItem">
-            
+        <ng-container *ngFor="let item of ComplexItems| rfilter: SearchItem">
+
           <div style="display: flex;flex-direction: row;align-self: center;">
 
-           
-          <rcheckbox (OnCheckChanged)="checkValue($event, item)" [IsChecked]="item.IsSelected"
-            style="width: auto;padding: 6px;cursor: pointer;"
-            [DisplayText]="''">
-          </rcheckbox>
-          
-          <div (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)" 
-                style="display: flex;flex-direction: row;align-self: center;width: 100%;text-align: left;">
-            <ng-container>
-              {{item.DisplayValue}}
-            </ng-container>
+
+            <rcheckbox (OnCheckChanged)="checkValue($event, item)" [IsChecked]="item.IsSelected"
+              style="width: auto;padding: 6px;cursor: pointer;" [DisplayText]="''">
+            </rcheckbox>
+
+            <div (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)"
+              style="display: flex;flex-direction: row;align-self: center;width: 100%;text-align: left;">
+              <ng-container>
+                {{item.DisplayValue}}
+              </ng-container>
+            </div>
+
           </div>
 
-        </div>
-
-      </ng-container>
+        </ng-container>
 
       </div>
     </div>
 
-    <div *ngIf="!IsMulti" style="overflow: hidden; text-overflow: ellipsis;" 
-            [ngStyle]="{ 'maxWidth': DropDownContentWidth +'px', 'width': DropDownContentWidth +'px' }">
+    <div *ngIf="!IsMulti" style="overflow: hidden; text-overflow: ellipsis;"
+      [ngStyle]="{ 'maxWidth': DDEWidth, 'width': DDEWidth }">
       <div class="option-content">
-        <div class="item" style="padding-top:8px; padding-bottom: 10px;text-align: left;" 
-            (click)="selectSingleValue($event, item)"
-            *ngFor="let item of ComplexItems | rfilter: SearchItem" 
-            [ngClass]="{'dropdown-content-selected': item.IsSelected}">
+        <div class="item" style="padding-top:8px; padding-bottom: 10px;text-align: left;"
+          (click)="selectSingleValue($event, item)" *ngFor="let item of ComplexItems | rfilter: SearchItem"
+          [ngClass]="{'dropdown-content-selected': item.IsSelected}">
           {{item.DisplayValue}}
         </div>
       </div>

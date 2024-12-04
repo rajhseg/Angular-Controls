@@ -41,12 +41,12 @@
       [Items]="seriesModel1"></rserieschart>
 
 
-    <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="112" 
-        [DropDownContentWidth]="240">
+    <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'" 
+        [DropDownContentWidth]="'240px'">
     </rdropdown>
 
-    <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="112" 
-        [DropDownContentWidth]="122">
+    <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="'112px'" 
+        [DropDownContentWidth]="'122px'">
     </rdropdown>
 
     <br />
@@ -504,7 +504,7 @@
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="200">
+        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -515,13 +515,13 @@
         </rselectdropdown>
   
         <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" 
-            [DropDownContentWidth]="240">
+            [DropDownContentWidth]="'240px'">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="130">
+        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="200">
+        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -531,9 +531,9 @@
           </ng-template>
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items" [DropDownContentWidth]="240"></rselectdropdown>
+        <rselectdropdown [Items]="items" [DropDownContentWidth]="'240px'"></rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="130"></rselectdropdown>
+        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
   
       </ng-template>
     </rstep>
@@ -581,7 +581,7 @@
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
         
-        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="200">
+        <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -591,13 +591,13 @@
           </ng-template>
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="240">
+        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'240px'">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="130">
+        <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
         </rselectdropdown>
   
-        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="200">
+        <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
               <span>{{Item.Value.Id}}</span>
@@ -607,9 +607,9 @@
           </ng-template>
         </rselectdropdown>
   
-        <rselectdropdown [Items]="items" [DropDownContentWidth]="240"></rselectdropdown>
+        <rselectdropdown [Items]="items" [DropDownContentWidth]="'240px'"></rselectdropdown>
   
-        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="130"></rselectdropdown>
+        <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
   
       </ng-template>
     </rstep>
@@ -657,16 +657,16 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'rdropdown', 'Context':this }">
-        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="112" 
-            [DropDownContentWidth]="240">
+        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="'112px'" 
+            [DropDownContentWidth]="'240px'">
         </rdropdown>
         {{selItem.Value}}
 
-        <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="240">
+        <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="'240px'">
         </rdropdown>
 
-        <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="112"
-          [DropDownContentWidth]="122">
+        <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="'112px'"
+          [DropDownContentWidth]="'122px'">
         </rdropdown>
 
         <br />
@@ -1079,7 +1079,7 @@
 
       <rtab *tabidfor="{'TabId':'tab30', 'HeaderText':'rselectdropdown', 'Context': this}">
         <div>
-          <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="200">
+          <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
             <ng-template optionstemplate let-Item>
               <div>
                 <span>{{Item.Value.Id}}</span>
@@ -1090,13 +1090,13 @@
           </rselectdropdown>
 
           <rselectdropdown [EnableFilterOption]="false" [Items]="items" [IsMulti]="true" 
-              [(ngModel)]="multiValue" [DropDownContentWidth]="240">
+              [(ngModel)]="multiValue" [DropDownContentWidth]="'240px'">
           </rselectdropdown>
 
-          <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="130">
+          <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
           </rselectdropdown>
 
-          <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="200">
+          <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
             <ng-template optionstemplate let-Item>
               <div>
                 <span>{{Item.Value.Id}}</span>
@@ -1106,9 +1106,9 @@
             </ng-template>
           </rselectdropdown>
 
-          <rselectdropdown [Items]="items" [DropDownContentWidth]="240"></rselectdropdown>
+          <rselectdropdown [Items]="items" [DropDownContentWidth]="'240px'"></rselectdropdown>
 
-          <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="130">
+          <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'">
           </rselectdropdown>
 
         </div>
@@ -1216,13 +1216,20 @@
     </rcolorpicker>
 
     <input  type="color" [(ngModel)]="tColor"/>
+
+    <!-- <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="330">
+    </rselectdropdown> -->
+
+    <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="'330px'">
+    </rdropdown>
+
   </div>
   
   <br/>
   <br/>
   <br/>
   <div style="margin-top:30px;margin-bottom: 30px;float:left">
-    <rflattabs [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
+    <rflattabs [TabWidth]="'650px'" [TabHeight]="'300px'" [DisplayTabContainerWhenZeroTabs]="true">
 
       <rtab *tabidfor="{ 'TabId':'tabf1', 'HeaderText':'rcalender', 'Context':this }">
         <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
@@ -1232,16 +1239,16 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tabf2', 'HeaderText':'rdropdown', 'Context':this }">
-        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="112" 
-            [DropDownContentWidth]="240">
+        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="'112px'" 
+            [DropDownContentWidth]="'240px'">
         </rdropdown>
         {{selItem.Value}}
 
-        <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="240">
+        <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="'240px'">
         </rdropdown>
 
-        <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="112"
-          [DropDownContentWidth]="122">
+        <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="'112px'"
+          [DropDownContentWidth]="'122px'">
         </rdropdown>
 
         <br />

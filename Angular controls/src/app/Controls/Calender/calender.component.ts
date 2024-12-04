@@ -497,7 +497,30 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
         let dropDownHeight = parseFloat(res[1].toString());
         let btnPosTop = btn.getBoundingClientRect().top;
         
-        if (windowHeight - btnPosTop < dropDownHeight) {
+        let isInTab = false;
+        let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
+        let tabTop, tabLeft;
+        let i =15;
+
+        while(element && element != null && i > 0){
+          if(element.nodeName.toLowerCase() == 'rflattabs' || element.nodeName.toLowerCase() == 'rtabs'){
+            isInTab = true;
+            break;
+          }
+          
+          i--;
+          element = element.parentElement;
+        }
+
+        if(isInTab && element) {
+          let tabRect = element.getBoundingClientRect();
+          tabTop = tabRect.top;
+          tabLeft = tabRect.left;
+        } else {
+          tabTop = 0;          
+        }
+
+        if (windowHeight - btnPosTop < dropDownHeight && tabTop - btnPosTop > dropDownHeight) {
           this.DDEBottom = '120%';
           this.DDETop = 'auto';
         } else {

@@ -40,8 +40,8 @@
   top:-2px;
   position: relative;
   background-color: #e7e7e9;
-  /* overflow: auto; */
-  overflow: visible;
+  overflow: auto;
+  /* overflow: visible; */
 }
 
 .tab {

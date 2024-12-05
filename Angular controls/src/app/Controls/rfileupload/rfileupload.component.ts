@@ -153,15 +153,16 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
     }
   }
 
-  toggle($event: Event) {    
+  toggle($event: Event) { 
+    $event.stopPropagation();
+    $event.preventDefault();
+   
     this.showFiles = !this.showFiles;
 
     if(this.showFiles){
       this.cls.CloseAllPopups(this);
     }
-    
-    $event.preventDefault();
-    $event.stopPropagation();
+        
   }
 
 

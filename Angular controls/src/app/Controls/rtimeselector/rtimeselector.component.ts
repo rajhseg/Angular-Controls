@@ -326,6 +326,9 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
   }
 
   openDropdown($event: Event) {
+    $event.stopPropagation();
+    $event.preventDefault();
+
     this.IsDropDownOpen = !this.IsDropDownOpen;
     if(this.IsDropDownOpen){
       this.cls.CloseAllPopups(this);

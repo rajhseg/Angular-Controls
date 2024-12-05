@@ -457,7 +457,9 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
   }
   
   openDropdown(evt: Event) {
-    
+    evt.stopPropagation();
+    evt.preventDefault();
+
     // this.popupService.CloseAllPopupsOnOpen(this);
     var currentValueToSet = !this.IsDropDownOpen;
     if (currentValueToSet) {

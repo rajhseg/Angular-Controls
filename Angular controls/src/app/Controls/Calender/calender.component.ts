@@ -471,10 +471,9 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
   }
 
   openCalender($evt: Event, isopenFromInput: boolean = false) {
-
     $evt.stopPropagation();
     $evt.preventDefault();
-    
+
     this.IsChildOfAnotherControlClicked = false;
 
     var currentValueToSet = false;

@@ -512,7 +512,10 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
   }
 
 
-  async toggle($event: Event) {    
+  async toggle($event: Event) {
+    $event.stopPropagation();
+    $event.preventDefault();
+    
     this.IsColorPickerOpen = !this.IsColorPickerOpen;
     if (this.IsColorPickerOpen) {
       this.cls.CloseAllPopups(this);

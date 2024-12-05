@@ -409,12 +409,15 @@
     <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
     <br/>
     <br/>
+    
     <revents-schedule [ContainerBackgroundColor]="'#13297A'" 
           [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
           [EventBackgroundColor]="'#13297A'"  [MarkerBackgroundColor]="'white'"
           [ShowMarker]="true" [ShowScrollBar]="true"
           [SelectedDate]="selectedDate" 
-          [ScheduleItems]="scheduleItems"></revents-schedule>
+          [ScheduleItems]="scheduleItems">
+    </revents-schedule> 
+
     <br/>
     <div style="padding-right:30px">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
@@ -1115,7 +1118,7 @@
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab31', 'HeaderText':'rEventsSchedule', 'Context': this}">        
-        <revents-schedule [Width]="740" [ScheduleItems]="scheduleItems"></revents-schedule>
+         <revents-schedule [Width]="740" [ScheduleItems]="scheduleItems"></revents-schedule> 
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rdonutchart', 'Context': this}">

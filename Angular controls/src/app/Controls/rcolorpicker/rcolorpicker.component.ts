@@ -4,6 +4,7 @@ import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { RectShape } from './rectShape';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CssUnit, CssUnitsService } from '../css-units.service';
+import { CloseService, IDropDown } from '../popup.service';
 
 @Component({
   selector: 'rcolorpicker',
@@ -23,7 +24,7 @@ import { CssUnit, CssUnitsService } from '../css-units.service';
     }
   ]
 })
-export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestroy, ControlValueAccessor {
 
   @ViewChild('variations', { read: ElementRef<HTMLCanvasElement>, static: false })
   variations: ElementRef<HTMLCanvasElement> | undefined = undefined;
@@ -135,6 +136,9 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
 
   public Id: string = "";
 
+  @Input()
+  public ParentDropDownId: string = '';
+
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
@@ -174,14 +178,23 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
   @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
   @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
 
+  cls!: CloseService;
+
   constructor(private windowHelper: WindowHelper, private cdr: ChangeDetectorRef,
     private eleRef: ElementRef,
-    private cssUnit: CssUnitsService) {
+    private cssUnitSer: CssUnitsService
+  ) {
+    this.cls = CloseService.GetInstance();
     this.mainColorRgb = "rgb(255,0,0)";
     this.mainColorHex = this.RGBToHex(255, 0, 0);
     this._mainColorGradients = [];
     this.Id = this.windowHelper.GenerateUniqueId();
     this.winObj = inject(WINDOWOBJECT);
+    this.cls.AddInstance(this);
+  }
+
+  closeDropdown(): void {
+    this.IsColorPickerOpen = false;
   }
 
   writeValue(obj: any): void {
@@ -244,7 +257,7 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
 
   GetVarXValueWithInRect(_x: number): number {
 
-    let _wth = this.cssUnit.ConvertToPxValue(this.varCanvasWidth, CssUnit.Px, null, null);
+    let _wth = this.cssUnitSer.ConvertToPxValue(this.varCanvasWidth, CssUnit.Px, null, null);
 
     if (_x < 0) {
       _x = 0;
@@ -259,7 +272,7 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
 
   GetVarYValueWithInRect(_y: number): number {
 
-    let _hgt = this.cssUnit.ConvertToPxValue(this.varCanvasHeight, CssUnit.Px, null, null);
+    let _hgt = this.cssUnitSer.ConvertToPxValue(this.varCanvasHeight, CssUnit.Px, null, null);
 
     if (_y < 0) {
       _y = 0;
@@ -274,7 +287,7 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
 
   GetMainYValueWithInRect(_y: number): number {
 
-    let _hgt = this.cssUnit.ConvertToPxValue(this.colorCanvasHeight, CssUnit.Px, null, null);
+    let _hgt = this.cssUnitSer.ConvertToPxValue(this.colorCanvasHeight, CssUnit.Px, null, null);
 
     if (_y < 0) {
       _y = 0;
@@ -499,9 +512,10 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
   }
 
 
-  async toggle($event: Event) {
+  async toggle($event: Event) {    
     this.IsColorPickerOpen = !this.IsColorPickerOpen;
     if (this.IsColorPickerOpen) {
+      this.cls.CloseAllPopups(this);
       this.RenderOnToggle = true;            
       await this.RenderCanvas();
       this.AttachDropdown();
@@ -510,28 +524,35 @@ export class RColorPickerComponent implements AfterViewInit, OnDestroy, ControlV
     }
   }
 
+  
+  IsOpen(): boolean {
+    return this.IsColorPickerOpen;
+  }
+
   windowOnClick($event: Event) {
 
-    let i = 15;
-    let element = $event.srcElement;
-    let sameelementClicked: boolean = false;
-    let elementId: string | undefined = undefined;
+    if (this.IsColorPickerOpen) {
+      let i = 15;
+      let element = $event.srcElement;
+      let sameelementClicked: boolean = false;
+      let elementId: string | undefined = undefined;
 
-    while (element != undefined && i > -1) {
-      if ((element as HTMLElement).classList.contains('rcolorpickerwindowclose')) {
-        elementId = (element as HTMLElement).id;
-        if (elementId == this.Id) {
-          sameelementClicked = true;
+      while (element != undefined && i > -1) {
+        if ((element as HTMLElement).classList.contains('rcolorpickerwindowclose')) {
+          elementId = (element as HTMLElement).id;
+          if (elementId == this.Id) {
+            sameelementClicked = true;
+          }
+          break;
         }
-        break;
+
+        i--;
+        element = (element as HTMLElement).parentElement;
       }
 
-      i--;
-      element = (element as HTMLElement).parentElement;
+      if (!sameelementClicked)
+        this.IsColorPickerOpen = false;
     }
-
-    if (!sameelementClicked)
-      this.IsColorPickerOpen = false;
   }
 
   AddColorGradients() {

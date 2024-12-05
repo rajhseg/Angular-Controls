@@ -79,3 +79,76 @@ export interface IPopupCloseInterface {
   ParentComponent:any | undefined;
   IsChildOfAnotherControlClicked: boolean;
 }
+
+export interface IDropDown {
+  Id: string;
+  ParentDropDownId: string;
+  closeDropdown(): void;
+  IsOpen(): boolean;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CloseService {
+
+  private static ins: CloseService | undefined;
+
+  private objects: IDropDown[] = [];
+
+  public static GetInstance(): CloseService {
+    if(this.ins==null || this.ins==undefined){
+      this.ins = new CloseService();
+    }
+
+    return this.ins;
+  }
+
+  AddInstance(ins: IDropDown){
+    if(this.objects.find(x=>x.Id.toLowerCase()==ins.Id.toLowerCase())==undefined){
+      this.objects.push(ins);  
+    }
+  }
+
+  CloseAllPopups(currentDropdown: IDropDown | undefined): void{
+    let noCloseList = [];
+
+    if(currentDropdown!=undefined){
+      noCloseList.push(currentDropdown.Id);
+      let parentDropdownId = currentDropdown.ParentDropDownId;
+
+      while(parentDropdownId!=undefined && parentDropdownId!=null && parentDropdownId.trim()!=''){
+        let parIns = this.objects.find(x=>x.Id.toLowerCase()==parentDropdownId.toLowerCase());
+        if(parIns!=undefined){
+          noCloseList.push(parIns.Id);
+          parentDropdownId = parIns.ParentDropDownId;
+        }
+        else {
+          parentDropdownId = '';
+        }
+      }
+    }
+
+    let openedDrops = this.objects.filter(x=>x.IsOpen()==true);
+
+    for (let index = 0; index < openedDrops.length; index++) {
+      const element = openedDrops[index];
+      let indx = noCloseList.find(x=>x.toLowerCase()==element.Id.toLowerCase());
+      if(indx==undefined || indx==null){
+        element.closeDropdown();
+      }
+    }
+  }
+
+}
+
+(function(){
+
+  function DropDownClose($event: any){
+    
+  }
+  
+  if(typeof window !== 'undefined')
+    window.addEventListener('click', DropDownClose);
+
+})();

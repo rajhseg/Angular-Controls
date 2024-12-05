@@ -6,6 +6,7 @@ import { DropDownItemModel, DropdownModel } from '../dropdown/dropdownmodel';
 import { RDropdownComponent } from '../dropdown/dropdown.component';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
+import { CloseService, IDropDown } from '../popup.service';
 
 @Component({
   selector: 'rtimeselector',
@@ -25,7 +26,7 @@ import { WindowHelper } from '../windowObject';
     "(window:click)": "windowOnClick($event)"
   }
 })
-export class RTimeSelectorComponent implements ControlValueAccessor {
+export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
 
   IsDropDownOpen: boolean = false;
 
@@ -42,6 +43,9 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
   selectedHour!: DropDownItemModel;
   selectedMinute!: DropDownItemModel;
   selectedMode!: DropDownItemModel;
+
+  @Input()
+  ParentDropDownId: string = '';
 
   @Input()
   LabelText: string = "";
@@ -78,9 +82,13 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
+  cls!: CloseService;
+
   constructor(private windowHelper: WindowHelper) {
+    this.cls = CloseService.GetInstance();
     this.LoadValues();
     this.Id = this.windowHelper.GenerateUniqueId();
+    this.cls.AddInstance(this);
   }
 
   writeValue(obj: any): void {
@@ -181,29 +189,34 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
     }
   }
 
+  closeDropdown(): void {
+    this.IsDropDownOpen =false;
+  }
 
   windowOnClick($event: Event) {
 
-    let i = 15;
-    let element = $event.srcElement;
-    let sameelementClicked: boolean = false;
-    let elementId: string | undefined = undefined;
+    if (this.IsDropDownOpen) {
+      let i = 15;
+      let element = $event.srcElement;
+      let sameelementClicked: boolean = false;
+      let elementId: string | undefined = undefined;
 
-    while (element != undefined && i > -1) {
-      if ((element as HTMLElement).classList.contains('rtimeselectorwindowclose')) {
-        elementId = (element as HTMLElement).id;
-        if (elementId == this.Id) {
-          sameelementClicked = true;
+      while (element != undefined && i > -1) {
+        if ((element as HTMLElement).classList.contains('rtimeselectorwindowclose')) {
+          elementId = (element as HTMLElement).id;
+          if (elementId == this.Id) {
+            sameelementClicked = true;
+          }
+          break;
         }
-        break;
+
+        i--;
+        element = (element as HTMLElement).parentElement;
       }
 
-      i--;
-      element = (element as HTMLElement).parentElement;
+      if (!sameelementClicked)
+        this.IsDropDownOpen = false;
     }
-
-    if (!sameelementClicked)
-      this.IsDropDownOpen = false;
   }
 
 
@@ -314,6 +327,13 @@ export class RTimeSelectorComponent implements ControlValueAccessor {
 
   openDropdown($event: Event) {
     this.IsDropDownOpen = !this.IsDropDownOpen;
+    if(this.IsDropDownOpen){
+      this.cls.CloseAllPopups(this);
+    }
+  }
+
+  IsOpen(): boolean {
+    return this.IsDropDownOpen;
   }
 
   SetDisplayText() {

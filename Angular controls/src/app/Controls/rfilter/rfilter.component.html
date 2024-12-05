@@ -36,7 +36,7 @@
                 <div style="margin-top: 5px; margin-bottom: 15px;font-size: 16px;" 
                         [ngStyle]="{ 'color': ForeColor}">
                     <rselectdropdown [Items]="ItemValues" [IsMulti]="true" 
-                                 [ForeColor]="'gray'"
+                                 [ForeColor]="'gray'" [ParentDropDownId]="Id"
                                  [Width]="'153px'" [(ngModel)]="ContainsList"
                                  [DropDownContentWidth]="dropdownMaxChars+'px'">
                     </rselectdropdown>                
@@ -52,7 +52,7 @@
                     class="num" 
                    style="left:13px"></rnumeric>
 
-                <rcalender *ngIf="DataType=='date'" 
+                <rcalender *ngIf="DataType=='date'" [ParentDropDownId]="Id"
                     [(ngModel)]="LessThanDate" [DateFormat]="DateFormat"
                     style="position: relative; left: -12px;"></rcalender>
             </div>
@@ -66,7 +66,7 @@
                     [TextBoxWidth]="75" class="num">
                 </rnumeric>
 
-                <rcalender *ngIf="DataType =='date'"
+                <rcalender *ngIf="DataType =='date'" [ParentDropDownId]="Id"
                     [(ngModel)]="GreaterThanDate" [DateFormat]="DateFormat"
                     style="position: relative; left: -12px;"></rcalender>
             </div>

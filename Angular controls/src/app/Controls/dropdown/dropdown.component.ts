@@ -4,7 +4,7 @@ import { DropDownItemModel, DropdownModel } from './dropdownmodel';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { DropdownService } from './dropdownservice.service';
-import { IPopupCloseInterface, PopupService } from '../popup.service';
+import { CloseService, IDropDown, IPopupCloseInterface, PopupService } from '../popup.service';
 import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 import { RCheckboxComponent } from "../checkbox/checkbox.component";
 import { CheckboxEventArgs } from '../checkbox/checkbox.service';
@@ -30,7 +30,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     "(window:click)": "windowOnClick($event)"
   }
 })
-export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
+export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
   AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
 
   onChange: any = () => { }
@@ -128,19 +128,45 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
 
   DDERight: string = '';
   
+  private ddeWidth: string = '';
+  private ddeWidthVal: string = '';
+
   get DDEWidth() : string {
-    let val = this.cssUnit.ToPxValue(this.DropDownContentWidth, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
-    return val+ CssUnit.Px.toString();
+
+    if(this.ddeWidth != this.DropDownContentWidth){
+      let val = this.cssUnitSer.ToPxValue(this.DropDownContentWidth, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
+      this.ddeWidth = this.DropDownContentWidth;
+      this.ddeWidthVal = val+ CssUnit.Px.toString();
+    }
+
+    return this.ddeWidthVal;
   }
 
+  private ddeHeightField: string = '';
+  private ddeHeightVal: string = '';
+
   get DDEHeight(): string {
-    let val = this.cssUnit.ToPxValue(this.DropDownContentHeight, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
-    return val+ CssUnit.Px.toString();
+    if(this.ddeHeightField != this.DropDownContentHeight) {
+      let val = this.cssUnitSer.ToPxValue(this.DropDownContentHeight, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+      this.ddeHeightField = this.DropDownContentHeight;
+      this.ddeHeightVal = val+ CssUnit.Px.toString();
+    }
+
+    return  this.ddeHeightVal;
   }
   
+  private _TextboxWidth: string = '';
+  private _txtValue: string = '';
+
   get TextBoxWidth(): string {
-    let val = this.cssUnit.ToPxValue(this.Width, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
-    return val+ CssUnit.Px.toString();
+
+    if(this._TextboxWidth!=this.Width) {
+      let val = this.cssUnitSer.ToPxValue(this.Width, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
+      this._TextboxWidth = this.Width;
+      this._txtValue = val+ CssUnit.Px.toString();      
+    }
+
+    return this._txtValue;
   }
 
   @Input()
@@ -178,20 +204,28 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   SelectedDisplay: string | number = '';
   private firstTimeInit: boolean = true;
   Id: string = '';
+
+  @Input()
+  public ParentDropDownId: string = '';
+
   private winObj!: Window;
   private injector = inject(Injector);
 
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
+  cls!:CloseService;
+
   constructor(private ddservice: DropdownService, private eleRef: ElementRef,
     private popupService: PopupService,
     private windowHelper: WindowHelper,
-    private cssUnit: CssUnitsService
-  ) {
+    private cssUnitSer: CssUnitsService    
+  ) {    
+    this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();
     this.ddservice.AddInstance(this);
     this.winObj = inject(WINDOWOBJECT);
+    this.cls.AddInstance(this);
   }
 
   FocusItem($evt: Event) {
@@ -392,48 +426,36 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
   }
 
   windowOnClick($event: Event) {
-        
-    let i =15;
-    let element = $event.srcElement;
-    let sameelementClicked: boolean = false;
-    let elementId: string | undefined = undefined;
 
-    while(element!=undefined && i>-1){
-      if((element as HTMLElement).classList.contains('rdropdownWindowClose')){
-        elementId = (element as HTMLElement).id;
-        if(elementId==this.Id) {
-          sameelementClicked = true;
+    if (this.IsDropDownOpen) {
+      let i = 15;
+      let element = $event.srcElement;
+      let sameelementClicked: boolean = false;
+      let elementId: string | undefined = undefined;
+
+      while (element != undefined && i > -1) {
+        if ((element as HTMLElement).classList.contains('rdropdownWindowClose')) {
+          elementId = (element as HTMLElement).id;
+          if (elementId == this.Id) {
+            sameelementClicked = true;
+          }
+          break;
         }
-        break;
+
+        i--;
+        element = (element as HTMLElement).parentElement;
       }
 
-      i--;
-      element = (element as HTMLElement).parentElement;
-    }
-
-    if(!sameelementClicked)
+      if (!sameelementClicked)
         this.IsDropDownOpen = false;
-
-    // let stopPropagation = false;
-    // let parentElement = ($event.srcElement as any).parentElement;
-
-    // let i = 10;
-    // while (i >= 0 && parentElement != undefined) {
-    //   if (parentElement.classList.contains('option-content')) {
-    //     stopPropagation = true;
-    //     break;
-    //   }
-    //   parentElement = parentElement.parentElement;
-    //   i--;
-    // }
-
-    // if (!stopPropagation) {
-    //   this.IsDropDownOpen = false;
-    // } else {
-    //   $event.stopPropagation();
-    // }
+    }
   }
 
+  
+  IsOpen(): boolean {
+    return this.IsDropDownOpen;
+  }
+  
   openDropdown(evt: Event) {
     
     // this.popupService.CloseAllPopupsOnOpen(this);
@@ -453,6 +475,7 @@ export class RDropdownComponent implements AfterContentInit, OnDestroy, OnInit, 
     //evt.stopPropagation();
 
     if(this.IsDropDownOpen){
+      this.cls.CloseAllPopups(this);
       this.AttachDropdown();
     }
     

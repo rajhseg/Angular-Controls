@@ -8,6 +8,7 @@ import { WindowHelper } from '../windowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../dropdown/dropdownmodel';
+import { CloseService, IDropDown } from '../popup.service';
 
 @Component({
   selector: 'rfilter',
@@ -29,7 +30,7 @@ import { DropdownModel } from '../dropdown/dropdownmodel';
     DatePipe
   ]
 })
-export class RFilterComponent implements ControlValueAccessor {
+export class RFilterComponent implements IDropDown, ControlValueAccessor {
 
   @Input()
   DateFormat: string = 'MM-dd-yyyy';
@@ -45,6 +46,9 @@ export class RFilterComponent implements ControlValueAccessor {
   }
 
   public dropdownMaxChars: number = 178;
+
+  @Input()
+  ParentDropDownId: string = '';
 
   @Input()
   TextColor: string = 'gray';
@@ -186,9 +190,16 @@ export class RFilterComponent implements ControlValueAccessor {
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
+  cls!: CloseService;
 
   constructor(private windowHelper: WindowHelper, private datePipe: DatePipe){
+    this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();   
+    this.cls.AddInstance(this);
+  }
+
+  closeDropdown(): void {
+    this.IsFilterOpen = false;
   }
 
   writeValue(obj: RFilterApplyModel): void {
@@ -225,8 +236,14 @@ export class RFilterComponent implements ControlValueAccessor {
     
   }
 
-  FilterToggle(evt: Event){        
+  FilterToggle(evt: Event){  
+    evt.stopPropagation();
+    evt.preventDefault();
+
     this.IsFilterOpen = !this.IsFilterOpen;
+    if(this.IsFilterOpen){
+      this.cls.CloseAllPopups(this);
+    }
   }
 
   @Output()
@@ -308,28 +325,36 @@ export class RFilterComponent implements ControlValueAccessor {
     
     this.IsFilterOpen = false;
   }
-  
-  windowOnClick($event: Event) {        
-    let i =15;
-    let element = $event.srcElement;
-    let sameelementClicked: boolean = false;
-    let elementId: string | undefined = undefined;
 
-    while(element!=undefined && i>-1){
-      if((element as HTMLElement).classList.contains('rfilterclose')){
-        elementId = (element as HTMLElement).id;
-        if(elementId==this.Id) {
-          sameelementClicked = true;
+  
+  IsOpen(): boolean {
+    return this.IsFilterOpen;
+  }
+
+  windowOnClick($event: Event) {
+
+    if (this.IsFilterOpen) {
+      let i = 15;
+      let element = $event.srcElement;
+      let sameelementClicked: boolean = false;
+      let elementId: string | undefined = undefined;
+
+      while (element != undefined && i > -1) {
+        if ((element as HTMLElement).classList.contains('rfilterclose')) {
+          elementId = (element as HTMLElement).id;
+          if (elementId == this.Id) {
+            sameelementClicked = true;
+          }
+          break;
         }
-        break;
+
+        i--;
+        element = (element as HTMLElement).parentElement;
       }
 
-      i--;
-      element = (element as HTMLElement).parentElement;
-    }
-
-    if(!sameelementClicked)
+      if (!sameelementClicked)
         this.IsFilterOpen = false;
+    }
   }
 
 }

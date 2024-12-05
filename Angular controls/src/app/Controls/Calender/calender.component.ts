@@ -6,7 +6,7 @@ import { RDropdownComponent } from '../dropdown/dropdown.component';
 
 import { DropdownService } from '../dropdown/dropdownservice.service';
 import { CalenderService } from './calender.service';
-import { IPopupCloseInterface, PopupService } from '../popup.service';
+import { CloseService, IDropDown, IPopupCloseInterface, PopupService } from '../popup.service';
 import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
@@ -32,7 +32,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     "(window:click)": "windowOnClick($event)"
   }
 })
-export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
+export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
 
   self: CalenderComponent = this;
   isDropdownChild: boolean = true;
@@ -76,6 +76,9 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
   isSelectDayTriggered: boolean = false;
   Id: string = '';
+
+  @Input()
+  ParentDropDownId: string = '';
 
   month: DropdownModel = this.monthNames[0];
   year: DropdownModel | undefined = this.totalYears.find(x => x.Value == new Date().getFullYear());
@@ -183,25 +186,37 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     return this._showCalender;
   }
 
+  private _iconSizeHeight: string = "";
+  private _iconVal: string = '';
+
   public get IconSize(): string {
 
-    if (this.eleRef.nativeElement) {
-      let val = this.cssUnit.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
-      return (val + 7) + CssUnit.Px.toString();
+    if(this._iconSizeHeight != this.Height) {      
+      if (this.eleRef.nativeElement) {        
+        let val = this.cssUnitSer.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+        this._iconSizeHeight = this.Height;
+        this._iconVal = (val + 7) + CssUnit.Px.toString();
+      }
     }
 
-    return '';
+    return this._iconVal;
   }
+
+  private _topPxHeight: string = '';
+  private _topVal: string = '';
 
   public get TopPx(): string {
 
-    if (this.eleRef.nativeElement) {
-      let val = this.cssUnit.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
-      let rem = val / 10;
-      return '-' + (rem * 2) + CssUnit.Px.toString();
+    if(this._topPxHeight!=this.Height) {
+      if (this.eleRef.nativeElement) {
+        let val = this.cssUnitSer.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+        let rem = val / 10;
+        this._topPxHeight = this.Height;
+        this._topVal = '-' + (rem * 2) + CssUnit.Px.toString();
+      }
     }
 
-    return '';
+    return this._topVal;
   }
 
   @Output()
@@ -221,9 +236,13 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   @HostBinding('id')
   HostElementId: string = '';
 
+  cls!: CloseService;
+
   constructor(private calService: CalenderService, private popupService: PopupService,
     private windowHelper: WindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
-    private cdr: ChangeDetectorRef, private cssUnit: CssUnitsService) {
+    private cdr: ChangeDetectorRef, private cssUnitSer: CssUnitsService) {
+
+    this.cls = CloseService.GetInstance();
 
     if (this.windowHelper.isExecuteInBrowser()) {
       this.IsWindowsOs = navigator.platform == "Win32";
@@ -237,6 +256,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     this.calService.AddInstance(this);
     this.winObj = inject(WINDOWOBJECT);
     this.LoadMonth(new Date(), false);
+    this.cls.AddInstance(this);
   }
 
   ngAfterViewInit(): void {
@@ -247,42 +267,38 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
   windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
 
-    let i = 15;
-    let element = evt.srcElement;
-    let sameelementClicked: boolean = false;
-    let elementId: string | undefined = undefined;
+    if (this.IsCalenderOpen) {
+      let i = 15;
+      let element = evt.srcElement;
+      let sameelementClicked: boolean = false;
+      let elementId: string | undefined = undefined;
 
-    while (element != undefined && i > -1) {
-      if ((element as HTMLElement).classList.contains('rcalenderWindowsClose')) {
-        elementId = (element as HTMLElement).id;
-        if (elementId == this.Id) {
-          sameelementClicked = true;
+      while (element != undefined && i > -1) {
+        if ((element as HTMLElement).classList.contains('rcalenderWindowsClose')) {
+          elementId = (element as HTMLElement).id;
+          if (elementId == this.Id) {
+            sameelementClicked = true;
+          }
+          break;
         }
-        break;
+
+        i--;
+        element = (element as HTMLElement).parentElement;
       }
 
-      i--;
-      element = (element as HTMLElement).parentElement;
+      if (!sameelementClicked)
+        this.IsCalenderOpen = false;
+
     }
+  }
 
-    if (!sameelementClicked)
-      this.IsCalenderOpen = false;
+  
+  IsOpen(): boolean {
+    return this.IsCalenderOpen;
+  }
 
-    // if (!tar.matches('.calIcon')
-    //   && !tar.matches('.dropdown-content-selected')
-    //   && !tar.matches('.dropdown-content-template')
-    //   && !tar.matches('.around')
-    //   && !tar.matches('.inpdrop')
-    //   && !tar.matches('.dayheader')
-    //   && !tar.matches('.calender')
-    //   && !tar.matches('.week')
-    //   && !tar.matches('.mnyr')
-    //   && !tar.matches('.notactive')
-    // ) {
-    //   this.closeAllDropdowns(null, true);
-    //   this.IsCalenderOpen = false;
-    // }
-
+  closeDropdown(): void {
+    this.IsCalenderOpen = false;
   }
 
   isMonthDropdownClosed($evt: any) {
@@ -458,7 +474,7 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
 
     $evt.stopPropagation();
     $evt.preventDefault();
-
+    
     this.IsChildOfAnotherControlClicked = false;
 
     var currentValueToSet = false;
@@ -476,10 +492,12 @@ export class CalenderComponent implements OnInit, AfterViewInit, OnDestroy, Cont
     this.IsMonthDropdownOpen = false;
     this.IsYearDropdownOpen = false;
 
-    this.RenderUI(this.Value);
-    this.NotifyToModel();
-    $evt.stopPropagation();
-    this.AttachDropdown();
+    if(this.IsCalenderOpen) {
+      this.RenderUI(this.Value);
+      this.NotifyToModel();    
+      this.cls.CloseAllPopups(this);
+      this.AttachDropdown();
+    }
   }
 
 

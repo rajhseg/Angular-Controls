@@ -3,6 +3,7 @@ import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { WindowHelper } from '../windowObject';
+import { CloseService, IDropDown } from '../popup.service';
 
 @Component({
   selector: 'rfileupload',
@@ -21,7 +22,7 @@ import { WindowHelper } from '../windowObject';
     "(window:click)": "windowOnClick($event)"
   }
 })
-export class RfileuploadComponent implements ControlValueAccessor {
+export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
   
 
   @ViewChild('rfile', { read: ElementRef }) rFile!: ElementRef;
@@ -48,6 +49,9 @@ export class RfileuploadComponent implements ControlValueAccessor {
   }
 
   public dropdownId: string = "";
+
+  @Input()
+  ParentDropDownId: string = '';
 
   @Input()
   IconForeColor: string = "blue";
@@ -81,9 +85,17 @@ export class RfileuploadComponent implements ControlValueAccessor {
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
+  cls!: CloseService;
+
   constructor(private windowHelper: WindowHelper){
+    this.cls = CloseService.GetInstance();
     this.dropdownId = windowHelper.GenerateUniqueId(); 
     this.Id = this.windowHelper.GenerateUniqueId();  
+    this.cls.AddInstance(this);
+  }
+
+  closeDropdown(): void {
+    this.showFiles = true;
   }
 
   browse($event: Event) {
@@ -141,34 +153,47 @@ export class RfileuploadComponent implements ControlValueAccessor {
     }
   }
 
-  toggle($event: Event) {
+  toggle($event: Event) {    
     this.showFiles = !this.showFiles;
+
+    if(this.showFiles){
+      this.cls.CloseAllPopups(this);
+    }
+    
     $event.preventDefault();
     $event.stopPropagation();
   }
 
-  
-  windowOnClick($event: Event) {        
-    let i =15;
-    let element = $event.srcElement;
-    let sameelementClicked: boolean = false;
-    let elementId: string | undefined = undefined;
 
-    while(element!=undefined && i>-1){
-      if((element as HTMLElement).classList.contains('rfileuploaddropdownclose')){
-        elementId = (element as HTMLElement).id;
-        if(elementId==this.dropdownId) {
-          sameelementClicked = true;
+  windowOnClick($event: Event) {
+
+    if (this.showFiles) {
+      let i = 15;
+      let element = $event.srcElement;
+      let sameelementClicked: boolean = false;
+      let elementId: string | undefined = undefined;
+
+      while (element != undefined && i > -1) {
+        if ((element as HTMLElement).classList.contains('rfileuploaddropdownclose')) {
+          elementId = (element as HTMLElement).id;
+          if (elementId == this.dropdownId) {
+            sameelementClicked = true;
+          }
+          break;
         }
-        break;
+
+        i--;
+        element = (element as HTMLElement).parentElement;
       }
 
-      i--;
-      element = (element as HTMLElement).parentElement;
-    }
-
-    if(!sameelementClicked)
+      if (!sameelementClicked)
         this.showFiles = false;
+    }
+  }
+
+  
+  IsOpen(): boolean {
+    return this.showFiles;
   }
 
 }

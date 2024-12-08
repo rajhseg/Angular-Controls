@@ -1,8 +1,7 @@
 
 
 
-.dropdown-content {
-    visibility: collapse;
+.dropdown-content {    
     position: absolute;
     background-color: #f1f1f1;
     overflow: visible;        

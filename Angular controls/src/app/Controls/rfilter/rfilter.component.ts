@@ -1,10 +1,10 @@
 import { DatePipe, NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RNumericComponent } from "../rnumeric/rnumeric.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { CalenderComponent } from "../Calender/calender.component";
-import { WindowHelper } from '../windowObject';
+import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../dropdown/dropdownmodel';
@@ -179,6 +179,26 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
   GreaterThanNumber: number | undefined = undefined;
   GreaterThanDate: string | undefined = undefined;
 
+  
+  DDEBottom: string = '';
+
+  DDETop: string = '';
+
+  DDELeft: string = '';
+
+  DDERight: string = '';
+
+  get DDEWidth() : string {
+    return  '208px';
+  }
+
+  get DDEHeight(): string {
+    return this.DataType== RFilterDataType.DateType ? "250px" : "210px";
+  }
+
+  @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
+
   @ViewChild('myDropdown', { read: ElementRef}) mydropDown!: ElementRef;
 
   onChanged = (obj: RFilterApplyModel)=>{};
@@ -191,11 +211,14 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   cls!: CloseService;
-
-  constructor(private windowHelper: WindowHelper, private datePipe: DatePipe){
+  winObj!: Window;
+  
+  constructor(private windowHelper: WindowHelper, private datePipe: DatePipe, 
+    private eleRef: ElementRef){
     this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();   
     this.cls.AddInstance(this);
+    this.winObj = inject(WINDOWOBJECT);
   }
 
   closeDropdown(): void {
@@ -243,6 +266,88 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
     this.IsFilterOpen = !this.IsFilterOpen;
     if(this.IsFilterOpen){
       this.cls.CloseAllPopups(this);
+      this.AttachDropdown();
+    }
+  }
+
+  
+  AttachDropdown() {
+    let windowHeight = this.winObj.innerHeight;
+
+    if (this.openBtn.nativeElement) {
+
+      const exp = /(-?[\d.]+)([a-z%]*)/;
+        
+      let isInTab = false;
+      let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
+      let tabTop, tabLeft = 0;
+      let  i = 15;
+
+      while(element && element != null && i > 0){
+        if(element.nodeName.toLowerCase() == 'rflattabs' 
+        || element.nodeName.toLowerCase() == 'rtabs'
+        || element.nodeName.toLowerCase() == 'rstepper-vertical' 
+        || element.nodeName.toLowerCase() == 'rstepper-horizontal' ){
+          isInTab = true;
+          break;
+        }
+        
+        i--;
+        element = element.parentElement;
+      }
+
+      let tabHeight=0, tabWidth = 0;
+      if(isInTab && element) {
+        let tabContentEle = element.getElementsByClassName("tabcontent");          
+        let tabRect = tabContentEle[tabContentEle.length-1].getBoundingClientRect();
+        tabTop = tabRect.top;
+        tabLeft = tabRect.left;
+        tabHeight = tabRect.height;   
+        tabWidth = tabRect.width;     
+      } else {
+        tabTop = 0;          
+      }
+
+      let btn = this.openBtn.nativeElement as HTMLElement;
+      let res = this.DDEHeight.match(exp);
+
+      if (res) {
+        let dropDownHeight = parseFloat(res[1].toString());
+        let btnPosTop = btn.getBoundingClientRect().top;
+        
+        if (((isInTab && (tabTop+tabHeight) - btnPosTop < dropDownHeight)
+              || (!isInTab&& windowHeight - btnPosTop < dropDownHeight ))
+            && btnPosTop - tabTop > dropDownHeight) {               
+          this.DDEBottom = '120%';
+          this.DDETop = 'auto';
+        } else {
+          this.DDETop = '110%';
+          this.DDEBottom = 'auto';
+        }
+      }
+
+      let windowWidth = this.winObj.innerWidth;
+      if (this.startElement.nativeElement) {
+        let start = this.startElement.nativeElement as HTMLElement;
+        let res = this.DDEWidth.match(exp);
+
+        if (res) {
+          let dropDownWidth = parseFloat(res[1].toString());
+
+          // dropDownWidth = dropDownWidth + padding(left, right) + border + margin;
+          dropDownWidth = dropDownWidth + (15 * 2) + (1 * 2) + 0;
+
+          let startPos = start.getBoundingClientRect();
+
+          if ((isInTab && (tabLeft+tabWidth) > dropDownWidth + startPos.left)
+            || (!isInTab && windowWidth > dropDownWidth + startPos.left)) {           
+            this.DDELeft = '0px';            
+          } else {            
+            this.DDELeft = '-195px';            
+          }
+        }
+
+      }
     }
   }
 

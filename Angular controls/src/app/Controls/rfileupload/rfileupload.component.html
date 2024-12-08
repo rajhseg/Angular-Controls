@@ -1,13 +1,13 @@
-<div class="dropdown" [id]="Id">
+<div  class="dropdown" [id]="Id">
     <input [hidden]="true" multiple type="file" #rfile (change)="onFilesSelected($event)" />
     <div style="width: 285px;">
     <rgroup-panel [groupname]="'Files Upload'" [TitleForeColor]="TextForeColor" 
             [EnableShadowEffect]="EnableShadowEffect">
-        <div style="display: flex;">
+        <div #startElement style="display: flex;">
             <div class="rcontainer" [ngStyle]="{'border-bottom-color': IconForeColor}">
                 <div class="displayText" [ngStyle]="{ 'color': TextForeColor }">{{DisplayText}}</div>
                 <div *ngIf="Files.length > 0">
-                    <span class="droppos" (click)="toggle($event)"
+                    <span class="droppos" (click)="toggle($event)" #openbtn
                         [ngClass]="{ 'icon-down': !showFiles, 'icon-up': showFiles}"
                         [ngStyle]="{'color': IconForeColor}"></span>
                     <span (click)="clear($event)" class="closebtn" 
@@ -29,12 +29,12 @@
                 'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
             <table class="tab">
                 <thead>
-                    <th style="width: 170px;">Name</th>
+                    <th style="width: 170px;overflow-wrap:anywhere;">Name</th>
                     <th>Size</th>                    
                 </thead>
                 <tbody class="">
                     <tr *ngFor="let item of Files" [ngStyle]="{ 'color': TextForeColor }">
-                        <td style="text-wrap: wrap;">{{item.name}}</td>
+                        <td style="width: 170px; overflow-wrap: anywhere; text-wrap: wrap;">{{item.name}}</td>
                         <td>{{item.size}}</td>                        
                     </tr>
                 </tbody>

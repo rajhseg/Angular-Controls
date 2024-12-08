@@ -1,9 +1,10 @@
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
 import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
-import { WindowHelper } from '../windowObject';
+import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { CloseService, IDropDown } from '../popup.service';
+import { CssUnit } from '../css-units.service';
 
 @Component({
   selector: 'rfileupload',
@@ -18,9 +19,9 @@ import { CloseService, IDropDown } from '../popup.service';
       multi: true
     }
   ],
-  host: {
+  host: {    
     "(window:click)": "windowOnClick($event)"
-  }
+  },  
 })
 export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
   
@@ -77,21 +78,40 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
   @Output()
   public filesCleared = new EventEmitter<any>();
 
+  @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
+  @ViewChild('dde', { read: ElementRef }) ddeElement!: ElementRef;
+
   onChanged: Function = ()=> {};
   onTouched: Function = ()=> {};
 
   Id: string = '';
   
+  DDEBottom: string = '';
+
+  DDETop: string = '';
+
+  DDELeft: string = '';
+
+  DDERight: string = '';
+
+  
+  DDEWidth: string = '260px';
+
+  DDEHeight: string = '150px';
+
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   cls!: CloseService;
+  winObj!: Window;
 
-  constructor(private windowHelper: WindowHelper){
+  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef){
     this.cls = CloseService.GetInstance();
     this.dropdownId = windowHelper.GenerateUniqueId(); 
     this.Id = this.windowHelper.GenerateUniqueId();  
     this.cls.AddInstance(this);
+    this.winObj = inject(WINDOWOBJECT);
   }
 
   closeDropdown(): void {
@@ -160,11 +180,88 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
     this.showFiles = !this.showFiles;
 
     if(this.showFiles){
-      this.cls.CloseAllPopups(this);
+      this.cls.CloseAllPopups(this);      
     }
         
-  }
+  }   
 
+  
+  AttachDropdown() {
+    let windowHeight = this.winObj.innerHeight;
+
+    if (this.openBtn.nativeElement) {
+
+      const exp = /(-?[\d.]+)([a-z%]*)/;
+
+      let btn = this.openBtn.nativeElement as HTMLElement;
+      let dde = this.ddeElement.nativeElement as HTMLElement;
+
+      let res = this.DDEHeight.match(exp);
+
+      if (res) {
+        let dropDownHeight = parseFloat(res[1].toString());
+        let btnPosTop = btn.getBoundingClientRect().top;
+        
+        let isInTab = false;
+        let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
+        let tabTop, tabLeft;
+        let i =15;
+
+        while(element && element != null && i > 0){
+          if(element.nodeName.toLowerCase() == 'rflattabs' || element.nodeName.toLowerCase() == 'rtabs'){
+            isInTab = true;
+            break;
+          }
+          
+          i--;
+          element = element.parentElement;
+        }
+
+        if(isInTab && element) {
+          let tabRect = element.getBoundingClientRect();
+          tabTop = tabRect.top;
+          tabLeft = tabRect.left;
+        } else {
+          tabTop = 0;          
+        }
+
+        if (windowHeight - btnPosTop < dropDownHeight && tabTop - btnPosTop > dropDownHeight) {
+          this.DDEBottom = '120%';
+          this.DDETop = 'auto';
+        } else {
+          this.DDETop = '110%';
+          this.DDEBottom = 'auto';
+        }
+      }
+
+      let windowWidth = this.winObj.innerWidth;
+      if (this.startElement.nativeElement) {
+        let start = this.startElement.nativeElement as HTMLElement;
+        let res = this.DDEWidth.match(exp);
+
+        if (res) {
+          let dropDownWidth = parseFloat(res[1].toString());
+
+          // dropDownWidth = dropDownWidth + padding(left, right) + border + margin;
+          dropDownWidth = dropDownWidth + (10 * 2) + (1 * 2) + 0;
+
+          let startPos = start.getBoundingClientRect();
+
+          if (windowWidth > dropDownWidth + startPos.left) {
+            this.DDELeft = '0px';
+            this.DDERight = 'auto';
+          } else {
+            let moveRight = dropDownWidth - startPos.width;
+            this.DDELeft = 'auto';
+
+            if (moveRight > 0)
+              this.DDERight = '0px';
+          }
+        }
+
+      }
+    }
+  }
 
   windowOnClick($event: Event) {
 

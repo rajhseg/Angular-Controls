@@ -1,16 +1,13 @@
 
 
-.dropdown-content {
-    visibility: collapse;
+.dropdown-content {  
     position: absolute;
     background-color: white;
     overflow: auto;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;     
-    height: 150px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;         
     overflow-y: hidden;
     z-index: 10;
-    margin-top:  4px;
-    display: flex;
+    margin-top:  4px;    
   }
 
   .dropdown {

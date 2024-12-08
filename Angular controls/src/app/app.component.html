@@ -19,7 +19,7 @@
   
   <rtimer style="margin-left:100px" [FlatStyleForeColor]="bColor" 
           [DisplayTextForeColor]="bColor" [IsHidden]="true"
-          [CallbackAfterCertainSeconds]="1"
+          [CallbackAfterCertainSeconds]="10"
           [DisplayType]="0"
           (CallbackTriggeredAfterCertainSeconds)="realTimeCharts($event)"
           [EnableShadowEffect]="false">    
@@ -497,7 +497,7 @@
   <br />
   <br />
 
-  <rstepper-horizontal [ContentWidth]="1000" [ContentHeight]="570" 
+  <rstepper-horizontal [ContentWidth]="900" [ContentHeight]="570" 
       [HorizontalItemActiveBackColor]="bColor" [HorizontalItemPendingForeColor]="tColor"
       [HorizontalItemPendingBackColor]="'white'"
       [HorizontalItemStripLineColor]="bColor"
@@ -748,7 +748,7 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
-        <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
+        <rcolorpicker style="margin-left:350px;" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
           [LabelText]="'Processed Color : '"></rcolorpicker>
         <rcolorpicker [(ngModel)]="color1" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
           [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
@@ -785,7 +785,8 @@
 
         <rtimeselector [(ngModel)]="time2"></rtimeselector>
 
-        <rtimeselector [LabelText]="'Arriving Time'" [(ngModel)]="time3" [Is24HourFormat]="false"
+        <rtimeselector style="margin-top:150px;" [LabelText]="'Arriving Time'" 
+            [(ngModel)]="time3" [Is24HourFormat]="false"
           [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> {{time3}}
       </rtab>
 
@@ -1231,7 +1232,7 @@
   <br/>
   <br/>
   <br/>
-  <div style="margin-top:30px;margin-bottom: 30px;float:left">
+  <div style="margin-top:30px;margin-bottom: 30px;">
     <rflattabs [TabWidth]="'650px'" [TabHeight]="'300px'" [DisplayTabContainerWhenZeroTabs]="true">
 
       <rtab *tabidfor="{ 'TabId':'tabf1', 'HeaderText':'rcalender', 'Context':this }">
@@ -1290,6 +1291,11 @@
 
     </rflattabs>
   </div>
-
-
+  
+  <br/>
+  <div>
+    <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor" 
+    [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
+  </div>
+    
 </div>

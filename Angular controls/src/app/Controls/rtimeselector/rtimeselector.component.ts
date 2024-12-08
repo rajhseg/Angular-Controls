@@ -1,11 +1,11 @@
-import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { DropDownItemModel, DropdownModel } from '../dropdown/dropdownmodel';
 import { RDropdownComponent } from '../dropdown/dropdown.component';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { WindowHelper } from '../windowObject';
+import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { CloseService, IDropDown } from '../popup.service';
 
 @Component({
@@ -82,13 +82,35 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
   @HostBinding('id')
   HostElementId: string = this.windowHelper.GenerateUniqueId();
 
+  @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
+
+  winObj!: Window;
+
+  DDEBottom: string = '';
+
+  DDETop: string = '';
+
+  DDELeft: string = '';
+
+  DDERight: string = '';
+
+  get DDEWidth() : string {
+    return  this.Is24HourFormat ? '122px': '122px'
+  }
+
+  get DDEHeight(): string {
+    return '150px';    
+  }
+
   cls!: CloseService;
 
-  constructor(private windowHelper: WindowHelper) {
+  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef) {
+    this.winObj = inject(WINDOWOBJECT);
     this.cls = CloseService.GetInstance();
     this.LoadValues();
     this.Id = this.windowHelper.GenerateUniqueId();
-    this.cls.AddInstance(this);
+    this.cls.AddInstance(this);    
   }
 
   writeValue(obj: any): void {
@@ -332,6 +354,72 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
     this.IsDropDownOpen = !this.IsDropDownOpen;
     if(this.IsDropDownOpen){
       this.cls.CloseAllPopups(this);
+      this.AttachDropdown();
+    }
+  }
+  
+  AttachDropdown() {
+    let windowHeight = this.winObj.innerHeight;
+
+    if (this.openBtn.nativeElement) {
+
+      const exp = /(-?[\d.]+)([a-z%]*)/;
+      
+      let isInTab = false;
+      let tabHeight = 0, tabWidth = 0;
+
+      let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
+      let tabTop, tabLeft =0;
+      let i =15;
+
+      while(element && element != null && i > 0){
+        if(element.nodeName.toLowerCase() == 'rflattabs' 
+          || element.nodeName.toLowerCase() == 'rtabs'
+          || element.nodeName.toLowerCase() == 'rstepper-vertical' 
+          || element.nodeName.toLowerCase() == 'rstepper-horizontal' ){
+          isInTab = true;
+          break;
+        }
+        
+        i--;
+        element = element.parentElement;
+      }
+
+      if(isInTab && element) {
+        let tabContentEle = element.getElementsByClassName("tabcontent");          
+        let tabRect = tabContentEle[tabContentEle.length-1].getBoundingClientRect();
+        tabTop = tabRect.top;
+        tabLeft = tabRect.left;
+        tabHeight = tabRect.height;  
+        tabWidth = tabRect.width;      
+      } else {
+        tabTop = 0;             
+      }
+
+      let btn = this.openBtn.nativeElement as HTMLElement;
+      let res = this.DDEHeight.match(exp);
+
+      if (res) {
+        let dropDownHeight = parseFloat(res[1].toString());
+        let btnPosTop = btn.getBoundingClientRect().top;
+                
+        if (((isInTab && (tabTop+tabHeight) - btnPosTop < dropDownHeight)
+                || (!isInTab&& windowHeight - btnPosTop < dropDownHeight ))
+          && btnPosTop - tabTop > dropDownHeight) {
+
+          if(this.LabelText.trim()!=''){
+            this.DDEBottom = '77%';
+          } else {
+          this.DDEBottom = '105%';
+          }
+
+          this.DDETop = 'auto';
+        } else {
+          this.DDETop = '95%';
+          this.DDEBottom = 'auto';
+        }
+      }
+
     }
   }
 

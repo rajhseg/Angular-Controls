@@ -10,7 +10,7 @@ import { WindowHelper } from '../windowObject';
   templateUrl: './rtextbox.component.html',
   styleUrl: './rtextbox.component.css',
   host: {
-    "(window:click)": "windowOnClick($event)"
+    
   },
   providers: [
     {
@@ -98,10 +98,6 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
 
   txtboxClicked($event: Event) {
     this.Click.emit($event);
-  }
-
-  windowOnClick($event: Event) {
-
   }
 
   @HostListener('onblur', ['$event'])

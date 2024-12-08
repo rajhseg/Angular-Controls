@@ -507,37 +507,48 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
       const exp = /(-?[\d.]+)([a-z%]*)/;
 
+      let isInTab = false;
+      let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
+      let tabTop, tabLeft = 0;
+      let i =15;
+
+      while(element && element != null && i > 0){
+        if(element.nodeName.toLowerCase() == 'rflattabs' 
+          || element.nodeName.toLowerCase() == 'rtabs'
+          || element.nodeName.toLowerCase() == 'rstepper-vertical' 
+          || element.nodeName.toLowerCase() == 'rstepper-horizontal' ){
+          isInTab = true;
+          break;
+        }
+        
+        i--;
+        element = element.parentElement;
+      }
+
+      let tabHeight = 0;
+      let tabWidth = 0;
+
+      if(isInTab && element) {
+        let tabContentEle = element.getElementsByClassName("tabcontent");          
+        let tabRect = tabContentEle[tabContentEle.length-1].getBoundingClientRect();
+        tabTop = tabRect.top;
+        tabLeft = tabRect.left;
+        tabHeight = tabRect.height;   
+        tabWidth = tabRect.width;     
+      } else {
+        tabTop = 0;          
+      }
+
       let btn = this.openBtn.nativeElement as HTMLElement;
       let res = this.DDEHeight.match(exp);
 
       if (res) {
         let dropDownHeight = parseFloat(res[1].toString());
         let btnPosTop = btn.getBoundingClientRect().top;
-        
-        let isInTab = false;
-        let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
-        let tabTop, tabLeft;
-        let i =15;
-
-        while(element && element != null && i > 0){
-          if(element.nodeName.toLowerCase() == 'rflattabs' || element.nodeName.toLowerCase() == 'rtabs'){
-            isInTab = true;
-            break;
-          }
-          
-          i--;
-          element = element.parentElement;
-        }
-
-        if(isInTab && element) {
-          let tabRect = element.getBoundingClientRect();
-          tabTop = tabRect.top;
-          tabLeft = tabRect.left;
-        } else {
-          tabTop = 0;          
-        }
-
-        if (windowHeight - btnPosTop < dropDownHeight && tabTop - btnPosTop > dropDownHeight) {
+                        
+        if (((isInTab && (tabTop+tabHeight) - btnPosTop < dropDownHeight)
+                || (!isInTab&& windowHeight - btnPosTop < dropDownHeight ))
+              && btnPosTop - tabTop > dropDownHeight) {
           this.DDEBottom = '120%';
           this.DDETop = 'auto';
         } else {
@@ -559,7 +570,8 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
           let startPos = start.getBoundingClientRect();
 
-          if (windowWidth > dropDownWidth + startPos.left) {
+          if ((isInTab && (tabLeft+tabWidth) > dropDownWidth + startPos.left)
+            || (!isInTab && windowWidth > dropDownWidth + startPos.left)) {
             this.DDELeft = '0px';
             this.DDERight = 'auto';
           } else {

@@ -195,6 +195,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
   closeDropdown(): void {
     this.IsColorPickerOpen = false;
+    this.cdr.detectChanges();
   }
 
   writeValue(obj: any): void {

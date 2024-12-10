@@ -7,6 +7,7 @@
     border: 1px solid lightgray;
     position: relative;
     top: 15px;    
+    cursor: pointer;
 }
 
 .cbox {
@@ -16,7 +17,8 @@
     border-radius: 5%;
     border: 1px solid lightgray;
     position: relative;
-    top: 7px;    
+    top: 7px;  
+    cursor: pointer;  
 }
 
 .sbox {
@@ -36,6 +38,7 @@
     transition: opacity .2s;   
     position: relative;
     top: -7px; 
+    cursor: pointer;
 }
 
 :host {

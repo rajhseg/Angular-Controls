@@ -137,21 +137,20 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
   clickOnBar($event: MouseEvent) {
 
-    // $event.preventDefault();
-    // $event.stopPropagation();
+    $event.preventDefault();
+    $event.stopPropagation();
 
-    // let total = this.SliderWidth - 20 + 2;
-    // this.currentDistance = ($event as MouseEvent).offsetX;
+    let total = this.SliderWidth - 20 + 2;
+    this.currentDistance = ($event as MouseEvent).offsetX;
 
-    // this.AdjustSlideBasedOnCurrentDistance(total);
+    this.AdjustSlideBasedOnCurrentDistance(total);
 
-    // (this.sliderElement.nativeElement as HTMLElement).style.transform = "0px";
-    // (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX("+this.currentDistance+"px)"; //this.currentDistance+"px";
-
+    (this.sliderElement.nativeElement as HTMLElement).style.transform = "0px";
+    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX("+this.currentDistance+"px)"; //this.currentDistance+"px";
   }
 
   dragMove($event: CdkDragMove) {
-
+    
     $event.event.preventDefault();
     $event.event.stopPropagation();
 
@@ -164,6 +163,9 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
     this.currentDistance = this.resize + $event.distance.x;
     this.AdjustSlideBasedOnCurrentDistance(total);
+
+    (this.sliderElement.nativeElement as HTMLElement).style.transform = "0px";
+    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX("+this.currentDistance+"px)"; //this.currentDistance+"px";
   }
 
   AdjustSlideBasedOnCurrentDistance(total: number) {

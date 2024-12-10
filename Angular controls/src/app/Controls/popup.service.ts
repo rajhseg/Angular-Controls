@@ -92,6 +92,8 @@ export interface IDropDown {
 })
 export class CloseService {
 
+  private static inc:number = 0;
+
   private static ins: CloseService | undefined;
 
   private objects: IDropDown[] = [];
@@ -102,6 +104,11 @@ export class CloseService {
     }
 
     return this.ins;
+  }
+
+  PrintLog(){
+    CloseService.inc = CloseService.inc + 1;
+    console.log("click event "+CloseService.inc);
   }
 
   AddInstance(ins: IDropDown){
@@ -145,7 +152,31 @@ export class CloseService {
 (function(){
 
   function DropDownClose($event: any){
-    
+        
+    let i = 15;
+    let element = $event.srcElement;
+    let sameelementClicked: boolean = false;
+    let elementId: string | undefined = undefined;
+
+    while (element != undefined && i > -1) {
+      if ((element as HTMLElement).classList.contains('rfilterclose') 
+          || (element as HTMLElement).classList.contains('rtimeselectorwindowclose')
+          || (element as HTMLElement).classList.contains('rselectdropdownWindowClose')
+          ||  (element as HTMLElement).classList.contains('rcolorpickerwindowclose')
+          || (element as HTMLElement).classList.contains('rdropdownWindowClose')
+          || (element as HTMLElement).classList.contains('rcalenderWindowsClose')
+          ||(element as HTMLElement).classList.contains('fileuploadclose')) {
+        elementId = (element as HTMLElement).id;        
+        sameelementClicked = true;        
+        break;
+      }
+
+      i--;
+      element = (element as HTMLElement).parentElement;
+    }
+
+    if (!sameelementClicked)
+      CloseService.GetInstance().CloseAllPopups(undefined);    
   }
   
   if(typeof window !== 'undefined')

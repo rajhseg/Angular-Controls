@@ -1,5 +1,5 @@
 import { DatePipe, NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RNumericComponent } from "../rnumeric/rnumeric.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
@@ -19,7 +19,7 @@ import { CloseService, IDropDown } from '../popup.service';
   templateUrl: './rfilter.component.html',
   styleUrl: './rfilter.component.css',
   host: {
-    "(window:click)": "windowOnClick($event)"
+   
   },
   providers:[
     {
@@ -214,7 +214,7 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
   winObj!: Window;
   
   constructor(private windowHelper: WindowHelper, private datePipe: DatePipe, 
-    private eleRef: ElementRef){
+    private eleRef: ElementRef, private cdr: ChangeDetectorRef){
     this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();   
     this.cls.AddInstance(this);
@@ -223,6 +223,7 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
 
   closeDropdown(): void {
     this.IsFilterOpen = false;
+    this.cdr.detectChanges();
   }
 
   writeValue(obj: RFilterApplyModel): void {
@@ -437,6 +438,8 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
   }
 
   windowOnClick($event: Event) {
+
+    this.cls.PrintLog();
 
     if (this.IsFilterOpen) {
       let i = 15;

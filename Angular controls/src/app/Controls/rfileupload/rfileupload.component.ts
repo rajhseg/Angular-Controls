@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
 import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -20,7 +20,7 @@ import { CssUnit } from '../css-units.service';
     }
   ],
   host: {    
-    "(window:click)": "windowOnClick($event)"
+    
   },  
 })
 export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
@@ -106,7 +106,7 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
   cls!: CloseService;
   winObj!: Window;
 
-  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef){
+  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef, private cdr: ChangeDetectorRef){
     this.cls = CloseService.GetInstance();
     this.dropdownId = windowHelper.GenerateUniqueId(); 
     this.Id = this.windowHelper.GenerateUniqueId();  
@@ -116,6 +116,7 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
 
   closeDropdown(): void {
     this.showFiles = true;
+    this.cdr.detectChanges();
   }
 
   browse($event: Event) {
@@ -264,6 +265,8 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
   }
 
   windowOnClick($event: Event) {
+
+    this.cls.PrintLog();
 
     if (this.showFiles) {
       let i = 15;

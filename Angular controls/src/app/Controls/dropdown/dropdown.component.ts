@@ -1,5 +1,5 @@
 import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
-import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output, ViewChild } from '@angular/core';
+import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DropDownItemModel, DropdownModel } from './dropdownmodel';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -27,7 +27,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     }
   ],
   host: {
-    "(window:click)": "windowOnClick($event)"
+    
   }
 })
 export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
@@ -219,7 +219,8 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
   constructor(private ddservice: DropdownService, private eleRef: ElementRef,
     private popupService: PopupService,
     private windowHelper: WindowHelper,
-    private cssUnitSer: CssUnitsService    
+    private cssUnitSer: CssUnitsService, 
+    private cdr: ChangeDetectorRef    
   ) {    
     this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();
@@ -423,9 +424,12 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
     }
 
     this.IsDropDownOpen = false;
+    this.cdr.detectChanges();
   }
 
   windowOnClick($event: Event) {
+
+    this.cls.PrintLog();
 
     if (this.IsDropDownOpen) {
       let i = 15;

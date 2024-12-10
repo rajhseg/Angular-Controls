@@ -371,7 +371,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   ngAfterContentChecked(): void {
-    this.cdr.detectChanges();
+    
   }
 
   filterApplied(model: RFilterApplyModel){

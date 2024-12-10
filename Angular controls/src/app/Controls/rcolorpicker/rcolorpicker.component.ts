@@ -14,7 +14,7 @@ import { CloseService, IDropDown } from '../popup.service';
   styleUrl: './rcolorpicker.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    "(window:click)": "windowOnClick($event)"
+    
   },
   providers: [
     {
@@ -543,6 +543,8 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
   }
 
   windowOnClick($event: Event) {
+
+    this.cls.PrintLog();
 
     if (this.IsColorPickerOpen) {
       let i = 15;

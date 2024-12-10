@@ -29,7 +29,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     DatePipe
   ],
   host: {
-    "(window:click)": "windowOnClick($event)"
+    
   }
 })
 export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
@@ -266,6 +266,8 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
+    
+    this.cls.PrintLog();
 
     if (this.IsCalenderOpen) {
       let i = 15;
@@ -299,6 +301,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   closeDropdown(): void {
     this.IsCalenderOpen = false;
+    this.cdr.detectChanges();
   }
 
   isMonthDropdownClosed($evt: any) {

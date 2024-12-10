@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -23,7 +23,7 @@ import { CloseService, IDropDown } from '../popup.service';
     }
   ],
   host: {
-    "(window:click)": "windowOnClick($event)"
+    
   }
 })
 export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
@@ -105,7 +105,8 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
 
   cls!: CloseService;
 
-  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef) {
+  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef, 
+    private cdr: ChangeDetectorRef) {
     this.winObj = inject(WINDOWOBJECT);
     this.cls = CloseService.GetInstance();
     this.LoadValues();
@@ -212,10 +213,13 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
   }
 
   closeDropdown(): void {
-    this.IsDropDownOpen =false;
+    this.IsDropDownOpen =false;    
+    this.cdr.detectChanges();
   }
 
   windowOnClick($event: Event) {
+
+    this.cls.PrintLog();
 
     if (this.IsDropDownOpen) {
       let i = 15;

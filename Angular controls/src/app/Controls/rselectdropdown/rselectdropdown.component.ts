@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Injector, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Injector, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ROptionsTemplateDirective, RSelectItemModel } from './rselectModel';
 import { CommonModule, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -25,7 +25,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     }
   ],
   host: {
-    "(window:click)": "windowOnClick($event)"
+    
   }
 })
 export class RSelectDropdownComponent implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
@@ -205,7 +205,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   cls!: CloseService;
 
   constructor(private windowHelper: WindowHelper, private eleRef: ElementRef,
-    private cssUnitSer: CssUnitsService
+    private cssUnitSer: CssUnitsService, private cdr: ChangeDetectorRef
   ) {
     this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();    
@@ -410,9 +410,13 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     }
 
     this.IsDropDownOpen = false;
+    this.cdr.detectChanges();
   }
 
   windowOnClick($event: Event) {
+    
+    this.cls.PrintLog();
+
     if (this.IsDropDownOpen) {
       let i = 15;
       let element = $event.srcElement;

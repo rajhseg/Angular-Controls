@@ -175,13 +175,23 @@ ProgressBar Control
 
 
 
-Tab Control
+RTabs Control
 -------------------------
 
 ![image](https://github.com/user-attachments/assets/be81c611-af75-4b44-9c06-df7deff41570)
 
 <br />
 <br />
+
+
+RFlatTabs Control
+------------------------------
+
+![image](https://github.com/user-attachments/assets/ba64778a-ed66-4f9d-a0e1-e6599a521066)
+
+
+<br/>
+<br/>
 
 
 FileUpload Control
@@ -388,14 +398,6 @@ RSeriesChart
 <br/>
 
 
-RFlatTabs
-------------------------------
-
-![image](https://github.com/user-attachments/assets/ba64778a-ed66-4f9d-a0e1-e6599a521066)
-
-
-<br/>
-<br/>
 
 
 

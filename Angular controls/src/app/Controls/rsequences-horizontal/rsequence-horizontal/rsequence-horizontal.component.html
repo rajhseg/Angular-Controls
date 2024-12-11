@@ -6,9 +6,9 @@
             {{Item?.DisplayText}}
         </div>
 
-        <div *ngIf="EnableEmptyItemOnTopSide && !Item?.IsTopAlign" class="topemptyContent"
+        <div *ngIf="EnableEmptyItemOnTopSide && !Item?.IsTopAlign" class="topContent"
             [ngStyle]="{'width': ContentWidth}">
-
+            &nbsp;
         </div>
 
     </div>

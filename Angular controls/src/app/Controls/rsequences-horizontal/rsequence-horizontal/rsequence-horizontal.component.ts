@@ -35,7 +35,7 @@ export class RSequenceHorizontalComponent {
   public set ContentWidth(value: string ){
     this._contentWidth = value;
     let width = value.split("px")[0];
-    let bwidth = Number.parseInt(width) - 20;
+    let bwidth = Number.parseInt(width) - (this.IsDisplayStepNo ? 47 : 43);
     this.blineWidth = bwidth.toString()+"px";
   }
   public get ContentWidth(): string {

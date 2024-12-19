@@ -10,15 +10,15 @@
             <rstate-vertical style="font-size: small;" [SelectedActiveIndex]="verticalItemActiveItem" 
                 
                 [ApplyItemForeColorToStepNo]="ApplyItemForeColorToStepNo"  
-                [CompletedBackgroundColor]="VerticalItemCompletedBackColor"
-                [CompletedForeColor]="VerticalItemCompletedForeColor"
-                [ActiveBackgroundColor]="VerticalItemActiveBackColor"                
-                [ActiveForeColor]="VerticalItemActiveForeColor"
-                [PendingBackgroundColor]="VerticalItemPendingBackColor"
-                [PendingForeColor]="VerticalItemPendingForeColor"
+                [CompletedBackgroundColor]="CompletedBackColor"
+                [CompletedForeColor]="CompletedForeColor"
+                [ActiveBackgroundColor]="ActiveBackColor"                
+                [ActiveForeColor]="ActiveForeColor"
+                [PendingBackgroundColor]="PendingBackColor"
+                [PendingForeColor]="PendingForeColor"
 
-                [StepNoForeColor]="VerticalItemStepNoForeColor" 
-                [StripLineColor]="VerticalItemStripLineColor"
+                [StepNoForeColor]="StepNoForeColor" 
+                [StripLineColor]="StripLineColor"
                 [Items]="seqItems">
             </rstate-vertical>
             
@@ -26,23 +26,29 @@
 
         <div [ngStyle]="{'height': ContentHeight+'px'}" style="display: flex; flex-direction: row;">
 
-            <div [ngStyle]="{'height': ContentHeight+'px', 'background-color': VerticalItemStripLineColor }" class="bar"></div>
+            <div [ngStyle]="{'height': ContentHeight+'px', 'background-color': StripLineColor }" class="bar"></div>
             
             <div [ngStyle]="{'height': (ContentHeight + 4) +'px'}" class="nos">
             
                 <div *ngFor="let no of StepsNos">
     
                     <div class="circle" [ngStyle]="{
+                        '--activebackcolor': ActiveBackColor,
+                        '--bshadow': (IsLastStepFinished ?  CompletedBorderColor : ActiveBorderColor) + ' 0px 2px 10px',
+                        '--pbshadow': ((CurrentViewStep && no > CurrentViewStep.StepNo) ? PendingBorderColor : CompletedBorderColor) + ' 0px 2px 10px',
+                        '--border': IsLastStepFinished ? CompletedBorderColor : ActiveBorderColor,
+                        '--pborder': (CurrentViewStep && no > CurrentViewStep.StepNo) ? PendingBorderColor : CompletedBorderColor, 
+                        
                         'background-color': (CurrentViewStep && no > CurrentViewStep.StepNo) ? 
-                                        VerticalItemPendingBackColor : 
+                                        PendingBackColor : 
                                             CurrentViewStep?.StepNo == no ? 
-                                                IsLastStepFinished ? VerticalItemCompletedBackColor : VerticalItemActiveBackColor  
-                                                : VerticalItemCompletedBackColor,
+                                                IsLastStepFinished ? CompletedBackColor : ActiveBackColor  
+                                                : CompletedBackColor,
                         'color': (CurrentViewStep && no > CurrentViewStep.StepNo) ? 
-                                        VerticalItemPendingForeColor : 
+                                        PendingForeColor : 
                                             CurrentViewStep?.StepNo == no ? 
-                                                IsLastStepFinished ? VerticalItemCompletedForeColor : VerticalItemActiveForeColor  
-                                                : VerticalItemCompletedForeColor
+                                                IsLastStepFinished ? CompletedForeColor : ActiveForeColor  
+                                                : CompletedForeColor
                         }" 
                         
                         [ngClass]="{ 'ffcircle': CurrentViewStep?.StepNo != no , 

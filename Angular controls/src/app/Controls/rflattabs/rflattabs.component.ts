@@ -83,7 +83,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
     }
   
     public get TabHeightForDragged(): string {
-      let _width: number = Number.parseInt(this.TabHeight.split('px')[0]) + 40;
+      let _width: number = Number.parseInt(this.TabHeight.split('px')[0]) + 48;
       return _width + "px";
     }
   

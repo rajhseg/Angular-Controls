@@ -70,6 +70,8 @@ export class REventsRenderObj {
 
     public WidthInPxForEventCell: number = 0;
 
+    public AdjustWidthInPxForCell: number = 0;
+
     public Title: string = "";
 
     public Value: object = {};

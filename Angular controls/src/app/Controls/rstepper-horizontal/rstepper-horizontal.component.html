@@ -8,7 +8,7 @@
             [CompletedForeColor]="RStateItemCompletedColor"                           
             [ActiveForeColor]="RStateItemActiveColor"            
             [PendingForeColor]="RStateItemPendingColor"            
-            [StripLineColor]="HorizontalItemStripLineColor"            
+            [StripLineColor]="StripLineColor"            
             [Items]="seqItems">
         </rstate-horizontal>
         
@@ -17,7 +17,7 @@
     <div class="barContainer">
         <div class="rowBar" [ngStyle]="{ 'width' : ContentWidth + 'px'}">
 
-            <div [ngStyle]="{ 'width' : ContentWidth + 'px', 'background-color': HorizontalItemStripLineColor}" 
+            <div [ngStyle]="{ 'width' : ContentWidth + 'px', 'background-color': StripLineColor}" 
                     style="background-color: white;" class="bar"></div>            
 
         </div>
@@ -26,20 +26,27 @@
             <div *ngFor="let no of StepsNos">
 
                 <div class="circle" [ngStyle]="{
+                        '--activebackcolor': ActiveBackColor,
+                        '--bshadow': (IsLastStepFinished ? CompletedBorderColor : ActiveBorderColor) + ' 0px 2px 10px',
+                        '--pbshadow': ((CurrentViewStep && no > CurrentViewStep.StepNo) ? PendingBorderColor : CompletedBorderColor) + ' 0px 2px 10px',
+                        '--border': IsLastStepFinished ? CompletedBorderColor : ActiveBorderColor,
+                        '--pborder': (CurrentViewStep && no > CurrentViewStep.StepNo) ? PendingBorderColor : CompletedBorderColor, 
+                        
                     'background-color': (CurrentViewStep && no > CurrentViewStep.StepNo) ? 
-                                    HorizontalItemPendingBackColor : 
+                                    PendingBackColor : 
                                         CurrentViewStep?.StepNo == no ? 
-                                            IsLastStepFinished ? HorizontalItemCompletedBackColor : HorizontalItemActiveBackColor  
-                                            : HorizontalItemCompletedBackColor,
+                                            IsLastStepFinished ? CompletedBackColor : ActiveBackColor  
+                                            : CompletedBackColor,
                     'color': (CurrentViewStep && no > CurrentViewStep.StepNo) ? 
-                                    HorizontalItemPendingForeColor : 
+                                    PendingForeColor : 
                                         CurrentViewStep?.StepNo == no ? 
-                                            IsLastStepFinished ? HorizontalItemCompletedForeColor : HorizontalItemActiveForeColor  
-                                            : HorizontalItemCompletedForeColor
+                                            IsLastStepFinished ? CompletedForeColor : ActiveForeColor  
+                                            : CompletedForeColor
                     }" 
                     
-                    [ngClass]="{ 'fcircle': CurrentViewStep?.StepNo != no , 
-                            'activecircle': CurrentViewStep?.StepNo == no}">
+                    [ngClass]="{                         
+                            'fcircle': CurrentViewStep?.StepNo != no ,                                                                        
+                            'activecircle': CurrentViewStep?.StepNo == no }">
                     {{no}}
                 </div>
             </div>

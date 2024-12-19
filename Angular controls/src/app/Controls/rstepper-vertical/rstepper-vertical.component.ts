@@ -33,6 +33,15 @@ export class RStepperVerticalComponent implements AfterContentInit {
   EnableShadow: boolean = true;
 
   @Input()
+  CompletedBorderColor: string = 'lightgray';
+
+  @Input()
+  PendingBorderColor: string = 'lightgray';
+  
+  @Input()
+  ActiveBorderColor: string = 'blue';
+  
+  @Input()
   CompletedButtonBackColor: string = 'rgb(35, 206, 236)';
 
   @Input()
@@ -45,31 +54,31 @@ export class RStepperVerticalComponent implements AfterContentInit {
   BackButtonForeColor: string = 'white';
 
   @Input()
-  VerticalItemStepNoForeColor: string = 'Whitesmoke';
+  StepNoForeColor: string = 'Whitesmoke';
 
   @Input()
-  VerticalItemStripLineColor: string = 'blue';
+  StripLineColor: string = 'blue';
 
   @Input()
-  VerticalItemCompletedBackColor: string = 'white';
+  CompletedBackColor: string = 'white';
 
   @Input()
-  VerticalItemCompletedForeColor: string = 'green';
+  CompletedForeColor: string = 'green';
 
   @Input()
-  VerticalItemActiveBackColor: string = 'green';
+  ActiveBackColor: string = 'green';
 
   @Input()
-  VerticalItemActiveForeColor: string = 'white';
+  ActiveForeColor: string = 'white';
 
   @Input()
   ApplyItemForeColorToStepNo: boolean = true;
 
   @Input()
-  VerticalItemPendingBackColor: string = 'blue';
+  PendingBackColor: string = 'blue';
 
   @Input()
-  VerticalItemPendingForeColor: string = 'white';
+  PendingForeColor: string = 'white';
 
 
   @Input()

@@ -27,6 +27,16 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   @Input()
   EnableShadow: boolean = true;
 
+  
+  @Input()
+  CompletedBorderColor: string = 'lightgray';
+
+  @Input()
+  PendingBorderColor: string = 'lightgray';
+  
+  @Input()
+  ActiveBorderColor: string = 'blue';
+  
   @Input()
   CompletedButtonBackColor: string = 'rgb(35, 206, 236)';
 
@@ -40,25 +50,25 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   BackButtonForeColor: string = 'white';
 
   @Input()
-  HorizontalItemStripLineColor: string = 'blue';  
+  StripLineColor: string = 'blue';  
 
   @Input()
-  HorizontalItemCompletedBackColor: string = 'white';
+  CompletedBackColor: string = 'white';
 
   @Input()
-  HorizontalItemActiveBackColor: string = 'blue';
+  ActiveBackColor: string = 'blue';
 
   @Input()
-  HorizontalItemPendingBackColor: string = 'white';
+  PendingBackColor: string = 'white';
 
   @Input()
-  HorizontalItemCompletedForeColor: string = 'green';
+  CompletedForeColor: string = 'green';
 
   @Input()
-  HorizontalItemActiveForeColor: string = 'white';
+  ActiveForeColor: string = 'white';
 
   @Input()
-  HorizontalItemPendingForeColor: string = 'orange';
+  PendingForeColor: string = 'orange';
 
   @Input()
   RStateItemCompletedColor: string = 'darkblue';

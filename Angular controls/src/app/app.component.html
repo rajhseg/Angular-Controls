@@ -63,8 +63,8 @@
   <br />
 
   
-  <rstepper-vertical [VerticalItemStripLineColor]="bColor" [VerticalItemActiveBackColor]="bColor"
-    [VerticalItemPendingBackColor]="tColor"
+  <rstepper-vertical [StripLineColor]="bColor" [ActiveBackColor]="bColor"
+    [PendingBackColor]="tColor" [PendingBorderColor]="'orangered'"
    [ContentWidth]="1000" [ContentHeight]="560"  (OnCompletedClick)="StepsCompleted($event)"
    [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
 
@@ -214,7 +214,7 @@
               [PopupBackColor]="'black'" [PopupForeColor]="'white'"
               [XAxisTitle]="'Month'" 
               [YAxisTitle]="'Money'"
-              [Columns]="barChartItems2"  [Width]="400" [Height]="400" >
+              [Columns]="barChartItems2"  [Width]="600" [Height]="400" >
           </rallocated-barchart>
 
       </ng-template>
@@ -413,8 +413,8 @@
     <revents-schedule [ContainerBackgroundColor]="'#13297A'" 
           [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
           [EventBackgroundColor]="'#13297A'"  [MarkerBackgroundColor]="'white'"
-          [ShowMarker]="true" [ShowScrollBar]="true"
-          [SelectedDate]="selectedDate" 
+          [ShowMarker]="false" [ShowScrollBar]="true" [MinutesForEachCell]="30"
+          [SelectedDate]="selectedDate" [EnableMovePageToCurrentTime]="false"
           [ScheduleItems]="scheduleItems">
     </revents-schedule> 
 
@@ -498,9 +498,9 @@
   <br />
 
   <rstepper-horizontal [ContentWidth]="900" [ContentHeight]="570" 
-      [HorizontalItemActiveBackColor]="bColor" [HorizontalItemPendingForeColor]="tColor"
-      [HorizontalItemPendingBackColor]="'white'"
-      [HorizontalItemStripLineColor]="bColor"
+      [ActiveBackColor]="bColor" [PendingForeColor]="tColor"
+      [PendingBackColor]="'white'"
+      [StripLineColor]="bColor"
       [ShowStateHorizontal]="showVerticalItems"
       (OnCompletedClick)="StepsCompleted($event)">
 
@@ -1119,7 +1119,7 @@
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab31', 'HeaderText':'rEventsSchedule', 'Context': this}">        
-         <revents-schedule [Width]="740" [ScheduleItems]="scheduleItems"></revents-schedule> 
+         <!-- <revents-schedule [Width]="740" [ScheduleItems]="scheduleItems"></revents-schedule>  -->
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rdonutchart', 'Context': this}">

@@ -46,20 +46,26 @@
     width: 26px;
     height: 22px;
     border-radius: 50%;
-    border: 0.5px solid lightgray; 
+    border-color: var(--pborder); 
+    border-width: 0.5px;
+    border-style: solid; 
     position: relative;
     background-color: white;
     text-align: center;
     align-content: center;    
     font-size: small;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: var(--pbshadow);
 }
 
 .activecircle {
     top: -13px;    
     width: 34px;
     height: 30px;  
-    color:blue;  
+    color: var(--activebackcolor);  
+    border-color: var(--border) !important; 
+    border-width: 0.5px;
+    border-style: solid;
+    box-shadow: var(--bshadow);
 }
 
 .completedBtn {

@@ -27,9 +27,16 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   private _vele!: HTMLElement;
   private markerInterval!: number | undefined;
   private pageInterval!: number | undefined;
+  private _minutesForEachCell: number = 30;
 
   @Input()
-  MinutesForEachCell: number = 30;
+  public set MinutesForEachCell(val: number){
+    this._minutesForEachCell = val;
+    this.CalculateHorizontalHeaders();    
+  }
+  public get MinutesForEachCell(): number {
+    return this._minutesForEachCell;
+  }
 
   @Input()
   Height: number = 350;
@@ -45,9 +52,17 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
   EachMinuteInPx: number = 6;
 
-  EachCellInPx: number = this.MinutesForEachCell * this.EachMinuteInPx;
-  TotalCellsPerDay: number = (60 / this.MinutesForEachCell) * 24;
-  TotalCellWidthInPx: number = this.TotalCellsPerDay * this.EachCellInPx + this.GetBordersCountUptoTargetTimeCell("24:00");
+  get EachCellInPx():number {
+    return this.MinutesForEachCell * this.EachMinuteInPx;
+  }
+
+  get TotalCellsPerDay(): number { 
+    return (60 / this.MinutesForEachCell) * 24;
+  }
+
+  get TotalCellWidthInPx(): number {
+    return this.TotalCellsPerDay * this.EachCellInPx + this.GetBordersCountUptoTargetTimeCell("24:00");
+  }
 
   @Input()
   VerticalHeaderWidth: number = 120;
@@ -148,6 +163,9 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
         let _channelList = [];
 
+        let _nextElementHaveChangeInCell = false;
+        let _previousElementAdjustValue = 0;
+
         for (let j = 0; j < dateSchedules.ChannelItems.length; j++) {
           const channel = dateSchedules.ChannelItems[j];
 
@@ -183,58 +201,60 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
 
             obj.Title = _event.Title;
             obj.WidthInPxForEventCell = this.EachMinuteInPx * _event.DurationInMinutes;
+                        
             obj.Value = _event.Value;
             _renderChannelItem.Events.push(obj);
           }
 
           _renderChannelItem.Events.sort(this.EventsSort);
 
-          if (this.RenderOverLappingEvents) {
-
-            let cellStartingLeftOffset: number = 0;
-
-            let previousObject: REventsRenderObj = new REventsRenderObj();
-            previousObject.EndTime = "";
-            previousObject.OffsetLeft = 0;
-
-            let minusPx = 0;
+          if (this.RenderOverLappingEvents) {  
+            
+            let _IsNextItemChangeInWidth = false;
+            let _nextItemChangeValue = 0;
+            let _prevOffsetLeft = 0;
 
             for (let p = 0; p < _renderChannelItem.Events.length; p++) {
               const _evt = _renderChannelItem.Events[p];
+              
+              let _noOFCells = (_evt.DurationInMinutes / this.MinutesForEachCell);
+              let _noOfBorders = _noOFCells * 2;
 
-              let _min = (cellStartingLeftOffset / 6);
-              let _endTime = this.AddDurationToTimeString("00:00", _min);
+              let reduceinLeftOffsetByOne = false;
 
-              let differenceLeft = this.GetOffsetLeftForEvent(_endTime, _evt.StartTime);
-              let borders = this.GetBordersCountUptoTargetTimeCell(_evt.StartTime);
-              let calcBorder;
-
-              if (differenceLeft < 0) {
-                minusPx = minusPx + 2;
+              if(_IsNextItemChangeInWidth && _noOfBorders < 2) {
+                _evt.AdjustWidthInPxForCell = _nextItemChangeValue;
+                _IsNextItemChangeInWidth = false;
+                reduceinLeftOffsetByOne = true;
+                _nextItemChangeValue = 0;
               }
 
-              // ContinousSequence Events have 1 side border, others are having 2 side border for each Event
-              if (!_renderChannelItem.RenderEventsInContinousSequence) {
-                calcBorder = borders - (2 * p) - minusPx - 2; // minusPx is for OverlappingEvents, -1 is for border in vertical header
+              if(_noOfBorders < 2) {
+                _evt.AdjustWidthInPxForCell = - 1;
+                _IsNextItemChangeInWidth = true;
+                _nextItemChangeValue = -1;
+              } else if(_noOfBorders == 2) {
+
               } else {
-                calcBorder = borders - (2 * p) - 2; // 2 is for borders
+                _evt.AdjustWidthInPxForCell = _noOfBorders - 2;                
               }
 
-              let mergedBorders = 0;
-              if (_evt.DurationInMinutes > this.MinutesForEachCell) {
-                // if cell takes more than one space, borders are merged that need to be add for each cell
-                mergedBorders = this.GetBordersMergedWithInCell(_evt.DurationInMinutes);
-              }
-
-              if (!_renderChannelItem.RenderEventsInContinousSequence && p == _renderChannelItem.Events.length - 1) {
-                //_evt.OffsetLeft = differenceLeft + calcBorder - _renderChannelItem.Events.length;            
-                _evt.OffsetLeft = differenceLeft + calcBorder - 2;
+              if(_renderChannelItem.RenderEventsInContinousSequence){
+                _evt.OffsetLeft = 0;
               } else {
-                _evt.OffsetLeft = differenceLeft + calcBorder;
+                let OffsetLeft = this.GetOffsetLeftForStartTime(_evt.StartTime);
+                let _nocells = OffsetLeft / this.EachCellInPx;
+                let noOfBorders = Math.ceil(_nocells) * 2;
+                _evt.OffsetLeft = OffsetLeft + noOfBorders - _prevOffsetLeft;
+
+                if(reduceinLeftOffsetByOne){
+                  _evt.OffsetLeft = _evt.OffsetLeft - 1;
+                  reduceinLeftOffsetByOne = false;
+                }
+
+                _prevOffsetLeft =  (_prevOffsetLeft + ((_evt.WidthInPxForEventCell+_evt.AdjustWidthInPxForCell) + 2));                                              
               }
 
-              previousObject = _evt;
-              cellStartingLeftOffset = cellStartingLeftOffset + _evt.WidthInPxForEventCell;
             }
           }
 
@@ -312,6 +332,8 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   }
 
   checkMarker(){
+    this.clearMarker();
+    this.clearPage();
     if (this.isCurrentDate) {
       if (this._showMarker == true) {
         this.clearPage();
@@ -671,7 +693,12 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
     this._ele.addEventListener('mouseup', this.stopDrag.bind(this), false);
     this._ele.addEventListener('mouseleave', this.stopDrag.bind(this), false);
     this._ele.addEventListener('mousemove', this.dragging.bind(this), false);
+    this.RenderUI();
+  }
 
+  RenderUI(){
+    this.clearMarker();
+    this.clearPage();
     if (this.isCurrentDate) {
       if (this._showMarker) {
         this.renderMarker();
@@ -688,14 +715,14 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   }
 
   clearMarker() {
-    if (this.winObj.isExecuteInBrowser()) {
+    if (this.winObj.isExecuteInBrowser() && this.markerInterval) {
       window.clearInterval(this.markerInterval);
       this.markerInterval = undefined;
     }
   }
 
   clearPage() {
-    if (this.winObj.isExecuteInBrowser()) {
+    if (this.winObj.isExecuteInBrowser() && this.pageInterval) {
       window.clearInterval(this.pageInterval);
       this.pageInterval = undefined
     }

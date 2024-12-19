@@ -104,17 +104,17 @@
                                     <div  class="row" [ngStyle]="{ 
                                         'width': (TotalCellWidthInPx)+'px',
                                         'display': RenderOverLappingEvents ? 'block' : 'flex', 
-                                        'border-bottom': '1px solid '+ContainerBorderColor
+                                        'border-bottom': '1px solid '+ ContainerBorderColor
                                         }"
 
                                         *ngFor="let channelitem of DisplaySchedules[SelectedDate].ChannelItems">
                                     
                                         <div class="ritem"  [ngStyle]="{ 
-                                            'border-right': '1px solid transparent',
+                                            'border-right':  '1px solid '+ EventBorderColor,
                                             'border-bottom': '1px solid '+EventBorderColor,
                                             'background-color': EventBackgroundColor,
                                             'color': EventForeColor,
-                                            'width': event.WidthInPxForEventCell+'px',
+                                            'width': (event.WidthInPxForEventCell + event.AdjustWidthInPxForCell) +'px',
                                             'position': RenderOverLappingEvents ? 'relative' : '',
                                             'float': RenderOverLappingEvents ? 'left' : '',
                                             'left': RenderOverLappingEvents ? event.OffsetLeft+'px': '',

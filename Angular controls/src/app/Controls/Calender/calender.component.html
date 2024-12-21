@@ -5,8 +5,20 @@
         <input [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 
                             'pointer-events':(Disabled || ReadOnly) ? 'none': '' }"
             [readOnly]="ReadOnly" [disabled]="Disabled"
-            class="calendarinput" (click)="openCalenderFromInput($event)" type="text"              
-            (blur)="OnBlur($event)"           
+            class="calendarinput"  type="text"              
+
+            (drag)="OnDrag($event)" (dragend)="OnDragEnd($event)" (dragenter)="OnDragEnter($event)" 
+            (dragleave)="OnDragLeave($event)" (dragover)="OnDragOver($event)" (dragstart)="OnDragStart($event)" 
+            (drop)="OnDrop($event)"
+
+            (click)="openCalenderFromInput($event)"  (dblclick)="OnDoubleClick($event)"          
+            (blur)="OnBlur($event)"  (focus)="OnFocus($event)"                     
+            (cut)="OnCut($event)" (copy)="OnCopy($event)" (paste)="OnPaste($event)"            
+            (keydown)="OnKeyDown($event)" (keyup)="OnKeyUp($event)" (keypress)="OnKeyPress($event)"            
+            (mousedown)="OnMouseDown($event)" (mouseenter)="OnMouseEnter($event)" (mouseup)="OnMouseUp($event)"
+            (mouseleave)="OnMouseLeave($event)" (mousemove)="OnMouseMove($event)" 
+            (mouseout)="OnMouseOut($event)" (mouseover)="OnMouseOver($event)" 
+
             [(ngModel)]="Value" />
 
         <div class="calIconContainer" #openbtn (click)="openCalender($event)"

@@ -1236,7 +1236,7 @@
     <rflattabs [TabWidth]="'650px'" [TabHeight]="'300px'" [DisplayTabContainerWhenZeroTabs]="true">
 
       <rtab *tabidfor="{ 'TabId':'tabf1', 'HeaderText':'rcalender', 'Context':this }">
-        <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
+        <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate"></rcalender> {{curDate}}
         <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" 
               [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
         <rcalender></rcalender>

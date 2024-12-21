@@ -798,6 +798,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     //this.SeqActiveIndex--;
   }
 
+  calFocus($event: any){
+    
+  }
+
   createTreeData(){
     if(this.winObj.isExecuteInBrowser()){ 
     let _treeItems = new RTreeItem();

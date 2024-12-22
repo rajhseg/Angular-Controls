@@ -17,7 +17,7 @@
 .circle {      
     border-radius: 50%;
     display: block;      
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 3px 8px; 
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;

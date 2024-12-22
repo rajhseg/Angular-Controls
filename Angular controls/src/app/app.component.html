@@ -280,10 +280,10 @@
   <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
   </rslider>
   <br />
-  <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="bColor" [MinValue]="25" [MaxValue]="75">
+  <rslider [SliderBarWidth]="400" [EnablePathColor]="false" [BackgroundColor]="bColor" [MinValue]="25" [MaxValue]="75">
   </rslider>
   <br />
-  <rslider [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="bColor"></rslider>
+  <rslider [SliderBarWidth]="300" [SliderBarHeight]="'2px'" [SliderMarkerSize]="'15px'" [EnablePathColor]="true" [BackgroundColor]="bColor"></rslider>
   <br />
 
   <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStepH()">Move to Next Step
@@ -909,10 +909,10 @@
         <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1"
           [(ngModel)]="rangeValue"></rslider>
         <br />
-        <rslider [SliderWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
+        <rslider [SliderBarWidth]="400" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
           [MaxValue]="75"></rslider>
         <br />
-        <rslider [(ngModel)]="rangeValue1" [SliderWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'">
+        <rslider [(ngModel)]="rangeValue1" [SliderBarWidth]="300" [EnablePathColor]="true" [BackgroundColor]="'Orange'">
         </rslider>
         <br />
 

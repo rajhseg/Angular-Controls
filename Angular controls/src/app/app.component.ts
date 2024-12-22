@@ -533,7 +533,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     let items = new REventsSchedules();
 
     let ritem = new REventChannelItem();
-    ritem.ChannelTitle = "Channel Title1";
+    ritem.ChannelTitle = "Channel Title1";    
     ritem.CalculateStartAndEndTimeBasedOnDuration = true;
     ritem.RenderEventsInContinousSequence = true;
     ritem.ValueKey = {};

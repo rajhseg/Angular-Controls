@@ -3,6 +3,7 @@ import { NgIf, NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
+import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
 
 @Component({
   selector: 'rslider',
@@ -51,7 +52,13 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   BackgroundColor: string = "blue";
 
   @Input()
-  SliderWidth: number = 200;
+  SliderBarWidth: number = 200;
+
+  @Input()
+  SliderBarHeight: string = "6px";
+
+  @Input()
+  SliderMarkerSize: string = "20px";
 
   private sliderFromStart: boolean = false;
   private clickonInitHaveValues: boolean = true;
@@ -59,7 +66,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   public SliderValue: number = 0;
 
   private LeftBoundry: number = this.offsetLeft + this.additionalSizeToAdd + 1;
-  private rightBoundary: number = this.LeftBoundry + this.SliderWidth + 20 - 1;
+  private rightBoundary: number = this.LeftBoundry + this.SliderBarWidth + 20 - 1;
 
   onChange: Function = (value: number) => { };
 
@@ -70,7 +77,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
-  constructor(@Host() private ele: ElementRef, private winObj: WindowHelper) {
+  constructor(@Host() private ele: ElementRef, private winObj: WindowHelper, private cssunit: CssUnitsService) {
     this.Id = this.winObj.GenerateUniqueId();
     this.offsetLeft = (this.ele.nativeElement as HTMLElement).offsetLeft;
     // 12 offsetLeft + 2 + 1 +first position 1 = 16 
@@ -97,8 +104,9 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     let number = Number.parseFloat(obj);
 
     this.SliderValue = number;
+    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Width);
 
-    let total = this.SliderWidth - 20 + 2;
+    let total = this.SliderBarWidth - marker + 3;
 
     let percentage = (this.SliderValue - this.MinValue) / (this.MaxValue - this.MinValue);
 
@@ -117,6 +125,21 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     }
 
     this.OnValueChanged.emit(this.RangeValue);
+  }
+
+  getMarkerTop(): string {
+    let markerHeight = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Height);
+    let halfSize = markerHeight/2;
+    let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement, RelativeUnitType.Height);
+    let top = halfSize - (sliderHeight/2);
+    return "-" + (top + CssUnit.Px);
+  }
+
+  getDisplayValueTop(): string {    
+    let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement, RelativeUnitType.Height);
+    let top = (sliderHeight/2);
+    top = 8 - top;
+    return "-" + (top+ CssUnit.Px);
   }
 
   registerOnChange(fn: any): void {
@@ -139,8 +162,9 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
     $event.preventDefault();
     $event.stopPropagation();
+    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Width);
 
-    let total = this.SliderWidth - 20 + 2;
+    let total = this.SliderBarWidth - marker + 3;
     this.currentDistance = ($event as MouseEvent).offsetX;
 
     this.AdjustSlideBasedOnCurrentDistance(total);
@@ -153,13 +177,16 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     
     $event.event.preventDefault();
     $event.event.stopPropagation();
+    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Width);
 
-    let total = this.SliderWidth - 20 + 2;
+    let total = this.SliderBarWidth - marker + 3;
 
     if (this.sliderFromStart) {
       this.resize = this.currentDistance;
       this.sliderFromStart = false;
     }
+
+    console.log(" distance moved "+$event.distance.x);
 
     this.currentDistance = this.resize + $event.distance.x;
     this.AdjustSlideBasedOnCurrentDistance(total);

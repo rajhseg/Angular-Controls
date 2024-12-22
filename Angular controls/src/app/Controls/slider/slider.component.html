@@ -1,12 +1,21 @@
-<div [id]="Id" style="display: flex;">
-    <div class="sbox">
-        <div class="box" (click)="clickOnBar($event)" [ngStyle]="{'width':SliderWidth+'px'}"></div>
+<div [id]="Id" style="display: flex;" [ngStyle]="{'width': (SliderBarWidth + 40)+ 'px', }">
+    <div class="sbox sli">
+        <div class="box" (click)="clickOnBar($event)" [ngStyle]="{
+            'width': SliderBarWidth+'px', 
+            'height': SliderBarHeight }"></div>
         <div class="cbox"  (click)="clickOnBar($event)"
-            [ngStyle]="{'background-color': EnablePathColor ? BackgroundColor : 'transparent', 'width':currentDistance+'px'}"></div>
-        <div #slider class="slider" [ngStyle]="{'background-color': BackgroundColor}" cdkDragLockAxis="x" cdkDrag
-            cdkDragBoundary=".sbox" (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"            
+            [ngStyle]="{'background-color': EnablePathColor ? BackgroundColor : 'transparent', 
+                'width':currentDistance+'px', 'height': SliderBarHeight }"></div>
+        <div #slider class="slider" [ngStyle]="{'background-color': BackgroundColor,
+            'height': SliderMarkerSize, 'width': SliderMarkerSize, 'top': getMarkerTop() }" cdkDragLockAxis="x" cdkDrag
+         (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"            
             (cdkDragReleased)="dragEnded($event)">
         </div>
-    </div>
-    <div *ngIf="IsDisplayValue" class="displayValue">{{RangeValue}}</div>
+        <div *ngIf="IsDisplayValue" class="displayValue" 
+                [ngStyle]="{ 'left': SliderBarWidth+ 'px', 'top': getDisplayValueTop() }">
+                <span>
+                    {{RangeValue}}
+                </span>
+        </div>
+    </div>    
 </div>

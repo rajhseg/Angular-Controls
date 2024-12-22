@@ -29,7 +29,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     DatePipe
   ],
   host: {
-    
+
   }
 })
 export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
@@ -49,10 +49,10 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
   IsValueChanged: boolean = false;
 
   set Value(val: string) {
-    if(val != this._value && !this.ReadOnly){
+    if (val != this._value && !this.ReadOnly) {
       this.IsValueChanged = true;
-      this._value = val; 
-    }   
+      this._value = val;
+    }
   }
 
   get Value(): string {
@@ -138,12 +138,12 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   DDERight: string = '';
 
-  get DDEWidth() : string {
-    return  '285px';
+  get DDEWidth(): string {
+    return '285px';
   }
 
   get DDEHeight(): string {
-    if(this.currentMonth?.weeks.length == 6) {
+    if (this.currentMonth?.weeks.length == 6) {
       return '235px';
     } else {
       return '205px';
@@ -192,8 +192,8 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   public get IconSize(): string {
 
-    if(this._iconSizeHeight != this.Height) {      
-      if (this.eleRef.nativeElement) {        
+    if (this._iconSizeHeight != this.Height) {
+      if (this.eleRef.nativeElement) {
         let val = this.cssUnitSer.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
         this._iconSizeHeight = this.Height;
         this._iconVal = (val + 7) + CssUnit.Px.toString();
@@ -208,7 +208,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   public get TopPx(): string {
 
-    if(this._topPxHeight!=this.Height) {
+    if (this._topPxHeight != this.Height) {
       if (this.eleRef.nativeElement) {
         let val = this.cssUnitSer.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
         let rem = val / 10;
@@ -273,7 +273,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   @Output()
   mouseover = new EventEmitter<any>();
-  
+
   @Output()
   dblclick = new EventEmitter<any>();
 
@@ -297,7 +297,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   @Output()
   drop = new EventEmitter<any>();
-    
+
   private winObj!: Window;
 
   @ViewChild('monthdropdown', { read: RDropdownComponent }) monthDropDownControl!: RDropdownComponent;
@@ -340,94 +340,94 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     this.focus.emit($event);
   }
 
-  OnCut($event: any){
+  OnCut($event: any) {
     this.cut.emit($event);
   }
 
-  OnCopy($event: any){
+  OnCopy($event: any) {
     this.copy.emit($event);
   }
 
-  OnPaste($event: any){
+  OnPaste($event: any) {
     this.paste.emit($event);
   }
 
-  OnKeyDown($event:any){
+  OnKeyDown($event: any) {
     this.keydown.emit($event);
   }
 
-  OnKeyUp($event: any){
+  OnKeyUp($event: any) {
     this.keyup.emit($event);
   }
 
-  OnKeyPress($event: any){
+  OnKeyPress($event: any) {
     this.keypress.emit($event);
   }
 
-  OnMouseEnter($event: any){
+  OnMouseEnter($event: any) {
     this.mouseenter.emit($event);
   }
 
-  OnMouseDown($event: any){
+  OnMouseDown($event: any) {
     this.mousedown.emit($event);
   }
-  
-  OnMouseUp($event: any){
+
+  OnMouseUp($event: any) {
     this.mouseup.emit($event);
   }
 
-  
-  OnMouseLeave($event: any){
+
+  OnMouseLeave($event: any) {
     this.mouseleave.emit($event);
   }
-  
-  OnMouseMove($event: any){
+
+  OnMouseMove($event: any) {
     this.mousemove.emit($event);
   }
-  
-  OnMouseOut($event: any){
+
+  OnMouseOut($event: any) {
     this.mouseout.emit($event);
   }
-  
-  OnMouseOver($event: any){
+
+  OnMouseOver($event: any) {
     this.mouseover.emit($event);
   }
-  
-  OnDoubleClick($event: any){
+
+  OnDoubleClick($event: any) {
     this.dblclick.emit($event);
   }
 
-  OnDrag($event: any){
+  OnDrag($event: any) {
     this.drag.emit($event);
   }
 
-  OnDragEnd($event: any){
+  OnDragEnd($event: any) {
     this.dragend.emit($event);
   }
 
-  OnDragEnter($event: any){
+  OnDragEnter($event: any) {
     this.dragenter.emit($event);
   }
 
-  OnDragLeave($event: any){
+  OnDragLeave($event: any) {
     this.dragleave.emit($event);
   }
 
-  OnDragOver($event: any){
+  OnDragOver($event: any) {
     this.dragover.emit($event);
   }
 
-  OnDragStart($event: any){
+  OnDragStart($event: any) {
     this.dragstart.emit($event);
   }
 
-  OnDrop($event: any){
+  OnDrop($event: any) {
     this.drop.emit($event);
   }
-    
+
   windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
-    
+
     this.cls.PrintLog();
 
     if (this.IsCalenderOpen) {
@@ -455,7 +455,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     }
   }
 
-  
+
   IsOpen(): boolean {
     return this.IsCalenderOpen;
   }
@@ -486,18 +486,17 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
         if (dstr) {
           this.selectedDate = new Date(Date.parse(dstr));
-          
-          if(this.IsValueChanged)
+
+          if (this.IsValueChanged)
             isNewValue = true;
         }
       }
 
-      if(this.IsValueChanged)
-      {  
+      if (this.IsValueChanged) {
         this.IsValueChanged = false;
-        
-        if(isNewValue) {
-          this.SetDate(this.selectedDate);          
+
+        if (isNewValue) {
+          this.SetDate(this.selectedDate);
         }
         else {
           this._value = this.getDateString(this.selectedDate);
@@ -575,7 +574,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     }
   }
 
-  clearDateOnBlur(){
+  clearDateOnBlur() {
     this.selectedDate = null;
     this._value = '';
 
@@ -610,15 +609,15 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   }
 
-  writeValue(obj: string | Date): void {  
+  writeValue(obj: string | Date): void {
     let rd = this.ReadOnly;
-    
+
     try {
       this.ReadOnly = false;
       this.RenderUI(obj);
-      this.NotifyToUI();      
+      this.NotifyToUI();
     }
-    catch{
+    catch {
 
     }
 
@@ -691,8 +690,8 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     this.IsMonthDropdownOpen = false;
     this.IsYearDropdownOpen = false;
 
-    if(this.IsCalenderOpen) {
-      this.RenderUI(this.Value);      
+    if (this.IsCalenderOpen) {
+      this.RenderUI(this.Value);
       this.cls.CloseAllPopups(this);
       this.AttachDropdown();
     }
@@ -709,17 +708,17 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
       let isInTab = false;
       let element: HTMLElement | null = this.eleRef.nativeElement as HTMLElement;
       let tabTop, tabLeft = 0;
-      let i =15;
+      let i = 15;
 
-      while(element && element != null && i > 0){
-        if(element.nodeName.toLowerCase() == 'rflattabs' 
+      while (element && element != null && i > 0) {
+        if (element.nodeName.toLowerCase() == 'rflattabs'
           || element.nodeName.toLowerCase() == 'rtabs'
-          || element.nodeName.toLowerCase() == 'rstepper-vertical' 
-          || element.nodeName.toLowerCase() == 'rstepper-horizontal' ){
+          || element.nodeName.toLowerCase() == 'rstepper-vertical'
+          || element.nodeName.toLowerCase() == 'rstepper-horizontal') {
           isInTab = true;
           break;
         }
-        
+
         i--;
         element = element.parentElement;
       }
@@ -727,15 +726,15 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
       let tabHeight = 0;
       let tabWidth = 0;
 
-      if(isInTab && element) {
-        let tabContentEle = element.getElementsByClassName("tabcontent");          
-        let tabRect = tabContentEle[tabContentEle.length-1].getBoundingClientRect();
+      if (isInTab && element) {
+        let tabContentEle = element.getElementsByClassName("tabcontent");
+        let tabRect = tabContentEle[tabContentEle.length - 1].getBoundingClientRect();
         tabTop = tabRect.top;
         tabLeft = tabRect.left;
-        tabHeight = tabRect.height;   
-        tabWidth = tabRect.width;     
+        tabHeight = tabRect.height;
+        tabWidth = tabRect.width;
       } else {
-        tabTop = 0;          
+        tabTop = 0;
       }
 
       let btn = this.openBtn.nativeElement as HTMLElement;
@@ -744,10 +743,10 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
       if (res) {
         let dropDownHeight = parseFloat(res[1].toString());
         let btnPosTop = btn.getBoundingClientRect().top;
-                        
-        if (((isInTab && (tabTop+tabHeight) - btnPosTop < dropDownHeight)
-                || (!isInTab&& windowHeight - btnPosTop < dropDownHeight ))
-              && btnPosTop - tabTop > dropDownHeight) {
+
+        if (((isInTab && (tabTop + tabHeight) - btnPosTop < dropDownHeight)
+          || (!isInTab && windowHeight - btnPosTop < dropDownHeight))
+          && btnPosTop - tabTop > dropDownHeight) {
           this.DDEBottom = '120%';
           this.DDETop = 'auto';
         } else {
@@ -769,7 +768,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
           let startPos = start.getBoundingClientRect();
 
-          if ((isInTab && (tabLeft+tabWidth) > dropDownWidth + startPos.left)
+          if ((isInTab && (tabLeft + tabWidth) > dropDownWidth + startPos.left)
             || (!isInTab && windowWidth > dropDownWidth + startPos.left)) {
             this.DDELeft = '0px';
             this.DDERight = 'auto';
@@ -899,6 +898,20 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
         this.month = this.monthNames[11];
         let yrmin = this.year.Value - 1;
         this.year = new DropdownModel(yrmin, yrmin.toString())
+
+        let index = this.totalYears.findIndex(x=>x.Value==this.year?.Value);
+
+        if(index==-1){
+          for (let i = this.year.Value; i >= (this.year.Value - 100); i--) {
+            let _PrevYr = new DropdownModel(i, i.toString())
+            this.totalYears.unshift(_PrevYr);
+          }
+
+          this.totalYears = [...this.totalYears];
+          this.year = new DropdownModel(yrmin, yrmin.toString())
+          this.cdr.detectChanges();
+        }
+
       } else {
         this.month = this.monthNames[this.month.Value - 1];
       }
@@ -917,6 +930,20 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
         this.month = this.monthNames[0];
         let yradd = this.year.Value + 1;
         this.year = new DropdownModel(yradd, yradd.toString());
+
+        let index = this.totalYears.findIndex(x=>x.Value==this.year?.Value);
+
+        if(index==-1){
+          for (let i = this.year.Value; i < (this.year.Value + 100); i++) {
+            let _NextYr = new DropdownModel(i, i.toString())
+            this.totalYears.push(_NextYr);
+          } 
+
+          this.totalYears = [...this.totalYears];
+          this.year = new DropdownModel(yradd, yradd.toString());
+          this.cdr.detectChanges();         
+        }
+
       } else {
         let madd = this.month.Value + 1;
         this.month = this.monthNames[madd];

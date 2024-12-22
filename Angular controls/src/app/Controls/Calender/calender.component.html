@@ -46,6 +46,7 @@
                     [IsChildOfAnotherControl]="isDropdownChild" [IsMulti]="false" (change)="changeMonth($event)"
                     [(ngModel)]="month" [Items]="monthNames" 
                     [Width]="'52px'" [DropDownContentWidth]="'77px'" 
+                    [ParentDropDownId]="Id"
                     [DropDownContentHeight]="'150px'">
                 </rdropdown>
 
@@ -57,6 +58,7 @@
                     [IsChildOfAnotherControl]="isDropdownChild" (change)="changeYear($event)" [IsMulti]="false"
                     [(ngModel)]="year" [Items]="totalYears"
                     [Width]="'52px'" [DropDownContentWidth]="'77px'" 
+                    [ParentDropDownId]="Id"
                     [DropDownContentHeight]="'150px'">
                 </rdropdown>
 

@@ -656,7 +656,7 @@
         <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
         <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" 
               [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
-        <rcalender></rcalender>
+        <rcalender  [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'rdropdown', 'Context':this }">

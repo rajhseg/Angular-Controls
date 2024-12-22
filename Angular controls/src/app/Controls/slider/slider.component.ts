@@ -58,27 +58,31 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
   @Input()
   set SliderBarHeight(val: string) {
-    let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement, RelativeUnitType.Height);
-    if(sh< 2){
-      sh = 2;
-    }
+    if (this.ele.nativeElement) {
+      let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      if (sh < 2) {
+        sh = 2;
+      }
 
-    this._sliderBarHeight = sh + CssUnit.Px.toString();
+      this._sliderBarHeight = sh + CssUnit.Px.toString();
+    }
   }
   get SliderBarHeight(): string {
     return this._sliderBarHeight;
   }
 
   _sliderMarkerSize: string = "20px";
-  
-  @Input()
-  set SliderMarkerSize(val: string){
-    let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement, RelativeUnitType.Height);
-    if(sh< 15){
-      sh = 15;
-    }
 
-    this._sliderMarkerSize = sh + CssUnit.Px.toString();
+  @Input()
+  set SliderMarkerSize(val: string) {
+    if (this.ele.nativeElement) {
+      let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      if (sh < 15) {
+        sh = 15;
+      }
+
+      this._sliderMarkerSize = sh + CssUnit.Px.toString();
+    }
   }
   get SliderMarkerSize(): string {
     return this._sliderMarkerSize;
@@ -97,7 +101,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   onTouch: Function = (value: number) => { };
 
   Id: string = '';
-  
+
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
@@ -128,7 +132,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     let number = Number.parseFloat(obj);
 
     this.SliderValue = number;
-    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Width);
+    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
     let total = this.SliderBarWidth - marker + 3;
 
@@ -152,18 +156,26 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   }
 
   getMarkerTop(): string {
-    let markerHeight = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Height);
-    let halfSize = markerHeight/2;
-    let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement, RelativeUnitType.Height);
-    let top = halfSize - (sliderHeight/2);
-    return "-" + (top + CssUnit.Px.toString());
+    if (this.ele.nativeElement) {
+      let markerHeight = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      let halfSize = markerHeight / 2;
+      let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      let top = halfSize - (sliderHeight / 2);
+      return "-" + (top + CssUnit.Px.toString());
+    }
+
+    return "0px";
   }
 
-  getDisplayValueTop(): string {    
-    let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement, RelativeUnitType.Height);
-    let top = (sliderHeight/2);
-    top = 8 - top;
-    return "-" + (top+ CssUnit.Px.toString());
+  getDisplayValueTop(): string {
+    if (this.ele.nativeElement) {
+      let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      let top = (sliderHeight / 2);
+      top = 8 - top;
+      return "-" + (top + CssUnit.Px.toString());
+    }
+
+    return "0px";
   }
 
   registerOnChange(fn: any): void {
@@ -186,7 +198,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
     $event.preventDefault();
     $event.stopPropagation();
-    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Width);
+    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
     let total = this.SliderBarWidth - marker + 3;
     this.currentDistance = ($event as MouseEvent).offsetX;
@@ -194,14 +206,14 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     this.AdjustSlideBasedOnCurrentDistance(total);
 
     (this.sliderElement.nativeElement as HTMLElement).style.transform = "0px";
-    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX("+this.currentDistance+"px)"; //this.currentDistance+"px";
+    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance + "px)"; //this.currentDistance+"px";
   }
 
   dragMove($event: CdkDragMove) {
-    
+
     $event.event.preventDefault();
     $event.event.stopPropagation();
-    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement, RelativeUnitType.Width);
+    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
     let total = this.SliderBarWidth - marker + 3;
 
@@ -210,13 +222,13 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
       this.sliderFromStart = false;
     }
 
-    console.log(" distance moved "+$event.distance.x);
+    console.log(" distance moved " + $event.distance.x);
 
     this.currentDistance = this.resize + $event.distance.x;
     this.AdjustSlideBasedOnCurrentDistance(total);
 
     (this.sliderElement.nativeElement as HTMLElement).style.transform = "0px";
-    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX("+this.currentDistance+"px)"; //this.currentDistance+"px";
+    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance + "px)"; //this.currentDistance+"px";
   }
 
   AdjustSlideBasedOnCurrentDistance(total: number) {

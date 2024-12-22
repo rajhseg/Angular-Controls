@@ -54,11 +54,35 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   @Input()
   SliderBarWidth: number = 200;
 
-  @Input()
-  SliderBarHeight: string = "6px";
+  _sliderBarHeight: string = "6px";
 
   @Input()
-  SliderMarkerSize: string = "20px";
+  set SliderBarHeight(val: string) {
+    let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement, RelativeUnitType.Height);
+    if(sh< 2){
+      sh = 2;
+    }
+
+    this._sliderBarHeight = sh + CssUnit.Px.toString();
+  }
+  get SliderBarHeight(): string {
+    return this._sliderBarHeight;
+  }
+
+  _sliderMarkerSize: string = "20px";
+  
+  @Input()
+  set SliderMarkerSize(val: string){
+    let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement, RelativeUnitType.Height);
+    if(sh< 15){
+      sh = 15;
+    }
+
+    this._sliderMarkerSize = sh + CssUnit.Px.toString();
+  }
+  get SliderMarkerSize(): string {
+    return this._sliderMarkerSize;
+  }
 
   private sliderFromStart: boolean = false;
   private clickonInitHaveValues: boolean = true;
@@ -132,14 +156,14 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     let halfSize = markerHeight/2;
     let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement, RelativeUnitType.Height);
     let top = halfSize - (sliderHeight/2);
-    return "-" + (top + CssUnit.Px);
+    return "-" + (top + CssUnit.Px.toString());
   }
 
   getDisplayValueTop(): string {    
     let sliderHeight = this.cssunit.ToPxValue(this.SliderBarHeight, this.ele.nativeElement, RelativeUnitType.Height);
     let top = (sliderHeight/2);
     top = 8 - top;
-    return "-" + (top+ CssUnit.Px);
+    return "-" + (top+ CssUnit.Px.toString());
   }
 
   registerOnChange(fn: any): void {

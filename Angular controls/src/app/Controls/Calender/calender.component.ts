@@ -507,7 +507,12 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
     } else {
       if (this.Value.trim() == '') {
-        this.clearDateOnBlur();
+        if(this.IsValueChanged) {
+          this.IsValueChanged = false;
+          this.clearDate();
+        } else {
+          this.clearDateOnBlur();
+        }
       }
     }
 

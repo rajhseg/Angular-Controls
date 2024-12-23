@@ -2,12 +2,12 @@
     <div class="sbox sli">
         <div class="box" (click)="clickOnBar($event)" [ngStyle]="{
             'width': SliderBarWidth+'px', 
-            'height': SliderBarHeight }"></div>
+            'height': SliderBarHeightVM }"></div>
         <div class="cbox"  (click)="clickOnBar($event)"
             [ngStyle]="{'background-color': EnablePathColor ? BackgroundColor : 'transparent', 
-                'width':currentDistance+'px', 'height': SliderBarHeight }"></div>
+                'width':currentDistance+'px', 'height': SliderBarHeightVM }"></div>
         <div #slider class="slider" [ngStyle]="{'background-color': BackgroundColor,
-            'height': SliderMarkerSize, 'width': SliderMarkerSize, 'top': getMarkerTop() }" cdkDragLockAxis="x" cdkDrag
+            'height': SliderMarkerSizeVM, 'width': SliderMarkerSizeVM, 'top': getMarkerTop() }" cdkDragLockAxis="x" cdkDrag
          (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"            
             (cdkDragReleased)="dragEnded($event)">
         </div>

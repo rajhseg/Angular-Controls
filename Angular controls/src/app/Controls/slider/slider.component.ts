@@ -55,6 +55,12 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   SliderBarWidth: number = 200;
 
   _sliderBarHeight: string = "6px";
+  
+  _sliderBarHeightVM: string ="6px";
+
+  get SliderBarHeightVM(): string {
+    return this._sliderBarHeightVM;
+  }
 
   @Input()
   set SliderBarHeight(val: string) {
@@ -63,8 +69,9 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
       if (sh < 2) {
         sh = 2;
       }
-
-      this._sliderBarHeight = sh + CssUnit.Px.toString();
+      
+      this._sliderBarHeightVM = sh + CssUnit.Px.toString();
+      this._sliderBarHeight = val;
     }
   }
   get SliderBarHeight(): string {
@@ -72,6 +79,11 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   }
 
   _sliderMarkerSize: string = "20px";
+  _sliderMarkerSizeVM: string = "20px";
+
+  get SliderMarkerSizeVM(): string {
+    return this._sliderMarkerSizeVM;
+  }
 
   @Input()
   set SliderMarkerSize(val: string) {
@@ -81,7 +93,8 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
         sh = 15;
       }
 
-      this._sliderMarkerSize = sh + CssUnit.Px.toString();
+      this._sliderMarkerSizeVM = sh + CssUnit.Px.toString();
+      this._sliderMarkerSize = val;
     }
   }
   get SliderMarkerSize(): string {
@@ -220,9 +233,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     if (this.sliderFromStart) {
       this.resize = this.currentDistance;
       this.sliderFromStart = false;
-    }
-
-    console.log(" distance moved " + $event.distance.x);
+    }    
 
     this.currentDistance = this.resize + $event.distance.x;
     this.AdjustSlideBasedOnCurrentDistance(total);

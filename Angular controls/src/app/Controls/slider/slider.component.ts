@@ -51,16 +51,30 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   @Input()
   BackgroundColor: string = "blue";
 
+  _sliderBarWidth: string = "200px";
+  _sliderBarWidthVM: string = "200px";
+  _sliderBarWidthValue: number = 200;
+  _totalWidth: string = "240px";
+
   @Input()
-  SliderBarWidth: number = 200;
+  set SliderBarWidth(val: string) {
+
+    if(this.ele.nativeElement) {
+      let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+      this._sliderBarWidthVM = sh + CssUnit.Px.toString();
+      this._totalWidth =  (sh + 40) + CssUnit.Px.toString(); 
+      this._sliderBarWidthValue = sh;
+    }
+
+    this._sliderBarWidth = val;
+  }
+  get SliderBarWidth(): string {
+    return this._sliderBarWidth;
+  }
 
   _sliderBarHeight: string = "6px";
   
   _sliderBarHeightVM: string ="6px";
-
-  get SliderBarHeightVM(): string {
-    return this._sliderBarHeightVM;
-  }
 
   @Input()
   set SliderBarHeight(val: string) {
@@ -80,17 +94,13 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
   _sliderMarkerSize: string = "20px";
   _sliderMarkerSizeVM: string = "20px";
-
-  get SliderMarkerSizeVM(): string {
-    return this._sliderMarkerSizeVM;
-  }
-
+  
   @Input()
   set SliderMarkerSize(val: string) {
     if (this.ele.nativeElement) {
       let sh = this.cssunit.ToPxValue(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
-      if (sh < 15) {
-        sh = 15;
+      if (sh < 12) {
+        sh = 12;
       }
 
       this._sliderMarkerSizeVM = sh + CssUnit.Px.toString();
@@ -107,7 +117,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   public SliderValue: number = 0;
 
   private LeftBoundry: number = this.offsetLeft + this.additionalSizeToAdd + 1;
-  private rightBoundary: number = this.LeftBoundry + this.SliderBarWidth + 20 - 1;
+  private rightBoundary: number = this.LeftBoundry + this._sliderBarWidthValue + 20 - 1;
 
   onChange: Function = (value: number) => { };
 
@@ -147,7 +157,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     this.SliderValue = number;
     let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
-    let total = this.SliderBarWidth - marker + 3;
+    let total = this._sliderBarWidthValue - marker + 3;
 
     let percentage = (this.SliderValue - this.MinValue) / (this.MaxValue - this.MinValue);
 
@@ -213,7 +223,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     $event.stopPropagation();
     let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
-    let total = this.SliderBarWidth - marker + 3;
+    let total = this._sliderBarWidthValue - marker + 3;
     this.currentDistance = ($event as MouseEvent).offsetX;
 
     this.AdjustSlideBasedOnCurrentDistance(total);
@@ -228,7 +238,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
     $event.event.stopPropagation();
     let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
-    let total = this.SliderBarWidth - marker + 3;
+    let total = this._sliderBarWidthValue - marker + 3;
 
     if (this.sliderFromStart) {
       this.resize = this.currentDistance;

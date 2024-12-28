@@ -178,8 +178,6 @@ ProgressBar Control
 RTabs Control
 -------------------------
 
-![image](https://github.com/user-attachments/assets/be81c611-af75-4b44-9c06-df7deff41570)
-
 ![image](https://github.com/user-attachments/assets/73fecaf6-ef16-423b-874f-dbfd80ee7a12)
 
 

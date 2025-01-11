@@ -3,9 +3,9 @@
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
-switch, Tab, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
+switch, Tab, RFlatTabs, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
 Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RStepperHorizontal, RDonutChart, RPieChart, RBarChart Vertical, RBarChart 
-Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterChart, RLineChart, RStackedBarChart Horizontal, RAreaChart, RAllocationBarChart, RFilter, RFlatTabs etc.
+Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterChart, RLineChart, RStackedBarChart Horizontal, RAreaChart, RAllocationBarChart, RFilter, REventsCalender  etc.
 
 
 <br />
@@ -397,6 +397,26 @@ RSeriesChart
 
 
 <br/>
+
+
+REventsCalender
+------------------------
+
+### Main Screen
+
+![image](https://github.com/user-attachments/assets/f7fab9d8-f9c6-4b39-bc07-9988171cb750)
+
+
+### Add Events Screen (this screen will open on double click of Main screen Day Cell)
+
+![image](https://github.com/user-attachments/assets/a2def0f6-efae-4913-ab7c-e4c01b3e2f8e)
+
+
+
+
+
+
+
 
 
 

@@ -30,9 +30,9 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
 
   IsDropDownOpen: boolean = false;
 
-  defaultText: string = "   HH    :     MM";
+  defaultText: string = "   HH  :  MM";
 
-  public displayText: string = "   HH    :     MM";
+  public displayText: string = "   HH  :  MM";
 
   public outputValue: string = "";
 
@@ -380,7 +380,8 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
         if(element.nodeName.toLowerCase() == 'rflattabs' 
           || element.nodeName.toLowerCase() == 'rtabs'
           || element.nodeName.toLowerCase() == 'rstepper-vertical' 
-          || element.nodeName.toLowerCase() == 'rstepper-horizontal' ){
+          || element.nodeName.toLowerCase() == 'rstepper-horizontal'
+          || element.nodeName.toLowerCase() == 'rgroup-panel' ){
           isInTab = true;
           break;
         }

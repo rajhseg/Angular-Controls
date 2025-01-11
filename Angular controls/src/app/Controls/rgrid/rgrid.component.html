@@ -9,7 +9,7 @@
             <span (click)="removeFromGroup(grpheader)" [ngStyle]="{'color': HeaderForeColor}" class="rbtn">&#10006;</span>
         </div>
     </div>
-    <table class="tbl">
+    <table class="tbl" [ngStyle]="{'width': TableWidth }">
         <thead>
             <tr  [ngStyle]="{'background-color':HeaderBackgroundColor, 'color': HeaderForeColor}"
                  cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
@@ -86,7 +86,7 @@
                 </td>
             </tr>
         </thead>
-        <tbody [ngStyle]="{ 'height': TableHeight + 'px' }">
+        <tbody [ngStyle]="{ 'height': TableHeight, 'width': TableWidth }">
 
             <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                 <tr *ngFor="let item of ShowItems.Rows">

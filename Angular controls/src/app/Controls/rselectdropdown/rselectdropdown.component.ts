@@ -483,7 +483,8 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
       if(element.nodeName.toLowerCase() == 'rflattabs' 
           || element.nodeName.toLowerCase() == 'rtabs'
           || element.nodeName.toLowerCase() == 'rstepper-vertical' 
-          || element.nodeName.toLowerCase() == 'rstepper-horizontal' ){
+          || element.nodeName.toLowerCase() == 'rstepper-horizontal' 
+          || element.nodeName.toLowerCase() == 'rgroup-panel'){
         isInTab = true;
         break;
       }

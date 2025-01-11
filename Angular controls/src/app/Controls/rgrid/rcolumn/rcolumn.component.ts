@@ -2,6 +2,7 @@ import { AfterContentInit, Component, ContentChild, ContentChildren, Input, Quer
 import { EditViewTemplateDirective } from '../edit-template.directive';
 import { ReadViewTemplateDirective } from '../view-template.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { CssUnit, CssUnitsService } from '../../css-units.service';
 
 @Component({
   selector: 'rcolumn',
@@ -40,8 +41,30 @@ export class RColumnComponent implements AfterContentInit {
 
   @ContentChild(EditViewTemplateDirective, { read: TemplateRef<any>}) EditView!: TemplateRef<any>;
 
+  constructor(private cssUnit: CssUnitsService){
+
+  }
+
   ngAfterContentInit(): void {
     
   }
+
+  GetRelativeWidth(totalWidthInPx: string): string {
+    let value = this.cssUnit.ToPxValue(totalWidthInPx, null, null);
+    let result = this.EditModeWidth.match(/(-?[\d.]+)([a-z%]*)/);
+    if(result) {
+      let num = parseFloat(result[1].toString());
+      let unit = result[2];
+
+      if(unit.toLowerCase()=='%'){
+        return parseFloat((value * num/ 100).toString()) +CssUnit.Px.toString();
+      } else if(unit.toLowerCase()=='px'){
+        return num+CssUnit.Px.toString();
+      }
+
+    }
+
+    return this.EditModeWidth;    
+  }    
 
 }

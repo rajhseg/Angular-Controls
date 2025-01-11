@@ -229,6 +229,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
       
       this.LoadColorOnFirst = false;      
       this.RenderOnToggle = false;           
+      this.cdr.detectChanges();
     }
   }
 
@@ -350,8 +351,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
     this.varStartX = _x;
     this.varStartY = _y;
-
-    console.log(" x " + _x + ", y " + _y);
+    
   }
 
   mouseIsOnTopOfRect(x: number, y: number, shape: RectShape) {
@@ -452,7 +452,8 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
         if(element.nodeName.toLowerCase() == 'rflattabs' 
           || element.nodeName.toLowerCase() == 'rtabs'
           || element.nodeName.toLowerCase() == 'rstepper-vertical' 
-          || element.nodeName.toLowerCase() == 'rstepper-horizontal' ){
+          || element.nodeName.toLowerCase() == 'rstepper-horizontal'
+          || element.nodeName.toLowerCase() == 'rgroup-panel' ){
           isInTab = true;
           break;
         }
@@ -534,6 +535,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
       this.AttachDropdown();
       this.LoadColorOnFirst = true;
       this.RenderOnToggle = false;
+      this.cdr.detectChanges();
     }
   }
 
@@ -740,6 +742,8 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
     if (this.SelectedColorHex)
       this.SetDisplayColorsUsingHex(this.SelectedColorHex);
+
+    this.cdr.detectChanges();
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -952,7 +956,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
       this.SetDisplayColorsUsingHex(this.SelectedColorHex);
       this.onChanged(this.DisplayColorHex);
       this.onTocuhed(this.DisplayColorHex);
-
+      this.cdr.detectChanges();
       this.ColorSelected.emit(args);
     }
   }
@@ -1014,7 +1018,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
       this.SetDisplayColorsUsingHex(this.SelectedColorHex);
       this.onChanged(this.DisplayColorHex);
       this.onTocuhed(this.DisplayColorHex);
-
+      this.cdr.detectChanges();
       this.ColorSelected.emit(args);
     }
   }

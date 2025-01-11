@@ -5,7 +5,7 @@ export class Day {
     public DayInString: string = "";
     public isSelected: boolean =false;
 
-    constructor(public num:number, public dayInWeek: number){
+    constructor(public num:number, public dayInWeek: number, public Month: number, public Year: number){
         this.DayInString = DaysEnum[dayInWeek];
     }
 

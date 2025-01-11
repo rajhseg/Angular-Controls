@@ -1,0 +1,156 @@
+
+
+
+<div class="calender" #calmodal
+            [ngStyle]="{
+                        'width': DDEWidth, 'height': DDEHeight                        
+                        }">
+        <div #modal class="modal" [ngStyle]="{ 'display' : isModalOpen ? 'block' : 'none' }">
+            <div class="modalContent">
+                <div  (click)="closeModal($event)">                    
+                    <div class="closeBtn">
+                        <span style="font-weight: 100; float:left;font-size: 13px;color: blue;">
+                            {{SelectedEventDate | date:DateFormat }}
+                        </span>
+                        <span class="spanbtn">&times;</span>
+                    </div> 
+                </div>
+                <div style="margin:15px">
+                    <rgroup-panel style="position: relative; top:-20px;font-size: 12px;" [EnableShadowEffect]="false"  [groupname]="'Event'" 
+                        [IsItemsArrangeHorizontal]="true">
+                    <div style="display: flex; flex-direction: row;justify-content: space-between;width: 100%;">
+                        <rtextbox class="evtAdd" [LabelText]="'Event Name'" [(ngModel)]="NewEvent.Name"></rtextbox>
+
+                        <rtimeselector style="top:-3px" class="evtAdd" [(ngModel)]="NewEvent.FromTime" [LabelText]="'From Time'"></rtimeselector>
+
+                        <rtimeselector style="top:-3px"class="evtAdd" [(ngModel)]="NewEvent.ToTime" [LabelText]="'To Time'"></rtimeselector>
+
+                        <rcolorpicker style="top:12px" class="evtAdd" [(ngModel)]="NewEvent.Indicator" [IsDisplayColorCode]="false" [IsDisplayLabelText]="true" 
+                            [LabelText]="'Indicator'"></rcolorpicker>                                                      
+                    </div>
+                    </rgroup-panel>
+
+                    <div style="font-size: 12px; clear: left;text-align: center;margin:10px;top: -20px;position: relative;">
+                        <rbutton (ButtonClick)="addEvent($event)">Add</rbutton>
+                    </div> 
+                    <div style="font-size: 12px; clear: left;text-align: center;top: -20px;position: relative;">                        
+                            <rgrid [ShowGroupHeader]="false" *ngIf="SelectedEventModel" [Items]="SelectedEventModel.Events" 
+                                [ItemsPerPage]="ItemsPerPage" [ShowEditUpdate]="false" [HeaderBackgroundColor]="'blue'"                                
+                                [TableHeight]="GridHeight" [TableWidth]="'100%'">
+
+                                <rcolumn [Name]="'Name'" [PropToBind]="'Name'" [HeaderText]="'Name'" 
+                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                                      <span>{{cell.Value}}</span>
+                                    </ng-template>                                    
+                                </rcolumn>
+                            
+                                
+                                <rcolumn [Name]="'FromTime'" [PropToBind]="'FromTime'" [HeaderText]="'From Time'" 
+                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                                      <span>{{cell.Value}}</span>
+                                    </ng-template>                                    
+                                </rcolumn>
+
+                                
+                                <rcolumn [Name]="'ToTime'" [PropToBind]="'ToTime'" [HeaderText]="'To Time'" 
+                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                                      <span>{{cell.Value}}</span>
+                                    </ng-template>                                    
+                                </rcolumn>
+
+                                
+                                <rcolumn [Name]="'Indicator'" [PropToBind]="'Indicator'" [HeaderText]="'Indicator'" 
+                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                                      <div style="height: 10px; width: 10px;" 
+                                        [ngStyle]="{ 'backgroundColor': cell.Value}">
+                                      </div>
+                                    </ng-template>                                    
+                                </rcolumn>
+
+                                <rcolumn [IsComputationalColumn]="true" 
+                                        [Name]="'Id'" [PropToBind]="'Id'" [HeaderText]="'Delete'" 
+                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                                      <span class="delBtn" (click)="DeleteEvent($event, cell.Value)">&times;</span>
+                                    </ng-template>                                    
+                                </rcolumn>
+
+                            </rgrid>                        
+                    </div>               
+                </div>
+            </div>
+        </div>
+        <div class="week">
+            <div>
+                <a (click)="previousMonth($event)" class="atag previous around">&#8249;</a>
+            </div>
+
+            <div class="mnyr">
+
+                <rdropdown #monthdropdown [IsDropDownOpen]="IsMonthDropdownOpen" [ParentComponent]="this"
+                    [EnableFilterOption]="EnableFilterOptionForMonth"
+                    (Closed)="isMonthDropdownClosed($event)" (Opened)="isMonthDropdownOpened($event)"
+                    [IsChildOfAnotherControl]="isDropdownChild" [IsMulti]="false" (change)="changeMonth($event)"
+                    [(ngModel)]="month" [Items]="monthNames" 
+                    [Width]="'52px'" [DropDownContentWidth]="'77px'" 
+                    [ParentDropDownId]="Id"
+                    [DropDownContentHeight]="'150px'">
+                </rdropdown>
+
+            </div>
+            <div class="mnyr">
+
+                <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"    
+                    [EnableFilterOption]="EnableFilterOptionForYear"                
+                    [IsChildOfAnotherControl]="isDropdownChild" (change)="changeYear($event)" [IsMulti]="false"
+                    [(ngModel)]="year" [Items]="totalYears"
+                    [Width]="'52px'" [DropDownContentWidth]="'77px'" 
+                    [ParentDropDownId]="Id"
+                    [DropDownContentHeight]="'150px'">
+                </rdropdown>
+
+            </div>
+
+            <div>
+                <a (click)="nextMonth($event)" class="atag next around">&#8250;</a>
+            </div>
+        </div>
+        <div  [ngStyle]="{ '--wheight': weekHeight}" class="week">
+            <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}"  class="day dayheader">Sun</div>
+            <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}"  class="day dayheader">Mon</div>
+            <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}"  class="day dayheader">Tue</div>
+            <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}"  class="day dayheader">Wed</div>
+            <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}"  class="day dayheader">Thu</div>
+            <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}"  class="day dayheader">Fri</div>
+            <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}"  class="day dayheader">Sat</div>
+        </div>
+        <div [ngStyle]="{ '--wheight': weekHeight}" class="week" *ngFor="let week of currentMonth?.weeks">
+
+            <div *ngFor="let day of week.days"  
+                    [ngStyle]="{ '--dwidth': dayWidth,
+                                '--wheight': weekHeight}" 
+                    class="eachday" (dblclick)="openEvents($event, day)">        
+
+                <div [ngStyle]="{ '--dwidth': dayWidth, '--dheight': dayHeight}" 
+                    (click)="selectDate($event, day)" class="day" 
+                    [ngClass]="{ 'notCurrentMonth': !day.isActiveMonth}">
+                    <div [ngClass]="{'selday':day.isSelected, 'notactive': !day.isActiveMonth}"
+                        [ngStyle]="{ '--sdayLeftpx': SelectedDayLeftPx, '--sdaytoppx': SelectedDayTopPx }">
+                        {{day.num}}
+                    </div>
+                </div>
+                <div style="position: relative;height: 25%;">
+                    <div style="display: flex; flex-direction: row; gap: 2px;position: absolute; bottom: 0px;">
+                        <ng-container *ngFor="let item of getEvents(day)">
+                            <div style="width: 10px;height: 10px;" 
+                                [ngStyle]="{'backgroundColor': item.Indicator}"></div>
+                        </ng-container>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

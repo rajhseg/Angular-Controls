@@ -226,7 +226,7 @@
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
           <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
           Save        
@@ -424,14 +424,14 @@
     <div style="padding-right:30px">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
         [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false"
-        [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
     </div>
 
     <rgrid [Items]="gridItems" [GroupByIconColor]="bColor" 
             [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)" 
             [ItemsPerPage]="ItemsPerPage">
 
-      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'" [Height]="'20px'">
+      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'10%'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
           <span>{{cell.Value}}</span>
         </ng-template>
@@ -442,7 +442,7 @@
       </rcolumn>
 
 
-      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [EditModeWidth]="'120px'">
+      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [EditModeWidth]="'20%'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Name}}</span>
         </ng-template>
@@ -452,7 +452,7 @@
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'130px'">
+      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'20%'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age}}</span>
         </ng-template>
@@ -464,7 +464,7 @@
       </rcolumn>
 
       <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-        [EditModeWidth]="'80px'">
+        [EditModeWidth]="'20%'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Education.Higher.Id}}</span> -
           <span>{{Item.Education.Higher.Course}}</span>
@@ -475,7 +475,7 @@
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [EditModeWidth]="'80px'">
+      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [EditModeWidth]="'10%'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age + 4}}</span>
         </ng-template>
@@ -547,7 +547,7 @@
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="bColor"  
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
         <rbutton [BackgroundColor]="bColor" (ButtonClick)="stepOneSave($event)">
           Save        
@@ -560,7 +560,7 @@
       <ng-template rstepview>
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
 
           <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -573,7 +573,7 @@
 
         <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
           [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
           <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
           Save        
@@ -800,7 +800,7 @@
       
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
                 Save        
@@ -812,7 +812,7 @@
             <ng-template rstepview>
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
       
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -825,7 +825,7 @@
       
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
                 Save        
@@ -846,7 +846,7 @@
 
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
                 Save        
@@ -858,7 +858,7 @@
             <ng-template rstepview>
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
 
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -871,7 +871,7 @@
 
               <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
                 [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="200"></rgrid>
+                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
                 <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
                 Save        
@@ -907,38 +907,48 @@
 
       <rtab *tabidfor="{ 'TabId':'tab20', 'HeaderText':'rslider', 'Context':this }">
 
-
         <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1"
           [(ngModel)]="rangeValue"></rslider>
-        <br />
-        <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
-          [MaxValue]="75"></rslider>
-        <br />
-        <rslider [(ngModel)]="rangeValue1" [SliderBarWidth]="'300px'" [EnablePathColor]="true" [BackgroundColor]="'Orange'">
-        </rslider>
+        
         <br />
 
+        <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
+          [MaxValue]="75"></rslider>
+        
+        <br />
+
+        <rslider [(ngModel)]="rangeValue1" [SliderBarWidth]="'300px'" [EnablePathColor]="true" [BackgroundColor]="'Orange'">
+        </rslider>
+        
+        <br />
 
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'rstate-vertical', 'Context':this }">
+        
         <rbutton [ButtonWidth]="'150px'" type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to
-          Next Step</rbutton>
+          Next Step
+        </rbutton>
+
         <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
+        
         <br />
         <br />
         <br />
+        
         <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
           [(ngModel)]="StepperSelectedItem" (OnActiveValueChanged)="seqValueChanged($event)"
           [PendingBackgroundColor]="'orangered'" [PendingForeColor]="'white'"
-          [ActiveBackgroundColor]="'blue'"></rstate-vertical>
+          [ActiveBackgroundColor]="'blue'">
+        </rstate-vertical>
 
         <br />
 
 
         <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
           [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="false" (OnActiveValueChanged)="seqValueChanged($event)"
-          [ActiveBackgroundColor]="'blue'"></rstate-vertical>
+          [ActiveBackgroundColor]="'blue'">
+        </rstate-vertical>
 
         <br />
       </rtab>
@@ -1022,7 +1032,7 @@
       <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rgrid', 'Context': this}">
         <div style="float: left;padding-right:30px">
           <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                  [TableHeight]="200" [ItemsPerPage]="ItemsPerPage"></rgrid>
+                  [TableHeight]="'200px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
 
         <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
@@ -1300,4 +1310,13 @@
     [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
   </div>
     
+  <!-- <div style="">
+    <revents-calender (ChangeMonthEvent)="changeCalenderMonth($event)" [Items]="calenderEvents"></revents-calender>
+  </div>
+   -->
+  <div style="">
+    <revents-calender (ChangeMonthEvent)="changeCalenderMonth($event)"
+          [(ngModel)]="calenderEvents"></revents-calender>
+  </div>
+
 </div>

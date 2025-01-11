@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, HostBinding, Input, NgZone, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, Input, NgZone, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
@@ -10,6 +10,7 @@ import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { WindowHelper } from '../windowObject';
 import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
+import { CssUnitsService, RelativeUnitType } from '../css-units.service';
 
 @Component({
   selector: 'rgrid',
@@ -61,8 +62,30 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   @Input()
   ItemsPerPage!: DropdownModel;
 
+  _tableHeight: string = '200px';
+
   @Input()
-  TableHeight: number = 200;
+  set TableHeight(val: string){
+    let _height = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+    this._tableHeight = _height;
+  }
+  get TableHeight(): string {
+    return this._tableHeight;
+  }
+
+  
+  _tableWidth: string = '99%';
+
+  @Input()
+  set TableWidth(val: string){
+    let _width = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    this._tableWidth = _width;
+  }
+  get TableWidth(): string {
+    let _width = this.cssUnit.ToPxString(this._tableWidth, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    return _width;
+  }
+
 
   @Input()
   ShowEditUpdate: boolean = true;
@@ -138,7 +161,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   HostElementId: string = this.winObj.GenerateUniqueId();
 
   constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: WindowHelper,
-    private datePipe: DatePipe
+    private datePipe: DatePipe, private cssUnit: CssUnitsService, private ele: ElementRef
   ) {
     this.Id = this.winObj.GenerateUniqueId();
     let ditems: DropdownModel[] = [];
@@ -873,7 +896,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
         this.Headers.push(new RGridHeader(index.toString(), element.PropToBind, element.Name, index,
-          element.HeaderText, element.IsComputationalColumn, undefined, element.EditModeWidth, element.Height, element.EditModeWidth, element.EditModeHeight));
+          element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(this.TableWidth), element.Height, element.GetRelativeWidth(this.TableWidth), element.EditModeHeight));
       }
 
     }
@@ -932,7 +955,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
         if (dirs && dirs.length > 0) {
           _cell.columnDirective = dirs[0];
-          _cell.Width = dirs[0].EditModeWidth;
+          _cell.Width = dirs[0].GetRelativeWidth(this.TableWidth);
           _cell.Height = dirs[0].Height;
         }
 
@@ -979,7 +1002,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         _cell.Value = element[_hdr.PropToBind];
         _cell.FromModel = false;
 
-        let dir = new RColumnComponent();
+        let dir = new RColumnComponent(this.cssUnit);
         dir.EditView = this.defaultEditView;
         dir.ReadView = this.defaultReadView;
         dir.Height = "fit-content";

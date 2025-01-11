@@ -1,6 +1,6 @@
 <div class="group" [id]="Id" [ngStyle]="{'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}">
     <span class="grouptitle" [ngStyle]="{'color': TitleForeColor}">{{groupname}}</span>
-    <div [ngStyle]="{'display': IsItemsArrangeHorizontal ? 'flex' : ''}">
+    <div [ngStyle]="{'display': IsItemsArrangeHorizontal ? 'flex' : ''}" class="tabcontent">
         <ng-content></ng-content>
     </div>
 </div>

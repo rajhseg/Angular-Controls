@@ -61,6 +61,9 @@ import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } fr
 import { RSeriesChartComponent } from './Controls/rserieschart/rserieschart.component';
 import { CssUnit, CssUnitsService, RelativeUnitType } from './Controls/css-units.service';
 import { RFlatTabsComponent } from './Controls/rflattabs/rflattabs.component';
+import { AddEventModel, CalenderChangeMonthInfo, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from './Controls/reventscalender/reventscalender.component';
+import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -114,7 +117,8 @@ import { RFlatTabsComponent } from './Controls/rflattabs/rflattabs.component';
     RAllocatedBarChartComponent,
     RFilterComponent,
     RSeriesChartComponent,
-    RFlatTabsComponent
+    RFlatTabsComponent,
+    REventsCalenderComponent
 ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -123,6 +127,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   time1: string = "1:45 PM";
   time2: string ="13:6";
   time3:string = "";
+
+  calenderEvents!: EventsCalenderModel;
 
   title = 'angularcontrols';
   items: DropdownModel[] = [];
@@ -310,6 +316,29 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createLineChart();
       this.createSeriesChart();
       this.populateFilters();      
+      this.addCalenderEvents();
+  }
+
+  addCalenderEvents(){
+    this.calenderEvents = new EventsCalenderModel();
+    let eachday = new EachDayEventsModel(new Date(Date.now()));
+    eachday.Events.push(new AddEventModel("1","Event1", "07:02 PM", "07:02 PM", "#2D37D0"));
+    eachday.Events.push(new AddEventModel("2","Event2", "07:02 PM", "07:02 PM", "#2D37D0"));
+    this.calenderEvents.EachDay.push(eachday);
+  }
+
+  changeCalenderMonth(month: CalenderChangeMonthInfo){
+    this.calenderEvents = new EventsCalenderModel();
+    let eachday = new EachDayEventsModel(new Date(month.Year, month.Month, 3));
+    eachday.Events.push(new AddEventModel("1","Event1", "07:02 PM", "07:02 PM", "#2D37D0"));
+    eachday.Events.push(new AddEventModel("2","Event2", "07:02 PM", "07:02 PM", "#A00FBF"));
+    eachday.Events.push(new AddEventModel("3","Event3", "07:02 PM", "07:02 PM", "#BF0F53"));
+            
+    from([eachday]).pipe(
+      switchMap( item => of(item).pipe ( delay( 10000 ) ))
+    ).subscribe ( timedItem => {
+      this.calenderEvents.EachDay.push(timedItem);
+    });
   }
 
   populateFilters(){

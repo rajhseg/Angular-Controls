@@ -404,10 +404,10 @@ REventsCalender
 
 ### Main Screen
 
-![image](https://github.com/user-attachments/assets/7d5c2e43-b5e2-4302-b126-68609ac6c916)
+![image](https://github.com/user-attachments/assets/e986caa6-b13f-4b39-b38c-35afacc15afb)
 
 
-### Add Events Screen (open up double click of Main screen Day Cell)
+### Add Events Screen (this screen will open on double click of Main screen Day Cell)
 
 ![image](https://github.com/user-attachments/assets/a2def0f6-efae-4913-ab7c-e4c01b3e2f8e)
 

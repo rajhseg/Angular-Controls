@@ -7,12 +7,12 @@
                         }">
         <div #modal class="modal" [ngStyle]="{ 'display' : isModalOpen ? 'block' : 'none' }">
             <div class="modalContent">
-                <div  (click)="closeModal($event)">                    
+                <div>                    
                     <div class="closeBtn">
                         <span style="font-weight: 100; float:left;font-size: 13px;color: blue;">
                             {{SelectedEventDate | date:DateFormat }}
                         </span>
-                        <span class="spanbtn">&times;</span>
+                        <span (click)="closeModal($event)" class="spanbtn">&times;</span>
                     </div> 
                 </div>
                 <div style="margin:15px">

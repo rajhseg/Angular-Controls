@@ -335,7 +335,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     eachday.Events.push(new AddEventModel("3","Event3", "07:02 PM", "07:02 PM", "#BF0F53"));
             
     from([eachday]).pipe(
-      switchMap( item => of(item).pipe ( delay( 10000 ) ))
+      switchMap( item => of(item).pipe ( delay( 1000 ) ))
     ).subscribe ( timedItem => {
       this.calenderEvents.EachDay.push(timedItem);
     });

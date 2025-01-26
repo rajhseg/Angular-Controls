@@ -3,6 +3,7 @@
 
 
 
+
 :host{
     width: fit-content;    
     margin-top: 15px;
@@ -40,3 +41,18 @@
     padding: 5px;
     text-overflow: ellipsis;
 }
+
+
+::-webkit-scrollbar {
+    width: 0.4em;;
+    height: 0.4em;;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #bdbbbb;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #5e5e5e;
+    border-radius: 10px;
+  } 

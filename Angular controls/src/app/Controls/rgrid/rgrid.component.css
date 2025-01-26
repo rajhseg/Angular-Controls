@@ -61,12 +61,13 @@
 .srt {
   padding-left: 15px;
   padding-right: 2px;
-  float: none;
+  float: inline-start;
 }
 
+/* 
 .headerbox {
   box-sizing:content-box;
-}
+} */
 
 .header {    
     padding-top: 10px;    
@@ -105,10 +106,12 @@
 
 
 .tbl{     
+    table-layout:fixed;  
     border-collapse: collapse;      
     border-spacing: 0;
     white-space: nowrap;
-    width: 100%;    
+    /* width: max-content;     */
+    height: 100%;    
 }
 
 .root{
@@ -116,14 +119,11 @@
 }
 
 thead tr {
-     display: block; 
-     /* background-color: rgb(35, 206, 236); */
+     display: block;      
 }
 
 tbody {
-     display: block; 
-    /* height: 200px;         */
-    overflow-y: auto;
+     display: block;         
     background: white;
 }
 
@@ -131,29 +131,28 @@ tfoot {
   background: white;
 }
 
-tbody tr:hover{
-    /* background-color: rgba(57, 232, 238, 0.801);
-    color: white; */
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;   */
+thead {
+  position: sticky;
+  top:0;
+  z-index: 2;
 }
 
-table thead tr {
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;     */
-    border-bottom: 1px solid lightgray;
+table td, table th {
+  overflow-wrap: anywhere;
 }
 
 th {
     position: sticky;
-    top: 5px;    
+    top: 0;  
+    z-index: 2;  
 }
+
 tbody tr{
     background-color: white;
     color: rgb(175, 169, 169);
     font-size: small;    
     text-align: left;
-    display: block;
-    /* width: 100%; */
-    /* border-bottom: 1px solid lightgray; */
+    display: block;  
 }
 
 tbody tr td{
@@ -191,8 +190,7 @@ tbody tr td{
   .page {
     width: 100%;
     background-color: white;
-    height: 30px;
-    border-top: 1px solid lightgray; 
+    height: 30px;    
     padding-bottom: 16px;   
   }
 

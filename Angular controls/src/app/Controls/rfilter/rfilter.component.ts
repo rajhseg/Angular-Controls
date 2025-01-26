@@ -103,70 +103,104 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
     return this.itemValues;
   }
 
+  _itemModel: any = [];
+
   @Input()
   public set ItemModel(value: any) {
+    this._itemModel = value;
 
-    if(value==undefined || value==null)
+    if (value == undefined || value == null)
       return;
 
     let values: any[] = [];
     let dValues: DropdownModel[] = [];
 
-    if(value.length > 0){
+    if (value.length > 0) {
       for (let index = 0; index < value.length; index++) {
         const element = value[index];
-        let val = element[this.ColumnName];
-        
-        if(values.find(x=>x==val) == undefined) {
-          if(this.DataType == RFilterDataType.NumberType) {
-            let num = Number.parseInt(val);
-            
-            if(values.find(x=>x==num)==undefined && num!=undefined)
-              values.push(num);            
 
-          } else if(this.DataType == RFilterDataType.DateType){
-                        
-            if(values.find(x=>x.toString() == val.toString())==undefined && val!=undefined)
-              values.push(val);            
-            
+        let val = undefined;
+
+        let props = this.ColumnName.split(".");
+
+        if (props.length > 1) {
+          let _obj = undefined;
+          let _fobj = element;
+
+          for (let index = 0; index < props.length; index++) {
+            const _p = props[index];
+            _fobj = _fobj[_p];
+
+            if (_fobj == undefined)
+              break;
+
+            _obj = _fobj;
+          }
+
+          val = _obj;
+
+        } else {
+          val = element[this.ColumnName];
+        }
+
+        if (values.find(x => x == val) == undefined) {
+          if (this.DataType == RFilterDataType.NumberType) {
+            let num = Number.parseInt(val);
+
+            if (values.find(x => x == num) == undefined && num != undefined)
+              values.push(num);
+
+          } else if (this.DataType == RFilterDataType.DateType) {
+
+            if (values.find(x => x.toString() == val.toString()) == undefined && val != undefined)
+              values.push(val);
+
           } else {
-            
-            if(values.find(x=>x.toString() == val.toString())==undefined && val!=undefined)
-              values.push(val);            
+
+            if (values.find(x => x.toString() == val.toString()) == undefined && val != undefined)
+              values.push(val);
 
           }
-        }        
+        }
       }
     }
 
-    if(this.DataType == RFilterDataType.NumberType)
-      values = values.sort((a,b)=> a - b);
+    if (this.DataType == RFilterDataType.NumberType)
+      values = values.sort((a, b) => a - b);
     else
       values = values.sort();
 
-      for (let index = 0; index < values.length; index++) {
-        const element = values[index];
-        dValues.push(new DropdownModel(element, element));
-      }
+    for (let index = 0; index < values.length; index++) {
+      const element = values[index];
+      dValues.push(new DropdownModel(element, element));
+    }
 
     let wth = 0;
 
-     for (let index = 0; index < dValues.length; index++) {
+    for (let index = 0; index < dValues.length; index++) {
       const element = dValues[index];
       let len = element.DisplayValue.toString().length;
-      if(len> wth){
+      if (len > wth) {
         wth = len;
       }
-     }
+    }
 
-     if(this.dropdownMaxChars < wth * 10)
-      this.dropdownMaxChars = wth * 10;     
-     
-     this.ItemValues = dValues;
+    if (this.dropdownMaxChars < wth * 10)
+      this.dropdownMaxChars = wth * 10;
+
+    this.ItemValues = dValues;
   }
 
+  _columnName: string = '';
+
   @Input()
-  ColumnName: string = '';
+  set ColumnName(val: string){
+    this._columnName = val;    
+    this.ItemModel = this._itemModel;
+  }
+  get ColumnName(): string {
+    return this._columnName;
+  }
   
   @Input()
   BorderColor: string = 'lightgray';

@@ -10,7 +10,7 @@ import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { WindowHelper } from '../windowObject';
 import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
-import { CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
 
 @Component({
   selector: 'rgrid',
@@ -64,10 +64,29 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   _tableHeight: string = '200px';
 
+  ActualWidth: string = "100%";
+
+  _fitColumns: boolean = false;
+  
+  ContentInit: boolean = false;
+
+  set FitColumnsToContent(val: boolean)
+  {
+    this._fitColumns = val;
+    if(this.ContentInit && this.winObj.isExecuteInBrowser()){
+      this.ngAfterContentInit();
+    }
+  }
+  get FitColumnsToContent(): boolean {
+    return this._fitColumns;
+  }
+
   @Input()
   set TableHeight(val: string){
-    let _height = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
-    this._tableHeight = _height;
+    if(this.winObj.isExecuteInBrowser()) {
+      let _height = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      this._tableHeight = _height;
+    }
   }
   get TableHeight(): string {
     return this._tableHeight;
@@ -78,8 +97,12 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   @Input()
   set TableWidth(val: string){
-    let _width = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
-    this._tableWidth = _width;
+    console.log(" grid width "+val);
+    
+    if(this.winObj.isExecuteInBrowser()) {
+      let _width = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+      this._tableWidth = _width;
+    }
   }
   get TableWidth(): string {
     let _width = this.cssUnit.ToPxString(this._tableWidth, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
@@ -128,6 +151,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   @ViewChild('viewmode', { read: TemplateRef<any> }) defaultReadView!: TemplateRef<any>;
 
   @ViewChild('editmode', { read: TemplateRef<any> }) defaultEditView!: TemplateRef<any>;
+
+  @ViewChild('parentElement', {read: ElementRef }) parentEle!: ElementRef;
 
   onChanged: Function = () => { };
   onTouched: Function = () => { };
@@ -465,6 +490,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   }
 
   ngAfterContentInit(): void {
+    this.ContentInit = true;
+
     if (this.winObj.isExecuteInBrowser()) {
       if (this.Columns && this.Columns.length > 0) {
         this.ColumnsNotDefined = false;
@@ -643,7 +670,31 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   GetDataType(header : RGridHeader, filter: any){
 
     if(this.Items.length > 0){
-      let val = this.Items[0][header.PropToBind];
+
+      let val = undefined;
+
+      let props = header.PropToBind.split(".");
+      
+      if (props.length > 1) {
+        let _obj = undefined;
+        let _fobj = this.Items[0];
+
+        for (let index = 0; index < props.length; index++) {
+          const _p = props[index];
+          _fobj = _fobj[_p];
+
+          if (_fobj == undefined)
+            break;
+
+          _obj = _fobj;
+        }
+
+        val = _obj;
+
+      } else {
+        val = this.Items[0][header.PropToBind];
+      }
+      
       let ty = typeof(val);
 
       if(ty=='number'){
@@ -827,7 +878,29 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
           const ind = filteredIndexes[index];
 
           let val = this.BackupItems[ind][keyname];
+                  
+          let props = keyname.split(".");
 
+          if (props.length > 1) {
+            let _obj = undefined;
+            let _fobj = this.BackupItems[ind];
+
+            for (let index = 0; index < props.length; index++) {
+              const _p = props[index];
+              _fobj = _fobj[_p];
+
+              if (_fobj == undefined)
+                break;
+
+              _obj = _fobj;
+            }
+
+            val = _obj;
+
+          } else {
+            val = this.BackupItems[ind][keyname];
+          }
+          
           if (filter.Contains?.map(x => x.Value).find(x => x.toString() == val.toString()) != undefined) {
             newIndexes.push(ind);
           }
@@ -892,16 +965,36 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   private ExtractHeadersFromTemplate() {
     this.Headers = [];
     if (this.Columns.length > 0) {
+
+      let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
+      
+      if(this.ShowEditUpdate)
+        _wth = _wth - 80;
+
+      let twth = _wth+CssUnit.Px.toString();
+
       let _arr = this.Columns.toArray();
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
         this.Headers.push(new RGridHeader(index.toString(), element.PropToBind, element.Name, index,
-          element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(this.TableWidth), element.Height, element.GetRelativeWidth(this.TableWidth), element.EditModeHeight));
+          element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(twth), element.Height, element.GetRelativeWidth(twth), element.Height));
       }
 
     }
 
     this.Headers.sort(this.headersSort);
+  }
+
+  GetTxtWidth(header: RGridHeader): number{
+    let k = header.ColumnWidth.split("px");
+    let val = parseFloat(k[0]) - 15 - 20;
+    return val;
+  }
+
+  GetColumnsNotDefinedViewModeWidth(header: RGridHeader){
+    let k = header.ColumnWidth.split("px");
+    let val = parseFloat(k[0]) - 17;
+    return val+CssUnit.Px.toString();
   }
 
   private PopulateData(): RGridItems {
@@ -954,8 +1047,16 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         let dirs = cols.filter(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
 
         if (dirs && dirs.length > 0) {
+
+          let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
+      
+          if(this.ShowEditUpdate)
+            _wth = _wth - 80;
+    
+          let twth = _wth+CssUnit.Px.toString();
+    
           _cell.columnDirective = dirs[0];
-          _cell.Width = dirs[0].GetRelativeWidth(this.TableWidth);
+          _cell.Width = dirs[0].GetRelativeWidth(twth);
           _cell.Height = dirs[0].Height;
         }
 
@@ -975,11 +1076,37 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       _dataItems.Rows.push(_row);
     }
 
+    let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
+      
+    if(this.ShowEditUpdate)
+      _wth = _wth - 80;
+
+    let twth = _wth+CssUnit.Px.toString();
+
+    let totalW = 0;
+
+    for (let index = 0; index < cols.length; index++) {
+      const element = cols[index];
+      let w = element.GetRelativeWidth(twth);
+       totalW = totalW + parseFloat(w.split("px")[0]);
+    }
+
+    if(this.ShowEditUpdate)
+      totalW += 80;
+
+    this.ActualWidth = (totalW - 6) + CssUnit.Px.toString();
+
     return _dataItems;
   }
 
   private PopulateDefaultData(): RGridItems {
     let _dataItems = new RGridItems();
+
+    let totCols = this.Headers.length;
+
+    // if(this.ShowEditUpdate){
+    //   totCols = totCols + 1;
+    // }
 
     let r = -1;
     for (let index = 0; index < this.Items.length; index++) {
@@ -1009,12 +1136,29 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         dir.HeaderText = _hdr.HeaderText;
         dir.Name = _hdr.PropToBind;
         dir.PropToBind = _hdr.PropToBind;
-        dir.EditModeHeight = "fit-content";
-        dir.EditModeWidth = "fit-content";
+        dir.Height = "fit-content";  
+        
+        if(this.FitColumnsToContent){
+          dir.Width = "fit-content";
+        } else {
+          dir.Width = (100/totCols)+"%"; 
+        }
 
+        let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
+      
+        if(this.ShowEditUpdate)
+          _wth = _wth - 80;
+  
+        let twth = _wth+CssUnit.Px.toString();
+  
+        if(!this.FitColumnsToContent)
+            _hdr.ColumnWidth = dir.GetRelativeWidth(twth);
+        else
+          _hdr.ColumnWidth = dir.Width;
+        
         if (dir) {
           _cell.columnDirective = dir;
-          _cell.Width = dir.EditModeWidth;
+          _cell.Width = _hdr.ColumnWidth;
           _cell.Height = dir.Height;
         }
 
@@ -1035,6 +1179,18 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       _dataItems.Rows.push(_row);
     }
 
+    let TotalW = 0;
+    for (let index = 0; index < this.Headers.length; index++) {
+      const element = this.Headers[index];
+      let w = parseFloat(element.ColumnWidth.split("px")[0]);
+      TotalW = TotalW + w;
+    }
+
+    if(this.ShowEditUpdate)
+      TotalW = TotalW + 80;
+
+    this.ActualWidth = (TotalW - 6) + CssUnit.Px.toString();
+    
     return _dataItems;
   }
 
@@ -1189,7 +1345,7 @@ export class RGridHeader {
     public Index: number, public HeaderText: string, public IsComputationColumn: boolean,
     public sortType: RGridHeaderSortType | undefined = undefined,
     public Width: string = 'auto', public Height: string = 'auto',
-    public EditModeWidth: string = 'auto', public EditModeHeight: string = 'auto',
+    public ColumnWidth: string = 'auto', public ColumnHeight: string = 'auto',
     public readView: TemplateRef<any> | null = null, public editView: TemplateRef<any> | null = null
   ) {
 

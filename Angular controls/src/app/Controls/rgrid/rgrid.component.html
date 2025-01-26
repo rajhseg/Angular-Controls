@@ -1,5 +1,6 @@
 <div class="display: flex;" class="root" [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
     <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
+        [ngStyle]="{ 'width': TableWidth }"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">
         <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" 
             [ngStyle]="{ 'width': grpheader.Width,
@@ -9,15 +10,16 @@
             <span (click)="removeFromGroup(grpheader)" [ngStyle]="{'color': HeaderForeColor}" class="rbtn">&#10006;</span>
         </div>
     </div>
-    <table class="tbl" [ngStyle]="{'width': TableWidth }">
+    <div #parentElement [ngStyle]="{'width': TableWidth, 'height': TableHeight }" style="overflow: auto;">    
+    <table class="tbl" [ngStyle]="{ 'width': ActualWidth }">
         <thead>
             <tr  [ngStyle]="{'background-color':HeaderBackgroundColor, 'color': HeaderForeColor}"
                  cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
                 (cdkDropListDropped)="draggeddropForPopup($event)">
 
                 <ng-container *ngIf="!ColumnsNotDefined">
-                    <td [ngStyle]="{ 'padding-left': '7px', 
-                        'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
+                    <th [ngStyle]="{
+                        'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth, 
                         'height':'20px'} " class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
                         (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
@@ -31,12 +33,13 @@
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
                         <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
                         
-                        <rfilter [DateFormat]="FilterDateFormat"
+                        <rfilter *ngIf="!header.IsComputationColumn" 
+                            [DateFormat]="FilterDateFormat"
                             [ItemModel]="BackupItems"
-                            [ColumnName]="header.ColumnName" 
-                            [DataType]="GetDataType(header, filterModel[header.ColumnName])"
+                            [ColumnName]="header.PropToBind" 
+                            [DataType]="GetDataType(header, filterModel[header.PropToBind])"
                             (ApplyCallback)="ApplyFilter($event)"
-                            [(ngModel)]="filterModel[header.ColumnName]"
+                            [(ngModel)]="filterModel[header.PropToBind]"
                             style="float: left;" [Color]="'white'">
                         </rfilter> 
 
@@ -44,12 +47,13 @@
                             {{header.HeaderText}}
                         </div>
 
-                    </td>
+                    </th>
                 </ng-container>
 
                 <ng-container *ngIf="ColumnsNotDefined">
-                    <td style="cursor: pointer;min-width: 115px;min-height: 40px;"
-                        [ngStyle]="{'width': EditModeEnabled ? '82px' : ''}" class="header headerbox" cdkDrag
+                    <th style="cursor: pointer;min-height: 20px;"
+                        [ngStyle]="{'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth }" 
+                        class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
                         (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
                          *ngFor="let header of Headers">
@@ -64,12 +68,13 @@
                         <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>                                            
                         
                         <rfilter style="float: left;" 
+                            *ngIf="!header.IsComputationColumn"                             
                             [DateFormat]="FilterDateFormat"
-                            [ColumnName]="header.ColumnName" 
-                            [DataType]="GetDataType(header, filterModel[header.ColumnName])"
+                            [ColumnName]="header.PropToBind" 
+                            [DataType]="GetDataType(header, filterModel[header.PropToBind])"
                             [ItemModel]="BackupItems"
                             (ApplyCallback)="ApplyFilter($event)"
-                            [(ngModel)]="filterModel[header.ColumnName]"
+                            [(ngModel)]="filterModel[header.PropToBind]"
                             [Color]="'white'">
                         </rfilter> 
 
@@ -77,24 +82,27 @@
                             {{header.HeaderText}}
                         </div>
 
-                    </td>
+                    </th>
                 </ng-container>
 
-                <td class="header" *ngIf="ShowEditUpdate"
-                    [ngStyle]="{'width': (EditModeEnabled && !ColumnsNotDefined) ? '68px' : '68px'}">
+                <th class="header" *ngIf="ShowEditUpdate"
+                    [ngStyle]="{'width': (EditModeEnabled && !ColumnsNotDefined) ? '80px' : '80px'}">
                     Action
-                </td>
+                </th>
             </tr>
         </thead>
-        <tbody [ngStyle]="{ 'height': TableHeight, 'width': TableWidth }">
+        <tbody  [ngStyle]="{ 'width': ActualWidth }">
 
             <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
-                <tr *ngFor="let item of ShowItems.Rows">
+                <tr *ngFor="let item of ShowItems.Rows" [ngStyle]="{ 'width': ActualWidth }">
                     
                     <ng-container *ngIf="!ColumnsNotDefined">
                         <td *ngFor="let header of Headers" style="cursor: pointer;" 
-                            [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
-                    'height': EditModeEnabled ? header.EditModeHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : ''}">
+                            [ngStyle]="{ 'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth, 
+                            'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : '',
+                            'padding-left': item[header.PropToBind].IsEditMode ? '4px': '8px',
+                            'padding-right': item[header.PropToBind].IsEditMode ? '4px': '8px'
+                            }">
 
                             <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
                                 <div>
@@ -102,7 +110,7 @@
                                         *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
                                         item[header.PropToBind].columnDirective.EditView  || em : 
                                         item[header.PropToBind].columnDirective.ReadView || em; 
-                                    context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
+                                    context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                                     </ng-container>
                                     <!-- <ng-content></ng-content> -->
                                     <ng-template #em>No Content</ng-template>
@@ -113,19 +121,24 @@
                     </ng-container>
 
                     <ng-container *ngIf="ColumnsNotDefined">
-                        <td *ngFor="let header of Headers" style="cursor: pointer;min-width: 60px;min-height: 40px;">
+                        <td *ngFor="let header of Headers" 
+                                [ngStyle]="{ 'width': EditModeEnabled ?  GetColumnsNotDefinedViewModeWidth(header) :  GetColumnsNotDefinedViewModeWidth(header),
+                                'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : ''                                
+                                }"
+                                style="cursor: pointer;">
 
                             <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
                                     defaultEditView || em : 
                                     defaultReadView || em; 
-                                context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
+                                context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                             </ng-container>
                             <!-- <ng-content></ng-content> -->
                             <ng-template #em>No Content</ng-template>
                         </td>
                     </ng-container>
 
-                    <td *ngIf="ShowEditUpdate">
+                    <td *ngIf="ShowEditUpdate" style="text-align: center;"
+                        [ngStyle]="{'width': ColumnsNotDefined ? '80px': '80px'}">
                         <div>
                             <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
                                 (click)="ShowEdit($event, item, false)">Edit</a>
@@ -140,7 +153,7 @@
             <ng-container *ngIf="IsGroupHaveColumns && DisplayGroupItems">
 
                 <ng-container *ngFor="let grpitem of DisplayGroupItems">
-                    <tr style="border-bottom: 1px solid lightgray;">
+                    <tr style="border-bottom: 1px solid lightgray;" [ngStyle]="{ 'width': ActualWidth }">
                         <td colspan="2">
                             <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"
                                 [ngStyle]="{'--groupbyiconcolor': GroupByIconColor}"
@@ -151,12 +164,15 @@
                     </tr>
 
                     <ng-container *ngIf="grpitem.IsExpanded">
-                        <tr *ngFor="let item of grpitem.Values">
+                        <tr *ngFor="let item of grpitem.Values" [ngStyle]="{ 'width': ActualWidth }">
 
                             <ng-container *ngIf="!ColumnsNotDefined">
                                 <td *ngFor="let header of Headers" style="cursor: pointer;"
-                                    [ngStyle]="{ 'width': EditModeEnabled ? header.EditModeWidth : header.EditModeWidth, 
-                                                 'height': EditModeEnabled ? header.EditModeHeight : (item[header.PropToBind]!=undefined) ? item[header.PropToBind].Height : ''}">
+                                    [ngStyle]="{ 'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth, 
+                                                 'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind]!=undefined) ? item[header.PropToBind].Height : '',
+                                                 'padding-left': item[header.PropToBind].IsEditMode ? '4px': '8px',
+                                                 'padding-right': item[header.PropToBind].IsEditMode ? '4px': '8px'
+                                                }">
 
                                     <ng-container
                                         *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
@@ -165,7 +181,7 @@
                                                 *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
                                                 item[header.PropToBind].columnDirective.EditView  || em : 
                                                 item[header.PropToBind].columnDirective.ReadView || em; 
-                                            context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
+                                            context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                                             </ng-container>
                                             <!-- <ng-content></ng-content> -->
                                             <ng-template #em>No Content</ng-template>
@@ -177,20 +193,23 @@
 
                             <ng-container *ngIf="ColumnsNotDefined">
                                 <td *ngFor="let header of Headers"
-                                    style="cursor: pointer;min-width: 60px;min-height: 40px;">
+                                    [ngStyle]="{ 'width': EditModeEnabled ?  GetColumnsNotDefinedViewModeWidth(header):  GetColumnsNotDefinedViewModeWidth(header),
+                                                 'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : '',                                                 
+                                                }"
+                                    style="cursor: pointer;">
 
                                     <ng-container
                                         *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?  
                                             defaultEditView || em : 
                                             defaultReadView || em; 
-                                        context:{$implicit: item[header.PropToBind].Item, CellInfo: item[header.PropToBind]}">
+                                        context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                                     </ng-container>
                                     <!-- <ng-content></ng-content> -->
                                     <ng-template #em>No Content</ng-template>
                                 </td>
                             </ng-container>
 
-                            <td *ngIf="ShowEditUpdate">
+                            <td *ngIf="ShowEditUpdate" style="width: 80px;text-align: center;">
                                 <div>
                                     <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
                                         (click)="ShowEdit($event, item, false)">Edit</a>
@@ -203,41 +222,45 @@
                 </ng-container>
 
             </ng-container>
-        </tbody>
-
-        <tfoot>
-            <tr>
-                <td>
-                    <div class="page">
-                        <div style="display: block;font-size: small;color:grey">
-                            <div class="pageItem" (click)="FirstPage()">&#171;</div>
-                            <div class="pageItem" (click)="PreviousPage()">&#8249;</div>
-                            <div class="pageItemDropdown">
-                                <rdropdown [DropDownContentHeight]="'100px'" [Items]="PageItems"                                     
-                                     [EnableFilterOption]="false"
-                                    (change)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage">
-                                </rdropdown>
-                            </div>
-                            <div class="pageItem" (click)="NextPage()">&#8250;</div>
-                            <div class="pageItem" (click)="LastPage()">&#187;</div>
-                            <div class="pageItemSmallFont">
-                                <span>Current Page: {{currentPage}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tfoot>
-
+        </tbody>        
     </table>
-
+    </div>
+    <div [ngStyle]="{ 'width': TableWidth }">
+        <div>
+            <table [ngStyle]="{ 'width': TableWidth }">
+                <tbody [ngStyle]="{ 'width': TableWidth }">
+                    <tr style="border-top: 1px solid lightgray;" [ngStyle]="{ 'width': TableWidth }">
+                        <td style="padding-top:0px; padding-bottom: 0px;" [ngStyle]="{ 'width': TableWidth }">
+                            <div class="page">
+                                <div style="display: block;font-size: small;color:grey">
+                                    <div class="pageItem" (click)="FirstPage()">&#171;</div>
+                                    <div class="pageItem" (click)="PreviousPage()">&#8249;</div>
+                                    <div class="pageItemDropdown">
+                                        <rdropdown [DropDownContentHeight]="'100px'" [Items]="PageItems"                                     
+                                            [EnableFilterOption]="false"
+                                            (change)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage">
+                                        </rdropdown>
+                                    </div>
+                                    <div class="pageItem" (click)="NextPage()">&#8250;</div>
+                                    <div class="pageItem" (click)="LastPage()">&#187;</div>
+                                    <div class="pageItemSmallFont">
+                                        <span>Current Page: {{currentPage}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<ng-template #viewmode let-cell="CellInfo">
-    <div style="text-overflow: ellipsis; overflow: hidden;" [ngStyle]="{'width': EditModeEnabled ? '115px' : '115px'}">{{cell.Value}}</div>
+<ng-template #viewmode let-cell="CellInfo" let-header="Header">
+    <div style="text-overflow: ellipsis; overflow: hidden;" [ngStyle]="{'width': EditModeEnabled ? GetColumnsNotDefinedViewModeWidth(header) : GetColumnsNotDefinedViewModeWidth(header) }">{{cell.Value}}</div>
 </ng-template>
 
-<ng-template #editmode let-cell="CellInfo">
-    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="100.5" [EnableMarginTextBottom]="false" [TextBoxHeight]="12" [(ngModel)]="cell.Value">
+<ng-template #editmode let-cell="CellInfo" let-header="Header">     
+    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="GetTxtWidth(header)" [EnableMarginTextBottom]="false" [TextBoxHeight]="12" [(ngModel)]="cell.Value">
     </rtextbox>
 </ng-template>

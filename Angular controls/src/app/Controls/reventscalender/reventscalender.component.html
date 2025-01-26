@@ -39,7 +39,7 @@
                                 [TableHeight]="GridHeight" [TableWidth]="'100%'">
 
                                 <rcolumn [Name]="'Name'" [PropToBind]="'Name'" [HeaderText]="'Name'" 
-                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                        [Width]="'32.8%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
                                     </ng-template>                                    
@@ -47,7 +47,7 @@
                             
                                 
                                 <rcolumn [Name]="'FromTime'" [PropToBind]="'FromTime'" [HeaderText]="'From Time'" 
-                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                        [Width]="'20%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
                                     </ng-template>                                    
@@ -55,7 +55,7 @@
 
                                 
                                 <rcolumn [Name]="'ToTime'" [PropToBind]="'ToTime'" [HeaderText]="'To Time'" 
-                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                        [Width]="'20%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
                                     </ng-template>                                    
@@ -63,7 +63,7 @@
 
                                 
                                 <rcolumn [Name]="'Indicator'" [PropToBind]="'Indicator'" [HeaderText]="'Indicator'" 
-                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                        [Width]="'20%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <div style="height: 10px; width: 10px;" 
                                         [ngStyle]="{ 'backgroundColor': cell.Value}">
@@ -73,7 +73,7 @@
 
                                 <rcolumn [IsComputationalColumn]="true" 
                                         [Name]="'Id'" [PropToBind]="'Id'" [HeaderText]="'Delete'" 
-                                        [EditModeWidth]="'20%'" [Height]="'20px'">
+                                        [Width]="'7.2%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span class="delBtn" (click)="DeleteEvent($event, cell.Value)">&times;</span>
                                     </ng-template>                                    

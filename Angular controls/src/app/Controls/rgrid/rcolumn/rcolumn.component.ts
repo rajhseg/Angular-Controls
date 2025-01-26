@@ -25,17 +25,11 @@ export class RColumnComponent implements AfterContentInit {
   @Input()
   HeaderText: string = "";
 
-  // @Input()
-  // Width: string ="auto";
-
   @Input()
   Height: string ="auto";
 
   @Input()
-  EditModeWidth: string ="auto";
-
-  @Input()
-  EditModeHeight: string ="auto";
+  Width: string ="auto";
 
   @ContentChild(ReadViewTemplateDirective, {read: TemplateRef<any>}) ReadView!: TemplateRef<any>;
 
@@ -51,7 +45,7 @@ export class RColumnComponent implements AfterContentInit {
 
   GetRelativeWidth(totalWidthInPx: string): string {
     let value = this.cssUnit.ToPxValue(totalWidthInPx, null, null);
-    let result = this.EditModeWidth.match(/(-?[\d.]+)([a-z%]*)/);
+    let result = this.Width.match(/(-?[\d.]+)([a-z%]*)/);
     if(result) {
       let num = parseFloat(result[1].toString());
       let unit = result[2];
@@ -64,7 +58,7 @@ export class RColumnComponent implements AfterContentInit {
 
     }
 
-    return this.EditModeWidth;    
+    return this.Width;    
   }    
 
 }

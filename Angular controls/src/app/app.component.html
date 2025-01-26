@@ -421,17 +421,18 @@
     </revents-schedule> 
 
     <br/>
-    <div style="padding-right:30px">
+    <div style="">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
         [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false"
-        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'" [TableWidth]="'60%'"></rgrid>
     </div>
 
     <rgrid [Items]="gridItems" [GroupByIconColor]="bColor" 
             [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)" 
+            [TableWidth]="'35.7%'" [ShowEditUpdate]="false"
             [ItemsPerPage]="ItemsPerPage">
 
-      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'10%'" [Height]="'20px'">
+      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
           <span>{{cell.Value}}</span>
         </ng-template>
@@ -442,7 +443,7 @@
       </rcolumn>
 
 
-      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [EditModeWidth]="'20%'">
+      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'150px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Name}}</span>
         </ng-template>
@@ -452,7 +453,7 @@
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'20%'">
+      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [Width]="'170px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age}}</span>
         </ng-template>
@@ -464,7 +465,7 @@
       </rcolumn>
 
       <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-        [EditModeWidth]="'20%'">
+        [Width]="'100px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Education.Higher.Id}}</span> -
           <span>{{Item.Education.Higher.Course}}</span>
@@ -475,7 +476,7 @@
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [EditModeWidth]="'10%'">
+      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'100px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age + 4}}</span>
         </ng-template>
@@ -484,8 +485,7 @@
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
-
-    </rgrid>
+    </rgrid> 
   </div>
 
   <br />
@@ -499,7 +499,7 @@
   <br />
   <br />
 
-  <rstepper-horizontal [ContentWidth]="900" [ContentHeight]="570" 
+  <rstepper-horizontal [ContentWidth]="980" [ContentHeight]="570" 
       [ActiveBackColor]="bColor" [PendingForeColor]="tColor"
       [PendingBackColor]="'white'"
       [StripLineColor]="bColor"
@@ -1029,15 +1029,18 @@
         <br />
       </rtab>
 
-      <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'rgrid', 'Context': this}">
-        <div style="float: left;padding-right:30px">
-          <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                  [TableHeight]="'200px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
+      <rtab *tabidfor="{'TabId':'tabgrid29', 'HeaderText':'RGrid Default', 'Context': this}">
+        <div style="float: left;">
+          <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [TableWidth]="'800px'"
+                  [TableHeight]="'160px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
+      </rtab>
 
-        <rgrid [Items]="gridItems" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
+      <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'RGrid - Columns Defined', 'Context': this}">
+        
+        <rgrid [Items]="gridItems" [TableHeight]="'160px'" (OnItemsChanged)="itemsChanged($event)" [ItemsPerPage]="ItemsPerPage">
 
-          <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [EditModeWidth]="'100px'"
+          <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
             [Height]="'20px'">
             <ng-template readviewtemplate let-Item let-cell="CellInfo">
               <span>{{cell.Value}}</span>
@@ -1049,7 +1052,7 @@
           </rcolumn>
 
 
-          <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [EditModeWidth]="'120px'">
+          <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'170px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Name}}</span>
             </ng-template>
@@ -1059,7 +1062,7 @@
             </ng-template>
           </rcolumn>
 
-          <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [EditModeWidth]="'130px'">
+          <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [Width]="'130px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Age}}</span>
             </ng-template>
@@ -1069,7 +1072,7 @@
           </rcolumn>
 
           <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-            [EditModeWidth]="'80px'">
+            [Width]="'120px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Education.Higher.Id}}</span> -
               <span>{{Item.Education.Higher.Course}}</span>
@@ -1080,7 +1083,7 @@
             </ng-template>
           </rcolumn>
 
-          <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [EditModeWidth]="'80px'">
+          <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'80px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Age + 4}}</span>
             </ng-template>
@@ -1316,6 +1319,7 @@
    -->
   <div style="">
     <revents-calender (ChangeMonthEvent)="changeCalenderMonth($event)"
+      [EachDayHeightInPx]="'110px'" [EachDayWidthInPx]="'110px'"
           [(ngModel)]="calenderEvents"></revents-calender>
   </div>
 

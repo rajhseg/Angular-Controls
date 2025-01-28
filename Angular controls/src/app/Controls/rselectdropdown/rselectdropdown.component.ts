@@ -213,17 +213,13 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     this.cls.AddInstance(this);
   }  
 
-  getFilterBoxWidth(str: string): number{
-    var regex   = /\d+/g;
+  getFilterBoxWidth(str: string): string {
+    
     if(str){
-      let num = regex.exec(str);
-      if(num)
-      {
-        return parseInt(num["0"]);
-      }
+      return str;
     }
 
-    return 100;
+    return '100px';
   }
 
   FocusItem($evt: Event) {

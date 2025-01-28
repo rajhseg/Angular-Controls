@@ -2,6 +2,7 @@ import { NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
+import { CssUnitsService } from '../css-units.service';
 
 @Component({
   selector: 'rtextbox',
@@ -35,13 +36,19 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   BottomLineColor: string = "blue";
 
   @Input()
-  IsReadOnly: boolean = false;
+  ReadOnly: boolean = false;
 
   @Input()
-  TextBoxWidth: number = 200;
+  Disabled: boolean = false;
 
   @Input()
-  TextBoxHeight: number = 30;
+  TextBoxWidth: string = '200px';
+
+  @Input()
+  TextBoxHeight: string = '30px';
+
+  @Input()
+  Font: string = '';
 
   @Output()
   valueChanged = new EventEmitter<string>();
@@ -55,7 +62,7 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   EnableMarginTextBottom: boolean = true;
 
   @Input()
-  MarginTextBottom: number = 10;
+  MarginTextBottom: string = '10px';
   
   @Input()
   public set IsPasswordBox(value: boolean) {
@@ -71,8 +78,10 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   private _textboxValue: string = "";
 
   public set TextboxValue(value: string) {
-    this._textboxValue = value;
-    this.notifyToModel();
+    if(this._textboxValue != value && !this.ReadOnly) {
+      this._textboxValue = value;
+      this.notifyToModel();
+    }
   }
 
   public get TextboxValue(): string {
@@ -80,11 +89,87 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   Id: string = '';
+
+  
+  @Output()
+  focus = new EventEmitter<any>();
+
+  @Output()
+  blur = new EventEmitter<any>();
+
+  @Output()
+  cut = new EventEmitter<any>();
+
+  @Output()
+  copy = new EventEmitter<any>();
+
+  @Output()
+  paste = new EventEmitter<any>();
+
+  @Output()
+  keydown = new EventEmitter<any>();
+
+  @Output()
+  keyup = new EventEmitter<any>();
+
+  @Output()
+  keypress = new EventEmitter<any>();
+
+  @Output()
+  click = new EventEmitter<any>();
+
+  @Output()
+  mouseenter = new EventEmitter<any>();
+
+  @Output()
+  mousedown = new EventEmitter<any>();
+
+  @Output()
+  mouseup = new EventEmitter<any>();
+
+  @Output()
+  mouseleave = new EventEmitter<any>();
+
+  @Output()
+  mousemove = new EventEmitter<any>();
+
+  @Output()
+  mouseout = new EventEmitter<any>();
+
+  @Output()
+  mouseover = new EventEmitter<any>();
+
+  @Output()
+  dblclick = new EventEmitter<any>();
+
+  @Output()
+  drag = new EventEmitter<any>();
+
+  @Output()
+  dragend = new EventEmitter<any>();
+
+  @Output()
+  dragenter = new EventEmitter<any>();
+
+  @Output()
+  dragleave = new EventEmitter<any>();
+
+  @Output()
+  dragover = new EventEmitter<any>();
+
+  @Output()
+  dragstart = new EventEmitter<any>();
+
+  @Output()
+  drop = new EventEmitter<any>();
+
   
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
-  constructor(private winObj: WindowHelper) {
+  constructor(private winObj: WindowHelper, 
+      private ele: ElementRef, 
+      private cssUnitServ: CssUnitsService) {
     this.Id = this.winObj.GenerateUniqueId();
   }
 
@@ -94,15 +179,101 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
 
   public displayPlaceholder: boolean = true;
 
+  OnFocus($event: any) {
+    this.focus.emit($event);
+  }
 
+  OnCut($event: any) {
+    this.cut.emit($event);
+  }
+
+  OnCopy($event: any) {
+    this.copy.emit($event);
+  }
+
+  OnPaste($event: any) {
+    this.paste.emit($event);
+  }
+
+  OnKeyDown($event: any) {
+    this.keydown.emit($event);
+  }
+
+  OnKeyUp($event: any) {
+    this.keyup.emit($event);
+  }
+
+  OnKeyPress($event: any) {
+    this.keypress.emit($event);
+  }
+
+  OnMouseEnter($event: any) {
+    this.mouseenter.emit($event);
+  }
+
+  OnMouseDown($event: any) {
+    this.mousedown.emit($event);
+  }
+
+  OnMouseUp($event: any) {
+    this.mouseup.emit($event);
+  }
+
+
+  OnMouseLeave($event: any) {
+    this.mouseleave.emit($event);
+  }
+
+  OnMouseMove($event: any) {
+    this.mousemove.emit($event);
+  }
+
+  OnMouseOut($event: any) {
+    this.mouseout.emit($event);
+  }
+
+  OnMouseOver($event: any) {
+    this.mouseover.emit($event);
+  }
+
+  OnDoubleClick($event: any) {
+    this.dblclick.emit($event);
+  }
+
+  OnDrag($event: any) {
+    this.drag.emit($event);
+  }
+
+  OnDragEnd($event: any) {
+    this.dragend.emit($event);
+  }
+
+  OnDragEnter($event: any) {
+    this.dragenter.emit($event);
+  }
+
+  OnDragLeave($event: any) {
+    this.dragleave.emit($event);
+  }
+
+  OnDragOver($event: any) {
+    this.dragover.emit($event);
+  }
+
+  OnDragStart($event: any) {
+    this.dragstart.emit($event);
+  }
+
+  OnDrop($event: any) {
+    this.drop.emit($event);
+  }
+
+  OnBlur($event: any){
+    this.blur.emit($event);
+  }
 
   txtboxClicked($event: Event) {
     this.Click.emit($event);
-  }
-
-  @HostListener('onblur', ['$event'])
-  blur($event: Event) {
-
   }
 
   writeValue(obj: any): void {
@@ -129,7 +300,7 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this.Disabled = isDisabled;
   }
 
 }

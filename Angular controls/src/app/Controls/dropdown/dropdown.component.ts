@@ -190,11 +190,6 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
     return this._show;
   }
 
-
-  public get ContainerWidth(): number {
-    return this.getFilterBoxWidth(this.DropDownContentWidth +'px');
-  }
-
   SelectedItems: DropdownModel[] | string[] | number[] | any[] = [];
   SelectedIndexes: number[] = [];
 
@@ -607,17 +602,13 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
   }
 
   
-  getFilterBoxWidth(str: string): number{
-    var regex   = /\d+/g;
-    if(str){
-      let num = regex.exec(str);
-      if(num)
-      {
-        return parseInt(num["0"]);
-      }
+  getFilterBoxWidth(str: string): string{
+        
+    if(str){      
+      return str;      
     }
 
-    return 100;
+    return '100px';
   }
 
   NotifyToModel(){       

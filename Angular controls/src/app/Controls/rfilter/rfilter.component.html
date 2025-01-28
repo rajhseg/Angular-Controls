@@ -50,7 +50,7 @@
                 <span [ngStyle]="{'color': TextColor}" style="float: left;"> Lesser Than</span>                 
                 
                 <rnumeric [IsReadOnly]="DataType != 'number'" [(ngModel)]="LessThanNumber"
-                    *ngIf="DataType != 'date'" [TextBoxWidth]="75" 
+                    *ngIf="DataType != 'date'" [TextBoxWidth]="'75px'" 
                     class="num" 
                    style="left:13px"></rnumeric>
 
@@ -65,7 +65,7 @@
                 <rnumeric [IsReadOnly]="DataType != 'number' " 
                     [(ngModel)]="GreaterThanNumber"
                     *ngIf="DataType != 'date'" 
-                    [TextBoxWidth]="75" class="num">
+                    [TextBoxWidth]="'75px'" class="num">
                 </rnumeric>
 
                 <rcalender *ngIf="DataType =='date'" [ParentDropDownId]="Id"

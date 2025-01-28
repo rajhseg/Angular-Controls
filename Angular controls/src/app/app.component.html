@@ -344,7 +344,7 @@
  <br />
  <br />
   <div>
-    <rtextbox [(ngModel)]="userName" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
+    <rtextbox [ReadOnly]="true" [(ngModel)]="userName" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
     <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'"></rtextbox>
     <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
   </div>
@@ -437,7 +437,7 @@
           <span>{{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
             [(ngModel)]="rcell.Value" />
         </ng-template>
       </rcolumn>
@@ -448,7 +448,7 @@
           <span>{{Item.Name}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -460,7 +460,7 @@
         <ng-template editviewtemplate let-cell="CellInfo">
           <rnumeric [BottomLineColor]="bColor"  
           [MinusBackgroundColor]="bColor" [PlusBackgroundColor]="bColor"
-          [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
+          [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'70px'"></rnumeric>
         </ng-template>
       </rcolumn>
 
@@ -471,7 +471,7 @@
           <span>{{Item.Education.Higher.Course}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -481,7 +481,7 @@
           <span>{{Item.Age + 4}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
             [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
@@ -1000,7 +1000,7 @@
       <rtab *tabidfor="{ 'TabId':'tab25', 'HeaderText':'rtextbox', 'Context':this }">
 
         <div>
-          <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'">
+          <rtextbox [ReadOnly]="true" [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'">
           </rtextbox>
           <rtextbox [LabelText]="'Email'"></rtextbox>
           <rtextbox [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
@@ -1046,7 +1046,7 @@
               <span>{{cell.Value}}</span>
             </ng-template>
             <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+              <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
                 [(ngModel)]="rcell.Value" />
             </ng-template>
           </rcolumn>
@@ -1057,7 +1057,7 @@
               <span>{{Item.Name}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+              <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
                 [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
@@ -1067,7 +1067,7 @@
               <span>{{Item.Age}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="70"></rnumeric>
+              <rnumeric [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'70px'"></rnumeric>
             </ng-template>
           </rcolumn>
 
@@ -1078,7 +1078,7 @@
               <span>{{Item.Education.Higher.Course}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+              <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
                 [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
@@ -1088,7 +1088,7 @@
               <span>{{Item.Age + 4}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
-              <rtextbox [TextBoxHeight]="12" [EnableMarginTextBottom]="false" [TextBoxWidth]="40"
+              <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
                 [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>

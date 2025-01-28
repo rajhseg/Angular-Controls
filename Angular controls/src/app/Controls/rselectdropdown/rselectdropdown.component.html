@@ -19,7 +19,8 @@
           }">
 
       <div *ngIf="EnableFilterOption">
-        <rtextbox [TextBoxWidth]="getFilterBoxWidth(DDEWidth)" [EnableMarginTextBottom]="false" [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"></rtextbox>        
+        <rtextbox [TextBoxWidth]="getFilterBoxWidth(DDEWidth)" [EnableMarginTextBottom]="false" 
+          [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"></rtextbox>        
       </div>
 
     <ng-content></ng-content>

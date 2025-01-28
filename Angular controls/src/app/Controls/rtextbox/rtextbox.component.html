@@ -2,7 +2,8 @@
 
 
 <div [id]="Id" class="txtroot">
-    <span class="span" [ngStyle]="{ 'width': TextBoxWidth+'px', 'color': LabelForeColor}"> 
+
+    <span class="span" [ngStyle]="{ 'width': TextBoxWidth, 'color': LabelForeColor}"> 
         {{LabelText}} 
     </span>
     
@@ -14,16 +15,31 @@
 
     </p> -->
 
-    <input [readOnly]="IsReadOnly" type="text" 
+    <input [readOnly]="ReadOnly" type="text" 
+            [disabled]="Disabled"
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
        
-       [ngStyle]="{ 'height': TextBoxHeight+'px', 
-            'width': TextBoxWidth+'px','border-bottom-color': BottomLineColor,       
-            'margin-bottom': EnableMarginTextBottom ? MarginTextBottom+'px' : ''
-       }"
+       [ngStyle]="{ 'height': TextBoxHeight, 
+                    'width': TextBoxWidth,
+                    'border-bottom-color': BottomLineColor,       
+                    'margin-bottom': EnableMarginTextBottom ? MarginTextBottom : '', 
+                    'font': Font, 
+                    'pointer-events':(Disabled || ReadOnly) ? 'none': '' 
+                }"
 
-       [placeholder]="PlaceholderText" 
-       (click)="txtboxClicked($event)">     
+        (drag)="OnDrag($event)" (dragend)="OnDragEnd($event)" (dragenter)="OnDragEnter($event)" 
+        (dragleave)="OnDragLeave($event)" (dragover)="OnDragOver($event)" (dragstart)="OnDragStart($event)" 
+        (drop)="OnDrop($event)"
+
+        (click)="txtboxClicked($event)" (dblclick)="OnDoubleClick($event)"          
+        (blur)="OnBlur($event)"  (focus)="OnFocus($event)"                     
+        (cut)="OnCut($event)" (copy)="OnCopy($event)" (paste)="OnPaste($event)"            
+        (keydown)="OnKeyDown($event)" (keyup)="OnKeyUp($event)" (keypress)="OnKeyPress($event)"            
+        (mousedown)="OnMouseDown($event)" (mouseenter)="OnMouseEnter($event)" (mouseup)="OnMouseUp($event)"
+        (mouseleave)="OnMouseLeave($event)" (mousemove)="OnMouseMove($event)" 
+        (mouseout)="OnMouseOut($event)" (mouseover)="OnMouseOver($event)" 
+
+       [placeholder]="PlaceholderText">     
 
 </div>

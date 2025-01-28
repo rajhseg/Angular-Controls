@@ -3,8 +3,8 @@
     <div style="display: flex;width: fit-content;">
       <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" 
           [LabelForeColor]="TextBottomLineColor" (Click)="openDropdown($event)"
-          [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="110" 
-          [IsReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
+          [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="'110px'" 
+          [ReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
       <rbutton #openbtn class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"
           [ButtonHeight]="'34px'"
           [ButtonWidth]="'30px'"

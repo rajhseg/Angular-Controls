@@ -985,10 +985,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     this.Headers.sort(this.headersSort);
   }
 
-  GetTxtWidth(header: RGridHeader): number{
+  GetTxtWidth(header: RGridHeader): string {
     let k = header.ColumnWidth.split("px");
     let val = parseFloat(k[0]) - 15 - 20;
-    return val;
+    return val+CssUnit.Px.toString();
   }
 
   GetColumnsNotDefinedViewModeWidth(header: RGridHeader){

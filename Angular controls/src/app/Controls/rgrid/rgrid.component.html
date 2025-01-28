@@ -261,6 +261,7 @@
 </ng-template>
 
 <ng-template #editmode let-cell="CellInfo" let-header="Header">     
-    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="GetTxtWidth(header)" [EnableMarginTextBottom]="false" [TextBoxHeight]="12" [(ngModel)]="cell.Value">
+    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="GetTxtWidth(header)" 
+                [EnableMarginTextBottom]="false" [TextBoxHeight]="'12px'" [(ngModel)]="cell.Value">
     </rtextbox>
 </ng-template>

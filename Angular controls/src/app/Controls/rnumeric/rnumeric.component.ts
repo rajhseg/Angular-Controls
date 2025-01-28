@@ -31,9 +31,9 @@ export class RNumericComponent implements ControlValueAccessor {
   public BottomLineColor: string = "blue";
 
   @Input()
-  public TextBoxWidth: number = 80;
+  public TextBoxWidth: string = '80px';
   
-  public TextBoxHeight: number = 16;
+  public TextBoxHeight: string = '16px';
 
   @Input()
   public EnableMarginTextBottom: boolean = false;

@@ -3,7 +3,7 @@
 <div [id]="Id" [ngStyle]="{}" [ngStyle]="{ 'pointer-events': IsReadOnly ? 'none': '' }"
     class="sh" style="display: flex;flex-direction: row;">  
 
-    <rtextbox [IsReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
+    <rtextbox [ReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
         [BottomLineColor]="BottomLineColor" [LabelText]="''" 
         [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth"
         (keypress)="keyPress($event)"

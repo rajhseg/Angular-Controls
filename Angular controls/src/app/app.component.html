@@ -361,9 +361,10 @@
   <br />
 
   <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="tColor" [MinusBackgroundColor]="tColor"
+    [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'"
     [BottomLineColor]="tColor" [LabelTextForeColor]="tColor" [(ngModel)]="rangeValue1"></rnumeric>
 
-  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="bColor" [MinusBackgroundColor]="bColor"
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="bColor" [MinusBackgroundColor]="bColor"    
     [BottomLineColor]="bColor" [LabelTextForeColor]="bColor" [(ngModel)]="rangeValue1"></rnumeric>
 
   <br />
@@ -429,7 +430,7 @@
 
     <rgrid [Items]="gridItems" [GroupByIconColor]="bColor" 
             [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)" 
-            [TableWidth]="'35.7%'" [ShowEditUpdate]="false"
+            [TableWidth]="'35.7%'" [ShowEditUpdate]="true"
             [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'" [Height]="'20px'">

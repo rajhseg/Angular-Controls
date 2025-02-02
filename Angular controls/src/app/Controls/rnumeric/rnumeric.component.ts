@@ -1,9 +1,10 @@
-import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { WindowHelper } from '../windowObject';
+import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
 
 @Component({
   selector: 'rnumeric',
@@ -33,6 +34,7 @@ export class RNumericComponent implements ControlValueAccessor {
   @Input()
   public TextBoxWidth: string = '80px';
   
+  @Input()
   public TextBoxHeight: string = '16px';
 
   @Input()
@@ -64,6 +66,11 @@ export class RNumericComponent implements ControlValueAccessor {
   onChanged: Function = () =>{};
   onTouched: Function = () => {};
 
+  public get ButtonHeight(): string {
+    let value = this.cssUnitSer.ToPxValue(this.TextBoxHeight, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+    return (value + 4) + CssUnit.Px.toString();
+  }
+
   @Input()
   public set Value(val: number){    
       this._value = val;
@@ -78,7 +85,7 @@ export class RNumericComponent implements ControlValueAccessor {
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
-  constructor(private winObj: WindowHelper){
+  constructor(private winObj: WindowHelper, private ele: ElementRef, private cssUnitSer: CssUnitsService){
     this.Id = this.winObj.GenerateUniqueId();
   }
 

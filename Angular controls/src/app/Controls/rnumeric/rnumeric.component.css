@@ -25,21 +25,18 @@
 }
 
 .minus {
-    align-self:center;
-    /* left: -48px; */
+    align-self:end;      
     right: 53px;
-    position: relative;
-    /* top: 3px; */
+    position: relative; 
+    bottom: 7px;   
 }
 
 .plus {
-    align-self:center;
-    /* left: -46px; */
+    align-self:end;        
     right: 52px;
-    position: relative;
-    /* top: 3px; */
+    position: relative; 
+    bottom: 7px;   
 }
-
 
 ::-webkit-scrollbar {
     width: 0.4em;;

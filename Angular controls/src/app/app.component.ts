@@ -35,7 +35,7 @@ import { RTimeSelectorComponent } from "./Controls/rtimeselector/rtimeselector.c
 import { RGridComponent } from './Controls/rgrid/rgrid.component';
 import { RColumnComponent } from './Controls/rgrid/rcolumn/rcolumn.component';
 
-import { ReadViewTemplateDirective } from './Controls/rgrid/view-template.directive';
+import { HeaderTemplateDirective, ReadViewTemplateDirective } from './Controls/rgrid/view-template.directive';
 import { EditViewTemplateDirective } from './Controls/rgrid/edit-template.directive';
 import { RSelectDropdownComponent } from './Controls/rselectdropdown/rselectdropdown.component';
 import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectModel';
@@ -63,6 +63,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from './Controls/css-units
 import { RFlatTabsComponent } from './Controls/rflattabs/rflattabs.component';
 import { AddEventModel, CalenderChangeMonthInfo, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from './Controls/reventscalender/reventscalender.component';
 import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
+import { CheckboxEventArgs } from './Controls/checkbox/checkbox.service';
 
 
 @Component({
@@ -97,6 +98,7 @@ import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
     RColumnComponent,
     ReadViewTemplateDirective,
     EditViewTemplateDirective,
+    HeaderTemplateDirective,
     RSelectDropdownComponent,
     ROptionsTemplateDirective,
     REventsScheduleComponent,
@@ -193,6 +195,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   treeItems: RTreeItem[] | undefined = undefined;
   selectAll: boolean = false;
+
+  gridSelectAll: boolean = false;
 
   userName: string = "Angular";
   password: string = "";
@@ -347,6 +351,20 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.numbers.push(new DropdownModel("3","3"));
     this.numbers.push(new DropdownModel("4","4"));
     this.numbers.push(new DropdownModel("5","5"));
+  }
+
+  SelectAll($evt: CheckboxEventArgs){    
+    for (let index = 0; index < this.gridItems.length; index++) {
+      const element = this.gridItems[index];
+      element.IsSelected = this.gridSelectAll;
+    }   
+    
+    this.gridItems = this.gridItems.slice();
+  }
+
+  Select($evt: CheckboxEventArgs, item: any){
+   console.log("Item clicked");
+   console.log(item);
   }
 
   createSeriesChart(){
@@ -682,24 +700,24 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.gridItems1.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
     this.gridItems1.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
 
-    this.gridItems.push({'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
-    this.gridItems.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': { 'Higher': {'Id': 2, 'Course': 'BSC'}} });
-    this.gridItems.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
-    this.gridItems.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
-    this.gridItems.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
-    this.gridItems.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
-    this.gridItems.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
-    this.gridItems.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': { 'Higher': {'Id': 5, 'Course': 'BBA'}} });
-    this.gridItems.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': { 'Higher': {'Id': 6, 'Course': 'BPharm'}} });
-    this.gridItems.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
-    this.gridItems.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': { 'Higher': {'Id': 2, 'Course': 'BSC'}} });
-    this.gridItems.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
-    this.gridItems.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
-    this.gridItems.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
-    this.gridItems.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': { 'Higher': {'Id': 5, 'Course': 'BBA'}} });
-    this.gridItems.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
-    this.gridItems.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
-    this.gridItems.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': { 'Higher': {'Id': 2, 'Course': 'BSC'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': { 'Higher': {'Id': 5, 'Course': 'BBA'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': { 'Higher': {'Id': 6, 'Course': 'BPharm'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': { 'Higher': {'Id': 2, 'Course': 'BSC'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': { 'Higher': {'Id': 5, 'Course': 'BBA'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': { 'Higher': {'Id': 4, 'Course': 'BA'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
 
     this.gridItems = this.gridItems.slice();
     this.gridItems1 = this.gridItems1.slice();

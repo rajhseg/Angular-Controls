@@ -17,23 +17,31 @@
                  cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
                 (cdkDropListDropped)="draggeddropForPopup($event)">
 
+                
                 <ng-container *ngIf="!ColumnsNotDefined">
                     <th [ngStyle]="{
                         'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth, 
                         'height':'20px'} " class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
                         (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
+                        [ngClass]="{ 'headerpadding': header.headerTemplate != null }"  
                         *ngFor="let header of Headers">
 
-                        <span style="float: left;">
+                        <span *ngIf="header.headerTemplate==null" style="float: left;">
                             {{header.HeaderText}}
                         </span>                                                
+                                         
+                        <span *ngIf="header.headerTemplate!=null" style="float: left;">
+                            <ng-container *ngTemplateOutlet="header.headerTemplate; 
+                                context:{$implicit: header, Header:header }">
+                            </ng-container>                       
+                        </span>
 
-                        <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
-                        <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
-                        <span (click)="sortColumn(header)"  *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
+                        <span (click)="sortColumn(header)"  *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
+                        <span (click)="sortColumn(header)"  *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
+                        <span (click)="sortColumn(header)"  *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>
                         
-                        <rfilter *ngIf="!header.IsComputationColumn" 
+                        <rfilter *ngIf="!header.disableFilter && !header.IsComputationColumn" 
                             [DateFormat]="FilterDateFormat"
                             [ItemModel]="BackupItems"
                             [ColumnName]="header.PropToBind" 
@@ -55,20 +63,20 @@
                         [ngStyle]="{'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth }" 
                         class="header headerbox" cdkDrag
                         (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
-                        (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
+                        (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"                                              
                          *ngFor="let header of Headers">
 
 
                         <span style="float: left;">
                             {{header.HeaderText}}
-                        </span>
-                        
-                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
-                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
-                        <span (click)="sortColumn(header)" *ngIf="!header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>                                            
+                        </span>                               
+
+                        <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==-1" class="srt">&#8593;</span>
+                        <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==1" class="srt">&#8595;</span>
+                        <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==undefined" class="srt">&#8597;</span>                                            
                         
                         <rfilter style="float: left;" 
-                            *ngIf="!header.IsComputationColumn"                             
+                            *ngIf="!header.IsComputationColumn && !header.disableFilter"                             
                             [DateFormat]="FilterDateFormat"
                             [ColumnName]="header.PropToBind" 
                             [DataType]="GetDataType(header, filterModel[header.PropToBind])"

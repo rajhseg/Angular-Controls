@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Host, Input, Self, TemplateRef } from '@angular/core';
 import { RCell } from './rcell';
-import { RGridTemplateContext } from './rgridtemplatecontext';
+import { RGridHeaderTemplateContext, RGridTemplateContext } from './rgridtemplatecontext';
 
 @Directive({
   selector: 'ng-template[readviewtemplate]',
@@ -15,4 +15,19 @@ export class ReadViewTemplateDirective {
     return true;
   }
 
+}
+
+@Directive({
+  selector: 'ng-template[headertemplate]',
+  standalone: true
+})
+export class HeaderTemplateDirective {
+  
+  constructor(public template: TemplateRef<any>){
+
+  }
+
+  static ngTemplateContextGuard(dir: HeaderTemplateDirective, ctx: unknown): ctx is RGridHeaderTemplateContext {
+    return true;
+  }
 }

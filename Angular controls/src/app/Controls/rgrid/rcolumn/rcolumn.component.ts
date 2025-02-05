@@ -1,13 +1,13 @@
 import { AfterContentInit, Component, ContentChild, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
 import { EditViewTemplateDirective } from '../edit-template.directive';
-import { ReadViewTemplateDirective } from '../view-template.directive';
+import { HeaderTemplateDirective, ReadViewTemplateDirective } from '../view-template.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { CssUnit, CssUnitsService } from '../../css-units.service';
 
 @Component({
   selector: 'rcolumn',
   standalone: true,
-  imports: [ReadViewTemplateDirective, EditViewTemplateDirective, NgIf, NgTemplateOutlet],
+  imports: [ReadViewTemplateDirective, EditViewTemplateDirective, HeaderTemplateDirective, NgIf, NgTemplateOutlet],
   templateUrl: './rcolumn.component.html',
   styleUrl: './rcolumn.component.css'
 })
@@ -20,6 +20,12 @@ export class RColumnComponent implements AfterContentInit {
   PropToBind: string = "";
 
   @Input()
+  IsDummyPropToBind: boolean = false;
+
+  @Input()
+  DisableGrouping: boolean = false;
+  
+  @Input()
   IsComputationalColumn: boolean = false;
 
   @Input()
@@ -31,9 +37,17 @@ export class RColumnComponent implements AfterContentInit {
   @Input()
   Width: string ="auto";
 
+  @Input()
+  DisableSort: boolean = false;
+
+  @Input()
+  DisableFilter: boolean = false;
+
   @ContentChild(ReadViewTemplateDirective, {read: TemplateRef<any>}) ReadView!: TemplateRef<any>;
 
   @ContentChild(EditViewTemplateDirective, { read: TemplateRef<any>}) EditView!: TemplateRef<any>;
+
+  @ContentChild(HeaderTemplateDirective, { read: TemplateRef<any>}) HeaderTemplate!: TemplateRef<any>;
 
   constructor(private cssUnit: CssUnitsService){
 

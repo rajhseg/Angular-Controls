@@ -27,7 +27,8 @@
     position:relative;
     left: 1px;
     top: -3px;
-    font-weight: 800;
+    font-weight: 800 !important;
+    font-size: medium;
 }
 
 .remove {

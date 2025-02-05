@@ -11,6 +11,7 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { WindowHelper } from '../windowObject';
 import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { RCheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'rgrid',
@@ -19,7 +20,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     KeyValuePipe,
     NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, CdkDragPreview,
     ReactiveFormsModule, NgTemplateOutlet, RbuttonComponent, RDropdownComponent, RTextboxComponent,
-    RFilterComponent],
+    RFilterComponent, RCheckboxComponent],
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -455,7 +456,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     if (_hdr) {
       let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
 
-      if (_col && _col.IsComputationalColumn) {
+      if (_col && (_col.IsComputationalColumn || _col.IsDummyPropToBind || _col.DisableGrouping)) {
         return;
       }
 
@@ -976,8 +977,13 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       let _arr = this.Columns.toArray();
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
+
         this.Headers.push(new RGridHeader(index.toString(), element.PropToBind, element.Name, index,
-          element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(twth), element.Height, element.GetRelativeWidth(twth), element.Height));
+          element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(twth), 
+          element.Height, element.GetRelativeWidth(twth), element.Height,
+          element.ReadView, element.EditView, element.HeaderTemplate, 
+          element.DisableSort, element.DisableFilter));
+
       }
 
     }
@@ -1048,8 +1054,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
         if (dirs && dirs.length > 0) {
 
-          let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
-      
+          let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);              
+          
           if(this.ShowEditUpdate)
             _wth = _wth - 80;
     
@@ -1076,8 +1082,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       _dataItems.Rows.push(_row);
     }
 
-    let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
-      
+    let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);          
+    
     if(this.ShowEditUpdate)
       _wth = _wth - 80;
 
@@ -1090,7 +1096,7 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       let w = element.GetRelativeWidth(twth);
        totalW = totalW + parseFloat(w.split("px")[0]);
     }
-
+    
     if(this.ShowEditUpdate)
       totalW += 80;
 
@@ -1144,8 +1150,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
           dir.Width = (100/totCols)+"%"; 
         }
 
-        let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
-      
+        let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);              
+        
         if(this.ShowEditUpdate)
           _wth = _wth - 80;
   
@@ -1184,8 +1190,8 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       const element = this.Headers[index];
       let w = parseFloat(element.ColumnWidth.split("px")[0]);
       TotalW = TotalW + w;
-    }
-
+    }    
+    
     if(this.ShowEditUpdate)
       TotalW = TotalW + 80;
 
@@ -1346,7 +1352,11 @@ export class RGridHeader {
     public sortType: RGridHeaderSortType | undefined = undefined,
     public Width: string = 'auto', public Height: string = 'auto',
     public ColumnWidth: string = 'auto', public ColumnHeight: string = 'auto',
-    public readView: TemplateRef<any> | null = null, public editView: TemplateRef<any> | null = null
+    public readView: TemplateRef<any> | null = null, 
+    public editView: TemplateRef<any> | null = null,
+    public headerTemplate: TemplateRef<any> | null = null,
+    public disableSort: boolean = false,
+    public disableFilter: boolean = false
   ) {
 
   }

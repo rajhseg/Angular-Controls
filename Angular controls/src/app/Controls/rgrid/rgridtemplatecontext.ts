@@ -11,3 +11,12 @@ export class RGridTemplateContext {
     public Header!: RGridHeader;
   
   }
+
+  
+export class RGridHeaderTemplateContext {
+  
+  public $implicit!: any;    
+
+  public Header!: RGridHeader;
+
+}

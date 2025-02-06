@@ -1,8 +1,9 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
-import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonService, RadioEventArgs } from './radiobutton.service';
 import { WindowHelper } from '../windowObject';
+import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
 
 @Component({
   selector: 'rradiobutton',
@@ -47,6 +48,20 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
 
   @Output()
   OnCheckChanged = new EventEmitter<RadioEventArgs>();
+
+
+  @Input()
+  DesignWidth: string = '16px';
+
+  get OuterCircle(): string {
+    let val = this.cssUnitSer.ToPxValue(this.DesignWidth, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    return val+CssUnit.Px.toString();
+  }
+
+  get InnerCircle(): string {
+    let val = this.cssUnitSer.ToPxValue(this.DesignWidth, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    return (val - 4) +CssUnit.Px.toString();
+  }
 
   @Input()
   Color: string = "#00c7ba";
@@ -132,7 +147,9 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
   @Input()
   LabelColor: string = "black";
 
-  constructor(private service: RadioButtonService, private windowHelper: WindowHelper) {
+  constructor(private service: RadioButtonService, private windowHelper: WindowHelper,
+    private cssUnitSer: CssUnitsService, private ele: ElementRef
+  ) {
     this.service.AddInstance(this);
     this.Id = this.windowHelper.GenerateUniqueId();
   }

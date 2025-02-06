@@ -8,8 +8,8 @@
 }
 
 .checkroot{
-    width: 16px;
-    height: 16px;
+    /* width: 16px;
+    height: 16px; */
     border: 2px solid lightgray;
     background-color: whitesmoke;    
     cursor: pointer;
@@ -21,8 +21,8 @@
 
 
 .round {
-    height:12px;
-    width: 12px;
+    height: var(--height);
+    width: var(--width); 
     /* background-color: lightgray; */
     display: inline-block;
     border-radius: 50%;

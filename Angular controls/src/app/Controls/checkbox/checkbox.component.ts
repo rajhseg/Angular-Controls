@@ -19,15 +19,29 @@ import { WindowHelper } from '../windowObject';
 export class RCheckboxComponent implements ControlValueAccessor {
 
   private _isChecked: boolean =false;
-
+  
   sizes: CheckBoxSizeModel[] = [
-    new CheckBoxSizeModel(CheckBoxSize.x_small, "10px", "10px", "1px", "-3px"),
+    new CheckBoxSizeModel(CheckBoxSize.x_small, "10px", "10px", "1px", "-5px"),
     new CheckBoxSizeModel(CheckBoxSize.smaller, "12px", "12px", "1px", "-3px"),
-    new CheckBoxSizeModel(CheckBoxSize.small, "13px", "13px", "1px", "-3px"),
-    new CheckBoxSizeModel(CheckBoxSize.medium, "15px", "15px", "1px", "-3px"),
-    new CheckBoxSizeModel(CheckBoxSize.larger, "17px", "17px", "1px", "-3px"),
-    new CheckBoxSizeModel(CheckBoxSize.large, "19px", "19px", "1px", "-3px"),
+    new CheckBoxSizeModel(CheckBoxSize.small, "13px", "13px", "2px", "-2px"),
+    new CheckBoxSizeModel(CheckBoxSize.medium, "15px", "15px", "2px", "-3px"),
+    new CheckBoxSizeModel(CheckBoxSize.larger, "17px", "17px", "2px", "-5px"),
+    new CheckBoxSizeModel(CheckBoxSize.large, "19px", "19px", "3px", "-3px"),
   ]
+
+  private currentSize: CheckBoxSize = CheckBoxSize.x_small;
+
+  @Input()
+  set Size(val: CheckBoxSize){
+    this.currentSize = val;
+  }
+  get Size(): CheckBoxSize {
+    return this.currentSize;
+  }
+
+  get RenderSize(): CheckBoxSizeModel {
+    return this.sizes.filter(x=>x.Size==this.currentSize)[0];
+  }
 
   @Input()
   public set IsChecked(val: boolean){
@@ -332,12 +346,12 @@ export class RCheckboxComponent implements ControlValueAccessor {
 }
 
 export enum CheckBoxSize {
-  x_small = 0,
-  smaller = 1,
-  small,
-  medium,
-  larger,
-  large
+  x_small = "x-small",
+  smaller = "smaller",
+  small = "small",
+  medium = "medium",
+  larger = "larger",
+  large = "large"
 }
 
 export class CheckBoxSizeModel {

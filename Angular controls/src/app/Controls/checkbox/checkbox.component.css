@@ -8,8 +8,8 @@
 }
 
 .checkroot{
-    width: 15px;
-    height: 15px;
+    /* width: 15px;
+    height: 15px; */
     border: 2px solid lightgray;
     background-color: whitesmoke;    
     cursor: pointer;
@@ -25,10 +25,10 @@
     display: inline-block;
     margin-right: 8px;
     position:relative;
-    left: 1px;
-    top: -3px;
+    left: var(--left) !important;
+    top: var(--top) !important;
     font-weight: 800 !important;
-    font-size: medium;
+    font-size: var(--fontsize);
 }
 
 .remove {

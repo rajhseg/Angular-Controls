@@ -715,25 +715,35 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab6', 'HeaderText':'rcheckbox', 'Context': this}">
+        
+        <div>
+          <label>CheckBox Sizes</label>
+          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">        
+          </rselectdropdown>
+        </div>
+
         <div style="display: flex;">
           <rgroup-panel groupname="Sports Interest">
-            <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball" [GroupName]="'sports'"></rcheckbox>
-            <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rcheckbox>
-            <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'"></rcheckbox>
+            <rcheckbox [Size]="checkedSize" [DisplayText]="'Football'" [(ngModel)]="IsFootball" [GroupName]="'sports'"></rcheckbox>
+            <rcheckbox [Size]="checkedSize" [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rcheckbox>
+            <rcheckbox [Size]="checkedSize" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'"></rcheckbox>
           </rgroup-panel>
         </div>
         <div style="display: flex;vertical-align: middle;">
-          <rcheckbox [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
+          <rcheckbox  [Size]="checkedSize" [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
         </div>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab7', 'HeaderText':'rradiobutton', 'Context':this}">
         <div style="display: flex;">
+
+          <rnumeric [Value]="16" (ValueChanged)="changeRadioSize($event)"></rnumeric>
+
           <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
-            <rradiobutton [Color]="'OrangeRed'" [DisplayText]="'Football'" [(ngModel)]="IsFootball"
+            <rradiobutton [DesignWidth]="radioSize" [Color]="'OrangeRed'" [DisplayText]="'Football'" [(ngModel)]="IsFootball"
               [GroupName]="'sports'"></rradiobutton>
-            <rradiobutton [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rradiobutton>
-            <rradiobutton [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
+            <rradiobutton [DesignWidth]="radioSize" [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rradiobutton>
+            <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
             </rradiobutton>
           </rgroup-panel>
         </div>
@@ -1038,7 +1048,13 @@
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'RGrid - Columns Defined', 'Context': this}">
-        
+       
+        <div>
+          <label>CheckBox Sizes</label>
+          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">        
+          </rselectdropdown>
+        </div>
+
        <rgrid [Items]="gridItems" [TableHeight]="'160px'" (OnItemsChanged)="itemsChanged($event)" 
                 [ItemsPerPage]="ItemsPerPage">
 
@@ -1046,7 +1062,7 @@
                    [DisableFilter]="true" [DisableSort]="true">
             
             <ng-template readviewtemplate let-Item let-cell="CellInfo">
-              <rcheckbox [(ngModel)]="Item.IsSelected" (OnClick)="Select($event, Item)"></rcheckbox>              
+              <rcheckbox [Size]="checkedSize" [(ngModel)]="Item.IsSelected" (OnClick)="Select($event, Item)"></rcheckbox>              
             </ng-template>
             
             <ng-template editviewtemplate let-Item let-cell="CellInfo">    
@@ -1054,7 +1070,7 @@
             </ng-template>
             
             <ng-template headertemplate let-header="Header">
-              <rcheckbox [(ngModel)]="gridSelectAll" (OnClick)="SelectAll($event)"></rcheckbox>
+              <rcheckbox [Size]="checkedSize" [(ngModel)]="gridSelectAll" (OnClick)="SelectAll($event)"></rcheckbox>
             </ng-template>
             
 

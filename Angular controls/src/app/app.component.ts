@@ -17,7 +17,7 @@ import { RTabsComponent } from './Controls/tab/rtabs.component';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { RTreeComponent } from "./Controls/Tree/tree.component";
 import { RTreeItem } from './Controls/Tree/TreeModel';
-import { RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
+import { CheckBoxSize, CheckBoxSizeModel, RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
 import { RRadiobuttonComponent } from "./Controls/radiobutton/radiobutton.component";
 import { RSliderComponent } from "./Controls/slider/slider.component";
 import { RStateVerticalComponent } from "./Controls/sequences/sequences.component";
@@ -260,6 +260,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
   
   @ViewChild('sequhorizontal', {read: RStateHorizontalComponent}) sequhorizontal!: RStateHorizontalComponent;
+  
+  checkedSize: CheckBoxSize = CheckBoxSize.x_small;
+  radioSize: string = "12px";
+  checkBoxSizes: DropdownModel[] = [];
 
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper, private ngZone: NgZone, 
     private mod: NgModuleRef<any>) {  
@@ -321,6 +325,26 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createSeriesChart();
       this.populateFilters();      
       this.addCalenderEvents();
+      this.addCheckBoxSizes();
+  }
+
+  chk($evt: DropdownModel){
+    this.checkedSize = $evt.Value;
+  }
+
+  addCheckBoxSizes(){
+    this.checkBoxSizes = [
+      new DropdownModel(CheckBoxSize.x_small,'x-small'),
+      new DropdownModel(CheckBoxSize.smaller, 'smaller'),
+      new DropdownModel(CheckBoxSize.small, 'small'),
+      new DropdownModel(CheckBoxSize.medium, 'medium'),
+      new DropdownModel(CheckBoxSize.large, 'large'),
+      new DropdownModel(CheckBoxSize.larger, 'larger')
+    ];
+  }
+
+  changeRadioSize(num: number){
+    this.radioSize = num + CssUnit.Px.toString();
   }
 
   addCalenderEvents(){

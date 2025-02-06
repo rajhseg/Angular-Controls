@@ -17,8 +17,14 @@
     <div *ngIf="!DisplayTextRightAlign" class="label" [ngStyle]="{ 'color': LabelColor}">
         {{DisplayText}}
     </div>
-    <div class="checkroot">
-        <span [ngStyle]="{ '--color' : CheckedColor }" [ngClass]="{'check': IsChecked}">
+    <div class="checkroot" [ngStyle]="{ 'width':RenderSize.Width, 'height': RenderSize.Height }">
+        <span [ngStyle]="{ 
+                           '--color' : CheckedColor, 
+                           '--left':RenderSize.Left, 
+                           '--top': RenderSize.Top,
+                           '--fontsize': RenderSize.Size
+                        }" 
+            [ngClass]="{'check': IsChecked}">
 
         </span>
     </div>

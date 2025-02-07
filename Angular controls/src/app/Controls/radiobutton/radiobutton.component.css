@@ -10,7 +10,7 @@
 .checkroot{
     /* width: 16px;
     height: 16px; */
-    border: 2px solid lightgray;
+    border: 4px solid lightgray;
     background-color: whitesmoke;    
     cursor: pointer;
     border-radius: 50%;

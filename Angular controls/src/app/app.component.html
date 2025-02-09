@@ -1042,7 +1042,7 @@
 
       <rtab *tabidfor="{'TabId':'tabgrid29', 'HeaderText':'RGrid Default', 'Context': this}">
         <div style="float: left;">
-          <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [TableWidth]="'800px'"
+          <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [TableWidth]="'850px'"
                   [TableHeight]="'160px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
       </rtab>
@@ -1056,25 +1056,8 @@
         </div>
 
        <rgrid [Items]="gridItems" [TableHeight]="'160px'" (OnItemsChanged)="itemsChanged($event)" 
-                [ItemsPerPage]="ItemsPerPage">
-
-          <rcolumn [Name]="'Select'" [PropToBind]="'IsSelected'" [Width]="'35px'" [DisableGrouping]="true"
-                   [DisableFilter]="true" [DisableSort]="true">
-            
-            <ng-template readviewtemplate let-Item let-cell="CellInfo">
-              <rcheckbox [Size]="checkedSize" [(ngModel)]="Item.IsSelected" (OnClick)="Select($event, Item)"></rcheckbox>              
-            </ng-template>
-            
-            <ng-template editviewtemplate let-Item let-cell="CellInfo">    
-              <div style="width:34px"></div>                      
-            </ng-template>
-            
-            <ng-template headertemplate let-header="Header">
-              <rcheckbox [Size]="checkedSize" [(ngModel)]="gridSelectAll" (OnClick)="SelectAll($event)"></rcheckbox>
-            </ng-template>
-            
-
-          </rcolumn>
+              (ItemSelectClick)="ItemSelectClicked($event)" (SelectAllClicked)="SelectAllGrid($event)"              
+              [ItemsPerPage]="ItemsPerPage">
 
           <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
             [Height]="'20px'">

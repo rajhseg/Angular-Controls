@@ -747,8 +747,20 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.gridItems1 = this.gridItems1.slice();
   }
 
+  SelectAllGrid(evt: any){
+    console.log("Select all");
+    console.log(evt);
+  }
+
+  ItemSelectClicked(evt: any) {
+    console.log("Item selected");
+    console.log(evt);
+  }
+
   itemsChanged($event: any){        
-    this.gridItems = $event.Items;        
+    this.gridItems = $event.Items;  
+    console.log("item changed");
+    console.log($event);      
   }
 
   itemsChangedGridItems1($event: any){    

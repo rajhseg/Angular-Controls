@@ -1,6 +1,7 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, Input, NgZone, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, Input,
+         NgZone, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
@@ -11,7 +12,8 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { WindowHelper } from '../windowObject';
 import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
-import { RCheckboxComponent } from '../checkbox/checkbox.component';
+import { CheckBoxSize, RCheckboxComponent } from '../checkbox/checkbox.component';
+import { CheckboxEventArgs } from '../checkbox/checkbox.service';
 
 @Component({
   selector: 'rgrid',
@@ -33,7 +35,7 @@ import { RCheckboxComponent } from '../checkbox/checkbox.component';
     DatePipe
   ]
 })
-export class RGridComponent implements AfterContentInit, AfterViewInit, ControlValueAccessor, OnChanges {
+export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterViewInit, ControlValueAccessor, OnChanges {
 
   private _items: any[] = [];
 
@@ -41,6 +43,19 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
 
   private indxKey: string = "rgrid_index";
 
+  private selectKey: string = "rgrid_select";
+
+  @Input()
+  EnableSelectColummn: boolean = true;
+
+  IsSelectedAll: boolean = false;
+
+  @Output()
+  SelectAllClicked: EventEmitter<{isSelectedAll: boolean, event: Event|undefined}> = new EventEmitter<{isSelectedAll: boolean, event: Event|undefined}>();
+
+  @Output()
+  ItemSelectClick: EventEmitter<{isSelected: boolean, item:any, event: Event|undefined}> = new EventEmitter<{isSelected: boolean, item:any, event: Event|undefined}>();
+  
   Headers: RGridHeader[] = [];
 
   SortHeaders: RGridHeaderSort[] = [];
@@ -163,6 +178,16 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
   private IsUpdateFromFilter: boolean = false;
   filterModel: any = {};
 
+  private _selectSize: CheckBoxSize = CheckBoxSize.x_small;
+
+  @Input()
+  public set SelectSize(value: CheckBoxSize){
+    this._selectSize = value;
+  }
+  public get SelectSize(): CheckBoxSize {
+    return this._selectSize;
+  }
+  
   @Input()
   public set Items(value: any[]) {
     this.RenderUI(value);
@@ -175,14 +200,14 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         this.BackupItems = [];
     }
 
-    this.IsUpdateFromFilter = false;
+    this.IsUpdateFromFilter = false;    
   }
   public get Items(): any[] {
     return this._items;
   }
 
-  Id: string = '';
-
+  Id: string = '';  
+  
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
@@ -206,7 +231,40 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     this.ColValues.push(new DropdownModel(2,"2"));
     this.ColValues.push(new DropdownModel(3,"3"));
     this.ColValues.push(new DropdownModel(4,"4"));
-    this.ColValues.push(new DropdownModel(5,"5"));
+    this.ColValues.push(new DropdownModel(5,"5"));      
+  }
+
+  SelectAll(evt: CheckboxEventArgs) {
+    this.IsSelectedAll = evt.isChecked;
+    
+    for (let index = 0; index < this.DataItems.Rows.length; index++) {
+      const element = this.DataItems.Rows[index];
+      element[this.selectKey].FromModel = true;
+      element[this.selectKey].Value = evt.isChecked as any;
+      element[this.selectKey].FromModel = false;
+    }
+
+    this.SelectAllClicked.emit({isSelectedAll: evt.isChecked, event:evt.event});
+  }
+
+  ItemSelect(evt:CheckboxEventArgs, item: any){ 
+    let notifyDataItems = this.Items.slice();   
+    item[this.selectKey].FromModel = true;
+    item[this.selectKey].Value = evt.isChecked as any;
+    item[this.selectKey].FromModel = false;
+
+    let _rownum = item[this.indxKey as string].Row;
+    let _row = (notifyDataItems as [])[_rownum as any];
+
+    this.ItemSelectClick.emit({isSelected: evt.isChecked, event: evt.event, item: _row});
+  }
+
+  ngOnInit(): void {    
+    
+  }
+
+  ngDoCheck(): void {
+  
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -972,6 +1030,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       if(this.ShowEditUpdate)
         _wth = _wth - 80;
 
+      if(this.EnableSelectColummn)
+        _wth = _wth - 26;
+
       let twth = _wth+CssUnit.Px.toString();
 
       let _arr = this.Columns.toArray();
@@ -1058,7 +1119,10 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
           
           if(this.ShowEditUpdate)
             _wth = _wth - 80;
-    
+
+          if(this.EnableSelectColummn)
+            _wth = _wth - 26;
+
           let twth = _wth+CssUnit.Px.toString();
     
           _cell.columnDirective = dirs[0];
@@ -1079,6 +1143,17 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       _cell.FromModel = false;
       _row[this.indxKey] = _cell;
 
+      
+      /* Adding select column for each row */
+      let _cell1 = new RCell();
+      c++;
+      _cell1.Column = c;
+      _cell1.Row = r;
+      _cell1.FromModel = true;
+      _cell1.Value = false as any;
+      _cell1.FromModel = false;
+      _row[this.selectKey] = _cell1;
+
       _dataItems.Rows.push(_row);
     }
 
@@ -1086,6 +1161,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     
     if(this.ShowEditUpdate)
       _wth = _wth - 80;
+
+    if(this.EnableSelectColummn)
+      _wth = _wth - 26;
 
     let twth = _wth+CssUnit.Px.toString();
 
@@ -1099,6 +1177,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     
     if(this.ShowEditUpdate)
       totalW += 80;
+
+    if(this.EnableSelectColummn)
+      totalW += 26;
 
     this.ActualWidth = (totalW - 6) + CssUnit.Px.toString();
 
@@ -1155,6 +1236,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
         if(this.ShowEditUpdate)
           _wth = _wth - 80;
   
+        if(this.EnableSelectColummn)
+          _wth = _wth - 26;
+
         let twth = _wth+CssUnit.Px.toString();
   
         if(!this.FitColumnsToContent)
@@ -1182,6 +1266,16 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
       _cell.FromModel = false;
       _row[this.indxKey] = _cell;
 
+      /* Adding select column for each row */
+      let _cell1 = new RCell();
+      c++;
+      _cell1.Column = c;
+      _cell1.Row = r;
+      _cell1.FromModel = true;
+      _cell1.Value = false as any;
+      _cell1.FromModel = false;
+      _row[this.selectKey] = _cell1;
+
       _dataItems.Rows.push(_row);
     }
 
@@ -1194,6 +1288,9 @@ export class RGridComponent implements AfterContentInit, AfterViewInit, ControlV
     
     if(this.ShowEditUpdate)
       TotalW = TotalW + 80;
+
+    if(this.EnableSelectColummn)
+      TotalW = TotalW + 26;
 
     this.ActualWidth = (TotalW - 6) + CssUnit.Px.toString();
     

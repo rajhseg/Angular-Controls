@@ -18,7 +18,7 @@
                 (cdkDropListDropped)="draggeddropForPopup($event)">
 
                 <ng-container *ngIf="EnableSelectColummn">
-                    <th style="width: 26px;padding-left: 8px;padding-right: 10px;">
+                    <th style="width: 26px;padding-left: 8px;padding-right: 6px;">
                         <rcheckbox [(ngModel)]="IsSelectedAll" [Size]="SelectSize"
                             (OnCheckChanged)="SelectAll($event)"></rcheckbox>
                     </th>

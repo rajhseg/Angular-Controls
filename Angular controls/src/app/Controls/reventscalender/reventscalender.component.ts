@@ -841,8 +841,7 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     if (monint != undefined && this.year) {
       let pre = new Date(this.year.Value, this.month.Value, 1);
       this.LoadMonth(pre);
-      this.NotifyChangeMonth();
-      this.changemonthisCalled = true;
+      this.NotifyChangeMonth();      
     }    
   }
 
@@ -865,6 +864,7 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     $evt.stopPropagation();
 
     if (this.year) {
+      this.changemonthisCalled = true;
       if (this.month.Value == 0) {
         this.month = this.monthNames[11];
         let yrmin = this.year.Value - 1;
@@ -890,6 +890,8 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
       let pre = new Date(this.year.Value, this.month.Value, 1);
       this.LoadMonth(pre);
     }    
+
+    this.changemonthisCalled = false;
   }
 
   nextMonth($evt: Event) {
@@ -897,6 +899,8 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     $evt.preventDefault();
 
     if (this.year) {
+      this.changemonthisCalled = true;
+
       if (this.month.Value == 11) {
         this.month = this.monthNames[0];
         let yradd = this.year.Value + 1;
@@ -923,6 +927,8 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
       let next = new Date(this.year.Value, this.month.Value, 1);
       this.LoadMonth(next);
     }    
+
+    this.changemonthisCalled = false;
   }
 
   LoadMonth(date: Date, isSelect: boolean = true) {

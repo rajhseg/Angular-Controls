@@ -265,7 +265,7 @@ RStepper-Vertical
 -------------------------------
 <br />
 
-![image](https://github.com/user-attachments/assets/1b1e260b-5269-439f-a55e-d7aa6098d201)
+![image](https://github.com/user-attachments/assets/f62388f4-6c1a-403a-a3db-a11791a3d2a3)
 
 <br />
 <br />

@@ -44,9 +44,7 @@ group panel Control
 
 Calender Control
 -------------------------------
-
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/0e341bf3-7a02-4aa5-9ac0-f2ddf2092aac)
-
+![image](https://github.com/user-attachments/assets/2ef21c10-59c8-4333-8f86-832248474a12)
 
 <br />
 <br />
@@ -265,7 +263,7 @@ RStepper-Vertical
 -------------------------------
 <br />
 
-![image](https://github.com/user-attachments/assets/f45ae978-f00c-4f17-a917-cba2c0e323ad)
+![image](https://github.com/user-attachments/assets/f62388f4-6c1a-403a-a3db-a11791a3d2a3)
 
 <br />
 <br />

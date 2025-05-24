@@ -4,7 +4,7 @@
   margin-top: 2px;
   height: 45px;  
   background-color: white;
-  border-top: 1px solid lightgray;
+  /*border-top: 1px solid lightgray;*/
   overflow: hidden;  
 }
 
@@ -122,6 +122,10 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
 }
 
+.rootNormal {
+    border: 1px solid lightgray;
+}
+
 thead tr {
      display: block;      
 }
@@ -223,4 +227,3 @@ tbody tr td{
     cursor: pointer;    
   }
 
-  

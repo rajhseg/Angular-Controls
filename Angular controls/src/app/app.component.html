@@ -64,7 +64,7 @@
 
   
   <rstepper-vertical [StripLineColor]="bColor" [ActiveBackColor]="bColor"
-    [PendingBackColor]="tColor" [PendingBorderColor]="'orangered'"
+    [PendingBackColor]="'darkblue'" [PendingBorderColor]="'darkblue'"
    [ContentWidth]="1000" [ContentHeight]="560"  (OnCompletedClick)="StepsCompleted($event)"
    [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
 
@@ -422,10 +422,10 @@
     </revents-schedule> 
 
     <br/>
-    <div style="">
+    <div style="height:400px">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
         [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false"
-        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'" [TableWidth]="'60%'"></rgrid>
+        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'100%'" [TableWidth]="'58%'"></rgrid>
     </div>
 
     <rgrid [Items]="gridItems" [GroupByIconColor]="bColor" 

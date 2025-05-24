@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, Input,
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, input, Input,
          NgZone, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
@@ -108,7 +108,11 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return this._tableHeight;
   }
 
-  
+  public get FooterWidth() {
+    let val = this.cssUnit.ToPxValue(this.TableWidth, null, null);
+    return (val - 2) + "px";
+  }
+
   _tableWidth: string = '99%';
 
   @Input()
@@ -204,6 +208,16 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
   public get Items(): any[] {
     return this._items;
+  }
+
+  private enableShadow: boolean = false;
+
+  @Input()
+  public get EnableShadow() {
+    return this.enableShadow;
+  }
+  public set EnableShadow(value: boolean) {
+    this.enableShadow = value;
   }
 
   Id: string = '';  
@@ -1435,11 +1449,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
     this.Headers.sort(this.headersSort);
   }
-
-  dragStartedForPopup($event: any) {
-
-  }
-
 
 }
 

@@ -1,52 +1,52 @@
 <div cdkDropListGroup>
 
   <div>
-   
-        
-    <rstarrating [starWidth]="starWidth"></rstarrating> 
-    
 
-    <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating> 
+
+    <rstarrating [starWidth]="starWidth"></rstarrating>
+
+
+    <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating>
     <rstarrating [starWidth]="starWidth" [starColor]="bColor"></rstarrating>
 
-    
+
     <div style="float:left; margin-left: 200px;">
-      <rfilter [ColumnName]="'Name'" [ItemValues]="numbers" [Align]="filterAlign" 
-        [DataType]="filterDataType" (ApplyCallback)="filterApplied($event)"></rfilter>
+      <rfilter [ColumnName]="'Name'" [ItemValues]="numbers" [Align]="filterAlign"
+               [DataType]="filterDataType" (ApplyCallback)="filterApplied($event)"></rfilter>
     </div>
-    
-    {{starValue}}  
-  
-  <rtimer style="margin-left:100px" [FlatStyleForeColor]="bColor" 
-          [DisplayTextForeColor]="bColor" [IsHidden]="true"
-          [CallbackAfterCertainSeconds]="1"
-          [DisplayType]="0"
-          (CallbackTriggeredAfterCertainSeconds)="realTimeCharts($event)"
-          [EnableShadowEffect]="false">    
-  </rtimer>
 
-    <rserieschart [XAxisTitle]="'Disk'" 
-      [YAxisTitle]="'Speed'" [FillAreaColor]="true"
-      [Width]="400" [Height]="400" 
-      [Items]="seriesModel2"></rserieschart>
-      
-    <rserieschart [XAxisTitle]="'Elements'" 
-      [YAxisTitle]="'Values'"
-      [Width]="400" [Height]="400" 
-      [Items]="seriesModel"></rserieschart>
+    {{starValue}}
 
-      <rserieschart [XAxisTitle]="'Elements'" 
-      [YAxisTitle]="'Values'"
-      [Width]="400" [Height]="400" 
-      [Items]="seriesModel1"></rserieschart>
+    <rtimer style="margin-left:100px" [FlatStyleForeColor]="bColor"
+            [DisplayTextForeColor]="bColor" [IsHidden]="true"
+            [CallbackAfterCertainSeconds]="1"
+            [DisplayType]="0"
+            (CallbackTriggeredAfterCertainSeconds)="realTimeCharts($event)"
+            [EnableShadowEffect]="false">
+    </rtimer>
+
+    <rserieschart [XAxisTitle]="'Disk'"
+                  [YAxisTitle]="'Speed'" [FillAreaColor]="true"
+                  [Width]="400" [Height]="400"
+                  [Items]="seriesModel2"></rserieschart>
+
+    <rserieschart [XAxisTitle]="'Elements'"
+                  [YAxisTitle]="'Values'"
+                  [Width]="400" [Height]="400"
+                  [Items]="seriesModel"></rserieschart>
+
+    <rserieschart [XAxisTitle]="'Elements'"
+                  [YAxisTitle]="'Values'"
+                  [Width]="400" [Height]="400"
+                  [Items]="seriesModel1"></rserieschart>
 
 
-    <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'" 
-        [DropDownContentWidth]="'240px'">
+    <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'"
+               [DropDownContentWidth]="'240px'">
     </rdropdown>
 
-    <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="'112px'" 
-        [DropDownContentWidth]="'122px'">
+    <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="'112px'"
+               [DropDownContentWidth]="'122px'">
     </rdropdown>
 
     <br />
@@ -62,25 +62,25 @@
   <rbutton [ButtonWidth]="'200px'" (ButtonClick)="AddFewItems($event)">Add Few Items to Chart</rbutton>
   <br />
 
-  
+
   <rstepper-vertical [StripLineColor]="bColor" [ActiveBackColor]="bColor"
-    [PendingBackColor]="'darkblue'" [PendingBorderColor]="'darkblue'"
-   [ContentWidth]="1000" [ContentHeight]="560"  (OnCompletedClick)="StepsCompleted($event)"
-   [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
+                     [PendingBackColor]="'darkblue'" [PendingBorderColor]="'darkblue'"
+                     [ContentWidth]="1000" [ContentHeight]="560" (OnCompletedClick)="StepsCompleted($event)"
+                     [ShowStateVertical]="showVerticalItems" [(StateVerticalDisplayType)]="stepperDisplayType">
 
     <rstep [Title]="'RDonutChart'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" 
-        [ShadowColor]="'blue'"  [MoveTextUpwardsFromCenterInPx]="20"
-        [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150"
+                     [ShadowColor]="'blue'" [MoveTextUpwardsFromCenterInPx]="20"
+                     [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
-        <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
-            [ShadowColor]="'blue'" [Items]="pieItems" 
-            [Opacity]="'0.8'"></rdonutchart>
+        <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300"
+                     [ShadowColor]="'blue'" [Items]="pieItems"
+                     [Opacity]="'0.8'"></rdonutchart>
 
-        <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" 
-            [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+        <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'"
+                     [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
 
       </ng-template>
@@ -88,50 +88,50 @@
 
     <rstep [Title]="'RPieChart'" [IsStepValid]="true">
       <ng-template rstepview>
-          <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150" 
-          [MoveTextUpwardsFromCenterInPx]="5" [RotateTextToInlineAngle]="true"    
-          [Items]="pieItems1" 
-          [Opacity]="'0.8'"></rpiechart>
-        
-          <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
-            [MoveTextUpwardsFromCenterInPx]="-20"
-            [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
-        
-          <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" 
-            [MoveTextUpwardsFromCenterInPx]="-30"
-            [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
+        <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150"
+                   [MoveTextUpwardsFromCenterInPx]="5" [RotateTextToInlineAngle]="true"
+                   [Items]="pieItems1"
+                   [Opacity]="'0.8'"></rpiechart>
+
+        <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300"
+                   [MoveTextUpwardsFromCenterInPx]="-20"
+                   [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
+
+        <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1"
+                   [MoveTextUpwardsFromCenterInPx]="-30"
+                   [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
       </ng-template>
     </rstep>
 
     <rstep [Title]="'BarChart Vertical'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rbarchart-vertical style="float:left" [Width]="400" 
-          [PopupBackColor]="'black'" [PopupForeColor]="'white'"
-          [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
-          [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
+        <rbarchart-vertical style="float:left" [Width]="400"
+                            [PopupBackColor]="'black'" [PopupForeColor]="'white'"
+                            [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
+                            [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
         </rbarchart-vertical>
-    
-        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1" 
-          [PopupBackColor]="'white'" [PopupForeColor]="'black'"
-          [Columns]="barChartItems1"></rbarchart-vertical>
-    
+
+        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1"
+                            [PopupBackColor]="'white'" [PopupForeColor]="'black'"
+                            [Columns]="barChartItems1"></rbarchart-vertical>
+
       </ng-template>
     </rstep>
 
     <rstep [Title]="'BarChart Horizontal'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400" 
-                [PopupBackColor]="'black'" [PopupForeColor]="'white'"
-                [yAxisItemNames]="barChartXAxisItemNames" [MarginX]="60" 
-                [YAxisTitle]="'Company profit per year'" [XAxisTitle]="'Profit Percentage'"
-                [Columns]="barChartItems">
+        <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400"
+                              [PopupBackColor]="'black'" [PopupForeColor]="'white'"
+                              [yAxisItemNames]="barChartXAxisItemNames" [MarginX]="60"
+                              [YAxisTitle]="'Company profit per year'" [XAxisTitle]="'Profit Percentage'"
+                              [Columns]="barChartItems">
         </rbarchart-horizontal>
 
-        <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1" 
-                [PopupBackColor]="'black'" [PopupForeColor]="'white'"
-                [Columns]="barChartItems1">
+        <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1"
+                              [PopupBackColor]="'black'" [PopupForeColor]="'white'"
+                              [Columns]="barChartItems1">
         </rbarchart-horizontal>
 
       </ng-template>
@@ -139,10 +139,10 @@
 
     <rstep [Title]="'RStackedBarChart Vertical'" [IsStepValid]="true">
       <ng-template rstepview>
-        
-        <rstackedbarchart-vertical [MarginX]="60" [Width]="500" 
-          [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
-          [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
+
+        <rstackedbarchart-vertical [MarginX]="60" [Width]="500"
+                                   [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'"
+                                   [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
         </rstackedbarchart-vertical>
 
       </ng-template>
@@ -150,13 +150,13 @@
 
     <rstep [Title]="'RStackedBarChart Horizontal'" [IsStepValid]="true">
       <ng-template rstepview>
-                        
+
         <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'"
-          [XAxisTitle]="'Amount Spent'"
-          [Width]="500" [Height]="400" 
-          [MarginX]="50" [MarginY]="50"
-          [yAxisItemNames]="stackedbarChartXAxisItemNames1" 
-          [Columns]="stackedbarChartItems1">
+                                     [XAxisTitle]="'Amount Spent'"
+                                     [Width]="500" [Height]="400"
+                                     [MarginX]="50" [MarginY]="50"
+                                     [yAxisItemNames]="stackedbarChartXAxisItemNames1"
+                                     [Columns]="stackedbarChartItems1">
         </rstackedbarchart-horizontal>
 
       </ng-template>
@@ -164,72 +164,72 @@
 
     <rstep [Title]="'RStackedRangeBarChart Vertical'" [IsStepValid]="true">
       <ng-template rstepview>
-          
-          <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1"
-            [Columns]="stackedrangebarChartItems1" [Width]="400" [Height]="400" [XAxisTitle]="'Monthly Expenses'"
-            [YAxisTitle]="'Amount spent'">
 
-          </rstackedrangebarchart-vertical>
+        <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1"
+                                        [Columns]="stackedrangebarChartItems1" [Width]="400" [Height]="400" [XAxisTitle]="'Monthly Expenses'"
+                                        [YAxisTitle]="'Amount spent'">
+
+        </rstackedrangebarchart-vertical>
 
       </ng-template>
     </rstep>
 
     <rstep [Title]="'RScatter Chart'" [IsStepValid]="true">
       <ng-template rstepview>
-        
-        <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel" 
-            [Width]="400" [Height]="400"></rscatterchart>
+
+        <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel"
+                       [Width]="400" [Height]="400"></rscatterchart>
 
       </ng-template>
     </rstep>
 
     <rstep [Title]="'RLineChart'" [IsStepValid]="true">
       <ng-template rstepview>
-        
-          <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'" 
-              [YAxisTitle]="'Price'"
-              [Items]="lineChartItems"  [Width]="400" [Height]="400" >
-          </rlinechart-vertical>
+
+        <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
+                             [YAxisTitle]="'Price'"
+                             [Items]="lineChartItems" [Width]="400" [Height]="400">
+        </rlinechart-vertical>
 
       </ng-template>
     </rstep>
 
-    
+
     <rstep [Title]="'RAreaChart'" [IsStepValid]="true">
       <ng-template rstepview>
-        
-          <rareachart [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'" 
-              [YAxisTitle]="'Price'"
-              [Items]="lineChartItems"  [Width]="400" [Height]="400" >
-          </rareachart>
+
+        <rareachart [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
+                    [YAxisTitle]="'Price'"
+                    [Items]="lineChartItems" [Width]="400" [Height]="400">
+        </rareachart>
 
       </ng-template>
     </rstep>
 
-    
+
     <rstep [Title]="'RAllocationBarChart'" [IsStepValid]="true">
       <ng-template rstepview>
-        
-          <rallocated-barchart [xAxisItemNames]="barChartXAxisItemNames2"               
-              [PopupBackColor]="'black'" [PopupForeColor]="'white'"
-              [XAxisTitle]="'Month'" 
-              [YAxisTitle]="'Money'"
-              [Columns]="barChartItems2"  [Width]="600" [Height]="400" >
-          </rallocated-barchart>
+
+        <rallocated-barchart [xAxisItemNames]="barChartXAxisItemNames2"
+                             [PopupBackColor]="'black'" [PopupForeColor]="'white'"
+                             [XAxisTitle]="'Month'"
+                             [YAxisTitle]="'Money'"
+                             [Columns]="barChartItems2" [Width]="600" [Height]="400">
+        </rallocated-barchart>
 
       </ng-template>
     </rstep>
 
-    <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" 
-        [DisplayTextForBackButton]="'Back'">
+    <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'"
+           [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
 
-        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
-          <br />
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+               [HeaderBackgroundColor]="'blue'"
+               [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
-          Save        
+          Save
         </rbutton>
 
       </ng-template>
@@ -237,20 +237,21 @@
 
   </rstepper-vertical>
 
-  <br/>
+  <br />
   <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
-    (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+                (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
   </rcolorpicker>
 
   <rcolorpicker [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)" [LabelText]="'Pending Color : '"
-    [IsDisplayColorCode]="false"></rcolorpicker> 
+                [IsDisplayColorCode]="false"></rcolorpicker>
   <br />
   <br />
   <rtree [ExpandIconColor]="bColor" [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)" (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
   <br />
 
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStep()">Move to Next Step
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStep()">
+    Move to Next Step
   </rbutton>
   <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="tColor" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
 
@@ -259,16 +260,16 @@
   <br />
   <br />
 
-  <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" 
-    [(ngModel)]="StepperSelectedItem"
-    [CompletedBackgroundColor]="'darkblue'"
-    [StripLineColor]="bColor"
-    [IsDisplayStepNo]="true" 
-    [PendingBackgroundColor]="tColor" 
-    [PendingForeColor]="'white'" 
-    [ContentWidth]="140"
-    (OnActiveValueChanged)="seqValueChanged($event)" 
-    [ActiveBackgroundColor]="bColor">
+  <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
+                   [(ngModel)]="StepperSelectedItem"
+                   [CompletedBackgroundColor]="'darkblue'"
+                   [StripLineColor]="bColor"
+                   [IsDisplayStepNo]="true"
+                   [PendingBackgroundColor]="tColor"
+                   [PendingForeColor]="'white'"
+                   [ContentWidth]="140"
+                   (OnActiveValueChanged)="seqValueChanged($event)"
+                   [ActiveBackgroundColor]="bColor">
   </rstate-vertical>
 
   <br />
@@ -277,7 +278,7 @@
 
   </div>
 
-  <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" 
+  <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true"
            [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
   </rslider>
   <br />
@@ -288,30 +289,31 @@
   <rslider [SliderBarWidth]="'300px'" [SliderBarHeight]="'2px'" [SliderMarkerSize]="'12px'" [EnablePathColor]="true" [BackgroundColor]="bColor"></rslider>
   <br />
 
-  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStepH()">Move to Next Step
+  <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStepH()">
+    Move to Next Step
   </rbutton>
   <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="tColor" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
 
   <br />
 
   <div>
-    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-      [ActiveForeColor]="bColor"
-      [PendingForeColor]="tColor"
-      [CompletedForeColor]="'darkblue'"
-      [Items]="seqHorizontalItems"
-      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="false"
-      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
+    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
+                       [ActiveForeColor]="bColor"
+                       [PendingForeColor]="tColor"
+                       [CompletedForeColor]="'darkblue'"
+                       [Items]="seqHorizontalItems"
+                       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="false"
+                       (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
   </div>
   <div>
-    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" 
-      [ActiveForeColor]="bColor"
-      [PendingForeColor]="tColor"
-      [CompletedForeColor]="'darkblue'"
-      [Items]="seqHorizontalItems"
-      [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="true"
-      (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
+    <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
+                       [ActiveForeColor]="bColor"
+                       [PendingForeColor]="tColor"
+                       [CompletedForeColor]="'darkblue'"
+                       [Items]="seqHorizontalItems"
+                       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="true"
+                       (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
   </div>
   <br />
@@ -332,17 +334,17 @@
   <div>
     <br />
 
-  <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'" 
-      [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor" 
-      [IconForeColor]="bColor"
-      (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
-  </rfileupload>
+    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+                 [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
+                 [IconForeColor]="bColor"
+                 (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
+    </rfileupload>
 
   </div>
- 
+
   <br />
- <br />
- <br />
+  <br />
+  <br />
   <div>
     <rtextbox [ReadOnly]="true" [(ngModel)]="userName" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
     <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'"></rtextbox>
@@ -352,86 +354,86 @@
   <br />
   <div>
     <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
-      [LabelText]="'Password'"></rtextbox>
+              [LabelText]="'Password'"></rtextbox>
     <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'"
-      [LabelText]="'Confirm Password'"></rtextbox>
+              [LabelText]="'Confirm Password'"></rtextbox>
     <rbutton [BackgroundColor]="bColor">Submit</rbutton>
   </div>
   <br />
   <br />
 
   <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="tColor" [MinusBackgroundColor]="tColor"
-    [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'"
-    [BottomLineColor]="tColor" [LabelTextForeColor]="tColor" [(ngModel)]="rangeValue1"></rnumeric>
+            [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'"
+            [BottomLineColor]="tColor" [LabelTextForeColor]="tColor" [(ngModel)]="rangeValue1"></rnumeric>
 
-  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="bColor" [MinusBackgroundColor]="bColor"    
-    [BottomLineColor]="bColor" [LabelTextForeColor]="bColor" [(ngModel)]="rangeValue1"></rnumeric>
+  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="bColor" [MinusBackgroundColor]="bColor"
+            [BottomLineColor]="bColor" [LabelTextForeColor]="bColor" [(ngModel)]="rangeValue1"></rnumeric>
 
   <br />
 
-  <rtimer [FlatStyleForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false">    
+  <rtimer [FlatStyleForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false">
   </rtimer>
 
   <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="bColor" [MinuteForeColor]="bColor"
-    [SecondsForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false"
-    [CircularWidth]="70">
+          [SecondsForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false"
+          [CircularWidth]="70">
   </rtimer>
 
   <br />
 
-  <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor" 
-    [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
+  <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor"
+                 [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
 
-  <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor" 
-    [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time2"></rtimeselector>
-
-  <br />
-
-  <rtimeselector [ButtonBackgroundColor]="bColor" [LabelText]="'Arriving Time'" 
-    [TextBottomLineColor]="bColor" [SelectedItemBackgroundColor]="bColor"
-    [(ngModel)]="time3" [Is24HourFormat]="false"
-    [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector>
+  <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor"
+                 [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time2"></rtimeselector>
 
   <br />
-  <br />
+
+  <rtimeselector [ButtonBackgroundColor]="bColor" [LabelText]="'Arriving Time'"
+                 [TextBottomLineColor]="bColor" [SelectedItemBackgroundColor]="bColor"
+                 [(ngModel)]="time3" [Is24HourFormat]="false"
+                 [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector>
 
   <br />
   <br />
-  
+
+  <br />
+  <br />
+
   <div>
-    
-    <br />
-    
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
-    <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
-    <br/>
-    <br/>
-    
-    <revents-schedule [ContainerBackgroundColor]="'#13297A'" 
-          [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
-          [EventBackgroundColor]="'#13297A'"  [MarkerBackgroundColor]="'white'"
-          [ShowMarker]="true" [ShowScrollBar]="true" [MinutesForEachCell]="30"
-          [SelectedDate]="selectedDate" [EnableMovePageToCurrentTime]="true"
-          [ScheduleItems]="scheduleItems">
-    </revents-schedule> 
 
-    <br/>
-    <div style="height:400px">
-      <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-        [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false"
-        [ItemsPerPage]="ItemsPerPage" [TableHeight]="'100%'" [TableWidth]="'58%'"></rgrid>
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
+    <br />
+    <br />
+
+    <revents-schedule [ContainerBackgroundColor]="'#13297A'"
+                      [ContainerBorderColor]="'teal'" [EventBorderColor]="'teal'"
+                      [EventBackgroundColor]="'#13297A'" [MarkerBackgroundColor]="'white'"
+                      [ShowMarker]="true" [ShowScrollBar]="true" [MinutesForEachCell]="30"
+                      [SelectedDate]="selectedDate" [EnableMovePageToCurrentTime]="true"
+                      [ScheduleItems]="scheduleItems">
+    </revents-schedule>
+
+    <br />
+    <div style="height:400px;">
+      <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+             [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false"
+             [ItemsPerPage]="ItemsPerPage" [TableHeight]="'70%'" [TableWidth]="'58%'"></rgrid>
     </div>
 
-    <rgrid [Items]="gridItems" [GroupByIconColor]="bColor" 
-            [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)" 
-            [TableWidth]="'35.7%'" [ShowEditUpdate]="true"
-            [ItemsPerPage]="ItemsPerPage">
+    <rgrid [Items]="gridItems" [GroupByIconColor]="bColor"
+           [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)"
+           [TableWidth]="'35.7%'" [ShowEditUpdate]="true"
+           [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
@@ -439,7 +441,7 @@
         </ng-template>
         <ng-template editviewtemplate let-Item let-rcell="CellInfo">
           <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-            [(ngModel)]="rcell.Value" />
+                    [(ngModel)]="rcell.Value" />
         </ng-template>
       </rcolumn>
 
@@ -450,7 +452,7 @@
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
           <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-            [(ngModel)]="cell.Value" />
+                    [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
@@ -459,21 +461,21 @@
           <span>{{Item.Age}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rnumeric [BottomLineColor]="bColor"  
-          [MinusBackgroundColor]="bColor" [PlusBackgroundColor]="bColor"
-          [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'70px'"></rnumeric>
+          <rnumeric [BottomLineColor]="bColor"
+                    [MinusBackgroundColor]="bColor" [PlusBackgroundColor]="bColor"
+                    [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'70px'"></rnumeric>
         </ng-template>
       </rcolumn>
 
       <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-        [Width]="'100px'">
+               [Width]="'100px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Education.Higher.Id}}</span> -
           <span>{{Item.Education.Higher.Course}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-            [(ngModel)]="cell.Value" />
+          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
+                    [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
 
@@ -482,30 +484,30 @@
           <span>{{Item.Age + 4}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor"  [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-            [(ngModel)]="cell.Value" />
+          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
+                    [(ngModel)]="cell.Value" />
         </ng-template>
       </rcolumn>
-    </rgrid> 
+    </rgrid>
   </div>
 
   <br />
   <br />
-  
+
   <rswitch [DisplayLabel]="'Change Display Type'" [SwitchBackColor]="bColor" (checked)="changeStepperDisplayType($event)"></rswitch>
 
   <rswitch [DisplayLabel]="'Show Vertical'" [SwitchBackColor]="tColor" (checked)="changeShow($event)"></rswitch>
 
-  <br/>
+  <br />
   <br />
   <br />
 
-  <rstepper-horizontal [ContentWidth]="980" [ContentHeight]="570" 
-      [ActiveBackColor]="bColor" [PendingForeColor]="tColor"
-      [PendingBackColor]="'white'"
-      [StripLineColor]="bColor"
-      [ShowStateHorizontal]="showVerticalItems"
-      (OnCompletedClick)="StepsCompleted($event)">
+  <rstepper-horizontal [ContentWidth]="980" [ContentHeight]="570"
+                       [ActiveBackColor]="bColor" [PendingForeColor]="tColor"
+                       [PendingBackColor]="'white'"
+                       [StripLineColor]="bColor"
+                       [ShowStateHorizontal]="showVerticalItems"
+                       (OnCompletedClick)="StepsCompleted($event)">
 
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
@@ -515,18 +517,18 @@
             <div>
               <span>{{Item.Value.Id}}</span>
               <span>{{Item.Value.Name}}</span>
-              <span>{{Item.Value.Education}}</span>                
+              <span>{{Item.Value.Education}}</span>
             </div>
           </ng-template>
         </rselectdropdown>
-  
-        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" 
-            [DropDownContentWidth]="'240px'">
+
+        <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue"
+                         [DropDownContentWidth]="'240px'">
         </rselectdropdown>
-  
+
         <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
         </rselectdropdown>
-  
+
         <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
@@ -536,57 +538,57 @@
             </div>
           </ng-template>
         </rselectdropdown>
-  
+
         <rselectdropdown [Items]="items" [DropDownContentWidth]="'240px'"></rselectdropdown>
-  
+
         <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
-  
+
       </ng-template>
     </rstep>
     <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
 
-        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="bColor"  
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+               [HeaderBackgroundColor]="bColor"
+               [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
         <rbutton [BackgroundColor]="bColor" (ButtonClick)="stepOneSave($event)">
-          Save        
+          Save
         </rbutton>
 
       </ng-template>
     </rstep>
-    <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" 
+    <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid"
            [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
-        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+               [HeaderBackgroundColor]="'blue'"
+               [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
 
-          <br />
+        <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
-          Save        
+          Save
         </rbutton>
       </ng-template>
     </rstep>
     <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
 
-        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-          [HeaderBackgroundColor]="'blue'"
-          [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
-          <br />
+        <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+               [HeaderBackgroundColor]="'blue'"
+               [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+        <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
-          Save        
+          Save
         </rbutton>
 
       </ng-template>
     </rstep>
 
-    
+
     <rstep [Title]="'Dropdown Sample'" [IsStepValid]="true">
       <ng-template rstepview>
-        
+
         <rselectdropdown [Items]="selectDropdownItems" [IsMulti]="true" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
@@ -596,13 +598,13 @@
             </div>
           </ng-template>
         </rselectdropdown>
-  
+
         <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue" [DropDownContentWidth]="'240px'">
         </rselectdropdown>
-  
+
         <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
         </rselectdropdown>
-  
+
         <rselectdropdown [Items]="selectDropdownItems" [DropDownContentWidth]="'200px'">
           <ng-template optionstemplate let-Item>
             <div>
@@ -612,11 +614,11 @@
             </div>
           </ng-template>
         </rselectdropdown>
-  
+
         <rselectdropdown [Items]="items" [DropDownContentWidth]="'240px'"></rselectdropdown>
-  
+
         <rselectdropdown [Items]="items1" [(ngModel)]="singleValue" [DropDownContentWidth]="'130px'"></rselectdropdown>
-  
+
       </ng-template>
     </rstep>
 
@@ -624,21 +626,23 @@
 
   <br />
   <br />
-  
-  <rswitch [DisplayLabel]="'Change Display Type'"  (checked)="changeStepperDisplayType($event)"></rswitch>
+
+  <rswitch [DisplayLabel]="'Change Display Type'" (checked)="changeStepperDisplayType($event)"></rswitch>
   {{stepperDisplayType}}
 
-  <rswitch [DisplayLabel]="'Show Vertical'"  (checked)="changeShow($event)"></rswitch>
+  <rswitch [DisplayLabel]="'Show Vertical'" (checked)="changeShow($event)"></rswitch>
   {{showVerticalItems}}
 
-  <br/>
+  <br />
   <br />
 
   <br />
   <div>
     <br />
-    <rbutton [BackgroundColor]="bColor" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">Delete One
-      Tab</rbutton>
+    <rbutton [BackgroundColor]="bColor" [ButtonWidth]="'150px'" ForeColor="white" (ButtonClick)="DeleteTab()">
+      Delete One
+      Tab
+    </rbutton>
     <br />
     <div>
       <label>Tab Index</label>
@@ -657,14 +661,14 @@
 
       <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'rcalender', 'Context':this }">
         <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)"></rcalender> {{curDate}}
-        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" 
-              [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
-        <rcalender  [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false"
+                   [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
+        <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'rdropdown', 'Context':this }">
-        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="'112px'" 
-            [DropDownContentWidth]="'240px'">
+        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="'112px'"
+                   [DropDownContentWidth]="'240px'">
         </rdropdown>
         {{selItem.Value}}
 
@@ -672,7 +676,7 @@
         </rdropdown>
 
         <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="'112px'"
-          [DropDownContentWidth]="'122px'">
+                   [DropDownContentWidth]="'122px'">
         </rdropdown>
 
         <br />
@@ -695,7 +699,7 @@
 
       <rtab *tabidfor="{ 'TabId':'tab4', 'HeaderText':'rswitch', 'Context':this }">
 
-        <rswitch [DisplayLabel]="'MoveToCenter'"  (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+        <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
         <rswitch [DisplayLabel]="'MoveToCenter Copy'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
@@ -705,20 +709,20 @@
         <span>Is Circle: {{IsCircleProgressBar}}</span>
 
         <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
-          [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+                 [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab5', 'HeaderText':'rtree', 'Context': this}">
         <rtree [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)"
-          (onItemSelected)="OnTreeItemSelected($event)"></rtree>
+               (onItemSelected)="OnTreeItemSelected($event)"></rtree>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab6', 'HeaderText':'rcheckbox', 'Context': this}">
-        
+
         <div>
           <label>CheckBox Sizes</label>
-          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">        
+          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">
           </rselectdropdown>
         </div>
 
@@ -730,7 +734,7 @@
           </rgroup-panel>
         </div>
         <div style="display: flex;vertical-align: middle;">
-          <rcheckbox  [Size]="checkedSize" [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
+          <rcheckbox [Size]="checkedSize" [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
         </div>
       </rtab>
 
@@ -741,7 +745,7 @@
 
           <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
             <rradiobutton [DesignWidth]="radioSize" [Color]="'OrangeRed'" [DisplayText]="'Football'" [(ngModel)]="IsFootball"
-              [GroupName]="'sports'"></rradiobutton>
+                          [GroupName]="'sports'"></rradiobutton>
             <rradiobutton [DesignWidth]="radioSize" [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball" [GroupName]="'sports'"></rradiobutton>
             <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
             </rradiobutton>
@@ -753,18 +757,18 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">
         <div style="display: flex;">
-          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" 
-            [ShowFilesListMaximumHeight]="'145px'" [EnableMaximumHeightForShowFiles]="true"
-            [ShowFilesAsDropdownContainer]="true"
-            (filesSelected)="filesSelected($event)"></rfileupload>
+          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files"
+                       [ShowFilesListMaximumHeight]="'145px'" [EnableMaximumHeightForShowFiles]="true"
+                       [ShowFilesAsDropdownContainer]="true"
+                       (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab9', 'HeaderText':'rcolorpicker', 'Context':this}">
         <rcolorpicker style="margin-left:350px;" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
-          [LabelText]="'Processed Color : '"></rcolorpicker>
+                      [LabelText]="'Processed Color : '"></rcolorpicker>
         <rcolorpicker [(ngModel)]="color1" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
-          [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
+                      [LabelText]="'Pending Color : '" [IsDisplayColorCode]="false"></rcolorpicker>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab10', 'HeaderText':'rprogressbar', 'Context':this}">
@@ -774,12 +778,12 @@
         </rswitch>
 
         <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
-          [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+                 [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
         <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
-          [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
-          [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
-          [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
+                      [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+                      [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+                      [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
         </rprogressbar>
 
         <rbutton [ButtonWidth]="'150px'" (ButtonClick)="ResetProgress()">Reset</rbutton>
@@ -789,7 +793,7 @@
       <rtab *tabidfor="{'TabId':'tab11', 'HeaderText':'rtimer', 'Context': this}">
         <rtimer (ValueChanged)="rtimer_ValueChanged($event)"></rtimer>
         <rtimer [CallbackAfterCertainSeconds]="120"
-          (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70">
+                (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70">
         </rtimer>
       </rtab>
 
@@ -798,9 +802,9 @@
 
         <rtimeselector [(ngModel)]="time2"></rtimeselector>
 
-        <rtimeselector style="margin-top:150px;" [LabelText]="'Arriving Time'" 
-            [(ngModel)]="time3" [Is24HourFormat]="false"
-          [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> {{time3}}
+        <rtimeselector style="margin-top:150px;" [LabelText]="'Arriving Time'"
+                       [(ngModel)]="time3" [Is24HourFormat]="false"
+                       [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector> {{time3}}
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab13', 'HeaderText':'rstepper vertical', 'Context':this}">
@@ -808,84 +812,84 @@
         <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530" (OnCompletedClick)="StepsCompleted($event)">
           <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
-      
-              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+                     [HeaderBackgroundColor]="'blue'"
+                     [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
-                Save        
+                Save
               </rbutton>
-      
+
             </ng-template>
           </rstep>
           <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
-              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
-      
-                <br />
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+                     [HeaderBackgroundColor]="'blue'"
+                     [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+
+              <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
-                Save        
+                Save
               </rbutton>
             </ng-template>
           </rstep>
           <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
-      
-              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
-                <br />
+
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+                     [HeaderBackgroundColor]="'blue'"
+                     [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+              <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
-                Save        
+                Save
               </rbutton>
-      
+
             </ng-template>
           </rstep>
         </rstepper-vertical>
-      
+
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab14', 'HeaderText':'rstepper horizontal', 'Context':this}">
-          
-        <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"  
-        (OnCompletedClick)="StepsCompleted($event)">
+
+        <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530"
+                             (OnCompletedClick)="StepsCompleted($event)">
           <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
 
-              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+                     [HeaderBackgroundColor]="'blue'"
+                     [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
-                Save        
+                Save
               </rbutton>
 
             </ng-template>
           </rstep>
           <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
-              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+                     [HeaderBackgroundColor]="'blue'"
+                     [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
 
-                <br />
+              <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
-                Save        
+                Save
               </rbutton>
             </ng-template>
           </rstep>
           <rstep [Title]="'Confirm Info'" [IsStepValid]="stepThreeValid" [DisplayTextForNextButton]="'Next'" [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
 
-              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" 
-                [HeaderBackgroundColor]="'blue'"
-                [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
-                <br />
+              <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
+                     [HeaderBackgroundColor]="'blue'"
+                     [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+              <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
-                Save        
+                Save
               </rbutton>
 
             </ng-template>
@@ -893,22 +897,22 @@
         </rstepper-horizontal>
 
       </rtab>
-      
-      <rtab  *tabidfor="{'TabId':'tab15', 'HeaderText':'StackedBarChart Vertical', 'Context': this}">
-        
-        <rstackedbarchart-vertical [MarginX]="60" [Width]="500" 
-          [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
-          [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
+
+      <rtab *tabidfor="{'TabId':'tab15', 'HeaderText':'StackedBarChart Vertical', 'Context': this}">
+
+        <rstackedbarchart-vertical [MarginX]="60" [Width]="500"
+                                   [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'"
+                                   [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
         </rstackedbarchart-vertical>
 
       </rtab>
 
-      <rtab  *tabidfor="{'TabId':'tab16', 'HeaderText':'StackedRangeBarChart Vertical', 'Context': this}">
-          
-          <rstackedrangebarchart-vertical [MarginX]="60" [Width]="500" 
-            [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'" 
-            [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" [Columns]="stackedrangebarChartItems1">
-          </rstackedrangebarchart-vertical>
+      <rtab *tabidfor="{'TabId':'tab16', 'HeaderText':'StackedRangeBarChart Vertical', 'Context': this}">
+
+        <rstackedrangebarchart-vertical [MarginX]="60" [Width]="500"
+                                        [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'"
+                                        [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" [Columns]="stackedrangebarChartItems1">
+        </rstackedrangebarchart-vertical>
 
       </rtab>
 
@@ -919,46 +923,47 @@
       <rtab *tabidfor="{ 'TabId':'tab20', 'HeaderText':'rslider', 'Context':this }">
 
         <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1"
-          [(ngModel)]="rangeValue"></rslider>
-        
+                 [(ngModel)]="rangeValue"></rslider>
+
         <br />
 
         <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
-          [MaxValue]="75"></rslider>
-        
+                 [MaxValue]="75"></rslider>
+
         <br />
 
         <rslider [(ngModel)]="rangeValue1" [SliderBarWidth]="'300px'" [EnablePathColor]="true" [BackgroundColor]="'Orange'">
         </rslider>
-        
+
         <br />
 
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab21', 'HeaderText':'rstate-vertical', 'Context':this }">
-        
-        <rbutton [ButtonWidth]="'150px'" type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">Move to
+
+        <rbutton [ButtonWidth]="'150px'" type="submit" (ButtonClick)="nextStep()" BackgroundColor="orangered">
+          Move to
           Next Step
         </rbutton>
 
         <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStep()">Move to Previous Step</rbutton>
-        
+
         <br />
         <br />
         <br />
-        
+
         <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
-          [(ngModel)]="StepperSelectedItem" (OnActiveValueChanged)="seqValueChanged($event)"
-          [PendingBackgroundColor]="'orangered'" [PendingForeColor]="'white'"
-          [ActiveBackgroundColor]="'blue'">
+                         [(ngModel)]="StepperSelectedItem" (OnActiveValueChanged)="seqValueChanged($event)"
+                         [PendingBackgroundColor]="'orangered'" [PendingForeColor]="'white'"
+                         [ActiveBackgroundColor]="'blue'">
         </rstate-vertical>
 
         <br />
 
 
         <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
-          [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="false" (OnActiveValueChanged)="seqValueChanged($event)"
-          [ActiveBackgroundColor]="'blue'">
+                         [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="false" (OnActiveValueChanged)="seqValueChanged($event)"
+                         [ActiveBackgroundColor]="'blue'">
         </rstate-vertical>
 
         <br />
@@ -966,23 +971,24 @@
 
       <rtab *tabidfor="{ 'TabId':'tab22', 'HeaderText':'rstate-horizontal', 'Context':this }">
 
-        <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step
+        <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">
+          Move to Next Step
         </rbutton>
         <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
         <br />
 
         <div>
           <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
-            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
-            [IsDisplayStepNo]="false" [CompletedForeColor]="'red'"
-            (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
+                             [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
+                             [IsDisplayStepNo]="false" [CompletedForeColor]="'red'"
+                             (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
 
         </div>
         <div>
           <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
-            [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
-            [IsDisplayStepNo]="true" (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
-            [StripLineColor]="'blue'"></rstate-horizontal>
+                             [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
+                             [IsDisplayStepNo]="true" (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
+                             [StripLineColor]="'blue'"></rstate-horizontal>
 
         </div>
         <br />
@@ -990,7 +996,8 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab23', 'HeaderText':'rbutton', 'Context':this }">
-        <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">Move to Next Step
+        <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="'OrangeRed'" (ButtonClick)="nextStepH()">
+          Move to Next Step
         </rbutton>
         <rbutton [ButtonWidth]="'150px'" (ButtonClick)="prevStepH()">Move to Previous Step</rbutton>
       </rtab>
@@ -1024,9 +1031,9 @@
 
         <div>
           <rtextbox [IsPasswordBox]="true" [(ngModel)]="password" [PlaceholderText]="'Please enter password'"
-            [LabelText]="'Password'"></rtextbox>
+                    [LabelText]="'Password'"></rtextbox>
           <rtextbox [IsPasswordBox]="true" [(ngModel)]="confirmpassword"
-            [PlaceholderText]="'Please enter confirm password'" [LabelText]="'Confirm Password'"></rtextbox>
+                    [PlaceholderText]="'Please enter confirm password'" [LabelText]="'Confirm Password'"></rtextbox>
           <rbutton>Submit</rbutton>
         </div>
 
@@ -1036,37 +1043,37 @@
         <rnumeric [(ngModel)]="rangeValue1"></rnumeric>
 
         <rnumeric [PlusBackgroundColor]="'Orange'" [MinusBackgroundColor]="'orangered'" [BottomLineColor]="'orangered'"
-          [LabelTextForeColor]="'orangered'" [EnableShadowEffect]="true" [(ngModel)]="rangeValue1"></rnumeric>
+                  [LabelTextForeColor]="'orangered'" [EnableShadowEffect]="true" [(ngModel)]="rangeValue1"></rnumeric>
         <br />
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tabgrid29', 'HeaderText':'RGrid Default', 'Context': this}">
         <div style="float: left;">
           <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [TableWidth]="'850px'"
-                  [TableHeight]="'160px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
+                 [TableHeight]="'160px'" [ItemsPerPage]="ItemsPerPage"></rgrid>
         </div>
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab29', 'HeaderText':'RGrid - Columns Defined', 'Context': this}">
-       
+
         <div>
           <label>CheckBox Sizes</label>
-          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">        
+          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">
           </rselectdropdown>
         </div>
 
-       <rgrid [Items]="gridItems" [TableHeight]="'160px'" (OnItemsChanged)="itemsChanged($event)" 
-              (ItemSelectClick)="ItemSelectClicked($event)" (SelectAllClicked)="SelectAllGrid($event)"              
-              [ItemsPerPage]="ItemsPerPage">
+        <rgrid [Items]="gridItems" [TableHeight]="'160px'" (OnItemsChanged)="itemsChanged($event)"
+               (ItemSelectClick)="ItemSelectClicked($event)" (SelectAllClicked)="SelectAllGrid($event)"
+               [ItemsPerPage]="ItemsPerPage">
 
           <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
-            [Height]="'20px'">
+                   [Height]="'20px'">
             <ng-template readviewtemplate let-Item let-cell="CellInfo">
               <span>{{cell.Value}}</span>
             </ng-template>
             <ng-template editviewtemplate let-Item let-rcell="CellInfo">
               <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-                [(ngModel)]="rcell.Value" />
+                        [(ngModel)]="rcell.Value" />
             </ng-template>
           </rcolumn>
 
@@ -1077,7 +1084,7 @@
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
               <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-                [(ngModel)]="cell.Value" />
+                        [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
 
@@ -1091,14 +1098,14 @@
           </rcolumn>
 
           <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-            [Width]="'120px'">
+                   [Width]="'120px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Education.Higher.Id}}</span> -
               <span>{{Item.Education.Higher.Course}}</span>
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
               <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-                [(ngModel)]="cell.Value" />
+                        [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
 
@@ -1108,11 +1115,11 @@
             </ng-template>
             <ng-template editviewtemplate let-cell="CellInfo">
               <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
-                [(ngModel)]="cell.Value" />
+                        [(ngModel)]="cell.Value" />
             </ng-template>
           </rcolumn>
 
-        </rgrid> 
+        </rgrid>
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab30', 'HeaderText':'rselectdropdown', 'Context': this}">
@@ -1127,8 +1134,8 @@
             </ng-template>
           </rselectdropdown>
 
-          <rselectdropdown [EnableFilterOption]="false" [Items]="items" [IsMulti]="true" 
-              [(ngModel)]="multiValue" [DropDownContentWidth]="'240px'">
+          <rselectdropdown [EnableFilterOption]="false" [Items]="items" [IsMulti]="true"
+                           [(ngModel)]="multiValue" [DropDownContentWidth]="'240px'">
           </rselectdropdown>
 
           <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="'100px'" [DropDownContentWidth]="'130px'">
@@ -1152,75 +1159,75 @@
         </div>
       </rtab>
 
-      <rtab *tabidfor="{'TabId':'tab31', 'HeaderText':'rEventsSchedule', 'Context': this}">        
-         <revents-schedule [Width]="740" [ScheduleItems]="scheduleItems"></revents-schedule> 
+      <rtab *tabidfor="{'TabId':'tab31', 'HeaderText':'rEventsSchedule', 'Context': this}">
+        <revents-schedule [Width]="740" [ScheduleItems]="scheduleItems"></revents-schedule>
       </rtab>
 
       <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rdonutchart', 'Context': this}">
         <br />
-          
-          <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" 
-              [ShadowColor]="'blue'"  [MoveTextUpwardsFromCenterInPx]="20"
-              [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
-          <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
-              [ShadowColor]="'blue'" [Items]="pieItems" 
-              [Opacity]="'0.8'"></rdonutchart>
+        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150"
+                     [ShadowColor]="'blue'" [MoveTextUpwardsFromCenterInPx]="20"
+                     [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
-          <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" 
-              [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
+        <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300"
+                     [ShadowColor]="'blue'" [Items]="pieItems"
+                     [Opacity]="'0.8'"></rdonutchart>
+
+        <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'"
+                     [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
         <br />
       </rtab>
 
-      <rtab  *tabidfor="{'TabId':'tab33', 'HeaderText':'rpiechart', 'Context': this}">
+      <rtab *tabidfor="{'TabId':'tab33', 'HeaderText':'rpiechart', 'Context': this}">
 
         <br />
-  
-        <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150" 
-          [MoveTextUpwardsFromCenterInPx]="5" [RotateTextToInlineAngle]="true"    
-          [Items]="pieItems1" 
-          [Opacity]="'0.8'"></rpiechart>
-      
-      <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300" 
-          [MoveTextUpwardsFromCenterInPx]="-20"
-          [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
-    
-      <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1" 
-          [MoveTextUpwardsFromCenterInPx]="-30"
-          [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
-        
+
+        <rpiechart style="float:left" [DataListHeight]="140" [ChartWidth]="150"
+                   [MoveTextUpwardsFromCenterInPx]="5" [RotateTextToInlineAngle]="true"
+                   [Items]="pieItems1"
+                   [Opacity]="'0.8'"></rpiechart>
+
+        <rpiechart style="float: left" [DataListHeight]="100" [ChartWidth]="300"
+                   [MoveTextUpwardsFromCenterInPx]="-20"
+                   [Items]="pieItems1" [Opacity]="'0.8'"></rpiechart>
+
+        <rpiechart [DataListHeight]="100" [ChartWidth]="300" [Items]="pieItems1"
+                   [MoveTextUpwardsFromCenterInPx]="-30"
+                   [ShadowColor]="'red'" [Opacity]="'0.8'"></rpiechart>
+
       </rtab>
 
-      <rtab  *tabidfor="{'TabId':'tab34', 'HeaderText':'BarChart Vertical', 'Context': this}">
-        <br/>
+      <rtab *tabidfor="{'TabId':'tab34', 'HeaderText':'BarChart Vertical', 'Context': this}">
+        <br />
 
         <rbarchart-vertical style="float:left" [Width]="400"
-          [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
-          [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
+                            [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
+                            [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
         </rbarchart-vertical>
-      
-        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1" 
-          [Columns]="barChartItems1"></rbarchart-vertical>
-      
-        <br/>      
+
+        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1"
+                            [Columns]="barChartItems1"></rbarchart-vertical>
+
+        <br />
       </rtab>
 
-      
-      <rtab  *tabidfor="{'TabId':'tab35', 'HeaderText':'BarChart Horizontal', 'Context': this}">
-          <br/>
-          
-          <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400" 
-                  [yAxisItemNames]="barChartXAxisItemNames" [MarginX]="60" 
-                  [YAxisTitle]="'Company profit per year'" [XAxisTitle]="'Profit Percentage'"
-                  [Columns]="barChartItems">
-          </rbarchart-horizontal>
-          
-          <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1" 
-                  [Columns]="barChartItems1">
-          </rbarchart-horizontal>
+
+      <rtab *tabidfor="{'TabId':'tab35', 'HeaderText':'BarChart Horizontal', 'Context': this}">
+        <br />
+
+        <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400"
+                              [yAxisItemNames]="barChartXAxisItemNames" [MarginX]="60"
+                              [YAxisTitle]="'Company profit per year'" [XAxisTitle]="'Profit Percentage'"
+                              [Columns]="barChartItems">
+        </rbarchart-horizontal>
+
+        <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1"
+                              [Columns]="barChartItems1">
+        </rbarchart-horizontal>
       </rtab>
-      
+
     </rtabs>
   </div>
 
@@ -1234,26 +1241,26 @@
     <rcalender style="float: left;" [(ngModel)]="selectedDate1" [ReadOnly]="true"></rcalender>
     <rcalender style="float: left;" [ReadOnly]="true"></rcalender>
     <rcalender style="float: left;" [(ngModel)]="selectedDate1"></rcalender>
-    
-    <rcolorpicker style="float: left; margin-left: 150px;" 
-      [DisplayColorInHex]="false" 
-      [IsDisplayLabelText]="true" 
-      (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
-    </rcolorpicker>
-    
-    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol" 
-      [DisplayColorInHex]="false" 
-      [IsDisplayLabelText]="true" 
-      (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
-    </rcolorpicker>
-    
-    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol" 
-      [DisplayColorInHex]="false" 
-      [IsDisplayLabelText]="true" 
-      (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+
+    <rcolorpicker style="float: left; margin-left: 150px;"
+                  [DisplayColorInHex]="false"
+                  [IsDisplayLabelText]="true"
+                  (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
     </rcolorpicker>
 
-    <input  type="color" [(ngModel)]="tColor"/>
+    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol"
+                  [DisplayColorInHex]="false"
+                  [IsDisplayLabelText]="true"
+                  (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+    </rcolorpicker>
+
+    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol"
+                  [DisplayColorInHex]="false"
+                  [IsDisplayLabelText]="true"
+                  (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+    </rcolorpicker>
+
+    <input type="color" [(ngModel)]="tColor" />
 
     <!-- <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="330">
     </rselectdropdown> -->
@@ -1262,23 +1269,24 @@
     </rdropdown>
 
   </div>
-  
-  <br/>
-  <br/>
-  <br/>
+
+  <br />
+  <br />
+  <br />
+
   <div style="margin-top:30px;margin-bottom: 30px;">
     <rflattabs [TabWidth]="'650px'" [TabHeight]="'300px'" [DisplayTabContainerWhenZeroTabs]="true">
 
       <rtab *tabidfor="{ 'TabId':'tabf1', 'HeaderText':'rcalender', 'Context':this }">
         <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate"></rcalender> {{curDate}}
-        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" 
-              [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
+        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false"
+                   [(ngModel)]="dt1" [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
         <rcalender></rcalender>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tabf2', 'HeaderText':'rdropdown', 'Context':this }">
-        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="'112px'" 
-            [DropDownContentWidth]="'240px'">
+        <rdropdown [(ngModel)]="selItem" [IsMulti]="true" [Items]="items" [Width]="'112px'"
+                   [DropDownContentWidth]="'240px'">
         </rdropdown>
         {{selItem.Value}}
 
@@ -1286,7 +1294,7 @@
         </rdropdown>
 
         <rdropdown [(ngModel)]="singleValue" [IsMulti]="false" [Items]="items1" [Width]="'112px'"
-          [DropDownContentWidth]="'122px'">
+                   [DropDownContentWidth]="'122px'">
         </rdropdown>
 
         <br />
@@ -1309,7 +1317,7 @@
 
       <rtab *tabidfor="{ 'TabId':'tabf4', 'HeaderText':'rswitch', 'Context':this }">
 
-        <rswitch [DisplayLabel]="'MoveToCenter'"  (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
+        <rswitch [DisplayLabel]="'MoveToCenter'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
         <rswitch [DisplayLabel]="'MoveToCenter Copy'" (checked)="switchChange($event)" [(ngModel)]="isChecked"></rswitch>
 
@@ -1319,27 +1327,27 @@
         <span>Is Circle: {{IsCircleProgressBar}}</span>
 
         <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
-          [(ngModel)]="IsInfiniteProgressBar"></rswitch>
+                 [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
       </rtab>
 
     </rflattabs>
   </div>
-  
-  <br/>
+
+  <br />
   <div>
-    <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor" 
-    [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
+    <rtimeselector [ButtonBackgroundColor]="bColor" [TextBottomLineColor]="bColor"
+                   [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
   </div>
-    
+
   <!-- <div style="">
     <revents-calender (ChangeMonthEvent)="changeCalenderMonth($event)" [Items]="calenderEvents"></revents-calender>
   </div>
    -->
   <div style="">
     <revents-calender (ChangeMonthEvent)="changeCalenderMonth($event)"
-      [EachDayHeightInPx]="'110px'" [EachDayWidthInPx]="'110px'"
-          [(ngModel)]="calenderEvents"></revents-calender>
+                      [EachDayHeightInPx]="'110px'" [EachDayWidthInPx]="'110px'"
+                      [(ngModel)]="calenderEvents"></revents-calender>
   </div>
 
 </div>

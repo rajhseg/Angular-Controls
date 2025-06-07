@@ -125,6 +125,9 @@ export class RAreaChartComponent implements AfterViewInit {
 
   @Input()
   PopupBackColor: string = "lightgray";
+
+  @Input()
+  EnableGradientInArea: boolean = true;
   
   @Input()
   PopupForeColor: string | undefined = undefined;
@@ -435,9 +438,21 @@ export class RAreaChartComponent implements AfterViewInit {
               
               this.context.beginPath();
               this.context.save();
-              this.context.globalAlpha = 0.2;
-              this.context.fillStyle =  areaItems[0].ItemColor;
-              this.context.strokeStyle = areaItems[0].ItemColor;
+              
+              if(this.EnableGradientInArea){
+                this.context.globalAlpha = 0.5;
+                const grad=this.context.createLinearGradient(0,0, 0, this.Height);
+                grad.addColorStop(0, areaItems[0].ItemColor);
+                grad.addColorStop(1, "white");
+
+                this.context.fillStyle =  grad;
+                this.context.strokeStyle = areaItems[0].ItemColor;
+              }
+              else {
+                this.context.globalAlpha = 0.2;
+                this.context.fillStyle = areaItems[0].ItemColor;
+                this.context.strokeStyle = areaItems[0].ItemColor;
+              }
 
               this.context.moveTo(x2, y2);
               this.context.lineTo(x2, StartY);

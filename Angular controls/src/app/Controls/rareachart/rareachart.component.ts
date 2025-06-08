@@ -127,6 +127,9 @@ export class RAreaChartComponent implements AfterViewInit {
   PopupBackColor: string = "lightgray";
 
   @Input()
+  IsRenderFromInit:boolean = true;
+
+  @Input()
   EnableGradientInArea: boolean = true;
   
   @Input()
@@ -396,6 +399,11 @@ export class RAreaChartComponent implements AfterViewInit {
 
           let prevX = undefined;
           let prevY = undefined;
+
+          if(this.IsRenderFromInit){
+            prevX = this.MarginX;
+            prevY = this.Height - this.MarginY;
+          }
   
           let areaItems: PopupChartItem[] = [];
           
@@ -415,13 +423,21 @@ export class RAreaChartComponent implements AfterViewInit {
             this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
                   yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
 
-            areaItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
-                    yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
   
             /* Plot Line */
             if(prevX != undefined && prevY != undefined)
             {
               this.PlotLine(xPoint, yPoint, prevX, prevY, element.ItemColor);
+
+              areaItems.push(new PopupChartItem(prevX, prevY, xPoint + this.PlotItemSize, 
+                    yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
+
+            }
+
+            if(v == element.Values.length-1) {
+            
+              areaItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
+                    yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
             }
 
             prevX = xPoint;

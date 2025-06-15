@@ -1009,6 +1009,31 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
       allWeeks.push(new EventWeek(currentWeek));
     }
 
+    if (allWeeks.length >= 4 && allWeeks.length < 6) {
+      
+      var loopnum = 6 - allWeeks.length;
+      let dateNum = 0;
+
+      if (currentDay > lastDate)
+          monthinNumber = monthinNumber + 1;
+
+      if (allWeeks.length == 5) {
+        dateNum = currentDay - lastDate;
+      }
+
+      for (let k = 1; k <= loopnum; k++) {
+        var cur: EventDay[] = [];
+
+        for (let i = 1; i < 8; i++) {
+          dateNum += 1;
+          let nextMonth = new Date(year, monthinNumber, dateNum);
+          cur.push(new EventDay(nextMonth.getDate(), nextMonth.getDay(), nextMonth.getMonth(), nextMonth.getFullYear()));
+        }
+
+        allWeeks.push(new EventWeek(cur));
+      }
+    }
+
     this.currentMonth = new EventMonth(allWeeks);
 
     if (this.selectedDate) {

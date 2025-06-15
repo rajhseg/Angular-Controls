@@ -169,7 +169,8 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
       if (this._files.length > 0) {
         this.DisplayText = "(" + (this._files.length) + ") files";
       } else{
-        this.DisplayText ="";
+        this.DisplayText = "";
+        this.showFiles = false;
       }
     }
   }

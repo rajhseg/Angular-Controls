@@ -593,7 +593,11 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
   }
   closeModal($evt: Event){
     this.isModalOpen = false;
-    let _x = this.Items.EachDay.filter(x=>x.EventDate.toDateString() ==this.SelectedEventDate?.toDateString());
+    let _x = this.Items.EachDay.filter(x => x.EventDate.toDateString() == this.SelectedEventDate?.toDateString());
+
+    //Each date must have one entry, if its duplicate takes first item.
+    _x = _x.slice(0, 1);
+
     let _evts = [];
 
     if(_x){
@@ -629,7 +633,11 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     return [];
   }
 
-  openEvents($evt: Event, day: EventDay){
+  openEvents($evt: Event, day: EventDay) {
+
+    if (!day.isActiveMonth)
+      return;
+
     this.isModalOpen = true;
     this.SelectedEventDay = day;
     
@@ -1014,8 +1022,8 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
       var loopnum = 6 - allWeeks.length;
       let dateNum = 0;
 
-      if (currentDay > lastDate)
-          monthinNumber = monthinNumber + 1;
+      //if (currentDay > lastDate)
+      monthinNumber = monthinNumber + 1;
 
       if (allWeeks.length == 5) {
         dateNum = currentDay - lastDate;

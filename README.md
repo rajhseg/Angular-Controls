@@ -361,9 +361,8 @@ RStackedBarChart Horizontal
 RAreaChart
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/0adf8ab8-76cc-44a8-949e-343a12b410a1)
+![image](https://github.com/user-attachments/assets/9db6db59-f315-47d4-9778-e0027b398a18)
 
-![image](https://github.com/user-attachments/assets/29e11f6d-5086-4634-b713-1d80588fffdf)
 
 <br/>
 

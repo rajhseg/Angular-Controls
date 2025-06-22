@@ -41,7 +41,6 @@ group panel Control
 ![image](https://github.com/user-attachments/assets/d18acc04-5212-4118-a7b9-abc98a7fed1c)
 
 <br />
-<br />
 
 Calender Control
 -------------------------------
@@ -206,10 +205,10 @@ FileUpload Control
 
 ColorPicker
 ---------------------------------
-<br/>
 
 ![image](https://github.com/user-attachments/assets/294ee75f-a499-405e-8e1f-188f35879301)
 
+<br />
 
 Numeric Control
 ---------------------------------

@@ -108,7 +108,6 @@ export class CloseService {
 
   PrintLog(){
     CloseService.inc = CloseService.inc + 1;
-    console.log("click event "+CloseService.inc);
   }
 
   AddInstance(ins: IDropDown){

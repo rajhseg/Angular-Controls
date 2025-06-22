@@ -282,9 +282,6 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   }
 
   dragEnded($event: CdkDragRelease) {
-    // console.log("drag released");
-    // console.log($event);
-
     // let mEvent = ($event.event as MouseEvent);
     // let value = 0;
 

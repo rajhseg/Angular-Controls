@@ -117,8 +117,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   @Input()
   set TableWidth(val: string){
-    console.log(" grid width "+val);
-    
     if(this.winObj.isExecuteInBrowser()) {
       let _width = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
       this._tableWidth = _width;

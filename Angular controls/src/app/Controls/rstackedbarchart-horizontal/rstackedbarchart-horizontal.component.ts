@@ -392,8 +392,6 @@ export class RStackedBarChartHorizontalComponent {
       var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
       let yPoint = StartY;
 
-      console.log("Horizontal");
-
       let drawTexts: DrawTextItem[] = [];
 
       for (let index = 0; index < itemCount; index++) {
@@ -540,7 +538,6 @@ export class RStackedBarChartHorizontalComponent {
 
   private DrawBar(startX: number, startY: number, xdistance: number, yDistance: number, color: string) {
     if (this.context) {
-      console.log(" startx : "+ startX +" starty: "+startY+ " xdistance: "+xdistance+" yDistance: "+yDistance);
       this.context.beginPath();
       this.context.fillStyle = color;
       this.context.fillRect(startX, startY - yDistance, xdistance, yDistance);

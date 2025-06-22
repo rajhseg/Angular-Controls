@@ -136,7 +136,6 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     let _v = this.cssUnitSer.ToPxValue(val, null, null);
     if(_v < 100){
       val = '100px';
-      console.log("EachDayWidthInPx minimum value is 100px");
     }
 
     this._eachDayWdh = val;
@@ -158,7 +157,6 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     let _v = this.cssUnitSer.ToPxValue(val, null, null);
     if(_v < 100){
       val = '100px';
-      console.log("EachDayHeightInPx minimum value is 100px");
     }
 
     this._eachDayHgt = val;

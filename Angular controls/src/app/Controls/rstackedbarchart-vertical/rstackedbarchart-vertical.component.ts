@@ -525,7 +525,6 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
     if (this.context) {
       this.context.beginPath();
       this.context.fillStyle = color;
-      console.log(" startx : "+ startX +" starty: "+startY+ " xdistance: "+xdistance+" yDistance: "+yDistance);
       this.context.fillRect(startX, startY, xdistance, yDistance);
       this.context.fill();
       this.context.closePath();

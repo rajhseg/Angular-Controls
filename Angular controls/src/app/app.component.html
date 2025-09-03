@@ -1,7 +1,6 @@
-<div cdkDropListGroup>
+<div>
 
   <div>
-
 
     <rstarrating [starWidth]="starWidth"></rstarrating>
 
@@ -426,13 +425,14 @@
     <br />
     <div style="height:400px;">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-             [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false"
-             [ItemsPerPage]="ItemsPerPage" [TableHeight]="'70%'" [TableWidth]="'58%'"></rgrid>
+             [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false" [EnableSelectColummn]="true"
+             [ItemsPerPage]="ItemsPerPage" [TableHeight]="'70%'" [TableWidth]="'60%'"></rgrid>
     </div>
 
+  
     <rgrid [Items]="gridItems" [GroupByIconColor]="bColor"
            [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)"
-           [TableWidth]="'35.7%'" [ShowEditUpdate]="true"
+           [TableWidth]="'35%'" [ShowEditUpdate]="false"
            [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'" [Height]="'20px'">
@@ -1262,9 +1262,6 @@
 
     <input type="color" [(ngModel)]="tColor" />
 
-    <!-- <rselectdropdown [Items]="items1" [IsMulti]="true" [Width]="100" [DropDownContentWidth]="330">
-    </rselectdropdown> -->
-
     <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="'330px'">
     </rdropdown>
 
@@ -1340,14 +1337,10 @@
                    [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time1"></rtimeselector>
   </div>
 
-  <!-- <div style="">
-    <revents-calender (ChangeMonthEvent)="changeCalenderMonth($event)" [Items]="calenderEvents"></revents-calender>
-  </div>
-   -->
   <div style="">
     <revents-calender (ChangeMonthEvent)="changeCalenderMonth($event)"
                       [EachDayHeightInPx]="'110px'" [EachDayWidthInPx]="'110px'"
                       [(ngModel)]="calenderEvents"></revents-calender>
   </div>
 
-</div>
+</div> 

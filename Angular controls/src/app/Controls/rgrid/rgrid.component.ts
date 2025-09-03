@@ -1043,7 +1043,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         _wth = _wth - 80;
 
       if(this.EnableSelectColummn)
-        _wth = _wth - 26;
+        _wth = _wth - 40;
 
       let twth = _wth+CssUnit.Px.toString();
 
@@ -1133,7 +1133,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
             _wth = _wth - 80;
 
           if(this.EnableSelectColummn)
-            _wth = _wth - 26;
+            _wth = _wth - 40;
 
           let twth = _wth+CssUnit.Px.toString();
     
@@ -1175,7 +1175,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       _wth = _wth - 80;
 
     if(this.EnableSelectColummn)
-      _wth = _wth - 26;
+      _wth = _wth - 40;
 
     let twth = _wth+CssUnit.Px.toString();
 
@@ -1191,7 +1191,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       totalW += 80;
 
     if(this.EnableSelectColummn)
-      totalW += 26;
+      totalW += 40;
 
     this.ActualWidth = (totalW - 6) + CssUnit.Px.toString();
 
@@ -1249,7 +1249,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
           _wth = _wth - 80;
   
         if(this.EnableSelectColummn)
-          _wth = _wth - 26;
+          _wth = _wth - 40;
 
         let twth = _wth+CssUnit.Px.toString();
   
@@ -1302,7 +1302,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       TotalW = TotalW + 80;
 
     if(this.EnableSelectColummn)
-      TotalW = TotalW + 26;
+      TotalW = TotalW + 40;
 
     this.ActualWidth = (TotalW - 6) + CssUnit.Px.toString();
     

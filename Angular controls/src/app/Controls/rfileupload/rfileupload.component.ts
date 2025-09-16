@@ -209,6 +209,8 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
         let tabTop, tabLeft;
         let i =15;
 
+        let tabEle : any = undefined;
+
         while(element && element != null && i > 0){
           if(element.nodeName.toLowerCase() == 'rflattabs' || element.nodeName.toLowerCase() == 'rtabs'){
             isInTab = true;
@@ -216,11 +218,12 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
           }
           
           i--;
+          tabEle = element;
           element = element.parentElement;
         }
 
         if(isInTab && element) {
-          let tabRect = element.getBoundingClientRect();
+          let tabRect = tabEle.getBoundingClientRect();
           tabTop = tabRect.top;
           tabLeft = tabRect.left;
         } else {

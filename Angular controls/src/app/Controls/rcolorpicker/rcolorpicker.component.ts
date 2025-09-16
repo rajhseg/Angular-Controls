@@ -448,6 +448,8 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
       let tabTop, tabLeft = 0;
       let  i = 15;
 
+      let tabEle : any = undefined;
+
       while(element && element != null && i > 0){
         if(element.nodeName.toLowerCase() == 'rflattabs' 
           || element.nodeName.toLowerCase() == 'rtabs'
@@ -459,13 +461,14 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
         }
         
         i--;
+        tabEle = element;
         element = element.parentElement;
       }
 
       let tabHeight=0, tabWidth = 0;
       if(isInTab && element) {
         let tabContentEle = element.getElementsByClassName("tabcontent");          
-        let tabRect = tabContentEle[tabContentEle.length-1].getBoundingClientRect();
+        let tabRect = tabEle.getBoundingClientRect();
         tabTop = tabRect.top;
         tabLeft = tabRect.left;
         tabHeight = tabRect.height;   

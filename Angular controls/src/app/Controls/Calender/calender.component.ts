@@ -715,6 +715,8 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
       let tabTop, tabLeft = 0;
       let i = 15;
 
+      let tabEle : any = undefined;
+
       while (element && element != null && i > 0) {
         if (element.nodeName.toLowerCase() == 'rflattabs'
           || element.nodeName.toLowerCase() == 'rtabs'
@@ -726,6 +728,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
         }
 
         i--;
+        tabEle = element;
         element = element.parentElement;
       }
 
@@ -734,7 +737,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
       if (isInTab && element) {
         let tabContentEle = element.getElementsByClassName("tabcontent");
-        let tabRect = tabContentEle[tabContentEle.length - 1].getBoundingClientRect();
+        let tabRect = tabEle.getBoundingClientRect();
         tabTop = tabRect.top;
         tabLeft = tabRect.left;
         tabHeight = tabRect.height;

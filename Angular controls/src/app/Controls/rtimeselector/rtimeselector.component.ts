@@ -376,6 +376,8 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
       let tabTop, tabLeft =0;
       let i =15;
 
+      let tabEle : any = undefined;
+
       while(element && element != null && i > 0){
         if(element.nodeName.toLowerCase() == 'rflattabs' 
           || element.nodeName.toLowerCase() == 'rtabs'
@@ -387,12 +389,13 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
         }
         
         i--;
+        tabEle = element;
         element = element.parentElement;
       }
 
       if(isInTab && element) {
         let tabContentEle = element.getElementsByClassName("tabcontent");          
-        let tabRect = tabContentEle[tabContentEle.length-1].getBoundingClientRect();
+        let tabRect = tabEle.getBoundingClientRect();
         tabTop = tabRect.top;
         tabLeft = tabRect.left;
         tabHeight = tabRect.height;  

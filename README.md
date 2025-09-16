@@ -96,8 +96,7 @@ RadioButton
 rstate-horizontal Control
 --------------------------------------
 
-![image](https://github.com/user-attachments/assets/17f7fda1-1e84-4441-ae2d-2fd9a03af494)
-
+<img width="545" height="247" alt="image" src="https://github.com/user-attachments/assets/d9c6c5a6-a519-45fa-9e74-c1070fc56851" />
 
 <br />
 <br />

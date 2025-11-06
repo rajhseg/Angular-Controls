@@ -661,33 +661,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     });
   }
 
-  async findPixelAsync(context: any, w: number, h: number, r: number, g:number, b: number, tol: number, numChunks: number = 8) {
-    
-    const chunkSize = Math.ceil(w / numChunks); // 8 async chunks
-
-    const promises = Array.from({ length: 8 }, (_, i) => (async () => {
-      const startX = i * chunkSize;
-      const endX = Math.min(startX + chunkSize, w);
-      for (let x = startX; x < endX; x++) {
-        for (let y = 0; y < h; y++) {
-          const px = context.getImageData(x, y, 1, 1).data;
-          const dr = Math.abs(r - px[0]);
-          const dg = Math.abs(g - px[1]);
-          const db = Math.abs(b - px[2]);
-          if (dr <= tol && dg <= tol && db <= tol) {
-            return { x, y };
-          }
-        }
-      }
-      return null;
-    })());
-
-    const results = await Promise.all(promises);
-
-    return results.find(r => r !== null);
-  }
-
-  async findPixelBestAsync(varContext: any, w: number, h: number, r: number, g: number, b: number, tol: number = 60, numChunks: number = 8) {
+  async GetClosestXYFromColorCode(varContext: any, w: number, h: number, r: number, g: number, b: number, tol: number = 60, numChunks: number = 8) {
 
     let bestDist = Number.MAX_VALUE;
     let bestX, bestY;
@@ -797,44 +771,15 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     
     // Fallback to neareset color match found with best closest value
     if (foundX === undefined) {
-      let bestDist = Number.MAX_VALUE;
-      let bestX: number | undefined = undefined;
-      let bestY: number | undefined = undefined;
-      try {
-        for (let x = 0; x < w; x++) {
-          for (let y = 0; y < h; y++) {
-            const px = this.varContext.getImageData(x, y, 1, 1).data;
-            const dist = Math.abs(r - px[0]) + Math.abs(g - px[1]) + Math.abs(b - px[2]);
-            if (dist < bestDist) {
-              bestDist = dist;
-              bestX = x;
-              bestY = y;
-            }
-          }
-        }
-      } catch (e) {
-        // ignore
-      }
 
-      // accept best match only if reasonably close
-      if (bestX !== undefined && bestY !== undefined && bestDist <= 60) {
-        foundX = bestX;
-        foundY = bestY;
-      }
-    }
-
-
-    /*
+      const result = await this.GetClosestXYFromColorCode(this.varContext, w, h, r, g, b, 60);
     
-    // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block and uncomment the below block.
-    const result = await this.findPixelBestAsync(this.varContext, w, h, r, g, b, 60);
-    if (result) {
-      const { fX, fY } = result;
-      foundX = fX;
-      foundY = fY;
+      if (result) {
+        const { fX, fY } = result;
+        foundX = fX;
+        foundY = fY;
+      }
     }
-
-    */
 
     if (foundX !== undefined) this._varprevRectX = foundX;
     if (foundY !== undefined) this._varprevRectY = foundY;

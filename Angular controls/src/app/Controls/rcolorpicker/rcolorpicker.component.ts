@@ -658,6 +658,87 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     });
   }
 
+  async findPixelAsync(context: any, w: number, h: number, r: number, g:number, b: number, tol: number, numChunks: number = 8) {
+    
+    const chunkSize = Math.ceil(w / numChunks); // 8 async chunks
+
+    const promises = Array.from({ length: 8 }, (_, i) => (async () => {
+      const startX = i * chunkSize;
+      const endX = Math.min(startX + chunkSize, w);
+      for (let x = startX; x < endX; x++) {
+        for (let y = 0; y < h; y++) {
+          const px = context.getImageData(x, y, 1, 1).data;
+          const dr = Math.abs(r - px[0]);
+          const dg = Math.abs(g - px[1]);
+          const db = Math.abs(b - px[2]);
+          if (dr <= tol && dg <= tol && db <= tol) {
+            return { x, y };
+          }
+        }
+      }
+      return null;
+    })());
+
+    const results = await Promise.all(promises);
+
+    return results.find(r => r !== null);
+  }
+
+  async findPixelBestAsync(varContext: any, w: number, h: number, r: number, g: number, b: number, tol: number = 60, numChunks: number = 8) {
+
+    let bestDist = Number.MAX_VALUE;
+    let bestX, bestY;
+
+    // Split the work into horizontal chunks
+    const chunkSize = Math.ceil(w / numChunks);
+
+    const promises = Array.from({ length: numChunks }, (_, i) => (async () => {
+      const startX = i * chunkSize;
+      const endX = Math.min(startX + chunkSize, w);
+
+      let localBestDist = Number.MAX_VALUE;
+      let localBestX, localBestY;
+
+      try {
+        for (let x = startX; x < endX; x++) {
+          for (let y = 0; y < h; y++) {
+            const px = varContext.getImageData(x, y, 1, 1).data;
+            const dist = Math.abs(r - px[0]) + Math.abs(g - px[1]) + Math.abs(b - px[2]);
+            if (dist < localBestDist) {
+              localBestDist = dist;
+              localBestX = x;
+              localBestY = y;
+            }
+          }
+        }
+      } catch (e) {
+        // ignore errors in this chunk
+      }
+
+      return { localBestDist, localBestX, localBestY };
+    })());
+
+    // Run all chunks in parallel
+    const results = await Promise.all(promises);
+
+    // Combine results
+    for (const { localBestDist, localBestX, localBestY } of results) {
+      if (localBestDist < bestDist) {
+        bestDist = localBestDist;
+        bestX = localBestX;
+        bestY = localBestY;
+      }
+    }
+
+    // Accept best match only if reasonably close
+    if (bestX !== undefined && bestY !== undefined && bestDist <= tol) {
+      return { fX: bestX, fY: bestY, bestDist };
+    } else {
+      return null; // no good match
+    }
+  }
+
+
   async setColorPickerOnLoad() { 
 
     var backR = this.DisplayColorR, backG = this.DisplayColorG, backB = this.DisplayColorB;
@@ -694,6 +775,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     let foundX: number | undefined = undefined;
     let foundY: number | undefined = undefined;
 
+    
     // try tolerant exact search first (stop when found)
     try {
       ExitStop:
@@ -713,6 +795,20 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     } catch (e) {
       // if fails find the best match below
     }
+    
+
+    /*
+
+    // For parallel processing the above x,y calculation using promise, if using below code, please uncomment the above block.
+    
+
+    var resultPixel = await this.findPixelAsync(this.varContext, w, h, r, g, b, tol);
+
+    foundX = resultPixel?.x ?? 0;
+    foundY = resultPixel?.y ?? 0;
+
+    */
+    
 
     // Fallback to neareset color match found with best closest value
     if (foundX === undefined) {
@@ -741,6 +837,20 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
         foundY = bestY;
       }
     }
+
+
+  /*
+  
+  // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block.
+  const result = await this.findPixelBestAsync(this.varContext, w, h, r, g, b, 60);
+
+  if (result) {
+    const { fX, fY } = result;
+    foundX = fX;
+    foundY = fY;
+  }
+
+  */
 
     if (foundX !== undefined) this._varprevRectX = foundX;
     if (foundY !== undefined) this._varprevRectY = foundY;

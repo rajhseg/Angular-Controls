@@ -625,6 +625,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
   GetXYFromColorCode(from: number, to: number): Promise<{x:number|undefined, y: number|undefined} | undefined> {
     
+    var tol = 2;
     return new Promise((res, rej)=>{
       
       let _varX, _varY;
@@ -639,7 +640,9 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
               let colorData = this.varContext.getImageData(x, y, 1, 1)['data'];
               let rgb = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
 
-              if (this.DisplayColorR == colorData[0] && this.DisplayColorG == colorData[1] && this.DisplayColorB == colorData[2]) {
+              if ( Math.abs(this.DisplayColorR - colorData[0]) <= tol
+                    && Math.abs(this.DisplayColorG - colorData[1]) <= tol
+                    && Math.abs(this.DisplayColorB - colorData[2]) <= tol) {
                 _varX = x;
                 _varY = y;
                 break;
@@ -775,41 +778,23 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     let foundX: number | undefined = undefined;
     let foundY: number | undefined = undefined;
 
-    
-    // try tolerant exact search first (stop when found)
-    try {
-      ExitStop:
-      for (let x = 0; x < w; x++) {
-        for (let y = 0; y < h; y++) {
-          const px = this.varContext.getImageData(x, y, 1, 1).data;
-          const dr = Math.abs(r - px[0]);
-          const dg = Math.abs(g - px[1]);
-          const db = Math.abs(b - px[2]);
-          if (dr <= tol && dg <= tol && db <= tol) {
-            foundX = x;
-            foundY = y;
-            break ExitStop;
-          }
-        }
-      }
-    } catch (e) {
-      // if fails find the best match below
+    let task = [];
+    let from = 0;
+
+    for (let index = 5; index <= 150; index += 5) {
+      from = index - 5;
+      let to = index;
+      let tsk = this.GetXYFromColorCode(from, to);
+      task.push(tsk);
+    }
+
+    let value = await Promise.all(task);
+    let result = value.filter(x=>x!=undefined);
+    if(result && result.length > 0 && result[0] != undefined){
+        foundX = result[0].x;
+        foundY = result[0].y;
     }
     
-
-    /*
-
-    // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block and uncomment the below block.
-    
-
-    var resultPixel = await this.findPixelAsync(this.varContext, w, h, r, g, b, tol);
-
-    foundX = resultPixel?.x ?? 0;
-    foundY = resultPixel?.y ?? 0;
-
-    */
-    
-
     // Fallback to neareset color match found with best closest value
     if (foundX === undefined) {
       let bestDist = Number.MAX_VALUE;
@@ -839,18 +824,17 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     }
 
 
-  /*
-  
-  // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block and uncomment the below block.
-  const result = await this.findPixelBestAsync(this.varContext, w, h, r, g, b, 60);
+    /*
+    
+    // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block and uncomment the below block.
+    const result = await this.findPixelBestAsync(this.varContext, w, h, r, g, b, 60);
+    if (result) {
+      const { fX, fY } = result;
+      foundX = fX;
+      foundY = fY;
+    }
 
-  if (result) {
-    const { fX, fY } = result;
-    foundX = fX;
-    foundY = fY;
-  }
-
-  */
+    */
 
     if (foundX !== undefined) this._varprevRectX = foundX;
     if (foundY !== undefined) this._varprevRectY = foundY;
@@ -866,7 +850,6 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     this.SelectedColorB = backB;
     
     this.SetDisplayColorsUsingHex(this.SelectedColorHex);
-    
   }
 
   async RenderCanvas() {

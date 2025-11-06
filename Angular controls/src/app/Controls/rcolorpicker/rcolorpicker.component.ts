@@ -94,8 +94,6 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
   private mainStartX: number = 0;
   private mainStartY: number = 0;
 
-  private isColorPickerSelected: boolean = false;
-
   @Input()
   public EnableShadowEffect: boolean = true;
 
@@ -319,8 +317,6 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
   }
 
   VariationsMouseDown($event: MouseEvent) {
-    this.isColorPickerSelected = true;
-
     $event.preventDefault();
     $event.stopPropagation();
 
@@ -489,7 +485,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
         let btnPosTop = btn.getBoundingClientRect().top;
         
         if (((isInTab && (tabTop+tabHeight) - btnPosTop < dropDownHeight)
-              || (!isInTab&& windowHeight - btnPosTop < dropDownHeight  ))
+              || (!isInTab&& windowHeight - btnPosTop < dropDownHeight ))
             && btnPosTop - tabTop > dropDownHeight) {               
           this.DDEBottom = '120%';
           this.DDETop = 'auto';
@@ -660,115 +656,87 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
   async setColorPickerOnLoad() { 
 
-    var backR = this.DisplayColorR, backG = this.DisplayColorG, backB = this.DisplayColorB;
+    let color = this.RGBToHSL(this.DisplayColorR, this.DisplayColorG, this.DisplayColorB);
 
-    // compute main bar Y from current display color
-    const r = (this.DisplayColorR ?? 0);
-    const g = (this.DisplayColorG ?? 0);
-    const b = (this.DisplayColorB ?? 0);
+    let mainY = (color.H / 255) * 150;
 
-    const color = this.RGBToHSL(r, g, b);
-    const mainY = Math.round((color.H / 255) * (this.colorCanvasHeight || 150));
-
-    // position main selector
     this._prevRectX = 0;
     this._prevRectY = mainY;
+    
+    let _varX, _varY;
 
-    // render main color so variation canvas updates
     this.GetRgb({ offsetX: 0, offsetY: mainY });
 
-    // give browser a frame to paint canvases before reading pixels
-    await new Promise<void>(resolve => {
-      if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => resolve());
-      else setTimeout(() => resolve(), 0);
-    });
 
-    if (!this.varContext) {
-      return;
+    let task = [];
+    let from = 0;
+
+    for (let index = 15; index <= 150; index+=15) {
+      from = index - 15;
+      let to = index;
+      let tsk = this.GetXYFromColorCode(from, to);
+      task.push(tsk);
     }
 
-    const w = this.varCanvasWidth || 250;
-    const h = this.varCanvasHeight || 150;
-    const tol = 2; // Adjusting value for getting the closest value
+    let value = await Promise.all(task);
 
-    let foundX: number | undefined = undefined;
-    let foundY: number | undefined = undefined;
+    let result = value.filter(x=>x!=undefined);
 
-    // try tolerant exact search first (stop when found)
-    try {
-      ExitStop:
-      for (let x = 0; x < w; x++) {
-        for (let y = 0; y < h; y++) {
-          const px = this.varContext.getImageData(x, y, 1, 1).data;
-          const dr = Math.abs(r - px[0]);
-          const dg = Math.abs(g - px[1]);
-          const db = Math.abs(b - px[2]);
-          if (dr <= tol && dg <= tol && db <= tol) {
-            foundX = x;
-            foundY = y;
-            break ExitStop;
-          }
-        }
-      }
-    } catch (e) {
-      // if fails find the best match below
+    if(result && result.length > 0 && result[0] != undefined){
+
+      _varX = result[0].x;
+      _varY = result[0].y;
+
+      if(_varX != undefined)
+        this._varprevRectX = _varX;
+  
+      if(_varY != undefined)
+        this._varprevRectY = _varY;
+  
+      if(_varX != undefined && _varY != undefined)
+        this.GetActualColorFromVariartion({ offsetX: _varX, offsetY: _varY });      
     }
 
-    // Fallback to neareset color match found with best closest value
-    if (foundX === undefined) {
-      let bestDist = Number.MAX_VALUE;
-      let bestX: number | undefined = undefined;
-      let bestY: number | undefined = undefined;
-      try {
-        for (let x = 0; x < w; x++) {
-          for (let y = 0; y < h; y++) {
-            const px = this.varContext.getImageData(x, y, 1, 1).data;
-            const dist = Math.abs(r - px[0]) + Math.abs(g - px[1]) + Math.abs(b - px[2]);
-            if (dist < bestDist) {
-              bestDist = dist;
-              bestX = x;
-              bestY = y;
-            }
-          }
-        }
-      } catch (e) {
-        // ignore
-      }
 
-      // accept best match only if reasonably close
-      if (bestX !== undefined && bestY !== undefined && bestDist <= 60) {
-        foundX = bestX;
-        foundY = bestY;
-      }
-    }
+    // if (this.varContext) {
+    //   for (let x = 0; x < 250; x++) {
 
-    if (foundX !== undefined) this._varprevRectX = foundX;
-    if (foundY !== undefined) this._varprevRectY = foundY;
+    //     if (_varX != undefined)
+    //       break;
 
-    if (foundX !== undefined && foundY !== undefined) {
-      this.GetActualColorFromVariartion({ offsetX: foundX, offsetY: foundY });
-    }
+    //     for (let y = 0; y < 150; y++) {
+    //       let colorData = this.varContext.getImageData(x, y, 1, 1)['data'];
+    //       let rgb = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
 
-    this.SelectedColorHex = this.RGBToHex(backR, backG, backB);
-    this.SelectedColorRgb = this.HexToRgb(this.SelectedColorHex)
-    this.SelectedColorR = backR;
-    this.SelectedColorG = backG;
-    this.SelectedColorB = backB;
-    
-    this.SetDisplayColorsUsingHex(this.SelectedColorHex);
-    
+    //       if (this.DisplayColorR == colorData[0] && this.DisplayColorG == colorData[1] && this.DisplayColorB == colorData[2]) {
+    //         _varX = x;
+    //         _varY = y;
+    //         break;
+    //       }
+    //     }
+
+    //   }
+    // }
+
+    // if(_varX!=undefined)
+    //   this._varprevRectX = _varX;
+
+    // if(_varY!=undefined)
+    //   this._varprevRectY = _varY;
+
+    // if(_varX != undefined && _varY != undefined)
+    //   this.GetActualColorFromVariartion({ offsetX: _varX, offsetY: _varY });    
+        
   }
 
   async RenderCanvas() {
 
-    if (!this.LoadColorOnFirst || !this.isColorPickerSelected) {
+    if (!this.LoadColorOnFirst) {
       if (this.SelectedColorHex == undefined)
         this.LoadDefault();
       else                       
       {        
-        if(!this.LoadColorOnFirst)
-        await this.setColorPickerOnLoad();    
-        return;                          
+        await this.setColorPickerOnLoad();                              
       }
     }
 

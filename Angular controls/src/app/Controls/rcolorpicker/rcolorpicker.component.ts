@@ -799,7 +799,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
     /*
 
-    // For parallel processing the above x,y calculation using promise, if using below code, please uncomment the above block.
+    // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block and uncomment the below block.
     
 
     var resultPixel = await this.findPixelAsync(this.varContext, w, h, r, g, b, tol);
@@ -841,7 +841,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
   /*
   
-  // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block.
+  // For parallel processing the above x,y calculation using promise, if using below code, please comment the above block and uncomment the below block.
   const result = await this.findPixelBestAsync(this.varContext, w, h, r, g, b, 60);
 
   if (result) {

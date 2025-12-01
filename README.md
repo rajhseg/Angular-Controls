@@ -241,14 +241,11 @@ RGrid Control
 
 <img width="992" height="336" alt="Screenshot from 2025-12-01 14-42-15" src="https://github.com/user-attachments/assets/c52a71ec-1cd1-4568-93bb-7e159267554f" />
 
-![image](https://github.com/user-attachments/assets/b5422913-2d89-45d8-aeed-a832a878aa6a)
-
 
 #### EditMode
 
-<img width="992" height="336" alt="Screenshot from 2025-12-01 14-44-52" src="https://github.com/user-attachments/assets/88d8326f-03c9-47b2-826a-d06df6cb139e" />
+<img width="992" height="336" alt="image" src="https://github.com/user-attachments/assets/dee8deb2-d5a0-4781-803a-72622375181a" />
 
-![image](https://github.com/user-attachments/assets/1b3e2c1c-1c35-4feb-9578-27a95fd9e851)
 
 
 

@@ -432,7 +432,7 @@
   
     <rgrid [Items]="gridItems" [GroupByIconColor]="bColor"
            [HeaderBackgroundColor]="bColor" (OnItemsChanged)="itemsChanged($event)"
-           [TableWidth]="'35%'" [ShowEditUpdate]="false"
+           [TableWidth]="'45%'" [ShowEditUpdate]="false"
            [ItemsPerPage]="ItemsPerPage">
 
       <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'" [Height]="'20px'">
@@ -446,7 +446,7 @@
       </rcolumn>
 
 
-      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'150px'">
+      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Name}}</span>
         </ng-template>
@@ -468,7 +468,7 @@
       </rcolumn>
 
       <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-               [Width]="'100px'">
+               [Width]="'200px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Education.Higher.Id}}</span> -
           <span>{{Item.Education.Higher.Course}}</span>

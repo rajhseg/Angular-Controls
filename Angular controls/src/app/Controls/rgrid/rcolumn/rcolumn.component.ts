@@ -3,6 +3,7 @@ import { EditViewTemplateDirective } from '../edit-template.directive';
 import { HeaderTemplateDirective, ReadViewTemplateDirective } from '../view-template.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { CssUnit, CssUnitsService } from '../../css-units.service';
+import { RGridHeaderTemplateContext, RGridTemplateContext } from '../rgridtemplatecontext';
 
 @Component({
   selector: 'rcolumn',
@@ -43,11 +44,11 @@ export class RColumnComponent implements AfterContentInit {
   @Input()
   DisableFilter: boolean = false;
 
-  @ContentChild(ReadViewTemplateDirective, {read: TemplateRef<any>}) ReadView!: TemplateRef<any>;
+  @ContentChild(ReadViewTemplateDirective, { read: TemplateRef<RGridTemplateContext> }) ReadView!: TemplateRef<RGridTemplateContext>;
 
-  @ContentChild(EditViewTemplateDirective, { read: TemplateRef<any>}) EditView!: TemplateRef<any>;
+  @ContentChild(EditViewTemplateDirective, { read: TemplateRef<RGridTemplateContext> }) EditView!: TemplateRef<RGridTemplateContext>;
 
-  @ContentChild(HeaderTemplateDirective, { read: TemplateRef<any>}) HeaderTemplate!: TemplateRef<any>;
+  @ContentChild(HeaderTemplateDirective, { read: TemplateRef<RGridHeaderTemplateContext> }) HeaderTemplate!: TemplateRef<RGridHeaderTemplateContext>;
 
   constructor(private cssUnit: CssUnitsService){
 

@@ -425,7 +425,7 @@
     <br />
     <div style="height:400px;">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-             [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="false" [EnableSelectColummn]="true"
+             [HeaderBackgroundColor]="'blue'" [GroupByIconColor]="'blue'" [ShowEditUpdate]="true" [EnableSelectColummn]="true"
              [ItemsPerPage]="ItemsPerPage" [TableHeight]="'70%'" [TableWidth]="'60%'"></rgrid>
     </div>
 
@@ -447,8 +447,11 @@
 
 
       <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
+        <ng-template headertemplate let-Item>
+          {{Item.HeaderText}}
+        </ng-template>
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
-          <span>{{Item.Name}}--{{cell.Value}}</span>
+          <span>{{Item.Name}} -- {{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
           <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"

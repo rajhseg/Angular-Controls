@@ -435,7 +435,7 @@
            [TableWidth]="'45%'" [ShowEditUpdate]="false"
            [ItemsPerPage]="ItemsPerPage">
 
-      <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'" [Height]="'20px'">
+      <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'" [Height]="'20px'">
         <ng-template readviewtemplate let-Item let-cell="CellInfo">
           <span>{{cell.Value}}</span>
         </ng-template>
@@ -446,9 +446,9 @@
       </rcolumn>
 
 
-      <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
-        <ng-template readviewtemplate let-Item>
-          <span>{{Item.Name}}</span>
+      <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
+        <ng-template readviewtemplate let-Item let-cell="CellInfo">
+          <span>{{Item.Name}}--{{cell.Value}}</span>
         </ng-template>
         <ng-template editviewtemplate let-cell="CellInfo">
           <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false" [TextBoxWidth]="'40px'"
@@ -456,7 +456,7 @@
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [Width]="'170px'">
+      <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="'Age'" [Width]="'170px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Age}}</span>
         </ng-template>
@@ -467,7 +467,7 @@
         </ng-template>
       </rcolumn>
 
-      <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
+      <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education.Higher.Course'" [HeaderText]="'Degree'"
                [Width]="'200px'">
         <ng-template readviewtemplate let-Item>
           <span>{{Item.Education.Higher.Id}}</span> -
@@ -1066,7 +1066,7 @@
                (ItemSelectClick)="ItemSelectClicked($event)" (SelectAllClicked)="SelectAllGrid($event)"
                [ItemsPerPage]="ItemsPerPage">
 
-          <rcolumn [Name]="'column1'" [PropToBind]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
+          <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
                    [Height]="'20px'">
             <ng-template readviewtemplate let-Item let-cell="CellInfo">
               <span>{{cell.Value}}</span>
@@ -1078,7 +1078,7 @@
           </rcolumn>
 
 
-          <rcolumn [Name]="'column2'" [PropToBind]="'Name'" [HeaderText]="'First Name'" [Width]="'170px'">
+          <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'170px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Name}}</span>
             </ng-template>
@@ -1088,7 +1088,7 @@
             </ng-template>
           </rcolumn>
 
-          <rcolumn [Name]="'column3'" [PropToBind]="'Age'" [HeaderText]="'Age'" [Width]="'130px'">
+          <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="'Age'" [Width]="'130px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Age}}</span>
             </ng-template>
@@ -1097,7 +1097,7 @@
             </ng-template>
           </rcolumn>
 
-          <rcolumn [Name]="'column4'" [PropToBind]="'Education.Higher.Course'" [HeaderText]="'Degree'"
+          <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education.Higher.Course'" [HeaderText]="'Degree'"
                    [Width]="'120px'">
             <ng-template readviewtemplate let-Item>
               <span>{{Item.Education.Higher.Id}}</span> -

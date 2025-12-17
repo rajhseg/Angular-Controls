@@ -17,7 +17,7 @@ export class RColumnComponent implements AfterContentInit {
   Name: string = "";
 
   @Input()
-  PropToBind: string = "";
+  PropToBindToCellInfo: string = "";
 
   @Input()
   IsDummyPropToBind: boolean = false;

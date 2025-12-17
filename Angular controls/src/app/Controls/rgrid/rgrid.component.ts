@@ -1051,7 +1051,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
 
-        this.Headers.push(new RGridHeader(index.toString(), element.PropToBind, element.Name, index,
+        this.Headers.push(new RGridHeader(index.toString(), element.PropToBindToCellInfo, element.Name, index,
           element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(twth), 
           element.Height, element.GetRelativeWidth(twth), element.Height,
           element.ReadView, element.EditView, element.HeaderTemplate, 
@@ -1234,7 +1234,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         dir.Height = "fit-content";
         dir.HeaderText = _hdr.HeaderText;
         dir.Name = _hdr.PropToBind;
-        dir.PropToBind = _hdr.PropToBind;
+        dir.PropToBindToCellInfo = _hdr.PropToBind;
         dir.Height = "fit-content";  
         
         if(this.FitColumnsToContent){
@@ -1372,7 +1372,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
           for (let _keys = 0; _keys < keys.length; _keys++) {
             const _hdrKey = keys[_keys];
-            if(!this.Columns.find(c=>c.PropToBind==_hdrKey)?.IsComputationalColumn)
+            if(!this.Columns.find(c=>c.PropToBindToCellInfo==_hdrKey)?.IsComputationalColumn)
                rowItem[_hdrKey].IsEditMode = true;
           }
         }

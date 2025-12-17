@@ -7,7 +7,7 @@ import { RGridTemplateContext } from './rgridtemplatecontext';
 })
 export class EditViewTemplateDirective {
   
-  constructor(public template: TemplateRef<any>) { 
+  constructor(public template: TemplateRef<RGridTemplateContext>) { 
         
   }
 

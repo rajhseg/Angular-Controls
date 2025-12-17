@@ -8,7 +8,7 @@ import { RGridHeaderTemplateContext, RGridTemplateContext } from './rgridtemplat
 })
 export class ReadViewTemplateDirective {
 
-  constructor(public template: TemplateRef<any>) {     
+  constructor(public template: TemplateRef<RGridTemplateContext>) {     
   }
 
   static ngTemplateContextGuard(dir: ReadViewTemplateDirective, ctx: unknown): ctx is RGridTemplateContext {
@@ -23,7 +23,7 @@ export class ReadViewTemplateDirective {
 })
 export class HeaderTemplateDirective {
   
-  constructor(public template: TemplateRef<any>){
+  constructor(public template: TemplateRef<RGridHeaderTemplateContext>){
 
   }
 

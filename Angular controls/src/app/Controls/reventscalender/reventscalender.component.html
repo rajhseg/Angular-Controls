@@ -38,7 +38,7 @@
                                 [ItemsPerPage]="ItemsPerPage" [ShowEditUpdate]="false" [HeaderBackgroundColor]="'blue'"                                
                                 [TableHeight]="GridHeight" [TableWidth]="'100%'">
 
-                                <rcolumn [Name]="'Name'" [PropToBind]="'Name'" [HeaderText]="'Name'" 
+                                <rcolumn [Name]="'Name'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'Name'" 
                                         [Width]="'32.8%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
@@ -46,7 +46,7 @@
                                 </rcolumn>
                             
                                 
-                                <rcolumn [Name]="'FromTime'" [PropToBind]="'FromTime'" [HeaderText]="'From Time'" 
+                                <rcolumn [Name]="'FromTime'" [PropToBindToCellInfo]="'FromTime'" [HeaderText]="'From Time'" 
                                         [Width]="'20%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
@@ -54,7 +54,7 @@
                                 </rcolumn>
 
                                 
-                                <rcolumn [Name]="'ToTime'" [PropToBind]="'ToTime'" [HeaderText]="'To Time'" 
+                                <rcolumn [Name]="'ToTime'" [PropToBindToCellInfo]="'ToTime'" [HeaderText]="'To Time'" 
                                         [Width]="'20%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
@@ -62,7 +62,7 @@
                                 </rcolumn>
 
                                 
-                                <rcolumn [Name]="'Indicator'" [PropToBind]="'Indicator'" [HeaderText]="'Indicator'" 
+                                <rcolumn [Name]="'Indicator'" [PropToBindToCellInfo]="'Indicator'" [HeaderText]="'Indicator'" 
                                         [Width]="'20%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <div style="height: 10px; width: 10px;" 
@@ -72,7 +72,7 @@
                                 </rcolumn>
 
                                 <rcolumn [IsComputationalColumn]="true" 
-                                        [Name]="'Id'" [PropToBind]="'Id'" [HeaderText]="'Delete'" 
+                                        [Name]="'Id'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'Delete'" 
                                         [Width]="'7.2%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span class="delBtn" (click)="DeleteEvent($event, cell.Value)">&times;</span>

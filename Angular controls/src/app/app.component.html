@@ -2,9 +2,177 @@
 
   <div>
 
-    <rstarrating [starWidth]="starWidth"></rstarrating>
+    <div style="color: teal;">Arranged Vertical</div>
+    <br/>
 
+    <div>
 
+      <rstarrating [starWidth]="starWidth"></rstarrating>
+
+      <br />
+
+      <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+      <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'"></rtextbox>
+   
+      <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'"
+               [DropDownContentWidth]="'240px'">
+      </rdropdown>
+
+      <br/>
+
+      <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true"
+              [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
+      </rslider>
+
+      <br />
+
+      <rbutton [BackgroundColor]="bColor">Submit</rbutton>
+      
+      <br/>
+
+      <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
+      
+      <br />
+
+      <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
+      </rradiobutton>
+      
+      <br />
+
+      <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
+                (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+      </rcolorpicker>
+
+      <br />
+
+      <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue"
+                         [DropDownContentWidth]="'240px'">
+      </rselectdropdown>
+
+      <br />
+
+      <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+                 [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
+                 [IconForeColor]="bColor"
+                 (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
+      </rfileupload>
+
+      <br />
+
+      <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+      </rswitch>
+
+      <br />
+
+      <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+                    [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+                    [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+                    [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
+      </rprogressbar>
+
+      <br />
+
+      <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
+        <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
+        <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
+        <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
+      </rgroup-panel>
+
+      <br />
+
+    </div>
+
+    <!-- Arrange Horizontal -->
+    <div style="color: teal;">Arranged Horizontal</div>
+    <br/>
+
+    <div>
+
+      <rcalender style="float: left;" [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+
+      &nbsp;
+
+      <rtextbox style="float: left;" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="''"></rtextbox>
+   
+      &nbsp;
+      
+      <rdropdown style="float: left;" [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'"
+               [DropDownContentWidth]="'240px'">
+      </rdropdown>
+
+      &nbsp;
+      
+      <rslider style="float: left;" [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true"
+              [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
+      </rslider>
+
+      &nbsp;
+
+      <rbutton style="float: left;" [BackgroundColor]="bColor">Submit</rbutton>
+      
+      &nbsp;
+      
+      <rcheckbox style="float: left;" [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
+      
+      &nbsp;
+      
+      <rradiobutton style="float: left;" [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
+      </rradiobutton>
+      
+      &nbsp;
+      
+      <rcolorpicker style="float: left;" [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
+                (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+      </rcolorpicker>
+
+      &nbsp;
+      
+      <rselectdropdown style="float: left;" [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue"
+                         [DropDownContentWidth]="'240px'">
+      </rselectdropdown>
+
+      &nbsp;
+      
+      <rfileupload style="float: left;" [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+                 [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
+                 [IconForeColor]="bColor"
+                 (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
+      </rfileupload>
+
+      &nbsp;
+      
+      <rswitch style="float: left;" [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+      </rswitch>
+
+      &nbsp;
+      
+      <rprogressbar style="float: left;" [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+                    [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+                    [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+                    [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
+      </rprogressbar>
+
+      &nbsp;
+      
+      <rgroup-panel style="float: left;" groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
+        <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
+        <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
+        <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
+      </rgroup-panel>
+
+      &nbsp;
+      
+      <rstarrating style="float: left;" [starWidth]="starWidth"></rstarrating>
+
+    </div>
+
+    <div style="margin-top:200px">
+
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
     <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating>
     <rstarrating [starWidth]="starWidth" [starColor]="bColor"></rstarrating>
 

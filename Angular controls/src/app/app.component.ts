@@ -137,7 +137,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   items1: any[] = [];
   selItem: any = null;
   starWidth: number = 30;
-  starValue: number = 3.6;
+  starValue: number = 6.7;
   curDate!: string;
   dt1!: string;
   dt2!: string;

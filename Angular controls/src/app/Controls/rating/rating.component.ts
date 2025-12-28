@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'rstarrating',
@@ -109,12 +110,19 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
     if(this._ratingValue!=undefined && this._ratingValue!=null) {
     let intellisenseValue = this._ratingValue;
     let decimalArray = this._ratingValue.toString().split('.');
+    let intVal: number = 0;
 
     if(decimalArray.length > 1){
       let val = decimalArray[1][0];
-      let intVal = parseInt(val);
+      
+      intVal = parseInt(val);
+     
       if(intVal>0 && intVal<4){
         intVal = 3
+      }
+
+      if(intVal >3 && intVal < 7){
+        intVal = 4;
       }
 
       if(intVal>6 && intVal<=9){
@@ -125,6 +133,26 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
     }
 
     let wd = Math.round( (starWidth*this.noOfStars) * (intellisenseValue/this.noOfStars));
+    
+    /* Below section is for render decimal value */
+    if(intVal > 0){
+
+      let fullValue = parseInt(decimalArray[0].toString());
+      fullValue = fullValue + 1;
+
+      let fullLength = Math.round((starWidth * this.noOfStars) * (fullValue/this.noOfStars))
+
+      let remValu = fullLength - wd;
+
+      let starHalfValue = parseFloat("1."+ (intVal + 2).toString());
+
+      if(remValu < starWidth/2){
+        let minusValue = remValu - (starWidth/starHalfValue);
+
+        wd = Math.round(wd + minusValue);
+      }
+    }
+
     return wd;
     
   }

@@ -5,8 +5,9 @@
     width: fit-content;    
     margin-top: 15px;
     margin-bottom: 15px;
-    display: flex;
-    width: fit-content;    
+    
+  display: inline-block;
+  vertical-align: top;
 }
 
 .data {

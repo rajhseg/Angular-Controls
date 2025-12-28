@@ -43,13 +43,16 @@ width: fit-content;
 }
 
 :host{
-  display: table-cell;
+  
+  display: inline-block;
+  vertical-align: top;
   width: 200px;
   height: 40px;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 20px;
   margin-bottom: 20px; 
+  
 }
 .week { 
     display: flex; 

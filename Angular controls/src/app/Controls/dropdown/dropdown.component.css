@@ -46,7 +46,8 @@
   }
   
 :host {
-    
+  display: inline-block;
+  vertical-align: top;
 }
 
   .dropdown-content-template {

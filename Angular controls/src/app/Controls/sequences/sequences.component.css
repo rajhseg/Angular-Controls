@@ -1,10 +1,13 @@
 
 
 :host{
-    display: flex;
+    
+  display: inline-block;
+  vertical-align: top;
     width: fit-content;
     margin-right: 20px;
     margin-bottom: 20px;  
+  
 }
 
 ::-webkit-scrollbar {

@@ -71,9 +71,12 @@
   margin-bottom: 2px;
   width: fit-content;
   /* display: inline-block; */
-  display: inline-flex;
+  /* display: inline-flex; */
   background: #e7e7e9;
   border-radius: 30%;  
+  
+  display: inline-block;
+  vertical-align: top;
 }
 
 .rtabroot{

@@ -34,7 +34,9 @@
   }
 
   :host {
-    display: flex;
+    
+  display: inline-block;
+  vertical-align: top;
     height: fit-content;
     width: fit-content;
     padding-left: 3px; 

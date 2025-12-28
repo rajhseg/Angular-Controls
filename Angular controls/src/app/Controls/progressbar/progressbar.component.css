@@ -126,10 +126,11 @@
 }
 
 :host{
-    display: flex;
     width: fit-content;
     margin-top: 3px; 
-    margin-bottom: 3px;    
+    margin-bottom: 3px;       
+    display: inline-block;
+    vertical-align: top;
 }
 
 ::-webkit-scrollbar {

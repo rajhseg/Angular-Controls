@@ -18,7 +18,8 @@
 }
 
 :host {
-  
+  display: inline-block;
+  vertical-align: top;
 }
 
 ::-webkit-scrollbar {

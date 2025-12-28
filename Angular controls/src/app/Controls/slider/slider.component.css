@@ -54,7 +54,8 @@
     display: inline-block;
     width: fit-content;
     margin-top: 8px; 
-    margin-bottom: 15px;    
+    margin-bottom: 15px;  
+vertical-align: top;
 }
 
 .displayValue {

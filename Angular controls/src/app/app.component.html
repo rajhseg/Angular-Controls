@@ -9,46 +9,61 @@
 
       <rstarrating [starWidth]="starWidth"></rstarrating>
 
+      <div ></div>
+      <br />
+      
+      <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+
+      <div ></div>
       <br />
 
-      <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
       <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'"></rtextbox>
    
+      <div ></div>
+      <br />
+
       <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'"
                [DropDownContentWidth]="'240px'">
       </rdropdown>
 
-      <br/>
+      <div ></div>
+      <br />
 
       <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true"
               [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
       </rslider>
 
+      <div ></div>
       <br />
 
       <rbutton [BackgroundColor]="bColor">Submit</rbutton>
       
+      <div ></div>
       <br/>
 
       <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
       
+      <div ></div>
       <br />
 
       <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
       </rradiobutton>
       
+      <div ></div>
       <br />
 
       <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
                 (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
       </rcolorpicker>
 
+      <div ></div>
       <br />
 
       <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue"
                          [DropDownContentWidth]="'240px'">
       </rselectdropdown>
 
+      <div ></div>
       <br />
 
       <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
@@ -57,11 +72,13 @@
                  (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
       </rfileupload>
 
+      <div ></div>
       <br />
 
       <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
       </rswitch>
 
+      <div ></div>
       <br />
 
       <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
@@ -70,6 +87,7 @@
                     [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
       </rprogressbar>
 
+      <div ></div>
       <br />
 
       <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
@@ -78,62 +96,70 @@
         <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
       </rgroup-panel>
 
+      <div ></div>
       <br />
 
     </div>
 
     <!-- Arrange Horizontal -->
+     <br/>
+     <br/>
+
     <div style="color: teal;">Arranged Horizontal</div>
+
     <br/>
 
     <div>
 
-      <rcalender style="float: left;" [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+      <rstarrating  [starWidth]="starWidth"></rstarrating>
+      &nbsp;
+
+      <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
 
       &nbsp;
 
-      <rtextbox style="float: left;" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="''"></rtextbox>
+      <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="''"></rtextbox>
    
       &nbsp;
       
-      <rdropdown style="float: left;" [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'"
+      <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'"
                [DropDownContentWidth]="'240px'">
       </rdropdown>
 
       &nbsp;
       
-      <rslider style="float: left;" [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true"
+      <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true"
               [MinValue]="0" [MaxValue]="1" [(ngModel)]="rangeValue">
       </rslider>
 
       &nbsp;
 
-      <rbutton style="float: left;" [BackgroundColor]="bColor">Submit</rbutton>
+      <rbutton [BackgroundColor]="bColor">Submit</rbutton>
       
       &nbsp;
       
-      <rcheckbox style="float: left;" [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
+      <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
       
       &nbsp;
       
-      <rradiobutton style="float: left;" [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
+      <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
       </rradiobutton>
       
       &nbsp;
       
-      <rcolorpicker style="float: left;" [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
+      <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
                 (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
       </rcolorpicker>
 
       &nbsp;
       
-      <rselectdropdown style="float: left;" [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue"
+      <rselectdropdown [Items]="items" [IsMulti]="true" [(ngModel)]="multiValue"
                          [DropDownContentWidth]="'240px'">
       </rselectdropdown>
 
       &nbsp;
       
-      <rfileupload style="float: left;" [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+      <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
                  [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
                  [IconForeColor]="bColor"
                  (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
@@ -141,12 +167,12 @@
 
       &nbsp;
       
-      <rswitch style="float: left;" [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+       <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
       </rswitch>
 
       &nbsp;
       
-      <rprogressbar style="float: left;" [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+      <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
                     [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
                     [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
                     [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
@@ -154,19 +180,23 @@
 
       &nbsp;
       
-      <rgroup-panel style="float: left;" groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
+      <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
         <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
         <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
         <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
       </rgroup-panel>
 
       &nbsp;
-      
-      <rstarrating style="float: left;" [starWidth]="starWidth"></rstarrating>
 
     </div>
 
-    <div style="margin-top:200px">
+    <div style="display: inline-block;">
+      
+     
+    </div>
+
+
+    <div style="margin-top:50px">
 
     </div>
 
@@ -177,14 +207,14 @@
     <rstarrating [starWidth]="starWidth" [starColor]="bColor"></rstarrating>
 
 
-    <div style="float:left; margin-left: 200px;">
+    <div>
       <rfilter [ColumnName]="'Name'" [ItemValues]="numbers" [Align]="filterAlign"
                [DataType]="filterDataType" (ApplyCallback)="filterApplied($event)"></rfilter>
     </div>
 
     {{starValue}}
 
-    <rtimer style="margin-left:100px" [FlatStyleForeColor]="bColor"
+    <rtimer [FlatStyleForeColor]="bColor"
             [DisplayTextForeColor]="bColor" [IsHidden]="true"
             [CallbackAfterCertainSeconds]="1"
             [DisplayType]="0"
@@ -515,6 +545,7 @@
   <div>
     <rtextbox [ReadOnly]="true" [(ngModel)]="userName" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
     <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'"></rtextbox>
+    <br/>
     <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="userName" [PlaceholderText]="'Please enter name'"></rtextbox>
   </div>
 
@@ -524,6 +555,7 @@
               [LabelText]="'Password'"></rtextbox>
     <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [(ngModel)]="confirmpassword" [PlaceholderText]="'Please enter confirm password'"
               [LabelText]="'Confirm Password'"></rtextbox>
+              <br/>
     <rbutton [BackgroundColor]="bColor">Submit</rbutton>
   </div>
   <br />
@@ -533,6 +565,8 @@
             [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'"
             [BottomLineColor]="tColor" [LabelTextForeColor]="tColor" [(ngModel)]="rangeValue1"></rnumeric>
 
+            <br/>
+
   <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="bColor" [MinusBackgroundColor]="bColor"
             [BottomLineColor]="bColor" [LabelTextForeColor]="bColor" [(ngModel)]="rangeValue1"></rnumeric>
 
@@ -540,7 +574,7 @@
 
   <rtimer [FlatStyleForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false">
   </rtimer>
-
+  <br/>
   <rtimer [DisplayType]="timerDisplayType" [HoursForeColor]="bColor" [MinuteForeColor]="bColor"
           [SecondsForeColor]="bColor" [DisplayTextForeColor]="bColor" [EnableShadowEffect]="false"
           [CircularWidth]="70">
@@ -555,6 +589,7 @@
                  [SelectedItemBackgroundColor]="bColor" [(ngModel)]="time2"></rtimeselector>
 
   <br />
+  <br />
 
   <rtimeselector [ButtonBackgroundColor]="bColor" [LabelText]="'Arriving Time'"
                  [TextBottomLineColor]="bColor" [SelectedItemBackgroundColor]="bColor"
@@ -562,20 +597,11 @@
                  [SetCurrentTimeAsDefaultOnLoad]="true"></rtimeselector>
 
   <br />
-  <br />
-
-  <br />
-  <br />
 
   <div>
 
     <br />
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <br />
 
     <rbutton (ButtonClick)="populateGridValues()">Add Items</rbutton>
@@ -590,6 +616,9 @@
                       [ScheduleItems]="scheduleItems">
     </revents-schedule>
 
+    <br />
+    <br />
+    <br />
     <br />
     <div style="height:400px;">
       <rgrid [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
@@ -1402,46 +1431,50 @@
     </rtabs>
   </div>
 
+  <br />
+  <div> </div>
   <rstarrating [starWidth]="starWidth"></rstarrating>
 
-  <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
+  <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating>
+
   <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
 
-  <div style="float: left;">
+  <br />
+  <div>
 
-    <rcalender style="float: left;" [(ngModel)]="selectedDate1" [ReadOnly]="true"></rcalender>
-    <rcalender style="float: left;" [ReadOnly]="true"></rcalender>
-    <rcalender style="float: left;" [(ngModel)]="selectedDate1"></rcalender>
+    <rcalender  [(ngModel)]="selectedDate1" [ReadOnly]="true"></rcalender>
+    <rcalender  [ReadOnly]="true"></rcalender>
+    <rcalender  [(ngModel)]="selectedDate1"></rcalender>
 
-    <rcolorpicker style="float: left; margin-left: 150px;"
+    <rcolorpicker 
                   [DisplayColorInHex]="false"
                   [IsDisplayLabelText]="true"
                   (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
     </rcolorpicker>
 
-    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol"
+    <rcolorpicker [(ngModel)]="CCol"
                   [DisplayColorInHex]="false"
                   [IsDisplayLabelText]="true"
                   (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
     </rcolorpicker>
 
-    <rcolorpicker style="float: left; margin-left: 150px;" [(ngModel)]="CCol"
+    <rcolorpicker  [(ngModel)]="CCol"
                   [DisplayColorInHex]="false"
                   [IsDisplayLabelText]="true"
                   (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
     </rcolorpicker>
 
-    <input type="color" [(ngModel)]="tColor" />
-
+    <br />
     <rdropdown [Items]="items" [(ngModel)]="selItem" [DropDownContentWidth]="'330px'">
     </rdropdown>
+    <br />
 
   </div>
 
   <br />
   <br />
   <br />
-
+<div></div>
   <div style="margin-top:30px;margin-bottom: 30px;">
     <rflattabs [TabWidth]="'650px'" [TabHeight]="'300px'" [DisplayTabContainerWhenZeroTabs]="true">
 

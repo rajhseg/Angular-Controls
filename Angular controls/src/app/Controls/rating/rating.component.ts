@@ -132,6 +132,19 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
     return 0;
   }
 
+  getMainContainerWidth(): number {
+    
+    let starWidth = this.getSingleStarWidth();
+    let val = this.noOfStars
+    
+    if(val!=undefined && val!=null) {
+      let wd = Math.round(starWidth * this.noOfStars);
+      return wd;
+    }
+
+    return 0;
+  }
+
   getSingleStarWidth(): number {
 
     if(this.winObj.isExecuteInBrowser()) {
@@ -164,18 +177,28 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
   }  
 
   renderUI(){
-    let _singleStarwidth = this.getSingleStarWidth();
-    let containerWidth= this.getWidth(_singleStarwidth);
-    this.starControl.nativeElement.style.width = (_singleStarwidth * this.noOfStars) + 'px';
-    
-    this.container.nativeElement.style.width = containerWidth+'px';
-    this.container.nativeElement.style.display = 'inline-block';         
-    
-    //this.starOutlineContainer.nativeElement.style.left = -containerWidth + 'px';
-    //this.starOutlineContainer.nativeElement.style.top = "-3px";
-        
-    this.starOutlineContainer.nativeElement.style.display = 'inline-block';  
-    this.starOutlineContainer.nativeElement.style.left =  '0px';
+    const _singleStarwidth = this.getSingleStarWidth();
+    const totalStarsWidth = Math.round(_singleStarwidth * this.noOfStars);
+    const containerWidth = this.getWidth(_singleStarwidth);
+
+    if (this.starControl && this.starControl.nativeElement) {
+      this.starControl.nativeElement.style.width = totalStarsWidth + 'px';
+    }
+
+    if (this.starOutlineContainer && this.starOutlineContainer.nativeElement) {
+      this.starOutlineContainer.nativeElement.style.width = totalStarsWidth + 'px';
+      this.starOutlineContainer.nativeElement.style.display = 'inline-block';
+      this.starOutlineContainer.nativeElement.style.zIndex = '1';
+    }
+
+    if (this.container && this.container.nativeElement) {
+      this.container.nativeElement.style.position = 'absolute';
+      this.container.nativeElement.style.left = '0px';
+      this.container.nativeElement.style.top = '0px';
+      this.container.nativeElement.style.width = containerWidth + 'px';
+      this.container.nativeElement.style.display = 'block';
+      this.container.nativeElement.style.zIndex = '2';
+    }
   }
 
   RenderUIAfterRatingValueChanged(){

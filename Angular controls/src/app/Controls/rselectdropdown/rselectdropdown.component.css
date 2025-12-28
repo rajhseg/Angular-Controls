@@ -25,6 +25,8 @@
 
   :host{
     
+  display: inline-block;
+  vertical-align: top;
   }
 
   .dropdownbtn:hover, .dropdownbtn:focus {

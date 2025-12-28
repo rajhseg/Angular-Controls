@@ -171,7 +171,8 @@ tbody tr td{
 }
 
 :host{
-    display: flex;
+    display: inline-block;
+    vertical-align: top;
     width: fit-content;
     margin-top: 3px; 
     margin-bottom: 3px;      

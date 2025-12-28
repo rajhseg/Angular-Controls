@@ -10,7 +10,7 @@
             </div>       
         </div>
     </div>
-    <div #staroutlinecontainer class="staroutlinecontainer">
+    <div #staroutlinecontainer class="staroutlinecontainer" [style.width]="getMainContainerWidth()+'px'">
         <div #staroutlinecontrol class="starcontrol">            
             <div *ngFor="let item of Items" (click)="selected(item)"
                 [style.color]="starColor" 

@@ -13,8 +13,7 @@ REventsCalender  etc.
 
 button control
 --------------------------------------
-<img width="114" height="46" alt="image" src="https://github.com/user-attachments/assets/35f958ac-4d9d-46d0-b2dd-afc6566df462" />
-<img width="114" height="46" alt="image" src="https://github.com/user-attachments/assets/11340faa-1787-4a75-934a-52825128122b" />
+<img width="110" height="58" alt="image" src="https://github.com/user-attachments/assets/a39ae1ca-a904-49b2-a604-56ac9c62408d" />
 
 
 <br />

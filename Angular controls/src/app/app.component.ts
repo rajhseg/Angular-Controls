@@ -331,7 +331,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   chk($evt: DropdownModel){
     this.checkedSize = $evt.Value;
   }
-
+  
   addCheckBoxSizes(){
     this.checkBoxSizes = [
       new DropdownModel(CheckBoxSize.x_small,'x-small'),

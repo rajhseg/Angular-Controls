@@ -28,6 +28,8 @@
                     'pointer-events':(Disabled || ReadOnly) ? 'none': '' 
                 }"
 
+        (change)="OnChange($event)"
+        
         (drag)="OnDrag($event)" (dragend)="OnDragEnd($event)" (dragenter)="OnDragEnter($event)" 
         (dragleave)="OnDragLeave($event)" (dragover)="OnDragOver($event)" (dragstart)="OnDragStart($event)" 
         (drop)="OnDrop($event)"

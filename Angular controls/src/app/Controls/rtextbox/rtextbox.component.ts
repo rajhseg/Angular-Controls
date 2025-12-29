@@ -163,7 +163,12 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   @Output()
   drop = new EventEmitter<any>();
 
-  
+  @Output()
+  change = new EventEmitter<Event>();
+
+  @Output()
+  input = new EventEmitter<Event>();
+
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
@@ -178,6 +183,14 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   public displayPlaceholder: boolean = true;
+
+  OnInput($event: Event){
+    this.input.emit($event);
+  }
+
+  OnChange($event: Event){
+    this.change.emit($event);
+  }
 
   OnFocus($event: any) {
     this.focus.emit($event);

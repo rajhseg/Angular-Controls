@@ -29,7 +29,9 @@ Textbox Control
 
 PasswordBox Control
 -------------------------
-<img width="572" height="86" alt="image" src="https://github.com/user-attachments/assets/a158f0c1-907b-4b4e-933c-49ce5d0b9186" />
+
+<img width="567" height="90" alt="image" src="https://github.com/user-attachments/assets/af939603-5f34-41cd-9b2a-918fd8a2c0ff" />
+
 
 <br />
 

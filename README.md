@@ -22,7 +22,7 @@ button control
 Textbox Control
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/059f9e81-dd8f-47a0-875e-1eb4efc89e97)
+<img width="561" height="90" alt="image" src="https://github.com/user-attachments/assets/66fb75ac-6320-4622-9b21-64d9a1e55a96" />
 
 
 <br />

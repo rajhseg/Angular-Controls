@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBin
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
 import { CssUnitsService } from '../css-units.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rtextbox',
@@ -21,7 +22,7 @@ import { CssUnitsService } from '../css-units.service';
     }
   ]
 })
-export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
+export class RTextboxComponent extends RBaseComponent<string> implements ControlValueAccessor, AfterViewInit {
 
   @Input()
   LabelText: string = "";
@@ -50,12 +51,6 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   @Input()
   Font: string = '';
 
-  @Output()
-  valueChanged = new EventEmitter<string>();
-
-  @Output()
-  Click = new EventEmitter<any>();
-
   private isPassword: boolean = false;
 
   @Input()
@@ -77,6 +72,8 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
 
   private _textboxValue: string = "";
 
+  InputId: string = this.winObj.GenerateUniqueId();
+
   public set TextboxValue(value: string) {
     if(this._textboxValue != value && !this.ReadOnly) {
       this._textboxValue = value;
@@ -88,94 +85,10 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
     return this._textboxValue;
   }
 
-  Id: string = '';
-
-  
-  @Output()
-  focus = new EventEmitter<any>();
-
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
-  cut = new EventEmitter<any>();
-
-  @Output()
-  copy = new EventEmitter<any>();
-
-  @Output()
-  paste = new EventEmitter<any>();
-
-  @Output()
-  keydown = new EventEmitter<any>();
-
-  @Output()
-  keyup = new EventEmitter<any>();
-
-  @Output()
-  keypress = new EventEmitter<any>();
-
-  @Output()
-  click = new EventEmitter<any>();
-
-  @Output()
-  mouseenter = new EventEmitter<any>();
-
-  @Output()
-  mousedown = new EventEmitter<any>();
-
-  @Output()
-  mouseup = new EventEmitter<any>();
-
-  @Output()
-  mouseleave = new EventEmitter<any>();
-
-  @Output()
-  mousemove = new EventEmitter<any>();
-
-  @Output()
-  mouseout = new EventEmitter<any>();
-
-  @Output()
-  mouseover = new EventEmitter<any>();
-
-  @Output()
-  dblclick = new EventEmitter<any>();
-
-  @Output()
-  drag = new EventEmitter<any>();
-
-  @Output()
-  dragend = new EventEmitter<any>();
-
-  @Output()
-  dragenter = new EventEmitter<any>();
-
-  @Output()
-  dragleave = new EventEmitter<any>();
-
-  @Output()
-  dragover = new EventEmitter<any>();
-
-  @Output()
-  dragstart = new EventEmitter<any>();
-
-  @Output()
-  drop = new EventEmitter<any>();
-
-  @Output()
-  change = new EventEmitter<Event>();
-
-  @Output()
-  input = new EventEmitter<Event>();
-
-  @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
-
-  constructor(private winObj: WindowHelper, 
+  constructor(winObj: WindowHelper, 
       private ele: ElementRef, 
       private cssUnitServ: CssUnitsService) {
-    this.Id = this.winObj.GenerateUniqueId();
+    super(winObj);
   }
 
   ngAfterViewInit(): void {
@@ -183,111 +96,6 @@ export class RTextboxComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   public displayPlaceholder: boolean = true;
-
-  OnInput($event: Event){
-    this.input.emit($event);
-  }
-
-  OnChange($event: Event){
-    this.change.emit($event);
-  }
-
-  OnFocus($event: any) {
-    this.focus.emit($event);
-  }
-
-  OnCut($event: any) {
-    this.cut.emit($event);
-  }
-
-  OnCopy($event: any) {
-    this.copy.emit($event);
-  }
-
-  OnPaste($event: any) {
-    this.paste.emit($event);
-  }
-
-  OnKeyDown($event: any) {
-    this.keydown.emit($event);
-  }
-
-  OnKeyUp($event: any) {
-    this.keyup.emit($event);
-  }
-
-  OnKeyPress($event: any) {
-    this.keypress.emit($event);
-  }
-
-  OnMouseEnter($event: any) {
-    this.mouseenter.emit($event);
-  }
-
-  OnMouseDown($event: any) {
-    this.mousedown.emit($event);
-  }
-
-  OnMouseUp($event: any) {
-    this.mouseup.emit($event);
-  }
-
-
-  OnMouseLeave($event: any) {
-    this.mouseleave.emit($event);
-  }
-
-  OnMouseMove($event: any) {
-    this.mousemove.emit($event);
-  }
-
-  OnMouseOut($event: any) {
-    this.mouseout.emit($event);
-  }
-
-  OnMouseOver($event: any) {
-    this.mouseover.emit($event);
-  }
-
-  OnDoubleClick($event: any) {
-    this.dblclick.emit($event);
-  }
-
-  OnDrag($event: any) {
-    this.drag.emit($event);
-  }
-
-  OnDragEnd($event: any) {
-    this.dragend.emit($event);
-  }
-
-  OnDragEnter($event: any) {
-    this.dragenter.emit($event);
-  }
-
-  OnDragLeave($event: any) {
-    this.dragleave.emit($event);
-  }
-
-  OnDragOver($event: any) {
-    this.dragover.emit($event);
-  }
-
-  OnDragStart($event: any) {
-    this.dragstart.emit($event);
-  }
-
-  OnDrop($event: any) {
-    this.drop.emit($event);
-  }
-
-  OnBlur($event: any){
-    this.blur.emit($event);
-  }
-
-  txtboxClicked($event: Event) {
-    this.Click.emit($event);
-  }
 
   writeValue(obj: any): void {
     this._textboxValue = obj;

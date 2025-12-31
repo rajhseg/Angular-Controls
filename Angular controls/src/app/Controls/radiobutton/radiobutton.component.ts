@@ -4,6 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonService, RadioEventArgs } from './radiobutton.service';
 import { WindowHelper } from '../windowObject';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rradiobutton',
@@ -17,12 +18,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     multi: true
   }]
 })
-export class RRadiobuttonComponent implements ControlValueAccessor{
-
-  @HostBinding('id')
-  HostElementId: string = this.windowHelper.GenerateUniqueId();
-
-  Id: string = '';
+export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implements ControlValueAccessor{
 
   @Input()
   IsChecked: boolean = false;
@@ -67,78 +63,7 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
   Color: string = "#00c7ba";
 
   @Output()
-  OnClick = new EventEmitter<RadioEventArgs>();
-
-  
-  
-  @Output()
-  focus = new EventEmitter<any>();
-
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
-  cut = new EventEmitter<any>();
-
-  @Output()
-  copy = new EventEmitter<any>();
-
-  @Output()
-  paste = new EventEmitter<any>();
-
-  @Output()
-  keydown = new EventEmitter<any>();
-
-  @Output()
-  keyup = new EventEmitter<any>();
-
-  @Output()
-  keypress = new EventEmitter<any>();
-
-  @Output()
-  mouseenter = new EventEmitter<any>();
-
-  @Output()
-  mousedown = new EventEmitter<any>();
-
-  @Output()
-  mouseup = new EventEmitter<any>();
-
-  @Output()
-  mouseleave = new EventEmitter<any>();
-
-  @Output()
-  mousemove = new EventEmitter<any>();
-
-  @Output()
-  mouseout = new EventEmitter<any>();
-
-  @Output()
-  mouseover = new EventEmitter<any>();
-
-  @Output()
-  dblclick = new EventEmitter<any>();
-
-  @Output()
-  drag = new EventEmitter<any>();
-
-  @Output()
-  dragend = new EventEmitter<any>();
-
-  @Output()
-  dragenter = new EventEmitter<any>();
-
-  @Output()
-  dragleave = new EventEmitter<any>();
-
-  @Output()
-  dragover = new EventEmitter<any>();
-
-  @Output()
-  dragstart = new EventEmitter<any>();
-
-  @Output()
-  drop = new EventEmitter<any>();
+  OnRadioButtonClick = new EventEmitter<RadioEventArgs>();
 
   onChange: Function = () => { };
 
@@ -150,102 +75,9 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
   constructor(private service: RadioButtonService, private windowHelper: WindowHelper,
     private cssUnitSer: CssUnitsService, private ele: ElementRef
   ) {
+    super(windowHelper);
     this.service.AddInstance(this);
     this.Id = this.windowHelper.GenerateUniqueId();
-  }
-
-  
-  OnBlur($event: any) {
-    this.blur.emit($event);
-  }
-
-  OnFocus($event: any) {
-    this.focus.emit($event);
-  }
-
-  OnCut($event: any) {
-    this.cut.emit($event);
-  }
-
-  OnCopy($event: any) {
-    this.copy.emit($event);
-  }
-
-  OnPaste($event: any) {
-    this.paste.emit($event);
-  }
-
-  OnKeyDown($event: any) {
-    this.keydown.emit($event);
-  }
-
-  OnKeyUp($event: any) {
-    this.keyup.emit($event);
-  }
-
-  OnKeyPress($event: any) {
-    this.keypress.emit($event);
-  }
-
-  OnMouseEnter($event: any) {
-    this.mouseenter.emit($event);
-  }
-
-  OnMouseDown($event: any) {
-    this.mousedown.emit($event);
-  }
-
-  OnMouseUp($event: any) {
-    this.mouseup.emit($event);
-  }
-
-
-  OnMouseLeave($event: any) {
-    this.mouseleave.emit($event);
-  }
-
-  OnMouseMove($event: any) {
-    this.mousemove.emit($event);
-  }
-
-  OnMouseOut($event: any) {
-    this.mouseout.emit($event);
-  }
-
-  OnMouseOver($event: any) {
-    this.mouseover.emit($event);
-  }
-
-  OnDoubleClick($event: any) {
-    this.dblclick.emit($event);
-  }
-
-  OnDrag($event: any) {
-    this.drag.emit($event);
-  }
-
-  OnDragEnd($event: any) {
-    this.dragend.emit($event);
-  }
-
-  OnDragEnter($event: any) {
-    this.dragenter.emit($event);
-  }
-
-  OnDragLeave($event: any) {
-    this.dragleave.emit($event);
-  }
-
-  OnDragOver($event: any) {
-    this.dragover.emit($event);
-  }
-
-  OnDragStart($event: any) {
-    this.dragstart.emit($event);
-  }
-
-  OnDrop($event: any) {
-    this.drop.emit($event);
   }
 
   resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
@@ -278,7 +110,7 @@ export class RRadiobuttonComponent implements ControlValueAccessor{
       this.onChange(this.IsChecked);
       this.onTouch(this.IsChecked);
       this.OnCheckChanged.emit(args);
-      this.OnClick.emit(args);
+      this.OnRadioButtonClick.emit(args);
     }
   }
 

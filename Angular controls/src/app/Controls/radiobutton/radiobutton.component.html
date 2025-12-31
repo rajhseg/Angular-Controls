@@ -1,19 +1,7 @@
 <div style="display: flex;cursor: pointer; align-items: center;" 
     [ngStyle]="{ 'font': Font, 'pointer-events':(Disabled || ReadOnly) ? 'none': '' }"
 
-    [id]="Id" (click)="check($event)"
-    
-    (drag)="OnDrag($event)" (dragend)="OnDragEnd($event)" (dragenter)="OnDragEnter($event)" 
-    (dragleave)="OnDragLeave($event)" (dragover)="OnDragOver($event)" (dragstart)="OnDragStart($event)" 
-    (drop)="OnDrop($event)"
-
-    (dblclick)="OnDoubleClick($event)"          
-    (blur)="OnBlur($event)"  (focus)="OnFocus($event)"                     
-    (cut)="OnCut($event)" (copy)="OnCopy($event)" (paste)="OnPaste($event)"            
-    (keydown)="OnKeyDown($event)" (keyup)="OnKeyUp($event)" (keypress)="OnKeyPress($event)"            
-    (mousedown)="OnMouseDown($event)" (mouseenter)="OnMouseEnter($event)" (mouseup)="OnMouseUp($event)"
-    (mouseleave)="OnMouseLeave($event)" (mousemove)="OnMouseMove($event)" 
-    (mouseout)="OnMouseOut($event)" (mouseover)="OnMouseOver($event)">
+    [id]="Id" (click)="check($event)">
 
     <div *ngIf="!DisplayTextRightAlign" class="label" [ngStyle]="{ 'color': LabelColor}">
         {{DisplayText}}

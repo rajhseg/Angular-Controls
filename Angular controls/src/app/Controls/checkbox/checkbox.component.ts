@@ -3,6 +3,7 @@ import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CheckboxEventArgs, CheckboxService } from './checkbox.service';
 import { WindowHelper } from '../windowObject';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rcheckbox',
@@ -16,7 +17,7 @@ import { WindowHelper } from '../windowObject';
     multi: true
   }]
 })
-export class RCheckboxComponent implements ControlValueAccessor {
+export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implements ControlValueAccessor {
 
   private _isChecked: boolean =false;
   
@@ -73,78 +74,8 @@ export class RCheckboxComponent implements ControlValueAccessor {
   OnCheckChanged = new EventEmitter<CheckboxEventArgs>();
 
   @Output()
-  OnClick = new EventEmitter<CheckboxEventArgs>();
+  OnCheckBoxClick = new EventEmitter<CheckboxEventArgs>();
   
-  
-  @Output()
-  focus = new EventEmitter<any>();
-
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
-  cut = new EventEmitter<any>();
-
-  @Output()
-  copy = new EventEmitter<any>();
-
-  @Output()
-  paste = new EventEmitter<any>();
-
-  @Output()
-  keydown = new EventEmitter<any>();
-
-  @Output()
-  keyup = new EventEmitter<any>();
-
-  @Output()
-  keypress = new EventEmitter<any>();
-
-  @Output()
-  mouseenter = new EventEmitter<any>();
-
-  @Output()
-  mousedown = new EventEmitter<any>();
-
-  @Output()
-  mouseup = new EventEmitter<any>();
-
-  @Output()
-  mouseleave = new EventEmitter<any>();
-
-  @Output()
-  mousemove = new EventEmitter<any>();
-
-  @Output()
-  mouseout = new EventEmitter<any>();
-
-  @Output()
-  mouseover = new EventEmitter<any>();
-
-  @Output()
-  dblclick = new EventEmitter<any>();
-
-  @Output()
-  drag = new EventEmitter<any>();
-
-  @Output()
-  dragend = new EventEmitter<any>();
-
-  @Output()
-  dragenter = new EventEmitter<any>();
-
-  @Output()
-  dragleave = new EventEmitter<any>();
-
-  @Output()
-  dragover = new EventEmitter<any>();
-
-  @Output()
-  dragstart = new EventEmitter<any>();
-
-  @Output()
-  drop = new EventEmitter<any>();
-
   onChange: Function = () => { };
 
   onTouch: Function = () => { };
@@ -155,108 +86,11 @@ export class RCheckboxComponent implements ControlValueAccessor {
   @Input()
   LabelColor: string = "black";
   
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  Id: string = '';
-
   constructor(private windowHelper: WindowHelper, private service: CheckboxService) {
+    super(windowHelper);
     this.HostElementId = this.windowHelper.GenerateUniqueId();
     this.Id = this.windowHelper.GenerateUniqueId();
     this.service.AddInstance(this);
-  }
-
-  OnBlur($event: any) {
-    this.blur.emit($event);
-  }
-
-  OnFocus($event: any) {
-    this.focus.emit($event);
-  }
-
-  OnCut($event: any) {
-    this.cut.emit($event);
-  }
-
-  OnCopy($event: any) {
-    this.copy.emit($event);
-  }
-
-  OnPaste($event: any) {
-    this.paste.emit($event);
-  }
-
-  OnKeyDown($event: any) {
-    this.keydown.emit($event);
-  }
-
-  OnKeyUp($event: any) {
-    this.keyup.emit($event);
-  }
-
-  OnKeyPress($event: any) {
-    this.keypress.emit($event);
-  }
-
-  OnMouseEnter($event: any) {
-    this.mouseenter.emit($event);
-  }
-
-  OnMouseDown($event: any) {
-    this.mousedown.emit($event);
-  }
-
-  OnMouseUp($event: any) {
-    this.mouseup.emit($event);
-  }
-
-
-  OnMouseLeave($event: any) {
-    this.mouseleave.emit($event);
-  }
-
-  OnMouseMove($event: any) {
-    this.mousemove.emit($event);
-  }
-
-  OnMouseOut($event: any) {
-    this.mouseout.emit($event);
-  }
-
-  OnMouseOver($event: any) {
-    this.mouseover.emit($event);
-  }
-
-  OnDoubleClick($event: any) {
-    this.dblclick.emit($event);
-  }
-
-  OnDrag($event: any) {
-    this.drag.emit($event);
-  }
-
-  OnDragEnd($event: any) {
-    this.dragend.emit($event);
-  }
-
-  OnDragEnter($event: any) {
-    this.dragenter.emit($event);
-  }
-
-  OnDragLeave($event: any) {
-    this.dragleave.emit($event);
-  }
-
-  OnDragOver($event: any) {
-    this.dragover.emit($event);
-  }
-
-  OnDragStart($event: any) {
-    this.dragstart.emit($event);
-  }
-
-  OnDrop($event: any) {
-    this.drop.emit($event);
   }
 
   resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
@@ -290,7 +124,7 @@ export class RCheckboxComponent implements ControlValueAccessor {
       this.onChange(this.IsChecked);
       this.onTouch(this.IsChecked);
       this.OnCheckChanged.emit(args);  
-      this.OnClick.emit(args); 
+      this.OnCheckBoxClick.emit(args); 
     }
   }
   

@@ -29,7 +29,7 @@
           [ngStyle]="{'maxWidth': DDEWidth, 'width':DDEWidth }">
 
       <div class="option-content" style="padding-left:6px;padding-top:6px;cursor: pointer;display: flex;">
-        <rcheckbox style="width: auto;padding: 6px;" (OnClick)="selectall($event)" 
+        <rcheckbox style="width: auto;padding: 6px;" (OnCheckBoxClick)="selectall($event)" 
             [IsChecked]="isSelectAllChecked" [(ngModel)]="isSelectAllChecked"
             [DisplayText]="'' ">
         </rcheckbox>

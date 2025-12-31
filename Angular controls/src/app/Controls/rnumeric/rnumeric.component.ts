@@ -5,6 +5,7 @@ import { NgStyle } from '@angular/common';
 import { RbuttonComponent } from "../rbutton/rbutton.component";
 import { WindowHelper } from '../windowObject';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rnumeric',
@@ -20,7 +21,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     }
   ]
 })
-export class RNumericComponent implements ControlValueAccessor {
+export class RNumericComponent extends RBaseComponent<number> implements ControlValueAccessor {
 
   @Input()
   public LabelText: string = "";
@@ -80,13 +81,8 @@ export class RNumericComponent implements ControlValueAccessor {
     return this._value;
   }
 
-  Id: string = '';
-
-  @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
-
-  constructor(private winObj: WindowHelper, private ele: ElementRef, private cssUnitSer: CssUnitsService){
-    this.Id = this.winObj.GenerateUniqueId();
+  constructor(winObj: WindowHelper, private ele: ElementRef, private cssUnitSer: CssUnitsService){
+    super(winObj);
   }
 
   public Dec(){

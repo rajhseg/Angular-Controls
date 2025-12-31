@@ -61,9 +61,10 @@ import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } fr
 import { RSeriesChartComponent } from './Controls/rserieschart/rserieschart.component';
 import { CssUnit, CssUnitsService, RelativeUnitType } from './Controls/css-units.service';
 import { RFlatTabsComponent } from './Controls/rflattabs/rflattabs.component';
-import { AddEventModel, CalenderChangeMonthInfo, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from './Controls/reventscalender/reventscalender.component';
+import { AddEventModel, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from './Controls/reventscalender/reventscalender.component';
 import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
 import { CheckboxEventArgs } from './Controls/checkbox/checkbox.service';
+import { CalenderChangeMonthInfo } from './Controls/Models/RBaseComponent';
 
 
 @Component({
@@ -332,6 +333,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.checkedSize = $evt.Value;
   }
   
+  onInputTextBox(e: Event){
+    console.log(e);
+  }
+
   addCheckBoxSizes(){
     this.checkBoxSizes = [
       new DropdownModel(CheckBoxSize.x_small,'x-small'),

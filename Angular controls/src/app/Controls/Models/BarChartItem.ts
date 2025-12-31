@@ -1,5 +1,4 @@
 
-
 export class BarChartItem {
     constructor(public DisplayName: string,         
         public Values: number[],

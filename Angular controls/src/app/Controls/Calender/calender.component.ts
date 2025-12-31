@@ -11,6 +11,7 @@ import { WINDOWOBJECT, WindowHelper } from '../windowObject';
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { CalenderChangeMonthInfo, RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rcalender',
@@ -32,7 +33,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
 
   }
 })
-export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
+export class CalenderComponent extends RBaseComponent<string> implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
 
   self: CalenderComponent = this;
   isDropdownChild: boolean = true;
@@ -42,6 +43,8 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   IsMonthDropdownOpen: boolean = false;
   IsYearDropdownOpen: boolean = false;
+
+  changemonthisCalled: boolean = false;
 
   private injector = inject(Injector);
 
@@ -76,7 +79,6 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
   ];
 
   isSelectDayTriggered: boolean = false;
-  Id: string = '';
 
   @Input()
   ParentDropDownId: string = '';
@@ -123,6 +125,12 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
   @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
   @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
 
+
+  @Output()
+  PreviousMonthClicked = new EventEmitter<any>();
+
+  @Output()
+  NextMonthClicked = new EventEmitter<any>();
 
   IsChildOfAnotherControlClicked: boolean = false;
 
@@ -227,78 +235,9 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
   Closed = new EventEmitter<boolean>(); //output<boolean>();
 
   @Output()
-  focus = new EventEmitter<any>();
+  ChangeMonthEvent: EventEmitter<CalenderChangeMonthInfo> = new EventEmitter<CalenderChangeMonthInfo>();
 
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
-  cut = new EventEmitter<any>();
-
-  @Output()
-  copy = new EventEmitter<any>();
-
-  @Output()
-  paste = new EventEmitter<any>();
-
-  @Output()
-  keydown = new EventEmitter<any>();
-
-  @Output()
-  keyup = new EventEmitter<any>();
-
-  @Output()
-  keypress = new EventEmitter<any>();
-
-  @Output()
-  click = new EventEmitter<any>();
-
-  @Output()
-  mouseenter = new EventEmitter<any>();
-
-  @Output()
-  mousedown = new EventEmitter<any>();
-
-  @Output()
-  mouseup = new EventEmitter<any>();
-
-  @Output()
-  mouseleave = new EventEmitter<any>();
-
-  @Output()
-  mousemove = new EventEmitter<any>();
-
-  @Output()
-  mouseout = new EventEmitter<any>();
-
-  @Output()
-  mouseover = new EventEmitter<any>();
-
-  @Output()
-  dblclick = new EventEmitter<any>();
-
-  @Output()
-  drag = new EventEmitter<any>();
-
-  @Output()
-  dragend = new EventEmitter<any>();
-
-  @Output()
-  dragenter = new EventEmitter<any>();
-
-  @Output()
-  dragleave = new EventEmitter<any>();
-
-  @Output()
-  dragover = new EventEmitter<any>();
-
-  @Output()
-  dragstart = new EventEmitter<any>();
-
-  @Output()
-  drop = new EventEmitter<any>();
-
-  private winObj!: Window;
+  private windowObj!: Window;
 
   @ViewChild('monthdropdown', { read: RDropdownComponent }) monthDropDownControl!: RDropdownComponent;
 
@@ -306,28 +245,26 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
-  @HostBinding('id')
-  HostElementId: string = '';
-
   cls!: CloseService;
 
   constructor(private calService: CalenderService, private popupService: PopupService,
-    private windowHelper: WindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
+    windowHelper: WindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
     private cdr: ChangeDetectorRef, private cssUnitSer: CssUnitsService) {
 
+    super(windowHelper);
     this.cls = CloseService.GetInstance();
 
-    if (this.windowHelper.isExecuteInBrowser()) {
+    if (windowHelper.isExecuteInBrowser()) {
       this.IsWindowsOs = navigator.platform == "Win32";
       this.IsLinuxOs = navigator.platform.toLowerCase().includes("linux");
     }
 
-    this.HostElementId = this.windowHelper.GenerateUniqueId();
-    this.Id = this.windowHelper.GenerateUniqueId();
+    this.HostElementId = windowHelper.GenerateUniqueId();
+    this.Id = windowHelper.GenerateUniqueId();
     this.selectedDate = null;
     this.loadYears(new Date().getFullYear());
     this.calService.AddInstance(this);
-    this.winObj = inject(WINDOWOBJECT);
+    this.windowObj = inject(WINDOWOBJECT);
     this.LoadMonth(new Date(), false);
     this.cls.AddInstance(this);
   }
@@ -335,96 +272,12 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
   ngAfterViewInit(): void {
 
   }
-
-  OnFocus($event: any) {
-    this.focus.emit($event);
+  
+  NotifyChangeMonth(){
+    let monthInfo = new CalenderChangeMonthInfo(this.year?.Value, this.month.Value);
+    this.ChangeMonthEvent.emit(monthInfo);
   }
-
-  OnCut($event: any) {
-    this.cut.emit($event);
-  }
-
-  OnCopy($event: any) {
-    this.copy.emit($event);
-  }
-
-  OnPaste($event: any) {
-    this.paste.emit($event);
-  }
-
-  OnKeyDown($event: any) {
-    this.keydown.emit($event);
-  }
-
-  OnKeyUp($event: any) {
-    this.keyup.emit($event);
-  }
-
-  OnKeyPress($event: any) {
-    this.keypress.emit($event);
-  }
-
-  OnMouseEnter($event: any) {
-    this.mouseenter.emit($event);
-  }
-
-  OnMouseDown($event: any) {
-    this.mousedown.emit($event);
-  }
-
-  OnMouseUp($event: any) {
-    this.mouseup.emit($event);
-  }
-
-
-  OnMouseLeave($event: any) {
-    this.mouseleave.emit($event);
-  }
-
-  OnMouseMove($event: any) {
-    this.mousemove.emit($event);
-  }
-
-  OnMouseOut($event: any) {
-    this.mouseout.emit($event);
-  }
-
-  OnMouseOver($event: any) {
-    this.mouseover.emit($event);
-  }
-
-  OnDoubleClick($event: any) {
-    this.dblclick.emit($event);
-  }
-
-  OnDrag($event: any) {
-    this.drag.emit($event);
-  }
-
-  OnDragEnd($event: any) {
-    this.dragend.emit($event);
-  }
-
-  OnDragEnter($event: any) {
-    this.dragenter.emit($event);
-  }
-
-  OnDragLeave($event: any) {
-    this.dragleave.emit($event);
-  }
-
-  OnDragOver($event: any) {
-    this.dragover.emit($event);
-  }
-
-  OnDragStart($event: any) {
-    this.dragstart.emit($event);
-  }
-
-  OnDrop($event: any) {
-    this.drop.emit($event);
-  }
-
+  
   windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
 
@@ -516,7 +369,6 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
       }
     }
 
-    this.blur.emit($event);
   }
 
   RenderUI(obj: string | Date) {
@@ -643,9 +495,9 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
   ngOnDestroy(): void {
 
-    if (this.windowHelper.isExecuteInBrowser()) {
-      if (this.winObj) {
-        this.winObj.removeEventListener('click', this.WindowClick.bind(this));
+    if (this.winObj.isExecuteInBrowser()) {
+      if (this.windowObj) {
+        this.windowObj.removeEventListener('click', this.WindowClick.bind(this));
       }
     }
 
@@ -656,7 +508,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     if (this.selectedDate != null)
       this.LoadMonth(this.selectedDate, true);
 
-    if (this.windowHelper.isExecuteInBrowser()) {
+    if (this.winObj.isExecuteInBrowser()) {
 
     }
 
@@ -671,7 +523,6 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     $evt.preventDefault();
 
     this.openCalender($evt, true);
-    this.click.emit($evt);
   }
 
   openCalender($evt: Event, isopenFromInput: boolean = false) {
@@ -704,7 +555,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
 
   AttachDropdown() {
-    let windowHeight = this.winObj.innerHeight;
+    let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
 
@@ -764,7 +615,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
         }
       }
 
-      let windowWidth = this.winObj.innerWidth;
+      let windowWidth = this.windowObj.innerWidth;
       if (this.startElement.nativeElement) {
         let start = this.startElement.nativeElement as HTMLElement;
         let res = this.DDEWidth.match(exp);
@@ -881,6 +732,7 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     if (monint != undefined && this.year) {
       let pre = new Date(this.year.Value, this.month.Value, 1);
       this.LoadMonth(pre);
+      this.NotifyChangeMonth();  
     }
 
   }
@@ -890,6 +742,11 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
       let _yr = parseInt(year.Value);
       let pre = new Date(this.year.Value, this.month.Value, 1);
       this.LoadMonth(pre);
+
+      if(!this.changemonthisCalled)
+        this.NotifyChangeMonth();
+
+      this.changemonthisCalled = false;
     }
   }
 
@@ -903,6 +760,9 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     $evt.stopPropagation();
 
     if (this.year) {
+      
+      this.changemonthisCalled = true;
+
       if (this.month.Value == 0) {
         this.month = this.monthNames[11];
         let yrmin = this.year.Value - 1;
@@ -927,7 +787,11 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
       let pre = new Date(this.year.Value, this.month.Value, 1);
       this.LoadMonth(pre);
+
+      this.PreviousMonthClicked.emit(this.selectedDate);
     }
+
+    this.changemonthisCalled = false;
   }
 
   nextMonth($evt: Event) {
@@ -935,6 +799,9 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
     $evt.preventDefault();
 
     if (this.year) {
+      
+      this.changemonthisCalled = true;
+
       if (this.month.Value == 11) {
         this.month = this.monthNames[0];
         let yradd = this.year.Value + 1;
@@ -960,7 +827,10 @@ export class CalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDe
 
       let next = new Date(this.year.Value, this.month.Value, 1);
       this.LoadMonth(next);
+      this.NextMonthClicked.emit(this.selectedDate);
     }
+
+    this.changemonthisCalled = false;
   }
 
   LoadMonth(date: Date, isSelect: boolean = true) {

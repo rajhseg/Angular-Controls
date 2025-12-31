@@ -22,7 +22,7 @@ button control
 Textbox Control
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/059f9e81-dd8f-47a0-875e-1eb4efc89e97)
+<img width="561" height="90" alt="image" src="https://github.com/user-attachments/assets/66fb75ac-6320-4622-9b21-64d9a1e55a96" />
 
 
 <br />
@@ -30,8 +30,7 @@ Textbox Control
 PasswordBox Control
 -------------------------
 
-![image](https://github.com/user-attachments/assets/49175ae5-f6f7-4c3b-8b6d-ac82d268c914)
-
+<img width="574" height="88" alt="image" src="https://github.com/user-attachments/assets/34420472-4b75-4a87-b2ef-46e011546fff" />
 
 <br />
 

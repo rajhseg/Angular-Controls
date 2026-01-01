@@ -156,7 +156,7 @@ ProgressBar Control
 
 ### StraightLine Infinite
 
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/36481afd-9963-4fc3-8f71-cbe003061d09)
+<img width="484" height="148" alt="image" src="https://github.com/user-attachments/assets/87642eb4-36b7-46cf-b2ad-73becc8b424e" />
 
 <br />
 

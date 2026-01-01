@@ -117,6 +117,8 @@ Slider
 
 ![image](https://github.com/user-attachments/assets/a324e6db-dcd3-4d0e-b587-2f494d1271fb)
 
+<img width="502" height="172" alt="image" src="https://github.com/user-attachments/assets/7c289303-79cf-4301-83ed-2cad0152bd74" />
+
 
 <br />
 <br />

@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, Host, HostBinding, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, Output, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent, RTabIdFor, TabHeaderWithTabId } from "../tab/tab.component";
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
@@ -67,6 +67,9 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
       return this._tabWidth;
     }
   
+    @Output()
+    headerClicked = new EventEmitter<TabHeaderWithTabId>();
+
     @Input()
     DisplayTabContainerWhenZeroTabs: boolean = false;
   
@@ -296,6 +299,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
     HeaderClicked(selectedHeader: TabHeaderWithTabId) {
       selectedHeader.IsSelected = true;
       this.SelectedTabId = selectedHeader.TabId;
+      this.headerClicked.emit(selectedHeader);
     }
   
     selectTab(selectedHeader: TabHeaderWithTabId | undefined) {

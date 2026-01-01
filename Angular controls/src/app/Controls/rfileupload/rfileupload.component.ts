@@ -5,6 +5,7 @@ import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { CloseService, IDropDown } from '../popup.service';
 import { CssUnit } from '../css-units.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rfileupload',
@@ -23,7 +24,7 @@ import { CssUnit } from '../css-units.service';
     
   },  
 })
-export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
+export class RfileuploadComponent extends RBaseComponent<FileList> implements IDropDown, ControlValueAccessor {
   
 
   @ViewChild('rfile', { read: ElementRef }) rFile!: ElementRef;
@@ -85,8 +86,6 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
   onChanged: Function = ()=> {};
   onTouched: Function = ()=> {};
 
-  Id: string = '';
-  
   DDEBottom: string = '';
 
   DDETop: string = '';
@@ -100,18 +99,16 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
 
   DDEHeight: string = '150px';
 
-  @HostBinding('id')
-  HostElementId: string = this.windowHelper.GenerateUniqueId();
-
   cls!: CloseService;
-  winObj!: Window;
+  windowObj!: Window;
 
   constructor(private windowHelper: WindowHelper, private eleRef: ElementRef, private cdr: ChangeDetectorRef){
+    super(windowHelper);
     this.cls = CloseService.GetInstance();
     this.dropdownId = windowHelper.GenerateUniqueId(); 
     this.Id = this.windowHelper.GenerateUniqueId();  
     this.cls.AddInstance(this);
-    this.winObj = inject(WINDOWOBJECT);
+    this.windowObj = inject(WINDOWOBJECT);
   }
 
   closeDropdown(): void {
@@ -127,6 +124,7 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
     if(obj instanceof FileList){
       this._files = obj;
       this.filesSelected.emit(this._files);
+      this.valueChanged.emit(this._files);
       this.renderDisplayText();
     }
   }
@@ -152,6 +150,7 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
     this.onChanged(undefined);
     this.onTouched(undefined);
     this.filesSelected.emit(undefined);
+    this.valueChanged.emit(undefined);
     this.filesCleared.emit($event);
   }
   
@@ -161,6 +160,7 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
     this.onChanged(this._files);
     this.onTouched(this._files);
     this.filesSelected.emit(this._files);
+    this.valueChanged.emit(this._files);
     this.renderDisplayText();    
   }
 
@@ -189,7 +189,7 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
 
   
   AttachDropdown() {
-    let windowHeight = this.winObj.innerHeight;
+    let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
 
@@ -239,7 +239,7 @@ export class RfileuploadComponent implements IDropDown, ControlValueAccessor {
         }
       }
 
-      let windowWidth = this.winObj.innerWidth;
+      let windowWidth = this.windowObj.innerWidth;
       if (this.startElement.nativeElement) {
         let start = this.startElement.nativeElement as HTMLElement;
         let res = this.DDEWidth.match(exp);

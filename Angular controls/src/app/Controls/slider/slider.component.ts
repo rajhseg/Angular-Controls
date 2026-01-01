@@ -4,6 +4,7 @@ import { Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Inp
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rslider',
@@ -19,7 +20,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     }
   ]
 })
-export class RSliderComponent implements ControlValueAccessor, OnInit {
+export class RSliderComponent extends RBaseComponent<number> implements ControlValueAccessor, OnInit {
 
   private offsetLeft: number = 0;
   private additionalSizeToAdd = 3;
@@ -38,9 +39,6 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
   @Input()
   public MaxValue: number = 100;
-
-  @Output()
-  OnValueChanged = new EventEmitter<number>();
 
   @Input()
   IsDisplayValue: boolean = true;
@@ -123,12 +121,9 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
 
   onTouch: Function = (value: number) => { };
 
-  Id: string = '';
 
-  @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
-
-  constructor(@Host() private ele: ElementRef, private winObj: WindowHelper, private cssunit: CssUnitsService) {
+  constructor(@Host() private ele: ElementRef, winObj: WindowHelper, private cssunit: CssUnitsService) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.offsetLeft = (this.ele.nativeElement as HTMLElement).offsetLeft;
     // 12 offsetLeft + 2 + 1 +first position 1 = 16 
@@ -175,7 +170,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
       this.RangeValue = parseInt(this.SliderValue.toString());
     }
 
-    this.OnValueChanged.emit(this.RangeValue);
+    this.valueChanged.emit(this.RangeValue);
   }
 
   getMarkerTop(): string {
@@ -278,7 +273,7 @@ export class RSliderComponent implements ControlValueAccessor, OnInit {
   notifyToModel() {
     this.onChange(this.RangeValue);
     this.onTouch(this.RangeValue);
-    this.OnValueChanged.emit(this.RangeValue);
+    this.valueChanged.emit(this.RangeValue);
   }
 
   dragEnded($event: CdkDragRelease) {

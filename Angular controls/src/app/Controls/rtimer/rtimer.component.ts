@@ -4,6 +4,7 @@ import { ProgressBarDisplayType, ProgressBarType } from '../progressbar/progress
 import { WindowHelper } from '../windowObject';
 import { interval, Observable } from 'rxjs';
 import { NgIf, NgStyle } from '@angular/common';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rtimer',
@@ -13,7 +14,7 @@ import { NgIf, NgStyle } from '@angular/common';
   styleUrl: './rtimer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RTimerComponent implements OnInit, OnDestroy {
+export class RTimerComponent extends RBaseComponent<string> implements OnInit, OnDestroy {
 
   progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.Circle;
   ProgressType: ProgressBarType = ProgressBarType.Progress;
@@ -89,9 +90,6 @@ export class RTimerComponent implements OnInit, OnDestroy {
   @Input()
   DisplayType: TimerType = TimerType.FlatStyle;
 
-  @Output()
-  ValueChanged = new EventEmitter<string>();
-
   public HourPercentage: number = 0;
 
   public MinutePercentage: number = 0;
@@ -130,13 +128,10 @@ export class RTimerComponent implements OnInit, OnDestroy {
     return this.second.toString()
   }
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  constructor(winObj: WindowHelper, private cdr: ChangeDetectorRef) {
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
-
+    super(winObj);
+    
     this.Id = this.winObj.GenerateUniqueId();
 
     if (this.winObj.isExecuteInBrowser())
@@ -182,7 +177,7 @@ export class RTimerComponent implements OnInit, OnDestroy {
 
     let timeString: string = this.Hour + ":" + this.Minute + ":" + this.Second;
 
-    this.ValueChanged.emit(timeString);
+    this.valueChanged.emit(timeString);
   }
 
   private calcPercentage(value: number, total: number): number {

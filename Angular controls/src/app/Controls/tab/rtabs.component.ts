@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, Host, HostBinding, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, Output, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent, RTabIdFor, TabHeaderWithTabId } from "./tab.component";
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { WindowHelper } from "../windowObject";
@@ -98,6 +98,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   
   @HostBinding('id')
   HostElementId: string = this.winobj.GenerateUniqueId();
+
+  @Output()
+  headerClicked = new EventEmitter<TabHeaderWithTabId>();
 
   constructor(private winobj: WindowHelper,
     private cdr: ChangeDetectorRef,
@@ -299,6 +302,7 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
   HeaderClicked(selectedHeader: TabHeaderWithTabId) {
     selectedHeader.IsSelected = true;
     this.SelectedTabId = selectedHeader.TabId;
+    this.headerClicked.emit(selectedHeader);
   }
 
   selectTab(selectedHeader: TabHeaderWithTabId | undefined) {

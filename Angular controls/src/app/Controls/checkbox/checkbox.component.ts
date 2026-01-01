@@ -125,6 +125,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
       this.onTouch(this.IsChecked);
       this.OnCheckChanged.emit(args);  
       this.OnCheckBoxClick.emit(args); 
+      this.valueChanged.emit(args);
     }
   }
   
@@ -133,6 +134,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
     this.onChange(this.IsChecked);
     this.onTouch(this.IsChecked);    
     this.OnCheckChanged.emit(args);
+    this.valueChanged.emit(args);
   }
 
   writeValue(obj: any): void {
@@ -163,6 +165,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
     let args=new CheckboxEventArgs(undefined, this.IsChecked);
     
     this.OnCheckChanged.emit(args);
+    this.valueChanged.emit(args);
   }
 
   registerOnChange(fn: any): void {

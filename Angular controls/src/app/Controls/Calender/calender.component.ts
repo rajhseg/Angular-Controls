@@ -33,7 +33,7 @@ import { CalenderChangeMonthInfo, RBaseComponent } from '../Models/RBaseComponen
 
   }
 })
-export class CalenderComponent extends RBaseComponent<string> implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
+export class CalenderComponent extends RBaseComponent<Date> implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
 
   self: CalenderComponent = this;
   isDropdownChild: boolean = true;
@@ -720,6 +720,7 @@ export class CalenderComponent extends RBaseComponent<string> implements IDropDo
           this.onChange(this.Value);
           this.onTouch(this.Value);
           this.onDateSelected.emit(undefined);
+          this.valueChanged.emit(undefined);
         }
 
         this.IsCalenderOpen = false;
@@ -924,12 +925,14 @@ export class CalenderComponent extends RBaseComponent<string> implements IDropDo
       this.onChange(this.Value);
       this.onTouch(this.Value);
       this.onDateSelected.emit(this.selectedDate);
+      this.valueChanged.emit(this.selectedDate);
     }
   }
 
   NotifyToUI() {
     if (this.selectedDate) {
       this.onDateSelected.emit(this.selectedDate);
+      this.valueChanged.emit(this.selectedDate);
     }
   }
 
@@ -951,6 +954,7 @@ export class CalenderComponent extends RBaseComponent<string> implements IDropDo
       this.onChange(this.Value);
       this.onTouch(this.Value);
       this.onDateSelected.emit(this.selectedDate);
+      this.valueChanged.emit(this.selectedDate);
     }
   }
 

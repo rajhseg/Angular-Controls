@@ -5,6 +5,7 @@ import { RectShape } from './rectShape';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CssUnit, CssUnitsService } from '../css-units.service';
 import { CloseService, IDropDown } from '../popup.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rcolorpicker',
@@ -24,7 +25,7 @@ import { CloseService, IDropDown } from '../popup.service';
     }
   ]
 })
-export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestroy, ControlValueAccessor {
+export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs> implements IDropDown, AfterViewInit, OnDestroy, ControlValueAccessor {
 
   @ViewChild('variations', { read: ElementRef<HTMLCanvasElement>, static: false })
   variations: ElementRef<HTMLCanvasElement> | undefined = undefined;
@@ -136,13 +137,8 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
   private isVariationsColorPickerDrag: boolean = false;
   private isMainColorPickerDrag: boolean = false;
 
-  public Id: string = "";
-
   @Input()
   public ParentDropDownId: string = '';
-
-  @HostBinding('id')
-  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   public get GetRGBColorInNumbers(): string {
     return this.SelectedColorR + "," + this.SelectedColorG + "," + this.SelectedColorB;
@@ -173,7 +169,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
 
   DDERight: string = '';
 
-  winObj!: Window;
+  windowObj!: Window;
 
   LoadColorOnFirst: boolean = false;
 
@@ -186,12 +182,13 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
     private eleRef: ElementRef,
     private cssUnitSer: CssUnitsService
   ) {
+    super(windowHelper);
     this.cls = CloseService.GetInstance();
     this.mainColorRgb = "rgb(255,0,0)";
     this.mainColorHex = this.RGBToHex(255, 0, 0);
     this._mainColorGradients = [];
     this.Id = this.windowHelper.GenerateUniqueId();
-    this.winObj = inject(WINDOWOBJECT);
+    this.windowObj = inject(WINDOWOBJECT);
     this.cls.AddInstance(this);
   }
 
@@ -225,6 +222,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
         let args = new RColorPickerEventArgs(this.DisplayColorRGB, this.DisplayColorHex,
           this.DisplayColorR, this.DisplayColorG, this.DisplayColorB);
         this.ColorSelected.emit(args);
+        this.valueChanged.emit(args);
       } else {
         
       }
@@ -441,7 +439,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
   }
 
   AttachDropdown() {
-    let windowHeight = this.winObj.innerHeight;
+    let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
 
@@ -499,7 +497,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
         }
       }
 
-      let windowWidth = this.winObj.innerWidth;
+      let windowWidth = this.windowObj.innerWidth;
       if (this.startElement.nativeElement) {
         let start = this.startElement.nativeElement as HTMLElement;
         let res = this.DDEWidth.match(exp);
@@ -1031,6 +1029,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
       this.onTocuhed(this.DisplayColorHex);
       this.cdr.detectChanges();
       this.ColorSelected.emit(args);
+      this.valueChanged.emit(args);
     }
   }
 
@@ -1093,6 +1092,7 @@ export class RColorPickerComponent implements IDropDown, AfterViewInit, OnDestro
       this.onTocuhed(this.DisplayColorHex);
       this.cdr.detectChanges();
       this.ColorSelected.emit(args);
+      this.valueChanged.emit(args);
     }
   }
 

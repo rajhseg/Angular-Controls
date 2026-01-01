@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input,
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
 import { startWith } from 'rxjs';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rstarrating',
@@ -18,7 +19,7 @@ import { startWith } from 'rxjs';
     }
   ]
 })
-export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+export class RStarRatingComponent extends RBaseComponent<number> implements OnInit, AfterViewInit, ControlValueAccessor {
   
   _ratingValue: number = 0;
   _starwidth: number = 20;
@@ -29,9 +30,6 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
 
   onChange: any = ()=>{};
   onTouch: any = ()=> {};
-
-  @Output()
-  onRatingValueChanged =new EventEmitter<number>(); // output<number>();
 
   @Input()
   set noOfStars(value: number){
@@ -52,7 +50,7 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
     this.RenderUIAfterRatingValueChanged();   
     this.onChange(value);
     this.onTouch(value);
-    this.onRatingValueChanged.emit(value);
+    this.valueChanged.emit(value);
   }
   get ratingValue(): number {
     return this._ratingValue;
@@ -76,13 +74,9 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
     return this._starwidth;
   }
 
-  Id: string = '';
 
-  @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
-
-  constructor(private winObj: WindowHelper){
-    this.Id = this.winObj.GenerateUniqueId();
+  constructor(winObj: WindowHelper){
+    super(winObj);
   }
 
   ngOnInit(): void {    
@@ -188,8 +182,7 @@ export class RStarRatingComponent implements OnInit, AfterViewInit, ControlValue
   
   writeValue(obj: any): void {
     this.ratingValue = obj;
-    
-    this.onRatingValueChanged.emit(this.ratingValue);      
+    this.valueChanged.emit(this.ratingValue);      
   }
 
   registerOnChange(fn: any): void {

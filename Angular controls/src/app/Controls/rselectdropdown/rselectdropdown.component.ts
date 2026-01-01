@@ -10,6 +10,7 @@ import { RCheckboxComponent } from '../checkbox/checkbox.component';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { RDropdownFilterPipe } from '../dropdown-filter.pipe';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rselectdropdown',
@@ -28,7 +29,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     
   }
 })
-export class RSelectDropdownComponent implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
+export class RSelectDropdownComponent extends RBaseComponent<any> implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
 AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   
   onChange: any = () => { }
@@ -107,9 +108,6 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
 
   @Input()
   DropDownContentWidth: string = '105px';
-
-  @Output()
-  change = new EventEmitter<any>(); 
 
   private _show: boolean = false;
 
@@ -191,25 +189,24 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
 
   SelectedDisplay: string | number = '';
   private firstTimeInit: boolean = true;
-  Id: string = '';
-  private winObj!: Window;
+ 
+  private windowObj!: Window;
   private injector = inject(Injector);
   
   @ViewChild('openbtn', { read: ElementRef}) openBtn!: ElementRef;
   @ViewChild('myDropdown', { read: ElementRef}) mydropDown!: ElementRef;
   @ViewChild('startElement', { read: ElementRef}) startElement!: ElementRef;
 
-  @HostBinding('id')
-  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   cls!: CloseService;
 
   constructor(private windowHelper: WindowHelper, private eleRef: ElementRef,
     private cssUnitSer: CssUnitsService, private cdr: ChangeDetectorRef
   ) {
+    super(windowHelper);
     this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();    
-    this.winObj = inject(WINDOWOBJECT);
+    this.windowObj = inject(WINDOWOBJECT);
     this.cls.AddInstance(this);
   }  
 
@@ -466,7 +463,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   }
 
   AttachDropdown(){
-    let windowHeight = this.winObj.innerHeight;    
+    let windowHeight = this.windowObj.innerHeight;    
     const exp = /(-?[\d.]+)([a-z%]*)/;
 
     
@@ -521,7 +518,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
       }
     }
   
-    let windowWidth = this.winObj.innerWidth;
+    let windowWidth = this.windowObj.innerWidth;
     if (this.startElement.nativeElement) {
       let start = this.startElement.nativeElement as HTMLElement;
       let res = this.DDEWidth.match(exp);
@@ -591,20 +588,20 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
     if (!this.IsMulti) {      
       this.onChange(this.SelectedItem);
       this.onTouch(this.SelectedItem);
-      this.change.emit(this.SelectedItem as any);      
+      this.valueChanged.emit(this.SelectedItem as any);      
     }
     else{
       this.onChange(this.SelectedItems);
       this.onTouch(this.SelectedItems);
-      this.change.emit(this.SelectedItems as any);      
+      this.valueChanged.emit(this.SelectedItems as any);      
     }
   }
 
   NotifyToUI(){
     if (!this.IsMulti)
-      this.change.emit(this.SelectedItem as any);
+      this.valueChanged.emit(this.SelectedItem as any);
     else
-      this.change.emit(this.SelectedItems as any);
+      this.valueChanged.emit(this.SelectedItems as any);
 
       this.SearchItem = "";
   }

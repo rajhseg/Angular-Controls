@@ -94,7 +94,7 @@
                 <rdropdown #monthdropdown [IsDropDownOpen]="IsMonthDropdownOpen" [ParentComponent]="this"
                     [EnableFilterOption]="EnableFilterOptionForMonth"
                     (Closed)="isMonthDropdownClosed($event)" (Opened)="isMonthDropdownOpened($event)"
-                    [IsChildOfAnotherControl]="isDropdownChild" [IsMulti]="false" (change)="changeMonth($event)"
+                    [IsChildOfAnotherControl]="isDropdownChild" [IsMulti]="false" (valueChanged)="changeMonth($event)"
                     [(ngModel)]="month" [Items]="monthNames" 
                     [Width]="'52px'" [DropDownContentWidth]="'77px'" 
                     [ParentDropDownId]="Id"
@@ -106,7 +106,7 @@
 
                 <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"    
                     [EnableFilterOption]="EnableFilterOptionForYear"                
-                    [IsChildOfAnotherControl]="isDropdownChild" (change)="changeYear($event)" [IsMulti]="false"
+                    [IsChildOfAnotherControl]="isDropdownChild" (valueChanged)="changeYear($event)" [IsMulti]="false"
                     [(ngModel)]="year" [Items]="totalYears"
                     [Width]="'52px'" [DropDownContentWidth]="'77px'" 
                     [ParentDropDownId]="Id"

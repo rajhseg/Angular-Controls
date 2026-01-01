@@ -2,6 +2,7 @@ import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output, forwardRef, output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rswitch',
@@ -17,7 +18,7 @@ import { WindowHelper } from '../windowObject';
     }
   ]
 })
-export class SwitchComponent implements ControlValueAccessor {
+export class SwitchComponent extends RBaseComponent<boolean> implements ControlValueAccessor {
 
   @Input() 
   DisplayLabel: string = '';
@@ -41,13 +42,8 @@ export class SwitchComponent implements ControlValueAccessor {
   @Output()
   checked = new EventEmitter<boolean>(); // output<boolean>();
 
-  Id: string = '';
-
-  @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
-
-  constructor(private winObj: WindowHelper){
-    this.Id = this.winObj.GenerateUniqueId();
+  constructor(winObj: WindowHelper){
+    super(winObj);
   }
 
   writeValue(obj: any): void {
@@ -64,6 +60,7 @@ export class SwitchComponent implements ControlValueAccessor {
     } 
 
     this.checked.emit(this.isChecked);
+    this.valueChanged.emit(this.isChecked);
   }
   
   registerOnChange(fn: any): void {
@@ -83,5 +80,6 @@ export class SwitchComponent implements ControlValueAccessor {
     this.onChange(this.isChecked);
     this.onTouch(this.isChecked);
     this.checked.emit(this.isChecked);
+    this.valueChanged.emit(this.isChecked);
   }
 }

@@ -927,7 +927,7 @@
 
         <div>
           <label>CheckBox Sizes</label>
-          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">
+          <rselectdropdown [Items]="checkBoxSizes" (valueChanged)="chk($event)">
           </rselectdropdown>
         </div>
 
@@ -946,7 +946,7 @@
       <rtab *tabidfor="{ 'TabId': 'tab7', 'HeaderText':'rradiobutton', 'Context':this}">
         <div style="display: flex;">
 
-          <rnumeric [Value]="16" (ValueChanged)="changeRadioSize($event)"></rnumeric>
+          <rnumeric [Value]="16" (valueChanged)="changeRadioSize($event)"></rnumeric>
 
           <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
             <rradiobutton [DesignWidth]="radioSize" [Color]="'OrangeRed'" [DisplayText]="'Football'" [(ngModel)]="IsFootball"
@@ -996,7 +996,7 @@
 
 
       <rtab *tabidfor="{'TabId':'tab11', 'HeaderText':'rtimer', 'Context': this}">
-        <rtimer (ValueChanged)="rtimer_ValueChanged($event)"></rtimer>
+        <rtimer (valueChanged)="rtimer_ValueChanged($event)"></rtimer>
         <rtimer [CallbackAfterCertainSeconds]="120"
                 (CallbackTriggeredAfterCertainSeconds)="callbackAfterInterval($event)" [DisplayType]="0" [CircularWidth]="70">
         </rtimer>
@@ -1263,7 +1263,7 @@
 
         <div>
           <label>CheckBox Sizes</label>
-          <rselectdropdown [Items]="checkBoxSizes" (change)="chk($event)">
+          <rselectdropdown [Items]="checkBoxSizes" (valueChanged)="chk($event)">
           </rselectdropdown>
         </div>
 

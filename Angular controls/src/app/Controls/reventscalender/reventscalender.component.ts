@@ -403,22 +403,24 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
 
 
   addEvent($evt: Event) {
-    if(this.year) {      
-      let _eventDay = this.Items.EachDay.find(x=>x.EventDate.toDateString() == this.SelectedEventModel?.EventDate.toDateString());
+    if(this.NewEvent.Name!= undefined && this.NewEvent.Name.trim()!="") {
+      if(this.year) {      
+        let _eventDay = this.Items.EachDay.find(x=>x.EventDate.toDateString() == this.SelectedEventModel?.EventDate.toDateString());
 
-      if(_eventDay){
-        _eventDay.Events.push(new AddEventModel(this.NewEvent.Id, this.NewEvent.Name,
-          this.NewEvent.FromTime, this.NewEvent.ToTime, this.NewEvent.Indicator
-        ));
+        if(_eventDay){
+          _eventDay.Events.push(new AddEventModel(this.NewEvent.Id, this.NewEvent.Name,
+            this.NewEvent.FromTime, this.NewEvent.ToTime, this.NewEvent.Indicator
+          ));
 
-        this.SelectedEventModel = _eventDay;        
-        this.SelectedEventModel.Events = _eventDay.Events.slice();
-      } 
-      
-      this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
+          this.SelectedEventModel = _eventDay;        
+          this.SelectedEventModel.Events = _eventDay.Events.slice();
+        } 
+        
+        this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
+      }
+
+      this.NotifyToModel();
     }
-
-    this.NotifyToModel();
   }
 
   isMonthDropdownClosed($evt: any) {

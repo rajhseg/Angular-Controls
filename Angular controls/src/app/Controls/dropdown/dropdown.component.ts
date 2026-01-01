@@ -11,6 +11,7 @@ import { CheckboxEventArgs } from '../checkbox/checkbox.service';
 import { RDropdownFilterPipe } from '../dropdown-filter.pipe';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rdropdown',
@@ -30,7 +31,7 @@ import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service
     
   }
 })
-export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
+export class RDropdownComponent extends RBaseComponent<DropdownModel | string | any> implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
   AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
 
   onChange: any = () => { }
@@ -115,9 +116,6 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
   @Input()
   EnableShadowOnDropdown: boolean = true;
 
-  @Output()
-  change = new EventEmitter<any>(); // output<any>();
-
   private _show: boolean = false;
 
   DDEBottom: string = '';
@@ -198,16 +196,13 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
 
   SelectedDisplay: string | number = '';
   private firstTimeInit: boolean = true;
-  Id: string = '';
+
+  private windowObject!: Window;
 
   @Input()
   public ParentDropDownId: string = '';
 
-  private winObj!: Window;
   private injector = inject(Injector);
-
-  @HostBinding('id')
-  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   cls!:CloseService;
 
@@ -216,11 +211,12 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
     private windowHelper: WindowHelper,
     private cssUnitSer: CssUnitsService, 
     private cdr: ChangeDetectorRef    
-  ) {    
+  ) {
+    super(windowHelper);
     this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();
     this.ddservice.AddInstance(this);
-    this.winObj = inject(WINDOWOBJECT);
+    this.windowObject = inject(WINDOWOBJECT);
     this.cls.AddInstance(this);
   }
 
@@ -482,8 +478,8 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
     
   }
 
-  AttachDropdown(){
-    let windowHeight = this.winObj.innerHeight;    
+  AttachDropdown() {
+    let windowHeight = this.windowObject.innerHeight;    
     const exp = /(-?[\d.]+)([a-z%]*)/;
     
     let isInTab = false;
@@ -538,8 +534,8 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
         this.DDEBottom = 'auto';
       }
     }
-  
-    let windowWidth = this.winObj.innerWidth;
+
+    let windowWidth = this.windowObject.innerWidth;
     if (this.startElement.nativeElement) {
       let start = this.startElement.nativeElement as HTMLElement;
       let res = this.DDEWidth.match(exp);
@@ -618,20 +614,20 @@ export class RDropdownComponent implements IDropDown, AfterContentInit, OnDestro
     if (!this.IsMulti) {      
       this.onChange(this.SelectedItem);
       this.onTouch(this.SelectedItem);
-      this.change.emit(this.SelectedItem as any);
+      this.valueChanged.emit(this.SelectedItem as any);
     }
     else{
       this.onChange(this.SelectedItems);
       this.onTouch(this.SelectedItems);
-      this.change.emit(this.SelectedItems as any);
+      this.valueChanged.emit(this.SelectedItems as any);
     }
   }
 
   NotifyToUI(){
     if (!this.IsMulti)
-      this.change.emit(this.SelectedItem as any);
+      this.valueChanged.emit(this.SelectedItem as any);
     else
-      this.change.emit(this.SelectedItems as any);
+      this.valueChanged.emit(this.SelectedItems as any);
 
       this.SearchItem = "";
   }

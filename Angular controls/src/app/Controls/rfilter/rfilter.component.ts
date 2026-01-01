@@ -9,6 +9,7 @@ import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.com
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../dropdown/dropdownmodel';
 import { CloseService, IDropDown } from '../popup.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rfilter',
@@ -30,7 +31,7 @@ import { CloseService, IDropDown } from '../popup.service';
     DatePipe
   ]
 })
-export class RFilterComponent implements IDropDown, ControlValueAccessor {
+export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implements IDropDown, ControlValueAccessor {
 
   @Input()
   DateFormat: string = 'MM-dd-yyyy';
@@ -205,8 +206,6 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
   @Input()
   BorderColor: string = 'lightgray';
 
-  Id: string = '';
-
   ContainsList: DropdownModel[] | undefined = undefined;
   LessThanNumber: number | undefined = undefined;
   LessThanDate: string | undefined = undefined;
@@ -238,21 +237,17 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
   onChanged = (obj: RFilterApplyModel)=>{};
   onTouched = (obj: RFilterApplyModel)=> {};
 
-  @Output()
-  valueChanged = new EventEmitter<RFilterApplyModel>();
-
-  @HostBinding('id')
-  HostElementId: string = this.windowHelper.GenerateUniqueId();
 
   cls!: CloseService;
-  winObj!: Window;
+  windowObj!: Window;
   
   constructor(private windowHelper: WindowHelper, private datePipe: DatePipe, 
     private eleRef: ElementRef, private cdr: ChangeDetectorRef){
+    super(windowHelper);
     this.cls = CloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();   
     this.cls.AddInstance(this);
-    this.winObj = inject(WINDOWOBJECT);
+    this.windowObj = inject(WINDOWOBJECT);
   }
 
   closeDropdown(): void {
@@ -307,7 +302,7 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
 
   
   AttachDropdown() {
-    let windowHeight = this.winObj.innerHeight;
+    let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
 
@@ -366,7 +361,7 @@ export class RFilterComponent implements IDropDown, ControlValueAccessor {
         }
       }
 
-      let windowWidth = this.winObj.innerWidth;
+      let windowWidth = this.windowObj.innerWidth;
       if (this.startElement.nativeElement) {
         let start = this.startElement.nativeElement as HTMLElement;
         let res = this.DDEWidth.match(exp);

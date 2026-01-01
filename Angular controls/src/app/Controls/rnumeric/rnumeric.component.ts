@@ -46,9 +46,6 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   @Input()
   public EnableShadowEffect: boolean = false;
 
-  @Output()
-  public ValueChanged = new EventEmitter<number>();
-
   @Input()
   public MinusBackgroundColor: string = "blue";
 
@@ -104,14 +101,14 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   writeValue(obj: any): void {
     if(obj){
       this._value = parseInt(obj);
-      this.ValueChanged.emit(this._value);
+      this.valueChanged.emit(this._value);
     }
   }
 
   NotifyToModel(){
     this.onChanged(this._value);
     this.onTouched(this._value);
-    this.ValueChanged.emit(this._value);
+    this.valueChanged.emit(this._value);
   }
 
   registerOnChange(fn: any): void {

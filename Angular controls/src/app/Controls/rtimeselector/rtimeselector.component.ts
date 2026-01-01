@@ -7,6 +7,7 @@ import { RDropdownComponent } from '../dropdown/dropdown.component';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper, WINDOWOBJECT } from '../windowObject';
 import { CloseService, IDropDown } from '../popup.service';
+import { RBaseComponent } from '../Models/RBaseComponent';
 
 @Component({
   selector: 'rtimeselector',
@@ -26,7 +27,7 @@ import { CloseService, IDropDown } from '../popup.service';
     
   }
 })
-export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
+export class RTimeSelectorComponent extends RBaseComponent<string> implements IDropDown, ControlValueAccessor {
 
   IsDropDownOpen: boolean = false;
 
@@ -71,21 +72,14 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
   @Input()
   SelectedItemForeColor: string = "white";
 
-  @Output()
-  public ValueChanged = new EventEmitter<string>();
 
   onChanged: Function = () => { };
   onTouched: Function = () => { };
 
-  Id: string = "";
-
-  @HostBinding('id')
-  HostElementId: string = this.windowHelper.GenerateUniqueId();
-
   @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
   @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
 
-  winObj!: Window;
+  windowObj!: Window;
 
   DDEBottom: string = '';
 
@@ -107,7 +101,8 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
 
   constructor(private windowHelper: WindowHelper, private eleRef: ElementRef, 
     private cdr: ChangeDetectorRef) {
-    this.winObj = inject(WINDOWOBJECT);
+    super(windowHelper);
+    this.windowObj = inject(WINDOWOBJECT);
     this.cls = CloseService.GetInstance();
     this.LoadValues();
     this.Id = this.windowHelper.GenerateUniqueId();
@@ -134,7 +129,7 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
       } else {
         this.outputValue = "";
         this.displayText = this.defaultText;
-        this.ValueChanged.emit("");
+        this.valueChanged.emit("");
       }
       return;
     }
@@ -186,7 +181,7 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
         });
         
         this.SetDisplayText();
-        this.ValueChanged.emit(this.outputValue);
+        this.valueChanged.emit(this.outputValue);
       }
     }
   }
@@ -208,7 +203,7 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
       || (!this.Is24HourFormat && this.selectedHour && this.selectedMinute)) {
       this.onChanged(this.outputValue);
       this.onTouched(this.outputValue);
-      this.ValueChanged.emit(this.outputValue);
+      this.valueChanged.emit(this.outputValue);
     }
   }
 
@@ -363,7 +358,7 @@ export class RTimeSelectorComponent implements IDropDown, ControlValueAccessor {
   }
   
   AttachDropdown() {
-    let windowHeight = this.winObj.innerHeight;
+    let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
 

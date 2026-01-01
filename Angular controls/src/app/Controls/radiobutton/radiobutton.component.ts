@@ -111,6 +111,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
       this.onTouch(this.IsChecked);
       this.OnCheckChanged.emit(args);
       this.OnRadioButtonClick.emit(args);
+      this.valueChanged.emit(args);
     }
   }
 
@@ -119,6 +120,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
     this.onChange(this.IsChecked);
     this.onTouch(this.IsChecked);
     this.OnCheckChanged.emit(args);
+    this.valueChanged.emit(args);
   }
 
   writeValue(obj: any): void {

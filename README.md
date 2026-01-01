@@ -61,8 +61,7 @@ Calender Control
 RSelectDropdown Control
 -------------------------------
 
-<img width="343" height="308" alt="image" src="https://github.com/user-attachments/assets/e9d25599-9435-48ca-bf85-71b984432ad9" />
-
+<img width="300" height="285" alt="image" src="https://github.com/user-attachments/assets/d686b727-7fae-4056-9616-e9f26b4acc9a" />
 
 <br/>
 <br/>

@@ -149,7 +149,8 @@ ProgressBar Control
 
 ### Circle Infinite
 
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/c21e8f0a-1651-4321-9841-42a96cf7be63)
+<img width="263" height="237" alt="image" src="https://github.com/user-attachments/assets/20d5481c-1c26-423f-9aa2-4bbb458b7215" />
+
 
 <br />
 

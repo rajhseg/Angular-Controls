@@ -226,6 +226,8 @@ Timer Control
 
 <img width="386" height="166" alt="image" src="https://github.com/user-attachments/assets/cf2502fb-e863-4a60-8c52-ca667d7c18eb" />
 
+<img width="320" height="182" alt="image" src="https://github.com/user-attachments/assets/d28f1d9e-348f-4779-bf0f-1ea9ef90f8e4" />
+
 <br/>
 <br />
 

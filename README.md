@@ -69,8 +69,6 @@ RSelectDropdown Control
 Tree Control
 --------------------------
 
-![image](https://github.com/user-attachments/assets/a59b162e-5634-4930-9d64-9b6c1d5d68ca)
-
 <img width="301" height="223" alt="image" src="https://github.com/user-attachments/assets/4e18aae7-4102-4059-bb1e-862e43919d98" />
 
 

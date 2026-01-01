@@ -44,8 +44,7 @@ group panel Control
 Calender Control
 -------------------------------
 
-![image](https://github.com/user-attachments/assets/a2176185-819e-477c-be0c-937c6f12c528)
-
+<img width="351" height="285" alt="image" src="https://github.com/user-attachments/assets/2155ea5d-1ae2-4ac9-95a9-fcf2f9b5f9a8" />
 
 <br />
 <br />

@@ -28,6 +28,12 @@ button control
 Textbox Control
 --------------------------------
 
+```html
+
+<rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'" (keydown)="onInputTextBox($event)"></rtextbox>
+   
+```
+
 <img width="561" height="90" alt="image" src="https://github.com/user-attachments/assets/66fb75ac-6320-4622-9b21-64d9a1e55a96" />
 
 
@@ -35,6 +41,12 @@ Textbox Control
 
 PasswordBox Control
 -------------------------
+
+```html
+
+   <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'" (keydown)="onInputTextBox($event)"></rtextbox>
+   
+```
 
 <img width="574" height="88" alt="image" src="https://github.com/user-attachments/assets/34420472-4b75-4a87-b2ef-46e011546fff" />
 

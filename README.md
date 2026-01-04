@@ -99,6 +99,8 @@ RadioButton
 rstate-horizontal Control
 --------------------------------------
 
+<br />
+
 <img width="538" height="227" alt="image" src="https://github.com/user-attachments/assets/57ad1cb3-15a7-4b2f-a021-707558db4445" />
 
 <br />
@@ -108,6 +110,8 @@ rstate-horizontal Control
 Rstate-Vertical Control 
 ----------------------------------------------
 
+<br />
+
 ![image](https://github.com/user-attachments/assets/867c1717-17de-4ba2-8451-962d8639f3ab)
 
 
@@ -116,6 +120,8 @@ Rstate-Vertical Control
 
 Slider
 -----------------------------
+
+<br />
 
 <img width="502" height="172" alt="image" src="https://github.com/user-attachments/assets/7c289303-79cf-4301-83ed-2cad0152bd74" />
 
@@ -128,6 +134,8 @@ Slider
  StarRating Control
 ---------------------
 
+<br />
+
 <img width="365" height="128" alt="image" src="https://github.com/user-attachments/assets/8998aca3-9946-4d84-a9df-54d7db7da8b6" />
 
 
@@ -139,7 +147,9 @@ Slider
 Switch Control
 --------------------
 
-![image](https://github.com/user-attachments/assets/a11723a2-3a2d-4345-b5e0-d6fd798f3e8d)
+<br />
+
+<img width="495" height="209" alt="image" src="https://github.com/user-attachments/assets/22ee94e3-6e80-4659-9991-b17a0604826c" />
 
 
 <br />

@@ -126,7 +126,8 @@ Slider
  StarRating Control
 ---------------------
 
-![image](https://github.com/user-attachments/assets/be9ad16f-a1ed-4b5f-bc93-18979c2057c4)
+<img width="365" height="128" alt="image" src="https://github.com/user-attachments/assets/8998aca3-9946-4d84-a9df-54d7db7da8b6" />
+
 
 <br />
 <br />

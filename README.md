@@ -30,7 +30,9 @@ Textbox Control
 
 ```html
 
-<rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'" (keydown)="onInputTextBox($event)"></rtextbox>
+<rtextbox   [BottomLineColor]="bColor" [LabelForeColor]="bColor"
+            [LabelText]="'Email'" (keydown)="onInputTextBox($event)">
+</rtextbox>
    
 ```
 
@@ -44,7 +46,10 @@ PasswordBox Control
 
 ```html
 
-   <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'" (keydown)="onInputTextBox($event)"></rtextbox>
+   <rtextbox [IsPasswordBox]="true" [BottomLineColor]="bColor"
+            [LabelForeColor]="bColor" [LabelText]="'Email'"
+            (keydown)="onInputTextBox($event)">
+   </rtextbox>
    
 ```
 

@@ -106,9 +106,6 @@ Checkbox
 ![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
 
 <br />
-<br />
-
-
 
 RadioButton
 ----------------------------
@@ -172,7 +169,6 @@ Switch Control
 
 <img width="495" height="209" alt="image" src="https://github.com/user-attachments/assets/22ee94e3-6e80-4659-9991-b17a0604826c" />
 
-<br />
 <br />
 
 ProgressBar Control

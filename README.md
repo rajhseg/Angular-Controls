@@ -14,6 +14,9 @@ REventsCalender  etc.
 button control
 --------------------------------------
 
+<br />
+
+
 <img width="110" height="58" alt="image" src="https://github.com/user-attachments/assets/a39ae1ca-a904-49b2-a604-56ac9c62408d" />
 
 <br />
@@ -21,6 +24,9 @@ button control
 
 Textbox Control
 --------------------------------
+
+<br />
+
 
 <img width="561" height="90" alt="image" src="https://github.com/user-attachments/assets/66fb75ac-6320-4622-9b21-64d9a1e55a96" />
 
@@ -30,12 +36,18 @@ Textbox Control
 PasswordBox Control
 -------------------------
 
+<br />
+
+
 <img width="574" height="88" alt="image" src="https://github.com/user-attachments/assets/34420472-4b75-4a87-b2ef-46e011546fff" />
 
 <br />
 
 group panel Control
 --------------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/d18acc04-5212-4118-a7b9-abc98a7fed1c)
 
@@ -44,6 +56,9 @@ group panel Control
 Calender Control
 -------------------------------
 
+<br />
+
+
 <img width="351" height="285" alt="image" src="https://github.com/user-attachments/assets/2155ea5d-1ae2-4ac9-95a9-fcf2f9b5f9a8" />
 
 <br />
@@ -51,6 +66,9 @@ Calender Control
 
  Dropdown Control
 -------------------
+
+<br />
+
 
 <img width="283" height="283" alt="image" src="https://github.com/user-attachments/assets/516f7586-ea57-4ce9-a25e-74013c6ef70d" />
 
@@ -61,6 +79,9 @@ Calender Control
 RSelectDropdown Control
 -------------------------------
 
+<br />
+
+
 <img width="300" height="285" alt="image" src="https://github.com/user-attachments/assets/d686b727-7fae-4056-9616-e9f26b4acc9a" />
 
 <br/>
@@ -68,6 +89,9 @@ RSelectDropdown Control
 
 Tree Control
 --------------------------
+
+<br />
+
 
 <img width="301" height="223" alt="image" src="https://github.com/user-attachments/assets/4e18aae7-4102-4059-bb1e-862e43919d98" />
 
@@ -78,6 +102,10 @@ Tree Control
 
 Checkbox
 ---------------------------
+
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
 
 <br />
@@ -192,6 +220,9 @@ ProgressBar Control
 RTabs Control
 -------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/73fecaf6-ef16-423b-874f-dbfd80ee7a12)
 
 
@@ -201,6 +232,9 @@ RTabs Control
 
 RFlatTabs Control
 ------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/ba64778a-ed66-4f9d-a0e1-e6599a521066)
 
@@ -212,6 +246,9 @@ RFlatTabs Control
 FileUpload Control
 --------------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/56808f19-b7f4-40a4-a42d-f507dc81a996)
 
 <br />
@@ -220,6 +257,9 @@ FileUpload Control
 ColorPicker
 ---------------------------------
 
+<br />
+
+
 <img width="383" height="387" alt="image" src="https://github.com/user-attachments/assets/c6838ac3-98be-485e-ac8f-293b5254b401" />
 
 
@@ -227,6 +267,9 @@ ColorPicker
 
 Numeric Control
 ---------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/ca16b9ea-73a5-4453-9efa-db6d9d7efd96)
 
@@ -237,7 +280,13 @@ Numeric Control
 Timer Control
 -----------------------------------
 
+<br />
+
+
 <img width="386" height="166" alt="image" src="https://github.com/user-attachments/assets/cf2502fb-e863-4a60-8c52-ca667d7c18eb" />
+
+<br />
+
 
 <img width="320" height="182" alt="image" src="https://github.com/user-attachments/assets/d28f1d9e-348f-4779-bf0f-1ea9ef90f8e4" />
 
@@ -247,6 +296,9 @@ Timer Control
 TimeSelector
 -------------------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/3af32442-7d88-4c53-84f9-1d4ace726636)
 
 <br/>
@@ -255,12 +307,19 @@ TimeSelector
 RGrid Control
 ------------------------------
 
+
 #### ViewMode
+
+<br />
+
 
 <img width="992" height="336" alt="Screenshot from 2025-12-01 14-42-15" src="https://github.com/user-attachments/assets/c52a71ec-1cd1-4568-93bb-7e159267554f" />
 
 
 #### EditMode
+
+<br />
+
 
 <img width="992" height="336" alt="image" src="https://github.com/user-attachments/assets/dee8deb2-d5a0-4781-803a-72622375181a" />
 
@@ -292,6 +351,9 @@ RStepper-Vertical
 RStepperHorizontal
 -----------------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/cc2a436f-feaa-4b8f-9edc-539df2327da1)
 
 <br />
@@ -300,6 +362,9 @@ RStepperHorizontal
 
 RDonutChart Control
 ----------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/30ac5cd0-0750-4969-a13d-85825520a637)
 
@@ -310,6 +375,9 @@ RDonutChart Control
 RPieChart Control
 ----------------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/2c46f4d3-351c-4d05-b0b0-d6a491a923f0)
 
 
@@ -318,6 +386,9 @@ RPieChart Control
 
 RBarChart Vertical Control
 -----------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/b31ecdfc-ec01-40cb-946b-aca0d5651793)
 
@@ -328,6 +399,9 @@ RBarChart Vertical Control
 RBarChart Horizontal Control
 ------------------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/b06aea17-908c-444e-a6cb-37b69261c51f)
 
 <br/>
@@ -336,6 +410,9 @@ RBarChart Horizontal Control
 RStackedBarChart Vertical Control
 -------------------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/518fca67-e78e-4abe-82d8-8cbd8c9b70d1)
 
 <br/>
@@ -343,6 +420,9 @@ RStackedBarChart Vertical Control
 
 RStackedRangeBarChart Vertical Control
 ---------------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/fa764927-e5ce-4c9b-8d78-ec4c965693d7)
 
@@ -356,6 +436,9 @@ RStackedRangeBarChart Vertical Control
 RScatterChart
 ----------------------------------
 
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/b84c2a6a-e88d-4b88-8246-296c46382b00)
 
 <br />
@@ -363,12 +446,17 @@ RScatterChart
 RLineChart
 ----------------------------------
 
+<br />
+
 ![image](https://github.com/user-attachments/assets/949ac694-38ff-4c5a-9c5e-3e54c0ddc905)
 
 <br/>
 
 RStackedBarChart Horizontal
 --------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/e39aaa51-8cb3-44a1-ae11-acfa23751bdd)
 
@@ -378,6 +466,8 @@ RStackedBarChart Horizontal
 RAreaChart
 --------------------------------
 
+<br />
+
 ![image](https://github.com/user-attachments/assets/0fa04a63-e16d-4042-97df-5aa22c91dacf)
 
 <br/>
@@ -386,6 +476,8 @@ RAreaChart
 RAllocationBarChart
 ---------------------------------
 
+<br />
+
 ![image](https://github.com/user-attachments/assets/ee942731-e84c-4f2b-a7e1-2e901958e3d4)
 
 
@@ -393,6 +485,9 @@ RAllocationBarChart
 
 RFilter
 -------------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/70f4fba1-9e1f-401d-a481-a9bdc0f029be)
 
@@ -404,6 +499,8 @@ RSeriesChart
 
 #### YSeriesChart
 
+<br />
+
 ![image](https://github.com/user-attachments/assets/d4ff94ad-3303-4c58-9e2e-ff7e1035a68e)
 
 ![image](https://github.com/user-attachments/assets/1991fb09-1b33-4f59-8c18-ac300af2d753)
@@ -411,6 +508,9 @@ RSeriesChart
 <br />
 
 #### GraphSeriesChart
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/70cc94eb-0e1a-4ee2-8afe-575199c19516)
 
@@ -423,12 +523,17 @@ REventsCalender
 
 ### Main Screen
 
+<br />
+
 ![image](https://github.com/user-attachments/assets/f7fab9d8-f9c6-4b39-bc07-9988171cb750)
 
 
 ### Add Events Screen (this screen will open on double click of Main screen Day Cell)
 
-![image](https://github.com/user-attachments/assets/a2def0f6-efae-4913-ab7c-e4c01b3e2f8e)
+<br />
+
+<img width="859" height="473" alt="image" src="https://github.com/user-attachments/assets/4ed3d09c-e364-4ddd-a461-6019cdec3cfe" />
+
 
 
 

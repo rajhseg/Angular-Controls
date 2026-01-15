@@ -1,5 +1,6 @@
 
-# Angular-Controls
+# $\textsf{\color{darkblue}{ Angular - Controls }}$
+
 This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
@@ -11,31 +12,47 @@ REventsCalender  etc.
 
 <br />
 
-button control
+$\textsf{\color{darkblue}{ Button Control }}$
 --------------------------------------
+
+<br />
+
+
 <img width="110" height="58" alt="image" src="https://github.com/user-attachments/assets/a39ae1ca-a904-49b2-a604-56ac9c62408d" />
 
-
 <br />
 <br />
 
-Textbox Control
+
+$\textsf{\color{darkblue}{ Textbox Control }}$
 --------------------------------
+
+<br />
+
 
 <img width="561" height="90" alt="image" src="https://github.com/user-attachments/assets/66fb75ac-6320-4622-9b21-64d9a1e55a96" />
 
+<br />
+<br />
+
+
+$\textsf{\color{darkblue}{ Password Control }}$
+-------------------------
 
 <br />
 
-PasswordBox Control
--------------------------
 
 <img width="574" height="88" alt="image" src="https://github.com/user-attachments/assets/34420472-4b75-4a87-b2ef-46e011546fff" />
 
 <br />
+<br />
+
 
 group panel Control
 --------------------------------------
+
+<br />
+
 
 ![image](https://github.com/user-attachments/assets/d18acc04-5212-4118-a7b9-abc98a7fed1c)
 
@@ -44,15 +61,21 @@ group panel Control
 Calender Control
 -------------------------------
 
-![image](https://github.com/user-attachments/assets/a2176185-819e-477c-be0c-937c6f12c528)
+<br />
 
+
+<img width="351" height="285" alt="image" src="https://github.com/user-attachments/assets/2155ea5d-1ae2-4ac9-95a9-fcf2f9b5f9a8" />
 
 <br />
 <br />
 
  Dropdown Control
 -------------------
-![image](https://github.com/user-attachments/assets/27655d87-7699-455a-ac3e-f6696709c52a)
+
+<br />
+
+
+<img width="283" height="283" alt="image" src="https://github.com/user-attachments/assets/516f7586-ea57-4ce9-a25e-74013c6ef70d" />
 
 
 <br />
@@ -61,14 +84,19 @@ Calender Control
 RSelectDropdown Control
 -------------------------------
 
-![image](https://github.com/user-attachments/assets/c2a0fe58-eded-4e32-a83c-933076b4dce8)
+<br />
+
+
+<img width="300" height="285" alt="image" src="https://github.com/user-attachments/assets/d686b727-7fae-4056-9616-e9f26b4acc9a" />
 
 <br/>
 <br/>
 
 Tree Control
 --------------------------
-![image](https://github.com/user-attachments/assets/a59b162e-5634-4930-9d64-9b6c1d5d68ca)
+
+<img width="301" height="223" alt="image" src="https://github.com/user-attachments/assets/4e18aae7-4102-4059-bb1e-862e43919d98" />
+
 
 <br />
 <br />
@@ -76,15 +104,18 @@ Tree Control
 
 Checkbox
 ---------------------------
+
+<br />
+
+
 ![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
 
 <br />
-<br />
-
-
 
 RadioButton
 ----------------------------
+
+<br />
 
 ![image](https://github.com/user-attachments/assets/4ba30a66-257e-4daf-9088-9a95d6a7aa5b)
 
@@ -95,7 +126,9 @@ RadioButton
 rstate-horizontal Control
 --------------------------------------
 
-<img width="545" height="247" alt="image" src="https://github.com/user-attachments/assets/d9c6c5a6-a519-45fa-9e74-c1070fc56851" />
+<br />
+
+<img width="538" height="227" alt="image" src="https://github.com/user-attachments/assets/57ad1cb3-15a7-4b2f-a021-707558db4445" />
 
 <br />
 <br />
@@ -103,6 +136,8 @@ rstate-horizontal Control
 
 Rstate-Vertical Control 
 ----------------------------------------------
+
+<br />
 
 ![image](https://github.com/user-attachments/assets/867c1717-17de-4ba2-8451-962d8639f3ab)
 
@@ -113,7 +148,9 @@ Rstate-Vertical Control
 Slider
 -----------------------------
 
-![image](https://github.com/user-attachments/assets/a324e6db-dcd3-4d0e-b587-2f494d1271fb)
+<br />
+
+<img width="502" height="172" alt="image" src="https://github.com/user-attachments/assets/7c289303-79cf-4301-83ed-2cad0152bd74" />
 
 
 <br />
@@ -124,39 +161,35 @@ Slider
  StarRating Control
 ---------------------
 
-![image](https://github.com/user-attachments/assets/be9ad16f-a1ed-4b5f-bc93-18979c2057c4)
+<br />
+
+<img width="365" height="128" alt="image" src="https://github.com/user-attachments/assets/8998aca3-9946-4d84-a9df-54d7db7da8b6" />
+
 
 <br />
 <br />
-
-
 
 Switch Control
 --------------------
 
-![image](https://github.com/user-attachments/assets/a11723a2-3a2d-4345-b5e0-d6fd798f3e8d)
-
+<img width="495" height="209" alt="image" src="https://github.com/user-attachments/assets/22ee94e3-6e80-4659-9991-b17a0604826c" />
 
 <br />
-<br />
-
-
 
 ProgressBar Control
 ---------------------
 
 ### Circle Infinite
 
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/c21e8f0a-1651-4321-9841-42a96cf7be63)
+<img width="263" height="237" alt="image" src="https://github.com/user-attachments/assets/20d5481c-1c26-423f-9aa2-4bbb458b7215" />
 
 <br />
 
 ### StraightLine Infinite
 
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/36481afd-9963-4fc3-8f71-cbe003061d09)
+<img width="484" height="148" alt="image" src="https://github.com/user-attachments/assets/87642eb4-36b7-46cf-b2ad-73becc8b424e" />
 
 <br />
-
 
 ### StraightLine Finite
 
@@ -204,7 +237,8 @@ FileUpload Control
 ColorPicker
 ---------------------------------
 
-![image](https://github.com/user-attachments/assets/294ee75f-a499-405e-8e1f-188f35879301)
+<img width="383" height="387" alt="image" src="https://github.com/user-attachments/assets/c6838ac3-98be-485e-ac8f-293b5254b401" />
+
 
 <br />
 
@@ -213,14 +247,17 @@ Numeric Control
 
 ![image](https://github.com/user-attachments/assets/ca16b9ea-73a5-4453-9efa-db6d9d7efd96)
 
-
 <br />
 <br />
 
 Timer Control
 -----------------------------------
 
-![image](https://github.com/user-attachments/assets/786c0f3a-7d4e-4bff-81f7-79c7a71497b2)
+<img width="386" height="166" alt="image" src="https://github.com/user-attachments/assets/cf2502fb-e863-4a60-8c52-ca667d7c18eb" />
+
+<br />
+
+<img width="320" height="182" alt="image" src="https://github.com/user-attachments/assets/d28f1d9e-348f-4779-bf0f-1ea9ef90f8e4" />
 
 <br/>
 <br />
@@ -245,15 +282,11 @@ RGrid Control
 
 <img width="992" height="336" alt="image" src="https://github.com/user-attachments/assets/dee8deb2-d5a0-4781-803a-72622375181a" />
 
-
-
-
 <br/>
 <br />
 
 REventsSchedule
 -------------------------------
-<br/>
 
 ![image](https://github.com/user-attachments/assets/97e54714-093f-46f7-b1ad-3e7dff7580a4)
 
@@ -262,7 +295,6 @@ REventsSchedule
 
 RStepper-Vertical
 -------------------------------
-<br />
 
 ![image](https://github.com/user-attachments/assets/f62388f4-6c1a-403a-a3db-a11791a3d2a3)
 
@@ -319,7 +351,6 @@ RStackedBarChart Vertical Control
 
 ![image](https://github.com/user-attachments/assets/518fca67-e78e-4abe-82d8-8cbd8c9b70d1)
 
-<br/>
 <br/>
 
 RStackedRangeBarChart Vertical Control
@@ -395,7 +426,6 @@ RSeriesChart
 
 ![image](https://github.com/user-attachments/assets/70cc94eb-0e1a-4ee2-8afe-575199c19516)
 
-
 <br/>
 
 
@@ -409,7 +439,7 @@ REventsCalender
 
 ### Add Events Screen (this screen will open on double click of Main screen Day Cell)
 
-![image](https://github.com/user-attachments/assets/a2def0f6-efae-4913-ab7c-e4c01b3e2f8e)
+<img width="824" height="650" alt="image" src="https://github.com/user-attachments/assets/fb48684f-0ba3-418c-949a-f5c7d6a5eeb3" />
 
 
 

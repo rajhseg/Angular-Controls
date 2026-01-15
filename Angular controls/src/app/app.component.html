@@ -1,9 +1,38 @@
 <div>
 
+    <h3>Server 1</h3>
+      <div style="margin-top:105px;"></div>
+
+<!-- 
+      <div style="margin-left: 60px;">
+        
+    <rtimer [FlatStyleForeColor]="bColor"
+            [DisplayTextForeColor]="bColor" [IsHidden]="false"
+            [CallbackAfterCertainSeconds]="1"
+            [DisplayType]="1"
+            [CircularWidth]="100"
+            (CallbackTriggeredAfterCertainSeconds)="realTimeCharts($event)"
+            [EnableShadowEffect]="false">
+    </rtimer>
+
+      </div> -->
+
+      <!-- <div style="margin-top:400px" ></div>
+      <br /> -->
+
   
+
     <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating>
-    
-    <br/>
+        
+    <br />
+
+    <rstarrating [starWidth]="starWidth"></rstarrating>
+
+    <br />
+
+    <br />
+
+    <br />
 
   <div>
 
@@ -22,7 +51,7 @@
       <div ></div>
       <br />
 
-      <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'" (keydown)="onInputTextBox($event)"></rtextbox>
+      <rtextbox  [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'" (keydown)="onInputTextBox($event)"></rtextbox>
    
       <div ></div>
       <br />

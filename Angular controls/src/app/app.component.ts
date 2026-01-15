@@ -269,7 +269,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper, private ngZone: NgZone, 
     private mod: NgModuleRef<any>) {  
 
-      this.items.push(new DropdownModel("0", "Jan aaaaaaaaaaaaaa"));
+      this.items.push(new DropdownModel("0", "Jan"));
       this.items.push(new DropdownModel("1", "Feb"));
       this.items.push(new DropdownModel("2", "Mar"));
       this.items.push(new DropdownModel("4", "Apr"));

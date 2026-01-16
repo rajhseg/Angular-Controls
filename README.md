@@ -12,7 +12,7 @@ REventsCalender  etc.
 
 <br />
 
-$\textsf{\color{black}{ Button Control }}$
+Button Control
 --------------------------------------
 
 <br />
@@ -24,7 +24,7 @@ $\textsf{\color{black}{ Button Control }}$
 <br />
 
 
-$\textsf{\color{black}{ Textbox Control }}$
+Textbox Control
 --------------------------------
 
 <br />
@@ -36,7 +36,7 @@ $\textsf{\color{black}{ Textbox Control }}$
 <br />
 
 
-$\textsf{\color{black}{ Password Control }}$
+Password Control 
 -------------------------
 
 <br />

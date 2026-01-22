@@ -301,6 +301,9 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     return this._topVal;
   }
 
+  @Input()
+  EnableShadowEffect: boolean = false;
+  
   @Output()
   Opened = new EventEmitter<boolean>(); // output<boolean>();
 

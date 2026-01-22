@@ -4,8 +4,7 @@
 
 .calender {    
     padding: 10px;    
-    border: 1px solid #80808047;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;     
+    border: 1px solid #80808047; 
     position: relative;    
     background-color: white;        
 }
@@ -106,8 +105,9 @@ width: fit-content;
   top: 0px;
   left:0px;
   z-index: 1;  
-  background-color: rgba(0, 0, 0, 0.4); 
-  overflow: scroll; 
+  /* background-color: rgba(0, 0, 0, 0.4);  */
+  background-color: whitesmoke;
+  overflow: auto; 
 }
 
 .modalContent {

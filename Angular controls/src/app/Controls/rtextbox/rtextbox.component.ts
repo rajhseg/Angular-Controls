@@ -1,4 +1,4 @@
-import { NgIf, NgStyle } from '@angular/common';
+import { NgIf, NgStyle, NgClass } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { WindowHelper } from '../windowObject';
@@ -8,7 +8,7 @@ import { RBaseComponent } from '../Models/RBaseComponent';
 @Component({
   selector: 'rtextbox',
   standalone: true,
-  imports: [NgIf, NgStyle, FormsModule, ReactiveFormsModule],
+  imports: [NgIf, NgStyle, FormsModule, ReactiveFormsModule, NgClass],
   templateUrl: './rtextbox.component.html',
   styleUrl: './rtextbox.component.css',
   host: {
@@ -23,6 +23,9 @@ import { RBaseComponent } from '../Models/RBaseComponent';
   ]
 })
 export class RTextboxComponent extends RBaseComponent<string> implements ControlValueAccessor, AfterViewInit {
+
+  @Input()
+  EnableBoxShadow: boolean = false;
 
   @Input()
   LabelText: string = "";

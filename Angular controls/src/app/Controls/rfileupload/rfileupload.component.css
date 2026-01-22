@@ -57,8 +57,7 @@
     height: 30px;    
     cursor: pointer;
     border: none;
-    border-bottom: 2px solid blue;     
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    border-bottom: 2px solid blue;      
     outline: none;
     align-content: center;
     align-items: center;
@@ -68,6 +67,13 @@
     padding: 4px;
     padding-left: 7px;
     padding-right: 7px;
+}
+
+
+.brdr {
+    border-top: 0.5px solid lightgray;
+    border-right: 0.5px solid lightgray;
+    border-left: 0.5px solid lightgray;
 }
 
 .rcontainer:focus{

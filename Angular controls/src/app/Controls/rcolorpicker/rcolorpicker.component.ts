@@ -98,7 +98,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   private isColorPickerSelected: boolean = false;
 
   @Input()
-  public EnableShadowEffect: boolean = true;
+  public EnableShadowEffect: boolean = false;
 
   // private _inputColorInHex: string | undefined = undefined;
 

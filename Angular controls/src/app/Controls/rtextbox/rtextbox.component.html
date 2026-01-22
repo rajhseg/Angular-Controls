@@ -19,13 +19,16 @@
             [disabled]="Disabled"
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
-       
+
+        [ngClass]="{'brdr' : !EnableBoxShadow }"
+
        [ngStyle]="{ 'height': TextBoxHeight, 
                     'width': TextBoxWidth,
                     'border-bottom-color': BottomLineColor,       
                     'margin-bottom': EnableMarginTextBottom ? MarginTextBottom : '', 
                     'font': Font, 
-                    'pointer-events':(Disabled || ReadOnly) ? 'none': '' 
+                    'pointer-events':(Disabled || ReadOnly) ? 'none': '' ,
+                    'box-shadow': EnableBoxShadow ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : ''
                 }"
 
        [placeholder]="PlaceholderText">     

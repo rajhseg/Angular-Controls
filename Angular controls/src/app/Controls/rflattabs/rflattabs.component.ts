@@ -36,10 +36,18 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
     @ViewChildren('tmp', {read: ElementRef}) tmp!: QueryList<ElementRef>;
   
     private hostElement!: ElementRef;
-  
+
     private components: any[] = [
       RTabComponent
     ];
+      
+    @Input()
+    EnableBoxShadow : boolean = true;
+
+    @HostBinding('class.boxshadow')
+    get boxshadowClass(){
+      return this.EnableBoxShadow;
+    }
   
     public SelectedTabTemplateRef!: RTabIdFor | undefined;
   

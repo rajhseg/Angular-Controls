@@ -3,7 +3,8 @@
 
 <div class="calender" #calmodal
             [ngStyle]="{
-                        'width': DDEWidth, 'height': DDEHeight                        
+                        'width': DDEWidth, 'height': DDEHeight,
+                        'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''
                         }">
         <div #modal class="modal" [ngStyle]="{ 'display' : isModalOpen ? 'block' : 'none' }">
             <div class="modalContent">
@@ -16,7 +17,7 @@
                     </div> 
                 </div>
                 <div style="margin:15px">
-                    <rgroup-panel style="position: relative; top:-20px;font-size: 12px;" [EnableShadowEffect]="false"  [groupname]="'Event'" 
+                    <rgroup-panel style="position: relative; top:-20px;font-size: 12px;width:100%" [EnableShadowEffect]="false"  [groupname]="'Event'" 
                         [IsItemsArrangeHorizontal]="true">
                     <div style="display: flex; flex-direction: row;justify-content: space-between;width: 100%;">
                         <rtextbox class="evtAdd" [LabelText]="'Event Name'" [(ngModel)]="NewEvent.Name"></rtextbox>

@@ -4,7 +4,10 @@
     <rgroup-panel [groupname]="'Files Upload'" [TitleForeColor]="TextForeColor" 
             [EnableShadowEffect]="EnableShadowEffect">
         <div #startElement style="display: flex;">
-            <div class="rcontainer" [ngStyle]="{'border-bottom-color': IconForeColor}">
+            <div class="rcontainer" 
+                        [ngClass]="{ 'brdr': !EnableShadowEffect }"
+                        [ngStyle]="{'border-bottom-color': IconForeColor, 
+                                    'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8pxs' : ''}">
                 <div class="displayText" [ngStyle]="{ 'color': TextForeColor }">{{DisplayText}}</div>
                 <div *ngIf="Files.length > 0">
                     <span class="droppos" (click)="toggle($event)" #openbtn

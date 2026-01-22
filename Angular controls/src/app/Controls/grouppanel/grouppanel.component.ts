@@ -12,7 +12,7 @@ import { WindowHelper } from '../windowObject';
 export class RGrouppanelComponent {
 
 @Input()
-public EnableShadowEffect: boolean = true;
+public EnableShadowEffect: boolean = false;
 
 @Input()
 groupname: string = "";

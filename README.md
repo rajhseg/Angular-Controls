@@ -12,7 +12,7 @@ REventsCalender  etc.
 
 <br />
 
-$\textsf{\color{darkblue}{ Button Control }}$
+Button Control
 --------------------------------------
 
 <br />
@@ -24,7 +24,7 @@ $\textsf{\color{darkblue}{ Button Control }}$
 <br />
 
 
-$\textsf{\color{darkblue}{ Textbox Control }}$
+Textbox Control
 --------------------------------
 
 <br />
@@ -36,7 +36,7 @@ $\textsf{\color{darkblue}{ Textbox Control }}$
 <br />
 
 
-$\textsf{\color{darkblue}{ Password Control }}$
+Password Control 
 -------------------------
 
 <br />
@@ -48,7 +48,7 @@ $\textsf{\color{darkblue}{ Password Control }}$
 <br />
 
 
-group panel Control
+Group Panel Control
 --------------------------------------
 
 <br />
@@ -123,7 +123,7 @@ RadioButton
 <br />
 
 
-rstate-horizontal Control
+Rstate-Horizontal Control
 --------------------------------------
 
 <br />

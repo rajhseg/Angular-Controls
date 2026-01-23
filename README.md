@@ -439,7 +439,11 @@ REventsCalender
 
 ### Add Events Screen (this screen will open on double click of Main screen Day Cell)
 
-<img width="824" height="650" alt="image" src="https://github.com/user-attachments/assets/fb48684f-0ba3-418c-949a-f5c7d6a5eeb3" />
+<img width="785" height="672" alt="image" src="https://github.com/user-attachments/assets/95985ca1-d2cf-4fcc-b6ff-5bd874cefc48" />
+
+
+
+
 
 
 

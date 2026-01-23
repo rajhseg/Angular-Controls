@@ -51,8 +51,12 @@
       <div ></div>
       <br />
 
-      <rtextbox  [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'" (keydown)="onInputTextBox($event)"></rtextbox>
-   
+      <rtextbox  [BottomLineColor]="bColor" [IsPasswordBox]="false" [LabelForeColor]="bColor" [LabelText]="'UserName'" (keydown)="onInputTextBox($event)"></rtextbox>
+      <rtextbox  [BottomLineColor]="bColor" [IsPasswordBox]="true" [LabelForeColor]="bColor" [LabelText]="'Password'"></rtextbox>
+      
+      <rbutton [ButtonHeight]="'40px'" style="margin-top:21px" [BackgroundColor]="bColor">Submit</rbutton>
+      
+      
       <div ></div>
       <br />
 
@@ -101,7 +105,7 @@
       <br />
 
       <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
-                 [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
+                 [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="'gray'"
                  [IconForeColor]="bColor"
                  (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
       </rfileupload>

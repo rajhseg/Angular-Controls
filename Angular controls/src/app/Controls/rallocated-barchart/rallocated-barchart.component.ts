@@ -296,6 +296,23 @@ export class RAllocatedBarChartComponent {
     return undefined;
   }
 
+  calculateDisplayNameWidth(){
+    var names = this.Columns.map(x=>x.DisplayName);
+    var length = 0;
+
+    if(this.context){
+      for (let index = 0; index < names.length; index++) {
+        const element = names[index];
+        var mText = this.context?.measureText(element);
+        if(mText.width > length){
+            length = mText.width
+        }
+      }
+    }
+
+    return length;
+  }
+
   RenderBarChart() {
     this.IsRendered = false;
 

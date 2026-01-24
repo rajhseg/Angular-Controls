@@ -11,8 +11,8 @@
             <div class="data" *ngFor="let itm of this.Items">
                 <div class="indicator" [ngStyle]="{'backgroundColor': itm.BackgroundColor}">                    
                 </div>
-                <span class="title" style="width: 50px;">{{itm.Title}}</span>
-                <span class="title" style="width: 30px;">({{itm.Value}})</span>
+                <span class="title" [ngStyle]="{'width': calculateTitleWidth()+'px'}">{{itm.Title}}</span>
+                <span class="title" [ngStyle]="{'width': calculateValueWidth()+'px'}">({{itm.Value}})</span>
             </div>
         </div>        
     </div>

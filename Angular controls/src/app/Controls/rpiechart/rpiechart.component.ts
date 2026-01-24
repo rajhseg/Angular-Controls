@@ -97,6 +97,47 @@ export class RPieChartComponent {
     }
   }
 
+  calculateTitleWidth(){
+    var names = this.Items.map(x=>x.Title);
+    var length = 0;
+
+    if(this.context){
+      for (let index = 0; index < names.length; index++) {
+        const element = names[index];
+        var mText = this.context?.measureText(element);
+        if(mText.width > length){
+            length = mText.width
+        }
+      }
+    }
+
+    if(length > 0)
+      length = length+5;
+
+    return length;
+  }
+
+  
+  calculateValueWidth(){
+    var names = this.Items.map(x=>x.Value.toString());
+    var length = 0;
+
+    if(this.context){
+      for (let index = 0; index < names.length; index++) {
+        const element = names[index];
+        var mText = this.context?.measureText(element);
+        if(mText.width > length){
+            length = mText.width
+        }
+      }
+    }
+
+    if(length > 0)
+      length = length+10;
+    
+    return length;
+  }
+  
   GetXYForText(x: number, y: number, length: number, angle: number): { X: number, Y: number } {
     let x2 = x + length * Math.cos(angle);
     let y2 = y + length * Math.sin(angle);

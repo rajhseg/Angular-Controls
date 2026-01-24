@@ -111,6 +111,48 @@ export class RDonutChartComponent implements AfterViewInit {
     context.closePath();
   }
 
+  
+  calculateTitleWidth(){
+    var names = this.Items.map(x=>x.Title);
+    var length = 0;
+
+    if(this.context){
+      for (let index = 0; index < names.length; index++) {
+        const element = names[index];
+        var mText = this.context?.measureText(element);
+        if(mText.width > length){
+            length = mText.width
+        }
+      }
+    }
+
+    if(length > 0)
+      length = length+5;
+
+    return length;
+  }
+
+  
+  calculateValueWidth(){
+    var names = this.Items.map(x=>x.Value.toString());
+    var length = 0;
+
+    if(this.context){
+      for (let index = 0; index < names.length; index++) {
+        const element = names[index];
+        var mText = this.context?.measureText(element);
+        if(mText.width > length){
+            length = mText.width
+        }
+      }
+    }
+
+    if(length > 0)
+      length = length+10;
+    
+    return length;
+  }
+
   RenderChart() {
     this.IsRendered = false;
     if (this.progressCanvas && this.context && this._items.length > 0) {

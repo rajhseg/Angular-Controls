@@ -13,6 +13,9 @@ export class RbuttonComponent {
 
   @Output()
   public ButtonClick = new EventEmitter<any>();
+
+  @Input()
+  public EnableBackDrop: boolean = false;
   
   @Input()
   public ButtonWidth: string = '100px';

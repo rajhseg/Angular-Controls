@@ -4,7 +4,6 @@ In the previous chapter, we learned about the [Window and Environment Helper](01
 
 Now, we introduce the **RBaseComponent**, the fundamental building block that ensures every custom control in this library automatically utilizes these foundational features and maintains a consistent structure.
 
----
 
 ## The Need for a Foundation Class
 

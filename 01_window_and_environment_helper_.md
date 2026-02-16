@@ -4,7 +4,6 @@ Welcome to the first chapter of the Angular-Controls tutorial! Building professi
 
 This chapter introduces the **Window and Environment Helper**, which is the fundamental layer that makes our controls robust across different execution environments.
 
----
 
 ## Why Do We Need a Helper? The SSR Problem
 

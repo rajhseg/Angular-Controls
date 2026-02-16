@@ -37,14 +37,6 @@ flowchart TD
 ](02_rbasecomponent_.md)
 3. [CssUnitsService
 ](03_cssunitsservice_.md)
-4. [CloseService (Popup Management)
-](04_closeservice__popup_management__.md)
-5. [RDropdownComponent
-](05_rdropdowncomponent_.md)
-6. [RGridComponent
-](06_rgridcomponent_.md)
-7. [RTabsComponent / RFlatTabsComponent
-](07_rtabscomponent___rflattabscomponent_.md)
 
 
 

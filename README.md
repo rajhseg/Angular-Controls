@@ -29,26 +29,6 @@ flowchart TD
     A4 -- "Calculates Dropdown Position" --> A2
 ```
 
-## Chapters
-
-1. [Window and Environment Helper
-](01_window_and_environment_helper_.md)
-2. [RBaseComponent
-](02_rbasecomponent_.md)
-3. [CssUnitsService
-](03_cssunitsservice_.md)
-4. [CloseService (Popup Management)
-](04_closeservice__popup_management__.md)
-5. [RDropdownComponent
-](05_rdropdowncomponent_.md)
-6. [RGridComponent
-](06_rgridcomponent_.md)
-7. [RTabsComponent / RFlatTabsComponent
-](07_rtabscomponent___rflattabscomponent_.md)
-
-
-
-
 # Controls
 
 This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 

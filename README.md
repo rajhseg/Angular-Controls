@@ -1,14 +1,35 @@
 
-# $\textsf{\color{darkblue}{ Angular - Controls }}$
+# Angular-Controls
 
-This Repo is under development so there may be some issues you can face while using it, All issues will be fixed once development completes.
+This project is under development which can offers a comprehensive suite of reusable Angular UI components, known as R controls (like RDropdown, RGrid, RCalender). The core functionality focuses on providing robust cross-platform compatibility, especially for Server-Side Rendering (SSR), achieved through the *Window and Environment Helper*. All controls inherit from **RBaseComponent**, ensuring unique identification and standardized event emissions. Key complexity lies in dynamically handling component dimensions using the **CssUnitsService** and orchestrating non-overlapping display of popups and overlays via the **CloseService**.
 
-This repo is consists of Angular controls like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), 
-switch, Tab, RFlatTabs, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker,
-Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RStepperHorizontal, RDonutChart, RPieChart, RBarChart Vertical, RBarChart 
-Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterChart, RLineChart, RStackedBarChart Horizontal, RAreaChart, RAllocationBarChart, RFilter, 
-REventsCalender  etc.
+## Visual Overview
 
+```mermaid
+flowchart TD
+    A0["RBaseComponent
+"]
+    A1["Window and Environment Helper
+"]
+    A2["CssUnitsService
+"]
+    A3["CloseService (Popup Management)
+"]
+    A4["RDropdownComponent
+"]
+    A5["RGridComponent
+"]
+    A6["RTabsComponent / RFlatTabsComponent
+"]
+    A0 -- "Requires Context/ID" --> A1
+    A4 -- "Registers Popup Instance" --> A3
+    A3 -- "Triggers Auto-Closure" --> A4
+    A5 -- "Calculates Column Widths" --> A2
+    A6 -- "Retrieves Unique IDs" --> A1
+    A4 -- "Calculates Dropdown Position" --> A2
+```
+
+This project consists of Angular UI Components like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), switch, Tab, RFlatTabs, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker, Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RStepperHorizontal, RDonutChart, RPieChart, RBarChart Vertical, RBarChart Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterChart, RLineChart, RStackedBarChart Horizontal, RAreaChart, RAllocationBarChart, RFilter, REventsCalender  etc.
 
 <br />
 

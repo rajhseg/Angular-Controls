@@ -25,6 +25,24 @@ export class RScatterChartComponent implements AfterViewInit {
   private _textColor: string = "gray";
 
   @Input()
+  GlassyEffect: boolean = true;
+
+  @Input()
+  GlassyEffectColor: string = 'lightgray';
+
+  @Input()
+  PaddingLeft: number = 20;
+
+  @Input()
+  PaddingRight: number = 20;
+
+  @Input()
+  PaddingTop: number = 20;
+
+  @Input()
+  PaddingBottom: number = 10;
+
+  @Input()
   PlotItemSize: number = 3;
 
   @Input()
@@ -170,7 +188,10 @@ export class RScatterChartComponent implements AfterViewInit {
   MouseMove(event: MouseEvent) {
     if(this.context && this.bar){            
       this.context?.beginPath();      
-      this.context.clearRect(0, 0, this.Width, this.Height);
+      
+      this.context.clearRect(0, 0, this.Width + this.PaddingLeft + this.PaddingRight, 
+        this.Height + this.PaddingTop + this.PaddingBottom);
+
       this.context.closePath();
 
       this.RenderScatterChart();
@@ -264,14 +285,44 @@ export class RScatterChartComponent implements AfterViewInit {
     return typeof prop === 'string';
   }
 
+  
+  EnableGlassyEffectOnTopOfChart() {
+    if(this.context && this.bar && this.GlassyEffect) {
+
+      let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight, 
+          gheight = this.Height + this.PaddingTop + this.PaddingBottom;
+
+      this.context.beginPath();
+      this.context.save();
+      this.context.globalAlpha = 0.2;
+      this.context.filter = "blur(10px)";
+      this.context.fillStyle = this.GlassyEffectColor;
+      this.context.roundRect(x, y, gwidth, gheight, 7);
+      this.context.fill();
+      this.context.restore();
+      this.context.closePath();
+
+       // Light border
+       this.context.strokeStyle = "rgba(255, 255, 255, 0.6)";
+       this.context.lineWidth = 1.5;
+       this.context.strokeRect(x, y, gwidth, gheight);
+
+      // Soft inner highlight
+      this.context.fillStyle = "rgba(255, 255, 255, 0.1)";
+      this.context.fillRect(x, y, gwidth, gheight);
+    }
+  }
+
   RenderScatterChart() {
     this.IsRendered = false;
 
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
-      this.context.clearRect(0, 0, this.Width, this.Height);
+      this.context.clearRect(0, 0, this.Width + this.PaddingLeft + this.PaddingRight, this.Height + this.PaddingTop + this.PaddingBottom);
       
+      this.EnableGlassyEffectOnTopOfChart();
+
       let spaceFromTopYAxis = 25;
       let spaceFromRightXAxis = 25;
 
@@ -302,13 +353,13 @@ export class RScatterChartComponent implements AfterViewInit {
         var MinLimit = 0;
         var MaxLimit = ydistance * (this.NoOfSplitInYAxis);
 
-        var StartX: number = this._marginX;
-        var StartY: number = this.Height - this._marginY;
+        var StartX: number = this._marginX + this.PaddingLeft;
+        var StartY: number = this.Height + this.PaddingTop - this._marginY;
 
         /* Draw Vertical Line */
         this.context.beginPath();
         this.context.moveTo(StartX, StartY);
-        this.context.lineTo(StartX, 0);
+        this.context.lineTo(StartX, this.PaddingTop);
         this.context.strokeStyle = this.TextColor;
         this.context.stroke();
 
@@ -324,9 +375,9 @@ export class RScatterChartComponent implements AfterViewInit {
         this.context.beginPath();
 
         let met = this.context.measureText(this.XAxisTitle);
-        let xTextPoint = (this.Width - this.MarginX) / 2 + this.MarginX;
+        let xTextPoint = (this.Width - this.MarginX - this.PaddingLeft - this.PaddingRight) / 2 + this.MarginX + this.PaddingLeft;
         xTextPoint = xTextPoint - (met.width / 2);
-        let yTextPoint = this.Height - 10;
+        let yTextPoint = this.Height + this.PaddingTop - 5;
 
         this.context.save();
         this.context.fillStyle = this.TextColor;
@@ -341,8 +392,8 @@ export class RScatterChartComponent implements AfterViewInit {
 
         met = this.context.measureText(this.XAxisTitle);
         yTextPoint = (this.Height - this.MarginY) / 2;
-        yTextPoint = yTextPoint + (met.width / 2);
-        xTextPoint = 15;
+        yTextPoint = yTextPoint + this.PaddingTop + this.PaddingBottom + (met.width / 2);
+        xTextPoint = this.PaddingLeft + 15;
         this.context.fillStyle = this.TextColor;
         this.context.translate(xTextPoint, yTextPoint);
         this.context.rotate((Math.PI / 180) * 270);
@@ -353,12 +404,12 @@ export class RScatterChartComponent implements AfterViewInit {
 
 
         /* Draw y axis line */
-        let yvDistance = (StartY - spaceFromTopYAxis) / this.NoOfSplitInYAxis;
+        let yvDistance = (StartY - this.PaddingTop - spaceFromTopYAxis) / this.NoOfSplitInYAxis;
 
         /* Draw Y Axis */
         for (let index = 0; index <= this.NoOfSplitInYAxis; index++) {
           let yDisplayValue = Math.round(ydistance * (this.NoOfSplitInYAxis - index));
-          let yPoint = Math.round((yvDistance * index) + spaceFromTopYAxis);
+          let yPoint = Math.round((yvDistance * index) + spaceFromTopYAxis + this.PaddingTop);
 
           this.HorizontalLineInYAxis(StartX, yPoint);
           this.DrawHorizontalLine(StartX, yPoint);
@@ -380,7 +431,7 @@ export class RScatterChartComponent implements AfterViewInit {
         for (let index = 1; index <= this.NoOfSplitInXAxis; index++) {
           let xDisplayValue = xdistance * index;
           let xPoint = (xvDistance * index) + StartX;
-          let yPoint = this.Height - this.MarginY;
+          let yPoint = this.Height + this.PaddingTop - this.MarginY;
 
           this.DrawVerticalLine(xPoint, yPoint);
           this.DrawVerticalLineInXAxis(xPoint, yPoint);
@@ -397,7 +448,7 @@ export class RScatterChartComponent implements AfterViewInit {
             let xPoint = xvDistance * indx + StartX;
 
             let yindx = -(item.yPoint / ydistance) + this.NoOfSplitInYAxis;
-            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis);
+            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis + this.PaddingTop);
             
             this.Plot(xPoint, yPoint, element.ItemColor);
 
@@ -434,7 +485,7 @@ export class RScatterChartComponent implements AfterViewInit {
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(xPoint, yPoint);
-      this.context.lineTo(xPoint, 0);
+      this.context.lineTo(xPoint, this.PaddingTop);
       this.context.stroke();
       this.context.closePath();
     }
@@ -530,7 +581,7 @@ export class RScatterChartComponent implements AfterViewInit {
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX;
+      let endX = x + this.Width - this._marginX - this.PaddingLeft;
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

@@ -478,7 +478,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       ,new Graph(60,62), new Graph(64,61), new Graph(54,75), new Graph(68, 72)
     ]);
 
-    let item3: ScatterChartItem = new ScatterChartItem("City 3", this.tColor, [
+    let item3: ScatterChartItem = new ScatterChartItem("City 3", "green", [
       new Graph(14,35), new Graph(25,45), new Graph(40,85)
       ,new Graph(40,63), new Graph(55,78), new Graph(54,53), new Graph(66, 56)
       ,new Graph(20,32), new Graph(14,41), new Graph(34,75), new Graph(68, 72)

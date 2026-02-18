@@ -1,8 +1,7 @@
 
 # Angular-Controls
 
-This project is under development which can offers a comprehensive suite of reusable Angular UI components, known as R controls (like RDropdown, RGrid, RCalender). The core functionality focuses on providing robust cross-platform compatibility.
-This project consists of Angular UI Components like calender, dropdown, starrating, ProgressBar Infinite(Circle, StraightLine), ProgressBar Finite(Circle, StraightLine), switch, Tab, RFlatTabs, Tree, Checkbox, RadioButton, Slider, rstate-vertical, rstate-horizontal, button, group panel, textbox, passwordbox, FileUpload Control, Color Picker, Numeric, Timer, TimeSelector, RGrid, RSelectDropdown, REventsSchedule, RStepperVertical, RStepperHorizontal, RDonutChart, RPieChart, RBarChart Vertical, RBarChart Horizontal, RStackedBarChart Vertical, RStackedRangeBarChart Vertical, RScatterChart, RLineChart, RStackedBarChart Horizontal, RAreaChart, RAllocationBarChart, RFilter, REventsCalender  etc.
+This project is under development which can offers a comprehensive suite of reusable Angular UI components, known as R controls (like RDropdown, RGrid, RCalender). The core functionality focuses on providing robust cross-platform compatibility. especially for Server-Side Rendering (SSR), achieved through the Window and Environment Helper
 
 <br />
 

@@ -228,7 +228,7 @@ export class RScatterChartComponent implements AfterViewInit {
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
-        this.context.rect(x, y, textWidth, 40); 
+        this.context.roundRect(x, y, textWidth, 40, 4); 
         this.context.fill();
         this.context.restore();
         this.context.closePath();

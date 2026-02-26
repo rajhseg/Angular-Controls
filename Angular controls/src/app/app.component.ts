@@ -1,70 +1,70 @@
 import { AfterContentChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, viewChild, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CalenderComponent } from './Controls/Calender/calender.component';
-import { RDropdownComponent } from './Controls/dropdown/dropdown.component';
-import { DropdownModel } from './Controls/dropdown/dropdownmodel';
+import { RCalenderComponent } from 'rcomponents';
+import { RDropdownComponent } from 'rcomponents';
+import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JsonPipe, NgFor } from '@angular/common';
 
-import { RStarRatingComponent } from './Controls/rating/rating.component';
-import { SwitchComponent } from './Controls/switch/switch.component';
-import { RProgressbarComponent } from './Controls/progressbar/progressbar.component';
-import { ProgressBarDisplayType, ProgressBarType } from './Controls/progressbar/progressbarType';
+import { RStarRatingComponent } from 'rcomponents';
+import { RSwitchComponent } from 'rcomponents';
+import { RProgressbarComponent } from 'rcomponents';
+import { ProgressBarDisplayType, ProgressBarType } from 'rcomponents';
 import { setInterval } from 'timers';
-import { WINDOWOBJECT, WindowHelper } from './Controls/windowObject';
-import { RTabComponent, RTabIdFor } from './Controls/tab/tab.component';
-import { RTabsComponent } from './Controls/tab/rtabs.component';
+import { WINDOWOBJECT, WindowHelper } from 'rcomponents';
+import { RTabComponent, RTabIdFor } from 'rcomponents';
+import { RTabsComponent } from 'rcomponents';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { RTreeComponent } from "./Controls/Tree/tree.component";
-import { RTreeItem } from './Controls/Tree/TreeModel';
-import { CheckBoxSize, CheckBoxSizeModel, RCheckboxComponent } from "./Controls/checkbox/checkbox.component";
-import { RRadiobuttonComponent } from "./Controls/radiobutton/radiobutton.component";
-import { RSliderComponent } from "./Controls/slider/slider.component";
-import { RStateVerticalComponent } from "./Controls/sequences/sequences.component";
-import { RSequenceVerticalItem } from './Controls/sequences/sequence/sequenceitem';
-import { RbuttonComponent } from "./Controls/rbutton/rbutton.component";
-import { RGrouppanelComponent } from './Controls/grouppanel/grouppanel.component';
-import { RStateHorizontalComponent } from './Controls/rsequences-horizontal/rsequences-horizontal.component';
-import { RSequenceHorizontalItem } from './Controls/rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
-import { RTextboxComponent } from "./Controls/rtextbox/rtextbox.component";
-import { RfileuploadComponent } from './Controls/rfileupload/rfileupload.component';
-import { RColorPickerComponent, RColorPickerEventArgs } from './Controls/rcolorpicker/rcolorpicker.component';
-import { RNumericComponent } from "./Controls/rnumeric/rnumeric.component";
-import { RTimerComponent, TimerType } from './Controls/rtimer/rtimer.component';
-import { RTimeSelectorComponent } from "./Controls/rtimeselector/rtimeselector.component";
-import { RGridComponent } from './Controls/rgrid/rgrid.component';
-import { RColumnComponent } from './Controls/rgrid/rcolumn/rcolumn.component';
+import { RTreeComponent } from "rcomponents";
+import { RTreeItem } from 'rcomponents';
+import { CheckBoxSize, CheckBoxSizeModel, RCheckboxComponent } from "rcomponents";
+import { RRadiobuttonComponent } from "rcomponents";
+import { RSliderComponent } from "rcomponents";
+import { RStateVerticalComponent } from "rcomponents";
+import { RSequenceVerticalItem } from 'rcomponents';
+import { RButtonComponent } from "rcomponents";
+import { RGrouppanelComponent } from 'rcomponents';
+import { RStateHorizontalComponent } from 'rcomponents';
+import { RSequenceHorizontalItem } from 'rcomponents';
+import { RTextboxComponent } from "rcomponents";
+import { RfileuploadComponent } from "rcomponents";
+import { RColorPickerComponent, RColorPickerEventArgs } from "rcomponents";
+import { RNumericComponent } from "rcomponents";
+import { RTimerComponent, TimerType } from "rcomponents";
+import { RTimeSelectorComponent } from "rcomponents";
+import { RGridComponent } from "rcomponents";
+import { RColumnComponent } from "rcomponents";
 
-import { HeaderTemplateDirective, ReadViewTemplateDirective } from './Controls/rgrid/view-template.directive';
-import { EditViewTemplateDirective } from './Controls/rgrid/edit-template.directive';
-import { RSelectDropdownComponent } from './Controls/rselectdropdown/rselectdropdown.component';
-import { ROptionsTemplateDirective } from './Controls/rselectdropdown/rselectModel';
-import { REventsScheduleComponent } from './Controls/reventsschedule/reventsschedule.component';
-import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from './Controls/reventsschedule/reventsschedule';
-import { RStepperVerticalComponent } from "./Controls/rstepper-vertical/rstepper-vertical.component";
-import { RStateAlignment, RStateDisplayType, RStepComponent } from "./Controls/rstep/rstep.component";
-import { RStepViewDirective } from './Controls/rstep/rsteptemplate.directive';
-import { RDonutChartComponent, RDonutChartItem } from "./Controls/rdonutchart/rdonutchart.component";
-import { RStepperHorizontalComponent } from './Controls/rstepper-horizontal/rstepper-horizontal.component';
-import { RPieChartComponent, RPieChartItem } from './Controls/rpiechart/rpiechart.component';
-import { RBarChartVerticalComponent } from "./Controls/rbarchart-vertical/rbarchart-vertical.component";
-import { AllocatedBarChartItem, AllocationData, BarChartItem, Graph, LineChartItem, ScatterChartItem, YSeriesChartItem, GraphSeriesChartItem } from './Controls/Models/BarChartItem';
-import { RBarChartHorizontalComponent } from './Controls/rbarchart-horizontal/rbarchart-horizontal.component';
-import { RStackedBarChartVerticalComponent } from './Controls/rstackedbarchart-vertical/rstackedbarchart-vertical.component';
-import { RStackedRangeBarChartVerticalComponent } from './Controls/rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component';
-import { RScatterChartComponent } from './Controls/rscatterchart/rscatterchart.component';
-import { RLineChartVerticalComponent } from './Controls/rlinechart-vertical/rlinechart-vertical.component';
-import { RStackedBarChartHorizontalComponent } from './Controls/rstackedbarchart-horizontal/rstackedbarchart-horizontal.component';
-import { RAreaChartComponent } from './Controls/rareachart/rareachart.component';
-import { RAllocatedBarChartComponent } from './Controls/rallocated-barchart/rallocated-barchart.component';
-import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } from './Controls/rfilter/rfilter.component';
-import { RSeriesChartComponent } from './Controls/rserieschart/rserieschart.component';
-import { CssUnit, CssUnitsService, RelativeUnitType } from './Controls/css-units.service';
-import { RFlatTabsComponent } from './Controls/rflattabs/rflattabs.component';
-import { AddEventModel, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from './Controls/reventscalender/reventscalender.component';
+import { HeaderTemplateDirective, ReadViewTemplateDirective } from "rcomponents";
+import { EditViewTemplateDirective } from 'rcomponents';
+import { RSelectDropdownComponent } from 'rcomponents';
+import { ROptionsTemplateDirective } from 'rcomponents';
+import { REventsScheduleComponent } from 'rcomponents';
+import { REvent, REventChannelItem, REventsDateSchedule, REventsSchedules } from 'rcomponents';
+import { RStepperVerticalComponent } from "rcomponents";
+import { RStateAlignment, RStateDisplayType, RStepComponent } from "rcomponents";
+import { RStepViewDirective } from 'rcomponents';
+import { RDonutChartComponent, RDonutChartItem } from "rcomponents";
+import { RStepperHorizontalComponent } from 'rcomponents';
+import { RPieChartComponent, RPieChartItem } from 'rcomponents';
+import { RBarChartVerticalComponent } from "rcomponents";
+import { AllocatedBarChartItem, AllocationData, BarChartItem, Graph, LineChartItem, ScatterChartItem, YSeriesChartItem, GraphSeriesChartItem } from 'rcomponents';
+import { RBarChartHorizontalComponent } from 'rcomponents';
+import { RStackedBarChartVerticalComponent } from 'rcomponents';
+import { RStackedRangeBarChartVerticalComponent } from 'rcomponents';
+import { RScatterChartComponent } from 'rcomponents';
+import { RLineChartVerticalComponent } from 'rcomponents';
+import { RStackedBarChartHorizontalComponent } from 'rcomponents';
+import { RAreaChartComponent } from 'rcomponents';
+import { RAllocatedBarChartComponent } from 'rcomponents';
+import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } from 'rcomponents';
+import { RSeriesChartComponent } from 'rcomponents';
+import { CssUnit, CssUnitsService, RelativeUnitType } from 'rcomponents';
+import { RFlatTabsComponent } from 'rcomponents';
+import { AddEventModel, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from 'rcomponents';
 import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
-import { CheckboxEventArgs } from './Controls/checkbox/checkbox.service';
-import { CalenderChangeMonthInfo } from './Controls/Models/RBaseComponent';
+import { CheckboxEventArgs } from 'rcomponents';
+import { CalenderChangeMonthInfo } from 'rcomponents';
 
 
 @Component({
@@ -73,8 +73,8 @@ import { CalenderChangeMonthInfo } from './Controls/Models/RBaseComponent';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   imports: [
-    RouterOutlet, CalenderComponent,
-    SwitchComponent,
+    RouterOutlet, RCalenderComponent,
+    RSwitchComponent,
     RDropdownComponent, FormsModule,
     ReactiveFormsModule, RProgressbarComponent,
     RTabComponent, RTabsComponent,
@@ -87,7 +87,7 @@ import { CalenderChangeMonthInfo } from './Controls/Models/RBaseComponent';
     RSliderComponent,
     RStateVerticalComponent,
     RStateHorizontalComponent,
-    RbuttonComponent,
+    RButtonComponent,
     RGrouppanelComponent,
     RTextboxComponent,
     RfileuploadComponent,

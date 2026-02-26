@@ -1,7 +1,7 @@
 
 # Angular-Controls
 
-This project is under development which can offers a comprehensive suite of reusable Angular UI components, known as R controls (like RDropdown, RGrid, RCalender). The core functionality focuses on providing robust cross-platform compatibility. especially for Server-Side Rendering (SSR), achieved through the Window and Environment Helper
+This project is under development which can offers a comprehensive suite of reusable Angular UI components, known as rcomponents (like RDropdown, RGrid, RCalender). The core functionality focuses on providing robust cross-platform compatibility. especially for Server-Side Rendering (SSR), achieved through the Window and Environment Helper
 
 <br />
 

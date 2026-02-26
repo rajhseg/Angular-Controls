@@ -6,12 +6,12 @@
 
 
 <div [id]="Id">
-    <canvas #rbar width="{{Width}}" height="{{Height}}">
+    <canvas #rbar width="{{Width + PaddingRight + PaddingLeft}}" height="{{Height + PaddingTop + PaddingBottom}}">
 
     </canvas>
     <div *ngIf="IsRendered"  style="position: relative; align-content: center;" 
             [ngStyle]="{'bottom':  '10px', 'height': DataListHeight+'px'}">
-        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px'}">
+        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px', 'left': (PaddingLeft + MarginX) + 'px'}">
             <div class="data" *ngFor="let itm of this.Items">
                 <div class="indicator" [ngStyle]="{'backgroundColor': itm.ItemColor}">                    
                 </div>

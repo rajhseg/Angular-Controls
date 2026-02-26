@@ -413,6 +413,8 @@
       <ng-template rstepview>
 
         <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel"
+                       [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'"
+                       [PopupForeColor]="'white'"
                        [Width]="400" [Height]="400"></rscatterchart>
 
       </ng-template>
@@ -422,7 +424,9 @@
       <ng-template rstepview>
 
         <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
-                             [YAxisTitle]="'Price'"
+                             [YAxisTitle]="'Price'"  
+                             [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'"
+                             [PopupForeColor]="'white'"
                              [Items]="lineChartItems" [Width]="400" [Height]="400">
         </rlinechart-vertical>
 

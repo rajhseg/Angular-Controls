@@ -154,6 +154,9 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @Input()
   PopupBackgroundOpacity: number = 1;
 
+  @Input()
+  IsRenderFromInit: boolean = true;
+
   private _items: LineChartItem[] = [];
 
   @Input()
@@ -444,11 +447,17 @@ export class RLineChartVerticalComponent implements AfterViewInit {
 
           let prevX = undefined;
           let prevY = undefined;
-  
+
+
+          if (this.IsRenderFromInit) {
+            prevX = this.MarginX + this.PaddingLeft;
+            prevY = this.Height + this.PaddingTop - this.MarginY;
+          }
+
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
-            
-            let xPoint = xvDistance * (v + 1) + this.MarginX;
+
+            let xPoint = xvDistance * (v + 1) + this.MarginX + this.PaddingLeft;
 
             let yindx = -(item / ydistance) + this.NoOfSplitInYAxis;
             let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis + this.PaddingTop);

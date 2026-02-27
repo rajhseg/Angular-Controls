@@ -413,7 +413,7 @@
       <ng-template rstepview>
 
         <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel"
-                       [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'"
+                       [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'" [EnableBorder]="true"
                        [PopupForeColor]="'white'" [GlassyEffect]="false"
                        [Width]="400" [Height]="400"></rscatterchart>
 
@@ -424,7 +424,7 @@
       <ng-template rstepview>
 
         <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
-                             [YAxisTitle]="'Price'"  [GlassyEffect]="false"
+                             [YAxisTitle]="'Price'"  [GlassyEffect]="false" [EnableBorder]="true"
                              [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'"
                              [PopupForeColor]="'white'"
                              [Items]="lineChartItems" [Width]="400" [Height]="400">
@@ -438,7 +438,9 @@
       <ng-template rstepview>
 
         <rareachart [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
-                    [YAxisTitle]="'Price'"
+                    [YAxisTitle]="'Price'" [GlassyEffect]="false" [GlassyEffectColor]="'blue'"
+                    [EnableBorder]="true" [EnablePlotOnPoints]="true"
+                    [PopupBackColor]="'violet'" [PopupForeColor]="'white'"
                     [Items]="lineChartItems" [Width]="400" [Height]="400">
         </rareachart>
 

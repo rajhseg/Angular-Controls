@@ -7,17 +7,18 @@
 
 
 
-<div [id]="Id" [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }">
-    <canvas #rbar width="{{Width}}" height="{{Height}}">
+<div [id]="Id">
+    <canvas #rbar width="{{Width + PaddingRight + PaddingLeft}}" height="{{Height + PaddingBottom + PaddingTop}}"
+            [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }">
 
     </canvas>
     <div *ngIf="IsRendered"  style="position: relative; align-content: center;" 
             [ngStyle]="{'bottom':  '10px', 'height': DataListHeight+'px'}">
-        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px'}">
+        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px', 'left': (PaddingLeft + MarginX) + 'px'}">
             <div class="data" *ngFor="let itm of this.Items">
-                <div class="indicator" [ngStyle]="{'backgroundColor': itm.ItemColor}">                    
+                <div class="indicator" [ngStyle]="{'backgroundColor': itm.ItemColor}">
                 </div>
-                <span class="title" style="width: fit-content;">{{itm.ItemName}}</span>                
+                <span class="title" style="width: fit-content;">{{itm.ItemName}}</span>
             </div>
         </div>        
     </div>

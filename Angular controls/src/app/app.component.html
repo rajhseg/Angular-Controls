@@ -414,7 +414,7 @@
 
         <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel"
                        [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'" [EnableBorder]="true"
-                       [PopupForeColor]="'white'" [GlassyEffect]="false"
+                       [PopupForeColor]="'white'" [GlassyEffect]="true"
                        [Width]="400" [Height]="400"></rscatterchart>
 
       </ng-template>
@@ -424,7 +424,7 @@
       <ng-template rstepview>
 
         <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
-                             [YAxisTitle]="'Price'"  [GlassyEffect]="false" [EnableBorder]="true"
+                             [YAxisTitle]="'Price'"  [GlassyEffect]="true" [EnableBorder]="true"
                              [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'"
                              [PopupForeColor]="'white'"
                              [Items]="lineChartItems" [Width]="400" [Height]="400">
@@ -438,7 +438,7 @@
       <ng-template rstepview>
 
         <rareachart [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
-                    [YAxisTitle]="'Price'" [GlassyEffect]="false" [GlassyEffectColor]="'blue'"
+                    [YAxisTitle]="'Price'" [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
                     [EnableBorder]="true" [EnablePlotOnPoints]="true"
                     [PopupBackColor]="'violet'" [PopupForeColor]="'white'"
                     [Items]="lineChartItems" [Width]="400" [Height]="400">
@@ -447,6 +447,28 @@
       </ng-template>
     </rstep>
 
+    <rstep [Title]="'Y Series Chart'" [IsStepValid]="true">
+      <ng-template rstepview>
+        <rserieschart [XAxisTitle]="'Disk'"
+                      [YAxisTitle]="'Speed'" [FillAreaColor]="true"
+                      [Width]="400" [Height]="400"
+                      [Items]="seriesModel2"></rserieschart>
+
+        <rserieschart [XAxisTitle]="'Elements'"
+                      [YAxisTitle]="'Values'"
+                      [Width]="400" [Height]="400"
+                      [Items]="seriesModel"></rserieschart>
+      </ng-template>
+    </rstep>
+
+    <rstep [Title]="'Graph Series Chart'" [IsStepValid]="true">
+      <ng-template rstepview>    
+        <rserieschart [XAxisTitle]="'Elements'"
+                      [YAxisTitle]="'Values'"
+                      [Width]="400" [Height]="400"
+                      [Items]="seriesModel1"></rserieschart>
+      </ng-template>
+    </rstep>
 
     <rstep [Title]="'RAllocationBarChart'" [IsStepValid]="true">
       <ng-template rstepview>

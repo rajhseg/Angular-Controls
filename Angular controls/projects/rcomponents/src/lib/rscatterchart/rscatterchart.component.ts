@@ -25,6 +25,12 @@ export class RScatterChartComponent implements AfterViewInit {
   private _textColor: string = "gray";
 
   @Input()
+  EnableBorder: boolean = false;
+
+  @Input()
+  BorderColor: string = 'lightgray';
+
+  @Input()
   GlassyEffect: boolean = true;
 
   @Input()

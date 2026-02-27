@@ -12,6 +12,12 @@ import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 export class RPieChartComponent {
 
   @Input()
+  EnableBorder: boolean = false;
+
+  @Input()
+  BorderColor: string = 'lightgray';
+
+  @Input()
   FontSize: number = 10;
 
   @Input()

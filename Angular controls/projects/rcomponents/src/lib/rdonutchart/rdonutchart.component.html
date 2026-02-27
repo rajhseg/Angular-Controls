@@ -1,6 +1,9 @@
 
 
-<div [id]="Id" style="position: relative;" [ngStyle]="{ 'width': ChartWidth+'px', 'height': (ChartWidth + DataListHeight) +'px'}">
+<div [id]="Id" style="position: relative;" [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 
+                                                        'border': EnableBorder ? '0.5px solid '+BorderColor : '',
+                                                        'width': ChartWidth+'px', 
+                                                        'height': (ChartWidth + DataListHeight) +'px'}">
     <canvas style="position: absolute;" #procan width="{{ChartWidth}}" height="{{ChartWidth}}" 
         class="canvasCenter">
 

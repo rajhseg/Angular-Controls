@@ -19,6 +19,12 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   private _yAxisTitle: string = "";
 
   private _textColor: string = "gray";
+  
+  @Input()
+  EnableBorder: boolean = false;
+
+  @Input()
+  BorderColor: string = 'lightgray';
 
   @Input()
   public set TextColor(val: string){

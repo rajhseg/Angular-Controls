@@ -21,6 +21,12 @@ export class RBarChartVerticalComponent implements AfterViewInit {
   private _textColor: string = "gray";
 
   @Input()
+  EnableBorder: boolean = false;
+
+  @Input()
+  BorderColor: string = 'lightgray';
+
+  @Input()
   public set TextColor(val: string){
     this._textColor = val;
   }

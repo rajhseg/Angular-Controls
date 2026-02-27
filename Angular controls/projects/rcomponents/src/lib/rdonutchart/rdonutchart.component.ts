@@ -11,6 +11,11 @@ import { NgForOf, NgIf, NgStyle } from '@angular/common';
 })
 export class RDonutChartComponent implements AfterViewInit {
 
+  @Input()
+  EnableBorder: boolean = false;
+
+  @Input()
+  BorderColor: string = 'lightgray';
 
   @Input()
   FontSize: number = 10;

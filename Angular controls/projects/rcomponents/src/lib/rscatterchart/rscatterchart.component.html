@@ -2,7 +2,7 @@
 
 
 
-<div [id]="Id">
+<div [id]="Id" [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }">
     <canvas #rbar width="{{Width + PaddingRight + PaddingLeft }}" height="{{Height + PaddingTop + PaddingBottom}}">
 
     </canvas>

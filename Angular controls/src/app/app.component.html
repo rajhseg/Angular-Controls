@@ -306,7 +306,7 @@
     <rstep [Title]="'RDonutChart'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150"
+        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" 
                      [ShadowColor]="'blue'" [MoveTextUpwardsFromCenterInPx]="20"
                      [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
@@ -414,7 +414,7 @@
 
         <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel"
                        [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'"
-                       [PopupForeColor]="'white'"
+                       [PopupForeColor]="'white'" [GlassyEffect]="false"
                        [Width]="400" [Height]="400"></rscatterchart>
 
       </ng-template>
@@ -424,7 +424,7 @@
       <ng-template rstepview>
 
         <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
-                             [YAxisTitle]="'Price'"  
+                             [YAxisTitle]="'Price'"  [GlassyEffect]="false"
                              [GlassyEffectColor]="'blue'" [PopupBackColor]="'violet'"
                              [PopupForeColor]="'white'"
                              [Items]="lineChartItems" [Width]="400" [Height]="400">

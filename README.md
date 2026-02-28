@@ -361,15 +361,15 @@ RStackedRangeBarChart Vertical Control
 RScatterChart
 ----------------------------------
 
-<img width="485" height="470" src="https://github.com/user-attachments/assets/d2cc8c44-4444-4068-8b20-51a3b22c813b" />
-
+<img width="459" height="476" alt="" src="https://github.com/user-attachments/assets/cd1f9aeb-30cf-4904-ac9d-c0af310354a3" />
 
 <br />
 
 RLineChart
 ----------------------------------
 
-![image](https://github.com/user-attachments/assets/949ac694-38ff-4c5a-9c5e-3e54c0ddc905)
+<img width="461" height="476" alt="" src="https://github.com/user-attachments/assets/f1b3d2c8-8537-4cb6-a39c-87467f7be5cb" />
+
 
 <br/>
 
@@ -384,7 +384,7 @@ RStackedBarChart Horizontal
 RAreaChart
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/0fa04a63-e16d-4042-97df-5aa22c91dacf)
+<img width="460" height="478" alt="" src="https://github.com/user-attachments/assets/c8017d3b-1a4e-4bf9-86ab-076606e22634" />
 
 <br/>
 

@@ -458,33 +458,40 @@
 
     <rstep [Title]="'Y Series Chart'" [IsStepValid]="true">
       <ng-template rstepview>
+
           <rserieschart [XAxisTitle]="'Disk'"
                         [YAxisTitle]="'Speed'" [FillAreaColor]="true"
                         [EnableBorder]="true"
                         [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
                         [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                         [Width]="400" [Height]="400"
-                        [Items]="seriesModel2"></rserieschart>
-
+                        [Items]="seriesModel2">
+          </rserieschart>
+                       
           <rserieschart [XAxisTitle]="'Elements'"
-                        [YAxisTitle]="'Values'"
+                        [YAxisTitle]="'Values'" 
                         [EnableBorder]="true"
                         [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
                         [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                         [Width]="400" [Height]="400"
-                        [Items]="seriesModel"></rserieschart>
+                        [Items]="seriesModel">
+          </rserieschart>
+
       </ng-template>
     </rstep>
 
     <rstep [Title]="'Graph Series Chart'" [IsStepValid]="true">
-      <ng-template rstepview>    
+      <ng-template rstepview>
+
           <rserieschart [XAxisTitle]="'Elements'"
                         [YAxisTitle]="'Values'"
                         [EnableBorder]="true"
                         [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
                         [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                         [Width]="400" [Height]="400"
-                        [Items]="seriesModel1"></rserieschart>
+                        [Items]="seriesModel1">
+           </rserieschart>
+
       </ng-template>
     </rstep>
 
@@ -492,7 +499,9 @@
       <ng-template rstepview>
 
         <rallocated-barchart [xAxisItemNames]="barChartXAxisItemNames2"
-                             [PopupBackColor]="'black'" [PopupForeColor]="'white'"
+                             [EnableBorder]="true" [EmptyAreaBorderColor]="'darkgray'"
+                             [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
+                             [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                              [XAxisTitle]="'Month'"
                              [YAxisTitle]="'Money'"
                              [Columns]="barChartItems2" [Width]="600" [Height]="400">

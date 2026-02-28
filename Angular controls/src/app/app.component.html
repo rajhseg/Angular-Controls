@@ -261,17 +261,26 @@
     </rtimer>
 
     <rserieschart [XAxisTitle]="'Disk'"
+                  [EnableBorder]="true"
+                  [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
+                  [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                   [YAxisTitle]="'Speed'" [FillAreaColor]="true"
                   [Width]="400" [Height]="400"
                   [Items]="seriesModel2"></rserieschart>
 
     <rserieschart [XAxisTitle]="'Elements'"
                   [YAxisTitle]="'Values'"
+                  [EnableBorder]="true"
+                  [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
+                  [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                   [Width]="400" [Height]="400"
                   [Items]="seriesModel"></rserieschart>
 
     <rserieschart [XAxisTitle]="'Elements'"
                   [YAxisTitle]="'Values'"
+                  [EnableBorder]="true"
+                  [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
+                  [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                   [Width]="400" [Height]="400"
                   [Items]="seriesModel1"></rserieschart>
 
@@ -449,24 +458,33 @@
 
     <rstep [Title]="'Y Series Chart'" [IsStepValid]="true">
       <ng-template rstepview>
-        <rserieschart [XAxisTitle]="'Disk'"
-                      [YAxisTitle]="'Speed'" [FillAreaColor]="true"
-                      [Width]="400" [Height]="400"
-                      [Items]="seriesModel2"></rserieschart>
+          <rserieschart [XAxisTitle]="'Disk'"
+                        [YAxisTitle]="'Speed'" [FillAreaColor]="true"
+                        [EnableBorder]="true"
+                        [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
+                        [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
+                        [Width]="400" [Height]="400"
+                        [Items]="seriesModel2"></rserieschart>
 
-        <rserieschart [XAxisTitle]="'Elements'"
-                      [YAxisTitle]="'Values'"
-                      [Width]="400" [Height]="400"
-                      [Items]="seriesModel"></rserieschart>
+          <rserieschart [XAxisTitle]="'Elements'"
+                        [YAxisTitle]="'Values'"
+                        [EnableBorder]="true"
+                        [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
+                        [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
+                        [Width]="400" [Height]="400"
+                        [Items]="seriesModel"></rserieschart>
       </ng-template>
     </rstep>
 
     <rstep [Title]="'Graph Series Chart'" [IsStepValid]="true">
       <ng-template rstepview>    
-        <rserieschart [XAxisTitle]="'Elements'"
-                      [YAxisTitle]="'Values'"
-                      [Width]="400" [Height]="400"
-                      [Items]="seriesModel1"></rserieschart>
+          <rserieschart [XAxisTitle]="'Elements'"
+                        [YAxisTitle]="'Values'"
+                        [EnableBorder]="true"
+                        [GlassyEffect]="true" [GlassyEffectColor]="'blue'"
+                        [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
+                        [Width]="400" [Height]="400"
+                        [Items]="seriesModel1"></rserieschart>
       </ng-template>
     </rstep>
 

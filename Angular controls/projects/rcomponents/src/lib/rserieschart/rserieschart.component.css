@@ -1,12 +1,4 @@
 
-
-
-
-
-
-
-
-
 :host{
     width: fit-content;    
     margin-top: 15px;
@@ -31,7 +23,7 @@
     flex-wrap: wrap;
     justify-content: center;    
     position: relative;
-    left: 30px;   
+    /*left: 30px;*/   
 }
 
 .indicator {
@@ -62,4 +54,3 @@
     background-color: #5e5e5e;
     border-radius: 10px;
   } 
-  

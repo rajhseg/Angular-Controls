@@ -1,17 +1,10 @@
 
-
-
-
-
-
-
 :host{
     width: fit-content;    
     margin-top: 15px;
     margin-bottom: 15px;
-
-  display: inline-block;
-  vertical-align: top; 
+    display: inline-block;
+    vertical-align: top; 
 }
 
 

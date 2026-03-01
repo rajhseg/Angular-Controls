@@ -361,15 +361,15 @@ RStackedRangeBarChart Vertical Control
 RScatterChart
 ----------------------------------
 
-<img width="485" height="470" src="https://github.com/user-attachments/assets/d2cc8c44-4444-4068-8b20-51a3b22c813b" />
-
+<img width="459" height="476" alt="" src="https://github.com/user-attachments/assets/cd1f9aeb-30cf-4904-ac9d-c0af310354a3" />
 
 <br />
 
 RLineChart
 ----------------------------------
 
-![image](https://github.com/user-attachments/assets/949ac694-38ff-4c5a-9c5e-3e54c0ddc905)
+<img width="461" height="476" alt="" src="https://github.com/user-attachments/assets/f1b3d2c8-8537-4cb6-a39c-87467f7be5cb" />
+
 
 <br/>
 
@@ -384,7 +384,7 @@ RStackedBarChart Horizontal
 RAreaChart
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/0fa04a63-e16d-4042-97df-5aa22c91dacf)
+<img width="460" height="478" alt="" src="https://github.com/user-attachments/assets/c8017d3b-1a4e-4bf9-86ab-076606e22634" />
 
 <br/>
 
@@ -392,8 +392,7 @@ RAreaChart
 RAllocationBarChart
 ---------------------------------
 
-![image](https://github.com/user-attachments/assets/ee942731-e84c-4f2b-a7e1-2e901958e3d4)
-
+<img width="655" height="471" alt="" src="https://github.com/user-attachments/assets/f4a0cb44-d68d-49f3-81e2-264a53d4962a" />
 
 <br />
 
@@ -410,15 +409,17 @@ RSeriesChart
 
 #### YSeriesChart
 
-![image](https://github.com/user-attachments/assets/d4ff94ad-3303-4c58-9e2e-ff7e1035a68e)
+<img width="471" height="483" alt="" src="https://github.com/user-attachments/assets/27c6bcb3-1c1a-4d21-9b6b-58507be4f001" />
 
-![image](https://github.com/user-attachments/assets/1991fb09-1b33-4f59-8c18-ac300af2d753)
+<br />
+
+<img width="470" height="480" alt="" src="https://github.com/user-attachments/assets/b768d35e-04bd-48e2-bbd7-23f6a7c60a54" />
 
 <br />
 
 #### GraphSeriesChart
 
-![image](https://github.com/user-attachments/assets/70cc94eb-0e1a-4ee2-8afe-575199c19516)
+<img width="465" height="473" alt="" src="https://github.com/user-attachments/assets/2d3526b0-e9bd-4a84-92da-0f1db0d45a9c" />
 
 <br/>
 

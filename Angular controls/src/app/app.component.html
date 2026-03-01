@@ -351,12 +351,14 @@
       <ng-template rstepview>
 
         <rbarchart-vertical style="float:left" [Width]="400"
+                            [EnableBorder]="true"
                             [PopupBackColor]="'black'" [PopupForeColor]="'white'"
                             [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
                             [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
         </rbarchart-vertical>
 
         <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1"
+                            [EnableBorder]="true"
                             [PopupBackColor]="'white'" [PopupForeColor]="'black'"
                             [Columns]="barChartItems1"></rbarchart-vertical>
 

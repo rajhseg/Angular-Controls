@@ -2,14 +2,14 @@
 
 
 <div [id]="Id">
-    <canvas #rbar width="{{Width}}" height="{{Height}}"
+    <canvas #rbar width="{{Width + PaddingLeft + PaddingRight}}" height="{{Height + PaddingTop + PaddingBottom}}"
                 [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }">
 
     </canvas>
-    <div *ngIf="IsRendered"  style="position: relative; align-content: center;" 
+    <div *ngIf="IsRendered"  style="position: relative; align-content: center; margin-top:8px" 
             [ngStyle]="{'bottom': '10px', 'height': DataListHeight+'px'}">
 
-        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px'}">
+        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px', 'left': (PaddingLeft + MarginX) + 'px'}">
             <div class="data" *ngFor="let itm of this.Columns">
                 
                 <ng-container *ngIf="isPropString(itm.barItemsBackColor)">

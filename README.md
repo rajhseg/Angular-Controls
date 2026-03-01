@@ -392,8 +392,7 @@ RAreaChart
 RAllocationBarChart
 ---------------------------------
 
-![image](https://github.com/user-attachments/assets/ee942731-e84c-4f2b-a7e1-2e901958e3d4)
-
+<img width="734" height="483" alt="image" src="https://github.com/user-attachments/assets/a3fc465a-538c-46d4-abeb-c801fed6826b" />
 
 <br />
 

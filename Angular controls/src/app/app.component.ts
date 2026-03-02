@@ -514,9 +514,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createStackedBarCharts(){
     this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 350, 1650, 2700, 2400, 1800], "#13297A", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, 150, 200, 450, 5, 350], "teal", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 758, 700, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
+    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 1090, 1650, 2700, 2400, 1800], "#13297A", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, 1090, 200, 450, 5, 350], "teal", "white"));
+    this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 1090, 700, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
 
     this.stackedrangebarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
     this.stackedrangebarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, -610, 1650, 3000, 2400, -1800], "#13297A", "white"));

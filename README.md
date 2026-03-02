@@ -350,7 +350,8 @@ RBarChart Horizontal Control
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/b06aea17-908c-444e-a6cb-37b69261c51f)
+<img width="906" height="498" alt="image" src="https://github.com/user-attachments/assets/dd424b5d-3989-40d2-bc7d-4470d1cd4682" />
+
 
 <br/>
 <br/>
@@ -368,6 +369,18 @@ RStackedBarChart Vertical Control
 <br/>
 <br/>
 <br/>
+
+RStackedBarChart Horizontal Control
+----------------------------------------
+
+<br/>
+
+<img width="560" height="498" alt="image" src="https://github.com/user-attachments/assets/43a8a50f-527e-4ea7-9683-428eece78dfb" />
+
+<br/>
+<br/>
+<br/>
+
 
 RStackedRangeBarChart Vertical Control
 ---------------------------------------
@@ -403,17 +416,6 @@ RLineChart
 
 <br/>
 
-<br/>
-<br/>
-
-RStackedBarChart Horizontal
---------------------------------
-
-<br/>
-
-![image](https://github.com/user-attachments/assets/e39aaa51-8cb3-44a1-ae11-acfa23751bdd)
-
-<br/>
 <br/>
 <br/>
 

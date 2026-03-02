@@ -370,6 +370,7 @@
       <ng-template rstepview>
 
         <rbarchart-horizontal style="float:left" [Width]="400" [Height]="400"
+                              [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
                               [PopupBackColor]="'black'" [PopupForeColor]="'white'"
                               [yAxisItemNames]="barChartXAxisItemNames" [MarginX]="60"
                               [YAxisTitle]="'Company profit per year'" [XAxisTitle]="'Profit Percentage'"
@@ -377,6 +378,7 @@
         </rbarchart-horizontal>
 
         <rbarchart-horizontal [Width]="400" [Height]="400" [yAxisItemNames]="barChartXAxisItemNames1"
+                              [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
                               [PopupBackColor]="'black'" [PopupForeColor]="'white'"
                               [Columns]="barChartItems1">
         </rbarchart-horizontal>
@@ -399,13 +401,14 @@
     <rstep [Title]="'RStackedBarChart Horizontal'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'"
-                                     [XAxisTitle]="'Amount Spent'"
-                                     [Width]="500" [Height]="400"
-                                     [MarginX]="50" [MarginY]="50"
-                                     [yAxisItemNames]="stackedbarChartXAxisItemNames1"
-                                     [Columns]="stackedbarChartItems1">
-        </rstackedbarchart-horizontal>
+          <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'"
+                                       [XAxisTitle]="'Amount Spent'"
+                                       [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
+                                       [Width]="500" [Height]="400"
+                                       [MarginX]="50" [MarginY]="50"
+                                       [yAxisItemNames]="stackedbarChartXAxisItemNames1"
+                                       [Columns]="stackedbarChartItems1">
+          </rstackedbarchart-horizontal>
 
       </ng-template>
     </rstep>

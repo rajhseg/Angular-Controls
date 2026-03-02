@@ -348,11 +348,8 @@ RStackedBarChart Vertical Control
 RStackedRangeBarChart Vertical Control
 ---------------------------------------
 
-![image](https://github.com/user-attachments/assets/fa764927-e5ce-4c9b-8d78-ec4c965693d7)
+<img width="474" height="498" alt="image" src="https://github.com/user-attachments/assets/b5537a0b-2b5a-407d-8468-369f970353b9" />
 
-<br/>
-
-![image](https://github.com/user-attachments/assets/afad1209-7b00-4afe-b226-d7412d752616)
 
 <br />
 

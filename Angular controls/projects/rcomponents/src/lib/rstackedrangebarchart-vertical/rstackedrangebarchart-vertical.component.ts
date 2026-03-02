@@ -15,7 +15,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
 
   private _width: number = 300;
   private _height: number = 300;
-  
+
   private _xAxisTitle: string = "";
   private _yAxisTitle: string = "";
 
@@ -28,7 +28,25 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
   BorderColor: string = 'lightgray';
 
   @Input()
-  public set TextColor(val: string){
+  GlassyEffect: boolean = true;
+
+  @Input()
+  GlassyEffectColor: string = 'lightgray';
+
+  @Input()
+  PaddingLeft: number = 20;
+
+  @Input()
+  PaddingRight: number = 20;
+
+  @Input()
+  PaddingTop: number = 20;
+
+  @Input()
+  PaddingBottom: number = 10;
+
+  @Input()
+  public set TextColor(val: string) {
     this._textColor = val;
   }
   public get TextColor(): string {
@@ -36,7 +54,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
   }
 
   @Input()
-  public set XAxisTitle(val: string){
+  public set XAxisTitle(val: string) {
     this._xAxisTitle = val;
   }
   public get XAxisTitle(): string {
@@ -170,7 +188,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
   public IsRendered: boolean = false;
 
   Id: string = '';
-  
+
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
@@ -182,24 +200,28 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {
         this.context = this.bar.nativeElement.getContext('2d');
-        this.bar.nativeElement.onmousemove = this.MouseMove.bind(this); 
+        this.bar.nativeElement.onmousemove = this.MouseMove.bind(this);
         this.RenderBarChart();
       }
     }
   }
 
-    
+
   MouseMove(event: MouseEvent) {
-    if(this.context && this.bar){            
-      this.context?.beginPath();      
-      this.context.clearRect(0, 0, this.Width, this.Height);
+
+    let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
+    let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+
+    if (this.context && this.bar) {
+      this.context?.beginPath();
+      this.context.clearRect(0, 0, totalWidth, totalHeight);
       this.context.closePath();
 
       this.RenderBarChart();
 
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
-      if(item) {      
+      if (item) {
         let lineItem = item.Item as BarChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
@@ -214,14 +236,14 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
 
         let width = Math.max(w1, w2);
 
-        let textWidth =  25 + width;
+        let textWidth = 25 + width;
 
-        if(x + textWidth > this.Width) {          
+        if (x + textWidth > this.Width) {
           x = x - textWidth - 20;
         }
-           
+
         let height = 40;
-        if(y + height > this.Height) {
+        if (y + height > this.Height) {
           y = y - height;
         }
 
@@ -229,22 +251,22 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
-        this.context.roundRect(x, y, textWidth, 40, 4); 
+        this.context.roundRect(x, y, textWidth, 40, 4);
         this.context.fill();
         this.context.restore();
         this.context.closePath();
-        
-        this.context.beginPath();      
+
+        this.context.beginPath();
         this.context.save();
-        
+
         this.context.strokeStyle = this.PopupForeColor ?? item.ItemColor;
         this.context.fillStyle = this.PopupForeColor ?? item.ItemColor;
-        this.context.fillText(" "+this.XAxisTitle+" : "+ this.xAxisItemNames[item.ValueIndex], x + 5, y + 15);
-        this.context.fillText(" "+this.YAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 35);
+        this.context.fillText(" " + this.XAxisTitle + " : " + this.xAxisItemNames[item.ValueIndex], x + 5, y + 15);
+        this.context.fillText(" " + this.YAxisTitle + " : " + lineItem.Values[item.ValueIndex], x + 5, y + 35);
 
         this.context.stroke();
         this.context.restore();
-        this.context?.closePath();  
+        this.context?.closePath();
       }
     }
   }
@@ -255,8 +277,8 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
 
     for (let index = 0; index < this.PopupItems.length; index++) {
       const element = this.PopupItems[index];
-      if(x>= element.x1 - boundaryRange && x<= element.x2 + boundaryRange 
-        && y>= element.y1 - boundaryRange && y <= element.y2 + boundaryRange){
+      if (x >= element.x1 - boundaryRange && x <= element.x2 + boundaryRange
+        && y >= element.y1 - boundaryRange && y <= element.y2 + boundaryRange) {
         return element;
       }
     }
@@ -273,10 +295,10 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
     return 50;
   }
 
-  getTextHeight(met: TextMetrics){
+  getTextHeight(met: TextMetrics) {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
-  
+
   getNameIndicator(itm: BarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
@@ -286,16 +308,50 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
     return typeof prop === 'string';
   }
 
+
+  EnableGlassyEffectOnTopOfChart() {
+    if (this.context && this.bar && this.GlassyEffect) {
+
+      let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight,
+        gheight = this.Height + this.PaddingTop + this.PaddingBottom;
+
+      this.context.beginPath();
+      this.context.save();
+      this.context.globalAlpha = 0.2;
+      this.context.filter = "blur(10px)";
+      this.context.fillStyle = this.GlassyEffectColor;
+      this.context.roundRect(x, y, gwidth, gheight, 7);
+      this.context.fill();
+      this.context.restore();
+      this.context.closePath();
+
+      // Light border
+      this.context.strokeStyle = "rgba(255, 255, 255, 0.6)";
+      this.context.lineWidth = 1.5;
+      this.context.strokeRect(x, y, gwidth, gheight);
+
+      // Soft inner highlight
+      this.context.fillStyle = "rgba(255, 255, 255, 0.1)";
+      this.context.fillRect(x, y, gwidth, gheight);
+    }
+  }
+
   RenderBarChart() {
     this.IsRendered = false;
+
+    const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
+    const totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+
     let splitValueAxis = this.NoOfSplitInValueAxis;
 
     if (this.bar && this.context && this.Columns.length > 0 && this.xAxisItemNames.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
 
-      this.context.clearRect(0, 0, this.Width, this.Height);
-      
+      this.context.clearRect(0, 0, totalWidth, totalHeight);
+
+      this.EnableGlassyEffectOnTopOfChart();
+
       let spaceFromTopYAxis = 25;
 
       var valueList = [];
@@ -310,13 +366,13 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
           const clmn = this.Columns[col];
 
           if (clmn.Values[index] != undefined) {
-            if(clmn.Values[index] < 0){
+            if (clmn.Values[index] < 0) {
               minusitm = minusitm - clmn.Values[index];
             } else {
               itm += clmn.Values[index];
             }
           }
-            
+
         }
 
         minusValuesList.push(minusitm);
@@ -329,12 +385,12 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
       var distance: number = 0;
       var itemCount = this.xAxisItemNames.length;
       let noOfMinusValue = 0;
-      let fromIndexForMinus = this.NoOfSplitInValueAxis +1;
-      
-      
+      let fromIndexForMinus = this.NoOfSplitInValueAxis + 1;
+
+
       if (min != undefined && max != undefined) {
-        if(min<0){
-          let noOfsplit = Math.ceil(this.NoOfSplitInValueAxis/2);          
+        if (min < 0) {
+          let noOfsplit = Math.ceil(this.NoOfSplitInValueAxis / 2);
           //distance = (-min + max) / this.NoOfSplitInValueAxis;
           distance = (max) / this.NoOfSplitInValueAxis;
         } else {
@@ -342,10 +398,10 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
         }
       }
 
-      if(min < 0) {
-        noOfMinusValue = -Math.ceil(-min/distance);
+      if (min < 0) {
+        noOfMinusValue = -Math.ceil(-min / distance);
         this.NoOfSplitInValueAxis = this.NoOfSplitInValueAxis - noOfMinusValue;
-        fromIndexForMinus = this.NoOfSplitInValueAxis + noOfMinusValue; 
+        fromIndexForMinus = this.NoOfSplitInValueAxis + noOfMinusValue;
       }
 
       distance = this.GetRoundToTenDigit(distance);
@@ -353,13 +409,13 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
       var MinLimit = 0;
       var MaxLimit = distance * (this.NoOfSplitInValueAxis);
 
-      var StartX: number = this._marginX;
-      var StartY: number = this.Height - this._marginY;
+      var StartX: number = this._marginX + this.PaddingLeft;
+      var StartY: number = this.Height + this.PaddingTop - this._marginY;
 
       /* Draw Vertical Line */
       this.context.beginPath();
       this.context.moveTo(StartX, StartY);
-      this.context.lineTo(StartX, 0);
+      this.context.lineTo(StartX, this.PaddingTop);
       this.context.strokeStyle = this.TextColor;
       this.context.stroke();
 
@@ -372,11 +428,11 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
 
       /* Draw Title on x-axis */
       this.context.beginPath();
-      
+
       let met = this.context.measureText(this.XAxisTitle);
-      let xTextPoint = (this.Width - this.MarginX)/2 + this.MarginX;
-      xTextPoint = xTextPoint - (met.width/2);
-      let yTextPoint = this.Height - 10;
+      let xTextPoint = (this.Width - this.MarginX - this.PaddingLeft - this.PaddingRight) / 2 + this.MarginX + this.PaddingLeft;
+      xTextPoint = xTextPoint - (met.width / 2);
+      let yTextPoint = this.Height + this.PaddingTop - 5;
 
       this.context.save();
       this.context.fillStyle = this.TextColor;
@@ -385,24 +441,24 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
 
       this.context.closePath();
 
-      /* Draw Title On Y axis */      
+      /* Draw Title On Y axis */
       this.context.beginPath();
       this.context.save();
 
       met = this.context.measureText(this.XAxisTitle);
-      yTextPoint = (this.Height - this.MarginY)/2;
-      yTextPoint = yTextPoint + (met.width/2);
-      xTextPoint = 15;            
+      yTextPoint = (this.Height - this.MarginY) / 2;
+      yTextPoint = yTextPoint + this.PaddingTop + this.PaddingBottom + (met.width / 2);
+      xTextPoint = this.PaddingLeft + 15;
       this.context.fillStyle = this.TextColor;
       this.context.translate(xTextPoint, yTextPoint);
-      this.context.rotate((Math.PI/180) * 270);
-      this.context.fillText(this.YAxisTitle, 0, 0);      
-      
+      this.context.rotate((Math.PI / 180) * 270);
+      this.context.fillText(this.YAxisTitle, 0, 0);
+
       this.context.restore();
       this.context.closePath();
-      
+
       /* Draw y axis line */
-      let vDistance = (StartY - spaceFromTopYAxis) / this.NoOfSplitInValueAxis;
+      let vDistance = (StartY - this.PaddingTop - spaceFromTopYAxis) / this.NoOfSplitInValueAxis;
       let decValue = noOfMinusValue;
 
       /* Draw Y Axis */
@@ -411,14 +467,14 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
 
         let yDisplayValue = 0;
 
-        if(index > fromIndexForMinus){
+        if (index > fromIndexForMinus) {
           yDisplayValue = distance * --minusInc;
           decValue++;
         } else {
           yDisplayValue = Math.round(distance * (this.NoOfSplitInValueAxis - index + decValue));
         }
 
-        let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
+        let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis + this.PaddingTop);
 
         this.HorizontalLineInYAxis(StartX, yPoint);
         this.DrawHorizontalLine(StartX, yPoint);
@@ -430,7 +486,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
       var eachBarGroupLength = (this.Width - StartX) / itemCount;
       var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
       let xPoint = StartX;
-      let zeroPoint  = this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis);
+      let zeroPoint = this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis);
 
       let drawTexts: DrawTextItem[] = [];
 
@@ -450,11 +506,11 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
         let halfXPoint = remWidth / 2;
 
         /* Draw name on xAxis */
-        this.DrawXAxisName(xAxisName, xPoint + halfXPoint, this.Height - this._marginY + 15);
+        this.DrawXAxisName(xAxisName, xPoint + halfXPoint, this.Height + this.PaddingTop - this._marginY + 15);
 
-        let previousPlusY: number | undefined = noOfMinusValue < 0 ? 
-                  this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis) : StartY;
-        
+        let previousPlusY: number | undefined = noOfMinusValue < 0 ?
+          this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis) : StartY;
+
         let PreviousMinusY: number | undefined = this.GetZeroYPoint(noOfMinusValue, vDistance, spaceFromTopYAxis);
 
         let ComputedValue = 0;
@@ -476,10 +532,10 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
             /* Draw Bar */
             let diff = 0;
 
-            if(noOfMinusValue < 0) {              
+            if (noOfMinusValue < 0) {
               diff = zeroPoint - y;
             } else {
-             diff = StartY - y;
+              diff = StartY - y;
             }
 
             let yPoint = 0;
@@ -487,26 +543,26 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
             if (previousPlusY != undefined)
               yPoint = previousPlusY - diff;
 
-            if(value > 0 && noOfMinusValue < 0){
+            if (value > 0 && noOfMinusValue < 0) {
               this.DrawBar(xPoint, yPoint, eachBarLength, diff, color);
 
-              this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + eachBarLength, 
-                yPoint+diff, element, index, x, color));
-  
+              this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + eachBarLength,
+                yPoint + diff, element, index, x, color));
+
             }
-            else if(value< 0 && noOfMinusValue < 0){              
+            else if (value < 0 && noOfMinusValue < 0) {
               this.DrawBar(xPoint, PreviousMinusY, eachBarLength, -diff, color);
 
-              this.PopupItems.push(new PopupChartItem(xPoint, PreviousMinusY, xPoint + eachBarLength, 
+              this.PopupItems.push(new PopupChartItem(xPoint, PreviousMinusY, xPoint + eachBarLength,
                 yPoint - diff, element, index, x, color));
-  
+
             }
             else {
               this.DrawBar(xPoint, yPoint, eachBarLength, diff, color);
-              
-              this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + eachBarLength, 
+
+              this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + eachBarLength,
                 yPoint + diff, element, index, x, color));
-  
+
             }
 
             /* Draw Text on top of Bar */
@@ -522,16 +578,16 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
             let met = this.context.measureText(value.toString());
             let textHeight = this.getTextHeight(met);
             let yTextOnBar = 0;
-                                    
-            if(value < 0) {
-              yTextOnBar = PreviousMinusY - (diff/2) + textHeight/2;              
-              drawTexts.push(new DrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
+
+            if (value < 0) {
+              yTextOnBar = PreviousMinusY - (diff / 2) + textHeight / 2;
+              drawTexts.push(new DrawTextItem(value.toString(), xPoint + halfValueXPoint, yTextOnBar, foreColor));
             } else {
-              yTextOnBar = yPoint + diff/2 + textHeight/2;
-              drawTexts.push(new DrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
+              yTextOnBar = yPoint + diff / 2 + textHeight / 2;
+              drawTexts.push(new DrawTextItem(value.toString(), xPoint + halfValueXPoint, yTextOnBar, foreColor));
             }
 
-            if(value < 0) {
+            if (value < 0) {
               PreviousMinusY = PreviousMinusY - diff;
               minusComputedValue += value;
             } else {
@@ -548,8 +604,8 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
         halfValueXPoint = remXWidth / 2;
 
         if (halfValueXPoint) {
-          if(ComputedValue > 0)
-              this.DrawText(ComputedValue.toString(), xPoint + halfValueXPoint, previousPlusY - 5, this.TextColor);
+          if (ComputedValue > 0)
+            this.DrawText(ComputedValue.toString(), xPoint + halfValueXPoint, previousPlusY - 5, this.TextColor);
         }
 
         /* Draw total value on top of minus bar */
@@ -558,7 +614,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
         halfValueXPoint = remXWidth / 2;
 
         if (halfValueXPoint) {
-          if(minusComputedValue < 0)
+          if (minusComputedValue < 0)
             this.DrawText(minusComputedValue.toString(), xPoint + halfValueXPoint, PreviousMinusY + 10, this.TextColor);
         }
 
@@ -575,7 +631,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
         const ele = drawTexts[index];
         this.DrawText(ele.value.toString(), ele.x, ele.y, ele.color);
       }
-      
+
       this.IsRendered = true;
       this.cdr.detectChanges();
     }
@@ -591,15 +647,15 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
     return distance;
   }
 
-  private GetZeroYPoint(noOfMinus: number, vDistance: number, spaceFromTopYAxis: number){
+  private GetZeroYPoint(noOfMinus: number, vDistance: number, spaceFromTopYAxis: number) {
     let index = noOfMinus + this.NoOfSplitInValueAxis;
-    let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
+    let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis + this.PaddingTop);
     return yPoint;
   }
 
   private GetYStartPoint(noOfMinus: number, displayValue: number, distance: number, itemcount: number, vDistance: number, spaceFromTopYAxis: number) {
     let index = -(displayValue / distance) + this.NoOfSplitInValueAxis + noOfMinus;
-    let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis);
+    let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis + this.PaddingTop);
     return yPoint;
   }
 
@@ -650,7 +706,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX;
+      let endX = x + this.Width - this._marginX - this.PaddingLeft;
       this.context.lineWidth = 0.4;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);
@@ -682,7 +738,7 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
       this.context.beginPath();
       this.context.strokeStyle = forecolor;
       this.context.fillStyle = forecolor;
-      this.context.fillText(text, x, y);    
+      this.context.fillText(text, x, y);
       this.context.fill();
       this.context.stroke();
       this.context.closePath();

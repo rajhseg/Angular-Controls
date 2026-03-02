@@ -262,7 +262,7 @@
 
     <rserieschart [XAxisTitle]="'Disk'"
                   [EnableBorder]="true"
-                  [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                  [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                   [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                   [YAxisTitle]="'Speed'" [FillAreaColor]="true"
                   [Width]="400" [Height]="400"
@@ -271,7 +271,7 @@
     <rserieschart [XAxisTitle]="'Elements'"
                   [YAxisTitle]="'Values'"
                   [EnableBorder]="true"
-                  [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                  [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                   [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                   [Width]="400" [Height]="400"
                   [Items]="seriesModel"></rserieschart>
@@ -279,7 +279,7 @@
     <rserieschart [XAxisTitle]="'Elements'"
                   [YAxisTitle]="'Values'"
                   [EnableBorder]="true"
-                  [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                  [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                   [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                   [Width]="400" [Height]="400"
                   [Items]="seriesModel1"></rserieschart>
@@ -352,7 +352,7 @@
 
         <rbarchart-vertical style="float:left" [Width]="400"
                             [EnableBorder]="true"
-                            [GlassyEffectColor]="'darkblue'"
+                            [GlassyEffectColor]="'darkgray'"
                             [PopupBackColor]="'white'" [PopupForeColor]="'black'"
                             [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
                             [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
@@ -387,7 +387,7 @@
     <rstep [Title]="'RStackedBarChart Vertical'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rstackedbarchart-vertical [MarginX]="60" [Width]="500" [EnableBorder]="true" [GlassyEffectColor]="'darkblue'"
+        <rstackedbarchart-vertical [MarginX]="60" [Width]="500" [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
                                    [PopupBackColor]="'smokewhite'" [PopupForeColor]="'black'"
                                    [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount Spent'"
                                    [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
@@ -413,7 +413,8 @@
     <rstep [Title]="'RStackedRangeBarChart Vertical'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1"
+        <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" [EnableBorder]="true"
+                                        [GlassyEffectColor]="'darkgray'"
                                         [Columns]="stackedrangebarChartItems1" [Width]="400" [Height]="400" [XAxisTitle]="'Monthly Expenses'"
                                         [YAxisTitle]="'Amount spent'">
 
@@ -426,7 +427,7 @@
       <ng-template rstepview>
 
         <rscatterchart [XAxisTitle]="'Age'" [YAxisTitle]="'Weight'" [Items]="scatterModel"
-                       [GlassyEffectColor]="'darkblue'" [PopupBackColor]="'violet'" [EnableBorder]="true"
+                       [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'violet'" [EnableBorder]="true"
                        [PopupForeColor]="'white'" [GlassyEffect]="true"
                        [Width]="400" [Height]="400"></rscatterchart>
 
@@ -438,7 +439,7 @@
 
         <rlinechart-vertical [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
                              [YAxisTitle]="'Price'"  [GlassyEffect]="true" [EnableBorder]="true"
-                             [GlassyEffectColor]="'darkblue'" [PopupBackColor]="'violet'"
+                             [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'violet'"
                              [PopupForeColor]="'white'"
                              [Items]="lineChartItems" [Width]="400" [Height]="400">
         </rlinechart-vertical>
@@ -451,7 +452,7 @@
       <ng-template rstepview>
 
         <rareachart [xAxisItemNames]="lineChartXAxisNames" [XAxisTitle]="'Day'"
-                    [YAxisTitle]="'Price'" [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                    [YAxisTitle]="'Price'" [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                     [EnableBorder]="true" [EnablePlotOnPoints]="true"
                     [PopupBackColor]="'violet'" [PopupForeColor]="'white'"
                     [Items]="lineChartItems" [Width]="400" [Height]="400">
@@ -466,7 +467,7 @@
           <rserieschart [XAxisTitle]="'Disk'"
                         [YAxisTitle]="'Speed'" [FillAreaColor]="true"
                         [EnableBorder]="true"
-                        [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                        [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                         [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                         [Width]="400" [Height]="400"
                         [Items]="seriesModel2">
@@ -475,7 +476,7 @@
           <rserieschart [XAxisTitle]="'Elements'"
                         [YAxisTitle]="'Values'" 
                         [EnableBorder]="true"
-                        [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                        [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                         [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                         [Width]="400" [Height]="400"
                         [Items]="seriesModel">
@@ -490,7 +491,7 @@
           <rserieschart [XAxisTitle]="'Elements'"
                         [YAxisTitle]="'Values'"
                         [EnableBorder]="true"
-                        [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                        [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                         [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                         [Width]="400" [Height]="400"
                         [Items]="seriesModel1">
@@ -504,7 +505,7 @@
 
         <rallocated-barchart [xAxisItemNames]="barChartXAxisItemNames2"
                              [EnableBorder]="true" [EmptyAreaBorderColor]="'darkgray'"
-                             [GlassyEffect]="true" [GlassyEffectColor]="'darkblue'"
+                             [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
                              [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
                              [XAxisTitle]="'Month'"
                              [YAxisTitle]="'Money'"

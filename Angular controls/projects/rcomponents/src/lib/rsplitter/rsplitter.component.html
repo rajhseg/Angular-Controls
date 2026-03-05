@@ -3,6 +3,8 @@
 
     <div [id]="Id" class="container" 
         [ngStyle]="{ 'width': TotalWidth, 'height': TotalHeight,    
+                     'border': EnableBorder ? '0.8px solid '+ BorderColor : '',
+                     'border-radius': '8px',
                      'flex-direction': SplitterType == RSType.Horizontal ? 'column' : '' }">
 
         <ng-container *ngFor="let item of RenderItems; trackBy:trackById">
@@ -17,7 +19,7 @@
             <ng-container *ngIf="!item.IsSplitObj">
                 <div [id]="item.Id" class="panel" [ngStyle]="getPanelStyle(item.Id)">
                   <ng-content>
-                    
+
                   </ng-content>
                   <ng-container *ngTemplateOutlet="item.TemplateRef">
                         

@@ -33,6 +33,12 @@ export class RSplitterComponent implements AfterContentInit {
   _splitterType: RSplitterType = RSplitterType.Vertical;
 
   @Input()
+  EnableBorder: boolean = true;
+
+  @Input()
+  BorderColor: string = 'lightgray';
+
+  @Input()
   SplitterSize: string = '6px';
 
   @Input()

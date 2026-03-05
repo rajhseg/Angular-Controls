@@ -480,10 +480,15 @@ REventsCalender
 <img width="785" height="672" alt="image" src="https://github.com/user-attachments/assets/95985ca1-d2cf-4fcc-b6ff-5bd874cefc48" />
 
 
+RSplitter Component
+--------------------------
 
+<br />
 
+<img width="1098" height="362" alt="image" src="https://github.com/user-attachments/assets/e031bd63-4901-408f-aadb-2d33fa1389e5" />
 
-
+<br />
+<br />
 
 
 

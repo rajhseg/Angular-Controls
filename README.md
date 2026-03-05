@@ -483,7 +483,7 @@ REventsCalender
 RSplitter Component
 --------------------------
 
-<img width="1098" height="362" alt="image" src="https://github.com/user-attachments/assets/e031bd63-4901-408f-aadb-2d33fa1389e5" />
+<img width="1004" height="333" alt="image" src="https://github.com/user-attachments/assets/e4ea40cd-28a3-4f97-bbd8-b481c7091432" />
 
 <br />
 <br />

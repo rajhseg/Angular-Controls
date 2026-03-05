@@ -60,6 +60,8 @@ export * from './lib/css-units.service';
 export * from './lib/rflattabs/rflattabs.component';
 export * from './lib/reventscalender/reventscalender.component';
 export * from './lib/checkbox/checkbox.service';
-
+export * from './lib/rsplitter/rsplitter.component';
+export * from './lib/rsplitter/rsplitpage.component';
+export * from './lib/rsplitter/rpagecontent.directive';
 
 export * from './lib/rcomponents.module';

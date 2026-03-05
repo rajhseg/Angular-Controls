@@ -47,6 +47,9 @@ import { RFilterComponent } from "./rfilter/rfilter.component";
 import { RSeriesChartComponent } from "./rserieschart/rserieschart.component";
 import { RFlatTabsComponent } from "./rflattabs/rflattabs.component";
 import { REventsCalenderComponent } from "./reventscalender/reventscalender.component";
+import { RPageContentDirective } from './rsplitter/rpagecontent.directive';
+import { RSplitPageComponent } from './rsplitter/rsplitpage.component';
+import { RSplitterComponent } from './rsplitter/rsplitter.component';
 
 @NgModule({
     imports: [
@@ -98,7 +101,10 @@ import { REventsCalenderComponent } from "./reventscalender/reventscalender.comp
         RFilterComponent,
         RSeriesChartComponent,
         RFlatTabsComponent,
-        REventsCalenderComponent
+        REventsCalenderComponent,
+        RPageContentDirective,
+        RSplitPageComponent,
+        RSplitterComponent
     ],
     exports: [
         RCalenderComponent,
@@ -148,7 +154,10 @@ import { REventsCalenderComponent } from "./reventscalender/reventscalender.comp
         RFilterComponent,
         RSeriesChartComponent,
         RFlatTabsComponent,
-        REventsCalenderComponent
+        REventsCalenderComponent,
+        RPageContentDirective,
+        RSplitPageComponent,
+        RSplitterComponent
     ]
 })
 export class RComponentsModule {

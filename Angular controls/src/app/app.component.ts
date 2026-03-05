@@ -1,6 +1,19 @@
-import { AfterContentChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, createNgModuleRef, Inject, NgModuleRef, NgZone, TemplateRef, viewChild, ViewChild } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  createNgModuleRef,
+  Inject,
+  NgModuleRef,
+  NgZone,
+  TemplateRef,
+  viewChild,
+  ViewChild
+} from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCalenderComponent } from 'rcomponents';
+import { RCalenderComponent, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,7 +61,16 @@ import { RDonutChartComponent, RDonutChartItem } from "rcomponents";
 import { RStepperHorizontalComponent } from 'rcomponents';
 import { RPieChartComponent, RPieChartItem } from 'rcomponents';
 import { RBarChartVerticalComponent } from "rcomponents";
-import { AllocatedBarChartItem, AllocationData, BarChartItem, Graph, LineChartItem, ScatterChartItem, YSeriesChartItem, GraphSeriesChartItem } from 'rcomponents';
+import {
+  AllocatedBarChartItem,
+  AllocationData,
+  BarChartItem,
+  Graph,
+  LineChartItem,
+  ScatterChartItem,
+  YSeriesChartItem,
+  GraphSeriesChartItem
+} from "rcomponents";
 import { RBarChartHorizontalComponent } from 'rcomponents';
 import { RStackedBarChartVerticalComponent } from 'rcomponents';
 import { RStackedRangeBarChartVerticalComponent } from 'rcomponents';
@@ -65,7 +87,6 @@ import { AddEventModel, EachDayEventsModel, EventsCalenderModel, REventsCalender
 import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
 import { CheckboxEventArgs } from 'rcomponents';
 import { CalenderChangeMonthInfo } from 'rcomponents';
-
 
 @Component({
   selector: 'app-root',
@@ -121,8 +142,11 @@ import { CalenderChangeMonthInfo } from 'rcomponents';
     RFilterComponent,
     RSeriesChartComponent,
     RFlatTabsComponent,
-    REventsCalenderComponent
-],
+    REventsCalenderComponent,
+    RSplitterComponent,
+    RSplitPageComponent,
+    RPageContentDirective
+  ],
 changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit, AfterContentChecked {
@@ -130,7 +154,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   time1: string = "1:45 PM";
   time2: string ="13:6";
   time3:string = "";
-
+  splitType = RSplitterType;
   calenderEvents!: EventsCalenderModel;
 
   title = 'angularcontrols';

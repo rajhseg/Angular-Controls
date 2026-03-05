@@ -3,7 +3,7 @@
     <h3>Server 1</h3>
       <div style="margin-top:105px;"></div>
 
-<!-- 
+    <!-- 
       <div style="margin-left: 60px;">
         
     <rtimer [FlatStyleForeColor]="bColor"
@@ -305,7 +305,75 @@
   <br />
   <rbutton [ButtonWidth]="'200px'" (ButtonClick)="AddFewItems($event)">Add Few Items to Chart</rbutton>
   <br />
+  <br />
 
+  <rsplitter [SplitterType]="splitType.Horizontal" [TotalHeight]="'1500px'" [TotalWidth]="'40%'">
+    <rsplitpage *rpagecontent [InitialWidth]="'100%'">
+
+      <rbarchart-vertical style="float:left" [Width]="400"
+                            [EnableBorder]="true"
+                            [GlassyEffectColor]="'darkgray'"
+                            [PopupBackColor]="'white'" [PopupForeColor]="'black'"
+                            [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
+                            [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
+        </rbarchart-vertical>
+
+    </rsplitpage>
+    <rsplitpage *rpagecontent>
+
+        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1"
+                            [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
+                            [PopupBackColor]="'white'" [PopupForeColor]="'black'"
+                            [Columns]="barChartItems1"></rbarchart-vertical>
+
+    </rsplitpage>
+    <rsplitpage *rpagecontent>
+
+      <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1"
+                          [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
+                          [PopupBackColor]="'white'" [PopupForeColor]="'black'"
+                          [Columns]="barChartItems1"></rbarchart-vertical>
+
+    </rsplitpage>
+  </rsplitter>
+
+  <div  style="border: 1px solid lightgray; border-radius: 8px; width: 80%;">
+
+    <rsplitter [SplitterType]="splitType.Vertical" [TotalHeight]="'430px'" [TotalWidth]="'100%'">
+      <rsplitpage *rpagecontent [InitialWidth]="'50%'">
+
+        <rbarchart-vertical style="float:left" [Width]="400"
+                              [EnableBorder]="true"
+                              [GlassyEffectColor]="'darkgray'"
+                              [PopupBackColor]="'white'" [PopupForeColor]="'black'"
+                              [XAxisTitle]="'Company profit per year'" [YAxisTitle]="'Profit Percentage'"
+                              [xAxisItemNames]="barChartXAxisItemNames" [Columns]="barChartItems">
+          </rbarchart-vertical>
+
+      </rsplitpage>
+      <rsplitpage *rpagecontent>
+
+          <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1"
+                              [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
+                              [PopupBackColor]="'white'" [PopupForeColor]="'black'"
+                              [Columns]="barChartItems1"></rbarchart-vertical>
+
+      </rsplitpage>
+      <rsplitpage *rpagecontent>
+
+        <rbarchart-vertical [Width]="400" [xAxisItemNames]="barChartXAxisItemNames1"
+                            [EnableBorder]="true" [GlassyEffectColor]="'darkgray'"
+                            [PopupBackColor]="'white'" [PopupForeColor]="'black'"
+                            [Columns]="barChartItems1"></rbarchart-vertical>
+
+      </rsplitpage>
+    </rsplitter>
+
+  </div>
+  
+
+  <br />
+  <br />
 
   <rstepper-vertical [StripLineColor]="bColor" [ActiveBackColor]="bColor"
                      [PendingBackColor]="'darkblue'" [PendingBorderColor]="'darkblue'"

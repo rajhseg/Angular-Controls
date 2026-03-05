@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RstepComponent } from './rstep.component';
+import { RStepComponent } from './rstep.component';
 
 describe('RstepComponent', () => {
-  let component: RstepComponent;
-  let fixture: ComponentFixture<RstepComponent>;
+  let component: RStepComponent;
+  let fixture: ComponentFixture<RStepComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RstepComponent]
+      imports: [RStepComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RstepComponent);
+    fixture = TestBed.createComponent(RStepComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { RSplitPageComponent } from "./rsplitpage.component";
 import { IRSplitterInterface, RPageContentDirective, RSPLIT_ITEM, RSplitterObj, RSplitterType } from "./rpagecontent.directive";
 import { WindowHelper } from "../windowObject";
@@ -72,7 +72,11 @@ export class RSplitterComponent implements AfterContentInit {
 
   @Input()
   set SplitterType(value: RSplitterType) {
+    console.log("id "+this.Id);
+
     this._splitterType = value;
+
+    console.log(this._splitterType);
   }
   get SplitterType(): RSplitterType {
     return this._splitterType;
@@ -81,7 +85,7 @@ export class RSplitterComponent implements AfterContentInit {
   @ContentChildren(RPageContentDirective, { descendants: true }) Contents!: QueryList<RPageContentDirective>;
 
   constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef,
-              private winHelper: WindowHelper,
+              private winHelper: WindowHelper, private destroy: DestroyRef,
               private cssUnitService: CssUnitsService, private eleRef: ElementRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
@@ -156,15 +160,19 @@ export class RSplitterComponent implements AfterContentInit {
 
       if(this.winHelper.isExecuteInBrowser()) 
       {
-        const dividers = document.querySelectorAll('.divider');
+        var selectorobj = this.RenderItems.filter(x=>x.IsSplitObj).map(y=>"#"+y.Id).join(", ");
+
+        const dividers = document.querySelectorAll(selectorobj);
 
         dividers.forEach(divider => {
+
           let isDragging = false;
           let startX = 0;
           let prevPanel: any, nextPanel: any;
           let prevStartSize: any, nextStartSize: any;
 
-          divider.addEventListener('mousedown', (e: any) => {
+          const _mouseDown = (e: any) => {
+
             isDragging = true;
 
             prevPanel = divider.previousElementSibling;
@@ -187,9 +195,9 @@ export class RSplitterComponent implements AfterContentInit {
 
             // Prevent text selection while dragging
             document.body.style.userSelect = 'none';
-          });
+          };
 
-          document.addEventListener('mousemove', (e: any) => {
+          const _moveMove = (e: any) => {
             if (!isDragging) return;
 
             const dx = this._splitterType == RSplitterType.Vertical ?
@@ -210,14 +218,30 @@ export class RSplitterComponent implements AfterContentInit {
                 nextPanel.style.height = newNextSize + 'px';
               }
             }
-          });
+          };
 
-          document.addEventListener('mouseup', () => {
+          const _mouseUp = () => {
             if (isDragging) {
               isDragging = false;
               document.body.style.userSelect = '';
             }
+          };
+
+          divider.addEventListener('mousedown', _mouseDown);
+
+          document.addEventListener('mousemove', _moveMove);
+
+          document.addEventListener('mouseup', _mouseUp);
+
+          this.destroy.onDestroy(()=>{
+                
+              divider.removeEventListener('mousedown', _mouseDown);
+
+              document.removeEventListener('mousemove', _moveMove);
+
+              document.removeEventListener('mouseup', _mouseUp);
           });
+
         });
       }
 

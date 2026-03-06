@@ -10,7 +10,7 @@
         <ng-container *ngFor="let item of RenderItems; trackBy:trackById">
             
             <ng-container *ngIf="item.IsSplitObj">
-                <div class="divider" [ngStyle]="{'background': SplitterBackgroundColor, 
+                <div [id]="item.Id" class="divider" [ngStyle]="{'background': SplitterBackgroundColor, 
                                     'height': item.InitialHeight, 'width': item.InitialWidth,
                                     'cursor': SplitterType == RSType.Vertical ? 'col-resize' : 'row-resize'}">
                 </div>

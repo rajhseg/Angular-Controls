@@ -72,11 +72,7 @@ export class RSplitterComponent implements AfterContentInit {
 
   @Input()
   set SplitterType(value: RSplitterType) {
-    console.log("id "+this.Id);
-
     this._splitterType = value;
-
-    console.log(this._splitterType);
   }
   get SplitterType(): RSplitterType {
     return this._splitterType;
@@ -234,7 +230,7 @@ export class RSplitterComponent implements AfterContentInit {
           document.addEventListener('mouseup', _mouseUp);
 
           this.destroy.onDestroy(()=>{
-                
+
               divider.removeEventListener('mousedown', _mouseDown);
 
               document.removeEventListener('mousemove', _moveMove);

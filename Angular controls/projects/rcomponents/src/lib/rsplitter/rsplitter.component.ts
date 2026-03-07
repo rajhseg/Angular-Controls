@@ -102,7 +102,7 @@ export class RSplitterComponent implements AfterContentInit {
       case RSplitterType.Horizontal:
           return {  'min-height': '50px', 
                     'height': page.InitialHeight, 
-                    'flex': page.InitialWidth == '' ? '1' : '', 
+                    'flex': page.InitialHeight == '' ? '1' : '', 
                     'width': page.InitialWidth == '' ? '100%' : page.InitialWidth  
                   
                 }

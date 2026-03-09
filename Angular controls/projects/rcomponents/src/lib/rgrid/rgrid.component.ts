@@ -154,7 +154,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   EditRows: RGridEditRowInfo[] = [];
 
-  ShowItems!: RGridItems;
+  ShowItems!: RGridItems | undefined;
 
   ColumnsNotDefined: boolean = false;
 
@@ -504,14 +504,29 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     } else {
       this.GroupedData = undefined;
       this.IsGroupHaveColumns = false;
+
+      this.GroupItems = [];
+      this.DisplayGroupItems = [];
+
+      if (this.DataItems) {
+        let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
+        this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
+      }
     }
 
-    this.filterPerPageForGroup();
-    
+    // Run appropriate paging routine depending on grouping state
+    if (this.IsGroupHaveColumns) {
+      this.filterPerPageForGroup();
+    } else {
+      this.filterPerPage();
+    }
+
+    // ensure virtual viewport recalculates and view updates
     if (this.viewport) {
       this.viewport.checkViewportSize();
     }
 
+    this.cdr.detectChanges();
   }
 
   expandGroup($event: Event, grpItem: RGridGroupData) {
@@ -550,11 +565,29 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
   }
 
+  cdkVirtualTrackBy(index: number, item: any): number {
+    try {
+      if (!item) return index;
+      const key = this.indxKey;
+      if (item[key] && item[key].Value !== undefined && item[key].Value !== null) {
+        return item[key].Value as number;
+      }
+      return index;
+    } catch (e) {
+      return index;
+    }
+  }
+
   removeFromGroup(item: RGridHeader) {
     let ind = this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind);
     if (ind > -1) {
       this.GroupHeaders.splice(ind, 1);
       this.createGroup();
+
+      setTimeout(() => {
+        this.cdr.markForCheck();
+      }, 200);
+      
     }
   }
 
@@ -627,12 +660,16 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   filterPerPage() {
     if (this.DataItems) {
-      let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
-      this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
-    }
 
-    if (this.viewport) {
-      this.viewport.checkViewportSize();
+      let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
+
+      this.ShowItems = undefined;
+
+      var _normalData = this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value);
+
+      var unfiltered = { Rows:  [..._normalData]};
+
+      this.ShowItems = unfiltered;
     }
   }
 
@@ -654,6 +691,11 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
     this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
 
+    this.ShowItems = {
+      ...this.ShowItems,
+      Rows: [...this.ShowItems.Rows]
+    }
+    
     let addItem: boolean = false;
 
     let skipcount = 0;

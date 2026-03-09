@@ -142,7 +142,7 @@
             <tbody  [ngStyle]="{ 'width': ActualWidth }">
 
                 <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
-                    <tr *cdkVirtualFor="let item of ShowItems.Rows" [ngStyle]="{ 'width': ActualWidth }">
+                    <tr *cdkVirtualFor="let item of ShowItems.Rows; trackBy:cdkVirtualTrackBy" [ngStyle]="{ 'width': ActualWidth }">
                         
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center; width:26px">

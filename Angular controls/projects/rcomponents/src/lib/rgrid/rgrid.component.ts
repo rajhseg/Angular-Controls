@@ -131,6 +131,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return _width;
   }
 
+  @Input()
+  EnableVirtualScroll: boolean = false;
 
   @Input()
   ShowEditUpdate: boolean = true;
@@ -146,7 +148,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   @Input()
   FilterDateFormat: string = 'MM-dd-yyyy';
-
 
   EditModeEnabled: boolean = false;
 
@@ -507,21 +508,14 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
       this.GroupItems = [];
       this.DisplayGroupItems = [];
-
-      if (this.DataItems) {
-        let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
-        this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
-      }
     }
 
-    // Run appropriate paging routine depending on grouping state
     if (this.IsGroupHaveColumns) {
       this.filterPerPageForGroup();
     } else {
       this.filterPerPage();
     }
 
-    // ensure virtual viewport recalculates and view updates
     if (this.viewport) {
       this.viewport.checkViewportSize();
     }
@@ -583,11 +577,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     if (ind > -1) {
       this.GroupHeaders.splice(ind, 1);
       this.createGroup();
-
-      setTimeout(() => {
-        this.cdr.markForCheck();
-      }, 200);
-      
     }
   }
 
@@ -613,7 +602,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
             this.DataItems = this.PopulateData();
             this.AssignEditRowWhenLoad();
             this.filterPerPage();
-            //this.createGroup();
+            // this.createGroup();
             this.sortData();
             this.cdr.detectChanges();
           }, 500);

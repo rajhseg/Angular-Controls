@@ -136,13 +136,14 @@
             </thead>
         </table>
 
-    <cdk-virtual-scroll-viewport itemSize="40" style="height: 100%;" class="grid-viewport">
+    <cdk-virtual-scroll-viewport itemSize="40" style="height: 100%;" class="grid-viewport" [attr.key]="ShowItems?.Rows?.length">
         <table class="tbl" [ngStyle]="{ 'width': ActualWidth }">
             <tbody  [ngStyle]="{ 'width': ActualWidth }">
 
                 <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
+                    
                     <tr *cdkVirtualFor="let item of ShowItems.Rows; trackBy:cdkVirtualTrackBy" [ngStyle]="{ 'width': ActualWidth }">
-                        
+    
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center; width:26px">
                                 <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [Size]="SelectSize"

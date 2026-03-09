@@ -13,7 +13,6 @@
     </div>
     <div #parentElement [ngStyle]="{'width': TableWidth, 'height': TableHeight }" style="overflow: hidden;">   
         
-    <!-- Table header stays outside the virtual scroll viewport so it remains fixed -->
         <table class="tblheader" [ngStyle]="{ 'width': HeaderWidth }">
             <thead>
                 <tr [ngStyle]="{'background-color':HeaderBackgroundColor, 'color': HeaderForeColor}"

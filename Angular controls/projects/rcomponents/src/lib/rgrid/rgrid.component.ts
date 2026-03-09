@@ -14,12 +14,13 @@ import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter
 import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
 import { CheckBoxSize, RCheckboxComponent } from '../checkbox/checkbox.component';
 import { CheckboxEventArgs } from '../checkbox/checkbox.service';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'rgrid',
   standalone: true,
   imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,
-    KeyValuePipe,
+    KeyValuePipe, ScrollingModule,
     NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, CdkDragPreview,
     ReactiveFormsModule, NgTemplateOutlet, RButtonComponent, RDropdownComponent, RTextboxComponent,
     RFilterComponent, RCheckboxComponent],
@@ -62,6 +63,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   GroupHeaders: RGridHeader[] = [];
 
+  @Input()
   PageItems: DropdownModel[] = []
 
   currentPage: number = 1;  
@@ -81,6 +83,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   _tableHeight: string = '200px';
 
   ActualWidth: string = "100%";
+
+  HeaderWidth: string = "100%";
 
   _fitColumns: boolean = false;
   
@@ -223,20 +227,23 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   @HostBinding('id')
   HostElementId: string = this.winObj.GenerateUniqueId();
 
+  @ViewChild(CdkVirtualScrollViewport)
+  viewport!: CdkVirtualScrollViewport;
+
   constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: WindowHelper,
     private datePipe: DatePipe, private cssUnit: CssUnitsService, private ele: ElementRef
   ) {
     this.Id = this.winObj.GenerateUniqueId();
-    let ditems: DropdownModel[] = [];
-    ditems.push(new DropdownModel(5, "5"));
-    ditems.push(new DropdownModel(10, "10"));
-    ditems.push(new DropdownModel(15, "15"));
-    ditems.push(new DropdownModel(20, "20"));
-    ditems.push(new DropdownModel(25, "25"));
-    ditems.push(new DropdownModel(50, "50"));
-    ditems.push(new DropdownModel(100, "100"));
+    // let ditems: DropdownModel[] = [];
+    // ditems.push(new DropdownModel(5, "5"));
+    // ditems.push(new DropdownModel(10, "10"));
+    // ditems.push(new DropdownModel(15, "15"));
+    // ditems.push(new DropdownModel(20, "20"));
+    // ditems.push(new DropdownModel(25, "25"));
+    // ditems.push(new DropdownModel(50, "50"));
+    // ditems.push(new DropdownModel(100, "100"));
 
-    this.PageItems = ditems;
+//    this.PageItems = ditems;
     this.ItemsPerPage = new DropdownModel(10, "10");
 
     this.ColValues.push(new DropdownModel(1,"1"));
@@ -628,6 +635,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
       this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
     }
+
+    if (this.viewport) {
+      this.viewport.checkViewportSize();
+    }
   }
 
   headerDragEnd($event: any) {
@@ -647,6 +658,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     this.DisplayGroupItems = [];
 
     this.ShowItems = { Rows: this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value) };
+
     let addItem: boolean = false;
 
     let skipcount = 0;
@@ -657,8 +669,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       let grpData = new RGridGroupData(element.Key, [], element.IsExpanded);
       for (let i = 0; i < element.Values.length; i++) {
 
-        if (itemAddToListCount == this.ItemsPerPage.Value)
+        if (itemAddToListCount == this.ItemsPerPage.Value) {
           break;
+        }
 
         const eachItem = element.Values[i];
         skipcount++;
@@ -674,10 +687,15 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       if (grpData.Values.length > 0)
         this.DisplayGroupItems.push(grpData);
 
-      if (itemAddToListCount == this.ItemsPerPage.Value)
+      if (itemAddToListCount == this.ItemsPerPage.Value) {
         break;
+      }
+
     }
 
+    if (this.viewport) {
+      this.viewport.checkViewportSize();
+    }
   }
 
   NextPage() {
@@ -1195,6 +1213,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
     this.ActualWidth = (totalW - 6) + CssUnit.Px.toString();
 
+    this.HeaderWidth = (totalW + 1) + CssUnit.Px.toString();
+
     return _dataItems;
   }
 
@@ -1305,7 +1325,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       TotalW = TotalW + 40;
 
     this.ActualWidth = (TotalW - 6) + CssUnit.Px.toString();
-    
+
+    this.HeaderWidth = (TotalW + 1) + CssUnit.Px.toString();
+
     return _dataItems;
   }
 

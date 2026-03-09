@@ -109,6 +109,15 @@
 }
 
 
+.tblheader {
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  white-space: nowrap;
+  /* width: max-content;     */
+  height: 40px;
+}
+
 .tbl{     
     table-layout:fixed;  
     border-collapse: collapse;      

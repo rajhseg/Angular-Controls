@@ -182,7 +182,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   
   selectedDate1:string = '11-05-2024';
   
-  ItemsPerPage = new DropdownModel(10, "10");
+  ItemsPerPage = new DropdownModel(5, "5");
+  ItemsPerPage4 = new DropdownModel(10000, "10000");
 
   timerDisplayType: TimerType = TimerType.Circle;
   
@@ -290,6 +291,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   radioSize: string = "12px";
   checkBoxSizes: DropdownModel[] = [];
 
+  ditems: DropdownModel[] = [];
+
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper, private ngZone: NgZone, 
     private mod: NgModuleRef<any>) {  
 
@@ -302,6 +305,21 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.items.push(new DropdownModel("7", "Jly"));
       this.items.push(new DropdownModel("8", "Aug"));
       this.items.push(new DropdownModel("9", "Sep"));
+
+    this.ditems.push(new DropdownModel(5, "5"));
+    this.ditems.push(new DropdownModel(10, "10"));
+    this.ditems.push(new DropdownModel(15, "15"));
+    this.ditems.push(new DropdownModel(20, "20"));
+    this.ditems.push(new DropdownModel(25, "25"));
+    this.ditems.push(new DropdownModel(50, "50"));
+    this.ditems.push(new DropdownModel(100, "100"));
+
+    this.ditems.push(new DropdownModel(200, "200"));
+    this.ditems.push(new DropdownModel(500, "500"));
+    this.ditems.push(new DropdownModel(1000, "1000"));
+
+    this.ditems.push(new DropdownModel(5000, "5000"));
+    this.ditems.push(new DropdownModel(10000, "10000"));
 
       // this.items1.push(new DropdownModel("0", "Jan"));
       // this.items1.push(new DropdownModel("1", "Feb"));
@@ -412,7 +430,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       element.IsSelected = this.gridSelectAll;
     }   
     
-    this.gridItems = this.gridItems.slice();
+    this.gridItems = this.gridItems;
   }
 
   Select($evt: CheckboxEventArgs, item: any){
@@ -772,7 +790,15 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.gridItems.push({'IsSelected': false, 'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
     this.gridItems.push({'IsSelected': false, 'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
 
-    this.gridItems = this.gridItems.slice();
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+
+
     this.gridItems1 = this.gridItems1.slice();
   }
 

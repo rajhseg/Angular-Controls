@@ -561,14 +561,35 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   cdkVirtualTrackBy(index: number, item: any): number {
     try {
-      if (!item) return index;
+      if (!item) 
+        return index;
+      
       const key = this.indxKey;
+
       if (item[key] && item[key].Value !== undefined && item[key].Value !== null) {
         return item[key].Value as number;
       }
+      
       return index;
     } catch (e) {
       return index;
+    }
+  }
+
+  cdkVirtualGroupTrackBy(index: number, item: any): string {
+    try{
+      if(!item) 
+        return index.toString();
+
+      let _d = item as RGridGroupData;
+
+      if(_d)
+        return _d.Key;
+      else
+        return index.toString();
+
+    } catch(e) {
+      return index.toString();
     }
   }
 

@@ -142,7 +142,7 @@
 
                 <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                     
-                    <tr *cdkVirtualFor="let item of ShowItems.Rows; trackBy:cdkVirtualTrackBy" [ngStyle]="{ 'width': ActualWidth }">
+                    <tr *ngFor="let item of ShowItems.Rows; trackBy:cdkVirtualTrackBy" [ngStyle]="{ 'width': ActualWidth }">
     
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center; width:26px">
@@ -207,7 +207,7 @@
 
                 <ng-container *ngIf="IsGroupHaveColumns && DisplayGroupItems">
 
-                    <ng-container *ngFor="let grpitem of DisplayGroupItems">
+                    <ng-container *ngFor="let grpitem of DisplayGroupItems; trackBy: cdkVirtualGroupTrackBy">
                         <tr style="border-bottom: 1px solid lightgray;" [ngStyle]="{ 'width': ActualWidth }">
                             <td colspan="2">
                                 <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"

@@ -9,8 +9,8 @@
           *ngFor="let header of TabHeaders; trackBy:trackByHeader" cdkDrag (cdkDragEnded)="dragEnded($event)"
           (cdkDragStarted)="dragStarted($event)" [cdkDragData]="header" (click)="HeaderClicked(header)"
           (cdkDragMoved)="onDragMoved($event)" [ngClass]="{ tabSelected: header.IsSelected}">
-          <div [innerHTML]="header.headerText">
-  
+          <div>
+              {{header.headerText}}
           </div>
         </button>
       </ng-container>
@@ -45,7 +45,8 @@
         <ng-container>
           <button cdkDrag (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
             id="rdragtabheader_{{header.TabId}}" class="tabheader" [ngClass]="{ tabSelected: true}">
-            <div [innerHTML]="header.headerText">
+            <div>
+              {{header.headerText}}
             </div>
           </button>
         </ng-container>

@@ -507,6 +507,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
 
     this.filterPerPageForGroup();
+    
+    if (this.viewport) {
+      this.viewport.checkViewportSize();
+    }
 
   }
 

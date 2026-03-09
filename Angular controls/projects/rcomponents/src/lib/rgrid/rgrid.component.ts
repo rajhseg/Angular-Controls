@@ -234,16 +234,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     private datePipe: DatePipe, private cssUnit: CssUnitsService, private ele: ElementRef
   ) {
     this.Id = this.winObj.GenerateUniqueId();
-    // let ditems: DropdownModel[] = [];
-    // ditems.push(new DropdownModel(5, "5"));
-    // ditems.push(new DropdownModel(10, "10"));
-    // ditems.push(new DropdownModel(15, "15"));
-    // ditems.push(new DropdownModel(20, "20"));
-    // ditems.push(new DropdownModel(25, "25"));
-    // ditems.push(new DropdownModel(50, "50"));
-    // ditems.push(new DropdownModel(100, "100"));
-
-//    this.PageItems = ditems;
+    
     this.ItemsPerPage = new DropdownModel(10, "10");
 
     this.ColValues.push(new DropdownModel(1,"1"));

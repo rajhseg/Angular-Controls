@@ -223,6 +223,40 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     this.enableShadow = value;
   }
 
+  public get TotalRows(): number {
+    return this.Items.length;
+  }
+
+  public get RowsInCurrentPage(): number {
+    if(this.IsGroupHaveColumns){
+        if(this.DisplayGroupItems){
+          let _totalLen = 0;
+
+          for (const group in this.DisplayGroupItems) {
+            _totalLen += this.DisplayGroupItems[group].Values.length;
+          }
+          
+          return _totalLen;
+        }
+    } else{
+
+      if(this.ShowItems && this.ShowItems.Rows)
+        return this.ShowItems.Rows.length;
+    }
+    return 0;
+  }
+
+  public get GetContentHeight(): string {
+    if(this.TableHeight != undefined && this.TableHeight != null) {
+      let _height = this.cssUnit.ToPxValue(this.TableHeight, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      let contentHeight =  _height - 40;
+      let contentHeightPercent = (contentHeight/_height) * 100;
+      return contentHeightPercent + CssUnit.Percentage;
+    } else {
+      return '100%';
+    }
+  }
+
   Id: string = '';  
   
   @HostBinding('id')

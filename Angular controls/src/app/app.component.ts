@@ -791,13 +791,12 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.gridItems.push({'IsSelected': false, 'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
 
     this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
-    //this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
-    //this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    // this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
 
-    //this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
-    //this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
-    //this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
-
+    // this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    // this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    // this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
 
     this.gridItems1 = this.gridItems1.slice();
   }

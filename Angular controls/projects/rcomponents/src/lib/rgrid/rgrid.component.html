@@ -136,7 +136,7 @@
             </thead>
         </table>
 
-    <cdk-virtual-scroll-viewport itemSize="40" style="height: 100%;" class="grid-viewport" [attr.key]="ShowItems?.Rows?.length">
+    <cdk-virtual-scroll-viewport itemSize="40" [ngStyle]="{'height': GetContentHeight }" class="grid-viewport" [attr.key]="ShowItems?.Rows?.length">
         <table class="tbl" [ngStyle]="{ 'width': ActualWidth }">
             <tbody  [ngStyle]="{ 'width': ActualWidth }">
 
@@ -308,6 +308,14 @@
                                     <div class="pageItem" (click)="LastPage()">&#187;</div>
                                     <div class="pageItemSmallFont">
                                         <span>Current Page: {{currentPage}}</span>
+                                    </div>
+                                    
+                                    <div class="pageItemSmallFont">
+                                        <span>Total Rows: {{TotalRows}}</span>
+                                    </div>
+                                    
+                                    <div class="pageItemSmallFont">
+                                        <span>Rows in Current Page: {{RowsInCurrentPage}}</span>
                                     </div>
                                 </div>
                             </div>

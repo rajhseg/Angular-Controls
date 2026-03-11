@@ -317,11 +317,13 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   Id: string = '';
 
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = '';
 
   constructor(private winObj: WindowHelper, private datePipe: DatePipe) {
-    this.Id = this.winObj.GenerateUniqueId();
     
+    this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
+
     this.CalculateHorizontalHeaders();
     
     if (this.DisplayDatesOnLoad.length == 0) {

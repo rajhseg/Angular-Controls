@@ -7,13 +7,14 @@ export abstract class RBaseComponent<T> {
     Id: string = '';
 
     @HostBinding('id')
-    HostElementId: string = this.winObj.GenerateUniqueId();
+    HostElementId: string = '';
     
     @Output()
     valueChanged = new EventEmitter<T>();
 
     constructor(protected winObj: WindowHelper) {
         this.Id = this.winObj.GenerateUniqueId();
+        this.HostElementId = this.winObj.GenerateUniqueId();
     }
 
 }

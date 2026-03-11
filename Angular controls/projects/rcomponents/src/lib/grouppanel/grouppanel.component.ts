@@ -26,10 +26,11 @@ TitleForeColor: string = "gray";
 Id: string = '';
 
 @HostBinding('id')
-HostElementId: string = this.windowHelper.GenerateUniqueId();
+HostElementId: string = '';
 
 constructor(private windowHelper: WindowHelper){
   this.Id = this.windowHelper.GenerateUniqueId();
+  this.HostElementId = this.windowHelper.GenerateUniqueId();
 }
 
 }

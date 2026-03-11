@@ -130,10 +130,11 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
   Id: string = '';
   
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = '';
 
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
     this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
   notifyToModel() {

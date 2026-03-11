@@ -194,12 +194,13 @@ export class RAllocatedBarChartComponent {
   public IsRendered: boolean = false;
 
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = ''
 
   Id: string = '';
   
   constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
   ngAfterViewInit(): void {

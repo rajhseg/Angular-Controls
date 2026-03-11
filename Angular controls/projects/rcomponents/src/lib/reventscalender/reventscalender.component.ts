@@ -330,7 +330,7 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
   SelectedEventDay: EventDay | undefined = undefined;
   SelectedEventDate: Date | undefined = undefined;
   SelectedEventModel: EachDayEventsModel | undefined = undefined;
-  NewEvent: AddEventModel = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
+  NewEvent!: AddEventModel;
   ItemsPerPage = new DropdownModel(10, "10");
 
   constructor(private popupService: PopupService,
@@ -338,6 +338,8 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
     private cdr: ChangeDetectorRef, private cssUnitSer: CssUnitsService) {
 
     this.cls = CloseService.GetInstance();
+
+    this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
 
     if (this.windowHelper.isExecuteInBrowser()) {
       this.IsWindowsOs = navigator.platform == "Win32";

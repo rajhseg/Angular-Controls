@@ -260,7 +260,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   Id: string = '';  
   
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = '';
 
   @ViewChild(CdkVirtualScrollViewport)
   viewport!: CdkVirtualScrollViewport;
@@ -268,8 +268,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: WindowHelper,
     private datePipe: DatePipe, private cssUnit: CssUnitsService, private ele: ElementRef
   ) {
-    this.Id = this.winObj.GenerateUniqueId();
     
+    this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
+
     this.ItemsPerPage = new DropdownModel(10, "10");
 
     this.ColValues.push(new DropdownModel(1,"1"));

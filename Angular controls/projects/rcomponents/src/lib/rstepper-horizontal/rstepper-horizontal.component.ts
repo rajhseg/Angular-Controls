@@ -150,11 +150,12 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   Id: string = '';
   
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = '';
 
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
   populateNos() {

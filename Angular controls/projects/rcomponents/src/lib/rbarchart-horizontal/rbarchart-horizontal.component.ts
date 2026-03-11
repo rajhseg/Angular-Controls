@@ -190,10 +190,11 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   Id: string = '';
 
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = '';
 
   constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
   ngAfterViewInit(): void {

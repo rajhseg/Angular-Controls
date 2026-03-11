@@ -106,7 +106,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
     Id: string = '';
     
     @HostBinding('id')
-    HostElementId: string = this.winobj.GenerateUniqueId();
+    HostElementId: string = '';
   
     constructor(private winobj: WindowHelper,
       private cdr: ChangeDetectorRef,
@@ -118,7 +118,10 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
       private viewRef: ViewContainerRef,
       @Host() public hostElementRef: ElementRef
     ) {
+      
       this.Id = this.winobj.GenerateUniqueId();
+      this.HostElementId = this.winobj.GenerateUniqueId();
+
       this.renderer = this.rendererFactory.createRenderer(null, null);
       // RTabService.GetInstance().AddTabsInstance(this);
     }

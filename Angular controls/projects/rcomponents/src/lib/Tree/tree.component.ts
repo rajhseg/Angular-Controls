@@ -35,10 +35,11 @@ export class RTreeComponent {
   Id: string = '';
   
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = '';
 
   constructor(private winObj: WindowHelper){
     this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
   onSelected($event: Event, itemSelected: RTreeItem){

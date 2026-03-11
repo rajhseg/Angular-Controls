@@ -6,8 +6,6 @@ import { EditViewTemplateDirective } from "../rgrid/edit-template.directive";
 import { WindowHelper } from '../windowObject';
 import { RStateVerticalComponent } from "../sequences/sequences.component";
 import { RSequenceVerticalItem } from '../sequences/sequence/sequenceitem';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
@@ -186,11 +184,12 @@ export class RStepperVerticalComponent implements AfterContentInit {
   Id: string = '';
   
   @HostBinding('id')
-  HostElementId: string = this.winObj.GenerateUniqueId();
+  HostElementId: string = '';
 
   constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
   

@@ -264,6 +264,17 @@ TimeSelector
 <br/>
 <br/>
 
+RSplitter Component
+--------------------------
+
+<br />
+
+<img width="1004" height="333" alt="image" src="https://github.com/user-attachments/assets/e4ea40cd-28a3-4f97-bbd8-b481c7091432" />
+
+<br />
+<br />
+
+
 RGrid Control
 ------------------------------
 
@@ -480,16 +491,8 @@ REventsCalender
 
 <img width="785" height="672" alt="image" src="https://github.com/user-attachments/assets/95985ca1-d2cf-4fcc-b6ff-5bd874cefc48" />
 
-
-RSplitter Component
---------------------------
-
-<img width="1004" height="333" alt="image" src="https://github.com/user-attachments/assets/e4ea40cd-28a3-4f97-bbd8-b481c7091432" />
-
 <br />
 <br />
-
-
 
 
 

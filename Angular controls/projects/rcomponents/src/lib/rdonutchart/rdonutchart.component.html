@@ -9,7 +9,7 @@
     </canvas>    
     <div *ngIf="IsRendered"  style="position: relative;" [ngStyle]="{'bottom':-ChartWidth+'px', 'height': DataListHeight+'px'}">
         <div class="dataContainer">
-            <div class="data" *ngFor="let itm of this.Items">
+            <div class="data" *ngFor="let itm of this.Items; trackBy: trackById">
                 <div class="indicator" [ngStyle]="{'backgroundColor': itm.BackgroundColor}">                    
                 </div>
                 <span class="title" [ngStyle]="{'width': calculateTitleWidth()+'px'}">{{itm.Title}}</span>

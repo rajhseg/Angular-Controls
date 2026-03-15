@@ -208,6 +208,10 @@ export class RAreaChartComponent implements AfterViewInit {
     }
   }
 
+  trackById(index: number, item: RAreaChartItem){
+    return item.Id;
+  }
+
   MouseMove(event: MouseEvent) {
     if (this.context && this.bar) {
 

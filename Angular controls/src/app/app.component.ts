@@ -14,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCalendarComponent, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
+import { RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -85,9 +85,9 @@ import { RSeriesChartComponent } from 'rcomponents';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from 'rcomponents';
 import { RFlatTabsComponent } from 'rcomponents';
 import { AddEventModel, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from 'rcomponents';
-import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
+import { concatMap, delay, from, Observable, of, switchMap } from 'rxjs';
 import { CheckboxEventArgs } from 'rcomponents';
-import { CalenderChangeMonthInfo } from 'rcomponents';
+import { RCalendarComponent, CalenderChangeMonthInfo } from 'rcomponents';
 
 @Component({
   selector: 'app-root',
@@ -95,7 +95,8 @@ import { CalenderChangeMonthInfo } from 'rcomponents';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   imports: [
-    RouterOutlet, RCalendarComponent,
+    RouterOutlet,
+    RCalendarComponent,
     RSwitchComponent,
     RDropdownComponent, FormsModule,
     ReactiveFormsModule, RProgressbarComponent,

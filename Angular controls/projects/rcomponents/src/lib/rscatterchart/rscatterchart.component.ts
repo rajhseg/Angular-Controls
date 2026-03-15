@@ -181,6 +181,10 @@ export class RScatterChartComponent implements AfterViewInit {
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
+  trackById(index: number, item: RScatterChartItem){
+    return item.Id;
+  }
+
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {

@@ -9,7 +9,7 @@
             [ngStyle]="{'bottom':  '10px', 'height': DataListHeight+'px'}">
 
         <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px', 'left': (PaddingLeft + MarginX) + 'px'}">
-            <div class="data" *ngFor="let itm of this.Columns">
+            <div class="data" *ngFor="let itm of this.Columns; trackBy: trackById">
                 
                 <ng-container *ngIf="isPropString(itm.barItemsBackColor)">
                     <div class="indicator" [ngStyle]="{'backgroundColor': itm.barItemsBackColor }">       

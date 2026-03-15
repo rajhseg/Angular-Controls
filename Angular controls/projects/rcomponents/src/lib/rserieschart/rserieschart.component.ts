@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { RBarChartItem, RGraph, RPopupChartItem, RYSeriesChartItem, RGraphSeriesChartItem } from '../rmodels/RBarChartItem';
+import { RBarChartItem, RGraph, RPopupChartItem, RYSeriesChartItem, RGraphSeriesChartItem, RBaseChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 
@@ -181,6 +181,10 @@ export class RSeriesChartComponent {
   constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
+  }
+
+  trackById(index: number, item: RYSeriesChartItem | RGraphSeriesChartItem){
+    return item.Id;
   }
 
   ngAfterViewInit(): void {

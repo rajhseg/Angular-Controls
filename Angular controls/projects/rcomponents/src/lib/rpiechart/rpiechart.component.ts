@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
+import { RBaseChartItem } from '../rmodels/RBarChartItem';
 
 @Component({
   selector: 'rpiechart',
@@ -93,6 +94,10 @@ export class RPieChartComponent {
   constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
+  }
+
+  trackById(index: number, item: RPieChartItem){
+    return item.Id;
   }
 
   ngAfterViewInit(): void {
@@ -262,13 +267,13 @@ export class RPieChartComponent {
 
 
 
-export class RPieChartItem {
+export class RPieChartItem extends RBaseChartItem{
   constructor(
     public Value: number,
     public Title: string,
     public BackgroundColor: string,
     public ForeColor: string) {
-
+      super();
   }
 }
 

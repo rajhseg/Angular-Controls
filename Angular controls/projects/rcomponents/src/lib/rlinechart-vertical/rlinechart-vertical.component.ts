@@ -187,6 +187,11 @@ export class RLineChartVerticalComponent implements AfterViewInit {
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
+  
+  trackById(index: number, item: RLineChartItem){
+    return item.Id;
+  }
+  
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {

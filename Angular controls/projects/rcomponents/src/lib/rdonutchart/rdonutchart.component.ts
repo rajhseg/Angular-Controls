@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RWindowHelper } from '../rwindowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
+import { RBaseChartItem } from '../rmodels/RBarChartItem';
 
 @Component({
   selector: 'rdonutchart',
@@ -90,6 +91,10 @@ export class RDonutChartComponent implements AfterViewInit {
   constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
+  }
+
+  trackById(index: number, item: RDonutChartItem){
+    return item.Id;
   }
 
   ngAfterViewInit(): void {
@@ -245,13 +250,13 @@ export class RDonutChartComponent implements AfterViewInit {
 
 }
 
-export class RDonutChartItem {
+export class RDonutChartItem extends RBaseChartItem {
   constructor(
     public Value: number,
     public Title: string,
     public BackgroundColor: string,
     public ForeColor: string) {
-
+      super();
   }
 }
 

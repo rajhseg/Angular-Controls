@@ -197,6 +197,10 @@ export class RStackedRangeBarChartVerticalComponent implements AfterViewInit {
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
+  trackById(index: number, item: RBarChartItem){
+    return item.Id;
+  }
+
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {

@@ -222,6 +222,10 @@ export class RAllocatedBarChartComponent {
     return 50;
   }
 
+  trackById(index: number, item: RAllocatedBarChartItem){
+    return item.Id;
+  }
+
   getTextHeight(met: TextMetrics){
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }

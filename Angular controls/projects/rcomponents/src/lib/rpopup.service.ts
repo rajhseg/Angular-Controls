@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DropdownService } from './rdropdown/rdropdownservice.service';
-import { RCalenderService } from './rcalender/rcalender.service';
+import { RCalenderService } from './rcalendar/rcalendar.service';
 import { RDropdownComponent } from './rdropdown/rdropdown.component';
-import { RCalenderComponent } from './rcalender/rcalender.component';
+import { RCalendarComponent } from './rcalendar/rcalendar.component';
 
 @Injectable({
   providedIn: 'root'

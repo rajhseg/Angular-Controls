@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RCalenderComponent } from './rcalender.component';
+import { RCalendarComponent } from './rcalendar.component';
 
 describe('CalenderComponent', () => {
-  let component: RCalenderComponent;
-  let fixture: ComponentFixture<RCalenderComponent>;
+  let component: RCalendarComponent;
+  let fixture: ComponentFixture<RCalendarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RCalenderComponent]
+      imports: [RCalendarComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RCalenderComponent);
+    fixture = TestBed.createComponent(RCalendarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

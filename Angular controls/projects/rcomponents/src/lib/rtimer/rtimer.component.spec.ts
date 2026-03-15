@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RtimerComponent } from './rtimer.component';
+import { RTimerComponent } from './rtimer.component';
 
 describe('RtimerComponent', () => {
-  let component: RtimerComponent;
-  let fixture: ComponentFixture<RtimerComponent>;
+  let component: RTimerComponent;
+  let fixture: ComponentFixture<RTimerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RtimerComponent]
+      imports: [RTimerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RtimerComponent);
+    fixture = TestBed.createComponent(RTimerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

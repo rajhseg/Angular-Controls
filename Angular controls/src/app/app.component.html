@@ -48,7 +48,7 @@
 
 
       <div>
-        <rcalender [(ngModel)]="curDate" [SelectedItemBackGroundColor]="'blue'" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+        <rcalendar [(ngModel)]="curDate" [SelectedItemBackGroundColor]="'blue'" [DateFormat]="'yyyy - MMM - dd'"></rcalendar>
       </div>
 
       <div></div>
@@ -163,7 +163,7 @@
       <rstarrating [starWidth]="starWidth"></rstarrating>
       &nbsp;
 
-      <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+      <rcalendar [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalendar>
 
       &nbsp;
 
@@ -986,12 +986,12 @@
   <div>
     <rtabs [TabWidth]="'650px'" [TabHeight]="'350px'" [DisplayTabContainerWhenZeroTabs]="true">
 
-      <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'rcalender', 'Context':this }">
-        <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)">
-        </rcalender> {{curDate}}
-        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" [(ngModel)]="dt1"
-          [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
-        <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+      <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'rcalendar', 'Context':this }">
+        <rcalendar [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)">
+        </rcalendar> {{curDate}}
+        <rcalendar [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" [(ngModel)]="dt1"
+          [SelectedItemBackGroundColor]="'blue'"></rcalendar> {{dt1}}
+        <rcalendar [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalendar>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'rdropdown', 'Context':this }">
@@ -1015,7 +1015,7 @@
         </div>
 
         <rstarrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
-        <rcalender></rcalender>
+        <rcalendar></rcalendar>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'rstarrating', 'Context':this }">
@@ -1566,9 +1566,9 @@
   <br />
   <div>
 
-    <rcalender [(ngModel)]="selectedDate1" [ReadOnly]="true"></rcalender>
-    <rcalender [ReadOnly]="true"></rcalender>
-    <rcalender [(ngModel)]="selectedDate1"></rcalender>
+    <rcalendar [(ngModel)]="selectedDate1" [ReadOnly]="true"></rcalendar>
+    <rcalendar [ReadOnly]="true"></rcalendar>
+    <rcalendar [(ngModel)]="selectedDate1"></rcalendar>
 
     <rcolorpicker [DisplayColorInHex]="false" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"
       [LabelText]="'Processed Color : '">
@@ -1596,11 +1596,11 @@
   <div style="margin-top:30px;margin-bottom: 30px;">
     <rflattabs [TabWidth]="'650px'" [TabHeight]="'300px'" [DisplayTabContainerWhenZeroTabs]="true">
 
-      <rtab *tabidfor="{ 'TabId':'tabf1', 'HeaderText':'rcalender', 'Context':this }">
-        <rcalender [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate"></rcalender> {{curDate}}
-        <rcalender [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" [(ngModel)]="dt1"
-          [SelectedItemBackGroundColor]="'blue'"></rcalender> {{dt1}}
-        <rcalender></rcalender>
+      <rtab *tabidfor="{ 'TabId':'tabf1', 'HeaderText':'rcalendar', 'Context':this }">
+        <rcalendar [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate"></rcalendar> {{curDate}}
+        <rcalendar [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" [(ngModel)]="dt1"
+          [SelectedItemBackGroundColor]="'blue'"></rcalendar> {{dt1}}
+        <rcalendar></rcalendar>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tabf2', 'HeaderText':'rdropdown', 'Context':this }">
@@ -1624,7 +1624,7 @@
         </div>
 
         <rstarrating [starWidth]="starWidth" [starColor]="'orange'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
-        <rcalender></rcalender>
+        <rcalendar></rcalendar>
       </rtab>
 
       <rtab *tabidfor="{ 'TabId':'tabf3', 'HeaderText':'rstarrating', 'Context':this }">

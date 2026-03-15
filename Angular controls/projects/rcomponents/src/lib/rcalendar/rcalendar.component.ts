@@ -1,11 +1,11 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
-import { Day, Month, Week } from './rcalenderModels';
+import { Day, Month, Week } from './rcalendarModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RDropdownComponent } from '../rdropdown/rdropdown.component';
 
 import { DropdownService } from '../rdropdown/rdropdownservice.service';
-import { RCalenderService } from './rcalender.service';
+import { RCalenderService } from './rcalendar.service';
 import { RCloseService, IRDropDown, IRPopupCloseInterface, RPopupService } from '../rpopup.service';
 import { WINDOWOBJECT, RWindowHelper } from '../rwindowObject';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
@@ -14,18 +14,18 @@ import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.servi
 import { CalenderChangeMonthInfo, RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
-  selector: 'rcalender',
+  selector: 'rcalendar',
   standalone: true,
   imports: [NgFor, NgIf, NgClass,
     NgStyle, FormsModule, RTextboxComponent, ReactiveFormsModule,
     RDropdownComponent],
-  templateUrl: './rcalender.component.html',
-  styleUrl: './rcalender.component.css',
+  templateUrl: './rcalendar.component.html',
+  styleUrl: './rcalendar.component.css',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => RCalenderComponent)
+      useExisting: forwardRef(() => RCalendarComponent)
     },
     DatePipe
   ],
@@ -33,9 +33,9 @@ import { CalenderChangeMonthInfo, RBaseComponent } from '../rmodels/RBaseCompone
 
   }
 })
-export class RCalenderComponent extends RBaseComponent<Date> implements IRDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IRPopupCloseInterface {
+export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IRPopupCloseInterface {
 
-  self: RCalenderComponent = this;
+  self: RCalendarComponent = this;
   isDropdownChild: boolean = true;
   selectedDate: Date | null = null;
   currentMonth: Month | null = null;

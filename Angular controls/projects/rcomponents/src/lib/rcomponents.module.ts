@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { RCalenderComponent } from "./rcalender/rcalender.component";
+import { RCalendarComponent } from "./rcalendar/rcalendar.component";
 import { RDropdownComponent } from "./rdropdown/rdropdown.component";
 import { RSwitchComponent } from "./rswitch/rswitch.component";
 import { RStarRatingComponent } from "./rrating/rrating.component";
@@ -54,7 +54,7 @@ import { RSplitterComponent } from './rsplitter/rsplitter.component';
 @NgModule({
     imports: [
         CommonModule, 
-        RCalenderComponent,
+        RCalendarComponent,
         RDropdownComponent,
         RStarRatingComponent,
         RSwitchComponent,
@@ -107,7 +107,7 @@ import { RSplitterComponent } from './rsplitter/rsplitter.component';
         RSplitterComponent
     ],
     exports: [
-        RCalenderComponent,
+        RCalendarComponent,
         RDropdownComponent,
         RStarRatingComponent,
         RSwitchComponent,

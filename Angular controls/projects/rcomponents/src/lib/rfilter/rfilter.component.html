@@ -54,9 +54,9 @@
                     class="num" 
                    style="left:13px"></rnumeric>
 
-                <rcalender *ngIf="DataType=='date'" [ParentDropDownId]="Id"
+                <rcalendar *ngIf="DataType=='date'" [ParentDropDownId]="Id"
                     [(ngModel)]="LessThanDate" [DateFormat]="DateFormat"
-                    style="position: relative; left: -12px;"></rcalender>
+                    style="position: relative; left: -12px;"></rcalendar>
             </div>
 
             <div  [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}"  style="width: 200px;">
@@ -68,9 +68,9 @@
                     [TextBoxWidth]="'75px'" class="num">
                 </rnumeric>
 
-                <rcalender *ngIf="DataType =='date'" [ParentDropDownId]="Id"
+                <rcalendar *ngIf="DataType =='date'" [ParentDropDownId]="Id"
                     [(ngModel)]="GreaterThanDate" [DateFormat]="DateFormat"
-                    style="position: relative; left: -12px;"></rcalender>
+                    style="position: relative; left: -12px;"></rcalendar>
             </div>
 
             <div [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}" style="width: 200px;">

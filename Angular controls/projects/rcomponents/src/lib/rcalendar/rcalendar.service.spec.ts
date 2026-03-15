@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RCalenderService } from './rcalender.service';
+import { RCalenderService } from './rcalendar.service';
 
 describe('CalenderService', () => {
   let service: RCalenderService;

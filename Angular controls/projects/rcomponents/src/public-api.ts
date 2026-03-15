@@ -2,7 +2,7 @@
  * Public API Surface of rcomponents
  */
 
-export * from './lib/rcalender/rcalender.component';
+export * from './lib/rcalendar/rcalendar.component';
 export * from './lib/rdropdown/rdropdownmodel';
 export * from './lib/rdropdown/rdropdown.component';
 export * from './lib/rrating/rrating.component';

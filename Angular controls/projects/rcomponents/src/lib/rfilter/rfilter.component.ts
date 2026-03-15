@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Hos
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RNumericComponent } from "../rnumeric/rnumeric.component";
 import { RButtonComponent } from "../rbutton/rbutton.component";
-import { RCalenderComponent } from "../rcalender/rcalender.component";
+import { RCalendarComponent } from "../rcalendar/rcalendar.component";
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   selector: 'rfilter',
   standalone: true,
   imports: [NgIf, NgStyle, RTextboxComponent, RNumericComponent,
-    RButtonComponent, RCalenderComponent, RSelectDropdownComponent,
+    RButtonComponent, RCalendarComponent, RSelectDropdownComponent,
     FormsModule, ReactiveFormsModule],
   templateUrl: './rfilter.component.html',
   styleUrl: './rfilter.component.css',

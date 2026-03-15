@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RCalenderComponent } from './rcalender.component';
+import { RCalendarComponent } from './rcalendar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +7,15 @@ import { RCalenderComponent } from './rcalender.component';
 export class RCalenderService {
 
 
-  calenderList: RCalenderComponent[] = [];
+  calenderList: RCalendarComponent[] = [];
 
   constructor() { }
 
-  AddInstance(instance: RCalenderComponent) {
+  AddInstance(instance: RCalendarComponent) {
     this.calenderList.push(instance);
   }
 
-  GetAllInstance(): RCalenderComponent[] {
+  GetAllInstance(): RCalendarComponent[] {
     return this.calenderList;
   }
 

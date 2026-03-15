@@ -56,8 +56,7 @@ Calender Control
 
 <br />
 
-
-<img width="351" height="285" alt="image" src="https://github.com/user-attachments/assets/2155ea5d-1ae2-4ac9-95a9-fcf2f9b5f9a8" />
+<img width="596" height="297" alt="image" src="https://github.com/user-attachments/assets/0c9f565a-df56-438f-bfc4-08214941feeb" />
 
 <br />
 <br />
@@ -88,8 +87,9 @@ RSelectDropdown Control
 Tree Control
 --------------------------
 
-<img width="301" height="223" alt="image" src="https://github.com/user-attachments/assets/4e18aae7-4102-4059-bb1e-862e43919d98" />
+<br />
 
+<img width="301" height="223" alt="image" src="https://github.com/user-attachments/assets/4e18aae7-4102-4059-bb1e-862e43919d98" />
 
 <br />
 <br />
@@ -100,9 +100,9 @@ Checkbox
 
 <br />
 
+<img width="314" height="110" alt="image" src="https://github.com/user-attachments/assets/a7f2af42-e10c-4d55-8ebf-41a44181a9e9" />
 
-![image](https://github.com/user-attachments/assets/0118349c-41e9-4960-a84f-03de758acbda)
-
+<br />
 <br />
 
 RadioButton
@@ -110,7 +110,7 @@ RadioButton
 
 <br />
 
-![image](https://github.com/user-attachments/assets/4ba30a66-257e-4daf-9088-9a95d6a7aa5b)
+<img width="331" height="104" alt="image" src="https://github.com/user-attachments/assets/712eb7fe-d050-4541-b59f-e8bf40e7d32f" />
 
 <br />
 <br />
@@ -132,8 +132,7 @@ Rstate-Vertical Control
 
 <br />
 
-![image](https://github.com/user-attachments/assets/867c1717-17de-4ba2-8451-962d8639f3ab)
-
+<img width="396" height="299" alt="image" src="https://github.com/user-attachments/assets/97f15f2f-b813-464f-9577-cdab75e07c1b" />
 
 <br />
 <br />
@@ -143,12 +142,10 @@ Slider
 
 <br />
 
-<img width="502" height="172" alt="image" src="https://github.com/user-attachments/assets/7c289303-79cf-4301-83ed-2cad0152bd74" />
-
+<img width="453" height="81" alt="image" src="https://github.com/user-attachments/assets/bb972bf6-ce47-41c4-b375-fa3aed6ab2e8" />
 
 <br />
 <br />
-
 
 
  StarRating Control
@@ -156,8 +153,7 @@ Slider
 
 <br />
 
-<img width="365" height="128" alt="image" src="https://github.com/user-attachments/assets/8998aca3-9946-4d84-a9df-54d7db7da8b6" />
-
+<img width="322" height="107" alt="image" src="https://github.com/user-attachments/assets/66b99462-bf44-454f-a05b-409420981211" />
 
 <br />
 <br />
@@ -165,8 +161,11 @@ Slider
 Switch Control
 --------------------
 
-<img width="495" height="209" alt="image" src="https://github.com/user-attachments/assets/22ee94e3-6e80-4659-9991-b17a0604826c" />
+<br />
 
+<img width="194" height="42" alt="image" src="https://github.com/user-attachments/assets/cb4ab400-9dad-4915-9442-18fbc6af81a8" />
+
+<br />
 <br />
 
 ProgressBar Control
@@ -230,15 +229,19 @@ FileUpload Control
 ColorPicker
 ---------------------------------
 
-<img width="383" height="387" alt="image" src="https://github.com/user-attachments/assets/c6838ac3-98be-485e-ac8f-293b5254b401" />
+<br />
 
+<img width="348" height="360" alt="image" src="https://github.com/user-attachments/assets/84e0613f-1ab8-4bd7-9673-15fd5c190076" />
 
+<br />
 <br />
 
 Numeric Control
 ---------------------------------
 
-![image](https://github.com/user-attachments/assets/ca16b9ea-73a5-4453-9efa-db6d9d7efd96)
+<br />
+
+<img width="242" height="94" alt="image" src="https://github.com/user-attachments/assets/09a6af80-448e-482f-ab20-7d0a19d256e6" />
 
 <br />
 <br />
@@ -246,11 +249,9 @@ Numeric Control
 Timer Control
 -----------------------------------
 
-<img width="386" height="166" alt="image" src="https://github.com/user-attachments/assets/cf2502fb-e863-4a60-8c52-ca667d7c18eb" />
-
 <br />
 
-<img width="320" height="182" alt="image" src="https://github.com/user-attachments/assets/d28f1d9e-348f-4779-bf0f-1ea9ef90f8e4" />
+<img width="386" height="166" alt="image" src="https://github.com/user-attachments/assets/cf2502fb-e863-4a60-8c52-ca667d7c18eb" />
 
 <br/>
 <br />
@@ -262,6 +263,17 @@ TimeSelector
 
 <br/>
 <br/>
+
+RSplitter Component
+--------------------------
+
+<br />
+
+<img width="1004" height="333" alt="image" src="https://github.com/user-attachments/assets/e4ea40cd-28a3-4f97-bbd8-b481c7091432" />
+
+<br />
+<br />
+
 
 RGrid Control
 ------------------------------
@@ -479,16 +491,8 @@ REventsCalender
 
 <img width="785" height="672" alt="image" src="https://github.com/user-attachments/assets/95985ca1-d2cf-4fcc-b6ff-5bd874cefc48" />
 
-
-RSplitter Component
---------------------------
-
-<img width="1004" height="333" alt="image" src="https://github.com/user-attachments/assets/e4ea40cd-28a3-4f97-bbd8-b481c7091432" />
-
 <br />
 <br />
-
-
 
 
 

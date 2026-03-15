@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
-import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
+import { RGrouppanelComponent } from "../rgrouppanel/rgrouppanel.component";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
-import { WindowHelper, WINDOWOBJECT } from '../windowObject';
-import { CloseService, IDropDown } from '../popup.service';
-import { CssUnit } from '../css-units.service';
-import { RBaseComponent } from '../Models/RBaseComponent';
+import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
+import { RCloseService, IRDropDown } from '../rpopup.service';
+import { CssUnit } from '../rcss-units.service';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rfileupload',
@@ -24,7 +24,7 @@ import { RBaseComponent } from '../Models/RBaseComponent';
     
   },  
 })
-export class RfileuploadComponent extends RBaseComponent<FileList> implements IDropDown, ControlValueAccessor {
+export class RfileuploadComponent extends RBaseComponent<FileList> implements IRDropDown, ControlValueAccessor {
   
 
   @ViewChild('rfile', { read: ElementRef }) rFile!: ElementRef;
@@ -99,12 +99,12 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements ID
 
   DDEHeight: string = '150px';
 
-  cls!: CloseService;
+  cls!: RCloseService;
   windowObj!: Window;
 
-  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef, private cdr: ChangeDetectorRef){
+  constructor(private windowHelper: RWindowHelper, private eleRef: ElementRef, private cdr: ChangeDetectorRef){
     super(windowHelper);
-    this.cls = CloseService.GetInstance();
+    this.cls = RCloseService.GetInstance();
     this.dropdownId = windowHelper.GenerateUniqueId(); 
     this.Id = this.windowHelper.GenerateUniqueId();  
     this.cls.AddInstance(this);

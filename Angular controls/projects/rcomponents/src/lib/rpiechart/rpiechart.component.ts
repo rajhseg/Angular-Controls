@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { WindowHelper } from '../windowObject';
+import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
@@ -90,7 +90,7 @@ export class RPieChartComponent {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

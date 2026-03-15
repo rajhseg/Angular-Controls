@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, output } from '@angular/core';
-import { RProgressbarComponent } from '../progressbar/progressbar.component';
-import { ProgressBarDisplayType, ProgressBarType } from '../progressbar/progressbarType';
-import { WindowHelper } from '../windowObject';
+import { RProgressbarComponent } from '../rprogressbar/rprogressbar.component';
+import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
+import { RWindowHelper } from '../rwindowObject';
 import { interval, Observable } from 'rxjs';
 import { NgIf, NgStyle } from '@angular/common';
-import { RBaseComponent } from '../Models/RBaseComponent';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rtimer',
@@ -16,8 +16,8 @@ import { RBaseComponent } from '../Models/RBaseComponent';
 })
 export class RTimerComponent extends RBaseComponent<string> implements OnInit, OnDestroy {
 
-  progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.Circle;
-  ProgressType: ProgressBarType = ProgressBarType.Progress;
+  progressDisplayType: RProgressBarDisplayType = RProgressBarDisplayType.Circle;
+  ProgressType: RProgressBarType = RProgressBarType.Progress;
 
   window!: Window;
   windowInterval!: number;
@@ -128,7 +128,7 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
     return this.second.toString()
   }
 
-  constructor(winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
 
     super(winObj);
     

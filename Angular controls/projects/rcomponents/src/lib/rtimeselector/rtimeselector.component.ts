@@ -2,12 +2,12 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Hos
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
-import { DropDownItemModel, DropdownModel } from '../dropdown/dropdownmodel';
-import { RDropdownComponent } from '../dropdown/dropdown.component';
+import { DropDownItemModel, DropdownModel } from '../rdropdown/rdropdownmodel';
+import { RDropdownComponent } from '../rdropdown/rdropdown.component';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { WindowHelper, WINDOWOBJECT } from '../windowObject';
-import { CloseService, IDropDown } from '../popup.service';
-import { RBaseComponent } from '../Models/RBaseComponent';
+import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
+import { RCloseService, IRDropDown } from '../rpopup.service';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rtimeselector',
@@ -27,7 +27,7 @@ import { RBaseComponent } from '../Models/RBaseComponent';
     
   }
 })
-export class RTimeSelectorComponent extends RBaseComponent<string> implements IDropDown, ControlValueAccessor {
+export class RTimeSelectorComponent extends RBaseComponent<string> implements IRDropDown, ControlValueAccessor {
 
   IsDropDownOpen: boolean = false;
 
@@ -97,13 +97,13 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements ID
     return '150px';    
   }
 
-  cls!: CloseService;
+  cls!: RCloseService;
 
-  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef, 
+  constructor(private windowHelper: RWindowHelper, private eleRef: ElementRef, 
     private cdr: ChangeDetectorRef) {
     super(windowHelper);
     this.windowObj = inject(WINDOWOBJECT);
-    this.cls = CloseService.GetInstance();
+    this.cls = RCloseService.GetInstance();
     this.LoadValues();
     this.Id = this.windowHelper.GenerateUniqueId();
     this.cls.AddInstance(this);    

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Directive, TemplateRef, ViewContainerRef, Input, ElementRef, EmbeddedViewRef, OnInit, Output } from "@angular/core";
-import { WindowHelper } from "../windowObject";
-import { CssUnitsService, RelativeUnitType } from "../css-units.service";
+import { RWindowHelper } from "../rwindowObject";
+import { RCssUnitsService, RelativeUnitType } from "../rcss-units.service";
 
 import { InjectionToken } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
@@ -50,7 +50,7 @@ export class RPageContentDirective implements IRSplitterInterface, OnInit {
   ValueChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
   constructor(public TemplateRef: TemplateRef<unknown>, public vcr: ViewContainerRef, 
-        public cdr: ChangeDetectorRef, public winObj: WindowHelper) {
+        public cdr: ChangeDetectorRef, public winObj: RWindowHelper) {
     this.Id = this.winObj.GenerateUniqueId();
   }
 
@@ -71,7 +71,7 @@ export class RSplitterObj implements IRSplitterInterface {
 
   InitialWidth: string = '';
 
-  constructor(public winObj: WindowHelper, private type: RSplitterType, private obj: any) {
+  constructor(public winObj: RWindowHelper, private type: RSplitterType, private obj: any) {
     this.Id = this.winObj.GenerateUniqueId();
     this.InitialWidth = obj.width;
     this.InitialHeight = obj.height;

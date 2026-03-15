@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RDonutChartComponent } from './rpiechart.component';
+import { RDonutChartComponent } from './rdonutchart.component';
 
 describe('RpiechartComponent', () => {
   let component: RDonutChartComponent;

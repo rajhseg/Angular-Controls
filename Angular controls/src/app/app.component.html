@@ -22,11 +22,11 @@
 
 
 
-  <rstarrating [starWidth]="starWidth" [starColor]="tColor" [(ngModel)]="starValue"></rstarrating>
+  <rstarrating [starWidth]="starWidth" [starColor]="'blue'" [(ngModel)]="starValue"></rstarrating>
 
   <br />
 
-  <rstarrating [starWidth]="starWidth"></rstarrating>
+  <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
 
   <br />
 
@@ -46,7 +46,10 @@
       <div></div>
       <br />
 
-      <rcalender [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+
+      <div>
+        <rcalender [(ngModel)]="curDate" [SelectedItemBackGroundColor]="'blue'" [DateFormat]="'yyyy - MMM - dd'"></rcalender>
+      </div>
 
       <div></div>
       <br />
@@ -95,9 +98,12 @@
       <div></div>
       <br />
 
+
+      <div style="height: 300px;width:300px;margin-left:60px;padding:40px">
       <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
         (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
       </rcolorpicker>
+      </div>
 
       <div></div>
       <br />
@@ -115,10 +121,12 @@
 
       <div></div>
       <br />
+      <br />
 
-      <rswitch [DisplayLabel]="'ChangeToCircle'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+      <rswitch [DisplayLabel]="'ChangeToCircle'" [SwitchBackColor]="'blue'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
       </rswitch>
 
+      <br />
       <div></div>
       <br />
 
@@ -132,9 +140,9 @@
       <br />
 
       <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
-        <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball1"></rcheckbox>
-        <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
-        <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
+        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Football'" [Size]="RcheckSize.medium" [(ngModel)]="IsFootball1"></rcheckbox>
+        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Volleyball'" [Size]="RcheckSize.medium" [(ngModel)]="IsVolleyball1"></rcheckbox>
+        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Tennis'" [Size]="RcheckSize.medium" [(ngModel)]="IsTennis1"></rcheckbox>
       </rgroup-panel>
 
       <div></div>
@@ -582,14 +590,21 @@
   <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1"
     [(ngModel)]="rangeValue">
   </rslider>
+
+  <br />
   <br />
 
   <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [BackgroundColor]="bColor" [MinValue]="25"
     [MaxValue]="75">
   </rslider>
+
   <br />
-  <rslider [SliderBarWidth]="'300px'" [SliderBarHeight]="'2px'" [SliderMarkerSize]="'12px'" [EnablePathColor]="true"
+  <br />
+  
+  <rslider [SliderBarWidth]="'400px'" [SliderBarHeight]="'2px'" [SliderMarkerSize]="'12px'" [EnablePathColor]="true"
     [BackgroundColor]="bColor"></rslider>
+
+  <br />
   <br />
 
   <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStepH()">
@@ -628,6 +643,21 @@
       <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
       <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis1"></rcheckbox>
     </rgroup-panel>
+
+    <div style="margin-left: 20px;">
+     <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Football'"
+              [(ngModel)]="IsFootball" [GroupName]="'sports'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [DisplayText]="'Volleyball'" 
+              [(ngModel)]="IsVolleyball" [Color]="'blue'"
+              [GroupName]="'sports'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
+              [GroupName]="'sports'">
+            </rradiobutton>
+      </rgroup-panel>
+    </div>
+    
+        
   </div>
 
   <div>
@@ -664,9 +694,11 @@
   <br />
   <br />
 
-  <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="tColor" [MinusBackgroundColor]="tColor"
-    [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'" [BottomLineColor]="tColor"
-    [LabelTextForeColor]="tColor" [(ngModel)]="rangeValue1"></rnumeric>
+  <div style="width: 200px;height:200px;margin-left:60px;">
+      <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'blue'" [MinusBackgroundColor]="'blue'"
+        [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'" [BottomLineColor]="'blue'"
+        [LabelTextForeColor]="'blue'" [(ngModel)]="rangeValue1"></rnumeric>
+  </div>
 
   <br />
 

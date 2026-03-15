@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
 import { RStateAlignment, RStateDisplayType, RStepComponent } from '../rstep/rstep.component';
-import { WindowHelper } from '../windowObject';
+import { RWindowHelper } from '../rwindowObject';
 import { RSequenceHorizontalItem } from '../rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
 import { RStateHorizontalComponent } from "../rsequences-horizontal/rsequences-horizontal.component";
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -152,7 +152,7 @@ export class RStepperHorizontalComponent implements AfterContentInit {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
+  constructor(private cdr: ChangeDetectorRef, private winObj: RWindowHelper) {
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();

@@ -1,11 +1,11 @@
 import { NgIf, NgStyle, UpperCasePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
-import { WindowHelper, WINDOWOBJECT } from '../windowObject';
+import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RectShape } from './rectShape';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CssUnit, CssUnitsService } from '../css-units.service';
-import { CloseService, IDropDown } from '../popup.service';
-import { RBaseComponent } from '../Models/RBaseComponent';
+import { CssUnit, RCssUnitsService } from '../rcss-units.service';
+import { RCloseService, IRDropDown } from '../rpopup.service';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rcolorpicker',
@@ -25,7 +25,7 @@ import { RBaseComponent } from '../Models/RBaseComponent';
     }
   ]
 })
-export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs> implements IDropDown, AfterViewInit, OnDestroy, ControlValueAccessor {
+export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs> implements IRDropDown, AfterViewInit, OnDestroy, ControlValueAccessor {
 
   @ViewChild('variations', { read: ElementRef<HTMLCanvasElement>, static: false })
   variations: ElementRef<HTMLCanvasElement> | undefined = undefined;
@@ -176,14 +176,14 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
   @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
 
-  cls!: CloseService;
+  cls!: RCloseService;
 
-  constructor(private windowHelper: WindowHelper, private cdr: ChangeDetectorRef,
+  constructor(private windowHelper: RWindowHelper, private cdr: ChangeDetectorRef,
     private eleRef: ElementRef,
-    private cssUnitSer: CssUnitsService
+    private cssUnitSer: RCssUnitsService
   ) {
     super(windowHelper);
-    this.cls = CloseService.GetInstance();
+    this.cls = RCloseService.GetInstance();
     this.mainColorRgb = "rgb(255,0,0)";
     this.mainColorHex = this.RGBToHex(255, 0, 0);
     this._mainColorGradients = [];

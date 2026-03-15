@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostBinding, input, Input, ViewChild } from '@angular/core';
-import { AllocatedBarChartItem, PopupChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
-import { WindowHelper } from '../windowObject';
+import { RAllocatedBarChartItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
+import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 
 @Component({
@@ -93,10 +93,10 @@ export class RAllocatedBarChartComponent {
     return this._width;
   }
 
-  private _gapBetweenBars: SpaceBetweenBars = SpaceBetweenBars.OneBar;
+  private _gapBetweenBars: RSpaceBetweenBars = RSpaceBetweenBars.OneBar;
 
   @Input()
-  public set GapBetweenBars(val: SpaceBetweenBars) {
+  public set GapBetweenBars(val: RSpaceBetweenBars) {
     this._gapBetweenBars = val;
     this.RenderBarChart();
   }
@@ -156,16 +156,16 @@ export class RAllocatedBarChartComponent {
     return this._dataListHeight;
   }
 
-  private _columns: AllocatedBarChartItem[] = [];
+  private _columns: RAllocatedBarChartItem[] = [];
 
   @Input()
-  public set Columns(val: AllocatedBarChartItem[]) {
+  public set Columns(val: RAllocatedBarChartItem[]) {
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
       this.RenderBarChart();
     }
   }
-  public get Columns(): AllocatedBarChartItem[] {
+  public get Columns(): RAllocatedBarChartItem[] {
     return this._columns;
   }
 
@@ -189,7 +189,7 @@ export class RAllocatedBarChartComponent {
 
   context: CanvasRenderingContext2D | null = null;
 
-  PopupItems: PopupChartItem[] = [];
+  PopupItems: RPopupChartItem[] = [];
 
   public IsRendered: boolean = false;
 
@@ -198,7 +198,7 @@ export class RAllocatedBarChartComponent {
 
   Id: string = '';
   
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -226,7 +226,7 @@ export class RAllocatedBarChartComponent {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
   
-  getNameIndicator(itm: AllocatedBarChartItem) {
+  getNameIndicator(itm: RAllocatedBarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
   }
@@ -251,7 +251,7 @@ export class RAllocatedBarChartComponent {
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
       if(item) {      
-        let lineItem = item.Item as AllocatedBarChartItem;
+        let lineItem = item.Item as RAllocatedBarChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
         let val = lineItem.Values[item.ValueIndex];
@@ -310,7 +310,7 @@ export class RAllocatedBarChartComponent {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -534,10 +534,10 @@ export class RAllocatedBarChartComponent {
 
             this.context.restore();
 
-            this.PopupItems.push(new PopupChartItem(xPoint, y, xPoint + eachBarLength, 
+            this.PopupItems.push(new RPopupChartItem(xPoint, y, xPoint + eachBarLength, 
               y + (StartY - y), element, index, index, color));
 
-            this.PopupItems.push(new PopupChartItem(xPoint, allocatedY, xPoint + eachBarLength, 
+            this.PopupItems.push(new RPopupChartItem(xPoint, allocatedY, xPoint + eachBarLength, 
               allocatedY + (StartY - allocatedY), element, index, index, color));
 
             /* Draw Text on top of Bar */
@@ -708,7 +708,7 @@ export class RAllocatedBarChartComponent {
     })
   }
 
-  private IsBarItemListEqual(a: AllocatedBarChartItem[], b: AllocatedBarChartItem[]) {
+  private IsBarItemListEqual(a: RAllocatedBarChartItem[], b: RAllocatedBarChartItem[]) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;

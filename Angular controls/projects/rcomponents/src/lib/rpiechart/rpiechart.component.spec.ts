@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RpiechartComponent } from './rpiechart.component';
+import { RPieChartComponent } from './rpiechart.component';
 
-describe('RpiechartComponent', () => {
-  let component: RpiechartComponent;
-  let fixture: ComponentFixture<RpiechartComponent>;
+describe('RPieChartComponent', () => {
+  let component: RPieChartComponent;
+  let fixture: ComponentFixture<RPieChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RpiechartComponent]
+      imports: [RPieChartComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RpiechartComponent);
+    fixture = TestBed.createComponent(RPieChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RSequenceHorizontalItem } from './rsequence-horizontal/sequenceitemhorizontal';
 import { NgForOf } from '@angular/common';
 import { RSequenceHorizontalComponent } from './rsequence-horizontal/rsequence-horizontal.component';
-import { WindowHelper } from '../windowObject';
+import { RWindowHelper } from '../rwindowObject';
 
 @Component({
   selector: 'rstate-horizontal',
@@ -132,7 +132,7 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
+  constructor(private cdr: ChangeDetectorRef, private winObj: RWindowHelper) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

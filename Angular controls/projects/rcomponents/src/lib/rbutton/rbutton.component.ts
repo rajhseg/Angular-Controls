@@ -1,6 +1,6 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
-import { WindowHelper } from '../windowObject';
+import { RWindowHelper } from '../rwindowObject';
 
 @Component({
   selector: 'rbutton',
@@ -44,7 +44,7 @@ export class RButtonComponent {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper){
+  constructor(private winObj: RWindowHelper){
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

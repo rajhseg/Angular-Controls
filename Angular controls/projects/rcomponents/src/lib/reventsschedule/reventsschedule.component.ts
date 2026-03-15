@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostBinding, Input, OnDestroy, ViewChild } from '@angular/core';
 import { REventsHorizontalItem, REventsHorizontalTimeItems, REventsRenderDateSchedule, REventsRenderObj, REventsRenderChannelItem, REventsRenderSchedules, REventsSchedules, REventsVerticalChannels, RDateAndVerticalChannels } from './reventsschedule';
 import { DatePipe, NgForOf, NgIf, NgStyle } from '@angular/common';
-import { WindowHelper } from '../windowObject';
+import { RWindowHelper } from '../rwindowObject';
 
 @Component({
   selector: 'revents-schedule',
@@ -319,7 +319,7 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private datePipe: DatePipe) {
+  constructor(private winObj: RWindowHelper, private datePipe: DatePipe) {
     
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();

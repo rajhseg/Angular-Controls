@@ -1,25 +1,25 @@
 
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
-import { DaysEnum } from '../Calender/CalenderModels';
+import { DaysEnum } from '../rcalender/rcalenderModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { RDropdownComponent } from '../dropdown/dropdown.component';
+import { RDropdownComponent } from '../rdropdown/rdropdown.component';
 
-import { DropdownService } from '../dropdown/dropdownservice.service';
-import { CloseService, IDropDown, IPopupCloseInterface, PopupService } from '../popup.service';
-import { WINDOWOBJECT, WindowHelper } from '../windowObject';
-import { DropdownModel } from '../dropdown/dropdownmodel';
+import { DropdownService } from '../rdropdown/rdropdownservice.service';
+import { RCloseService, IRDropDown, IRPopupCloseInterface, RPopupService } from '../rpopup.service';
+import { WINDOWOBJECT, RWindowHelper } from '../rwindowObject';
+import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
-import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
+import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 import { RTimeSelectorComponent } from "../rtimeselector/rtimeselector.component";
 import { RColorPickerComponent } from "../rcolorpicker/rcolorpicker.component";
 import { RButtonComponent } from "../rbutton/rbutton.component";
-import { RGrouppanelComponent } from "../grouppanel/grouppanel.component";
+import { RGrouppanelComponent } from "../rgrouppanel/rgrouppanel.component";
 import { RGridComponent } from "../rgrid/rgrid.component";
 import { RColumnComponent } from '../rgrid/rcolumn/rcolumn.component';
 import { ReadViewTemplateDirective } from '../rgrid/view-template.directive';
 import { EditViewTemplateDirective } from '../rgrid/edit-template.directive';
-import { CalenderChangeMonthInfo } from '../Models/RBaseComponent';
+import { CalenderChangeMonthInfo } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'revents-calender',
@@ -40,7 +40,7 @@ import { CalenderChangeMonthInfo } from '../Models/RBaseComponent';
     DatePipe
   ]
 })
-export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IPopupCloseInterface {
+export class REventsCalenderComponent implements IRDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IRPopupCloseInterface {
 
   self: REventsCalenderComponent = this;
   isDropdownChild: boolean = true;
@@ -321,7 +321,7 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
   @HostBinding('id')
   HostElementId: string = '';
 
-  cls!: CloseService;
+  cls!: RCloseService;
   isModalOpen: boolean = false;
 
   @Input()
@@ -333,11 +333,11 @@ export class REventsCalenderComponent implements IDropDown, OnInit, AfterViewIni
   NewEvent!: AddEventModel;
   ItemsPerPage = new DropdownModel(10, "10");
 
-  constructor(private popupService: PopupService,
-    private windowHelper: WindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
-    private cdr: ChangeDetectorRef, private cssUnitSer: CssUnitsService) {
+  constructor(private popupService: RPopupService,
+    private windowHelper: RWindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
+    private cdr: ChangeDetectorRef, private cssUnitSer: RCssUnitsService) {
 
-    this.cls = CloseService.GetInstance();
+    this.cls = RCloseService.GetInstance();
 
     this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
 

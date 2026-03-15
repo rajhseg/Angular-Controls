@@ -1,7 +1,7 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { LineChartItem, PopupChartItem } from '../Models/BarChartItem';
-import { WindowHelper } from '../windowObject';
+import { RLineChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
+import { RWindowHelper } from '../rwindowObject';
 
 @Component({
   selector: 'rlinechart-vertical',
@@ -140,7 +140,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
     return this._height;
   }
 
-  PopupItems: PopupChartItem[] = [];
+  PopupItems: RPopupChartItem[] = [];
 
   @Input()
   DataListHeight: number = 50;
@@ -157,16 +157,16 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @Input()
   IsRenderFromInit: boolean = true;
 
-  private _items: LineChartItem[] = [];
+  private _items: RLineChartItem[] = [];
 
   @Input()
-  public set Items(val: LineChartItem[]) {
+  public set Items(val: RLineChartItem[]) {
     if (!this.IsLineItemListEqual(val, this._items)) {
       this._items = val;
       this.RenderLineChart();
     }
   }
-  public get Items(): LineChartItem[] {
+  public get Items(): RLineChartItem[] {
     return this._items;
   }
 
@@ -182,7 +182,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -213,7 +213,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
 
       if(item) {
         
-        let lineItem = item.Item as LineChartItem;
+        let lineItem = item.Item as RLineChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
         let met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());
@@ -262,7 +262,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -466,7 +466,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
             /* Plot Circle */
             this.Plot(xPoint, yPoint, element.ItemColor);
 
-            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
+            this.PopupItems.push(new RPopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
                   yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
 
             /* Plot Line */
@@ -664,7 +664,7 @@ export class RLineChartVerticalComponent implements AfterViewInit {
     })
   }
 
-  private IsLineItemListEqual(a: LineChartItem[] | null | undefined, b: LineChartItem[] | null | undefined) {
+  private IsLineItemListEqual(a: RLineChartItem[] | null | undefined, b: RLineChartItem[] | null | undefined) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;

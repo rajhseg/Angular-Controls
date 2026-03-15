@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RbarchartVerticalComponent } from './rbarchart-vertical.component';
+import { RBarChartVerticalComponent } from './rbarchart-vertical.component';
 
 describe('RbarchartVerticalComponent', () => {
-  let component: RbarchartVerticalComponent;
-  let fixture: ComponentFixture<RbarchartVerticalComponent>;
+  let component: RBarChartVerticalComponent;
+  let fixture: ComponentFixture<RBarChartVerticalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RbarchartVerticalComponent]
+      imports: [RBarChartVerticalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RbarchartVerticalComponent);
+    fixture = TestBed.createComponent(RBarChartVerticalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

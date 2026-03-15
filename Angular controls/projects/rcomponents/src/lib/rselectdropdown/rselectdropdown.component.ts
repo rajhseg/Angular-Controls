@@ -2,15 +2,15 @@ import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, Component, Co
 import { ROptionsTemplateDirective, RSelectItemModel } from './rselectModel';
 import { CommonModule, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownModel } from '../dropdown/dropdownmodel';
-import { CloseService, IDropDown, IPopupCloseInterface } from '../popup.service';
-import { WindowHelper, WINDOWOBJECT } from '../windowObject';
-import { CheckboxEventArgs } from '../checkbox/checkbox.service';
-import { RCheckboxComponent } from '../checkbox/checkbox.component';
+import { DropdownModel } from '../rdropdown/rdropdownmodel';
+import { RCloseService, IRDropDown, IRPopupCloseInterface } from '../rpopup.service';
+import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
+import { CheckboxEventArgs } from '../rcheckbox/rcheckbox.service';
+import { RCheckboxComponent } from '../rcheckbox/rcheckbox.component';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
-import { RDropdownFilterPipe } from '../dropdown-filter.pipe';
-import { CssUnit, CssUnitsService, RelativeUnitType } from '../css-units.service';
-import { RBaseComponent } from '../Models/RBaseComponent';
+import { RDropdownFilterPipe } from '../rdropdown-filter.pipe';
+import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rselectdropdown',
@@ -29,8 +29,8 @@ import { RBaseComponent } from '../Models/RBaseComponent';
     
   }
 })
-export class RSelectDropdownComponent extends RBaseComponent<any> implements IDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
-AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
+export class RSelectDropdownComponent extends RBaseComponent<any> implements IRDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
+AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
   
   onChange: any = () => { }
   onTouch: any = () => { }
@@ -198,13 +198,13 @@ AfterContentInit, AfterContentChecked, OnDestroy, IPopupCloseInterface {
   @ViewChild('startElement', { read: ElementRef}) startElement!: ElementRef;
 
 
-  cls!: CloseService;
+  cls!: RCloseService;
 
-  constructor(private windowHelper: WindowHelper, private eleRef: ElementRef,
-    private cssUnitSer: CssUnitsService, private cdr: ChangeDetectorRef
+  constructor(private windowHelper: RWindowHelper, private eleRef: ElementRef,
+    private cssUnitSer: RCssUnitsService, private cdr: ChangeDetectorRef
   ) {
     super(windowHelper);
-    this.cls = CloseService.GetInstance();
+    this.cls = RCloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();    
     this.windowObj = inject(WINDOWOBJECT);
     this.cls.AddInstance(this);

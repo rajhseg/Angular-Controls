@@ -2,7 +2,7 @@ import { AfterContentInit, Component, ContentChild, ContentChildren, Input, Quer
 import { EditViewTemplateDirective } from '../edit-template.directive';
 import { HeaderTemplateDirective, ReadViewTemplateDirective } from '../view-template.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { CssUnit, CssUnitsService } from '../../css-units.service';
+import { CssUnit, RCssUnitsService } from '../../rcss-units.service';
 import { RGridHeaderTemplateContext, RGridTemplateContext } from '../rgridtemplatecontext';
 
 @Component({
@@ -50,7 +50,7 @@ export class RColumnComponent implements AfterContentInit {
 
   @ContentChild(HeaderTemplateDirective, { read: TemplateRef<RGridHeaderTemplateContext> }) HeaderTemplate!: TemplateRef<RGridHeaderTemplateContext>;
 
-  constructor(private cssUnit: CssUnitsService){
+  constructor(private cssUnit: RCssUnitsService){
 
   }
 

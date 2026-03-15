@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { BarChartItem, PopupChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
-import { WindowHelper } from '../windowObject';
+import { RBarChartItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
+import { RWindowHelper } from '../rwindowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
@@ -92,10 +92,10 @@ export class RBarChartVerticalComponent implements AfterViewInit {
     return this._width;
   }
 
-  private _gapBetweenBars: SpaceBetweenBars = SpaceBetweenBars.OneBar;
+  private _gapBetweenBars: RSpaceBetweenBars = RSpaceBetweenBars.OneBar;
 
   @Input()
-  public set GapBetweenBars(val: SpaceBetweenBars) {
+  public set GapBetweenBars(val: RSpaceBetweenBars) {
     this._gapBetweenBars = val;
     this.RenderBarChart();
   }
@@ -155,16 +155,16 @@ export class RBarChartVerticalComponent implements AfterViewInit {
     return this._dataListHeight;
   }
 
-  private _columns: BarChartItem[] = [];
+  private _columns: RBarChartItem[] = [];
 
   @Input()
-  public set Columns(val: BarChartItem[]) {
+  public set Columns(val: RBarChartItem[]) {
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
       this.RenderBarChart();
     }
   }
-  public get Columns(): BarChartItem[] {
+  public get Columns(): RBarChartItem[] {
     return this._columns;
   }
 
@@ -182,7 +182,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
 
   context: CanvasRenderingContext2D | null = null;
 
-  PopupItems: PopupChartItem[] = [];
+  PopupItems: RPopupChartItem[] = [];
 
   public IsRendered: boolean = false;
 
@@ -191,7 +191,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -219,7 +219,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
   
-  getNameIndicator(itm: BarChartItem) {
+  getNameIndicator(itm: RBarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
   }
@@ -244,7 +244,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
       if(item) {      
-        let lineItem = item.Item as BarChartItem;
+        let lineItem = item.Item as RBarChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
         let met = this.context.measureText(this.xAxisItemNames[item.ValueIndex].toString());
@@ -293,7 +293,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -477,7 +477,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
             this.DrawBar(xPoint, y, eachBarLength, StartY - y, color);
 
             
-            this.PopupItems.push(new PopupChartItem(xPoint, y, xPoint + eachBarLength, 
+            this.PopupItems.push(new RPopupChartItem(xPoint, y, xPoint + eachBarLength, 
               y + (StartY - y), element, index, index, color));
 
             /* Draw Text on top of Bar */
@@ -637,7 +637,7 @@ export class RBarChartVerticalComponent implements AfterViewInit {
     })
   }
 
-  private IsBarItemListEqual(a: BarChartItem[], b: BarChartItem[]) {
+  private IsBarItemListEqual(a: RBarChartItem[], b: RBarChartItem[]) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;

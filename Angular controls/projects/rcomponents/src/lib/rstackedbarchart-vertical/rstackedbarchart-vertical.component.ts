@@ -1,7 +1,7 @@
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, PopupChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
-import { WindowHelper } from '../windowObject';
+import { RBarChartItem, RDrawTextItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
+import { RWindowHelper } from '../rwindowObject';
 
 @Component({
   selector: 'rstackedbarchart-vertical',
@@ -92,10 +92,10 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
     return this._width;
   }
 
-  private _gapBetweenBars: SpaceBetweenBars = SpaceBetweenBars.OneBar;
+  private _gapBetweenBars: RSpaceBetweenBars = RSpaceBetweenBars.OneBar;
 
   @Input()
-  public set GapBetweenBars(val: SpaceBetweenBars) {
+  public set GapBetweenBars(val: RSpaceBetweenBars) {
     this._gapBetweenBars = val;
     this.RenderBarChart();
   }
@@ -155,16 +155,16 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
     return this._dataListHeight;
   }
 
-  private _columns: BarChartItem[] = [];
+  private _columns: RBarChartItem[] = [];
 
   @Input()
-  public set Columns(val: BarChartItem[]) {
+  public set Columns(val: RBarChartItem[]) {
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
       this.RenderBarChart();
     }
   }
-  public get Columns(): BarChartItem[] {
+  public get Columns(): RBarChartItem[] {
     return this._columns;
   }
 
@@ -182,7 +182,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
   @Input()
   PopupBackgroundOpacity: number = 1;
 
-  PopupItems: PopupChartItem[] = [];
+  PopupItems: RPopupChartItem[] = [];
 
   public IsRendered: boolean = false;
 
@@ -191,7 +191,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -219,7 +219,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
   
-  getNameIndicator(itm: BarChartItem) {
+  getNameIndicator(itm: RBarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
   }
@@ -244,7 +244,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
       if(item) {      
-        let lineItem = item.Item as BarChartItem;
+        let lineItem = item.Item as RBarChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
         let met = this.context.measureText(this.xAxisItemNames[item.ValueIndex].toString());
@@ -293,7 +293,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -455,7 +455,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
       var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
       let xPoint = StartX;
 
-      let drawTexts: DrawTextItem[] = [];
+      let drawTexts: RDrawTextItem[] = [];
 
       for (let index = 0; index < itemCount; index++) {
 
@@ -503,7 +503,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
 
             this.DrawBar(xPoint, yPoint, eachBarLength, diff, color);
 
-            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + eachBarLength, 
+            this.PopupItems.push(new RPopupChartItem(xPoint, yPoint, xPoint + eachBarLength, 
               yPoint + diff, element, index, x, color));
 
             /* Draw Text on top of Bar */
@@ -522,7 +522,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
             
             yTextOnBar = yPoint + diff/2 + textHeight/2;
             
-            drawTexts.push(new DrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
+            drawTexts.push(new RDrawTextItem(value.toString(), xPoint+halfValueXPoint, yTextOnBar, foreColor));            
             ComputedValue += value;
             previousY = yPoint;
           }
@@ -667,7 +667,7 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
     })
   }
 
-  private IsBarItemListEqual(a: BarChartItem[], b: BarChartItem[]) {
+  private IsBarItemListEqual(a: RBarChartItem[], b: RBarChartItem[]) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;

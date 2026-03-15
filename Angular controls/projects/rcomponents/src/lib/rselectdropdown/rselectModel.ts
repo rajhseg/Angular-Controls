@@ -1,7 +1,7 @@
 
 
 import { Directive, TemplateRef } from "@angular/core";
-import { DropdownModel } from "../dropdown/dropdownmodel";
+import { DropdownModel } from "../rdropdown/rdropdownmodel";
 
 
 export class RSelectItemModel extends DropdownModel {

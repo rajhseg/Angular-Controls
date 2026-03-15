@@ -1,7 +1,7 @@
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, PopupChartItem, SpaceBetweenBars } from '../Models/BarChartItem';
-import { WindowHelper } from '../windowObject';
+import { RBarChartItem, RDrawTextItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
+import { RWindowHelper } from '../rwindowObject';
 
 @Component({
   selector: 'rstackedbarchart-horizontal',
@@ -92,10 +92,10 @@ export class RStackedBarChartHorizontalComponent {
     return this._width;
   }
 
-  private _gapBetweenBars: SpaceBetweenBars = SpaceBetweenBars.OneBar;
+  private _gapBetweenBars: RSpaceBetweenBars = RSpaceBetweenBars.OneBar;
 
   @Input()
-  public set GapBetweenBars(val: SpaceBetweenBars) {
+  public set GapBetweenBars(val: RSpaceBetweenBars) {
     this._gapBetweenBars = val;
     this.RenderBarChart();
   }
@@ -155,16 +155,16 @@ export class RStackedBarChartHorizontalComponent {
     return this._dataListHeight;
   }
 
-  private _columns: BarChartItem[] = [];
+  private _columns: RBarChartItem[] = [];
 
   @Input()
-  public set Columns(val: BarChartItem[]) {
+  public set Columns(val: RBarChartItem[]) {
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
       this.RenderBarChart();
     }
   }
-  public get Columns(): BarChartItem[] {
+  public get Columns(): RBarChartItem[] {
     return this._columns;
   }
 
@@ -182,7 +182,7 @@ export class RStackedBarChartHorizontalComponent {
   @Input()
   PopupBackgroundOpacity: number = 1;
 
-  PopupItems: PopupChartItem[] = [];
+  PopupItems: RPopupChartItem[] = [];
 
   public IsRendered: boolean = false;
 
@@ -191,7 +191,7 @@ export class RStackedBarChartHorizontalComponent {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -222,7 +222,7 @@ export class RStackedBarChartHorizontalComponent {
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
       if (item) {
-        let lineItem = item.Item as BarChartItem;
+        let lineItem = item.Item as RBarChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
         let met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());
@@ -271,7 +271,7 @@ export class RStackedBarChartHorizontalComponent {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -299,7 +299,7 @@ export class RStackedBarChartHorizontalComponent {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
-  getNameIndicator(itm: BarChartItem) {
+  getNameIndicator(itm: RBarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
   }
@@ -451,7 +451,7 @@ export class RStackedBarChartHorizontalComponent {
       var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
       let yPoint = StartY;
 
-      let drawTexts: DrawTextItem[] = [];
+      let drawTexts: RDrawTextItem[] = [];
 
       for (let index = 0; index < itemCount; index++) {
 
@@ -503,7 +503,7 @@ export class RStackedBarChartHorizontalComponent {
 
             this.DrawBar(xPoint, yPoint, x, eachBarLength, color);
 
-            this.PopupItems.push(new PopupChartItem(xPoint, yPoint - eachBarLength, xPoint + x,
+            this.PopupItems.push(new RPopupChartItem(xPoint, yPoint - eachBarLength, xPoint + x,
               yPoint, element, index, x, color));
 
             /* Draw Text on top of Bar */
@@ -528,9 +528,9 @@ export class RStackedBarChartHorizontalComponent {
             }
 
             if (rotate) {
-              drawTexts.push(new DrawTextItem(value.toString(), xPoint + x - 2, yPoint, foreColor, rotate));
+              drawTexts.push(new RDrawTextItem(value.toString(), xPoint + x - 2, yPoint, foreColor, rotate));
             } else {
-              drawTexts.push(new DrawTextItem(value.toString(), xPoint + x - met.width - 3, yPoint - yTextOnBar, foreColor, rotate));
+              drawTexts.push(new RDrawTextItem(value.toString(), xPoint + x - met.width - 3, yPoint - yTextOnBar, foreColor, rotate));
             }
 
             ComputedValue += value;
@@ -688,7 +688,7 @@ export class RStackedBarChartHorizontalComponent {
     })
   }
 
-  private IsBarItemListEqual(a: BarChartItem[], b: BarChartItem[]) {
+  private IsBarItemListEqual(a: RBarChartItem[], b: RBarChartItem[]) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;

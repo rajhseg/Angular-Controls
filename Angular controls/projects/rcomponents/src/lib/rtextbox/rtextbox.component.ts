@@ -1,9 +1,9 @@
 import { NgIf, NgStyle, NgClass } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { WindowHelper } from '../windowObject';
-import { CssUnitsService } from '../css-units.service';
-import { RBaseComponent } from '../Models/RBaseComponent';
+import { RWindowHelper } from '../rwindowObject';
+import { RCssUnitsService } from '../rcss-units.service';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rtextbox',
@@ -88,9 +88,9 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
     return this._textboxValue;
   }
 
-  constructor(winObj: WindowHelper, 
+  constructor(winObj: RWindowHelper, 
       private ele: ElementRef, 
-      private cssUnitServ: CssUnitsService) {
+      private cssUnitServ: RCssUnitsService) {
     super(winObj);
   }
 

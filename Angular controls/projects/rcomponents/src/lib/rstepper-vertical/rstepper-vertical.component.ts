@@ -3,9 +3,9 @@ import { RStateAlignment, RStateDisplayType, RStepComponent } from '../rstep/rst
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { EditViewTemplateDirective } from "../rgrid/edit-template.directive";
-import { WindowHelper } from '../windowObject';
-import { RStateVerticalComponent } from "../sequences/sequences.component";
-import { RSequenceVerticalItem } from '../sequences/sequence/sequenceitem';
+import { RWindowHelper } from '../rwindowObject';
+import { RStateVerticalComponent } from "../rsequences/rsequences.component";
+import { RSequenceVerticalItem } from '../rsequences/rsequence/rsequenceitem';
 
 
 @Component({
@@ -186,7 +186,7 @@ export class RStepperVerticalComponent implements AfterContentInit {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper) {
+  constructor(private cdr: ChangeDetectorRef, private winObj: RWindowHelper) {
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();

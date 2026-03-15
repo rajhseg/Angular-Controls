@@ -1,0 +1,86 @@
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Host, inject, Input, Output, output, QueryList, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AsyncPipe, NgClass, NgForOf, NgTemplateOutlet } from '@angular/common';
+
+@Component({
+  selector: 'rtab',
+  standalone: true,
+  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgClass, forwardRef(() => RTabIdFor)],
+  templateUrl: './rtab.component.html',
+  styleUrl: './rtab.component.css',
+  providers: []
+})
+export class RTabComponent implements AfterContentInit {
+
+  private _tabid: RTabIdFor = inject(RTabIdFor, { host: true });
+
+  constructor() {
+
+  }
+
+  ngAfterContentInit(): void {
+
+  }
+
+}
+
+
+@Directive({
+  selector: '[tabidfor]',
+  standalone: true
+})
+export class RTabIdFor implements AfterViewInit {
+
+  public IsSelected: boolean = false;
+
+  public TabId: string = '';
+
+  public HeaderText: string = '';
+
+  public ContextInstance: Object = {};
+
+  @Input('tabidfor')
+  set tabidfor(val: RTabIdForContext) {
+    if (val) {
+      this.TabId = val.TabId;
+      this.HeaderText = val.HeaderText;
+      this.ContextInstance = val.Context;
+    }
+  }
+  get tabidfor(): RTabIdForContext {
+    return new RTabIdForContext(this.TabId, this.HeaderText, this.ContextInstance);
+  }
+
+  constructor(public templateRef: TemplateRef<any>, public vcr: ViewContainerRef, public cdr: ChangeDetectorRef) {
+
+  }
+
+  ngAfterViewInit(): void {
+  }
+
+  ngAfterContentInit() {
+
+  }
+
+}
+
+
+export class RTabIdForContext {
+  constructor(public TabId: string, public HeaderText: string, public Context: object = {}) {
+
+  }
+}
+
+
+export class RTabHeaderWithTabId {
+  constructor(public tabTemplateRef: RTabIdFor, public TabId: string = '',
+    public headerText: string = '', public IsSelected: boolean = false,
+    public X: number = 0, public Y: number = 0) { }
+}
+
+export class RTabOffsetTop {
+  constructor(public TabId: string,
+    public offsetTop: number
+  ) {
+
+  }
+}

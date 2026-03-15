@@ -1,11 +1,11 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { RSplitPageComponent } from "./rsplitpage.component";
 import { IRSplitterInterface, RPageContentDirective, RSPLIT_ITEM, RSplitterObj, RSplitterType } from "./rpagecontent.directive";
-import { WindowHelper } from "../windowObject";
+import { RWindowHelper } from "../rwindowObject";
 import { JsonPipe, NgFor, NgIf, NgStyle, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectionStrategy } from "@angular/core";
-import { CssUnitsService } from "../css-units.service";
-import { RelativeUnitType } from "../css-units.service";
+import { RCssUnitsService } from "../rcss-units.service";
+import { RelativeUnitType } from "../rcss-units.service";
 
 
 @Component({
@@ -80,9 +80,9 @@ export class RSplitterComponent implements AfterContentInit {
 
   @ContentChildren(RPageContentDirective, { descendants: true }) Contents!: QueryList<RPageContentDirective>;
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef,
-              private winHelper: WindowHelper, private destroy: DestroyRef,
-              private cssUnitService: CssUnitsService, private eleRef: ElementRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef,
+              private winHelper: RWindowHelper, private destroy: DestroyRef,
+              private cssUnitService: RCssUnitsService, private eleRef: ElementRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

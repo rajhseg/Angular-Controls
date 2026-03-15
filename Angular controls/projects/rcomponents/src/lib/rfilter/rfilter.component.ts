@@ -3,13 +3,13 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Hos
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RNumericComponent } from "../rnumeric/rnumeric.component";
 import { RButtonComponent } from "../rbutton/rbutton.component";
-import { RCalenderComponent } from "../Calender/calender.component";
-import { WindowHelper, WINDOWOBJECT } from '../windowObject';
+import { RCalenderComponent } from "../rcalender/rcalender.component";
+import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { DropdownModel } from '../dropdown/dropdownmodel';
-import { CloseService, IDropDown } from '../popup.service';
-import { RBaseComponent } from '../Models/RBaseComponent';
+import { DropdownModel } from '../rdropdown/rdropdownmodel';
+import { RCloseService, IRDropDown } from '../rpopup.service';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rfilter',
@@ -31,7 +31,7 @@ import { RBaseComponent } from '../Models/RBaseComponent';
     DatePipe
   ]
 })
-export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implements IDropDown, ControlValueAccessor {
+export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implements IRDropDown, ControlValueAccessor {
 
   @Input()
   DateFormat: string = 'MM-dd-yyyy';
@@ -238,13 +238,13 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   onTouched = (obj: RFilterApplyModel)=> {};
 
 
-  cls!: CloseService;
+  cls!: RCloseService;
   windowObj!: Window;
   
-  constructor(private windowHelper: WindowHelper, private datePipe: DatePipe, 
+  constructor(private windowHelper: RWindowHelper, private datePipe: DatePipe, 
     private eleRef: ElementRef, private cdr: ChangeDetectorRef){
     super(windowHelper);
-    this.cls = CloseService.GetInstance();
+    this.cls = RCloseService.GetInstance();
     this.Id = windowHelper.GenerateUniqueId();   
     this.cls.AddInstance(this);
     this.windowObj = inject(WINDOWOBJECT);

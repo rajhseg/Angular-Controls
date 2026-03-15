@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RnumericComponent } from './rnumeric.component';
+import { RNumericComponent } from './rnumeric.component';
 
-describe('RnumericComponent', () => {
-  let component: RnumericComponent;
-  let fixture: ComponentFixture<RnumericComponent>;
+describe('RNumericComponent', () => {
+  let component: RNumericComponent;
+  let fixture: ComponentFixture<RNumericComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RnumericComponent]
+      imports: [RNumericComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RnumericComponent);
+    fixture = TestBed.createComponent(RNumericComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

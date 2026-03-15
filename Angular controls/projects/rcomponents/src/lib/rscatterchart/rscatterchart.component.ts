@@ -3,8 +3,8 @@
 
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { BarChartItem, DrawTextItem, PopupChartItem, ScatterChartItem } from '../Models/BarChartItem';
-import { WindowHelper } from '../windowObject';
+import { RBarChartItem, RDrawTextItem, RPopupChartItem, RScatterChartItem } from '../rmodels/RBarChartItem';
+import { RWindowHelper } from '../rwindowObject';
 
 
 @Component({
@@ -149,16 +149,16 @@ export class RScatterChartComponent implements AfterViewInit {
   @Input()
   PopupBackgroundOpacity: number = 1;
 
-  private _items: ScatterChartItem[] = [];
+  private _items: RScatterChartItem[] = [];
   
   @Input()
-  public set Items(val: ScatterChartItem[]) {
+  public set Items(val: RScatterChartItem[]) {
     if (!this.IsScatterItemListEqual(val, this._items)) {
       this._items = val;
       this.RenderScatterChart();
     }
   }
-  public get Items(): ScatterChartItem[] {
+  public get Items(): RScatterChartItem[] {
     return this._items;
   }
 
@@ -167,7 +167,7 @@ export class RScatterChartComponent implements AfterViewInit {
 
   context: CanvasRenderingContext2D | null = null;
 
-  PopupItems: PopupChartItem[] = [];
+  PopupItems: RPopupChartItem[] = [];
 
   public IsRendered: boolean = false;
 
@@ -176,7 +176,7 @@ export class RScatterChartComponent implements AfterViewInit {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -206,7 +206,7 @@ export class RScatterChartComponent implements AfterViewInit {
       let item = this.MouseOnTopOfItem(event.offsetX, event.offsetY);
 
       if(item) {      
-        let lineItem = item.Item as ScatterChartItem;
+        let lineItem = item.Item as RScatterChartItem;
         let x = event.offsetX + 10;
         let y = event.offsetY;
         let met = this.context.measureText(lineItem.Values[item.ValueIndex].xPoint.toString());
@@ -255,7 +255,7 @@ export class RScatterChartComponent implements AfterViewInit {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -283,7 +283,7 @@ export class RScatterChartComponent implements AfterViewInit {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
-  getNameIndicator(itm: BarChartItem) {
+  getNameIndicator(itm: RBarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
   }
@@ -459,7 +459,7 @@ export class RScatterChartComponent implements AfterViewInit {
             
             this.Plot(xPoint, yPoint, element.ItemColor);
 
-            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize,
+            this.PopupItems.push(new RPopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize,
               yPoint + this.PlotItemSize, element, v, index, element.ItemColor
             ));
 
@@ -639,7 +639,7 @@ export class RScatterChartComponent implements AfterViewInit {
     })
   }
 
-  private IsScatterItemListEqual(a: ScatterChartItem[] | null | undefined, b: ScatterChartItem[] | null | undefined) {
+  private IsScatterItemListEqual(a: RScatterChartItem[] | null | undefined, b: RScatterChartItem[] | null | undefined) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;

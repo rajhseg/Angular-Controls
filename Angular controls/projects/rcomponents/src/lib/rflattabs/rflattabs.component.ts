@@ -1,9 +1,9 @@
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, Output, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
-import { RTabComponent, RTabIdFor, TabHeaderWithTabId } from "../tab/tab.component";
+import { RTabComponent, RTabIdFor, RTabHeaderWithTabId } from "../rtab/rtab.component";
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
-import { WindowHelper } from "../windowObject";
+import { RWindowHelper } from "../rwindowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup, CdkDragMove } from '@angular/cdk/drag-drop';
-import { RTabService } from "../tab.service";
+import { RTabService } from "../rtab.service";
 
 @Component({
   selector: 'rflattabs',
@@ -24,10 +24,10 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
     public contentVisible: boolean = false;
     public tabInstance: RFlatTabsComponent = this;
     public SelectedTabIndex: number = 0;
-    public TabHeaders: TabHeaderWithTabId[] = [];
+    public TabHeaders: RTabHeaderWithTabId[] = [];
     public dynamicHtml: string = '';
   
-    public draggedTabs: TabHeaderWithTabId[] = [];
+    public draggedTabs: RTabHeaderWithTabId[] = [];
   
     public ispopuphidden: boolean = true;
   
@@ -76,7 +76,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
     }
   
     @Output()
-    headerClicked = new EventEmitter<TabHeaderWithTabId>();
+    headerClicked = new EventEmitter<RTabHeaderWithTabId>();
 
     @Input()
     DisplayTabContainerWhenZeroTabs: boolean = false;
@@ -108,7 +108,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
     @HostBinding('id')
     HostElementId: string = '';
   
-    constructor(private winobj: WindowHelper,
+    constructor(private winobj: RWindowHelper,
       private cdr: ChangeDetectorRef,
       private cfr: ComponentFactoryResolver,
       private rendererFactory: RendererFactory2,
@@ -130,13 +130,13 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
   
     }
   
-    trackByHeader(index: number, header: TabHeaderWithTabId) {
+    trackByHeader(index: number, header: RTabHeaderWithTabId) {
       return header.TabId;
     }
   
   
     dragEnded(event: CdkDragEnd) {
-      let item = (event.source.data as TabHeaderWithTabId);
+      let item = (event.source.data as RTabHeaderWithTabId);
       this.deleteSourceItemOnDrag(item);
     }
   
@@ -144,7 +144,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
   
     }
   
-    deleteSourceItemOnDrag(item: TabHeaderWithTabId) {
+    deleteSourceItemOnDrag(item: RTabHeaderWithTabId) {
       let _tabs = this.tabTemps?.toArray();
       if (item && _tabs) {
         let _prevIndex = _tabs?.findIndex(x => x.TabId == item.TabId);
@@ -178,17 +178,17 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
   
     }
   
-    draggeddropForPopup(event: CdkDragDrop<TabHeaderWithTabId[]>) {
-      let curContainer = event.container.data.every((x: any) => x instanceof TabHeaderWithTabId);
-      let PreContainer = event.previousContainer.data.every((x: any) => x instanceof TabHeaderWithTabId);
+    draggeddropForPopup(event: CdkDragDrop<RTabHeaderWithTabId[]>) {
+      let curContainer = event.container.data.every((x: any) => x instanceof RTabHeaderWithTabId);
+      let PreContainer = event.previousContainer.data.every((x: any) => x instanceof RTabHeaderWithTabId);
       if (curContainer && PreContainer) {
   
         if (!event.isPointerOverContainer) {
           return;
         }
   
-        let _item = (event.item.data as TabHeaderWithTabId);
-        let _exists = this.draggedTabs.some((x: TabHeaderWithTabId) => x.TabId == _item.TabId);
+        let _item = (event.item.data as RTabHeaderWithTabId);
+        let _exists = this.draggedTabs.some((x: RTabHeaderWithTabId) => x.TabId == _item.TabId);
   
         if (!_exists) {
   
@@ -198,7 +198,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
             this.dropDataExchange(event, false);
           }
   
-          let _ex = this.draggedTabs.find((x: TabHeaderWithTabId) => x.TabId == _item.TabId);
+          let _ex = this.draggedTabs.find((x: RTabHeaderWithTabId) => x.TabId == _item.TabId);
   
           if(_ex){
             let mevent = (event.event as MouseEvent);
@@ -225,14 +225,14 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
   
     }
   
-    dropDataExchange(event: CdkDragDrop<TabHeaderWithTabId[]>, isSameContainer: boolean) {
-      let _itemData = (event.item.data as TabHeaderWithTabId);
+    dropDataExchange(event: CdkDragDrop<RTabHeaderWithTabId[]>, isSameContainer: boolean) {
+      let _itemData = (event.item.data as RTabHeaderWithTabId);
       let movedItemIndex = -2;
   
       if (isSameContainer) {
-        movedItemIndex = (event.container.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+        movedItemIndex = (event.container.data as RTabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
       } else {
-        movedItemIndex = (event.previousContainer.data as TabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
+        movedItemIndex = (event.previousContainer.data as RTabHeaderWithTabId[]).findIndex(x => x.TabId == _itemData.TabId);
       }
   
       if (movedItemIndex > -1) {
@@ -245,15 +245,15 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
       }
     }
   
-    drop(event: CdkDragDrop<TabHeaderWithTabId[]>) {
+    drop(event: CdkDragDrop<RTabHeaderWithTabId[]>) {
   
-      let curContainer = event.container.data.every(x => x instanceof TabHeaderWithTabId);
-      let PreContainer = event.previousContainer.data.every(x => x instanceof TabHeaderWithTabId);
+      let curContainer = event.container.data.every(x => x instanceof RTabHeaderWithTabId);
+      let PreContainer = event.previousContainer.data.every(x => x instanceof RTabHeaderWithTabId);
       if (curContainer && PreContainer) {
   
         if (!event.isPointerOverContainer) {
           this.ispopuphidden = false;
-          let _item = (event.item.data as TabHeaderWithTabId)
+          let _item = (event.item.data as RTabHeaderWithTabId)
           let mEvent = (event.event as MouseEvent);
           _item.X = mEvent.pageX;
           _item.Y = mEvent.pageY;
@@ -263,7 +263,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
           return;
         }
   
-        let _exists = event.container.data.some((x: TabHeaderWithTabId) => x.TabId == event.item.data.TabId);
+        let _exists = event.container.data.some((x: RTabHeaderWithTabId) => x.TabId == event.item.data.TabId);
   
         if (!_exists) {
           if (event.previousContainer === event.container) {
@@ -307,13 +307,13 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
       ele.style.zIndex = (highestindex + 1).toString();
     }
   
-    HeaderClicked(selectedHeader: TabHeaderWithTabId) {
+    HeaderClicked(selectedHeader: RTabHeaderWithTabId) {
       selectedHeader.IsSelected = true;
       this.SelectedTabId = selectedHeader.TabId;
       this.headerClicked.emit(selectedHeader);
     }
   
-    selectTab(selectedHeader: TabHeaderWithTabId | undefined) {
+    selectTab(selectedHeader: RTabHeaderWithTabId | undefined) {
   
       this.TabHeaders.forEach(x => x.IsSelected = false);
   
@@ -355,7 +355,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
         this.TabHeaders = [];
         this.tabTemps.forEach(x => {
   
-          this.TabHeaders.push(new TabHeaderWithTabId(x, x.TabId, x.HeaderText));
+          this.TabHeaders.push(new RTabHeaderWithTabId(x, x.TabId, x.HeaderText));
   
         });
       }
@@ -380,7 +380,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
         if (this.selectedTab && this.tabTemps) {
           this.selectedTab.IsSelected = true;
   
-          let selectedHeader = new TabHeaderWithTabId(this.selectedTab,
+          let selectedHeader = new RTabHeaderWithTabId(this.selectedTab,
             this.selectedTab.TabId, this.selectedTab.HeaderText, true);
   
           this.RenderHeaders();

@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, Input, TemplateRef } from "@angular/core";
 import { RPageContentDirective, RSPLIT_ITEM } from "./rpagecontent.directive";
-import { CssUnitsService, RelativeUnitType } from "../css-units.service";
-import { WindowHelper } from "../windowObject";
+import { RCssUnitsService, RelativeUnitType } from "../rcss-units.service";
+import { RWindowHelper } from "../rwindowObject";
 
 
 @Component({
@@ -45,8 +45,8 @@ export class RSplitPageComponent implements AfterContentInit {
       return this._initialHeight;
     }
 
-  constructor(private cdr: ChangeDetectorRef, private winHelper: WindowHelper,
-        private cssUnit: CssUnitsService, private elementRef: ElementRef,private directive: RPageContentDirective) {
+  constructor(private cdr: ChangeDetectorRef, private winHelper: RWindowHelper,
+        private cssUnit: RCssUnitsService, private elementRef: ElementRef,private directive: RPageContentDirective) {
         
   }
 

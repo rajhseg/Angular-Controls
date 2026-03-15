@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   Component,
   createNgModuleRef,
+  inject,
   Inject,
   NgModuleRef,
   NgZone,
@@ -13,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCalenderComponent, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType } from 'rcomponents';
+import { RCalenderComponent, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,9 +23,9 @@ import { JsonPipe, NgFor } from '@angular/common';
 import { RStarRatingComponent } from 'rcomponents';
 import { RSwitchComponent } from 'rcomponents';
 import { RProgressbarComponent } from 'rcomponents';
-import { ProgressBarDisplayType, ProgressBarType } from 'rcomponents';
+import { RProgressBarDisplayType, RProgressBarType } from 'rcomponents';
 import { setInterval } from 'timers';
-import { WINDOWOBJECT, WindowHelper } from 'rcomponents';
+import { WINDOWOBJECT, RWindowHelper } from 'rcomponents';
 import { RTabComponent, RTabIdFor } from 'rcomponents';
 import { RTabsComponent } from 'rcomponents';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
@@ -62,14 +63,14 @@ import { RStepperHorizontalComponent } from 'rcomponents';
 import { RPieChartComponent, RPieChartItem } from 'rcomponents';
 import { RBarChartVerticalComponent } from "rcomponents";
 import {
-  AllocatedBarChartItem,
-  AllocationData,
-  BarChartItem,
-  Graph,
-  LineChartItem,
-  ScatterChartItem,
-  YSeriesChartItem,
-  GraphSeriesChartItem
+  RAllocatedBarChartItem,
+  RAllocationData,
+  RBarChartItem,
+  RGraph,
+  RLineChartItem,
+  RScatterChartItem,
+  RYSeriesChartItem,
+  RGraphSeriesChartItem
 } from "rcomponents";
 import { RBarChartHorizontalComponent } from 'rcomponents';
 import { RStackedBarChartVerticalComponent } from 'rcomponents';
@@ -81,7 +82,7 @@ import { RAreaChartComponent } from 'rcomponents';
 import { RAllocatedBarChartComponent } from 'rcomponents';
 import { RFilterAlign, RFilterApplyModel, RFilterComponent, RFilterDataType } from 'rcomponents';
 import { RSeriesChartComponent } from 'rcomponents';
-import { CssUnit, CssUnitsService, RelativeUnitType } from 'rcomponents';
+import { CssUnit, RCssUnitsService, RelativeUnitType } from 'rcomponents';
 import { RFlatTabsComponent } from 'rcomponents';
 import { AddEventModel, EachDayEventsModel, EventsCalenderModel, REventsCalenderComponent } from 'rcomponents';
 import {concatMap, delay, from, Observable, of, switchMap} from 'rxjs';
@@ -156,7 +157,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   time3:string = "";
   splitType = RSplitterType;
   calenderEvents!: EventsCalenderModel;
-
+  RcheckSize = CheckBoxSize;
+  
   title = 'angularcontrols';
   items: DropdownModel[] = [];
   items1: any[] = [];
@@ -170,8 +172,8 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   proincenter: boolean = false;
   IsCircleProgressBar: boolean = false;
   IsInfiniteProgressBar: boolean = true;
-  progressDisplayType: ProgressBarDisplayType = ProgressBarDisplayType.StraightLine;
-  progressType: ProgressBarType = ProgressBarType.Infinite;
+  progressDisplayType: RProgressBarDisplayType = RProgressBarDisplayType.StraightLine;
+  progressType: RProgressBarType = RProgressBarType.Infinite;
   perc: number = 0;
   deltabindex: number = -1;
   window!: Window;
@@ -249,36 +251,36 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   stepperDisplayType: RStateDisplayType = RStateDisplayType.AllItems;
   stepperAlign: RStateAlignment = RStateAlignment.OnTop;  
 
-  barChartItems: BarChartItem[] = []
+  barChartItems: RBarChartItem[] = []
   barChartXAxisItemNames: string[] = [];
 
-  barChartItems1: BarChartItem[] = []
+  barChartItems1: RBarChartItem[] = []
   barChartXAxisItemNames1: string[] = [];
 
-  barChartItems2: AllocatedBarChartItem[] = []
+  barChartItems2: RAllocatedBarChartItem[] = []
   barChartXAxisItemNames2: string[] = [];
 
-  stackedbarChartItems1: BarChartItem[] = []
+  stackedbarChartItems1: RBarChartItem[] = []
   stackedbarChartXAxisItemNames1: string[] = [];
 
-  stackedrangebarChartItems1: BarChartItem[] = []
+  stackedrangebarChartItems1: RBarChartItem[] = []
   stackedrangebarChartXAxisItemNames1: string[] = [];
 
-  stackedrangebarChartItems: BarChartItem[] = []
+  stackedrangebarChartItems: RBarChartItem[] = []
   stackedrangebarChartXAxisItemNames: string[] = [];
   
-  scatterModel: ScatterChartItem[] = [];
+  scatterModel: RScatterChartItem[] = [];
 
-  lineChartItems: LineChartItem[] = [];
+  lineChartItems: RLineChartItem[] = [];
   lineChartXAxisNames: string[] = [];
 
   bColor: string = 'blue'; //'#13297A';
   tColor: string = 'orangered'; //teal';
 
   nums2: number[] = [];
-  seriesModel2: YSeriesChartItem[] = [];
-  seriesModel: YSeriesChartItem[] = [];
-  seriesModel1: GraphSeriesChartItem[] = [];
+  seriesModel2: RYSeriesChartItem[] = [];
+  seriesModel: RYSeriesChartItem[] = [];
+  seriesModel1: RGraphSeriesChartItem[] = [];
   
   CCol: string = "#6E1F66";
 
@@ -293,18 +295,22 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   ditems: DropdownModel[] = [];
 
-  constructor(private cdr: ChangeDetectorRef, private winObj: WindowHelper, private ngZone: NgZone, 
+  winObj!: RWindowHelper;
+
+  constructor(private cdr: ChangeDetectorRef,private ngZone: NgZone,
     private mod: NgModuleRef<any>) {  
 
-      this.items.push(new DropdownModel("0", "Jan"));
-      this.items.push(new DropdownModel("1", "Feb"));
-      this.items.push(new DropdownModel("2", "Mar"));
-      this.items.push(new DropdownModel("4", "Apr"));
-      this.items.push(new DropdownModel("5", "May"));
-      this.items.push(new DropdownModel("6", "Jun"));
-      this.items.push(new DropdownModel("7", "Jly"));
-      this.items.push(new DropdownModel("8", "Aug"));
-      this.items.push(new DropdownModel("9", "Sep"));
+    this.winObj = inject(RWINDOWHELPEROBJECT);
+
+    this.items.push(new DropdownModel("0", "Jan"));
+    this.items.push(new DropdownModel("1", "Feb"));
+    this.items.push(new DropdownModel("2", "Mar"));
+    this.items.push(new DropdownModel("4", "Apr"));
+    this.items.push(new DropdownModel("5", "May"));
+    this.items.push(new DropdownModel("6", "Jun"));
+    this.items.push(new DropdownModel("7", "Jly"));
+    this.items.push(new DropdownModel("8", "Aug"));
+    this.items.push(new DropdownModel("9", "Sep"));
 
     this.ditems.push(new DropdownModel(5, "5"));
     this.ditems.push(new DropdownModel(10, "10"));
@@ -440,21 +446,21 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createSeriesChart(){
     let nums: number[] = [];
-    let graphnums: Graph[] = [];
+    let graphnums: RGraph[] = [];
 
     for (let index = 0; index < 50; index++) {
       nums.push(this.GenRandomNum(1, 100));      
     }
 
     for (let index = 1; index < 80; index++) {
-      graphnums.push(new Graph(index, this.GenRandomNum(1, 100)));      
+      graphnums.push(new RGraph(index, this.GenRandomNum(1, 100)));      
     }
 
-    graphnums.push(new Graph(80, 45));
+    graphnums.push(new RGraph(80, 45));
 
     console.log(nums);
 
-    this.seriesModel.push(new YSeriesChartItem("Foo", "blue", nums));
+    this.seriesModel.push(new RYSeriesChartItem("Foo", "blue", nums));
 
     nums = [];
 
@@ -462,15 +468,15 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       nums.push(this.GenRandomNum(1, 100));      
     }
 
-    this.seriesModel.push(new YSeriesChartItem("Too", "orangered", nums));
+    this.seriesModel.push(new RYSeriesChartItem("Too", "orangered", nums));
 
-    this.seriesModel1.push(new GraphSeriesChartItem("Foo", "orangered", graphnums));
+    this.seriesModel1.push(new RGraphSeriesChartItem("Foo", "orangered", graphnums));
        
     for (let index = 0; index < 50; index++) {
       this.nums2.push(this.GenRandomNum(1, 100));      
     }
 
-    this.seriesModel2.push(new YSeriesChartItem("Computer", "blue", this.nums2));
+    this.seriesModel2.push(new RYSeriesChartItem("Computer", "blue", this.nums2));
 
   }
 
@@ -479,7 +485,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     let n1 = this.GenRandomNum(1, 100);
     j.push(n1);
     this.seriesModel2 = [];
-    this.seriesModel2.push(new YSeriesChartItem("Computer", "blue", j));
+    this.seriesModel2.push(new RYSeriesChartItem("Computer", "blue", j));
     this.nums2 = j;
   }
 
@@ -498,9 +504,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   createLineChart() {
-    let item1 = new LineChartItem("Soap", "teal", [25, 45, 12, 35, 18, 17, 40]);
-    let item2 = new LineChartItem("ToothPowder", "darkblue", [35, 75, 18, 45, 16, 27, 60]);
-    let item3 = new LineChartItem("Juice", "orangered", [15, 26, 38, 25, 46, 37, 70]);
+    let item1 = new RLineChartItem("Soap", "teal", [25, 45, 12, 35, 18, 17, 40]);
+    let item2 = new RLineChartItem("ToothPowder", "darkblue", [35, 75, 18, 45, 16, 27, 60]);
+    let item3 = new RLineChartItem("Juice", "orangered", [15, 26, 38, 25, 46, 37, 70]);
     
     this.lineChartXAxisNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     this.lineChartItems = [item1, item2, item3];
@@ -508,22 +514,22 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createScatterChart() {
 
-    let item1: ScatterChartItem = new ScatterChartItem("City 1", this.bColor, [
-       new Graph(2,8), new Graph(15,35), new Graph(20,65), new Graph(14, 30)
-      ,new Graph(30,63), new Graph(35,78), new Graph(24,53), new Graph(26, 56)
-      ,new Graph(20,42), new Graph(14,31), new Graph(34,75), new Graph(48, 72)
+    let item1: RScatterChartItem = new RScatterChartItem("City 1", this.bColor, [
+       new RGraph(2,8), new RGraph(15,35), new RGraph(20,65), new RGraph(14, 30)
+      ,new RGraph(30,63), new RGraph(35,78), new RGraph(24,53), new RGraph(26, 56)
+      ,new RGraph(20,42), new RGraph(14,31), new RGraph(34,75), new RGraph(48, 72)
     ]);
     
-    let item2: ScatterChartItem = new ScatterChartItem("City 2", "red", [
-      new Graph(15,40), new Graph(18,55), new Graph(20,58)
-      ,new Graph(45,83), new Graph(28,48), new Graph(44,83), new Graph(16, 26)
-      ,new Graph(60,62), new Graph(64,61), new Graph(54,75), new Graph(68, 72)
+    let item2: RScatterChartItem = new RScatterChartItem("City 2", "red", [
+      new RGraph(15,40), new RGraph(18,55), new RGraph(20,58)
+      ,new RGraph(45,83), new RGraph(28,48), new RGraph(44,83), new RGraph(16, 26)
+      ,new RGraph(60,62), new RGraph(64,61), new RGraph(54,75), new RGraph(68, 72)
     ]);
 
-    let item3: ScatterChartItem = new ScatterChartItem("City 3", "green", [
-      new Graph(14,35), new Graph(25,45), new Graph(40,85)
-      ,new Graph(40,63), new Graph(55,78), new Graph(54,53), new Graph(66, 56)
-      ,new Graph(20,32), new Graph(14,41), new Graph(34,75), new Graph(68, 72)
+    let item3: RScatterChartItem = new RScatterChartItem("City 3", "green", [
+      new RGraph(14,35), new RGraph(25,45), new RGraph(40,85)
+      ,new RGraph(40,63), new RGraph(55,78), new RGraph(54,53), new RGraph(66, 56)
+      ,new RGraph(20,32), new RGraph(14,41), new RGraph(34,75), new RGraph(68, 72)
     ]);    
 
     this.scatterModel = [item1, item2, item3];
@@ -532,43 +538,43 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createBarCharts(){
     this.barChartXAxisItemNames = ["2000", "2001", "2002","2003"];
-    this.barChartItems.push(new BarChartItem("Company A", [75, 87, 60, 94], "#1E96EB", "white"));
-    this.barChartItems.push(new BarChartItem("Company B", [65, 77, 86, 5], "#EF41E5", "white"));
-    this.barChartItems.push(new BarChartItem("Company C", [90, 75, 96, 58], "#C7CBCF", "white"));    
+    this.barChartItems.push(new RBarChartItem("Company A", [75, 87, 60, 94], "#1E96EB", "white"));
+    this.barChartItems.push(new RBarChartItem("Company B", [65, 77, 86, 5], "#EF41E5", "white"));
+    this.barChartItems.push(new RBarChartItem("Company C", [90, 75, 96, 58], "#C7CBCF", "white"));    
 
     this.barChartXAxisItemNames1 = ["Tomato", "Potato", "Onion","Oil"];
-    this.barChartItems1.push(new BarChartItem("City A", [75, 87, 60, 94], "#1E96EB", "white"));
-    this.barChartItems1.push(new BarChartItem("City B", [65, 77, 86, 5], "#EF41E5", "white"));
-    this.barChartItems1.push(new BarChartItem("City C", [90, 75, 96, 58], "#C7CBCF", "white"));  
+    this.barChartItems1.push(new RBarChartItem("City A", [75, 87, 60, 94], "#1E96EB", "white"));
+    this.barChartItems1.push(new RBarChartItem("City B", [65, 77, 86, 5], "#EF41E5", "white"));
+    this.barChartItems1.push(new RBarChartItem("City C", [90, 75, 96, 58], "#C7CBCF", "white"));  
     
     
     this.barChartXAxisItemNames2 = ["Jan", "Feb", "Mar", "Apr", "May"];
 
-    let dat1 = new AllocationData(8000, 6000);
-    let dat2 = new AllocationData(6800, 4500);
-    let dat3 = new AllocationData(6500, 5000);
-    let dat4 = new AllocationData(7000, 4000);
-    let dat5 = new AllocationData(5500, 5000);
+    let dat1 = new RAllocationData(8000, 6000);
+    let dat2 = new RAllocationData(6800, 4500);
+    let dat3 = new RAllocationData(6500, 5000);
+    let dat4 = new RAllocationData(7000, 4000);
+    let dat5 = new RAllocationData(5500, 5000);
 
-    this.barChartItems2.push(new AllocatedBarChartItem("Company A",[dat1, dat3, dat4, dat2, dat5], "#1E96EB", "white", "Allocated Money","Spent Money"));
-    this.barChartItems2.push(new AllocatedBarChartItem("Company B",[dat3, dat2, dat1, dat5, dat4],"#EF41E5", "white"));
+    this.barChartItems2.push(new RAllocatedBarChartItem("Company A",[dat1, dat3, dat4, dat2, dat5], "#1E96EB", "white", "Allocated Money","Spent Money"));
+    this.barChartItems2.push(new RAllocatedBarChartItem("Company B",[dat3, dat2, dat1, dat5, dat4],"#EF41E5", "white"));
   }
 
   createStackedBarCharts(){
     this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedbarChartItems1.push(new BarChartItem("Food Expenses", [2500, 2000, 1500, 1090, 1650, 2700, 2400, 1800], "#13297A", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Vehicle Expenses", [160, 377, 486, 1090, 200, 450, 5, 350], "teal", "white"));
-    this.stackedbarChartItems1.push(new BarChartItem("Dress Expenses", [1000, 775, 1096, 1090, 700, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
+    this.stackedbarChartItems1.push(new RBarChartItem("Food Expenses", [2500, 2000, 1500, 1090, 1650, 2700, 2400, 1800], "#13297A", "white"));
+    this.stackedbarChartItems1.push(new RBarChartItem("Vehicle Expenses", [160, 377, 486, 1090, 200, 450, 5, 350], "teal", "white"));
+    this.stackedbarChartItems1.push(new RBarChartItem("Dress Expenses", [1000, 775, 1096, 1090, 700, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
 
     this.stackedrangebarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedrangebarChartItems1.push(new BarChartItem("Food Expenses", [-1170, 2000, 1170, -610, 1650, 3000, 2400, -1800], "#13297A", "white"));
-    this.stackedrangebarChartItems1.push(new BarChartItem("Vehicle Expenses", [-1170, 377, 1170, -610, -1590, 450, 5, 350], "teal", "white"));
-    this.stackedrangebarChartItems1.push(new BarChartItem("Dress Expenses", [1170, 775, 1170, -758, 1860, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
+    this.stackedrangebarChartItems1.push(new RBarChartItem("Food Expenses", [-1170, 2000, 1170, -610, 1650, 3000, 2400, -1800], "#13297A", "white"));
+    this.stackedrangebarChartItems1.push(new RBarChartItem("Vehicle Expenses", [-1170, 377, 1170, -610, -1590, 450, 5, 350], "teal", "white"));
+    this.stackedrangebarChartItems1.push(new RBarChartItem("Dress Expenses", [1170, 775, 1170, -758, 1860, 1200, 800, 1400], ["gray","grey","darkgreen", "grey"], "white"));    
         
     this.stackedrangebarChartXAxisItemNames = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
-    this.stackedrangebarChartItems.push(new BarChartItem("Food Expenses", [25, 20, 15, -61, 60, 30, 24, -18], "#13297A", "white"));
-    this.stackedrangebarChartItems.push(new BarChartItem("Vehicle Expenses", [16, 30, 40, -60, -15, 50, 5, 35], "teal", "white"));
-    this.stackedrangebarChartItems.push(new BarChartItem("Dress Expenses", [10, 17, 10, 58, 70, 20, 60, 14], ["gray","grey","darkgreen", "grey"], "white"));    
+    this.stackedrangebarChartItems.push(new RBarChartItem("Food Expenses", [25, 20, 15, -61, 60, 30, 24, -18], "#13297A", "white"));
+    this.stackedrangebarChartItems.push(new RBarChartItem("Vehicle Expenses", [16, 30, 40, -60, -15, 50, 5, 35], "teal", "white"));
+    this.stackedrangebarChartItems.push(new RBarChartItem("Dress Expenses", [10, 17, 10, 58, 70, 20, 60, 14], ["gray","grey","darkgreen", "grey"], "white"));    
 
   }
 
@@ -1069,18 +1075,18 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   changeToCircle(val: boolean) {
     if (val) {
-      this.progressDisplayType = ProgressBarDisplayType.Circle;
+      this.progressDisplayType = RProgressBarDisplayType.Circle;
     }
     else {
-      this.progressDisplayType = ProgressBarDisplayType.StraightLine;
+      this.progressDisplayType = RProgressBarDisplayType.StraightLine;
     }
   }
 
   changeToInfinite(val: boolean) {
     if (val) {
-      this.progressType = ProgressBarType.Infinite;
+      this.progressType = RProgressBarType.Infinite;
     } else {
-      this.progressType = ProgressBarType.Progress;
+      this.progressType = RProgressBarType.Progress;
     }
   }
 }

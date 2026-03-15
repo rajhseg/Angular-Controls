@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { BarChartItem, Graph, PopupChartItem, YSeriesChartItem, GraphSeriesChartItem } from '../Models/BarChartItem';
-import { WindowHelper } from '../windowObject';
+import { RBarChartItem, RGraph, RPopupChartItem, RYSeriesChartItem, RGraphSeriesChartItem } from '../rmodels/RBarChartItem';
+import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 
 @Component({
@@ -151,10 +151,10 @@ export class RSeriesChartComponent {
   @Input()
   FillAreaColor: boolean = false;
 
-  private _items: YSeriesChartItem[] | GraphSeriesChartItem[] = [];
+  private _items: RYSeriesChartItem[] | RGraphSeriesChartItem[] = [];
   
   @Input()
-  public set Items(val: YSeriesChartItem[] | GraphSeriesChartItem[]) {
+  public set Items(val: RYSeriesChartItem[] | RGraphSeriesChartItem[]) {
     if (!this.IsScatterItemListEqual(val, this._items)) {
       this._items = val;
       this.RenderSeriesChart();
@@ -169,7 +169,7 @@ export class RSeriesChartComponent {
 
   context: CanvasRenderingContext2D | null = null;
 
-  PopupItems: PopupChartItem[] = [];
+  PopupItems: RPopupChartItem[] = [];
 
   public IsRendered: boolean = false;
 
@@ -178,7 +178,7 @@ export class RSeriesChartComponent {
   @HostBinding('id')
   HostElementId: string = '';
 
-  constructor(private winObj: WindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -212,14 +212,14 @@ export class RSeriesChartComponent {
         let lineItem = item.Item as any;
         let x = event.offsetX + 10;
         let y = event.offsetY;
-        let yaxisChart = !(lineItem.Values[item.ValueIndex] instanceof Graph);
+        let yaxisChart = !(lineItem.Values[item.ValueIndex] instanceof RGraph);
 
         let met : TextMetrics | undefined = undefined;
         let met1 : TextMetrics | undefined = undefined;
 
         if(!this.IsYSeriesChart){
-           met = this.context.measureText((lineItem.Values[item.ValueIndex] as Graph).xPoint.toString());
-           met1 = this.context.measureText((lineItem.Values[item.ValueIndex] as Graph).yPoint.toString());  
+           met = this.context.measureText((lineItem.Values[item.ValueIndex] as RGraph).xPoint.toString());
+           met1 = this.context.measureText((lineItem.Values[item.ValueIndex] as RGraph).yPoint.toString());  
         } else {
            met = this.context.measureText(lineItem.Values[item.ValueIndex].toString());           
         }
@@ -264,8 +264,8 @@ export class RSeriesChartComponent {
         if(this.IsYSeriesChart) {
           this.context.fillText(" "+this.XAxisTitle+" : "+ lineItem.Values[item.ValueIndex], x + 5, y + 15);
         } else {
-          this.context.fillText(" "+this.XAxisTitle+" : "+ (lineItem.Values[item.ValueIndex] as Graph).xPoint, x + 5, y + 15);
-          this.context.fillText(" "+this.YAxisTitle+" : "+ (lineItem.Values[item.ValueIndex] as Graph).yPoint, x + 5, y + 35);
+          this.context.fillText(" "+this.XAxisTitle+" : "+ (lineItem.Values[item.ValueIndex] as RGraph).xPoint, x + 5, y + 15);
+          this.context.fillText(" "+this.YAxisTitle+" : "+ (lineItem.Values[item.ValueIndex] as RGraph).yPoint, x + 5, y + 35);
         }        
 
         this.context.stroke();
@@ -275,7 +275,7 @@ export class RSeriesChartComponent {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): PopupChartItem | undefined {
+  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -303,7 +303,7 @@ export class RSeriesChartComponent {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
-  getNameIndicator(itm: BarChartItem) {
+  getNameIndicator(itm: RBarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
   }
@@ -356,7 +356,7 @@ export class RSeriesChartComponent {
       let spaceFromTopYAxis = 25;
       let spaceFromRightXAxis = 25;
 
-      if(this.Items[0] instanceof YSeriesChartItem)
+      if(this.Items[0] instanceof RYSeriesChartItem)
         this.IsYSeriesChart = true;
 
       let xValues: number[] = [];
@@ -365,11 +365,11 @@ export class RSeriesChartComponent {
       for (let index = 0; index < this.Items.length; index++) {
         
         const element = this.IsYSeriesChart ? 
-                  this.Items[index] as YSeriesChartItem : 
-                  this.Items[index] as GraphSeriesChartItem;
+                  this.Items[index] as RYSeriesChartItem : 
+                  this.Items[index] as RGraphSeriesChartItem;
 
-        let _x = element.Values.map(x => x instanceof Graph ? x.xPoint : 0);
-        let _y = element.Values.map(y => y instanceof Graph ? y.yPoint : y);
+        let _x = element.Values.map(x => x instanceof RGraph ? x.xPoint : 0);
+        let _y = element.Values.map(y => y instanceof RGraph ? y.yPoint : y);
 
         xValues = [...xValues, ..._x];
         yValues = [...yValues, ..._y];
@@ -495,12 +495,12 @@ export class RSeriesChartComponent {
           let prevX = undefined;
           let prevY = undefined;
           
-          let areaItems: PopupChartItem[] = [];
+          let areaItems: RPopupChartItem[] = [];
           
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
 
-            let indx = item instanceof Graph ? item.xPoint / xdistance : item;
+            let indx = item instanceof RGraph ? item.xPoint / xdistance : item;
             let xPoint = undefined;
             
             if(isYSeriesChart){
@@ -509,7 +509,7 @@ export class RSeriesChartComponent {
               xPoint = xvDistance * indx + StartX;
             }
 
-            let yindx = -(item instanceof Graph ? item.yPoint / ydistance : item / ydistance) + this.NoOfSplitInYAxis;
+            let yindx = -(item instanceof RGraph ? item.yPoint / ydistance : item / ydistance) + this.NoOfSplitInYAxis;
             let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis + this.PaddingTop);
                         
             /* Plot Line */
@@ -521,11 +521,11 @@ export class RSeriesChartComponent {
             prevX = xPoint;
             prevY = yPoint;
 
-            this.PopupItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize,
+            this.PopupItems.push(new RPopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize,
               yPoint + this.PlotItemSize, element, v, index, element.ItemColor
             ));
 
-            areaItems.push(new PopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
+            areaItems.push(new RPopupChartItem(xPoint, yPoint, xPoint + this.PlotItemSize, 
               yPoint + this.PlotItemSize, element, v, index, element.ItemColor));
             
           }
@@ -753,7 +753,7 @@ export class RSeriesChartComponent {
     })
   }
 
-  private IsScatterItemListEqual(a: YSeriesChartItem[] | GraphSeriesChartItem[] | null | undefined, b: YSeriesChartItem[] | GraphSeriesChartItem[] |  null | undefined) {
+  private IsScatterItemListEqual(a: RYSeriesChartItem[] | RGraphSeriesChartItem[] | null | undefined, b: RYSeriesChartItem[] | RGraphSeriesChartItem[] |  null | undefined) {
 
     if ((a == null || a == undefined) && (b == null || b == undefined))
       return true;
@@ -769,8 +769,8 @@ export class RSeriesChartComponent {
       let element2 = b[index];
       
       if (element1.ItemName != element2.ItemName || element1.ItemColor != element2.ItemColor ||
-        element1.Values.map(x => (x instanceof Graph) ? x.xPoint : x).toString() != element2.Values.map(x => x instanceof Graph ? x.xPoint : x).toString() ||
-        element1.Values.map(x => (x instanceof Graph) ? x.yPoint : x).toString() != element2.Values.map(x => x instanceof Graph ? x.yPoint : x).toString()
+        element1.Values.map(x => (x instanceof RGraph) ? x.xPoint : x).toString() != element2.Values.map(x => x instanceof RGraph ? x.xPoint : x).toString() ||
+        element1.Values.map(x => (x instanceof RGraph) ? x.yPoint : x).toString() != element2.Values.map(x => x instanceof RGraph ? x.yPoint : x).toString()
       ) {
         return false;
       }

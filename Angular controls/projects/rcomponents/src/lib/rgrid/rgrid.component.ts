@@ -367,7 +367,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     this.cdr.detectChanges();
   }
 
-  sortColumn(hdr: RGridHeader) {
+  async sortColumn(hdr: RGridHeader) {
     if (hdr) {
 
       let defaultindx = this.SortHeaders.findIndex(x => x.Header.PropToBind == this.indxKey);
@@ -403,7 +403,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, defaultHdr));
       }
 
-      this.sortData();
+      await this.sortData();
     }
   }
 
@@ -442,7 +442,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     this.sortData();
   }
 
-  sortData() {
+  async sortData() {
     const sorter = (columns: RGridHeaderSort[]) => (firstObj: any, SecondObj: any) => columns.map(x => {
       let type = 1;
 
@@ -488,11 +488,11 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         element.Values.sort(sorter(this.SortHeaders));
       }
 
-      this.filterPerPageForGroup();
+      await this.filterPerPageForGroup();
 
     } else {
       this.DataItems.Rows.sort(sorter(this.SortHeaders));
-      this.filterPerPage();
+      await this.filterPerPage();
     }
 
     this.AssignSortTypeToHeaders();
@@ -512,7 +512,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return gpString;
   }
 
-  createGroup() {
+  async createGroup() {
 
     let exprs = [];
 
@@ -547,9 +547,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
 
     if (this.IsGroupHaveColumns) {
-      this.filterPerPageForGroup();
+      await this.filterPerPageForGroup();
     } else {
-      this.filterPerPage();
+      await this.filterPerPage();
     }
 
     if (this.viewport) {
@@ -559,14 +559,14 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     this.cdr.detectChanges();
   }
 
-  expandGroup($event: Event, grpItem: RGridGroupData) {
+  async expandGroup($event: Event, grpItem: RGridGroupData) {
     grpItem.IsExpanded = !grpItem.IsExpanded;
 
     let spanElement = ($event.srcElement as HTMLSpanElement);
     spanElement.classList.toggle("symbol-down");
   }
 
-  groupDrop($event: CdkDragDrop<RGridHeader[]>) {
+  async groupDrop($event: CdkDragDrop<RGridHeader[]>) {
     let _hdr = $event.item.data as RGridHeader;
     let _srt = undefined;
 
@@ -580,7 +580,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       let indx = this.GroupHeaders.findIndex(x => x.PropToBind == _hdr.PropToBind);
       if (indx == -1) {
         this.GroupHeaders.push($event.item.data);
-        this.createGroup();
+        await this.createGroup();
 
         /* Sort the column when group */
         if (_hdr.sortType == RGridHeaderSortType.Ascending) {
@@ -629,11 +629,11 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
   }
 
-  removeFromGroup(item: RGridHeader) {
+  async removeFromGroup(item: RGridHeader) {
     let ind = this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind);
     if (ind > -1) {
       this.GroupHeaders.splice(ind, 1);
-      this.createGroup();
+      await this.createGroup();
     }
   }
 
@@ -650,17 +650,17 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
         this.zone.run(() => {
 
-          setTimeout(() => {
+          setTimeout(async () => {
 
             if (!this.IsFilteredApplied) {
               this.ExtractHeadersFromTemplate();
             }
 
-            this.DataItems = this.PopulateData();
+            this.DataItems = await this.PopulateData();
             this.AssignEditRowWhenLoad();
-            this.filterPerPage();
+            await this.filterPerPage();
             // this.createGroup();
-            this.sortData();
+            await this.sortData();
             this.cdr.detectChanges();
           }, 500);
 
@@ -672,17 +672,17 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
           this.zone.run(() => {
 
-            setTimeout(() => {
+            setTimeout(async () => {
 
               if (!this.IsFilteredApplied) {
                 this.ExtractHeader();
               }
 
-              this.DataItems = this.PopulateDefaultData();
+              this.DataItems = await this.PopulateDefaultData();
               this.AssignEditRowWhenLoad();
-              this.filterPerPage();
+              await this.filterPerPage();
               // this.createGroup();
-              this.sortData();
+              await this.sortData();
               this.cdr.detectChanges();
 
             }, 500);
@@ -695,16 +695,16 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   }
 
-  ItemsShownPerPage(num: any) {
+  async ItemsShownPerPage(num: any) {
     this.adjustPageValue();
     if (this.IsGroupHaveColumns) {
-      this.filterPerPageForGroup();
+      await this.filterPerPageForGroup();
     } else {
-      this.filterPerPage();
+      await this.filterPerPage();
     }
   }
 
-  filterPerPage() {
+  async filterPerPage() {
     if (this.DataItems) {
 
       let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
@@ -731,7 +731,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
   }
 
-  filterPerPageForGroup() {
+  async filterPerPageForGroup() {
     let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
     this.DisplayGroupItems = [];
 
@@ -781,27 +781,27 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
   }
 
-  NextPage() {
+  async NextPage() {
     this.currentPage++;
     this.adjustPageValue();
     if (this.IsGroupHaveColumns) {
-      this.filterPerPageForGroup();
+      await this.filterPerPageForGroup();
     } else {
-      this.filterPerPage();
+      await this.filterPerPage();
     }
   }
 
-  PreviousPage() {
+  async PreviousPage() {
     this.currentPage--;
     this.adjustPageValue();
     if (this.IsGroupHaveColumns) {
-      this.filterPerPageForGroup();
+      await this.filterPerPageForGroup();
     } else {
-      this.filterPerPage();
+      await this.filterPerPage();
     }
   }
 
-  LastPage() {
+  async LastPage() {
 
     let noofPage = parseInt((this.DataItems.Rows.length / this.ItemsPerPage.Value).toString());
     let rem = this.DataItems.Rows.length % this.ItemsPerPage.Value;
@@ -812,13 +812,13 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
     this.currentPage = noofPage;
     if (this.IsGroupHaveColumns) {
-      this.filterPerPageForGroup();
+      await this.filterPerPageForGroup();
     } else {
-      this.filterPerPage();
+      await this.filterPerPage();
     }
   }
 
-  FirstPage() {
+  async FirstPage() {
     let noofPage = parseInt((this.DataItems.Rows.length / this.ItemsPerPage.Value).toString());
     let rem = this.DataItems.Rows.length % this.ItemsPerPage.Value;
 
@@ -833,9 +833,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
     
     if (this.IsGroupHaveColumns) {
-      this.filterPerPageForGroup();
+      await this.filterPerPageForGroup();
     } else {
-      this.filterPerPage();
+      await this.filterPerPage();
     }
   }
 
@@ -923,7 +923,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       return dValues;
   }
 
-  ApplyFilter(filter: RFilterApplyModel) {
+  async ApplyFilter(filter: RFilterApplyModel) {
         
     this.IsUpdateFromFilter = true;
 
@@ -950,7 +950,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         return;
       } else {
         this.currentPage = 1;
-        this.ApplyFilterOnClick();         
+       await this.ApplyFilterOnClick();         
         return;       
       }      
 
@@ -962,15 +962,15 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     
     if(filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined){
       this.currentPage = 1;
-      this.ApplyFilterOnClick();   
+     await this.ApplyFilterOnClick();   
       return;
     }
 
     this.currentPage = 1;
-    this.ApplyFilterOnClick();     
+    await this.ApplyFilterOnClick();     
   }
 
-  ApplyFilterOnClick(){
+  async ApplyFilterOnClick(){
 
     let newIndexes = [];
 
@@ -1177,7 +1177,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return val+CssUnit.Px.toString();
   }
 
-  private PopulateData(): RGridItems {
+  private async PopulateData(): Promise<RGridItems> {
     let _dataItems = new RGridItems();
     let cols = this.Columns.toArray();
 
@@ -1301,7 +1301,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return _dataItems;
   }
 
-  private PopulateDefaultData(): RGridItems {
+  private async PopulateDefaultData(): Promise<RGridItems> {
     let _dataItems = new RGridItems();
 
     let totCols = this.Headers.length;

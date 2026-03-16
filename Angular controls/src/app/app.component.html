@@ -1,7 +1,7 @@
 <div>
 
   <h3>Server 1</h3>
-  <div style="margin-top:105px;"></div>
+  <div style="margin-top:50px;"></div>
 
   <!-- 
       <div style="margin-left: 60px;">
@@ -99,10 +99,10 @@
       <br />
 
 
-      <div style="height: 300px;width:300px;margin-left:60px;padding:40px">
-      <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
-        (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
-      </rcolorpicker>
+      <div>
+          <rcolorpicker [(ngModel)]="color1" [DisplayColorInHex]="true" [IsDisplayLabelText]="true"
+            (ColorSelected)="ColorSelected($event)" [LabelText]="'Processed Color : '">
+          </rcolorpicker>
       </div>
 
       <div></div>

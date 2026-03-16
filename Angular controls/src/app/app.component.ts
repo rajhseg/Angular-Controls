@@ -288,7 +288,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   @ViewChild('tabCom1', { read: RTabsComponent }) tabs!: RTabsComponent;
   @ViewChild('sequ', {read: RStateVerticalComponent}) sequ!: RStateVerticalComponent;
   
-  @ViewChild('sequhorizontal', {read: RStateHorizontalComponent}) sequhorizontal!: RStateHorizontalComponent;
+  @ViewChild('sequhorizontal', { read: RStateHorizontalComponent }) sequhorizontal!: RStateHorizontalComponent;
+
+  @ViewChild('customTree', { read: RTreeComponent }) customTree!: RTreeComponent;
   
   checkedSize: CheckBoxSize = CheckBoxSize.x_small;
   radioSize: string = "12px";
@@ -360,7 +362,6 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.curDate = "";
       this.perc = 55;
       this.IncrementValue(this);
-      this.createTreeData();
       this.createSequenceVerticalItems();
       this.createSequenceHorizontalItems();
       this.populateGridValues();
@@ -946,60 +947,19 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     
   }
 
-  createTreeData(){
-    if(this.winObj.isExecuteInBrowser()){ 
-    let _treeItems = new RTreeItem();
-    const folderImage: any = document.getElementById("folderImage")?.cloneNode(true);
+  createTreeData() {
+    if (this.winObj.isExecuteInBrowser()) {
+      let _treeItems = new RTreeItem();
+      const folderImage: any = document.getElementById("folderImage")?.cloneNode(true);
 
-    _treeItems.DisplayText = "Level 1";
-    _treeItems.Value = 1;
-    _treeItems.ImageUrl = "images/folder.png";
+      _treeItems.DisplayText = "Level 1";
+      _treeItems.Value = 1;
+      _treeItems.ImageUrl = "images/folder.png";
 
-    let childrens = [];
-
-    let level2= new RTreeItem();
-    level2.DisplayText = "Level 2";
-    level2.Value = 2;
-    level2.ImageUrl = "images/folder.png";
-
-    childrens.push(level2);
-
-    let level21= new RTreeItem();
-    level21.DisplayText = "Level 21";
-    level21.Value = 21;
-    level21.ImageUrl = "images/folder.png";
-
-    childrens.push(level21);
-
-    
-    let level22= new RTreeItem();
-    level22.DisplayText = "Level 22";
-    level22.Value = 22;
-    level22.ImageUrl = "images/folder.png";
-
-    let level31= new RTreeItem();
-    level31.DisplayText = "Level 31";
-    level31.Value = 31;
-    level22.Childrens.push(level31);
-    level31.ImageUrl = "images/folder.png";
-
-    let level32= new RTreeItem();
-    level32.DisplayText = "Level 32";
-    level32.Value = 31;
-    level22.Childrens.push(level32);
-    level32.ImageUrl = "images/folder.png";
-
-    let level32ch = new RTreeItem();
-    level32ch.DisplayText = "Level 4";
-    level32ch.Value =4;
-    level32.Childrens.push(level32ch);
-
-    childrens.push(level22);
-
-    _treeItems.Childrens = childrens;
-
-    this.treeItems = [];
-    this.treeItems.push(_treeItems);
+      this.treeItems = [];
+      let childItem = this.customTree.GetLoadingTreeItem();
+      _treeItems.AddChildItems(childItem);
+      this.treeItems?.push(_treeItems);
     }
   }
 
@@ -1007,13 +967,60 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     console.log(item);
   }
 
-  ExpandClicked(item:RTreeItem) {
-    if(item.IsExpanded){
+  async ExpandClicked(item: RTreeItem) {
+
+    if (item.IsExpanded) {
       item.ImageUrl = "images/open-folder.png";
     }
-    else{
+    else {
       item.ImageUrl = "images/folder.png";
     }
+
+
+    if (item.CustomPropertyObject.IsDataLoaded ||
+      item.CustomPropertyObject.IsCurrentlyLoading) {
+      return;
+    }
+
+    item.CustomPropertyObject.IsCurrentlyLoading = true;
+
+    setTimeout(async () => {
+
+      await this.LoadTreeItems(item);
+
+      item.CustomPropertyObject.IsDataLoaded = true;
+
+      let loaderItems = item.Childrens.filter(x => x.IsLoaderItem());
+
+      loaderItems.forEach(y => {
+        item.DeleteChildItem(y);
+      });
+
+      item.CustomPropertyObject.IsCurrentlyLoading = false;
+
+    }, 10000);
+
+  }
+
+
+  private async LoadTreeItems(item: RTreeItem) {
+
+    let level31 = new RTreeItem();
+    level31.DisplayText = "Level " + (item.Level + 1) + ".1";
+    level31.Value = "Level " + (item.Level + 1) + ".1";
+    level31.ImageUrl = "images/folder.png";
+
+    level31.AddChildItems(this.customTree.GetLoadingTreeItem());
+
+    let level32 = new RTreeItem();
+    level32.DisplayText = "Level " + (item.Level + 1) + ".2";
+    level32.Value = "Level " + (item.Level + 2) +  ".2";
+    level32.ImageUrl = "images/folder.png";
+
+    level32.AddChildItems(this.customTree.GetLoadingTreeItem());
+
+    item.AddChildItems(level31);
+    item.AddChildItems(level32);
   }
 
   AddTab() {
@@ -1036,7 +1043,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   ngAfterViewInit(): void {    
-   
+    this.createTreeData();
   }
 
   IncrementValue(obj: AppComponent) {

@@ -69,4 +69,23 @@ export class RTreeComponent {
   onChildSelected(item: RTreeItem){
     this.onItemSelected.emit(item);
   }
+
+  DeleteTreeItem(removeItem: RTreeItem) {
+    if (this._items.length > 0) {
+      let firstItem = this._items[0];
+
+      if (firstItem.Id == removeItem.Id) {
+        this._items = [];
+      } else {
+        firstItem.DeleteChildItem(removeItem);
+      }
+    }
+  }
+
+  GetLoadingTreeItem(): RTreeItem {
+    let loadingItem = new RTreeItem();
+    loadingItem.ConvertToLoaderItem();
+    return loadingItem;
+  }
+  
 }

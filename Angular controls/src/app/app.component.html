@@ -560,9 +560,11 @@
     [IsDisplayColorCode]="false"></rcolorpicker>
   <br />
   <br />
-  <rtree [ExpandIconColor]="bColor" [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)"
+
+  <rtree #customTree [ExpandIconColor]="bColor" [Items]="treeItems" (onExpandClicked)="ExpandClicked($event)"
     (onItemSelected)="OnTreeItemSelected($event)">
   </rtree>
+
   <br />
 
   <rbutton [ButtonWidth]="'150px'" [BackgroundColor]="bColor" (ButtonClick)="nextStep()">

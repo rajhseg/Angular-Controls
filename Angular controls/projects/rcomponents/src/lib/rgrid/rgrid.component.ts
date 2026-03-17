@@ -450,7 +450,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     });
   }
 
-  sortAsc(hdr: RGridHeader) {
+  async sortAsc(hdr: RGridHeader) {
     let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
 
     if (indx > -1) {
@@ -459,7 +459,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, hdr));
     }
 
-    this.sortData();
+    await this.sortData();
   }
 
   AssignSortTypeToHeaders() {
@@ -473,7 +473,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
   }
 
-  sortDes(hdr: RGridHeader) {
+  async sortDes(hdr: RGridHeader) {
     let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
 
     if (indx > -1) {
@@ -482,72 +482,64 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Descending, hdr));
     }
 
-    this.sortData();
+    await this.sortData();
   }
 
   async sortData() {
-    this.EnableLoader = true;
 
-    setTimeout(async () => {
+    const sorter = (columns: RGridHeaderSort[]) => (firstObj: any, SecondObj: any) => columns.map(x => {
+      let type = 1;
 
-      const sorter = (columns: RGridHeaderSort[]) => (firstObj: any, SecondObj: any) => columns.map(x => {
-        let type = 1;
-
-        if (x.SortType == RGridHeaderSortType.Descending) {
-          type = -1;
-        }
-
-        if (firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
-          return -(type);
-        else if (firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
-          return type;
-        else
-          return 0;
-
-      }).reduce((prev, curr) => prev ? prev : curr, 0);
-
-
-      if (this.IsGroupHaveColumns) {
-
-        /* insert group column at first position in sort */
-        let _cols = this.SortHeaders.map(x => this.GroupHeaders.find(y => y.ColumnName == x.Header.ColumnName));
-        let groupCols = _cols.filter(x => x != undefined);
-
-        for (let index = groupCols.length - 1; index > -1; index--) {
-          const element = groupCols[index];
-          if (element) {
-            let indx = this.SortHeaders.findIndex(x => x.Header.ColumnName == element.ColumnName);
-            let ele = this.SortHeaders[indx];
-            if (indx > 0) {
-              this.SortHeaders.splice(indx, 1);
-              this.SortHeaders.unshift(ele);
-            }
-          }
-        }
-        /* above code insert group column at first position in sort */
-
-        this.DataItems.Rows.sort(sorter(this.SortHeaders));
-        await this.createGroup();
-
-        let _keys = this.GroupItems.length;
-        for (let index = 0; index < _keys; index++) {
-          const element = this.GroupItems[index];
-          element.Values.sort(sorter(this.SortHeaders));
-        }
-
-        await this.filterPerPageForGroup();
-
-      } else {
-        this.DataItems.Rows.sort(sorter(this.SortHeaders));
-        await this.filterPerPage();
+      if (x.SortType == RGridHeaderSortType.Descending) {
+        type = -1;
       }
 
-      this.AssignSortTypeToHeaders();
+      if (firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
+        return -(type);
+      else if (firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
+        return type;
+      else
+        return 0;
 
-      this.EnableLoader = false;
+    }).reduce((prev, curr) => prev ? prev : curr, 0);
 
-      this.cdr.detectChanges();
-    });
+
+    if (this.IsGroupHaveColumns) {
+
+      /* insert group column at first position in sort */
+      let _cols = this.SortHeaders.map(x => this.GroupHeaders.find(y => y.ColumnName == x.Header.ColumnName));
+      let groupCols = _cols.filter(x => x != undefined);
+
+      for (let index = groupCols.length - 1; index > -1; index--) {
+        const element = groupCols[index];
+        if (element) {
+          let indx = this.SortHeaders.findIndex(x => x.Header.ColumnName == element.ColumnName);
+          let ele = this.SortHeaders[indx];
+          if (indx > 0) {
+            this.SortHeaders.splice(indx, 1);
+            this.SortHeaders.unshift(ele);
+          }
+        }
+      }
+      /* above code insert group column at first position in sort */
+
+      this.DataItems.Rows.sort(sorter(this.SortHeaders));
+      await this.createGroup();
+
+      let _keys = this.GroupItems.length;
+      for (let index = 0; index < _keys; index++) {
+        const element = this.GroupItems[index];
+        element.Values.sort(sorter(this.SortHeaders));
+      }
+
+      await this.filterPerPageForGroup();
+
+    } else {
+      this.DataItems.Rows.sort(sorter(this.SortHeaders));
+      await this.filterPerPage();
+    }
+
+    this.AssignSortTypeToHeaders();
   }
 
   getGroupHeaderAsString(grpItem: RGridGroupData) {
@@ -564,49 +556,51 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return gpString;
   }
 
- async createGroup() {
-  
-      let exprs = [];
+  async createGroup() {
 
-      for (let index = 0; index < this.GroupHeaders.length; index++) {
-        const element = this.GroupHeaders[index];
-        let exp = (x: any) => x[element.PropToBind];
-        exprs.push(exp);
+    let exprs = [];
+
+    console.log("Create Group called");
+
+    for (let index = 0; index < this.GroupHeaders.length; index++) {
+      const element = this.GroupHeaders[index];
+      let exp = (x: any) => x[element.PropToBind];
+      exprs.push(exp);
+    }
+
+    this.GroupItems = [];
+
+    if (this.GroupHeaders.length > 0) {
+      this.GroupedData = this.groupByItems(exprs);
+      let keys = (this.GroupedData.keys() as any).toArray();
+
+      for (let index = 0; index < keys.length; index++) {
+        const element = keys[index];
+        let _values = this.GroupedData.get(element);
+        if (_values) {
+          this.GroupItems.push(new RGridGroupData(element, _values, true));
+        }
       }
+
+      this.IsGroupHaveColumns = true;
+
+    } else {
+      this.GroupedData = undefined;
+      this.IsGroupHaveColumns = false;
 
       this.GroupItems = [];
+      this.DisplayGroupItems = [];
+    }
 
-      if (this.GroupHeaders.length > 0) {
-        this.GroupedData = this.groupByItems(exprs);
-        let keys = (this.GroupedData.keys() as any).toArray();
+    if (this.IsGroupHaveColumns) {
+      await this.filterPerPageForGroup();
+    } else {
+      await this.filterPerPage();
+    }
 
-        for (let index = 0; index < keys.length; index++) {
-          const element = keys[index];
-          let _values = this.GroupedData.get(element);
-          if (_values) {
-            this.GroupItems.push(new RGridGroupData(element, _values, true));
-          }
-        }
-
-        this.IsGroupHaveColumns = true;
-
-      } else {
-        this.GroupedData = undefined;
-        this.IsGroupHaveColumns = false;
-
-        this.GroupItems = [];
-        this.DisplayGroupItems = [];
-      }
-
-      if (this.IsGroupHaveColumns) {
-        await this.filterPerPageForGroup();
-      } else {
-        await this.filterPerPage();
-      }
-
-      if (this.viewport) {
-        this.viewport.checkViewportSize();
-      }
+    if (this.viewport) {
+      this.viewport.checkViewportSize();
+    }
   }
 
   async expandGroup($event: Event, grpItem: RGridGroupData) {
@@ -1114,8 +1108,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
     this.EnableLoader = true;
 
-    setTimeout(async () => {
-
       let newIndexes = [];
 
       var filteredIndexes: number[] = [];
@@ -1257,9 +1249,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.Items = filteredValues.slice();
-
-      this.cdr.detectChanges();
-    });
 
   }
 

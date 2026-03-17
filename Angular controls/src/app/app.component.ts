@@ -803,9 +803,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     
      this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
 
-     this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
-     this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
-     this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+    this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+
+     //this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
+     //this.gridItems = [...this.gridItems, ...this.gridItems, ...this.gridItems, ...this.gridItems];
     
    
     this.gridItems1 = this.gridItems1.slice();

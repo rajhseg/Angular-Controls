@@ -15,6 +15,8 @@ import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.servi
 import { CheckBoxSize, RCheckboxComponent } from '../rcheckbox/rcheckbox.component';
 import { CheckboxEventArgs } from '../rcheckbox/rcheckbox.service';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
+import { RProgressbarComponent } from "../rprogressbar/rprogressbar.component";
 
 @Component({
   selector: 'rgrid',
@@ -23,7 +25,7 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
     KeyValuePipe, ScrollingModule,
     NgClass, CdkDrag, CdkDropList, CdkDragPlaceholder, JsonPipe, FormsModule, CdkDragPreview,
     ReactiveFormsModule, NgTemplateOutlet, RButtonComponent, RDropdownComponent, RTextboxComponent,
-    RFilterComponent, RCheckboxComponent],
+    RFilterComponent, RCheckboxComponent, RProgressbarComponent],
   templateUrl: './rgrid.component.html',
   styleUrl: './rgrid.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +47,18 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   private indxKey: string = "rgrid_index";
 
   private selectKey: string = "rgrid_select";
+
+  progressDisplayType: RProgressBarDisplayType = RProgressBarDisplayType.Circle;
+
+  progressType: RProgressBarType = RProgressBarType.Infinite;
+
+  @Input()
+  LoaderForeColor: string = 'blue';
+
+  @Input()
+  LoaderTrackColor: string = 'lightgray';
+
+  EnableLoader: boolean = false;
 
   @Input()
   EnableSelectColummn: boolean = true;
@@ -246,6 +260,18 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return 0;
   }
 
+  public get TotalPagesInGrid(): number {
+    
+    if(this.DataItems) {
+      let tot = this.DataItems.Rows.length;
+      let div = tot / this.ItemsPerPage.Value;
+      div = Math.ceil(div);
+      return div;
+    }
+      
+    return 0;
+  }
+
   public get GetContentHeight(): string {
     if(this.TableHeight != undefined && this.TableHeight != null) {
       let _height = this.cssUnit.ToPxValue(this.TableHeight, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
@@ -282,16 +308,24 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   SelectAll(evt: CheckboxEventArgs) {
-    this.IsSelectedAll = evt.isChecked;
-    
-    for (let index = 0; index < this.DataItems.Rows.length; index++) {
-      const element = this.DataItems.Rows[index];
-      element[this.selectKey].FromModel = true;
-      element[this.selectKey].Value = evt.isChecked as any;
-      element[this.selectKey].FromModel = false;
-    }
+    this.EnableLoader = true;
 
-    this.SelectAllClicked.emit({isSelectedAll: evt.isChecked, event:evt.event});
+    setTimeout(()=>{
+
+      this.IsSelectedAll = evt.isChecked;
+      
+      for (let index = 0; index < this.DataItems.Rows.length; index++) {
+        const element = this.DataItems.Rows[index];
+        element[this.selectKey].FromModel = true;
+        element[this.selectKey].Value = evt.isChecked as any;
+        element[this.selectKey].FromModel = false;
+      }
+
+      this.SelectAllClicked.emit({isSelectedAll: evt.isChecked, event:evt.event});
+    
+      this.EnableLoader = false;
+      this.cdr.detectChanges();
+    });
   }
 
   ItemSelect(evt:CheckboxEventArgs, item: any){ 
@@ -368,43 +402,52 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   async sortColumn(hdr: RGridHeader) {
-    if (hdr) {
+    
+    this.EnableLoader = true;
 
-      let defaultindx = this.SortHeaders.findIndex(x => x.Header.PropToBind == this.indxKey);
-      if (defaultindx > -1) {
-        this.SortHeaders.splice(defaultindx, 1);
-      }
-      let srtType: RGridHeaderSortType | undefined = undefined;
+    setTimeout(async () => {
 
-      if (hdr.sortType == undefined) {
-        srtType = RGridHeaderSortType.Ascending;
-      } else if (hdr.sortType == RGridHeaderSortType.Ascending) {
-        srtType = RGridHeaderSortType.Descending;
-      }
-      else {
-        srtType = undefined;
-      }
+      if (hdr) {
 
-      let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
-      hdr.sortType = srtType;
-
-      if (srtType == undefined) {
-        this.SortHeaders.splice(indx, 1);
-      } else {
-        if (indx > -1) {
-          this.SortHeaders[indx].SortType = srtType;;
-        } else {
-          this.SortHeaders.push(new RGridHeaderSort(srtType, hdr));
+        let defaultindx = this.SortHeaders.findIndex(x => x.Header.PropToBind == this.indxKey);
+        if (defaultindx > -1) {
+          this.SortHeaders.splice(defaultindx, 1);
         }
+        let srtType: RGridHeaderSortType | undefined = undefined;
+
+        if (hdr.sortType == undefined) {
+          srtType = RGridHeaderSortType.Ascending;
+        } else if (hdr.sortType == RGridHeaderSortType.Ascending) {
+          srtType = RGridHeaderSortType.Descending;
+        }
+        else {
+          srtType = undefined;
+        }
+
+        let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
+        hdr.sortType = srtType;
+
+        if (srtType == undefined) {
+          this.SortHeaders.splice(indx, 1);
+        } else {
+          if (indx > -1) {
+            this.SortHeaders[indx].SortType = srtType;;
+          } else {
+            this.SortHeaders.push(new RGridHeaderSort(srtType, hdr));
+          }
+        }
+
+        if (this.SortHeaders.length == 0) {
+          let defaultHdr = new RGridHeader(this.indxKey, this.indxKey, this.indxKey, -1, this.indxKey, false);
+          this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, defaultHdr));
+        }
+
+        await this.sortData();
       }
 
-      if (this.SortHeaders.length == 0) {
-        let defaultHdr = new RGridHeader(this.indxKey, this.indxKey, this.indxKey, -1, this.indxKey, false);
-        this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, defaultHdr));
-      }
-
-      await this.sortData();
-    }
+      this.EnableLoader = false;
+      this.cdr.detectChanges();
+    });
   }
 
   sortAsc(hdr: RGridHeader) {
@@ -443,59 +486,68 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   async sortData() {
-    const sorter = (columns: RGridHeaderSort[]) => (firstObj: any, SecondObj: any) => columns.map(x => {
-      let type = 1;
+    this.EnableLoader = true;
 
-      if (x.SortType == RGridHeaderSortType.Descending) {
-        type = -1;
-      }
+    setTimeout(async () => {
 
-      if (firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
-        return -(type);
-      else if (firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
-        return type;
-      else
-        return 0;
+      const sorter = (columns: RGridHeaderSort[]) => (firstObj: any, SecondObj: any) => columns.map(x => {
+        let type = 1;
 
-    }).reduce((prev, curr) => prev ? prev : curr, 0);
+        if (x.SortType == RGridHeaderSortType.Descending) {
+          type = -1;
+        }
+
+        if (firstObj[x.Header.PropToBind].Value < SecondObj[x.Header.PropToBind].Value)
+          return -(type);
+        else if (firstObj[x.Header.PropToBind].Value > SecondObj[x.Header.PropToBind].Value)
+          return type;
+        else
+          return 0;
+
+      }).reduce((prev, curr) => prev ? prev : curr, 0);
 
 
-    if (this.IsGroupHaveColumns) {
+      if (this.IsGroupHaveColumns) {
 
-      /* insert group column at first position in sort */
-      let _cols = this.SortHeaders.map(x => this.GroupHeaders.find(y => y.ColumnName == x.Header.ColumnName));
-      let groupCols = _cols.filter(x => x != undefined);
+        /* insert group column at first position in sort */
+        let _cols = this.SortHeaders.map(x => this.GroupHeaders.find(y => y.ColumnName == x.Header.ColumnName));
+        let groupCols = _cols.filter(x => x != undefined);
 
-      for (let index = groupCols.length - 1; index > -1; index--) {
-        const element = groupCols[index];
-        if (element) {
-          let indx = this.SortHeaders.findIndex(x => x.Header.ColumnName == element.ColumnName);
-          let ele = this.SortHeaders[indx];
-          if (indx > 0) {
-            this.SortHeaders.splice(indx, 1);
-            this.SortHeaders.unshift(ele);
+        for (let index = groupCols.length - 1; index > -1; index--) {
+          const element = groupCols[index];
+          if (element) {
+            let indx = this.SortHeaders.findIndex(x => x.Header.ColumnName == element.ColumnName);
+            let ele = this.SortHeaders[indx];
+            if (indx > 0) {
+              this.SortHeaders.splice(indx, 1);
+              this.SortHeaders.unshift(ele);
+            }
           }
         }
+        /* above code insert group column at first position in sort */
+
+        this.DataItems.Rows.sort(sorter(this.SortHeaders));
+        await this.createGroup();
+
+        let _keys = this.GroupItems.length;
+        for (let index = 0; index < _keys; index++) {
+          const element = this.GroupItems[index];
+          element.Values.sort(sorter(this.SortHeaders));
+        }
+
+        await this.filterPerPageForGroup();
+
+      } else {
+        this.DataItems.Rows.sort(sorter(this.SortHeaders));
+        await this.filterPerPage();
       }
-      /* above code insert group column at first position in sort */
 
-      this.DataItems.Rows.sort(sorter(this.SortHeaders));
-      this.createGroup();
+      this.AssignSortTypeToHeaders();
 
-      let _keys = this.GroupItems.length;
-      for (let index = 0; index < _keys; index++) {
-        const element = this.GroupItems[index];
-        element.Values.sort(sorter(this.SortHeaders));
-      }
+      this.EnableLoader = false;
 
-      await this.filterPerPageForGroup();
-
-    } else {
-      this.DataItems.Rows.sort(sorter(this.SortHeaders));
-      await this.filterPerPage();
-    }
-
-    this.AssignSortTypeToHeaders();
+      this.cdr.detectChanges();
+    });
   }
 
   getGroupHeaderAsString(grpItem: RGridGroupData) {
@@ -512,87 +564,105 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return gpString;
   }
 
-  async createGroup() {
+ async createGroup() {
+  
+      let exprs = [];
 
-    let exprs = [];
-
-    for (let index = 0; index < this.GroupHeaders.length; index++) {
-      const element = this.GroupHeaders[index];
-      let exp = (x: any) => x[element.PropToBind];
-      exprs.push(exp);
-    }
-
-    this.GroupItems = [];
-
-    if (this.GroupHeaders.length > 0) {
-      this.GroupedData = this.groupByItems(exprs);
-      let keys = (this.GroupedData.keys() as any).toArray();
-
-      for (let index = 0; index < keys.length; index++) {
-        const element = keys[index];
-        let _values = this.GroupedData.get(element);
-        if (_values) {
-          this.GroupItems.push(new RGridGroupData(element, _values, true));
-        }
+      for (let index = 0; index < this.GroupHeaders.length; index++) {
+        const element = this.GroupHeaders[index];
+        let exp = (x: any) => x[element.PropToBind];
+        exprs.push(exp);
       }
 
-      this.IsGroupHaveColumns = true;
-
-    } else {
-      this.GroupedData = undefined;
-      this.IsGroupHaveColumns = false;
-
       this.GroupItems = [];
-      this.DisplayGroupItems = [];
-    }
 
-    if (this.IsGroupHaveColumns) {
-      await this.filterPerPageForGroup();
-    } else {
-      await this.filterPerPage();
-    }
+      if (this.GroupHeaders.length > 0) {
+        this.GroupedData = this.groupByItems(exprs);
+        let keys = (this.GroupedData.keys() as any).toArray();
 
-    if (this.viewport) {
-      this.viewport.checkViewportSize();
-    }
+        for (let index = 0; index < keys.length; index++) {
+          const element = keys[index];
+          let _values = this.GroupedData.get(element);
+          if (_values) {
+            this.GroupItems.push(new RGridGroupData(element, _values, true));
+          }
+        }
 
-    this.cdr.detectChanges();
+        this.IsGroupHaveColumns = true;
+
+      } else {
+        this.GroupedData = undefined;
+        this.IsGroupHaveColumns = false;
+
+        this.GroupItems = [];
+        this.DisplayGroupItems = [];
+      }
+
+      if (this.IsGroupHaveColumns) {
+        await this.filterPerPageForGroup();
+      } else {
+        await this.filterPerPage();
+      }
+
+      if (this.viewport) {
+        this.viewport.checkViewportSize();
+      }
   }
 
   async expandGroup($event: Event, grpItem: RGridGroupData) {
-    grpItem.IsExpanded = !grpItem.IsExpanded;
+    this.EnableLoader = true;
 
-    let spanElement = ($event.srcElement as HTMLSpanElement);
-    spanElement.classList.toggle("symbol-down");
+    setTimeout(async () => {
+
+      grpItem.IsExpanded = !grpItem.IsExpanded;
+
+      let spanElement = ($event.srcElement as HTMLSpanElement);
+      spanElement.classList.toggle("symbol-down");
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
   }
 
   async groupDrop($event: CdkDragDrop<RGridHeader[]>) {
-    let _hdr = $event.item.data as RGridHeader;
-    let _srt = undefined;
 
-    if (_hdr) {
-      let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
+    this.EnableLoader = true;
 
-      if (_col && (_col.IsComputationalColumn || _col.IsDummyPropToBind || _col.DisableGrouping)) {
-        return;
-      }
+    setTimeout(async () => {
 
-      let indx = this.GroupHeaders.findIndex(x => x.PropToBind == _hdr.PropToBind);
-      if (indx == -1) {
-        this.GroupHeaders.push($event.item.data);
-        await this.createGroup();
 
-        /* Sort the column when group */
-        if (_hdr.sortType == RGridHeaderSortType.Ascending) {
-          _srt = undefined;
-        } else if (_hdr.sortType == RGridHeaderSortType.Descending) {
-          _srt = RGridHeaderSortType.Ascending;
+      let _hdr = $event.item.data as RGridHeader;
+      let _srt = undefined;
+
+      if (_hdr) {
+        let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
+
+        if (_col && (_col.IsComputationalColumn || _col.IsDummyPropToBind || _col.DisableGrouping)) {
+          return;
         }
 
-        _hdr.sortType = _srt;
-        this.sortColumn(_hdr);
+        let indx = this.GroupHeaders.findIndex(x => x.PropToBind == _hdr.PropToBind);
+        if (indx == -1) {
+          this.GroupHeaders.push($event.item.data);
+          await this.createGroup();
+
+          /* Sort the column when group */
+          if (_hdr.sortType == RGridHeaderSortType.Ascending) {
+            _srt = undefined;
+          } else if (_hdr.sortType == RGridHeaderSortType.Descending) {
+            _srt = RGridHeaderSortType.Ascending;
+          }
+
+          _hdr.sortType = _srt;
+          this.sortColumn(_hdr);
+        }
       }
-    }
+
+      this.EnableLoader = false;
+      this.cdr.detectChanges();
+    });
+
   }
 
   cdkVirtualTrackBy(index: number, item: any): number {
@@ -630,11 +700,21 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   async removeFromGroup(item: RGridHeader) {
-    let ind = this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind);
-    if (ind > -1) {
-      this.GroupHeaders.splice(ind, 1);
-      await this.createGroup();
-    }
+    this.EnableLoader = true;
+
+    setTimeout(async () => {
+
+      let ind = this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind);
+      if (ind > -1) {
+        this.GroupHeaders.splice(ind, 1);
+        await this.createGroup();
+      }
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
+
   }
 
   ngAfterViewInit(): void {
@@ -643,6 +723,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   ngAfterContentInit(): void {
     this.ContentInit = true;
+    this.EnableLoader = true;
 
     if (this.winObj.isExecuteInBrowser()) {
       if (this.Columns && this.Columns.length > 0) {
@@ -661,7 +742,11 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
             await this.filterPerPage();
             // this.createGroup();
             await this.sortData();
+
+            this.EnableLoader = false;
+
             this.cdr.detectChanges();
+
           }, 500);
 
         });        
@@ -683,6 +768,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
               await this.filterPerPage();
               // this.createGroup();
               await this.sortData();
+
+              this.EnableLoader = false;
+
               this.cdr.detectChanges();
 
             }, 500);
@@ -696,15 +784,26 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   async ItemsShownPerPage(num: any) {
-    this.adjustPageValue();
-    if (this.IsGroupHaveColumns) {
-      await this.filterPerPageForGroup();
-    } else {
-      await this.filterPerPage();
-    }
+    this.EnableLoader = true;
+
+    setTimeout(async () => {
+
+      this.adjustPageValue();
+      if (this.IsGroupHaveColumns) {
+        await this.filterPerPageForGroup();
+      } else {
+        await this.filterPerPage();
+      }
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
+
   }
 
   async filterPerPage() {
+
     if (this.DataItems) {
 
       let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
@@ -713,7 +812,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
       var _normalData = this.DataItems.Rows.slice(skipItems, skipItems + this.ItemsPerPage.Value);
 
-      var unfiltered = { Rows:  [..._normalData]};
+      var unfiltered = { Rows: [..._normalData] };
 
       this.ShowItems = unfiltered;
     }
@@ -732,6 +831,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   async filterPerPageForGroup() {
+
     let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
     this.DisplayGroupItems = [];
 
@@ -741,7 +841,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       ...this.ShowItems,
       Rows: [...this.ShowItems.Rows]
     }
-    
+
     let addItem: boolean = false;
 
     let skipcount = 0;
@@ -782,61 +882,98 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   async NextPage() {
-    this.currentPage++;
-    this.adjustPageValue();
-    if (this.IsGroupHaveColumns) {
-      await this.filterPerPageForGroup();
-    } else {
-      await this.filterPerPage();
-    }
+    
+    this.EnableLoader = true;
+
+    setTimeout(async ()=> {
+      this.currentPage++;
+      this.adjustPageValue();
+      if (this.IsGroupHaveColumns) {
+        await this.filterPerPageForGroup();
+      } else {
+        await this.filterPerPage();
+      }
+
+      this.EnableLoader = false;
+      this.cdr.detectChanges();
+    });
   }
 
   async PreviousPage() {
-    this.currentPage--;
-    this.adjustPageValue();
-    if (this.IsGroupHaveColumns) {
-      await this.filterPerPageForGroup();
-    } else {
-      await this.filterPerPage();
-    }
+    this.EnableLoader = true;
+
+    setTimeout(async ()=>{
+      this.currentPage--;
+      this.adjustPageValue();
+      if (this.IsGroupHaveColumns) {
+        await this.filterPerPageForGroup();
+      } else {
+        await this.filterPerPage();
+      }
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
   }
 
   async LastPage() {
 
-    let noofPage = parseInt((this.DataItems.Rows.length / this.ItemsPerPage.Value).toString());
-    let rem = this.DataItems.Rows.length % this.ItemsPerPage.Value;
+    this.EnableLoader = true;
 
-    if (rem > 0) {
-      noofPage = noofPage + 1;
-    }
+    setTimeout(async ()=> {
 
-    this.currentPage = noofPage;
-    if (this.IsGroupHaveColumns) {
-      await this.filterPerPageForGroup();
-    } else {
-      await this.filterPerPage();
-    }
+      let noofPage = parseInt((this.DataItems.Rows.length / this.ItemsPerPage.Value).toString());
+      let rem = this.DataItems.Rows.length % this.ItemsPerPage.Value;
+
+      if (rem > 0) {
+        noofPage = noofPage + 1;
+      }
+
+      this.currentPage = noofPage;
+      if (this.IsGroupHaveColumns) {
+        await this.filterPerPageForGroup();
+      } else {
+        await this.filterPerPage();
+      }
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
   }
 
   async FirstPage() {
-    let noofPage = parseInt((this.DataItems.Rows.length / this.ItemsPerPage.Value).toString());
-    let rem = this.DataItems.Rows.length % this.ItemsPerPage.Value;
 
-    if (rem > 0) {
-      noofPage = noofPage + 1;
-    }
+    this.EnableLoader = true;
 
-    if(noofPage==0){
-      this.currentPage = 0;
-    } else {
-      this.currentPage = 1;
-    }
-    
-    if (this.IsGroupHaveColumns) {
-      await this.filterPerPageForGroup();
-    } else {
-      await this.filterPerPage();
-    }
+    setTimeout(async () => {
+
+
+      let noofPage = parseInt((this.DataItems.Rows.length / this.ItemsPerPage.Value).toString());
+      let rem = this.DataItems.Rows.length % this.ItemsPerPage.Value;
+
+      if (rem > 0) {
+        noofPage = noofPage + 1;
+      }
+
+      if (noofPage == 0) {
+        this.currentPage = 0;
+      } else {
+        this.currentPage = 1;
+      }
+
+      if (this.IsGroupHaveColumns) {
+        await this.filterPerPageForGroup();
+      } else {
+        await this.filterPerPage();
+      }
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
+
   }
 
   GetDataType(header : RGridHeader, filter: any){
@@ -925,194 +1062,216 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   async ApplyFilter(filter: RFilterApplyModel) {
         
-    this.IsUpdateFromFilter = true;
+    this.EnableLoader = true;
 
-    this.filterModel[filter.ColumnName] = filter;
+    setTimeout(async () => {
 
-    if(filter.IsCleared){
-      
-      let isanyFilter = false;
-      let keys = Object.keys(this.filterModel);
 
-      for (let index = 0; index < keys.length; index++) {
-        const element = this.filterModel[keys[index]] as RFilterApplyModel;
-        if(element.IsFiltered){
-          isanyFilter = true;
-          break;
-        }        
-      }
+      this.IsUpdateFromFilter = true;
 
-      if(!isanyFilter) {
-        this.IsFilteredApplied = false; 
-        this.Items = [];             
-        this.currentPage = 1;
-        this.Items = this.BackupItems.slice();                      
-        return;
+      this.filterModel[filter.ColumnName] = filter;
+
+      if (filter.IsCleared) {
+
+        let isanyFilter = false;
+        let keys = Object.keys(this.filterModel);
+
+        for (let index = 0; index < keys.length; index++) {
+          const element = this.filterModel[keys[index]] as RFilterApplyModel;
+          if (element.IsFiltered) {
+            isanyFilter = true;
+            break;
+          }
+        }
+
+        if (!isanyFilter) {
+          this.IsFilteredApplied = false;
+          this.Items = [];
+          this.currentPage = 1;
+          this.Items = this.BackupItems.slice();
+          return;
+        } else {
+          this.currentPage = 1;
+          await this.ApplyFilterOnClick();
+          return;
+        }
+
       } else {
-        this.currentPage = 1;
-       await this.ApplyFilterOnClick();         
-        return;       
-      }      
-
-    } else{
-      if(!this.IsFilteredApplied){
-        this.IsFilteredApplied = true;        
+        if (!this.IsFilteredApplied) {
+          this.IsFilteredApplied = true;
+        }
       }
-    }
-    
-    if(filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined){
-      this.currentPage = 1;
-     await this.ApplyFilterOnClick();   
-      return;
-    }
 
-    this.currentPage = 1;
-    await this.ApplyFilterOnClick();     
+      if (filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined) {
+        this.currentPage = 1;
+        await this.ApplyFilterOnClick();
+        return;
+      }
+
+      this.currentPage = 1;
+      await this.ApplyFilterOnClick();
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
+
   }
 
   async ApplyFilterOnClick(){
 
-    let newIndexes = [];
+    this.EnableLoader = true;
 
-    var filteredIndexes: number[] = [];
+    setTimeout(async () => {
 
-    for (let index = 0; index < this.BackupItems.length; index++) {
-      newIndexes.push(index);
-    }
 
-    /* apply filter */
-    let keys = Object.keys(this.filterModel);
+      let newIndexes = [];
 
-    for (let index = 0; index < keys.length; index++) {
-      const keyname = keys[index];
-      let filter = this.filterModel[keyname] as RFilterApplyModel;
+      var filteredIndexes: number[] = [];
 
-      if (!filter.IsCleared) {
+      for (let index = 0; index < this.BackupItems.length; index++) {
+        newIndexes.push(index);
+      }
 
-        filteredIndexes = newIndexes.slice();
-        newIndexes = [];
-        
-        let filterLesser: any = undefined;
-        let filterGreater: any = undefined;
+      /* apply filter */
+      let keys = Object.keys(this.filterModel);
 
-        if(filter.Type==RFilterDataType.NumberType) {
+      for (let index = 0; index < keys.length; index++) {
+        const keyname = keys[index];
+        let filter = this.filterModel[keyname] as RFilterApplyModel;
 
-          if(filter.LesserThan!=undefined){
-            if(filter.LesserThan.toString().split(".").length>1){
-              filterLesser = parseFloat(filter.LesserThan?.toString());
+        if (!filter.IsCleared) {
+
+          filteredIndexes = newIndexes.slice();
+          newIndexes = [];
+
+          let filterLesser: any = undefined;
+          let filterGreater: any = undefined;
+
+          if (filter.Type == RFilterDataType.NumberType) {
+
+            if (filter.LesserThan != undefined) {
+              if (filter.LesserThan.toString().split(".").length > 1) {
+                filterLesser = parseFloat(filter.LesserThan?.toString());
+              } else {
+                filterLesser = parseInt(filter.LesserThan?.toString());
+              }
+            }
+
+            if (filter.GreaterThan != undefined) {
+              if (filter.GreaterThan.toString().split(".").length > 1) {
+                filterGreater = parseFloat(filter.GreaterThan?.toString());
+              } else {
+                filterGreater = parseInt(filter.GreaterThan?.toString());
+              }
+            }
+          }
+
+
+          if (filter.Type == RFilterDataType.DateType) {
+
+            if (filter.LesserThan != undefined) {
+              let nospaceObj = filter.LesserThan.toString().replace(/\s/g, '');
+              let nospaceFormat = this.FilterDateFormat.replace(/\s/g, '');
+
+              let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+
+              if (dstr)
+                filterLesser = new Date(Date.parse(dstr));
+            }
+
+            if (filter.GreaterThan != undefined) {
+
+              let nospaceObj = filter.GreaterThan.toString().replace(/\s/g, '');
+              let nospaceFormat = this.FilterDateFormat.replace(/\s/g, '');
+
+              let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+
+              if (dstr)
+                filterGreater = new Date(Date.parse(dstr));
+            }
+
+          }
+
+          if (filter.Contains == undefined && (filter.LesserThan == undefined || filter.LesserThan == '')
+            && (filter.GreaterThan == undefined || filter.GreaterThan == '')) {
+            newIndexes = filteredIndexes.slice();
+            continue;
+          }
+
+          for (let index = 0; index < filteredIndexes.length; index++) {
+            const ind = filteredIndexes[index];
+
+            let val = this.BackupItems[ind][keyname];
+
+            let props = keyname.split(".");
+
+            if (props.length > 1) {
+              let _obj = undefined;
+              let _fobj = this.BackupItems[ind];
+
+              for (let index = 0; index < props.length; index++) {
+                const _p = props[index];
+                _fobj = _fobj[_p];
+
+                if (_fobj == undefined)
+                  break;
+
+                _obj = _fobj;
+              }
+
+              val = _obj;
+
             } else {
-              filterLesser = parseInt(filter.LesserThan?.toString());
-            }          
-          }
-          
-          if(filter.GreaterThan!=undefined){
-            if(filter.GreaterThan.toString().split(".").length>1){
-              filterGreater = parseFloat(filter.GreaterThan?.toString());
-            } else {
-              filterGreater = parseInt(filter.GreaterThan?.toString());
-            }          
-          }
-        }
-            
-        
-        if(filter.Type==RFilterDataType.DateType) {
-
-          if(filter.LesserThan!=undefined){   
-            let nospaceObj = filter.LesserThan.toString().replace(/\s/g,'');
-            let nospaceFormat = this.FilterDateFormat.replace(/\s/g,'');
-         
-            let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
-            
-            if(dstr)
-              filterLesser = new Date(Date.parse(dstr));                                  
-          }
-          
-          if(filter.GreaterThan!=undefined){  
-            
-            let nospaceObj = filter.GreaterThan.toString().replace(/\s/g,'');
-            let nospaceFormat = this.FilterDateFormat.replace(/\s/g,'');
-         
-            let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
-              
-            if(dstr)
-              filterGreater = new Date(Date.parse(dstr));                           
-          }
-
-        }
-
-        if(filter.Contains==undefined && (filter.LesserThan==undefined || filter.LesserThan=='') 
-            && (filter.GreaterThan==undefined || filter.GreaterThan=='') ){
-          newIndexes = filteredIndexes.slice();
-          continue;
-        }
-
-        for (let index = 0; index < filteredIndexes.length; index++) {
-          const ind = filteredIndexes[index];
-
-          let val = this.BackupItems[ind][keyname];
-                  
-          let props = keyname.split(".");
-
-          if (props.length > 1) {
-            let _obj = undefined;
-            let _fobj = this.BackupItems[ind];
-
-            for (let index = 0; index < props.length; index++) {
-              const _p = props[index];
-              _fobj = _fobj[_p];
-
-              if (_fobj == undefined)
-                break;
-
-              _obj = _fobj;
+              val = this.BackupItems[ind][keyname];
             }
 
-            val = _obj;
-
-          } else {
-            val = this.BackupItems[ind][keyname];
-          }
-          
-          if (filter.Contains?.map(x => x.Value).find(x => x.toString() == val.toString()) != undefined) {
-            newIndexes.push(ind);
-          }
-
-          if (filter.GreaterThan != undefined && filter.LesserThan != undefined
-            && val > filterGreater && val < filterLesser) {
-            if (newIndexes.find(x => x == index) == undefined) {
+            if (filter.Contains?.map(x => x.Value).find(x => x.toString() == val.toString()) != undefined) {
               newIndexes.push(ind);
             }
-          }
 
-
-          if (filter.GreaterThan != undefined && filter.LesserThan == undefined
-            && val > filterGreater) {
-            if (newIndexes.find(x => x == index) == undefined) {
-              newIndexes.push(ind);
+            if (filter.GreaterThan != undefined && filter.LesserThan != undefined
+              && val > filterGreater && val < filterLesser) {
+              if (newIndexes.find(x => x == index) == undefined) {
+                newIndexes.push(ind);
+              }
             }
-          }
 
 
-          if (filter.GreaterThan == undefined && filter.LesserThan != undefined
-            && val < filterLesser) {
-            if (newIndexes.find(x => x == index) == undefined) {
-              newIndexes.push(ind);
+            if (filter.GreaterThan != undefined && filter.LesserThan == undefined
+              && val > filterGreater) {
+              if (newIndexes.find(x => x == index) == undefined) {
+                newIndexes.push(ind);
+              }
             }
-          }
 
+
+            if (filter.GreaterThan == undefined && filter.LesserThan != undefined
+              && val < filterLesser) {
+              if (newIndexes.find(x => x == index) == undefined) {
+                newIndexes.push(ind);
+              }
+            }
+
+          }
         }
       }
-    }
 
-    var filteredValues = [];
+      var filteredValues = [];
 
-    for (let index = 0; index < newIndexes.length; index++) {
-      const element = newIndexes[index];
-      let eachValue = this.BackupItems[element];
-      filteredValues.push(eachValue);
-    }
+      for (let index = 0; index < newIndexes.length; index++) {
+        const element = newIndexes[index];
+        let eachValue = this.BackupItems[element];
+        filteredValues.push(eachValue);
+      }
 
-    this.Items = filteredValues.slice();    
+      this.Items = filteredValues.slice();
+
+      this.EnableLoader = false;
+
+      this.cdr.detectChanges();
+    });
+
   }
 
   adjustPageValue() {
@@ -1414,7 +1573,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return _dataItems;
   }
 
-  ShowEdit($event: Event, item: RGridRow, isUpdate: boolean) {
+  async ShowEdit($event: Event, item: RGridRow, isUpdate: boolean) {
 
     let keys = Object.keys(item)
     for (let index = 0; index < keys.length; index++) {
@@ -1424,7 +1583,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
       if (!element.IsEditMode) {
         if (this.GroupHeaders.length > 0) {
-          this.createGroup();
+          await this.createGroup();
         }
       }
     }

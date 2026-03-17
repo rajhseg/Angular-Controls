@@ -20,6 +20,15 @@
   <!-- <div style="margin-top:400px" ></div>
       <br /> -->
 
+      <rswitch [DisplayLabel]="'ChangeToCircle'" [SwitchBackColor]="'blue'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+      </rswitch>
+
+
+      <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+        [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+        [ProgressBarWidth]="'17px'" [Percentage]="perc" [CircularLineWidth]="'3px'"
+        [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
+      </rprogressbar>
 
 
   <rstarrating [starWidth]="starWidth" [starColor]="'blue'" [(ngModel)]="starValue"></rstarrating>
@@ -753,74 +762,76 @@
     <br />
     <br />
     <br />
-    <div style="height:400px;">
+    <div style="height:400px;margin-bottom: 50px;">
       <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'blue'"
         [GroupByIconColor]="'blue'" [ShowEditUpdate]="true" [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
         [TableHeight]="'70%'" [TableWidth]="'60%'"></rgrid>
     </div>
 
 
-    <rgrid [PageItems]="ditems" [Items]="gridItems" [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
-      (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'45%'"  [ShowEditUpdate]="false"
-      [ItemsPerPage]="ItemsPerPage4">
+    <div style="height: 600px;width: 878px;margin-bottom: 50px;">
+      <rgrid [PageItems]="ditems" [Items]="gridItems" [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
+        (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'97%'"  [ShowEditUpdate]="false" [TableHeight]="'90%'"
+        [ItemsPerPage]="ItemsPerPage4">
 
-      <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
-        [Height]="'20px'">
-        <ng-template readviewtemplate let-Item let-cell="CellInfo">
-          <span>{{cell.Value}}</span>
-        </ng-template>
-        <ng-template editviewtemplate let-Item let-rcell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-            [TextBoxWidth]="'40px'" [(ngModel)]="rcell.Value" />
-        </ng-template>
-      </rcolumn>
+        <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
+          [Height]="'20px'">
+          <ng-template readviewtemplate let-Item let-cell="CellInfo">
+            <span>{{cell.Value}}</span>
+          </ng-template>
+          <ng-template editviewtemplate let-Item let-rcell="CellInfo">
+            <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+              [TextBoxWidth]="'40px'" [(ngModel)]="rcell.Value" />
+          </ng-template>
+        </rcolumn>
 
 
-      <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
-        <ng-template headertemplate let-Item>
-          {{Item.HeaderText}}
-        </ng-template>
-        <ng-template readviewtemplate let-Item let-cell="CellInfo">
-          <span>{{Item.Name}} -- {{cell.Value}}</span>
-        </ng-template>
-        <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-            [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
-        </ng-template>
-      </rcolumn>
+        <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
+          <ng-template headertemplate let-Item>
+            {{Item.HeaderText}}
+          </ng-template>
+          <ng-template readviewtemplate let-Item let-cell="CellInfo">
+            <span>{{Item.Name}} -- {{cell.Value}}</span>
+          </ng-template>
+          <ng-template editviewtemplate let-cell="CellInfo">
+            <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+              [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+          </ng-template>
+        </rcolumn>
 
-      <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="'Age'" [Width]="'170px'">
-        <ng-template readviewtemplate let-Item>
-          <span>{{Item.Age}}</span>
-        </ng-template>
-        <ng-template editviewtemplate let-cell="CellInfo">
-          <rnumeric [BottomLineColor]="bColor" [MinusBackgroundColor]="bColor" [PlusBackgroundColor]="bColor"
-            [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'70px'"></rnumeric>
-        </ng-template>
-      </rcolumn>
+        <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="'Age'" [Width]="'170px'">
+          <ng-template readviewtemplate let-Item>
+            <span>{{Item.Age}}</span>
+          </ng-template>
+          <ng-template editviewtemplate let-cell="CellInfo">
+            <rnumeric [BottomLineColor]="bColor" [MinusBackgroundColor]="bColor" [PlusBackgroundColor]="bColor"
+              [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'70px'"></rnumeric>
+          </ng-template>
+        </rcolumn>
 
-      <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-        [Width]="'200px'">
-        <ng-template readviewtemplate let-Item>
-          <span>{{Item.Education.Higher.Id}}</span> -
-          <span>{{Item.Education.Higher.Course}}</span>
-        </ng-template>
-        <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-            [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
-        </ng-template>
-      </rcolumn>
+        <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education.Higher.Course'" [HeaderText]="'Degree'"
+          [Width]="'200px'">
+          <ng-template readviewtemplate let-Item>
+            <span>{{Item.Education.Higher.Id}}</span> -
+            <span>{{Item.Education.Higher.Course}}</span>
+          </ng-template>
+          <ng-template editviewtemplate let-cell="CellInfo">
+            <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+              [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+          </ng-template>
+        </rcolumn>
 
-      <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'100px'">
-        <ng-template readviewtemplate let-Item>
-          <span>{{Item.Age + 4}}</span>
-        </ng-template>
-        <ng-template editviewtemplate let-cell="CellInfo">
-          <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-            [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
-        </ng-template>
-      </rcolumn>
-    </rgrid>
+        <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'100px'">
+          <ng-template readviewtemplate let-Item>
+            <span>{{Item.Age + 4}}</span>
+          </ng-template>
+          <ng-template editviewtemplate let-cell="CellInfo">
+            <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+              [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+          </ng-template>
+        </rcolumn>
+      </rgrid>
+    </div>
   </div>
 
   <br />

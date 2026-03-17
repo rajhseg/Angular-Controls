@@ -309,6 +309,9 @@
                                     <div class="pageItemSmallFont">
                                         <span>Current Page: {{currentPage}}</span>
                                     </div>
+                                    <div class="pageItemSmallFont">
+                                        <span>Total Pages: {{TotalPagesInGrid}}</span>
+                                    </div>
                                     
                                     <div class="pageItemSmallFont">
                                         <span>Total Rows: {{TotalRows}}</span>
@@ -319,6 +322,13 @@
                                     </div>
                                 </div>
                             </div>
+                        </td>
+                        <td style="align-items: end;">
+                            <rprogressbar *ngIf="EnableLoader" [ForeColor]="LoaderForeColor" [TrackColor]="LoaderTrackColor" [EnableBackDrop]="false"
+                                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+                                [ProgressBarWidth]="'17px'" [CircularLineWidth]="'3px'"
+                                [FiniteCircularDisplayText]="''" [Type]="progressType">
+                            </rprogressbar>
                         </td>
                     </tr>
                 </tbody>

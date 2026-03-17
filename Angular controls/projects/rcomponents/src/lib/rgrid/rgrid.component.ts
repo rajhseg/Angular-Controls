@@ -1064,58 +1064,50 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         
     this.EnableLoader = true;
 
-    setTimeout(async () => {
+    this.IsUpdateFromFilter = true;
 
+    this.filterModel[filter.ColumnName] = filter;
 
-      this.IsUpdateFromFilter = true;
+    if (filter.IsCleared) {
 
-      this.filterModel[filter.ColumnName] = filter;
+      let isanyFilter = false;
+      let keys = Object.keys(this.filterModel);
 
-      if (filter.IsCleared) {
-
-        let isanyFilter = false;
-        let keys = Object.keys(this.filterModel);
-
-        for (let index = 0; index < keys.length; index++) {
-          const element = this.filterModel[keys[index]] as RFilterApplyModel;
-          if (element.IsFiltered) {
-            isanyFilter = true;
-            break;
-          }
-        }
-
-        if (!isanyFilter) {
-          this.IsFilteredApplied = false;
-          this.Items = [];
-          this.currentPage = 1;
-          this.Items = this.BackupItems.slice();
-          return;
-        } else {
-          this.currentPage = 1;
-          await this.ApplyFilterOnClick();
-          return;
-        }
-
-      } else {
-        if (!this.IsFilteredApplied) {
-          this.IsFilteredApplied = true;
+      for (let index = 0; index < keys.length; index++) {
+        const element = this.filterModel[keys[index]] as RFilterApplyModel;
+        if (element.IsFiltered) {
+          isanyFilter = true;
+          break;
         }
       }
 
-      if (filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined) {
+      if (!isanyFilter) {
+        this.IsFilteredApplied = false;
+        this.Items = [];
+        this.currentPage = 1;
+        this.Items = this.BackupItems.slice();
+        this.cdr.detectChanges();
+        return;
+      } else {
         this.currentPage = 1;
         await this.ApplyFilterOnClick();
         return;
       }
 
+    } else {
+      if (!this.IsFilteredApplied) {
+        this.IsFilteredApplied = true;
+      }
+    }
+
+    if (filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined) {
       this.currentPage = 1;
       await this.ApplyFilterOnClick();
+      return;
+    }
 
-      this.EnableLoader = false;
-
-      this.cdr.detectChanges();
-    });
-
+    this.currentPage = 1;
+    await this.ApplyFilterOnClick();
   }
 
   async ApplyFilterOnClick(){
@@ -1123,7 +1115,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     this.EnableLoader = true;
 
     setTimeout(async () => {
-
 
       let newIndexes = [];
 
@@ -1266,8 +1257,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.Items = filteredValues.slice();
-
-      this.EnableLoader = false;
 
       this.cdr.detectChanges();
     });

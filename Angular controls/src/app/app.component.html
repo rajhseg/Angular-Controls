@@ -754,14 +754,15 @@
     <br />
     <div style="height:400px;margin-bottom: 50px;">
 
-      <rgrid  [PageItems]="ditems" [Items]="gridItems1" 
-              (OnItemsChanged)="itemsChangedGridItems1($event)" 
-              [HeaderBackgroundColor]="'blue'" [EnableShadow]="true" 
-              [RowHeightInPx] = "'40px'" [GroupHeaderRowHeightInPx]="'30px'"
-              [GroupByIconColor]="'blue'" [ShowEditUpdate]="true" 
-              [EnableSelectColummn]="false" [ItemsPerPage]="ItemsPerPage"
-              [TableHeight]="'70%'" [TableWidth]="'60%'">
-      </rgrid>
+        <rgrid [PageItems]="ditems" [Items]="gridItems1"
+               (OnItemsChanged)="itemsChangedGridItems1($event)"
+               [HeaderBackgroundColor]="'blue'" [EnableShadow]="true"
+               [RowHeightInPx]="'40px'" [GroupHeaderRowHeightInPx]="'30px'"
+               [GroupByIconColor]="'blue'" [ShowEditUpdate]="true"
+               [EnableSelectColummn]="false" [ItemsPerPage]="ItemsPerPage"
+               (OnCellClicked)="cellClicked($event)"
+               [TableHeight]="'70%'" [TableWidth]="'60%'">
+        </rgrid>
 
     </div>
 

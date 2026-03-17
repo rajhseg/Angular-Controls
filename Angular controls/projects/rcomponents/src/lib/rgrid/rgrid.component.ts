@@ -91,6 +91,42 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   @Output()
   OnItemsChanged = new EventEmitter<{ Items: any[], ChangedRow: any, RowIndex: number | undefined }>();
 
+  @Output()
+  OnColumnGrouped = new EventEmitter<RGridHeader>();
+
+  @Output()
+  OnColumnRemovedFromGrouped = new EventEmitter<RGridHeader>();
+
+  @Output()
+  OnAfterColumnSort = new EventEmitter<RGridHeader>();
+
+  @Output()
+  OnBeforeColumnSort = new EventEmitter<RGridHeader>();
+
+  @Output()
+  OnFilterApplyClicked = new EventEmitter<RFilterApplyModel>();
+
+  @Output()
+  OnFilterClearedClicked = new EventEmitter<RFilterApplyModel>();
+
+  @Output()
+  BeforeApplyingFilter = new EventEmitter<RFilterApplyModel>();
+
+  @Output()
+  AfterApplyingFilter = new EventEmitter<RFilterApplyModel>();
+
+  @Output()
+  OnRowEditClicked = new EventEmitter<RGridRow>();
+
+  @Output()
+  OnRowCloseClicked = new EventEmitter<RGridRow>();
+
+  @Output()
+  OnCellClicked = new EventEmitter<RCell>();
+
+  @Output()
+  OnGroupCliked = new EventEmitter<RGridGroupData>();
+
   @Input()
   RowHeightInPx: string = '40px';
 
@@ -358,6 +394,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   }
 
+  onTDClick(cellInfo: RCell) {
+    this.OnCellClicked.emit(cellInfo);
+  }
+
   writeValue(obj: any): void {
     this.RenderUI(obj);
   }
@@ -415,6 +455,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
       if (hdr) {
 
+        this.OnBeforeColumnSort.emit(hdr);
+
         let defaultindx = this.SortHeaders.findIndex(x => x.Header.PropToBind == this.indxKey);
         if (defaultindx > -1) {
           this.SortHeaders.splice(defaultindx, 1);
@@ -452,6 +494,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
+
+      this.OnAfterColumnSort.emit(hdr);
+
       this.cdr.detectChanges();
     });
   }
@@ -621,6 +666,22 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
       this.EnableLoader = false;
 
+      this.OnGroupCliked.emit(grpItem);
+
+      this.cdr.detectChanges();
+    });
+  }
+
+  public enableLoader() {
+    setTimeout(() => {
+      this.EnableLoader = true;
+      this.cdr.detectChanges();
+    });
+  }
+
+ public disableLoader() {
+    setTimeout(() => {
+      this.EnableLoader = false;
       this.cdr.detectChanges();
     });
   }
@@ -660,6 +721,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
+
+      this.OnColumnGrouped.emit(_hdr);
+
       this.cdr.detectChanges();
     });
 
@@ -711,6 +775,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
+
+      this.OnColumnRemovedFromGrouped.emit(item);
 
       this.cdr.detectChanges();
     });
@@ -1061,7 +1127,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   async ApplyFilter(filter: RFilterApplyModel) {
-        
+
+    this.BeforeApplyingFilter.emit(filter);
+
     this.EnableLoader = true;
 
     this.IsUpdateFromFilter = true;
@@ -1069,6 +1137,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     this.filterModel[filter.ColumnName] = filter;
 
     if (filter.IsCleared) {
+
+      this.OnFilterClearedClicked.emit(filter);
 
       let isanyFilter = false;
       let keys = Object.keys(this.filterModel);
@@ -1091,10 +1161,14 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       } else {
         this.currentPage = 1;
         await this.ApplyFilterOnClick();
+        this.AfterApplyingFilter.emit(filter);
         return;
       }
 
     } else {
+
+      this.OnFilterApplyClicked.emit(filter);
+
       if (!this.IsFilteredApplied) {
         this.IsFilteredApplied = true;
       }
@@ -1103,11 +1177,13 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     if (filter.Contains == undefined && filter.GreaterThan == undefined && filter.LesserThan == undefined) {
       this.currentPage = 1;
       await this.ApplyFilterOnClick();
+      this.AfterApplyingFilter.emit(filter);
       return;
     }
 
     this.currentPage = 1;
     await this.ApplyFilterOnClick();
+    this.AfterApplyingFilter.emit(filter);
   }
 
   async ApplyFilterOnClick(){
@@ -1594,8 +1670,14 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
 
 
-    if (isUpdate)
+    if (isUpdate) {
       this.NotifyToModelOnUpdate(item);
+      this.OnRowCloseClicked.emit(item);
+    }
+    else {
+      this.OnRowEditClicked.emit(item);
+    }
+
   }
 
   private AssignEditRowWhenLoad() {

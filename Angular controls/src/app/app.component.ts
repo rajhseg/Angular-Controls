@@ -14,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
+import { RCell, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -810,6 +810,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     
    
     this.gridItems1 = this.gridItems1.slice();
+  }
+
+  cellClicked(d: RCell) {
+    console.log("cell clicked");
+    console.log(d);
   }
 
   SelectAllGrid(evt: any){

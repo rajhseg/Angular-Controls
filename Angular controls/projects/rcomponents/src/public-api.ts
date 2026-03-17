@@ -30,6 +30,7 @@ export * from './lib/rnumeric/rnumeric.component';
 export * from './lib/rtimer/rtimer.component';
 export * from './lib/rtimeselector/rtimeselector.component';
 export * from './lib/rgrid/rgrid.component';
+export * from './lib/rgrid/rcell';
 export * from './lib/rgrid/rcolumn/rcolumn.component';
 export * from  './lib/rgrid/view-template.directive';
 export * from './lib/rgrid/edit-template.directive';

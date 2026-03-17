@@ -50,6 +50,7 @@ import { REventsCalenderComponent } from "./reventscalender/reventscalender.comp
 import { RPageContentDirective } from './rsplitter/rpagecontent.directive';
 import { RSplitPageComponent } from './rsplitter/rsplitpage.component';
 import { RSplitterComponent } from './rsplitter/rsplitter.component';
+import { RCell, RGridHeaderSort, RGridEditRowInfo, RGridHeaderSortType, RGridItems, RGridRow } from './rgrid/rcell';
 
 @NgModule({
     imports: [

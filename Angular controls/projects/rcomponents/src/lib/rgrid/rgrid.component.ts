@@ -92,6 +92,12 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   OnItemsChanged = new EventEmitter<{ Items: any[], ChangedRow: any, RowIndex: number | undefined }>();
 
   @Input()
+  RowHeightInPx: string = '40px';
+
+  @Input()
+  GroupHeaderRowHeightInPx: string = '40px';
+  
+  @Input()
   ItemsPerPage!: DropdownModel;
 
   _tableHeight: string = '200px';

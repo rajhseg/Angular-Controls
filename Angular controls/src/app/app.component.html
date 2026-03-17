@@ -753,16 +753,27 @@
     <br />
     <br />
     <div style="height:400px;margin-bottom: 50px;">
-      <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'blue'"
-        [GroupByIconColor]="'blue'" [ShowEditUpdate]="true" [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
-        [TableHeight]="'70%'" [TableWidth]="'60%'"></rgrid>
+
+      <rgrid  [PageItems]="ditems" [Items]="gridItems1" 
+              (OnItemsChanged)="itemsChangedGridItems1($event)" 
+              [HeaderBackgroundColor]="'blue'" [EnableShadow]="true" 
+              [RowHeightInPx] = "'40px'" [GroupHeaderRowHeightInPx]="'30px'"
+              [GroupByIconColor]="'blue'" [ShowEditUpdate]="true" 
+              [EnableSelectColummn]="false" [ItemsPerPage]="ItemsPerPage"
+              [TableHeight]="'70%'" [TableWidth]="'60%'">
+      </rgrid>
+
     </div>
 
 
     <div style="height: 600px;width: 878px;margin-bottom: 50px;">
-      <rgrid [PageItems]="ditems" [Items]="gridItems" [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
-        (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'97%'"  [ShowEditUpdate]="false" [TableHeight]="'90%'"
-        [ItemsPerPage]="ItemsPerPage4">
+
+      <rgrid  [PageItems]="ditems" [Items]="gridItems" 
+              [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
+              [EnableShadow]="true"
+              (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'97%'"  
+              [ShowEditUpdate]="false" [TableHeight]="'90%'"
+              [ItemsPerPage]="ItemsPerPage4">
 
         <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
           [Height]="'20px'">
@@ -820,7 +831,9 @@
               [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
           </ng-template>
         </rcolumn>
+      
       </rgrid>
+
     </div>
   </div>
 

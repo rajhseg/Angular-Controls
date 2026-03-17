@@ -14,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCell, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
+import { RCell, RGridPaginationValue, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -815,6 +815,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   cellClicked(d: RCell) {
     console.log("cell clicked");
     console.log(d);
+  }
+
+  itemPerPage(v: RGridPaginationValue){
+    console.log("pagination");
+    console.log(v);
   }
 
   SelectAllGrid(evt: any){

@@ -3,7 +3,7 @@ import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, Ng
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, input, Input,
          NgZone, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
-import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridRow } from './rcell';
+import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow } from './rcell';
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../rdropdown/rdropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -205,6 +205,21 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   @Input()
   FilterDateFormat: string = 'MM-dd-yyyy';
 
+  @Output()
+  NextPageClicked = new EventEmitter<RGridPaginationValue>();
+
+  @Output()
+  PreviousPageClicked = new EventEmitter<RGridPaginationValue>();
+  
+  @Output()
+  FirstPageClicked = new EventEmitter<RGridPaginationValue>();
+  
+  @Output()
+  LastPageClicked = new EventEmitter<RGridPaginationValue>();
+
+  @Output()
+  ItemsPerPageClicked = new EventEmitter<RGridPaginationValue>();
+  
   EditModeEnabled: boolean = false;
 
   DataItems!: RGridItems;
@@ -396,6 +411,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   onTDClick(cellInfo: RCell) {
     this.OnCellClicked.emit(cellInfo);
+  }
+
+  getPaginationValue(): RGridPaginationValue {
+    return new RGridPaginationValue(this.currentPage, this.ItemsPerPage.Value, this.TotalPagesInGrid, this.TotalRows, this.RowsInCurrentPage);
   }
 
   writeValue(obj: any): void {
@@ -672,14 +691,14 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     });
   }
 
-  public enableLoader() {
+  public ShowLoader() {
     setTimeout(() => {
       this.EnableLoader = true;
       this.cdr.detectChanges();
     });
   }
 
- public disableLoader() {
+ public HideLoader() {
     setTimeout(() => {
       this.EnableLoader = false;
       this.cdr.detectChanges();
@@ -862,7 +881,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
-
+      this.ItemsPerPageClicked.emit(this.getPaginationValue());
       this.cdr.detectChanges();
     });
 
@@ -881,6 +900,69 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       var unfiltered = { Rows: [..._normalData] };
 
       this.ShowItems = unfiltered;
+    }
+
+    this.OrderColumnAndRow();
+
+  }
+
+  OrderColumnAndRow(){
+    let _row = 0;
+    let _col = 0;
+
+    if(this.ShowItems?.Rows && !this.IsGroupHaveColumns) {
+      for (let index = 0; index < this.ShowItems.Rows.length; index++) {
+        _row++;
+        _col = 0;
+
+        let data = this.ShowItems.Rows[index] as RGridRow;
+        
+        for(const key in data){
+
+          if(!this.EnableSelectColummn && key.toLowerCase() == 'rgrid_select')
+            continue;
+
+          _col++;
+          data[key].Row = _row;
+
+          let _hkey = data[key].HeaderKey.toLowerCase();
+          let _hdt = this.Headers.filter(x=>x.PropToBind.toLowerCase() == _hkey);
+
+          if(_hdt != undefined && _hdt.length > 0) {
+            data[key].HeaderIndex = _hdt[0].Index;
+          }
+
+          data[key].Column = data[key].HeaderIndex + 1;
+        }
+      }
+    } else {
+      for (let index = 0; index < this.DisplayGroupItems.length; index++) {
+        const element = this.DisplayGroupItems[index];
+        for (let index = 0; index < element.Values.length; index++) {
+          _row++;
+          _col = 0;
+          
+          const rowData = element.Values[index];
+
+          for(const key in rowData){
+
+            if(!this.EnableSelectColummn && key.toLowerCase() == 'rgrid_select')
+            continue;
+          
+            _col++;
+            rowData[key].Row = _row;
+            
+            let _hkey = rowData[key].HeaderKey.toLowerCase();
+            let _hdt = this.Headers.filter(x=>x.PropToBind.toLowerCase() == _hkey);
+
+            if(_hdt!=undefined && _hdt.length > 0) {
+              rowData[key].HeaderIndex = _hdt[0].Index;
+            }
+            
+            rowData[key].Column = rowData[key].HeaderIndex + 1;
+          }
+        }
+      }
     }
   }
 
@@ -942,6 +1024,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
     }
 
+    this.OrderColumnAndRow();
+
     if (this.viewport) {
       this.viewport.checkViewportSize();
     }
@@ -961,6 +1045,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
+      this.NextPageClicked.emit(this.getPaginationValue());
       this.cdr.detectChanges();
     });
   }
@@ -978,7 +1063,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
-
+      this.PreviousPageClicked.emit(this.getPaginationValue());
       this.cdr.detectChanges();
     });
   }
@@ -1004,7 +1089,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
-
+      this.LastPageClicked.emit(this.getPaginationValue());
       this.cdr.detectChanges();
     });
   }
@@ -1036,7 +1121,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
 
       this.EnableLoader = false;
-
+      this.FirstPageClicked.emit(this.getPaginationValue());
       this.cdr.detectChanges();
     });
 
@@ -1776,6 +1861,14 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
 
     this.Headers.sort(this.headersSort);
+    
+    this.EnableLoader = true;
+
+    setTimeout(()=>{
+        this.OrderColumnAndRow();
+        this.EnableLoader = false;
+        this.cdr.detectChanges();
+    });
   }
 
 }

@@ -118,3 +118,9 @@ export class RGridEditRowInfo {
 
     }
 }
+
+export class RGridPaginationValue {
+    constructor(public CurrentPage: number, public RowsPerPage: number, public TotalPagesInGrid: number, public TotalRows: number, public RowsInCurrentPage: number){
+
+    }
+}

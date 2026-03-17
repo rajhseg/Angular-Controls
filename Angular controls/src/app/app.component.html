@@ -759,8 +759,9 @@
                [HeaderBackgroundColor]="'blue'" [EnableShadow]="true"
                [RowHeightInPx]="'40px'" [GroupHeaderRowHeightInPx]="'30px'"
                [GroupByIconColor]="'blue'" [ShowEditUpdate]="true"
-               [EnableSelectColummn]="false" [ItemsPerPage]="ItemsPerPage"
+               [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
                (OnCellClicked)="cellClicked($event)"
+               (ItemsPerPageClicked)="itemPerPage($event)"
                [TableHeight]="'70%'" [TableWidth]="'60%'">
         </rgrid>
 
@@ -773,6 +774,7 @@
               [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
               [EnableShadow]="true"
               (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'97%'"  
+              (OnCellClicked)="cellClicked($event)"
               [ShowEditUpdate]="false" [TableHeight]="'90%'"
               [ItemsPerPage]="ItemsPerPage4">
 

@@ -3,7 +3,7 @@ import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, Ng
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, input, Input,
          NgZone, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
-import { RCell, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow } from './rcell';
+import { RCell, RCellInfo, RColumnComponentInfo, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow } from './rcell';
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../rdropdown/rdropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -86,7 +86,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   GroupByIconColor: string = "#00c7ba";
 
   @Output()
-  OnCellValueChanged = new EventEmitter<RCell>();
+  OnCellValueChanged = new EventEmitter<RCellInfo>();
 
   @Output()
   OnItemsChanged = new EventEmitter<{ Items: any[], ChangedRow: any, RowIndex: number | undefined }>();
@@ -122,7 +122,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   OnRowCloseClicked = new EventEmitter<RGridRow>();
 
   @Output()
-  OnCellClicked = new EventEmitter<RCell>();
+  OnCellClicked = new EventEmitter<RCellInfo>();
 
   @Output()
   OnGroupCliked = new EventEmitter<RGridGroupData>();
@@ -409,8 +409,50 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   }
 
-  onTDClick(cellInfo: RCell) {
-    this.OnCellClicked.emit(cellInfo);
+  onTDClick(info: RCell) {
+
+    let evtArgs = this.getCellInfo(info);
+
+    this.OnCellClicked.emit(evtArgs);
+  }
+
+  getCellInfo(info: RCell): RCellInfo {
+
+    let evtArgs = new RCellInfo();
+
+    evtArgs.Column = info.Column;
+    evtArgs.Component = info.component;
+    evtArgs.FromModel = info.FromModel;
+    evtArgs.HeaderIndex = info.HeaderIndex;
+    evtArgs.HeaderKey = info.HeaderKey;
+    evtArgs.Height = info.Height;
+    evtArgs.IsEditMode = info.IsEditMode;
+    evtArgs.Item = info.Item;
+    evtArgs.Row = info.Row;
+    evtArgs.Value = info.Value;
+    evtArgs.Width = info.Width;
+    evtArgs.DisplayRow = info.DisplayRow;
+    evtArgs.DisplayColumn = info.DisplayColumn;
+
+    if (info.columnDirective != undefined) {
+
+      let compInfo = new RColumnComponentInfo();
+
+      compInfo.DisableFilter = info.columnDirective.DisableFilter;
+      compInfo.DisableGrouping = info.columnDirective.DisableGrouping;
+      compInfo.DisableSort = info.columnDirective.DisableSort;
+      compInfo.HeaderText = info.columnDirective.HeaderText;
+      compInfo.Height = info.columnDirective.Height;
+      compInfo.IsComputationalColumn = info.columnDirective.IsComputationalColumn;
+      compInfo.IsDummyPropToBind = info.columnDirective.IsDummyPropToBind;
+      compInfo.Name = info.columnDirective.Name;
+      compInfo.PropToBindToCellInfo = info.columnDirective.PropToBindToCellInfo;
+      compInfo.Width = info.columnDirective.Width;
+
+      evtArgs.ColumnComponentInfo = compInfo;
+    }
+
+    return evtArgs;
   }
 
   getPaginationValue(): RGridPaginationValue {
@@ -449,7 +491,11 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   NotifyToModel(cellInfo: RCell) {
-    this.OnCellValueChanged.emit(cellInfo);
+
+    let evtArgs = this.getCellInfo(cellInfo);
+
+    this.OnCellValueChanged.emit(evtArgs);
+
     this.cdr.detectChanges();
   }
 
@@ -923,7 +969,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
             continue;
 
           _col++;
-          data[key].Row = _row;
+          data[key].DisplayRow = _row;
+
 
           let _hkey = data[key].HeaderKey.toLowerCase();
           let _hdt = this.Headers.filter(x=>x.PropToBind.toLowerCase() == _hkey);
@@ -932,7 +979,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
             data[key].HeaderIndex = _hdt[0].Index;
           }
 
-          data[key].Column = data[key].HeaderIndex + 1;
+          data[key].DisplayColumn = data[key].HeaderIndex + 1;
         }
       }
     } else {
@@ -950,7 +997,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
             continue;
           
             _col++;
-            rowData[key].Row = _row;
+            rowData[key].DisplayRow = _row;
             
             let _hkey = rowData[key].HeaderKey.toLowerCase();
             let _hdt = this.Headers.filter(x=>x.PropToBind.toLowerCase() == _hkey);
@@ -958,8 +1005,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
             if(_hdt!=undefined && _hdt.length > 0) {
               rowData[key].HeaderIndex = _hdt[0].Index;
             }
-            
-            rowData[key].Column = rowData[key].HeaderIndex + 1;
+           
+            rowData[key].DisplayColumn = rowData[key].HeaderIndex + 1;
           }
         }
       }

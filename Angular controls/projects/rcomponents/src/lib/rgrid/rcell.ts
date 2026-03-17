@@ -16,6 +16,10 @@ export class RCell {
 
     public Column: number | undefined = undefined;
 
+    public DisplayRow: number | undefined = undefined;
+
+    public DisplayColumn: number | undefined = undefined;
+
     public Width!: string;
 
     public Height!: string;
@@ -92,6 +96,60 @@ export class RCell {
 
     public HeaderKey: string = "";
 
+}
+
+export class RCellInfo {
+
+  public Component!: RGridComponent;
+
+  public Value: object | undefined = undefined;
+
+  public ColumnComponentInfo!: RColumnComponentInfo;
+
+  public Row: number | undefined = undefined;
+
+  public Column: number | undefined = undefined;
+
+  public DisplayRow: number | undefined = undefined;
+
+  public DisplayColumn: number | undefined = undefined;
+
+  public Width!: string;
+
+  public Height!: string;
+
+  public FromModel: boolean = false;
+
+  public HeaderIndex: number = -1;
+
+  public Item: any | undefined = undefined;
+
+  public IsEditMode: boolean = false;
+
+  public HeaderKey: string = "";
+}
+
+export class RColumnComponentInfo {
+  
+  Name: string = "";
+
+  PropToBindToCellInfo: string = "";
+
+  IsDummyPropToBind: boolean = false;
+
+  DisableGrouping: boolean = false;
+
+  IsComputationalColumn: boolean = false;
+
+  HeaderText: string = "";
+
+  Height: string = "auto";
+
+  Width: string = "auto";
+
+  DisableSort: boolean = false;
+
+  DisableFilter: boolean = false;
 }
 
 export class RGridRow {

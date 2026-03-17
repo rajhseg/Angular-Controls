@@ -14,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCell, RGridPaginationValue, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
+import { RCell, RCellInfo, RGridPaginationValue, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -812,7 +812,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.gridItems1 = this.gridItems1.slice();
   }
 
-  cellClicked(d: RCell) {
+  cellClicked(d: RCellInfo) {
     console.log("cell clicked");
     console.log(d);
   }
@@ -839,7 +839,14 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   itemsChangedGridItems1($event: any){    
-    this.gridItems1 = $event.Items;           
+    this.gridItems1 = $event.Items;
+    console.log("item changed");
+    console.log($event);      
+  }
+
+  itemSelectClick(d: any) {
+    console.log("item selected");
+    console.log(d);
   }
 
   rtimer_ValueChanged($event: string){

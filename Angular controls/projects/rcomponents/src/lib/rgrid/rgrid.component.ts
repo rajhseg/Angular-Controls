@@ -191,7 +191,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   EnableVirtualScroll: boolean = false;
 
   @Input()
-  ShowEditUpdate: boolean = true;
+  ShowEditUpdate: boolean = false;
 
   @Input()
   ShowGroupHeader: boolean = true;

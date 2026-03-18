@@ -89,7 +89,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   OnCellValueChanged = new EventEmitter<RCellInfo>();
 
   @Output()
-  OnItemsChanged = new EventEmitter<{ Items: any[], ChangedRow: any, RowIndex: number | undefined }>();
+  OnItemsChanged = new EventEmitter<{ ChangedRow: any, RowIndex: number | undefined }>();
 
   @Output()
   OnColumnGrouped = new EventEmitter<RGridHeader>();
@@ -512,7 +512,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     let _rownum = row[this.indxKey as string].Row;
     let _row = (notifyDataItems as [])[_rownum as any];
 
-    this.OnItemsChanged.emit({ Items: fulllist, ChangedRow: _row, RowIndex: _rownum });
+    this.OnItemsChanged.emit({ ChangedRow: _row, RowIndex: _rownum });
     this.cdr.detectChanges();
   }
 

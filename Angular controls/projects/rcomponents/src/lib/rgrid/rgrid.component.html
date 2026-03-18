@@ -127,11 +127,12 @@
 
                         </th>
                     </ng-container>
-<!-- 
+
                     <th class="header" *ngIf="ShowEditUpdate"
                         [ngStyle]="{'width': (EditModeEnabled && !ColumnsNotDefined) ? '80px' : '80px'}">
                         Action
-                    </th> -->
+                    </th>
+                    
                 </tr>
             </thead>
         </table>
@@ -192,7 +193,7 @@
                                 <ng-template #em>No Content</ng-template>
                             </td>
                         </ng-container>
-<!-- 
+
                         <td *ngIf="ShowEditUpdate" style="text-align: center;"
                             [ngStyle]="{'width': ColumnsNotDefined ? '80px': '80px'}">
                             <div>
@@ -202,7 +203,7 @@
                                     (click)="ShowEdit($event, item, true)">Close</a>
                             </div>
                         </td>
- -->
+
                     </tr>
 
                 </ng-container>
@@ -272,7 +273,7 @@
                                     </td>
                                 </ng-container>
 
-                              <!-- 
+                              
                                 <td *ngIf="ShowEditUpdate" style="width: 80px;text-align: center;">
                                     <div>
                                         <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
@@ -281,7 +282,7 @@
                                             (click)="ShowEdit($event, item, true)">Close</a>
                                     </div>
                                 </td>
-                              -->
+                             
 
                             </tr>
                         </ng-container>

@@ -84,8 +84,10 @@ export class RCell {
 
             } else {                
                 _item[this.HeaderKey] = data;
-            }                    
-      }
+            }  
+            
+            this.IsValueUpdated = true;
+       }
     }
 
     public HeaderIndex: number = -1;
@@ -95,6 +97,8 @@ export class RCell {
     public IsEditMode: boolean = false;
 
     public HeaderKey: string = "";
+
+    public IsValueUpdated: boolean = false;
 
 }
 
@@ -106,9 +110,9 @@ export class RCellInfo {
 
   public ColumnComponentInfo!: RColumnComponentInfo;
 
-  public Row: number | undefined = undefined;
+  //public Row: number | undefined = undefined;
 
-  public Column: number | undefined = undefined;
+  //public Column: number | undefined = undefined;
 
   public DisplayRow: number | undefined = undefined;
 

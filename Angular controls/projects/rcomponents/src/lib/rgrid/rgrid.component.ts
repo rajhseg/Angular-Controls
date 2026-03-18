@@ -191,7 +191,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   EnableVirtualScroll: boolean = false;
 
   @Input()
-  ShowEditUpdate: boolean = false;
+  ShowEditUpdate: boolean = true;
 
   @Input()
   ShowGroupHeader: boolean = true;
@@ -420,7 +420,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
     let evtArgs = new RCellInfo();
 
-    evtArgs.Column = info.Column;
+    //evtArgs.Column = info.Column;
+    //evtArgs.Row = info.Row;
+
     evtArgs.Component = info.component;
     evtArgs.FromModel = info.FromModel;
     evtArgs.HeaderIndex = info.HeaderIndex;
@@ -428,7 +430,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     evtArgs.Height = info.Height;
     evtArgs.IsEditMode = info.IsEditMode;
     evtArgs.Item = info.Item;
-    evtArgs.Row = info.Row;
+    
     evtArgs.Value = info.Value;
     evtArgs.Width = info.Width;
     evtArgs.DisplayRow = info.DisplayRow;
@@ -502,13 +504,15 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   NotifyToModelOnUpdate(row: RGridRow) {
     let notifyDataItems = this.Items.slice();
 
-    this.onChanged(notifyDataItems);
-    this.onTouched(notifyDataItems);
+    let fulllist = this.BackupItems.length > 0 ? this.BackupItems.slice() : this.Items.slice();
+
+    this.onChanged(fulllist);
+    this.onTouched(fulllist);
 
     let _rownum = row[this.indxKey as string].Row;
     let _row = (notifyDataItems as [])[_rownum as any];
 
-    this.OnItemsChanged.emit({ Items: notifyDataItems, ChangedRow: _row, RowIndex: _rownum });
+    this.OnItemsChanged.emit({ Items: fulllist, ChangedRow: _row, RowIndex: _rownum });
     this.cdr.detectChanges();
   }
 
@@ -1801,15 +1805,42 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
       }
     }
 
+    let isRowUpdated = this.isRowUpdated(item);
 
     if (isUpdate) {
-      this.NotifyToModelOnUpdate(item);
+
+      if(isRowUpdated)
+      {
+        this.NotifyToModelOnUpdate(item);
+        this.SetRowUpdateToFalse(item);
+      }
+                
       this.OnRowCloseClicked.emit(item);
     }
     else {
       this.OnRowEditClicked.emit(item);
     }
 
+  }
+
+  SetRowUpdateToFalse(itemrow: RGridRow){
+    for(const key in itemrow){
+      itemrow[key].IsValueUpdated = false;
+    }
+  }
+
+  isRowUpdated(itemrow: RGridRow){
+    let isUpdated = false;
+
+    for(const key in itemrow){
+      let val = itemrow[key].IsValueUpdated;
+      if(val){
+        isUpdated = true;
+        break;
+      }
+    }
+
+    return isUpdated;
   }
 
   private AssignEditRowWhenLoad() {

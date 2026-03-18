@@ -833,13 +833,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   itemsChanged($event: any){        
-    this.gridItems = $event.Items;  
     console.log("item changed");
     console.log($event);      
   }
 
   itemsChangedGridItems1($event: any){    
-    this.gridItems1 = $event.Items;
     console.log("item changed");
     console.log($event);      
   }

@@ -53,6 +53,10 @@ export class RCell {
                 this.updateActualModel(data);
                 this.component.NotifyToModel(this)                
             }                
+        } else {
+            
+            if(this.HeaderKey=='')
+                this.IsValueUpdated = true;
         }
     }
     public get Value(): object | undefined {

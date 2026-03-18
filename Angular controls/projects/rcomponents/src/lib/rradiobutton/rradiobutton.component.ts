@@ -147,10 +147,19 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
       this.resetValueForGroupedCheckbox(undefined, this.GroupName);
     }
     
+    let sameValue = false;
+
+    if(this.IsChecked==checkValue)
+      sameValue = true;
+
     this.IsChecked = checkValue;
     let args=new RadioEventArgs(undefined, this.IsChecked);
     
-    this.OnCheckChanged.emit(args);
+    if(!sameValue) {
+      this.OnCheckChanged.emit(args);
+      this.valueChanged.emit(args);
+    }
+
   }
 
   registerOnChange(fn: any): void {

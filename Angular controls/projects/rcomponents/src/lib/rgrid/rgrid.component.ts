@@ -386,6 +386,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   ItemSelect(evt:CheckboxEventArgs, item: any){ 
+
+    let valueUpd = item[this.selectKey].IsValueUpdated;
+
     let notifyDataItems = this.Items.slice();   
     item[this.selectKey].FromModel = true;
     item[this.selectKey].Value = evt.isChecked as any;
@@ -394,7 +397,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     let _rownum = item[this.indxKey as string].Row;
     let _row = (notifyDataItems as [])[_rownum as any];
 
-    this.ItemSelectClick.emit({isSelected: evt.isChecked, event: evt.event, item: _row});
+    if(valueUpd) {
+      this.ItemSelectClick.emit({isSelected: evt.isChecked, event: evt.event, item: _row});
+      item[this.selectKey].IsValueUpdated = false;
+    }
   }
 
   ngOnInit(): void {    

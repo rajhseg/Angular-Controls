@@ -48,19 +48,31 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
 
   writeValue(obj: any): void {
     
+    let val = false;
+    
     if(typeof obj === 'boolean'){
-      this.isChecked = obj;
+      val = obj;
     }
     else if(typeof obj === 'string'){
       if(obj.toLowerCase() == 'true'){
-        this.isChecked = true;
+        val = true;
       } else{
-        this.isChecked = false;
+        val = false;
       }
     } 
 
-    this.checked.emit(this.isChecked);
-    this.valueChanged.emit(this.isChecked);
+    let sameValue = false;
+
+    if(this.isChecked == val)
+      sameValue = true;
+
+    this.isChecked = val;
+
+    if(!sameValue) {
+      this.checked.emit(this.isChecked);
+      this.valueChanged.emit(this.isChecked);
+    }
+    
   }
   
   registerOnChange(fn: any): void {

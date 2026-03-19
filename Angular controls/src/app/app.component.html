@@ -752,7 +752,6 @@
     <br />
     <br />
     <br />
-    <div style="height:400px;margin-bottom: 50px;">
 
         <rgrid [PageItems]="ditems" [Items]="gridItems1"
                (OnItemsChanged)="itemsChangedGridItems1($event)"
@@ -763,20 +762,18 @@
                (OnCellClicked)="cellClicked($event)"
                (ItemsPerPageClicked)="itemPerPage($event)"
                (ItemSelectClick)="itemSelectClick($event)"
-               [TableHeight]="'70%'" [TableWidth]="'60%'">
+               [TableHeight]="'600px'" [TableWidth]="'950px'">
         </rgrid>
 
-    </div>
 
 
-    <div style="height: 600px;width: 878px;margin-bottom: 50px;">
 
       <rgrid  [PageItems]="ditems" [Items]="gridItems" 
               [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
               [EnableShadow]="true"
-              (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'97%'"  
+              (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'850px'"  
               (OnCellClicked)="cellClicked($event)"
-              [ShowEditUpdate]="false" [TableHeight]="'90%'"
+              [ShowEditUpdate]="false" [TableHeight]="'600px'"
               [ItemsPerPage]="ItemsPerPage4">
 
         <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
@@ -838,7 +835,7 @@
       
       </rgrid>
 
-    </div>
+    
   </div>
 
   <br />

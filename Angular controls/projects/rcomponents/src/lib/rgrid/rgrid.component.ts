@@ -387,6 +387,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   ItemSelect(evt:CheckboxEventArgs, item: any){ 
 
+    if(evt==undefined || evt.event == undefined)
+      return;
+
     let valueUpd = item[this.selectKey].IsValueUpdated;
 
     let notifyDataItems = this.Items.slice();   

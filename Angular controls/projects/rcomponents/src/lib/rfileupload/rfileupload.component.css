@@ -186,6 +186,46 @@
     top: 8px;
 }
 
+.upload-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: whitesmoke;
+  border: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.upload-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--upload-iconcolor); 
+  cursor: pointer;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.15s ease;
+}
+
+/*
+.upload-icon:hover {
+  background: blue; 
+}
+.upload-icon:hover svg {
+  stroke: white;
+} 
+*/
+
+/* Active/pressed */
+.upload-icon:active {
+  background: lightgray;
+  border-color: lightgray;
+}
+
 ::-webkit-scrollbar {
     width: 0.4em;;
     height: 0.4em;;

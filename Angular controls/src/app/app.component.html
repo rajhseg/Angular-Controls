@@ -661,13 +661,21 @@
         
   </div>
 
-  <div>
+  <div style="width: 800px;height:600px">
     <br />
 
     <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
       [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
       [IconForeColor]="bColor" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
     </rfileupload>
+
+    &nbsp;&nbsp;
+
+    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+      [ShowFilesAsDropdownContainer]="false" [EnableShadowEffect]="false" [TextForeColor]="bColor"
+      [IconForeColor]="bColor" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
+    </rfileupload>
+
 
   </div>
 
@@ -765,9 +773,6 @@
                [TableHeight]="'600px'" [TableWidth]="'950px'">
         </rgrid>
 
-
-
-
       <rgrid  [PageItems]="ditems" [Items]="gridItems" 
               [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
               [EnableShadow]="true"
@@ -787,8 +792,21 @@
           </ng-template>
         </rcolumn>
 
+        
+        <rcolumn [Name]="'column8'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name0'" [Width]="'140px'">
+          <ng-template headertemplate let-Item>
+            {{Item.HeaderText}}
+          </ng-template>
+          <ng-template readviewtemplate let-Item let-cell="CellInfo">
+            <span>{{Item.Name}} -- {{cell.Value}}</span>
+          </ng-template>
+          <ng-template editviewtemplate let-cell="CellInfo">
+            <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+              [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+          </ng-template>
+        </rcolumn>
 
-        <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
+        <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'140px'">
           <ng-template headertemplate let-Item>
             {{Item.HeaderText}}
           </ng-template>
@@ -812,7 +830,7 @@
         </rcolumn>
 
         <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education.Higher.Course'" [HeaderText]="'Degree'"
-          [Width]="'200px'">
+          [Width]="'160px'">
           <ng-template readviewtemplate let-Item>
             <span>{{Item.Education.Higher.Id}}</span> -
             <span>{{Item.Education.Higher.Course}}</span>

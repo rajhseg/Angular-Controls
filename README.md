@@ -221,10 +221,12 @@ RFlatTabs Control
 FileUpload Control
 --------------------------------
 
-![image](https://github.com/user-attachments/assets/56808f19-b7f4-40a4-a42d-f507dc81a996)
+<br/>
+
+<img width="612" height="277" alt="image" src="https://github.com/user-attachments/assets/3f5c827e-4812-4596-b129-492c6c704cc3" />
 
 <br />
-
+<br />
 
 ColorPicker
 ---------------------------------

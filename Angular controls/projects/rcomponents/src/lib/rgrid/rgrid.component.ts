@@ -3,7 +3,7 @@ import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, Ng
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, input, Input,
          NgZone, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
-import { RCell, RCellInfo, RColumnComponentInfo, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow } from './rcell';
+import { RCell, RCellInfo, RColumnComponentInfo, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow, RGridRowInfo } from './rcell';
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../rdropdown/rdropdown.component";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -116,10 +116,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   AfterApplyingFilter = new EventEmitter<RFilterApplyModel>();
 
   @Output()
-  OnRowEditClicked = new EventEmitter<RGridRow>();
+  OnRowEditClicked = new EventEmitter<RGridRowInfo>();
 
   @Output()
-  OnRowCloseClicked = new EventEmitter<RGridRow>();
+  OnRowCloseClicked = new EventEmitter<RGridRowInfo>();
 
   @Output()
   OnCellClicked = new EventEmitter<RCellInfo>();
@@ -1823,13 +1823,27 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         this.NotifyToModelOnUpdate(item);
         this.SetRowUpdateToFalse(item);
       }
-                
-      this.OnRowCloseClicked.emit(item);
+
+      let rowInfo = this.getRGridRowInfo(item);
+      this.OnRowCloseClicked.emit(rowInfo);
     }
     else {
-      this.OnRowEditClicked.emit(item);
+
+      let rowInfo = this.getRGridRowInfo(item);
+      this.OnRowEditClicked.emit(rowInfo);
     }
 
+  }
+
+  getRGridRowInfo(row: RGridRow): RGridRowInfo {
+
+    let _row = new RGridRowInfo();
+
+    for (const item in row) {
+      _row[item] = this.getCellInfo(row[item]);
+    }
+
+    return _row;
   }
 
   SetRowUpdateToFalse(itemrow: RGridRow){

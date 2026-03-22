@@ -14,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCell, RCellInfo, RGridPaginationValue, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
+import { RCell, RCellInfo, RGridPaginationValue, RGridRowInfo, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -400,6 +400,16 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   changeRadioSize(num: number){
     this.radioSize = num + CssUnit.Px.toString();
+  }
+
+  rowEditClosed(evt: RGridRowInfo) {
+    console.log("Row edit closed");
+    console.log(evt);
+  }
+
+  rowEditClicked(evt: RGridRowInfo) {
+    console.log("Row edit clicked");
+    console.log(evt);
   }
 
   addCalenderEvents(){

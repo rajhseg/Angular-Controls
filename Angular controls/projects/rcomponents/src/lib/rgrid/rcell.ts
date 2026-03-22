@@ -164,6 +164,10 @@ export class RGridRow {
     [Columns: string | number]: RCell;
 }
 
+export class RGridRowInfo {
+  [Columns: string | number]: RCellInfo
+}
+
 export class RGridItems {
     public Rows: RGridRow[] = [];
 }

@@ -763,24 +763,25 @@
 
         <rgrid [PageItems]="ditems" [Items]="gridItems1"
                (OnItemsChanged)="itemsChangedGridItems1($event)"
-               [HeaderBackgroundColor]="'blue'" [EnableShadow]="true"
-               [RowHeightInPx]="'40px'" [GroupHeaderRowHeightInPx]="'30px'"
+               [EnableShadow]="false" [ShowGroupHeader]="true"
+               [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
                [GroupByIconColor]="'blue'" [ShowEditUpdate]="true"
-               [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
+               [EnableSelectColummn]="false" [ItemsPerPage]="ItemsPerPage"
                (OnCellClicked)="cellClicked($event)"
                (ItemsPerPageClicked)="itemPerPage($event)"
                (ItemSelectClick)="itemSelectClick($event)"
                (OnRowCloseClicked)="rowEditClosed($event)"
                (OnRowEditClicked)="rowEditClicked($event)"
+               [HeaderBackgroundColor]="bColor"
                [TableHeight]="'600px'" [TableWidth]="'950px'">
         </rgrid>
 
       <rgrid  [PageItems]="ditems" [Items]="gridItems" 
               [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
-              [EnableShadow]="true"
+              [EnableShadow]="true" [EnableSelectColummn]="false"
               (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'850px'"  
               (OnCellClicked)="cellClicked($event)"
-              [ShowEditUpdate]="false" [TableHeight]="'600px'"
+              [ShowEditUpdate]="true" [TableHeight]="'600px'"
               [ItemsPerPage]="ItemsPerPage4">
 
         <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
@@ -794,21 +795,7 @@
           </ng-template>
         </rcolumn>
 
-        
-        <rcolumn [Name]="'column8'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name0'" [Width]="'140px'">
-          <ng-template headertemplate let-Item>
-            {{Item.HeaderText}}
-          </ng-template>
-          <ng-template readviewtemplate let-Item let-cell="CellInfo">
-            <span>{{Item.Name}} -- {{cell.Value}}</span>
-          </ng-template>
-          <ng-template editviewtemplate let-cell="CellInfo">
-            <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-              [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
-          </ng-template>
-        </rcolumn>
-
-        <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'140px'">
+        <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
           <ng-template headertemplate let-Item>
             {{Item.HeaderText}}
           </ng-template>

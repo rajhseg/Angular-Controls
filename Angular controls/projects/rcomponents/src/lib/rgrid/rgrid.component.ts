@@ -53,6 +53,18 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   progressType: RProgressBarType = RProgressBarType.Infinite;
 
   @Input()
+  SortIconColor: string = 'white';
+
+  @Input()
+  FilterIconColor: string = 'white';
+
+  @Input()
+  GroupHeaderBackColor: string = '#edecec';
+
+  @Input()
+  GroupHeaderForeColor: string = 'black';
+
+  @Input()
   LoaderForeColor: string = 'blue';
 
   @Input()
@@ -128,10 +140,10 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   OnGroupCliked = new EventEmitter<RGridGroupData>();
 
   @Input()
-  RowHeightInPx: string = '40px';
+  RowHeightInPx: string = '50px';
 
   @Input()
-  GroupHeaderRowHeightInPx: string = '40px';
+  GroupHeaderRowHeightInPx: string = '50px';
   
   @Input()
   ItemsPerPage!: DropdownModel;

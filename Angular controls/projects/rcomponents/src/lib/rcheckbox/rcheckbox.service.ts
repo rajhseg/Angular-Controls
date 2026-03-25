@@ -12,8 +12,8 @@ export class CheckboxService {
         this.checkboxs.push(obj);
     }
 
-    public ResetCheckboxesForGroup($event: Event | undefined, groupname: string){
-        let filtered = this.checkboxs.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase());
+    public ResetCheckboxesForGroup($event: Event | undefined, groupname: string, instance: RCheckboxComponent) {
+        let filtered = this.checkboxs.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase() && x != instance);
         filtered.forEach(x=>{
             x.IsChecked = false;
             x.emitValueToModel($event);

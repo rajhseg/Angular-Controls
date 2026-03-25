@@ -11,8 +11,8 @@ export class RadioButtonService {
         this.radiobtns.push(obj);
     }
 
-    public ResetRadioButtonsForGroup($event: Event | undefined, groupname: string){
-        let filtered = this.radiobtns.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase());
+    public ResetRadioButtonsForGroup($event: Event | undefined, groupname: string, instance: RRadiobuttonComponent) {
+        let filtered = this.radiobtns.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase() && x != instance);
         filtered.forEach(x=>{
             x.IsChecked = false;
             x.emitValueToModel($event);

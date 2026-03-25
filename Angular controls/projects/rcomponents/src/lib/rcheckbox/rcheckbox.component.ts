@@ -75,7 +75,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   }
 
   resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
-    this.service.ResetCheckboxesForGroup($event, groupname);
+    this.service.ResetCheckboxesForGroup($event, groupname, this);
   }
 
   check(event: Event) {
@@ -130,19 +130,21 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
       }
     }
 
-    if (this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
-      this.resetValueForGroupedCheckbox(undefined, this.GroupName);
-    }
-
     let sameValue = false;
 
     if(this.IsChecked==checkValue)
       sameValue = true;
 
-    this.IsChecked = checkValue;
-    let args=new CheckboxEventArgs(undefined, this.IsChecked);
-    
     if(!sameValue) {
+    
+      if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
+        this.resetValueForGroupedCheckbox(undefined, this.GroupName);
+      }
+
+      this.IsChecked = checkValue;
+
+      let args=new CheckboxEventArgs(undefined, this.IsChecked);
+    
       this.OnCheckChanged.emit(args);
       this.valueChanged.emit(args);
     }

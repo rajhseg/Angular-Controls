@@ -81,7 +81,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   }
 
   resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
-    this.service.ResetRadioButtonsForGroup($event, groupname);
+    this.service.ResetRadioButtonsForGroup($event, groupname, this);
   }
 
   check(event: Event) {
@@ -136,19 +136,21 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
       }
     }
 
-    if (this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
-      this.resetValueForGroupedCheckbox(undefined, this.GroupName);
-    }
     
     let sameValue = false;
 
     if(this.IsChecked==checkValue)
       sameValue = true;
-
-    this.IsChecked = checkValue;
-    let args=new RadioEventArgs(undefined, this.IsChecked);
     
     if(!sameValue) {
+      
+      if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
+        this.resetValueForGroupedCheckbox(undefined, this.GroupName);
+      }
+
+      this.IsChecked = checkValue;
+      let args=new RadioEventArgs(undefined, this.IsChecked);
+    
       this.OnCheckChanged.emit(args);
       this.valueChanged.emit(args);
     }

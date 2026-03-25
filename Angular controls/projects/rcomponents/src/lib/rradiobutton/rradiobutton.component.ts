@@ -94,7 +94,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
     if(!this.ReadOnly) {
       let checkValue = !this.IsChecked;
 
-      if (this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
+      if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
         this.resetValueForGroupedCheckbox($event, this.GroupName);
       }
 

@@ -24,7 +24,7 @@
 
                     <ng-container *ngIf="EnableSelectColummn">
                         <th style="width: 26px;padding-left: 8px;padding-right: 6px;">
-                            <rcheckbox [(ngModel)]="IsSelectedAll" [Size]="SelectSize"
+                            <rcheckbox [(ngModel)]="IsSelectedAll" [CheckSize]="SelectCheckBoxSize"
                                        (OnCheckChanged)="SelectAll($event)"></rcheckbox>
                         </th>
                     </ng-container>
@@ -151,7 +151,7 @@
     
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center; width:26px">
-                                <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [Size]="SelectSize"
+                                <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [CheckSize]="SelectCheckBoxSize"
                                 (OnCheckChanged)="ItemSelect($event, item)"></rcheckbox>
                             </td>
                         </ng-container>
@@ -230,7 +230,7 @@
 
                                 <ng-container *ngIf="EnableSelectColummn">
                                     <td style="text-align: center; width:26px">
-                                        <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [Size]="SelectSize"
+                                        <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [CheckSize]="SelectCheckBoxSize"
                                         (OnCheckChanged)="ItemSelect($event, item)"></rcheckbox>
                                     </td>
                                 </ng-container>

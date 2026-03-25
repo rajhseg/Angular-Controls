@@ -21,25 +21,20 @@
 
 }
 
-.check::before {
-    content: "\2713";    
-    color: var(--color);
+.tickmark {
     display: inline-block;
-    margin-right: 8px;
-    position:relative;
-    left: var(--left) !important;
-    top: var(--top) !important;
-    font-weight: 800 !important;
-    font-size: var(--fontsize);
-}
-
-.remove {
-
-}
-
-.remove::before {
-    content: "";
-}
+    width: 1em;
+    height: 1em;
+    background: var(--color);
+    clip-path: polygon(
+      14% 52%,
+      0%  66%,
+      38% 100%,
+      100% 20%,
+      86%  6%,
+      38% 72%
+    );
+  }
 
 .label {
     padding-right: 5px;

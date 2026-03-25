@@ -21,28 +21,6 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
 
   private _isChecked: boolean =false;
   
-  sizes: CheckBoxSizeModel[] = [
-    new CheckBoxSizeModel(CheckBoxSize.x_small, "10px", "10px", "1px", "-5px"),
-    new CheckBoxSizeModel(CheckBoxSize.smaller, "12px", "12px", "1px", "-3px"),
-    new CheckBoxSizeModel(CheckBoxSize.small, "13px", "13px", "2px", "-2px"),
-    new CheckBoxSizeModel(CheckBoxSize.medium, "15px", "15px", "2px", "-3px"),
-    new CheckBoxSizeModel(CheckBoxSize.larger, "17px", "17px", "2px", "-5px"),
-    new CheckBoxSizeModel(CheckBoxSize.large, "19px", "19px", "3px", "-3px"),
-  ]
-
-  private currentSize: CheckBoxSize = CheckBoxSize.x_small;
-
-  @Input()
-  set Size(val: CheckBoxSize){
-    this.currentSize = val;
-  }
-  get Size(): CheckBoxSize {
-    return this.currentSize;
-  }
-
-  get RenderSize(): CheckBoxSizeModel {
-    return this.sizes.filter(x=>x.Size==this.currentSize)[0];
-  }
 
   @Input()
   public set IsChecked(val: boolean){
@@ -85,6 +63,9 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
 
   @Input()
   LabelColor: string = "black";
+
+  @Input()
+  CheckSize: string = "15px";
   
   constructor(private windowHelper: RWindowHelper, private service: CheckboxService) {
     super(windowHelper);
@@ -98,15 +79,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   }
 
   check(event: Event) {
-    if(!this.ReadOnly && !this.Disabled) {
-      let spanEle = (event.target as HTMLDivElement).parentElement?.querySelector('span');
-      if (spanEle) {
-        if (spanEle.classList.contains('check')) {
-          this.IsChecked = true;
-        }
-        spanEle.classList.toggle('check');
-      }
-      
+    if(!this.ReadOnly && !this.Disabled) {  
       this.toggleCheck(event);
     }
   }
@@ -115,7 +88,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
     if(!this.ReadOnly) {
       let checkValue = !this.IsChecked;
 
-      if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
+      if (this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
         this.resetValueForGroupedCheckbox($event, this.GroupName);
       }
 
@@ -157,7 +130,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
       }
     }
 
-    if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
+    if (this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
       this.resetValueForGroupedCheckbox(undefined, this.GroupName);
     }
 
@@ -189,21 +162,3 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
 
 }
 
-export enum CheckBoxSize {
-  x_small = "x-small",
-  smaller = "smaller",
-  small = "small",
-  medium = "medium",
-  larger = "larger",
-  large = "large"
-}
-
-export class CheckBoxSizeModel {
-  constructor(public Size:CheckBoxSize, 
-    public Width: string, 
-    public Height:string, 
-    public Left: string, 
-    public Top: string) {
-
-  }
-}

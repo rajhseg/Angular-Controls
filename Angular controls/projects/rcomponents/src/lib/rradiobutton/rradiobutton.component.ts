@@ -86,13 +86,6 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
 
   check(event: Event) {
     if(!this.ReadOnly && !this.Disabled) {
-      let spanEle = (event.target as HTMLDivElement).parentElement?.querySelector('span');
-      if (spanEle) {
-        if (spanEle.classList.contains('round')) {
-          this.IsChecked = true;
-        }
-        spanEle.classList.toggle('round');
-      }
       this.toggleCheck(event);
     } 
   }
@@ -101,7 +94,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
     if(!this.ReadOnly) {
       let checkValue = !this.IsChecked;
 
-      if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
+      if (this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
         this.resetValueForGroupedCheckbox($event, this.GroupName);
       }
 
@@ -143,7 +136,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
       }
     }
 
-    if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
+    if (this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
       this.resetValueForGroupedCheckbox(undefined, this.GroupName);
     }
     

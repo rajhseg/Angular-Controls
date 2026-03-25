@@ -31,7 +31,7 @@ import { RTabsComponent } from 'rcomponents';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { RTreeComponent } from "rcomponents";
 import { RTreeItem } from 'rcomponents';
-import { CheckBoxSize, CheckBoxSizeModel, RCheckboxComponent } from "rcomponents";
+import { RCheckboxComponent } from "rcomponents";
 import { RRadiobuttonComponent } from "rcomponents";
 import { RSliderComponent } from "rcomponents";
 import { RStateVerticalComponent } from "rcomponents";
@@ -158,7 +158,6 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   time3:string = "";
   splitType = RSplitterType;
   calenderEvents!: EventsCalenderModel;
-  RcheckSize = CheckBoxSize;
   
   title = 'angularcontrols';
   items: DropdownModel[] = [];
@@ -205,6 +204,17 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   IsFootball1: boolean = false;
   IsVolleyball1: boolean = false;
   IsTennis1: boolean = false;
+
+  
+  IsFootball12: boolean = false;
+  IsVolleyball12: boolean = false;
+  IsTennis12: boolean = false;
+
+    
+  IsFootball13: boolean = false;
+  IsVolleyball13: boolean = false;
+  IsTennis13: boolean = false;
+
 
   seqItems: RSequenceVerticalItem[]=[];
   seqHorizontalItems: RSequenceHorizontalItem[]=[];
@@ -292,7 +302,6 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   @ViewChild('customTree', { read: RTreeComponent }) customTree!: RTreeComponent;
   
-  checkedSize: CheckBoxSize = CheckBoxSize.x_small;
   radioSize: string = "12px";
   checkBoxSizes: DropdownModel[] = [];
 
@@ -376,26 +385,10 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.createSeriesChart();
       this.populateFilters();      
       this.addCalenderEvents();
-      this.addCheckBoxSizes();
-  }
-
-  chk($evt: DropdownModel){
-    this.checkedSize = $evt.Value;
   }
   
   onInputTextBox(e: Event){
     console.log(e);
-  }
-
-  addCheckBoxSizes(){
-    this.checkBoxSizes = [
-      new DropdownModel(CheckBoxSize.x_small,'x-small'),
-      new DropdownModel(CheckBoxSize.smaller, 'smaller'),
-      new DropdownModel(CheckBoxSize.small, 'small'),
-      new DropdownModel(CheckBoxSize.medium, 'medium'),
-      new DropdownModel(CheckBoxSize.large, 'large'),
-      new DropdownModel(CheckBoxSize.larger, 'larger')
-    ];
   }
 
   changeRadioSize(num: number){

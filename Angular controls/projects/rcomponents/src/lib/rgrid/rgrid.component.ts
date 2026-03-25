@@ -12,7 +12,7 @@ import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RWindowHelper } from '../rwindowObject';
 import { RFilterApplyModel, RFilterComponent, RFilterDataType } from '../rfilter/rfilter.component';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
-import { CheckBoxSize, RCheckboxComponent } from '../rcheckbox/rcheckbox.component';
+import { RCheckboxComponent } from '../rcheckbox/rcheckbox.component';
 import { CheckboxEventArgs } from '../rcheckbox/rcheckbox.service';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
@@ -144,6 +144,9 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
 
   @Input()
   GroupHeaderRowHeightInPx: string = '50px';
+
+  @Input()
+  SelectCheckBoxSize: string = "13px";
   
   @Input()
   ItemsPerPage!: DropdownModel;
@@ -267,16 +270,6 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   private IsFilteredApplied: boolean = false;
   private IsUpdateFromFilter: boolean = false;
   filterModel: any = {};
-
-  private _selectSize: CheckBoxSize = CheckBoxSize.x_small;
-
-  @Input()
-  public set SelectSize(value: CheckBoxSize){
-    this._selectSize = value;
-  }
-  public get SelectSize(): CheckBoxSize {
-    return this._selectSize;
-  }
   
   @Input()
   public set Items(value: any[]) {

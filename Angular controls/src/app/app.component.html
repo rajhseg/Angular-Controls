@@ -139,9 +139,15 @@
       <br />
 
       <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
-        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Football'" [Size]="RcheckSize.medium" [(ngModel)]="IsFootball1"></rcheckbox>
-        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Volleyball'" [Size]="RcheckSize.medium" [(ngModel)]="IsVolleyball1"></rcheckbox>
-        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Tennis'" [Size]="RcheckSize.medium" [(ngModel)]="IsTennis1"></rcheckbox>
+        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Football'" [CheckSize]="'12px'" [(ngModel)]="IsFootball12" [GroupName]="'t1'"></rcheckbox>
+        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Volleyball'" [CheckSize]="'12px'" [(ngModel)]="IsVolleyball12" [GroupName]="'t1'"></rcheckbox>
+        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Tennis'" [CheckSize]="'12px'" [(ngModel)]="IsTennis12" [GroupName]="'t1'"></rcheckbox>
+      </rgroup-panel>
+
+      <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Football'" [(ngModel)]="IsFootball13" [GroupName]="'sports12'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [DisplayText]="'Volleyball'"  [(ngModel)]="IsVolleyball13" [Color]="'blue'" [GroupName]="'sports12'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis13" [GroupName]="'sports12'"></rradiobutton>
       </rgroup-panel>
 
       <div></div>
@@ -177,7 +183,7 @@
       &nbsp;
 
       <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" [MinValue]="0"
-        [MaxValue]="1" [(ngModel)]="rangeValue">
+        [MaxValue]="100" [(ngModel)]="rangeValue">
       </rslider>
 
       &nbsp;
@@ -766,7 +772,7 @@
                [EnableShadow]="false" [ShowGroupHeader]="true"
                [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
                [GroupByIconColor]="'blue'" [ShowEditUpdate]="true"
-               [EnableSelectColummn]="false" [ItemsPerPage]="ItemsPerPage"
+               [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
                (OnCellClicked)="cellClicked($event)"
                (ItemsPerPageClicked)="itemPerPage($event)"
                (ItemSelectClick)="itemSelectClick($event)"
@@ -778,7 +784,7 @@
 
       <rgrid  [PageItems]="ditems" [Items]="gridItems" 
               [GroupByIconColor]="bColor" [HeaderBackgroundColor]="bColor"
-              [EnableShadow]="true" [EnableSelectColummn]="false"
+              [EnableShadow]="true" [EnableSelectColummn]="true"
               (OnItemsChanged)="itemsChanged($event)" [TableWidth]="'850px'"  
               (OnCellClicked)="cellClicked($event)"
               [ShowEditUpdate]="true" [TableHeight]="'600px'"
@@ -1075,22 +1081,22 @@
 
         <div>
           <label>CheckBox Sizes</label>
-          <rselectdropdown [Items]="checkBoxSizes" (valueChanged)="chk($event)">
+          <rselectdropdown [Items]="checkBoxSizes">
           </rselectdropdown>
         </div>
 
         <div style="display: flex;">
           <rgroup-panel groupname="Sports Interest">
-            <rcheckbox [Size]="checkedSize" [DisplayText]="'Football'" [(ngModel)]="IsFootball" [GroupName]="'sports'">
+            <rcheckbox [DisplayText]="'Football'" [(ngModel)]="IsFootball" [GroupName]="'sports'">
             </rcheckbox>
-            <rcheckbox [Size]="checkedSize" [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball"
+            <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball"
               [GroupName]="'sports'"></rcheckbox>
-            <rcheckbox [Size]="checkedSize" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
+            <rcheckbox [DisplayText]="'Tennis'" [(ngModel)]="IsTennis" [GroupName]="'sports'">
             </rcheckbox>
           </rgroup-panel>
         </div>
         <div style="display: flex;vertical-align: middle;">
-          <rcheckbox [Size]="checkedSize" [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
+          <rcheckbox  [DisplayText]="'Import'" [(ngModel)]="isChecked"></rcheckbox>
         </div>
       </rtab>
 
@@ -1414,7 +1420,7 @@
 
         <div>
           <label>CheckBox Sizes</label>
-          <rselectdropdown [Items]="checkBoxSizes" (valueChanged)="chk($event)">
+          <rselectdropdown [Items]="checkBoxSizes">
           </rselectdropdown>
         </div>
 

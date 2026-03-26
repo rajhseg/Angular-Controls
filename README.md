@@ -56,7 +56,7 @@ Calender Control
 
 <br />
 
-<img width="596" height="297" alt="image" src="https://github.com/user-attachments/assets/0c9f565a-df56-438f-bfc4-08214941feeb" />
+<img width="345" height="297" alt="image" src="https://github.com/user-attachments/assets/28e93cae-48b4-47a6-b867-5b1dbbcfb328" />
 
 <br />
 <br />

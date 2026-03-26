@@ -113,7 +113,7 @@
       <div></div>
       <br />
 
-      <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+      <rfileupload [SelectMultipleFiles]="true" [Accept]="'image/*'" [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
         [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="'gray'"
         [IconForeColor]="bColor" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
       </rfileupload>

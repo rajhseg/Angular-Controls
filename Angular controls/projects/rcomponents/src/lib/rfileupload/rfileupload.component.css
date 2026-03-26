@@ -102,11 +102,11 @@
 
 
 .icon-up:before {
-    content: "\276F";
+    content: "\276E";
 }
 
 .icon-down:before {
-    content: "\276E";
+    content: "\276F";
 }
 
 .icon-up, .icon-down {

@@ -73,6 +73,15 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   @Input()
   EnableMaximumHeightForShowFiles: boolean = false;
 
+  @Input()
+  SelectMultipleFiles: boolean = true;
+
+  @Input()
+  Accept: string = "";
+
+  @Input()
+  AllowedMaxFileSizeInMB : number = 1; // default 1 MB
+
   @Output()
   public filesSelected = new EventEmitter<FileList>();
 
@@ -94,6 +103,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
 
   DDERight: string = '';
 
+  ErrorMessages: string[] = [];
   
   DDEWidth: string = '260px';
 
@@ -112,7 +122,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   }
 
   closeDropdown(): void {
-    this.showFiles = true;
+    this.showFiles = false;
     this.cdr.detectChanges();
   }
 
@@ -146,6 +156,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     this.showFiles =false;
     this.rFile.nativeElement.value = "";
     this.DisplayText = "";
+    this.ErrorMessages = [];
 
     this.onChanged(undefined);
     this.onTouched(undefined);
@@ -156,7 +167,36 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   
 
   onFilesSelected($event: Event) {
+
+    this.ErrorMessages = [];
+    this.DisplayText = '';
+
     this._files = ($event.target as any).files;
+
+    let max_files_size = "";
+    let exceed_size: boolean = false;
+    let error_no = 0;
+
+    if(this._files) {
+      for (let index = 0; index < this._files.length; index++) {
+        const element = this._files[index];
+        const fileSize = element.size
+        const fileSizeMB = fileSize / (1024 * 1024); // Size in MB
+        if(fileSizeMB > this.AllowedMaxFileSizeInMB){
+          exceed_size = true;
+          error_no += 1;
+          max_files_size = max_files_size+ error_no+ "." + element.name + ";\n "
+          this.ErrorMessages.push(error_no+ "." + element.name);
+        }
+      }
+
+      if(exceed_size){
+        this._files = undefined; // clear files
+        this.DisplayText = "Error";
+        return;
+      }
+    }
+
     this.onChanged(this._files);
     this.onTouched(this._files);
     this.filesSelected.emit(this._files);
@@ -166,6 +206,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
 
   renderDisplayText(){
     if (this._files != undefined) {
+
       if (this._files.length > 0) {
         this.DisplayText = "(" + (this._files.length) + ") files";
       } else{
@@ -291,7 +332,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
         element = (element as HTMLElement).parentElement;
       }
 
-      if (!sameelementClicked)
+      if (!sameelementClicked) 
         this.showFiles = false;
     }
   }

@@ -21,11 +21,11 @@
       <br /> -->
 
 
-  <rstarrating [starWidth]="starWidth" [starColor]="'blue'" [(ngModel)]="starValue"></rstarrating>
+  <rstarrating [starWidth]="starWidth" [starColor]="'#8f19ff'" [(ngModel)]="starValue"></rstarrating>
 
   <br />
 
-  <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
+  <rstarrating [starWidth]="starWidth" [starColor]="'#8f19ff'"></rstarrating>
 
   <br />
 
@@ -47,7 +47,7 @@
 
 
       <div>
-        <rcalendar [(ngModel)]="curDate" [SelectedItemBackGroundColor]="'blue'" [DateFormat]="'yyyy - MMM - dd'"></rcalendar>
+        <rcalendar [(ngModel)]="curDate" [SelectedItemBackGroundColor]="'#8f19ff'" [DateFormat]="'yyyy - MMM - dd'"></rcalendar>
       </div>
 
       <div></div>
@@ -90,7 +90,7 @@
       <div></div>
       <br />
 
-      <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
+      <rradiobutton [DesignWidth]="radioSize" [Color]="'#8f19ff'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
         [GroupName]="'sports'">
       </rradiobutton>
 
@@ -122,14 +122,14 @@
       <br />
       <br />
 
-      <rswitch [DisplayLabel]="'ChangeToCircle'" [SwitchBackColor]="'blue'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
+      <rswitch [DisplayLabel]="'ChangeToCircle'" [SwitchBackColor]="'#8f19ff'" (checked)="changeToCircle($event)" [(ngModel)]="IsCircleProgressBar">
       </rswitch>
 
       <br />
       <div></div>
       <br />
 
-      <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+      <rprogressbar [ForeColor]="'#8f19ff'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
         [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
         [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
         [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
@@ -139,22 +139,22 @@
       <br />
 
       <rgroup-panel groupname="Sports Interest" [IsItemsArrangeHorizontal]="true">
-        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Football'" [CheckSize]="'12px'" [(ngModel)]="IsFootball13" [GroupName]="'t1'"></rcheckbox>
-        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Volleyball'" [CheckSize]="'12px'" [(ngModel)]="IsVolleyball13" [GroupName]="'t1'"></rcheckbox>
-        <rcheckbox [CheckedColor]="'blue'" [DisplayText]="'Tennis'" [CheckSize]="'12px'" [(ngModel)]="IsTennis13" [GroupName]="'t1'"></rcheckbox>
+        <rcheckbox [CheckedColor]="'#8f19ff'" [DisplayText]="'Football'" [CheckSize]="'12px'" [(ngModel)]="IsFootball13" [GroupName]="'t1'"></rcheckbox>
+        <rcheckbox [CheckedColor]="'#8f19ff'" [DisplayText]="'Volleyball'" [CheckSize]="'12px'" [(ngModel)]="IsVolleyball13" [GroupName]="'t1'"></rcheckbox>
+        <rcheckbox [CheckedColor]="'#8f19ff'" [DisplayText]="'Tennis'" [CheckSize]="'12px'" [(ngModel)]="IsTennis13" [GroupName]="'t1'"></rcheckbox>
       </rgroup-panel>
 
       <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
-            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Football'" [(ngModel)]="IsFootball13" [GroupName]="'sports12'"></rradiobutton>
-            <rradiobutton [DesignWidth]="'16px'" [DisplayText]="'Volleyball'"  [(ngModel)]="IsVolleyball13" [Color]="'blue'" [GroupName]="'sports12'"></rradiobutton>
-            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis13" [GroupName]="'sports12'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'#8f19ff'" [DisplayText]="'Football'" [(ngModel)]="IsFootball13" [GroupName]="'sports12'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [DisplayText]="'Volleyball'"  [(ngModel)]="IsVolleyball13" [Color]="'#8f19ff'" [GroupName]="'sports12'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'#8f19ff'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis13" [GroupName]="'sports12'"></rradiobutton>
       </rgroup-panel>
 
       
       <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
-            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Football'" [(ngModel)]="IsFootball13" [GroupName]="'sports13'"></rradiobutton>
-            <rradiobutton [DesignWidth]="'16px'" [DisplayText]="'Volleyball'"  [(ngModel)]="IsVolleyball13" [Color]="'blue'" [GroupName]="'sports13'"></rradiobutton>
-            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis13" [GroupName]="'sports13'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'#8f19ff'" [DisplayText]="'Football'" [(ngModel)]="IsFootball13" [GroupName]="'sports13'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [DisplayText]="'Volleyball'"  [(ngModel)]="IsVolleyball13" [Color]="'#8f19ff'" [GroupName]="'sports13'"></rradiobutton>
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'#8f19ff'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis13" [GroupName]="'sports13'"></rradiobutton>
       </rgroup-panel>
 
       <div></div>
@@ -203,7 +203,7 @@
 
       &nbsp;
 
-      <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
+      <rradiobutton [DesignWidth]="radioSize" [Color]="'#8f19ff'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
         [GroupName]="'sports'">
       </rradiobutton>
 
@@ -232,7 +232,7 @@
 
       &nbsp;
 
-      <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+      <rprogressbar [ForeColor]="'#8f19ff'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
         [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
         [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
         [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
@@ -280,15 +280,15 @@
     </rtimer>
 
     <rserieschart [XAxisTitle]="'Disk'" [EnableBorder]="true" [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
-      [PopupBackColor]="'blue'" [PopupForeColor]="'white'" [YAxisTitle]="'Speed'" [FillAreaColor]="true" [Width]="400"
+      [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" [YAxisTitle]="'Speed'" [FillAreaColor]="true" [Width]="400"
       [Height]="400" [Items]="seriesModel2"></rserieschart>
 
     <rserieschart [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" [EnableBorder]="true" [GlassyEffect]="true"
-      [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'blue'" [PopupForeColor]="'white'" [Width]="400" [Height]="400"
+      [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" [Width]="400" [Height]="400"
       [Items]="seriesModel"></rserieschart>
 
     <rserieschart [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" [EnableBorder]="true" [GlassyEffect]="true"
-      [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'blue'" [PopupForeColor]="'white'" [Width]="400" [Height]="400"
+      [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" [Width]="400" [Height]="400"
       [Items]="seriesModel1"></rserieschart>
 
 
@@ -374,18 +374,18 @@
   <br />
   <br />
 
-  <rstepper-vertical [StripLineColor]="bColor" [ActiveBackColor]="bColor" [PendingBackColor]="'darkblue'"
-    [PendingBorderColor]="'darkblue'" [ContentWidth]="1000" [ContentHeight]="760"
+  <rstepper-vertical [StripLineColor]="bColor" [ActiveBackColor]="bColor" [PendingBackColor]="'dark#8f19ff'"
+    [PendingBorderColor]="'dark#8f19ff'" [ContentWidth]="1000" [ContentHeight]="760"
     (OnCompletedClick)="StepsCompleted($event)" [ShowStateVertical]="showVerticalItems"
     [(StateVerticalDisplayType)]="stepperDisplayType">
 
     <rstep [Title]="'RDonutChart'" [IsStepValid]="true">
       <ng-template rstepview>
 
-        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" [ShadowColor]="'blue'"
+        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" [ShadowColor]="'#8f19ff'"
           [MoveTextUpwardsFromCenterInPx]="20" [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
-        <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'blue'"
+        <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'#8f19ff'"
           [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
         <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" [Items]="pieItems"
@@ -512,12 +512,12 @@
       <ng-template rstepview>
 
         <rserieschart [XAxisTitle]="'Disk'" [YAxisTitle]="'Speed'" [FillAreaColor]="true" [EnableBorder]="true"
-          [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'blue'" [PopupForeColor]="'white'"
+          [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'"
           [Width]="400" [Height]="400" [Items]="seriesModel2">
         </rserieschart>
 
         <rserieschart [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" [EnableBorder]="true" [GlassyEffect]="true"
-          [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'blue'" [PopupForeColor]="'white'" [Width]="400"
+          [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" [Width]="400"
           [Height]="400" [Items]="seriesModel">
         </rserieschart>
 
@@ -528,7 +528,7 @@
       <ng-template rstepview>
 
         <rserieschart [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" [EnableBorder]="true" [GlassyEffect]="true"
-          [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'blue'" [PopupForeColor]="'white'" [Width]="400"
+          [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" [Width]="400"
           [Height]="400" [Items]="seriesModel1">
         </rserieschart>
 
@@ -540,7 +540,7 @@
 
         <rallocated-barchart [xAxisItemNames]="barChartXAxisItemNames2" [EnableBorder]="true"
           [EmptyAreaBorderColor]="'darkgray'" [GlassyEffect]="true" [GlassyEffectColor]="'darkgray'"
-          [PopupBackColor]="'blue'" [PopupForeColor]="'white'" [XAxisTitle]="'Month'" [YAxisTitle]="'Money'"
+          [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" [XAxisTitle]="'Month'" [YAxisTitle]="'Money'"
           [Columns]="barChartItems2" [Width]="600" [Height]="400">
         </rallocated-barchart>
 
@@ -551,7 +551,7 @@
       [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
 
-        <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'blue'"
+        <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'#8f19ff'"
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
@@ -590,7 +590,7 @@
   <br />
 
   <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems" [(ngModel)]="StepperSelectedItem"
-    [CompletedBackgroundColor]="'darkblue'" [StripLineColor]="bColor" [IsDisplayStepNo]="true"
+    [CompletedBackgroundColor]="'dark#8f19ff'" [StripLineColor]="bColor" [IsDisplayStepNo]="true"
     [PendingBackgroundColor]="tColor" [PendingForeColor]="'white'" [ContentWidth]="140"
     (OnActiveValueChanged)="seqValueChanged($event)" [ActiveBackgroundColor]="bColor">
   </rstate-vertical>
@@ -631,14 +631,14 @@
 
   <div>
     <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" [ActiveForeColor]="bColor"
-      [PendingForeColor]="tColor" [CompletedForeColor]="'darkblue'" [Items]="seqHorizontalItems"
+      [PendingForeColor]="tColor" [CompletedForeColor]="'dark#8f19ff'" [Items]="seqHorizontalItems"
       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="false"
       (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
   </div>
   <div>
     <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex" [ActiveForeColor]="bColor"
-      [PendingForeColor]="tColor" [CompletedForeColor]="'darkblue'" [Items]="seqHorizontalItems"
+      [PendingForeColor]="tColor" [CompletedForeColor]="'dark#8f19ff'" [Items]="seqHorizontalItems"
       [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110" [IsDisplayStepNo]="true"
       (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="bColor"></rstate-horizontal>
 
@@ -660,12 +660,12 @@
 
     <div style="margin-left: 20px;">
      <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
-            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Football'"
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'#8f19ff'" [DisplayText]="'Football'"
               [(ngModel)]="IsFootball" [GroupName]="'sports'"></rradiobutton>
             <rradiobutton [DesignWidth]="'16px'" [DisplayText]="'Volleyball'" 
-              [(ngModel)]="IsVolleyball" [Color]="'blue'"
+              [(ngModel)]="IsVolleyball" [Color]="'#8f19ff'"
               [GroupName]="'sports'"></rradiobutton>
-            <rradiobutton [DesignWidth]="'16px'" [Color]="'blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
+            <rradiobutton [DesignWidth]="'16px'" [Color]="'#8f19ff'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
               [GroupName]="'sports'">
             </rradiobutton>
       </rgroup-panel>
@@ -717,9 +717,9 @@
   <br />
 
   <div style="width: 200px;height:200px;margin-left:60px;">
-      <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'blue'" [MinusBackgroundColor]="'blue'"
-        [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'" [BottomLineColor]="'blue'"
-        [LabelTextForeColor]="'blue'" [(ngModel)]="rangeValue1"></rnumeric>
+      <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'#8f19ff'" [MinusBackgroundColor]="'#8f19ff'"
+        [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'" [BottomLineColor]="'#8f19ff'"
+        [LabelTextForeColor]="'#8f19ff'" [(ngModel)]="rangeValue1"></rnumeric>
   </div>
 
   <br />
@@ -778,7 +778,7 @@
                (OnItemsChanged)="itemsChangedGridItems1($event)"
                [EnableShadow]="false" [ShowGroupHeader]="true"
                [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
-               [GroupByIconColor]="'blue'" [ShowEditUpdate]="true"
+               [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
                [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
                (OnCellClicked)="cellClicked($event)"
                (ItemsPerPageClicked)="itemPerPage($event)"
@@ -925,7 +925,7 @@
     <rstep [Title]="'Education Info'" [IsStepValid]="stepTwoValid" [DisplayTextForNextButton]="'Next'"
       [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
-        <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'blue'"
+        <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'#8f19ff'"
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
 
         <br />
@@ -938,7 +938,7 @@
       [DisplayTextForBackButton]="'Back'">
       <ng-template rstepview>
 
-        <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'blue'"
+        <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)" [HeaderBackgroundColor]="'#8f19ff'"
           [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
         <br />
         <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
@@ -1027,7 +1027,7 @@
         <rcalendar [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate" (onDateSelected)="dateSelected($event)">
         </rcalendar> {{curDate}}
         <rcalendar [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" [(ngModel)]="dt1"
-          [SelectedItemBackGroundColor]="'blue'"></rcalendar> {{dt1}}
+          [SelectedItemBackGroundColor]="'#8f19ff'"></rcalendar> {{dt1}}
         <rcalendar [(ngModel)]="curDate" [DateFormat]="'yyyy - MMM - dd'"></rcalendar>
       </rtab>
 
@@ -1058,7 +1058,7 @@
       <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'rstarrating', 'Context':this }">
         <rstarrating [starWidth]="starWidth"></rstarrating>
         <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
-        <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
+        <rstarrating [starWidth]="starWidth" [starColor]="'#8f19ff'"></rstarrating>
       </rtab>
 
 
@@ -1117,7 +1117,7 @@
               [(ngModel)]="IsFootball" [GroupName]="'sports'"></rradiobutton>
             <rradiobutton [DesignWidth]="radioSize" [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball"
               [GroupName]="'sports'"></rradiobutton>
-            <rradiobutton [DesignWidth]="radioSize" [Color]="'Blue'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
+            <rradiobutton [DesignWidth]="radioSize" [Color]="'#8f19ff'" [DisplayText]="'Tennis'" [(ngModel)]="IsTennis"
               [GroupName]="'sports'">
             </rradiobutton>
           </rgroup-panel>
@@ -1150,7 +1150,7 @@
         <rswitch [DisplayLabel]="'ChangeToInfinite'" (checked)="changeToInfinite($event)"
           [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
-        <rprogressbar [ForeColor]="'blue'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
+        <rprogressbar [ForeColor]="'#8f19ff'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
           [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
           [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
           [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
@@ -1184,7 +1184,7 @@
             <ng-template rstepview>
 
               <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-                [HeaderBackgroundColor]="'blue'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [HeaderBackgroundColor]="'#8f19ff'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
                 Save
@@ -1196,7 +1196,7 @@
             [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
               <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-                [HeaderBackgroundColor]="'blue'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [HeaderBackgroundColor]="'#8f19ff'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
 
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -1209,7 +1209,7 @@
             <ng-template rstepview>
 
               <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-                [HeaderBackgroundColor]="'blue'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [HeaderBackgroundColor]="'#8f19ff'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
                 Save
@@ -1229,7 +1229,7 @@
             <ng-template rstepview>
 
               <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-                [HeaderBackgroundColor]="'blue'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [HeaderBackgroundColor]="'#8f19ff'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepOneSave($event)">
                 Save
@@ -1241,7 +1241,7 @@
             [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
               <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-                [HeaderBackgroundColor]="'blue'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [HeaderBackgroundColor]="'#8f19ff'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
 
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepTwoSave($event)">
@@ -1254,7 +1254,7 @@
             <ng-template rstepview>
 
               <rgrid [PageItems]="ditems" [Items]="gridItems1" (OnItemsChanged)="itemsChangedGridItems1($event)"
-                [HeaderBackgroundColor]="'blue'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
+                [HeaderBackgroundColor]="'#8f19ff'" [ItemsPerPage]="ItemsPerPage" [TableHeight]="'200px'"></rgrid>
               <br />
               <rbutton [BackgroundColor]="'orange'" (ButtonClick)="stepThreeSave($event)">
                 Save
@@ -1323,7 +1323,7 @@
 
         <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
           [(ngModel)]="StepperSelectedItem" (OnActiveValueChanged)="seqValueChanged($event)"
-          [PendingBackgroundColor]="'orangered'" [PendingForeColor]="'white'" [ActiveBackgroundColor]="'blue'">
+          [PendingBackgroundColor]="'orangered'" [PendingForeColor]="'white'" [ActiveBackgroundColor]="'#8f19ff'">
         </rstate-vertical>
 
         <br />
@@ -1331,7 +1331,7 @@
 
         <rstate-vertical #sequ [SelectedActiveIndex]="SeqActiveIndex" [Items]="seqItems"
           [(ngModel)]="StepperSelectedItem" [IsDisplayStepNo]="false" (OnActiveValueChanged)="seqValueChanged($event)"
-          [ActiveBackgroundColor]="'blue'">
+          [ActiveBackgroundColor]="'#8f19ff'">
         </rstate-vertical>
 
         <br />
@@ -1349,14 +1349,14 @@
           <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
             [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
             [IsDisplayStepNo]="false" [CompletedForeColor]="'red'"
-            (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'blue'"></rstate-horizontal>
+            (OnActiveValueChanged)="seqValueChangedForHorizontal($event)" [StripLineColor]="'#8f19ff'"></rstate-horizontal>
 
         </div>
         <div>
           <rstate-horizontal #sequhorizontal [SelectedActiveIndex]="SeqHorizontalActiveIndex"
             [Items]="seqHorizontalItems" [(ngModel)]="StepperHorizontalSelectedItem" [ContentWidth]="110"
             [IsDisplayStepNo]="true" (OnActiveValueChanged)="seqValueChangedForHorizontal($event)"
-            [StripLineColor]="'blue'"></rstate-horizontal>
+            [StripLineColor]="'#8f19ff'"></rstate-horizontal>
 
         </div>
         <br />
@@ -1535,10 +1535,10 @@
       <rtab *tabidfor="{'TabId':'tab32', 'HeaderText':'rdonutchart', 'Context': this}">
         <br />
 
-        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" [ShadowColor]="'blue'"
+        <rdonutchart style="float: left;" [DataListHeight]="140" [ChartWidth]="150" [ShadowColor]="'#8f19ff'"
           [MoveTextUpwardsFromCenterInPx]="20" [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
-        <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'blue'"
+        <rdonutchart style="float: left" [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'#8f19ff'"
           [Items]="pieItems" [Opacity]="'0.8'"></rdonutchart>
 
         <rdonutchart [DataListHeight]="100" [ChartWidth]="300" [ShadowColor]="'red'" [Items]="pieItems"
@@ -1598,7 +1598,7 @@
 
   <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating>
 
-  <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
+  <rstarrating [starWidth]="starWidth" [starColor]="'#8f19ff'"></rstarrating>
 
   <br />
   <div>
@@ -1636,7 +1636,7 @@
       <rtab *tabidfor="{ 'TabId':'tabf1', 'HeaderText':'rcalendar', 'Context':this }">
         <rcalendar [DateFormat]="'yyyy - MMM - dd'" [(ngModel)]="curDate"></rcalendar> {{curDate}}
         <rcalendar [EnableFilterOptionForMonth]="false" [EnableFilterOptionForYear]="false" [(ngModel)]="dt1"
-          [SelectedItemBackGroundColor]="'blue'"></rcalendar> {{dt1}}
+          [SelectedItemBackGroundColor]="'#8f19ff'"></rcalendar> {{dt1}}
         <rcalendar></rcalendar>
       </rtab>
 
@@ -1667,7 +1667,7 @@
       <rtab *tabidfor="{ 'TabId':'tabf3', 'HeaderText':'rstarrating', 'Context':this }">
         <rstarrating [starWidth]="starWidth"></rstarrating>
         <rstarrating [starWidth]="starWidth" [starColor]="'red'" [(ngModel)]="starValue"></rstarrating> {{starValue}}
-        <rstarrating [starWidth]="starWidth" [starColor]="'blue'"></rstarrating>
+        <rstarrating [starWidth]="starWidth" [starColor]="'#8f19ff'"></rstarrating>
       </rtab>
 
 

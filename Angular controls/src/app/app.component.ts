@@ -285,7 +285,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   lineChartItems: RLineChartItem[] = [];
   lineChartXAxisNames: string[] = [];
 
-  bColor: string = 'blue'; //'#13297A';
+  bColor: string = '#8f19ff'; //'#13297A';
   tColor: string = 'orangered'; //teal';
 
   nums2: number[] = [];
@@ -465,7 +465,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
     console.log(nums);
 
-    this.seriesModel.push(new RYSeriesChartItem("Foo", "blue", nums));
+    this.seriesModel.push(new RYSeriesChartItem("Foo", "#8f19ff", nums));
 
     nums = [];
 
@@ -481,7 +481,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
       this.nums2.push(this.GenRandomNum(1, 100));      
     }
 
-    this.seriesModel2.push(new RYSeriesChartItem("Computer", "blue", this.nums2));
+    this.seriesModel2.push(new RYSeriesChartItem("Computer", "#8f19ff", this.nums2));
 
   }
 
@@ -490,7 +490,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     let n1 = this.GenRandomNum(1, 100);
     j.push(n1);
     this.seriesModel2 = [];
-    this.seriesModel2.push(new RYSeriesChartItem("Computer", "blue", j));
+    this.seriesModel2.push(new RYSeriesChartItem("Computer", "#8f19ff", j));
     this.nums2 = j;
   }
 
@@ -510,7 +510,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
 
   createLineChart() {
     let item1 = new RLineChartItem("Soap", "teal", [25, 45, 12, 35, 18, 17, 40]);
-    let item2 = new RLineChartItem("ToothPowder", "darkblue", [35, 75, 18, 45, 16, 27, 60]);
+    let item2 = new RLineChartItem("ToothPowder", "dark#8f19ff", [35, 75, 18, 45, 16, 27, 60]);
     let item3 = new RLineChartItem("Juice", "orangered", [15, 26, 38, 25, 46, 37, 70]);
     
     this.lineChartXAxisNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -589,7 +589,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     let pieItem2 = new RDonutChartItem(35,'Volleyball', 'purple', 'white');
     let pieItem3 = new RDonutChartItem(12,'Tennis', 'gray', 'white');
     let pieItem4 = new RDonutChartItem(44,'BaseBall', 'teal', 'white');
-    let pieItem5 = new RDonutChartItem(14,'Hockey', 'darkblue', 'white');
+    let pieItem5 = new RDonutChartItem(14,'Hockey', 'dark#8f19ff', 'white');
     let pieItem6 = new RDonutChartItem(44,'Football', '#13297A', 'white');
 
     this.pieItems.push(pieItem1);
@@ -613,7 +613,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     let pieItem2 = new RPieChartItem(35,'Volleyball', 'purple', 'white');
     let pieItem3 = new RPieChartItem(12,'Tennis', 'gray', 'white');
     let pieItem4 = new RPieChartItem(44,'BaseBall', 'teal', 'white');
-    let pieItem5 = new RPieChartItem(14,'Hockey', 'darkblue', 'white');
+    let pieItem5 = new RPieChartItem(14,'Hockey', 'dark#8f19ff', 'white');
     let pieItem6 = new RPieChartItem(44,'Football', '#13297A', 'white');
 
     this.pieItems1.push(pieItem1);

@@ -161,8 +161,8 @@
                                 (click)="onTDClick(item[header.PropToBind])"
                                 [ngStyle]="{ 'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth,
                                 'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : '',
-                                'padding-left': item[header.PropToBind].IsEditMode ? '4px': '8px',
-                                'padding-right': item[header.PropToBind].IsEditMode ? '4px': '8px'
+                                'padding-left': item[header.PropToBind].IsEditMode ? '0.5px': '8px',
+                                'padding-right': item[header.PropToBind].IsEditMode ? '0.5px': '8px'
                                 }">
 
                                 <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
@@ -240,8 +240,8 @@
                                         (click)="onTDClick(item[header.PropToBind])"
                                         [ngStyle]="{ 'width': EditModeEnabled ? header.ColumnWidth : header.ColumnWidth,
                                                      'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind]!=undefined) ? item[header.PropToBind].Height : '',
-                                                     'padding-left': item[header.PropToBind].IsEditMode ? '4px': '8px',
-                                                     'padding-right': item[header.PropToBind].IsEditMode ? '4px': '8px'
+                                                     'padding-left': item[header.PropToBind].IsEditMode ? '0.5px': '8px',
+                                                     'padding-right': item[header.PropToBind].IsEditMode ? '0.5px': '8px'
                                                     }">
 
                                         <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">

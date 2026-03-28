@@ -718,14 +718,14 @@
 
   <div style="width: 200px;height:200px;margin-left:60px;">
       <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="'#8f19ff'" [MinusBackgroundColor]="'#8f19ff'"
-        [LabelText]="'Length'" [TextBoxHeight]="'25px'" [TextBoxWidth]="'200px'" [BottomLineColor]="'#8f19ff'"
+        [LabelText]="'Length'" [TextBoxHeight]="'20px'" [TextBoxWidth]="'80px'" [BottomLineColor]="'#8f19ff'"
         [LabelTextForeColor]="'#8f19ff'" [(ngModel)]="rangeValue1"></rnumeric>
   </div>
 
   <br />
 
   <rnumeric [EnableShadowEffect]="true" [PlusBackgroundColor]="bColor" [MinusBackgroundColor]="bColor"
-    [BottomLineColor]="bColor" [LabelTextForeColor]="bColor" [(ngModel)]="rangeValue1"></rnumeric>
+    [BottomLineColor]="bColor"  [LabelTextForeColor]="bColor" [(ngModel)]="rangeValue1"></rnumeric>
 
   <br />
 
@@ -804,7 +804,7 @@
           </ng-template>
           <ng-template editviewtemplate let-Item let-rcell="CellInfo">
             <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-              [TextBoxWidth]="'40px'" [(ngModel)]="rcell.Value" />
+              [TextBoxWidth]="'50px'" [(ngModel)]="rcell.Value" />
           </ng-template>
         </rcolumn>
 
@@ -817,7 +817,7 @@
           </ng-template>
           <ng-template editviewtemplate let-cell="CellInfo">
             <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-              [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+              [TextBoxWidth]="'140px'" [(ngModel)]="cell.Value" />
           </ng-template>
         </rcolumn>
 
@@ -827,7 +827,7 @@
           </ng-template>
           <ng-template editviewtemplate let-cell="CellInfo">
             <rnumeric [BottomLineColor]="bColor" [MinusBackgroundColor]="bColor" [PlusBackgroundColor]="bColor"
-              [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'70px'"></rnumeric>
+              [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'120px'"></rnumeric>
           </ng-template>
         </rcolumn>
 
@@ -839,7 +839,7 @@
           </ng-template>
           <ng-template editviewtemplate let-cell="CellInfo">
             <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-              [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+              [TextBoxWidth]="'100px'" [(ngModel)]="cell.Value" />
           </ng-template>
         </rcolumn>
 

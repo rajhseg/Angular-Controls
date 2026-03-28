@@ -69,6 +69,11 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     return (value + 4) + CssUnit.Px.toString();
   }
 
+  public get ButtonPaddingLeft(): string {
+    let value = this.cssUnitSer.ToPxValue(this.TextBoxWidth, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    return (value - 38) + CssUnit.Px.toString();
+  }
+
   @Input()
   public set Value(val: number){    
       this._value = val;

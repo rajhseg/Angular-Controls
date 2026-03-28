@@ -26,16 +26,20 @@
     padding-bottom: 6px; */
 }
 
+.buttons {
+    position: absolute;
+    align-self: end;
+}
+
 .minus {
     align-self:end;      
-    right: 53px;
     position: relative; 
-    bottom: 7px;   
+    bottom: 7px;  
+    padding-right: 1px; 
 }
 
 .plus {
     align-self:end;        
-    right: 52px;
     position: relative; 
     bottom: 7px;   
 }

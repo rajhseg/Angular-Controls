@@ -8,29 +8,33 @@
     </div>
 
     <div style="display: flex;flex-direction: row;">
-    <rtextbox [ReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
-        [BottomLineColor]="BottomLineColor" [LabelText]="''"
-        [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth"
-        (keypress)="keyPress($event)"
-        (paste)="onPaste($event)"
-        [(ngModel)]="Value">
-    </rtextbox>    
 
-    <rbutton    
-                [ButtonHeight]="ButtonHeight"
-                [ButtonWidth]="'25px'"
-                [BackgroundColor]="MinusBackgroundColor" 
-                [ForeColor]="MinusForeColor" 
-                (ButtonClick)="Dec()" 
-                class="minus">&#9866;</rbutton>
+        <rtextbox [ReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
+            [BottomLineColor]="BottomLineColor" [LabelText]="''"
+            [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth"
+            (keypress)="keyPress($event)"
+            (paste)="onPaste($event)"
+            [(ngModel)]="Value">
+        </rtextbox>    
 
-    <rbutton    
-                [ButtonHeight]="ButtonHeight"
-                [ButtonWidth]="'25px'"
-                [BackgroundColor]="PlusBackgroundColor" 
-                [ForeColor]="PlusForeColor"
-                (ButtonClick)="Inc()" 
-                class="plus">&#10009;</rbutton>
+        <div class="buttons" [ngStyle]="{ 'padding-left' : ButtonPaddingLeft}">
+            <rbutton    
+                        [ButtonHeight]="ButtonHeight"
+                        [ButtonWidth]="'25px'"
+                        [BackgroundColor]="MinusBackgroundColor" 
+                        [ForeColor]="MinusForeColor" 
+                        (ButtonClick)="Dec()" 
+                        class="minus">&#9866;</rbutton>
+
+            <rbutton    
+                        [ButtonHeight]="ButtonHeight"
+                        [ButtonWidth]="'25px'"
+                        [BackgroundColor]="PlusBackgroundColor" 
+                        [ForeColor]="PlusForeColor"
+                        (ButtonClick)="Inc()" 
+                        class="plus">&#10009;</rbutton>
+                        
+        </div>
 
     </div>
 </div>

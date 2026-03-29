@@ -65,7 +65,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   GroupHeaderForeColor: string = 'black';
 
   @Input()
-  LoaderForeColor: string = 'blue';
+  LoaderForeColor: string = '#8f19ff';
 
   @Input()
   LoaderTrackColor: string = 'lightgray';
@@ -783,6 +783,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
         let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
 
         if (_col && (_col.IsComputationalColumn || _col.IsDummyPropToBind || _col.DisableGrouping)) {
+          this.EnableLoader = false;
+          this.cdr.detectChanges();
           return;
         }
 

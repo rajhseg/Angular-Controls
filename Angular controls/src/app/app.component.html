@@ -84,7 +84,12 @@
 
       <div></div>
       <br />
-
+  
+      <rnumeric [Value]="16"></rnumeric>
+          
+      <div></div>
+      <br />
+      
       <rcheckbox [DisplayText]="'Volleyball'" [(ngModel)]="IsVolleyball1"></rcheckbox>
 
       <div></div>
@@ -186,6 +191,10 @@
       <rdropdown [(ngModel)]="multiValue" [IsMulti]="true" [Items]="items" [Width]="'112px'"
         [DropDownContentWidth]="'240px'">
       </rdropdown>
+
+      &nbsp;
+
+      <rnumeric [Value]="16"></rnumeric>
 
       &nbsp;
 
@@ -1108,9 +1117,11 @@
       </rtab>
 
       <rtab *tabidfor="{ 'TabId': 'tab7', 'HeaderText':'rradiobutton', 'Context':this}">
-        <div style="display: flex;">
+        <div style="display: flex;flex-direction: row;">
 
-          <rnumeric [Value]="16" (valueChanged)="changeRadioSize($event)"></rnumeric>
+          <div style="width:100px">
+            <rnumeric [Value]="16" (valueChanged)="changeRadioSize($event)"></rnumeric>
+          </div>
 
           <rgroup-panel [groupname]="'Sports'" [IsItemsArrangeHorizontal]="true">
             <rradiobutton [DesignWidth]="radioSize" [Color]="'OrangeRed'" [DisplayText]="'Football'"

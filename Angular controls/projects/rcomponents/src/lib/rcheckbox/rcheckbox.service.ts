@@ -12,6 +12,10 @@ export class CheckboxService {
         this.checkboxs.push(obj);
     }
 
+    public RemoveInstance(obj: RCheckboxComponent){
+        this.checkboxs = this.checkboxs.filter(x=>x != obj);
+    }
+
     public ResetCheckboxesForGroup($event: Event | undefined, groupname: string, instance: RCheckboxComponent) {
         let filtered = this.checkboxs.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase() && x != instance);
         filtered.forEach(x=>{

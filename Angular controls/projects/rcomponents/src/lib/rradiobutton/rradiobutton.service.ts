@@ -11,6 +11,10 @@ export class RadioButtonService {
         this.radiobtns.push(obj);
     }
 
+    public RemoveInstance(obj: RRadiobuttonComponent){
+        this.radiobtns = this.radiobtns.filter(x=>x != obj);
+    }
+    
     public ResetRadioButtonsForGroup($event: Event | undefined, groupname: string, instance: RRadiobuttonComponent) {
         let filtered = this.radiobtns.filter(x=>x.GroupName.toLowerCase()==groupname.toLowerCase() && x != instance);
         filtered.forEach(x=>{

@@ -1,5 +1,5 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
-import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CheckboxEventArgs, CheckboxService } from './rcheckbox.service';
 import { RWindowHelper } from '../rwindowObject';
@@ -67,11 +67,17 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   @Input()
   CheckSize: string = "15px";
   
-  constructor(private windowHelper: RWindowHelper, private service: CheckboxService) {
+  constructor(private windowHelper: RWindowHelper, private service: CheckboxService, private destroyRef: DestroyRef) {
     super(windowHelper);
     this.HostElementId = this.windowHelper.GenerateUniqueId();
     this.Id = this.windowHelper.GenerateUniqueId();
     this.service.AddInstance(this);
+
+    this.destroyRef.onDestroy(this.OnDestroy.bind(this));
+  }
+
+  OnDestroy() {
+    this.service.RemoveInstance(this);
   }
 
   resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {

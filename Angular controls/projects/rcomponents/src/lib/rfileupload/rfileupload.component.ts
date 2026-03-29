@@ -36,18 +36,10 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
 
   public DisplayText: string = "";
 
+  private _rFilesList: RFile[] = [];
+
   public get Files(): RFile[] {
-    let Rfiles = [];
-
-    if (this._files != undefined) {
-      for (let index = 0; index < this._files.length; index++) {
-        const element = this._files[index];
-        let eachFile = new RFile(element.name, element.size, element.type, element.lastModified);
-        Rfiles.push(eachFile);
-      }
-    }
-
-    return Rfiles;
+    return this._rFilesList;
   }
 
   public dropdownId: string = "";
@@ -133,12 +125,27 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   writeValue(obj: any): void {
     if(obj instanceof FileList){
       this._files = obj;
+
+      this.populateFilesList(this._files);
+      
       this.filesSelected.emit(this._files);
       this.valueChanged.emit(this._files);
       this.renderDisplayText();
     }
   }
   
+  populateFilesList(files: FileList | undefined) {
+    this._rFilesList = [];
+    
+    if (this._files != undefined) {
+      for (let index = 0; index < this._files.length; index++) {
+        const element = this._files[index];
+        let eachFile = new RFile(element.name, element.size, element.type, element.lastModified);
+        this._rFilesList.push(eachFile);
+      }
+    }
+  }
+
   registerOnChange(fn: any): void {
     this.onChanged= fn;
   }
@@ -153,6 +160,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
 
   clear($event: Event) {
     this._files = undefined;
+    this._rFilesList = [];
     this.showFiles =false;
     this.rFile.nativeElement.value = "";
     this.DisplayText = "";
@@ -192,10 +200,13 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
 
       if(exceed_size){
         this._files = undefined; // clear files
+        this._rFilesList = [];
         this.DisplayText = "Error";
         return;
       }
     }
+
+    this.populateFilesList(this._files);
 
     this.onChanged(this._files);
     this.onTouched(this._files);

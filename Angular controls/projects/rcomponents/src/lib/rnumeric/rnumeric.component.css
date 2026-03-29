@@ -21,7 +21,7 @@
 }
 
 .sh {     
-    margin-right: -28px;
+    position: relative;
     /* padding-top:6px;
     padding-bottom: 6px; */
 }

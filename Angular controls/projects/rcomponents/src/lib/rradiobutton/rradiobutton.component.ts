@@ -1,5 +1,5 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { Component, DestroyRef, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonService, RadioEventArgs } from './rradiobutton.service';
 import { RWindowHelper } from '../rwindowObject';
@@ -73,11 +73,17 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   LabelColor: string = "black";
 
   constructor(private service: RadioButtonService, private windowHelper: RWindowHelper,
-    private cssUnitSer: RCssUnitsService, private ele: ElementRef
+    private cssUnitSer: RCssUnitsService, private ele: ElementRef, private destroyRef: DestroyRef
   ) {
     super(windowHelper);
     this.service.AddInstance(this);
     this.Id = this.windowHelper.GenerateUniqueId();
+
+    this.destroyRef.onDestroy(this.OnDestroy.bind(this));
+  }
+
+  OnDestroy() {
+    this.service.RemoveInstance(this);
   }
 
   resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {

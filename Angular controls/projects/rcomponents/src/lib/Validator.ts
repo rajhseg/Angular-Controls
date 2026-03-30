@@ -110,7 +110,7 @@ function getValidNumberArray(value: number[]): any {
     if(isValidNumber(x)) 
       _num = x;
     else
-      console.log("Invalid Number "+x);
+      console.error("Invalid Number "+x);
 
     return _num;
   });

@@ -111,6 +111,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _gapBetweenBars: RSpaceBetweenBars = RSpaceBetweenBars.OneBar;
 
   @Input()
+  @ValidateInput('enum', RSpaceBetweenBars)
   public set GapBetweenBars(val: RSpaceBetweenBars) {
     this._gapBetweenBars = val;
     this.RenderBarChart();

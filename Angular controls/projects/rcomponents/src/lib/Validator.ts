@@ -1,11 +1,14 @@
-type ValidatorType = 'size' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray';
+type ValidatorType = 'size' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray';
 
-export function validateValue(type: ValidatorType, value: any): any {
+export function validateValue(type: ValidatorType, value: any, config?: any): any {
 
   switch (type) {
 
     case 'size':
       return isValidSize(value) ? value : 'auto';
+
+    case 'enum':
+      return validateEnum(value, config);
 
     case 'color':
       return isValidColor(value) ? value : undefined;
@@ -55,6 +58,17 @@ function getValidNumberArray(value: number[]): any {
   return value.map(x=>{
     return isValidNumber(x) ? x : undefined;
   });
+}
+
+function validateEnum(value: any, enumType: any): any {
+
+  if (!enumType) return value;
+
+  const enumValues = Object.values(enumType);
+
+  return enumValues.includes(value)
+    ? value
+    : enumValues[0]; // fallback to first enum value
 }
 
 function sanitizeStringArray(value: any): string[] {
@@ -149,7 +163,8 @@ function sanitizeLabel(value: any, maxLength = 100): string {
   return str;
 }
 
-export function ValidateInput(type: 'size' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray') {
+export function ValidateInput(type: 'size' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' 
+  | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray', config? : any) {
   return function (target: any, propertyKey: string) {
 
     const privateKey = `__${propertyKey}`;
@@ -157,7 +172,7 @@ export function ValidateInput(type: 'size' | 'color' | 'colorarray' | 'colororco
     Object.defineProperty(target, propertyKey, {
 
       set(value: any) {
-        this[privateKey] = validateValue(type, value);
+        this[privateKey] = validateValue(type, value, config);
       },
 
       get() {

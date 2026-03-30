@@ -95,6 +95,10 @@ export class InputPropValidator {
     return validateValue("label", value);
   }
 
+  public getValidateEnum(value: any, enumType: any) : any {
+    return validateValue("enum", value, enumType);
+  } 
+  
 }
 
 @Injectable({

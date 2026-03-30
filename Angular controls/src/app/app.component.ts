@@ -14,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCell, RCellInfo, RGridPaginationValue, RGridRowInfo, RPageContentDirective, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT, ValidateInput } from 'rcomponents';
+import { RCell, RCellInfo, RGridPaginationValue, RGridRowInfo, RPageContentDirective, RSpaceBetweenBars, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT, ValidateInput } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -229,6 +229,9 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   scheduleItems!: REventsSchedules;
 
   StepperSelectedItem!: RSequenceVerticalItem;
+
+  gapBtBars = RSpaceBetweenBars.TwoBar;
+
   SeqActiveIndex: number = 1;
 
   StepperHorizontalSelectedItem!: RSequenceHorizontalItem;

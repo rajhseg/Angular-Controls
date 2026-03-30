@@ -51,6 +51,7 @@ import { RPageContentDirective } from './rsplitter/rpagecontent.directive';
 import { RSplitPageComponent } from './rsplitter/rsplitpage.component';
 import { RSplitterComponent } from './rsplitter/rsplitter.component';
 import { RCell, RGridHeaderSort, RGridEditRowInfo, RGridHeaderSortType, RGridItems, RGridRow } from './rgrid/rcell';
+import { ValidateInput, validateValue } from './Validator';
 
 @NgModule({
     imports: [
@@ -105,7 +106,7 @@ import { RCell, RGridHeaderSort, RGridEditRowInfo, RGridHeaderSortType, RGridIte
         REventsCalenderComponent,
         RPageContentDirective,
         RSplitPageComponent,
-        RSplitterComponent
+        RSplitterComponent,
     ],
     exports: [
         RCalendarComponent,

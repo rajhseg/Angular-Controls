@@ -1,5 +1,76 @@
 import { Injectable } from '@angular/core';
 
+
+@Injectable({
+  providedIn: 'root'
+})
+export class InputPropValidator {
+
+  constructor() { }
+
+  public isValidColor(value: string): boolean {
+    const namedColor = /^[a-zA-Z]+$/;
+
+    const hex = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+
+    const rgb = /^rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)$/;
+
+    const rgba = /^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(0|1|0?\.\d+)\s*\)$/;
+
+    const hsl = /^hsl\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*\)$/;
+
+    const hsla = /^hsla\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*,\s*(0|1|0?\.\d+)\s*\)$/;
+
+    const cssVar = /^var\(--[a-zA-Z0-9-_]+\)$/;
+
+    return (
+      namedColor.test(value) ||
+      hex.test(value) ||
+      rgb.test(value) ||
+      rgba.test(value) ||
+      hsl.test(value) ||
+      hsla.test(value) ||
+      cssVar.test(value)
+    );
+  }
+
+  public isValidSize(value: string): boolean {
+    const regex = /^(\d+(\.\d+)?)(px|%|em|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc)$/;
+    const varRegex = /^var\(--[a-zA-Z0-9-_]+\)$/;
+
+    return regex.test(value) || varRegex.test(value);
+  }
+
+  public isValidSizeInNumber(value: any): value is number {
+    return (
+      typeof value === 'number' &&
+      !isNaN(value) &&
+      isFinite(value)
+    );
+  }
+
+  
+  public sanitizeLabel(value: any, maxLength = 100): string {
+
+    if (value === null || value === undefined) {
+      return '';
+    }
+
+    let str = String(value);
+
+    // Limit length
+    if (str.length > maxLength) {
+      str = str.substring(0, maxLength);
+    }
+
+    // Allow safe characters only
+    str = str.replace(/[^a-zA-Z0-9\s.,\-_()]/g, '');
+
+    return str;
+  }
+
+}
+
 @Injectable({
   providedIn: 'root'
 })

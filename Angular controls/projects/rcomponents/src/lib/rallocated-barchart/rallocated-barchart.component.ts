@@ -56,27 +56,24 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   PaddingBottom: number = 10;
 
   @Input()
-  @ValidateInput("color")
   public set TextColor(val: string){
-    this._textColor = val;
+    this._textColor = this.ValidColor(val);
   }
   public get TextColor(): string {
     return this._textColor;
   }
   
   @Input()
-  @ValidateInput("label")
   public set XAxisTitle(val: string){
-    this._xAxisTitle = val;
+    this._xAxisTitle = this.ValidLabel(val);
   }
   public get XAxisTitle(): string {
     return this._xAxisTitle;
   }
 
   @Input()
-  @ValidateInput("label")
   public set YAxisTitle(val: string) {
-    this._yAxisTitle = val;
+    this._yAxisTitle = this.ValidLabel(val);
   }
   public get YAxisTitle(): string {
     return this._yAxisTitle;
@@ -85,14 +82,13 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _noOfSplitInValueAxis: number = 4;
 
   @Input()
-  @ValidateInput("number")
   public set NoOfSplitInValueAxis(val: number) {
 
     if (val < 3) {
       val = 3;
     }
 
-    this._noOfSplitInValueAxis = val;
+    this._noOfSplitInValueAxis = this.ValidNumber(val);
   }
   public get NoOfSplitInValueAxis(): number {
     return this._noOfSplitInValueAxis;
@@ -100,9 +96,8 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
 
   @Input()
-  @ValidateInput("number")
   public set Width(val: number) {
-    this._width = val;
+    this._width = this.ValidNumber(val);
   }
   public get Width(): number {
     return this._width;
@@ -111,9 +106,8 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _gapBetweenBars: RSpaceBetweenBars = RSpaceBetweenBars.OneBar;
 
   @Input()
-  @ValidateInput('enum', RSpaceBetweenBars)
   public set GapBetweenBars(val: RSpaceBetweenBars) {
-    this._gapBetweenBars = val;
+    this._gapBetweenBars =  this.ValidEnum(val, RSpaceBetweenBars);
     this.RenderBarChart();
   }
   public get GapBetweenBars(): number {
@@ -123,9 +117,8 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _marginX: number = 50;
 
   @Input()
-  @ValidateInput("number")
   public set MarginX(val: number) {
-    this._marginX = val;
+    this._marginX = this.ValidNumber(val);
   }
   public get MarginX(): number {
     return this._marginX;
@@ -135,18 +128,16 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _marginY: number = 50;
 
   @Input()
-  @ValidateInput("number")
   public set MarginY(val: number) {
-    this._marginY = val;
+    this._marginY = this.ValidNumber(val);
   }
   public get MarginY(): number {
     return this._marginY;
   }
 
   @Input()
-  @ValidateInput("number")
   public set Height(val: number) {
-    this._height = val;
+    this._height = this.ValidNumber(val);
   }
   public get Height(): number {
     return this._height;
@@ -155,10 +146,9 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _xAxisItemNames: string[] = [];
 
   @Input()
-  @ValidateInput("stringarray")
   public set xAxisItemNames(val: string[]) {
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
-      this._xAxisItemNames = val;
+      this._xAxisItemNames = this.ValidLabelArray(val);
       this.RenderBarChart();
     }
   }
@@ -169,9 +159,8 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _dataListHeight: number = 30;
 
   @Input()
-  @ValidateInput("number")
   public set DataListHeight(val: number) {
-    this._dataListHeight = val;
+    this._dataListHeight = this.ValidNumber(val);
   }
   public get DataListHeight(): number {
     return this._dataListHeight;

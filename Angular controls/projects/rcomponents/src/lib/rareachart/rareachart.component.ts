@@ -5,6 +5,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, I
 import { RAreaChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { ValidateInput } from '../Validator';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rareachart',
@@ -13,7 +14,7 @@ import { ValidateInput } from '../Validator';
   templateUrl: './rareachart.component.html',
   styleUrl: './rareachart.component.css'
 })
-export class RAreaChartComponent implements AfterViewInit {
+export class RAreaChartComponent extends RChartBaseComponent implements AfterViewInit {
 
   
   private _width: number = 300;
@@ -61,18 +62,16 @@ export class RAreaChartComponent implements AfterViewInit {
   PlotItemSize: number = 3;
 
   @Input()
-  @ValidateInput("color")
   public set TextColor(val: string) {
-    this._textColor = val;
+    this._textColor = this.ValidColor(val);
   }
   public get TextColor(): string {
     return this._textColor;
   }
 
   @Input()
-  @ValidateInput("label")
   public set XAxisTitle(val: string) {
-    this._xAxisTitle = val;
+    this._xAxisTitle = this.ValidLabel(val);
     this.RenderAreaChart();
   }
   public get XAxisTitle(): string {
@@ -80,9 +79,8 @@ export class RAreaChartComponent implements AfterViewInit {
   }
 
   @Input()
-  @ValidateInput("label")
   public set YAxisTitle(val: string) {
-    this._yAxisTitle = val;
+    this._yAxisTitle = this.ValidLabel(val);
     this.RenderAreaChart();
   }
   public get YAxisTitle(): string {
@@ -92,10 +90,9 @@ export class RAreaChartComponent implements AfterViewInit {
   private _xAxisItemNames: string[] = [];
 
   @Input()
-  @ValidateInput("stringarray")
   public set xAxisItemNames(val: string[]){
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
-      this._xAxisItemNames = val;
+      this._xAxisItemNames = this.ValidLabelArray(val);
       this.RenderAreaChart();
     }    
   }
@@ -110,18 +107,16 @@ export class RAreaChartComponent implements AfterViewInit {
   private _noOfSplitInYAxis: number = 4;
 
   @Input()
-  @ValidateInput("number")
   public set NoOfSplitInYAxis(val: number) {
-    this._noOfSplitInYAxis = val;
+    this._noOfSplitInYAxis = this.ValidNumber(val);
   }
   public get NoOfSplitInYAxis(): number {
     return this._noOfSplitInYAxis;
   }
 
   @Input()
-  @ValidateInput("number")
   public set Width(val: number) {
-    this._width = val;
+    this._width = this.ValidNumber(val);
     this.RenderAreaChart();
   }
   public get Width(): number {
@@ -131,9 +126,8 @@ export class RAreaChartComponent implements AfterViewInit {
   private _marginX: number = 50;
 
   @Input()
-  @ValidateInput("number")
   public set MarginX(val: number) {
-    this._marginX = val;
+    this._marginX = this.ValidNumber(val);
   }
   public get MarginX(): number {
     return this._marginX;
@@ -143,18 +137,16 @@ export class RAreaChartComponent implements AfterViewInit {
   private _marginY: number = 50;
 
   @Input()
-  @ValidateInput("number")
   public set MarginY(val: number) {
-    this._marginY = val;
+    this._marginY = this.ValidNumber(val);
   }
   public get MarginY(): number {
     return this._marginY;
   }
 
   @Input()
-  @ValidateInput("number")
   public set Height(val: number) {
-    this._height = val;
+    this._height = this.ValidNumber(val);
     this.RenderAreaChart();
   }
   public get Height(): number {
@@ -221,6 +213,7 @@ export class RAreaChartComponent implements AfterViewInit {
   HostElementId: string = '';
 
   constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super();
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

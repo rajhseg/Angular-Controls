@@ -15,7 +15,10 @@ export abstract class RBaseComponent<T> {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
 
-    
+    ValidEnum(value: any, enumType: any) : any {
+        return this.propValidator.getValidateEnum(value, enumType);
+    }
+
     ValidLabel(value: string) : string {
         return this.propValidator.getValidLabel(value);
     }
@@ -64,6 +67,10 @@ export abstract class RChartBaseComponent {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
     
+    ValidEnum(value: any, enumType: any) : any {
+        return this.propValidator.getValidateEnum(value, enumType);
+    }
+
     ValidLabel(value: string) : string {
         return this.propValidator.getValidLabel(value);
     }

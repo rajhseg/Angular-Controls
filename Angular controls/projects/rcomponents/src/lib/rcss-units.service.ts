@@ -55,8 +55,20 @@ export class InputPropValidator {
     return validateValue("color", value);
   }
 
+  public getValidColors(value: any): string[] {
+    return validateValue("colorarray", value);
+  }
+
+  public getValidColorOrColors(value: any): string | string[] {
+    return validateValue("colororcolorarray", value);
+  }
+
   public getValidNumber(value: any): number {
     return validateValue("number", value);
+  }
+
+  public getValidNumberOrNumbers(value: any) {
+    return validateValue("numberarray", value);
   }
 
   public getValidSize(value: any): string {
@@ -69,6 +81,10 @@ export class InputPropValidator {
 
   public getValidStringArray(value: any): string[] {
     return validateValue("stringarray", value);
+  }
+
+  public getValidStringOrStringArray(value: any): string[] | string {
+    return validateValue("stringorstringarray", value);
   }
 
   public getValidLabel(value: any): string {

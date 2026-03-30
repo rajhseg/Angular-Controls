@@ -1,5 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { RWindowHelper, RWINDOWHELPEROBJECT } from "../rwindowObject";
+import { ValidateInput } from "../Validator";
 
 
 @Injectable({
@@ -26,20 +27,52 @@ export class RBarChartItem extends RBaseChartItem {
 
 export class RAllocatedBarChartItem extends RBaseChartItem {
     
+    @ValidateInput('label')
+    public DisplayName!: string;
+
+    public Values!: RAllocationData[];
+
+    @ValidateInput("colororcolorarray")
+    public barItemsBackColor!: string[] | string;
+
+    @ValidateInput("colororcolorarray")
+    public barItemsForeColor!: string[] | string;
+    
+    @ValidateInput("label")
+    public AllocatedDisplayName!: string;
+
+    @ValidateInput("label")
+    public SpentDisplayName!: string;
+
     constructor(
-        public DisplayName: string, 
-        public Values: RAllocationData[],
-        public barItemsBackColor: string[] | string,
-        public barItemsForeColor: string[] | string, 
-        public AllocatedDisplayName: string = 'Allocated',
-        public SpentDisplayName: string = 'Spent') {
+         _displayName: string, 
+         _values: RAllocationData[],
+         _barItemsBackColor: string[] | string,
+         _barItemsForeColor: string[] | string, 
+         _allocatedDisplayName: string = 'Allocated',
+         _spentDisplayName: string = 'Spent') {
             super();
+            this.DisplayName = _displayName;
+            this.Values = _values;
+            this.barItemsBackColor = _barItemsBackColor;
+            this.barItemsForeColor = _barItemsForeColor;
+            this.AllocatedDisplayName = _allocatedDisplayName;
+            this.SpentDisplayName = _spentDisplayName;
         }
 }
 
 export class RAllocationData extends RBaseChartItem {
-    constructor(public Allocated: number, public Spent: number) {
+
+    @ValidateInput("number")
+    public Allocated!: number;
+    
+    @ValidateInput("number")
+    public Spent!: number
+
+    constructor(_allocated: number,  _spent: number) {
         super();
+        this.Allocated = _allocated;
+        this.Spent = _spent;
     }
 }
 

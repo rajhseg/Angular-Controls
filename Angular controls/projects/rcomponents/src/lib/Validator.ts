@@ -1,4 +1,4 @@
-type ValidatorType = 'size' | 'color' | 'number' | 'boolean' | 'label' | 'stringarray';
+type ValidatorType = 'size' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray';
 
 export function validateValue(type: ValidatorType, value: any): any {
 
@@ -10,8 +10,17 @@ export function validateValue(type: ValidatorType, value: any): any {
     case 'color':
       return isValidColor(value) ? value : undefined;
 
+    case 'colororcolorarray':
+      return Array.isArray(value) ? getValidColorArray(value) : isValidColor(value) ? value : undefined;
+
+    case 'colorarray':
+      return getValidColorArray(value);
+
     case 'number':
-      return isValidNumber(value) ? value : 0;
+      return isValidNumber(value) ? value : undefined;
+
+    case 'numberarray':
+      return getValidNumberArray(value);
 
     case 'boolean':
       return toBoolean(value);
@@ -22,9 +31,30 @@ export function validateValue(type: ValidatorType, value: any): any {
     case 'stringarray':
         return sanitizeStringArray(value);
 
+    case 'stringorstringarray':
+        return Array.isArray(value) ? sanitizeStringArray(value) : sanitizeLabel(value);
+
     default:
-      return value;
+      return undefined;
   }
+}
+
+function getValidColorArray(value: string[]): any {
+  let colors : any = [];
+
+  for (let index = 0; index < value.length; index++) {
+    const element = value[index];
+    let _color = isValidColor(element) ? element : undefined;
+    colors.push(_color);
+  }
+
+  return colors;
+}
+
+function getValidNumberArray(value: number[]): any {
+  return value.map(x=>{
+    return isValidNumber(x) ? x : undefined;
+  });
 }
 
 function sanitizeStringArray(value: any): string[] {
@@ -119,7 +149,7 @@ function sanitizeLabel(value: any, maxLength = 100): string {
   return str;
 }
 
-export function ValidateInput(type: 'size' | 'color' | 'number' | 'boolean' | 'label' | 'stringarray') {
+export function ValidateInput(type: 'size' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray') {
   return function (target: any, propertyKey: string) {
 
     const privateKey = `__${propertyKey}`;

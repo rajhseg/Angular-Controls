@@ -24,12 +24,32 @@ export abstract class RBaseComponent<T> {
         return this.propValidator.getValidNumber(value);
     }
 
-    ValidColor(value: any) : string {
+    ValidColor(value: string) : string {
         return this.propValidator.getValidColor(value);
     }
 
+    ValidColors(value: string[]): string[] {
+        return this.propValidator.getValidColors(value);
+    }
+
+    ValidColorOrColors(value: string | string[]) : string | string[] {
+        return this.propValidator.getValidColorOrColors(value);
+    }
+
+    ValidNumbersArray(value: number[]) : number[] {
+        return this.propValidator.getValidNumberOrNumbers(value);
+    }
+    
     ValidSize(value: string): string {
         return this.propValidator.getValidSize(value);
+    }
+
+    ValidLabelArray(value: string[]): string[] {
+        return this.propValidator.getValidStringArray(value);
+    }
+
+    ValidLabelOrLabelArray(value: string | string[]): string | string [] {
+        return this.propValidator.getValidStringOrStringArray(value);
     }
 
     constructor(protected winObj: RWindowHelper) {
@@ -52,12 +72,32 @@ export abstract class RChartBaseComponent {
         return this.propValidator.getValidNumber(value);
     }
 
-    ValidColor(value: any) : string {
+    ValidColor(value: string) : string {
         return this.propValidator.getValidColor(value);
     }
 
+    ValidColors(value: string[]): string[] {
+        return this.propValidator.getValidColors(value);
+    }
+
+    ValidColorOrColors(value: string | string[]) : string | string[] {
+        return this.propValidator.getValidColorOrColors(value);
+    }
+
+    ValidNumbersArray(value: number[]) : number[] {
+        return this.propValidator.getValidNumberOrNumbers(value);
+    }
+    
     ValidSize(value: string): string {
         return this.propValidator.getValidSize(value);
+    }
+
+    ValidLabelArray(value: string[]): string[] {
+        return this.propValidator.getValidStringArray(value);
+    }
+
+    ValidLabelOrLabelArray(value: string | string[]): string | string [] {
+        return this.propValidator.getValidStringOrStringArray(value);
     }
 }
 

@@ -5,22 +5,22 @@ export function validateValue(type: ValidatorType, value: any, config?: any): an
   switch (type) {
 
     case 'size':
-      return isValidSize(value) ? value : 'auto';
+      return getValidSize(value);
 
     case 'enum':
       return validateEnum(value, config);
 
     case 'color':
-      return isValidColor(value) ? value : undefined;
+      return getValidColor(value);
 
     case 'colororcolorarray':
-      return Array.isArray(value) ? getValidColorArray(value) : isValidColor(value) ? value : undefined;
+       return getValidColorOrColorArray(value);
 
     case 'colorarray':
       return getValidColorArray(value);
 
     case 'number':
-      return isValidNumber(value) ? value : undefined;
+      return getValidNumber(value);
 
     case 'numberarray':
       return getValidNumberArray(value);
@@ -42,12 +42,61 @@ export function validateValue(type: ValidatorType, value: any, config?: any): an
   }
 }
 
+function getValidColorOrColorArray(value: any): any {
+  if(Array.isArray(value))
+    return getValidColorArray(value) 
+  else {
+    if(isValidColor(value)) {
+      return value 
+    }
+    else {
+      console.error("Invalid Color " +value);
+      return undefined;
+    }
+  }
+}
+
+function getValidColor(value: any): any {
+  if(isValidColor(value)) {
+    return value;
+  } else {
+    console.error("Invalid Color "+value);
+    return undefined;
+  }
+}
+
+function getValidSize(value: any): any {
+  if(isValidSize(value)){
+    return value;
+  } else {
+    console.error("Invalid size "+ value);
+    return 'auto';
+  }
+}
+
+function getValidNumber(value: any): any {
+  if(isValidNumber(value)) {
+    return value;
+  }
+  else {
+    console.error("Invalid number "+ value);
+    return undefined;
+  }
+}
+
 function getValidColorArray(value: string[]): any {
   let colors : any = [];
 
   for (let index = 0; index < value.length; index++) {
     const element = value[index];
-    let _color = isValidColor(element) ? element : undefined;
+    let _color = undefined;
+    
+    if(isValidColor(element)) {
+      _color = element;
+    } else {
+      console.error("InValid Color Value " +element);
+    }
+
     colors.push(_color);
   }
 
@@ -56,19 +105,33 @@ function getValidColorArray(value: string[]): any {
 
 function getValidNumberArray(value: number[]): any {
   return value.map(x=>{
-    return isValidNumber(x) ? x : undefined;
+    let _num = undefined;
+
+    if(isValidNumber(x)) 
+      _num = x;
+    else
+      console.log("Invalid Number "+x);
+
+    return _num;
   });
 }
 
 function validateEnum(value: any, enumType: any): any {
 
-  if (!enumType) return undefined;
+  if (!enumType) {
+    console.error("Invalid Enum Type "+enumType);
+    return undefined;
+  }
 
   const enumValues = Object.values(enumType);
 
-  return enumValues.includes(value)
-    ? value
-    : enumValues[0]; // fallback to first enum value
+  if(enumValues.includes(value)) {
+    return value;
+  }
+  else {
+    console.error("Invalid enum value "+value+" for enum type "+enumType+", fallback to first value");
+    return enumValues[0]; // fallback to first enum value
+  }
 }
 
 function sanitizeStringArray(value: any): string[] {

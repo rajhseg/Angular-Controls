@@ -4,6 +4,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RAreaChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
+import { ValidateInput } from '../Validator';
 
 @Component({
   selector: 'rareachart',
@@ -24,33 +25,43 @@ export class RAreaChartComponent implements AfterViewInit {
   private _textColor: string = "gray";
 
   @Input()
+  @ValidateInput("boolean")
   EnableBorder: boolean = false;
 
   @Input()
+  @ValidateInput("color")
   BorderColor: string = 'lightgray';
 
   @Input()
+  @ValidateInput("boolean")
   GlassyEffect: boolean = true;
 
   @Input()
+  @ValidateInput("color")
   GlassyEffectColor: string = 'lightgray';
 
   @Input()
+  @ValidateInput("number")
   PaddingLeft: number = 20;
 
   @Input()
+  @ValidateInput("number")
   PaddingRight: number = 20;
 
   @Input()
+  @ValidateInput("number")
   PaddingTop: number = 20;
 
   @Input()
+  @ValidateInput("number")
   PaddingBottom: number = 10;
 
   @Input()
+  @ValidateInput("number")
   PlotItemSize: number = 3;
 
   @Input()
+  @ValidateInput("color")
   public set TextColor(val: string) {
     this._textColor = val;
   }
@@ -59,6 +70,7 @@ export class RAreaChartComponent implements AfterViewInit {
   }
 
   @Input()
+  @ValidateInput("label")
   public set XAxisTitle(val: string) {
     this._xAxisTitle = val;
     this.RenderAreaChart();
@@ -68,6 +80,7 @@ export class RAreaChartComponent implements AfterViewInit {
   }
 
   @Input()
+  @ValidateInput("label")
   public set YAxisTitle(val: string) {
     this._yAxisTitle = val;
     this.RenderAreaChart();
@@ -79,6 +92,7 @@ export class RAreaChartComponent implements AfterViewInit {
   private _xAxisItemNames: string[] = [];
 
   @Input()
+  @ValidateInput("stringarray")
   public set xAxisItemNames(val: string[]){
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
       this._xAxisItemNames = val;
@@ -96,6 +110,7 @@ export class RAreaChartComponent implements AfterViewInit {
   private _noOfSplitInYAxis: number = 4;
 
   @Input()
+  @ValidateInput("number")
   public set NoOfSplitInYAxis(val: number) {
     this._noOfSplitInYAxis = val;
   }
@@ -104,6 +119,7 @@ export class RAreaChartComponent implements AfterViewInit {
   }
 
   @Input()
+  @ValidateInput("number")
   public set Width(val: number) {
     this._width = val;
     this.RenderAreaChart();
@@ -115,6 +131,7 @@ export class RAreaChartComponent implements AfterViewInit {
   private _marginX: number = 50;
 
   @Input()
+  @ValidateInput("number")
   public set MarginX(val: number) {
     this._marginX = val;
   }
@@ -126,6 +143,7 @@ export class RAreaChartComponent implements AfterViewInit {
   private _marginY: number = 50;
 
   @Input()
+  @ValidateInput("number")
   public set MarginY(val: number) {
     this._marginY = val;
   }
@@ -134,6 +152,7 @@ export class RAreaChartComponent implements AfterViewInit {
   }
 
   @Input()
+  @ValidateInput("number")
   public set Height(val: number) {
     this._height = val;
     this.RenderAreaChart();
@@ -145,21 +164,27 @@ export class RAreaChartComponent implements AfterViewInit {
   PopupItems: RPopupChartItem[] = [];
 
   @Input()
+  @ValidateInput("number")
   DataListHeight: number = 50;
 
   @Input()
+  @ValidateInput("color")
   PopupBackColor: string = "lightgray";
 
   @Input()
+  @ValidateInput("boolean")
   IsRenderFromInit:boolean = true;
 
   @Input()
+  @ValidateInput("boolean")
   EnableGradientInArea: boolean = true;
   
   @Input()
+  @ValidateInput("color")
   PopupForeColor: string | undefined = undefined;
 
   @Input()
+  @ValidateInput("number")
   PopupBackgroundOpacity: number = 1;
 
   private _items: RAreaChartItem[] = [];
@@ -176,6 +201,7 @@ export class RAreaChartComponent implements AfterViewInit {
   }
 
   @Input()
+  @ValidateInput("boolean")
   EnablePlotOnPoints: boolean = false;
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
@@ -186,6 +212,7 @@ export class RAreaChartComponent implements AfterViewInit {
   public IsRendered: boolean = false;
 
   @Input()
+  @ValidateInput("number")
   AreaOpacity: number = 0.2;
 
   Id:string = '';

@@ -62,7 +62,7 @@ function getValidNumberArray(value: number[]): any {
 
 function validateEnum(value: any, enumType: any): any {
 
-  if (!enumType) return value;
+  if (!enumType) return undefined;
 
   const enumValues = Object.values(enumType);
 
@@ -77,34 +77,27 @@ function sanitizeStringArray(value: any): string[] {
     return [];
   }
 
-  const MAX_ITEMS = 50;
-  const MAX_LENGTH = 50;
-
   return value
     .map(item => {
-      if (item === null || item === undefined) return '';
+      if (item === null || item === undefined) return item;
 
-      let str = String(item).trim();
+      let str = String(item);
 
-      // limit length
-      if (str.length > MAX_LENGTH) {
-        str = str.substring(0, MAX_LENGTH);
-      }
-
-      // remove unsafe chars
-      str = str.replace(/[<>]/g, '');
+      //Allow safe characters only
+      str = str.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#x27;')
+              .replace(/`/g, '&#x60;');
 
       return str;
-    })
-    .filter(str => str.length > 0)   // remove empty
-    .slice(0, MAX_ITEMS);            // limit array size
+    });         
 }
 
 // 🔹 Size
 function isValidSize(value: string): boolean {
   const size = /^(\d+(\.\d+)?)(px|%|em|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc)$/;
-  
-  // const cssVar = /^var\(--[a-zA-Z0-9-_]+\)$/;
   
   return size.test(value) ;  // || cssVar.test(value);
 }
@@ -117,7 +110,6 @@ function isValidColor(value: string): boolean {
   const rgba = /^rgba\(.+\)$/;
   const hsl = /^hsl\(.+\)$/;
   const hsla = /^hsla\(.+\)$/;
-  // const cssVar = /^var\(--[a-zA-Z0-9-_]+\)$/;
 
   return named.test(value) || hex.test(value) || rgb.test(value) ||
          rgba.test(value) || hsl.test(value) || hsla.test(value); // cssVar.test(value);
@@ -147,18 +139,18 @@ function toBoolean(value: any): boolean {
 function sanitizeLabel(value: any, maxLength = 100): string {
 
   if (value === null || value === undefined) {
-    return '';
+    return value;
   }
 
   let str = String(value);
 
-  // Limit length
-  if (str.length > maxLength) {
-    str = str.substring(0, maxLength);
-  }
-
   // Allow safe characters only
-  str = str.replace(/[^a-zA-Z0-9\s.,\-_()]/g, '');
+  str = str.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#x27;')
+              .replace(/`/g, '&#x60;');
 
   return str;
 }

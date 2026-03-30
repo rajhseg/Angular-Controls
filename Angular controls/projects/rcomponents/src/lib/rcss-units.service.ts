@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { validateValue } from './Validator';
 
 
 @Injectable({
@@ -36,9 +37,10 @@ export class InputPropValidator {
 
   public isValidSize(value: string): boolean {
     const regex = /^(\d+(\.\d+)?)(px|%|em|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc)$/;
-    const varRegex = /^var\(--[a-zA-Z0-9-_]+\)$/;
+   
+    //const varRegex = /^var\(--[a-zA-Z0-9-_]+\)$/;
 
-    return regex.test(value) || varRegex.test(value);
+    return regex.test(value) ; // || varRegex.test(value);
   }
 
   public isValidSizeInNumber(value: any): value is number {
@@ -49,24 +51,32 @@ export class InputPropValidator {
     );
   }
 
-  
+  public getValidColor(value: any): string {
+    return validateValue("color", value);
+  }
+
+  public getValidNumber(value: any): number {
+    return validateValue("number", value);
+  }
+
+  public getValidSize(value: any): string {
+    return validateValue("size", value);
+  }
+
+  public getValidBoolean(value: any): boolean {
+    return validateValue("boolean", value);
+  }
+
+  public getValidStringArray(value: any): string[] {
+    return validateValue("stringarray", value);
+  }
+
+  public getValidLabel(value: any): string {
+    return validateValue("label", value);
+  }
+
   public sanitizeLabel(value: any, maxLength = 100): string {
-
-    if (value === null || value === undefined) {
-      return '';
-    }
-
-    let str = String(value);
-
-    // Limit length
-    if (str.length > maxLength) {
-      str = str.substring(0, maxLength);
-    }
-
-    // Allow safe characters only
-    str = str.replace(/[^a-zA-Z0-9\s.,\-_()]/g, '');
-
-    return str;
+    return validateValue("label", value);
   }
 
 }

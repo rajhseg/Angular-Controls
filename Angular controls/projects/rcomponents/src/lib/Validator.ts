@@ -73,10 +73,10 @@ function isValidColor(value: string): boolean {
   const rgba = /^rgba\(.+\)$/;
   const hsl = /^hsl\(.+\)$/;
   const hsla = /^hsla\(.+\)$/;
-  const cssVar = /^var\(--[a-zA-Z0-9-_]+\)$/;
+  // const cssVar = /^var\(--[a-zA-Z0-9-_]+\)$/;
 
   return named.test(value) || hex.test(value) || rgb.test(value) ||
-         rgba.test(value) || hsl.test(value) || hsla.test(value) || cssVar.test(value);
+         rgba.test(value) || hsl.test(value) || hsla.test(value); // cssVar.test(value);
 }
 
 // 🔹 Number

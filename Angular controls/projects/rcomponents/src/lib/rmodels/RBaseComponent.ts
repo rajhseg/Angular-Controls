@@ -17,19 +17,19 @@ export abstract class RBaseComponent<T> {
 
     
     ValidLabel(value: string) : string {
-        return this.propValidator.sanitizeLabel(value);
+        return this.propValidator.getValidLabel(value);
     }
 
     ValidNumber(value: number) :  number {
-        return this.propValidator.isValidSizeInNumber(value) ? value : 0;
+        return this.propValidator.getValidNumber(value);
     }
 
-    ValidColor(value: string) : string {
-        return this.propValidator.isValidColor(value) ? value : 'black';
+    ValidColor(value: any) : string {
+        return this.propValidator.getValidColor(value);
     }
 
     ValidSize(value: string): string {
-        return this.propValidator.isValidSize(value) ? value : 'auto';
+        return this.propValidator.getValidSize(value);
     }
 
     constructor(protected winObj: RWindowHelper) {
@@ -43,21 +43,21 @@ export abstract class RBaseComponent<T> {
 export abstract class RChartBaseComponent {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
-
+    
     ValidLabel(value: string) : string {
-        return this.propValidator.sanitizeLabel(value);
+        return this.propValidator.getValidLabel(value);
     }
 
     ValidNumber(value: number) :  number {
-        return this.propValidator.isValidSizeInNumber(value) ? value : 0;
+        return this.propValidator.getValidNumber(value);
     }
 
     ValidColor(value: any) : string {
-        return this.propValidator.isValidColor(value) ? value : 'black';
+        return this.propValidator.getValidColor(value);
     }
 
     ValidSize(value: string): string {
-        return this.propValidator.isValidSize(value) ? value : 'auto';
+        return this.propValidator.getValidSize(value);
     }
 }
 

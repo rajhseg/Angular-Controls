@@ -31,12 +31,21 @@ export class RCell {
     public set Value(data: object | undefined) {
 
         if(typeof data === 'string' && data != undefined) {
-            data = (data as string).replace('&amp;', '&')
-              .replace('&lt;', '<')
-              .replace('&gt;', '>' )
-              .replace('&quot;', '"')
-              .replace('&#x27;', "'")
-              .replace('&#x60;', '`') as any;
+            data = (data as string)
+                        .replace(/&amp;/g, '&')
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#x27;/g, "'")
+                        .replace(/&#x60;/g, '`') as any;
+
+            data = (data as any)
+                        .replace(/&amp/g, '')
+                        .replace(/&lt/g, '')
+                        .replace(/&gt/g, '')
+                        .replace(/&quot/g, '')
+                        .replace(/&#x27/g, "")
+                        .replace(/&#x60/g, '') as any;
         }
 
         let _validData = this.propValidator.getValidAny(data);

@@ -87,6 +87,9 @@ function getValidNumber(value: any): any {
 function getValidColorArray(value: string[]): any {
   let colors : any = [];
 
+  if(value == undefined || value==null)
+    return [];
+
   for (let index = 0; index < value.length; index++) {
     const element = value[index];
     let _color = undefined;
@@ -104,6 +107,10 @@ function getValidColorArray(value: string[]): any {
 }
 
 function getValidNumberArray(value: number[]): any {
+  
+  if(value == undefined || value==null)
+    return [];
+  
   return value.map(x=>{
     let _num = undefined;
 
@@ -135,6 +142,9 @@ function validateEnum(value: any, enumType: any): any {
 }
 
 function sanitizeStringArray(value: any): string[] {
+
+  if(value == undefined || value == null)
+    return [];
 
   if (!Array.isArray(value)) {
     return [];

@@ -2,6 +2,8 @@ import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RBarChartItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { ValidateInput } from '../Validator';
 
 @Component({
   selector: 'rbarchart-horizontal',
@@ -10,7 +12,7 @@ import { RWindowHelper } from '../rwindowObject';
   templateUrl: './rbarchart-horizontal.component.html',
   styleUrl: './rbarchart-horizontal.component.css'
 })
-export class RBarChartHorizontalComponent implements AfterViewInit {
+export class RBarChartHorizontalComponent extends RChartBaseComponent implements AfterViewInit {
 
   private _width: number = 300;
   private _height: number = 300;
@@ -21,32 +23,40 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   private _textColor: string = "gray";
 
   @Input()
+  @ValidateInput("boolean")
   EnableBorder: boolean = false;
 
   @Input()
+  @ValidateInput("color")
   BorderColor: string = 'lightgray';
 
   @Input()
+  @ValidateInput("boolean")
   GlassyEffect: boolean = true;
 
   @Input()
+  @ValidateInput("color")
   GlassyEffectColor: string = 'lightgray';
 
   @Input()
+  @ValidateInput("number")
   PaddingLeft: number = 20;
 
   @Input()
+  @ValidateInput("number")
   PaddingRight: number = 20;
 
   @Input()
+  @ValidateInput("number")
   PaddingTop: number = 20;
 
   @Input()
+  @ValidateInput("number")
   PaddingBottom: number = 10;
 
   @Input()
   public set TextColor(val: string) {
-    this._textColor = val;
+    this._textColor = this.ValidColor(val);
   }
   public get TextColor(): string {
     return this._textColor;
@@ -54,7 +64,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set XAxisTitle(val: string) {
-    this._xAxisTitle = val;
+    this._xAxisTitle = this.ValidLabel(val);
   }
   public get XAxisTitle(): string {
     return this._xAxisTitle;
@@ -62,7 +72,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set YAxisTitle(val: string) {
-    this._yAxisTitle = val;
+    this._yAxisTitle = this.ValidLabel(val);
   }
   public get YAxisTitle(): string {
     return this._yAxisTitle;
@@ -77,7 +87,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
       val = 3;
     }
 
-    this._noOfSplitInValueAxis = val;
+    this._noOfSplitInValueAxis = this.ValidNumber(val);
   }
   public get NoOfSplitInValueAxis(): number {
     return this._noOfSplitInValueAxis;
@@ -85,7 +95,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set Width(val: number) {
-    this._width = val;
+    this._width = this.ValidNumber(val);
   }
   public get Width(): number {
     return this._width;
@@ -95,7 +105,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set GapBetweenBars(val: RSpaceBetweenBars) {
-    this._gapBetweenBars = val;
+    this._gapBetweenBars = this.ValidEnum(val, RSpaceBetweenBars);
     this.RenderBarChart();
   }
   public get GapBetweenBars(): number {
@@ -107,7 +117,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set MarginX(val: number) {
-    this._marginX = val;
+    this._marginX = this.ValidNumber(val);
   }
   public get MarginX(): number {
     return this._marginX;
@@ -118,7 +128,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set MarginY(val: number) {
-    this._marginY = val;
+    this._marginY = this.ValidNumber(val);
   }
   public get MarginY(): number {
     return this._marginY;
@@ -127,7 +137,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set Height(val: number) {
-    this._height = val;
+    this._height = this.ValidNumber(val);
   }
   public get Height(): number {
     return this._height;
@@ -138,7 +148,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   @Input()
   public set yAxisItemNames(val: string[]) {
     if (val == undefined || val == null || val.toString() != this._yAxisItemNames.toString()) {
-      this._yAxisItemNames = val;
+      this._yAxisItemNames = this.ValidLabelArray(val);
       this.RenderBarChart();
     }
   }
@@ -150,7 +160,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
 
   @Input()
   public set DataListHeight(val: number) {
-    this._dataListHeight = val;
+    this._dataListHeight = this.ValidNumber(val);
   }
   public get DataListHeight(): number {
     return this._dataListHeight;
@@ -172,12 +182,15 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   PopupItems: RPopupChartItem[] = [];
 
   @Input()
+  @ValidateInput("color")
   PopupBackColor: string = "lightgray";
 
   @Input()
+  @ValidateInput("color")
   PopupForeColor: string | undefined = undefined;
 
   @Input()
+  @ValidateInput("number")
   PopupBackgroundOpacity: number = 1;
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
@@ -193,6 +206,7 @@ export class RBarChartHorizontalComponent implements AfterViewInit {
   HostElementId: string = '';
 
   constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super();
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

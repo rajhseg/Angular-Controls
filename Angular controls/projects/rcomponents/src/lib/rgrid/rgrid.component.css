@@ -160,6 +160,7 @@ th {
     position: sticky;
     top: 0;  
     z-index: 2;  
+    text-wrap: auto;
 }
 
 tbody tr{
@@ -175,6 +176,7 @@ tbody tr td{
     padding-top:7px;
     padding-bottom: 7px;
     padding-right: 7px;
+    text-wrap: auto;
 }
 
 :host{

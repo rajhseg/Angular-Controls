@@ -220,6 +220,7 @@ export class RPopupChartItem extends RBaseChartItem {
     @ValidateInput("number")
     public y2!: number;
 
+    @ValidateInput("any")
     public Item!: any; 
     
     @ValidateInput("number")

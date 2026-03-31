@@ -17,6 +17,8 @@ import { CheckboxEventArgs } from '../rcheckbox/rcheckbox.service';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
 import { RProgressbarComponent } from "../rprogressbar/rprogressbar.component";
+import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { ValidateInput } from '../Validator';
 
 @Component({
   selector: 'rgrid',
@@ -38,7 +40,7 @@ import { RProgressbarComponent } from "../rprogressbar/rprogressbar.component";
     DatePipe
   ]
 })
-export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterViewInit, ControlValueAccessor, OnChanges {
+export class RGridComponent extends RBaseComponent<any> implements OnInit, DoCheck, AfterContentInit, AfterViewInit, ControlValueAccessor, OnChanges {
 
   private _items: any[] = [];
 
@@ -53,26 +55,33 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   progressType: RProgressBarType = RProgressBarType.Infinite;
 
   @Input()
+  @ValidateInput("color")
   SortIconColor: string = 'white';
 
   @Input()
+  @ValidateInput("color")
   FilterIconColor: string = 'white';
 
   @Input()
+  @ValidateInput("color")
   GroupHeaderBackColor: string = '#edecec';
 
   @Input()
+  @ValidateInput("color")
   GroupHeaderForeColor: string = 'black';
 
   @Input()
+  @ValidateInput("color")
   LoaderForeColor: string = '#8f19ff';
 
   @Input()
+  @ValidateInput("color")
   LoaderTrackColor: string = 'lightgray';
 
   EnableLoader: boolean = false;
 
   @Input()
+  @ValidateInput("boolean")
   EnableSelectColummn: boolean = true;
 
   IsSelectedAll: boolean = false;
@@ -95,6 +104,7 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   currentPage: number = 1;  
 
   @Input()
+  @ValidateInput("color")
   GroupByIconColor: string = "#00c7ba";
 
   @Output()
@@ -140,12 +150,15 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   OnGroupCliked = new EventEmitter<RGridGroupData>();
 
   @Input()
+  @ValidateInput("size")
   RowHeightInPx: string = '50px';
 
   @Input()
+  @ValidateInput("size")
   GroupHeaderRowHeightInPx: string = '50px';
 
   @Input()
+  @ValidateInput("size")
   SelectCheckBoxSize: string = "13px";
   
   @Input()
@@ -175,7 +188,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   @Input()
   set TableHeight(val: string){
     if(this.winObj.isExecuteInBrowser()) {
-      let _height = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+      let _val = this.ValidSize(val);
+      let _height = this.cssUnit.ToPxString(_val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
       this._tableHeight = _height;
     }
   }
@@ -193,7 +207,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   @Input()
   set TableWidth(val: string){
     if(this.winObj.isExecuteInBrowser()) {
-      let _width = this.cssUnit.ToPxString(val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+      let _val = this.ValidSize(val);
+      let _width = this.cssUnit.ToPxString(_val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
       this._tableWidth = _width;
     }
   }
@@ -203,21 +218,27 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   }
 
   @Input()
+  @ValidateInput("boolean")
   EnableVirtualScroll: boolean = false;
 
   @Input()
+  @ValidateInput("boolean")
   ShowEditUpdate: boolean = true;
 
   @Input()
+  @ValidateInput("boolean")
   ShowGroupHeader: boolean = true;
 
   @Input()
+  @ValidateInput("color")
   HeaderBackgroundColor: string = "rgb(35, 206, 236)";
 
   @Input()
+  @ValidateInput("color")
   HeaderForeColor: string = "white";
 
   @Input()
+  @ValidateInput("label")
   FilterDateFormat: string = 'MM-dd-yyyy';
 
   @Output()
@@ -273,12 +294,15 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
   
   @Input()
   public set Items(value: any[]) {
-    this.RenderUI(value);
+  
+    let scannedValue = this.ValidObjectArray(value);
+
+    this.RenderUI(scannedValue);
     
     if(!this.IsUpdateFromFilter)
     {
-      if(value!= undefined && value!=null)
-        this.BackupItems = value.slice();
+      if(scannedValue!= undefined && scannedValue!=null)
+        this.BackupItems = scannedValue.slice();
       else
         this.BackupItems = [];
     }
@@ -296,7 +320,8 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     return this.enableShadow;
   }
   public set EnableShadow(value: boolean) {
-    this.enableShadow = value;
+
+    this.enableShadow = this.ValidBoolean(value);
   }
 
   public get TotalRows(): number {
@@ -345,18 +370,13 @@ export class RGridComponent implements OnInit, DoCheck, AfterContentInit, AfterV
     }
   }
 
-  Id: string = '';  
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
   @ViewChild(CdkVirtualScrollViewport)
   viewport!: CdkVirtualScrollViewport;
 
-  constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private winObj: RWindowHelper,
+  constructor(private zone: NgZone, private cdr: ChangeDetectorRef, winObj: RWindowHelper,
     private datePipe: DatePipe, private cssUnit: RCssUnitsService, private ele: ElementRef
   ) {
-    
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
 

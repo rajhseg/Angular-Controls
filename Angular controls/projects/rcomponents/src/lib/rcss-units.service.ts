@@ -51,6 +51,18 @@ export class InputPropValidator {
     );
   }
 
+  public getValidAny(value: any): any {
+    return validateValue("any", value);
+  }
+
+  public getValidObject(value: any): any {
+    return validateValue("object", value);
+  }
+
+  public getValidObjectArray(value: any[]): any[] {
+    return validateValue("objectarray", value);
+  }
+
   public getValidColor(value: any): string {
     return validateValue("color", value);
   }

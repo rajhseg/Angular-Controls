@@ -1,4 +1,4 @@
-type ValidatorType = 'size' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray';
+type ValidatorType = 'any' | 'size' | 'object' | 'objectarray' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray';
 
 export function validateValue(type: ValidatorType, value: any, config?: any): any {
 
@@ -6,6 +6,15 @@ export function validateValue(type: ValidatorType, value: any, config?: any): an
 
     case 'size':
       return getValidSize(value);
+    
+    case 'object':
+      return sanitizeObject(value, config);
+
+    case 'objectarray':
+      return sanitizeObjectArray(value, config);
+
+    case 'any':
+      return getValidAny(value, config);
 
     case 'enum':
       return validateEnum(value, config);
@@ -42,6 +51,46 @@ export function validateValue(type: ValidatorType, value: any, config?: any): an
   }
 }
 
+function getValidAny(val: any, config?: any): any {
+  
+let result: any;
+
+if (typeof val === 'string') {
+      result = validateValue("label", val);
+    }
+    else if (typeof val === 'number') {
+      result = validateValue("number", val);
+    }
+    else if (typeof val === 'boolean') {
+      result = validateValue("boolean", val);
+    }
+    else if (Array.isArray(val)) {
+
+      let data = val.map((item: any) => {
+                        
+                        if (typeof item === 'string') {
+                          return validateValue("label", item);
+                        }
+                        else if (typeof item === 'number') {
+                          return validateValue("number", item);
+                        } else if (typeof item === 'boolean') {
+                          return validateValue("boolean", item);
+                        } else if (typeof item === 'object' && item !== null) {
+                          return isValidDate(item) ? item : sanitizeObject(item, config); 
+                        }
+
+                        return item;
+                  });
+
+      result = data;
+    }
+    else if (typeof val === 'object') {
+      result = isValidDate(val) ? val : sanitizeObject(val, config); 
+    }
+
+    return result;
+}
+
 function getValidColorOrColorArray(value: any): any {
   if(Array.isArray(value))
     return getValidColorArray(value) 
@@ -70,7 +119,7 @@ function getValidSize(value: any): any {
     return value;
   } else {
     console.error("Invalid size "+ value);
-    return 'auto';
+    return '0px';
   }
 }
 
@@ -228,7 +277,85 @@ function sanitizeLabel(value: any, maxLength = 100): string {
   return str;
 }
 
-export function ValidateInput(type: 'size' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' 
+function sanitizeObjectArray(value: any[], config?: any) : any {
+  
+  let result = value.map(x=> {
+    return sanitizeObject(x, config);
+  });
+
+  return result;
+}
+
+function sanitizeObject(value: any, config?: any): any {
+
+  if (!isValidObject(value)) {
+    return {}; // fallback
+  }
+
+  const result: any = {};
+
+  const allowedKeys = config?.allowedKeys;
+
+  for (const key in value) {
+
+    // Optional: whitelist keys
+    if (allowedKeys && !allowedKeys.includes(key)) {
+      continue;
+    }
+
+    const val = value[key];
+
+    // Basic sanitization
+    if (typeof val === 'string') {
+      result[key] = validateValue("label", val);
+    }
+    else if (typeof val === 'number') {
+      result[key] = validateValue("number", val);
+    }
+    else if (typeof val === 'boolean') {
+      result[key] = validateValue("boolean", val);
+    }
+    else if (Array.isArray(val)) {
+
+      let data = val.map((item: any) => {
+                        
+                        if (typeof item === 'string') {
+                          return validateValue("label", item);
+                        }
+                        else if (typeof item === 'number') {
+                          return validateValue("number", item);
+                        } else if (typeof item === 'boolean') {
+                          return validateValue("boolean", item);
+                        } else if (typeof item === 'object' && item !== null) {
+                          return isValidDate(item) ? item : sanitizeObject(item, config); 
+                        }
+
+                        return item;
+                  });
+
+      result[key] = data;
+    }
+    else if (typeof val === 'object') {
+      result[key] = isValidDate(val) ? val : sanitizeObject(val); // recursive
+    }
+  }
+
+  return result;
+}
+
+function isValidObject(value: any): boolean {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    !Array.isArray(value)
+  );
+}
+
+function isValidDate(value: any): boolean {
+  return value instanceof Date && !isNaN(value.getTime());
+}
+
+export function ValidateInput(type: 'any' | 'size' | 'object' | 'objectarray' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' 
   | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray', config? : any) {
   return function (target: any, propertyKey: string) {
 

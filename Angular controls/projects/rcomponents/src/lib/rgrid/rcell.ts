@@ -1,10 +1,12 @@
 
-import { EventEmitter } from "@angular/core";
+import { Directive, EventEmitter, inject } from "@angular/core";
 import { RColumnComponent } from "./rcolumn/rcolumn.component";
 import { RGridComponent, RGridHeader } from "./rgrid.component";
-
+import { InputPropValidator } from "../rcss-units.service";
 
 export class RCell {
+
+    private propValidator: InputPropValidator  = new InputPropValidator();
 
     public component!: RGridComponent;
   
@@ -27,10 +29,22 @@ export class RCell {
     public FromModel: boolean = false;
 
     public set Value(data: object | undefined) {
-        this._value = data;
+
+        if(typeof data === 'string' && data != undefined) {
+            data = (data as string).replace('&amp;', '&')
+              .replace('&lt;', '<')
+              .replace('&gt;', '>' )
+              .replace('&quot;', '"')
+              .replace('&#x27;', "'")
+              .replace('&#x60;', '`') as any;
+        }
+
+        let _validData = this.propValidator.getValidAny(data);
+
+        this._value = _validData;
 
         if (this.Item) {
-            this.Item[this.HeaderKey] = data;
+            this.Item[this.HeaderKey] = _validData;
 
             let props = this.HeaderKey.split(".");
             if (props.length > 1) {
@@ -46,11 +60,11 @@ export class RCell {
                     _obj = _fobj;
                 }
 
-                _obj[props[props.length - 1]] = data;
+                _obj[props[props.length - 1]] = _validData;
             }            
 
             if(!this.FromModel) {
-                this.updateActualModel(data);
+                this.updateActualModel(_validData);
                 this.component.NotifyToModel(this)                
             }                
         } else {
@@ -103,6 +117,10 @@ export class RCell {
     public HeaderKey: string = "";
 
     public IsValueUpdated: boolean = false;
+
+    constructor() {
+
+    }
 
 }
 

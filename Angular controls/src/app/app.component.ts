@@ -491,12 +491,12 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   realTimeCharts(evt: any){    
-    let j = this.nums2.slice(1);
-    let n1 = this.GenRandomNum(1, 100);
-    j.push(n1);
-    this.seriesModel2 = [];
-    this.seriesModel2.push(new RYSeriesChartItem("Computer", "#8f19ff", j));
-    this.nums2 = j;
+    // let j = this.nums2.slice(1);
+    // let n1 = this.GenRandomNum(1, 100);
+    // j.push(n1);
+    // this.seriesModel2 = [];
+    // this.seriesModel2.push(new RYSeriesChartItem("Computer", "#8f19ff", j));
+    // this.nums2 = j;
   }
 
   GenRandomNum(min: number, max: number): number{
@@ -768,7 +768,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   populateGridValues(){
     let d = new Date("1982/03/25");
 
-    this.gridItems1.push({'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
+    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script>', 'Age': 24, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
     this.gridItems1.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1981)), 'IsGrad': true });
     this.gridItems1.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': false });
     this.gridItems1.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1983)), 'IsGrad': true });
@@ -787,7 +787,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
     this.gridItems1.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
     this.gridItems1.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
 
-    this.gridItems.push({'IsSelected': false, 'Id':1, 'Name': 'AAA', 'Age': 24, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
+    this.gridItems.push({'IsSelected': false, 'Id':1, 'Name': 'AAA B <script></script>', 'Age': 24, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });
     this.gridItems.push({'IsSelected': false, 'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': { 'Higher': {'Id': 2, 'Course': 'BSC'}} });
     this.gridItems.push({'IsSelected': false, 'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': { 'Higher': {'Id': 3, 'Course': 'BE'}} });
     this.gridItems.push({'IsSelected': false, 'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': { 'Higher': {'Id': 1, 'Course': 'BCom'}} });

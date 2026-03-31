@@ -15,6 +15,22 @@ export abstract class RBaseComponent<T> {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
 
+    ValidDataForAnyType(value: any): any {
+        return this.propValidator.getValidAny(value);
+    }
+
+    ValidObject(value: any): any {
+        return this.propValidator.getValidObject(value);
+    }
+
+    ValidObjectArray(value: any[]): any[] {
+        return this.propValidator.getValidObjectArray(value);
+    }
+
+    ValidBoolean(value: any): boolean {
+        return this.propValidator.getValidBoolean(value);
+    }
+
     ValidEnum(value: any, enumType: any) : any {
         return this.propValidator.getValidateEnum(value, enumType);
     }
@@ -67,6 +83,22 @@ export abstract class RChartBaseComponent {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
     
+    ValidDataForAnyType(value: any): any {
+        return this.propValidator.getValidAny(value);
+    }
+
+    ValidObject(value: any): any {
+        return this.propValidator.getValidObject(value);
+    }
+
+    ValidObjectArray(value: any[]): any[] {
+        return this.propValidator.getValidObjectArray(value);
+    }
+    
+    ValidBoolean(value: any): boolean {
+        return this.propValidator.getValidBoolean(value);
+    }
+
     ValidEnum(value: any, enumType: any) : any {
         return this.propValidator.getValidateEnum(value, enumType);
     }

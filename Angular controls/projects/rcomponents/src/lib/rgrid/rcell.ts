@@ -30,25 +30,7 @@ export class RCell {
 
     public set Value(data: object | undefined) {
 
-        if(typeof data === 'string' && data != undefined) {
-            data = (data as string)
-                        .replace(/&amp;/g, '&')
-                        .replace(/&lt;/g, '<')
-                        .replace(/&gt;/g, '>')
-                        .replace(/&quot;/g, '"')
-                        .replace(/&#x27;/g, "'")
-                        .replace(/&#x60;/g, '`') as any;
-
-            data = (data as any)
-                        .replace(/&amp/g, '')
-                        .replace(/&lt/g, '')
-                        .replace(/&gt/g, '')
-                        .replace(/&quot/g, '')
-                        .replace(/&#x27/g, "")
-                        .replace(/&#x60/g, '') as any;
-        }
-
-        let _validData = this.propValidator.getValidAny(data);
+        let _validData = data;
 
         this._value = _validData;
 
@@ -121,7 +103,32 @@ export class RCell {
 
     public Item: any | undefined = undefined;
 
-    public IsEditMode: boolean = false;
+    private _isEditmode : boolean = false;
+
+    public set IsEditMode(value: boolean){
+
+        if(value ) {
+            if(typeof this._value === 'string' && this._value != undefined) {
+                this._value = (this._value as string)
+                            .replace(/&amp;/g, '&')
+                            .replace(/&lt;/g, '<')
+                            .replace(/&gt;/g, '>')
+                            .replace(/&quot;/g, '"')
+                            .replace(/&#x27;/g, "'")
+                            .replace(/&#x60;/g, '`') as any;
+            }
+        } else {
+            if(this._isEditmode== true && value==false) {
+                let _validData = this.propValidator.getValidAny(this._value);
+                this._value = _validData;
+            }
+        }
+
+        this._isEditmode = value;
+    } 
+    public get IsEditMode(): boolean {
+        return this._isEditmode;
+    }
 
     public HeaderKey: string = "";
 

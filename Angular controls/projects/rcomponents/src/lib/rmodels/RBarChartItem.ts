@@ -1,6 +1,6 @@
 import { forwardRef, inject, Injectable } from "@angular/core";
 import { RWindowHelper, RWINDOWHELPEROBJECT } from "../rwindowObject";
-import { ValidateInput, ValidateInputType } from "../Validator";
+import { ValidateInput, ValidateCustomTypeInput } from "../Validator";
 
 
 @Injectable({
@@ -77,7 +77,7 @@ export class RAllocatedBarChartItem extends RBaseChartItem {
     @ValidateInput('label')
     public DisplayName!: string;
 
-    @ValidateInputType(RAllocationData)
+    @ValidateCustomTypeInput(RAllocationData)
     public Values!: RAllocationData[];
 
     @ValidateInput("colororcolorarray")
@@ -156,7 +156,7 @@ export class RScatterChartItem extends RBaseChartItem {
     @ValidateInput("color")
     public ItemColor!: string; 
     
-    @ValidateInputType(RGraph)
+    @ValidateCustomTypeInput(RGraph)
     public Values!: RGraph[];
 
     constructor(_itemName: string, _itemColor: string, _values: RGraph[] = []) {
@@ -176,7 +176,7 @@ export class RGraphSeriesChartItem extends RBaseChartItem {
     @ValidateInput("color")
     public ItemColor!: string; 
     
-    @ValidateInputType(RGraph)
+    @ValidateCustomTypeInput(RGraph)
     public Values!: RGraph[];
 
     constructor(_itemName: string, _itemColor: string, _values: RGraph[] = []) {

@@ -15,11 +15,18 @@ export abstract class RBaseComponent<T> {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
   
-    public ValidSpecificType<T extends object>(
+    public ValidCustomType<T extends object>(
     value: unknown,
-    type: Constructor<T> | [Constructor<T>]
-    ): T | T[] {
-        return this.propValidator.getValidateSpecificType(value, type);
+    type: Constructor<T> 
+    ): T  {
+        return this.propValidator.getValidateSpecificType(value, type) as T;
+    }
+    
+    public ValidCustomArrayType<T extends object>(
+    value: unknown,
+    type: Constructor<T>
+    ): T[] {
+        return this.propValidator.getValidateSpecificType(value, type) as T[];
     }
 
     ValidDataForAnyType(value: any): any {
@@ -90,11 +97,18 @@ export abstract class RChartBaseComponent {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
     
-    public ValidSpecificType<T extends object>(
+    public ValidCustomType<T extends object>(
     value: unknown,
-    type: Constructor<T> | [Constructor<T>]
-    ): T | T[] {
-        return this.propValidator.getValidateSpecificType(value, type);
+    type: Constructor<T> 
+    ): T  {
+        return this.propValidator.getValidateSpecificType(value, type) as T;
+    }
+    
+    public ValidCustomArrayType<T extends object>(
+    value: unknown,
+    type: Constructor<T>
+    ): T[] {
+        return this.propValidator.getValidateSpecificType(value, type) as T[];
     }
 
     ValidDataForAnyType(value: any): any {

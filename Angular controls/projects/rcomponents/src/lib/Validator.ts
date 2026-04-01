@@ -355,7 +355,7 @@ function isValidDate(value: any): boolean {
   return value instanceof Date && !isNaN(value.getTime());
 }
 
-export function ValidateInputType<T extends object>(Type: new (...args: any[]) => T) {
+export function ValidateCustomTypeInput<T extends object>(Type: new (...args: any[]) => T) {
   return function (target: any, key: string) {
     const privateKey = Symbol(key); // safer than __key
 

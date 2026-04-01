@@ -170,7 +170,7 @@ export class RBarChartVerticalComponent extends RChartBaseComponent implements A
   @Input()
   public set Columns(val: RBarChartItem[]) {
 
-    val = this.ValidSpecificType(val, [RBarChartItem]) as RBarChartItem[];
+    val = this.ValidCustomArrayType(val, RBarChartItem);
     
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;

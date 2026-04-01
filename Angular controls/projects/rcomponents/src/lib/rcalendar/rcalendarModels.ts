@@ -1,4 +1,4 @@
-import { ValidateInput, ValidateInputType } from "../Validator";
+import { ValidateInput, ValidateCustomTypeInput } from "../Validator";
 
 export class Day {
     
@@ -35,7 +35,7 @@ export class Day {
 
 export class Week {
 
-    @ValidateInputType(Day)
+    @ValidateCustomTypeInput(Day)
     public days:Day[]
 
     constructor(_days:Day[]){
@@ -49,7 +49,7 @@ export class Week {
 
 export class Month {
 
-    @ValidateInputType(Week)
+    @ValidateCustomTypeInput(Week)
     public weeks: Week[]
 
     constructor(_weeks: Week[]){

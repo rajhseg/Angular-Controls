@@ -115,7 +115,7 @@ export class InputPropValidator {
 
  public getValidateSpecificType<T extends object>(
   value: unknown,
-  type: Constructor<T> | [Constructor<T>]
+  type: Constructor<T>
 ): T | T[] {
 
   const isObject = (val: unknown): val is object =>
@@ -133,14 +133,8 @@ export class InputPropValidator {
   };
 
   // 🔹 Array type: [RHeader]
-  if (Array.isArray(type)) {
-    const Type = type[0];
-
-    if (!Array.isArray(value)) {
-      throw new Error('Expected array input');
-    }
-
-    return value.map(v => transform(v, Type));
+  if (Array.isArray(value)) {
+    return value.map(v => transform(v, type));
   }
 
   // 🔹 Single type: RHeader

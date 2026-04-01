@@ -1,5 +1,13 @@
 type ValidatorType = 'any' | 'size' | 'object' | 'objectarray' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray';
 
+const SIZE_KEYWORDS = [
+  'auto',
+  'fit-content',
+  'min-content',
+  'max-content',
+  'stretch'
+] as const;
+
 export function validateValue(type: ValidatorType, value: any, config?: any): any {
 
   switch (type) {
@@ -205,6 +213,13 @@ function sanitizeStringArray(value: any): string[] {
 
       let str = String(item);
 
+      str = str.replace(/&amp;/g, '&')
+              .replace(/&lt;/g, '<')
+              .replace(/&gt;/g, '>')
+              .replace(/&quot;/g, '"')
+              .replace(/&#x27;/g, "'")
+              .replace(/&#x60;/g, '`') as any;
+           
       //Allow safe characters only
       str = str.replace(/&/g, '&amp;')
               .replace(/</g, '&lt;')
@@ -221,7 +236,7 @@ function sanitizeStringArray(value: any): string[] {
 function isValidSize(value: string): boolean {
   const size = /^(\d+(\.\d+)?)(px|%|em|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc)$/;
   
-  return size.test(value) ;  // || cssVar.test(value);
+  return size.test(value) || SIZE_KEYWORDS.includes(value as any);;  // || cssVar.test(value);
 }
 
 // 🔹 Color
@@ -266,6 +281,13 @@ function sanitizeLabel(value: any, maxLength = 100): string {
 
   let str = String(value);
 
+  str = str.replace(/&amp;/g, '&')
+              .replace(/&lt;/g, '<')
+              .replace(/&gt;/g, '>')
+              .replace(/&quot;/g, '"')
+              .replace(/&#x27;/g, "'")
+              .replace(/&#x60;/g, '`') as any;
+           
   // Allow safe characters only
   str = str.replace(/&/g, '&amp;')
               .replace(/</g, '&lt;')

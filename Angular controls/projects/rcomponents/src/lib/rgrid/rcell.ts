@@ -3,6 +3,7 @@ import { Directive, EventEmitter, inject } from "@angular/core";
 import { RColumnComponent } from "./rcolumn/rcolumn.component";
 import { RGridComponent, RGridHeader } from "./rgrid.component";
 import { InputPropValidator } from "../rcss-units.service";
+import { ValidateCustomTypeInput, ValidateInput } from "../Validator";
 
 export class RCell {
 
@@ -148,10 +149,6 @@ export class RCellInfo {
 
   public ColumnComponentInfo!: RColumnComponentInfo;
 
-  //public Row: number | undefined = undefined;
-
-  //public Column: number | undefined = undefined;
-
   public DisplayRow: number | undefined = undefined;
 
   public DisplayColumn: number | undefined = undefined;
@@ -203,6 +200,8 @@ export class RGridRowInfo {
 }
 
 export class RGridItems {
+
+    @ValidateCustomTypeInput(RGridRow)
     public Rows: RGridRow[] = [];
 }
 
@@ -224,7 +223,28 @@ export class RGridEditRowInfo {
 }
 
 export class RGridPaginationValue {
-    constructor(public CurrentPage: number, public RowsPerPage: number, public TotalPagesInGrid: number, public TotalRows: number, public RowsInCurrentPage: number){
 
+    @ValidateInput("number")
+    public CurrentPage: number;
+    
+    @ValidateInput("number")
+    public RowsPerPage: number;
+     
+    @ValidateInput("number")
+    public TotalPagesInGrid: number;
+
+    @ValidateInput("number")
+    public TotalRows: number; 
+    
+    @ValidateInput("number")
+    public RowsInCurrentPage: number;
+
+    constructor( _currentPage: number, _rowsPerPage: number, _totalPagesInGrid: number, 
+        _totalRows: number,  _rowsInCurrentPage: number){
+            this.CurrentPage = _currentPage;
+            this.RowsInCurrentPage = _rowsInCurrentPage;
+            this.RowsPerPage = _rowsPerPage;
+            this.TotalPagesInGrid = _totalPagesInGrid;
+            this.TotalRows = _totalRows;
     }
 }

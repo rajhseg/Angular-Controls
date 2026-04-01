@@ -84,6 +84,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @ValidateInput("boolean")
   EnableSelectColummn: boolean = true;
 
+  @ValidateInput("boolean")
   IsSelectedAll: boolean = false;
 
   @Output()
@@ -92,15 +93,30 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Output()
   ItemSelectClick: EventEmitter<{isSelected: boolean, item:any, event: Event|undefined}> = new EventEmitter<{isSelected: boolean, item:any, event: Event|undefined}>();
   
-  Headers: RGridHeader[] = [];
+  private _rheaders: RGridHeader [] =[];
+  private _rgroupheaders: RGridHeader[] = [];
+  private _sortHeaders: RGridHeaderSort[] = [];
 
-  private SortHeaders: RGridHeaderSort[] = [];
+  private set Headers(value: RGridHeader[])
+  {
+    this._rheaders = value;
+  }
+  public get Headers(): RGridHeader[] {
+    return this._rheaders;
+  }
 
-  GroupHeaders: RGridHeader[] = [];
+  private set GroupHeaders(value: RGridHeader[]) {
+    this._rgroupheaders = value;
+  }
+  public get GroupHeaders(): RGridHeader[] {
+    return this._rgroupheaders;
+  }
 
   @Input()
+  @ValidateCustomTypeInput(DropdownModel)
   PageItems: DropdownModel[] = []
 
+  @ValidateInput("number")
   currentPage: number = 1;  
 
   @Input()
@@ -151,7 +167,11 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   @Input()
   @ValidateInput("size")
-  RowHeightInPx: string = '50px';
+  RowHeightInPx: string = 'auto';
+  
+  @Input()
+  @ValidateInput("size")
+  HeaderHeightInPx: string = '50px';
 
   @Input()
   @ValidateInput("size")
@@ -257,24 +277,37 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Output()
   ItemsPerPageClicked = new EventEmitter<RGridPaginationValue>();
   
+  @ValidateInput("boolean")
   EditModeEnabled: boolean = false;
 
+  @ValidateCustomTypeInput(RGridItems)
   DataItems!: RGridItems;
 
+  @ValidateCustomTypeInput(RGridEditRowInfo)
   EditRows: RGridEditRowInfo[] = [];
 
+  @ValidateCustomTypeInput(RGridItems)
   ShowItems!: RGridItems | undefined;
 
+  @ValidateInput("boolean")
   ColumnsNotDefined: boolean = false;
 
+  @ValidateInput("boolean")
   IsGroupHaveColumns: boolean = false;
 
+  @ValidateInput("boolean")
   HeaderGroupPanelShow: boolean = false;
 
-  private GroupedData!: Map<string, RGridRow[]> | undefined;
+  @ValidateInput("any")
+  filterModel: any = {};
 
+  @ValidateCustomTypeInput(forwardRef(()=> RGridGroupData))
   GroupItems: RGridGroupData[] = [];
+
+  @ValidateCustomTypeInput(forwardRef(()=> RGridGroupData))
   DisplayGroupItems: RGridGroupData[] = [];
+
+  private GroupedData!: Map<string, RGridRow[]> | undefined;
 
   @ContentChildren(RColumnComponent)
   private Columns!: QueryList<RColumnComponent>;
@@ -291,7 +324,6 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   public BackupItems: any[] = [];
   private IsFilteredApplied: boolean = false;
   private IsUpdateFromFilter: boolean = false;
-  filterModel: any = {};
   
   @Input()
   public set Items(value: any[]) {
@@ -561,9 +593,9 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
         this.OnBeforeColumnSort.emit(hdr);
 
-        let defaultindx = this.SortHeaders.findIndex(x => x.Header.PropToBind == this.indxKey);
+        let defaultindx = this._sortHeaders.findIndex(x => x.Header.PropToBind == this.indxKey);
         if (defaultindx > -1) {
-          this.SortHeaders.splice(defaultindx, 1);
+          this._sortHeaders.splice(defaultindx, 1);
         }
         let srtType: RGridHeaderSortType | undefined = undefined;
 
@@ -576,22 +608,22 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
           srtType = undefined;
         }
 
-        let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
+        let indx = this._sortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
         hdr.sortType = srtType;
 
         if (srtType == undefined) {
-          this.SortHeaders.splice(indx, 1);
+          this._sortHeaders.splice(indx, 1);
         } else {
           if (indx > -1) {
-            this.SortHeaders[indx].SortType = srtType;;
+            this._sortHeaders[indx].SortType = srtType;;
           } else {
-            this.SortHeaders.push(new RGridHeaderSort(srtType, hdr));
+            this._sortHeaders.push(new RGridHeaderSort(srtType, hdr));
           }
         }
 
-        if (this.SortHeaders.length == 0) {
+        if (this._sortHeaders.length == 0) {
           let defaultHdr = new RGridHeader(this.indxKey, this.indxKey, this.indxKey, -1, this.indxKey, false);
-          this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, defaultHdr));
+          this._sortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, defaultHdr));
         }
 
         await this.sortData();
@@ -606,20 +638,20 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   private async sortAsc(hdr: RGridHeader) {
-    let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
+    let indx = this._sortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
 
     if (indx > -1) {
-      this.SortHeaders[indx].SortType = RGridHeaderSortType.Ascending;
+      this._sortHeaders[indx].SortType = RGridHeaderSortType.Ascending;
     } else {
-      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, hdr));
+      this._sortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Ascending, hdr));
     }
 
     await this.sortData();
   }
 
   private AssignSortTypeToHeaders() {
-    for (let index = 0; index < this.SortHeaders.length; index++) {
-      const element = this.SortHeaders[index];
+    for (let index = 0; index < this._sortHeaders.length; index++) {
+      const element = this._sortHeaders[index];
       let _hdrIndx = this.Headers.findIndex(x => x.PropToBind == element.Header.PropToBind);
       if (_hdrIndx > -1) {
         let _hdr = this.Headers[_hdrIndx];
@@ -629,12 +661,12 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   private async sortDes(hdr: RGridHeader) {
-    let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
+    let indx = this._sortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
 
     if (indx > -1) {
-      this.SortHeaders[indx].SortType = RGridHeaderSortType.Descending;
+      this._sortHeaders[indx].SortType = RGridHeaderSortType.Descending;
     } else {
-      this.SortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Descending, hdr));
+      this._sortHeaders.push(new RGridHeaderSort(RGridHeaderSortType.Descending, hdr));
     }
 
     await this.sortData();
@@ -662,35 +694,35 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     if (this.IsGroupHaveColumns) {
 
       /* insert group column at first position in sort */
-      let _cols = this.SortHeaders.map(x => this.GroupHeaders.find(y => y.ColumnName == x.Header.ColumnName));
+      let _cols = this._sortHeaders.map(x => this.GroupHeaders.find(y => y.ColumnName == x.Header.ColumnName));
       let groupCols = _cols.filter(x => x != undefined);
 
       for (let index = groupCols.length - 1; index > -1; index--) {
         const element = groupCols[index];
         if (element) {
-          let indx = this.SortHeaders.findIndex(x => x.Header.ColumnName == element.ColumnName);
-          let ele = this.SortHeaders[indx];
+          let indx = this._sortHeaders.findIndex(x => x.Header.ColumnName == element.ColumnName);
+          let ele = this._sortHeaders[indx];
           if (indx > 0) {
-            this.SortHeaders.splice(indx, 1);
-            this.SortHeaders.unshift(ele);
+            this._sortHeaders.splice(indx, 1);
+            this._sortHeaders.unshift(ele);
           }
         }
       }
       /* above code insert group column at first position in sort */
 
-      this.DataItems.Rows.sort(sorter(this.SortHeaders));
+      this.DataItems.Rows.sort(sorter(this._sortHeaders));
       await this.createGroup();
 
       let _keys = this.GroupItems.length;
       for (let index = 0; index < _keys; index++) {
         const element = this.GroupItems[index];
-        element.Values.sort(sorter(this.SortHeaders));
+        element.Values.sort(sorter(this._sortHeaders));
       }
 
       await this.filterPerPageForGroup();
 
     } else {
-      this.DataItems.Rows.sort(sorter(this.SortHeaders));
+      this.DataItems.Rows.sort(sorter(this._sortHeaders));
       await this.filterPerPage();
     }
 
@@ -2003,6 +2035,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 }
 
 export class RGridHeader {
+
   constructor(public Id: string, public PropToBind: string, public ColumnName: string,
     public Index: number, public HeaderText: string, public IsComputationColumn: boolean,
     public sortType: RGridHeaderSortType | undefined = undefined,
@@ -2019,7 +2052,19 @@ export class RGridHeader {
 }
 
 export class RGridGroupData {
-  constructor(public Key: string, public Values: RGridRow[], public IsExpanded: boolean = false) {
 
+  @ValidateInput("label")
+  public Key: string; 
+  
+  @ValidateCustomTypeInput(RGridRow)
+  public Values: RGridRow[];
+  
+  @ValidateInput("boolean")
+  public IsExpanded: boolean;
+
+  constructor(_key: string, _values: RGridRow[], _isExpanded: boolean = false) {
+    this.Key = _key;
+    this.Values = _values;
+    this.IsExpanded = _isExpanded;
   }
 }

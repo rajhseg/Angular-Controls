@@ -17,7 +17,7 @@
             <thead>
                 <tr [ngStyle]="{'background-color':HeaderBackgroundColor, 
                                 'color': HeaderForeColor, 
-                                'height' : '50px', 
+                                'height' : HeaderHeightInPx, 
                                 'align-content' : 'center' }"
                     cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
                     (cdkDropListDropped)="draggeddropForPopup($event)">

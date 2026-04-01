@@ -46,7 +46,7 @@
 
             </div>
             
-            <div  [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}"  style="width: 200px;">
+            <div  [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}"  style="width: 190px;">
                 <span [ngStyle]="{'color': TextColor}" style="float: left;"> Greater Than</span> 
                 
                 <rnumeric [IsReadOnly]="DataType != 'number' " 
@@ -60,20 +60,20 @@
                     style="position: relative; left: -12px;"></rcalendar>
             </div>
                     
-            <div [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}" style="width: 200px;">
+            <div [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}" style="width: 190px;">
                 <span [ngStyle]="{'color': TextColor}" style="float: left;"> Lesser Than</span>                 
                 
                 <rnumeric [IsReadOnly]="DataType != 'number'" [(ngModel)]="LessThanNumber"
-                    *ngIf="DataType != 'date'" [TextBoxWidth]="'75px'" 
+                    *ngIf="DataType != 'date'" [TextBoxWidth]="'75px'" style="left: 4px;"
                     class="num" 
-                   style="left:13px"></rnumeric>
+                   ></rnumeric>
 
                 <rcalendar *ngIf="DataType=='date'" [ParentDropDownId]="Id"
                     [(ngModel)]="LessThanDate" [DateFormat]="DateFormat"
                     style="position: relative; left: -12px;"></rcalendar>
             </div>
 
-            <div [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}" style="width: 200px;">
+            <div [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}" style="width: 180px;">
 
                 <rbutton style="float: left;" [ButtonWidth]="'85px'" (ButtonClick)="Clear($event)" 
                     [BackgroundColor]="'orangered'">

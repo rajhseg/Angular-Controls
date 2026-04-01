@@ -94,7 +94,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   
   Headers: RGridHeader[] = [];
 
-  SortHeaders: RGridHeaderSort[] = [];
+  private SortHeaders: RGridHeaderSort[] = [];
 
   GroupHeaders: RGridHeader[] = [];
 
@@ -165,15 +165,15 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @ValidateCustomTypeInput(DropdownModel)
   ItemsPerPage!: DropdownModel;
 
-  _tableHeight: string = '200px';
+  private _tableHeight: string = '200px';
 
-  ActualWidth: string = "100%";
+  private ActualWidth: string = "100%";
 
-  HeaderWidth: string = "100%";
+  private HeaderWidth: string = "100%";
 
-  _fitColumns: boolean = false;
+  private _fitColumns: boolean = false;
   
-  ContentInit: boolean = false;
+  private ContentInit: boolean = false;
 
   set FitColumnsToContent(val: boolean)
   {
@@ -203,7 +203,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return (val - 2) + "px";
   }
 
-  _tableWidth: string = '99%';
+  private _tableWidth: string = '99%';
 
   @Input()
   set TableWidth(val: string){
@@ -271,22 +271,22 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   HeaderGroupPanelShow: boolean = false;
 
-  GroupedData!: Map<string, RGridRow[]> | undefined;
+  private GroupedData!: Map<string, RGridRow[]> | undefined;
 
   GroupItems: RGridGroupData[] = [];
   DisplayGroupItems: RGridGroupData[] = [];
 
   @ContentChildren(RColumnComponent)
-  public Columns!: QueryList<RColumnComponent>;
+  private Columns!: QueryList<RColumnComponent>;
 
   @ViewChild('viewmode', { read: TemplateRef<any> }) defaultReadView!: TemplateRef<any>;
 
   @ViewChild('editmode', { read: TemplateRef<any> }) defaultEditView!: TemplateRef<any>;
 
-  @ViewChild('parentElement', {read: ElementRef }) parentEle!: ElementRef;
+  @ViewChild('parentElement', {read: ElementRef }) private parentEle!: ElementRef;
 
-  onChanged: Function = () => { };
-  onTouched: Function = () => { };
+  private onChanged: Function = () => { };
+  private onTouched: Function = () => { };
 
   public BackupItems: any[] = [];
   private IsFilteredApplied: boolean = false;
@@ -372,7 +372,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   @ViewChild(CdkVirtualScrollViewport)
-  viewport!: CdkVirtualScrollViewport;
+  private viewport!: CdkVirtualScrollViewport;
 
   constructor(private zone: NgZone, private cdr: ChangeDetectorRef, winObj: RWindowHelper,
     private datePipe: DatePipe, private cssUnit: RCssUnitsService, private ele: ElementRef
@@ -451,7 +451,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.OnCellClicked.emit(evtArgs);
   }
 
-  getCellInfo(info: RCell): RCellInfo {
+  private getCellInfo(info: RCell): RCellInfo {
 
     let evtArgs = new RCellInfo();
 
@@ -492,7 +492,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return evtArgs;
   }
 
-  getPaginationValue(): RGridPaginationValue {
+  private getPaginationValue(): RGridPaginationValue {
     return new RGridPaginationValue(this.currentPage, this.ItemsPerPage.Value, this.TotalPagesInGrid, this.TotalRows, this.RowsInCurrentPage);
   }
 
@@ -500,7 +500,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.RenderUI(obj);
   }
 
-  RenderUI(obj: any[]) {
+  private RenderUI(obj: any[]) {
     if (obj == null || obj == undefined)
       obj = [];
 
@@ -508,7 +508,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.InitGrid();
   }
 
-  InitGrid() {
+  private InitGrid() {
     if (this.currentPage == 0)
       this.currentPage = 1;
 
@@ -536,7 +536,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.cdr.detectChanges();
   }
 
-  NotifyToModelOnUpdate(row: RGridRow) {
+  private NotifyToModelOnUpdate(row: RGridRow) {
     let notifyDataItems = this.Items.slice();
 
     let fulllist = this.BackupItems.length > 0 ? this.BackupItems.slice() : this.Items.slice();
@@ -551,7 +551,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.cdr.detectChanges();
   }
 
-  async sortColumn(hdr: RGridHeader) {
+ async sortColumn(hdr: RGridHeader) {
     
     this.EnableLoader = true;
 
@@ -605,7 +605,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     });
   }
 
-  async sortAsc(hdr: RGridHeader) {
+  private async sortAsc(hdr: RGridHeader) {
     let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
 
     if (indx > -1) {
@@ -617,7 +617,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     await this.sortData();
   }
 
-  AssignSortTypeToHeaders() {
+  private AssignSortTypeToHeaders() {
     for (let index = 0; index < this.SortHeaders.length; index++) {
       const element = this.SortHeaders[index];
       let _hdrIndx = this.Headers.findIndex(x => x.PropToBind == element.Header.PropToBind);
@@ -628,7 +628,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     }
   }
 
-  async sortDes(hdr: RGridHeader) {
+  private async sortDes(hdr: RGridHeader) {
     let indx = this.SortHeaders.findIndex(x => x.Header.PropToBind == hdr.PropToBind);
 
     if (indx > -1) {
@@ -640,7 +640,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     await this.sortData();
   }
 
-  async sortData() {
+  private async sortData() {
 
     const sorter = (columns: RGridHeaderSort[]) => (firstObj: any, SecondObj: any) => columns.map(x => {
       let type = 1;
@@ -711,7 +711,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return gpString;
   }
 
-  async createGroup() {
+  private async createGroup() {
 
     let exprs = [];
 
@@ -974,7 +974,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   }
 
-  async filterPerPage() {
+  private async filterPerPage() {
 
     if (this.DataItems) {
 
@@ -993,7 +993,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   }
 
-  OrderColumnAndRow(){
+  private OrderColumnAndRow(){
     let _row = 0;
     let _col = 0;
 
@@ -1066,7 +1066,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     }
   }
 
-  async filterPerPageForGroup() {
+  private async filterPerPageForGroup() {
 
     let skipItems = (this.currentPage - 1) * this.ItemsPerPage.Value;
     this.DisplayGroupItems = [];
@@ -1267,7 +1267,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return RFilterDataType.StringType;
   }
 
-  GetUniqueValues(header: RGridHeader): DropdownModel[] {
+  private GetUniqueValues(header: RGridHeader): DropdownModel[] {
     let values: any[] = [];
     let dValues: DropdownModel[] = [];
 
@@ -1359,7 +1359,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.AfterApplyingFilter.emit(filter);
   }
 
-  async ApplyFilterOnClick(){
+  private async ApplyFilterOnClick(){
 
     this.EnableLoader = true;
 
@@ -1507,7 +1507,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   }
 
-  adjustPageValue() {
+  private adjustPageValue() {
     if (this.currentPage < 1) {
       this.currentPage = 1;
     }
@@ -1863,7 +1863,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   }
 
-  getRGridRowInfo(row: RGridRow): RGridRowInfo {
+  private getRGridRowInfo(row: RGridRow): RGridRowInfo {
 
     let _row = new RGridRowInfo();
 
@@ -1874,13 +1874,13 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return _row;
   }
 
-  SetRowUpdateToFalse(itemrow: RGridRow){
+  private SetRowUpdateToFalse(itemrow: RGridRow){
     for(const key in itemrow){
       itemrow[key].IsValueUpdated = false;
     }
   }
 
-  isRowUpdated(itemrow: RGridRow){
+  private isRowUpdated(itemrow: RGridRow){
     let isUpdated = false;
 
     for(const key in itemrow){
@@ -1942,7 +1942,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   }
 
-  headersSort(a: RGridHeader, b: RGridHeader) {
+  private headersSort(a: RGridHeader, b: RGridHeader) {
     if (a.Index < b.Index) {
       return -1;
     }
@@ -1953,7 +1953,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     }
   }
 
-  groupByItems(lambdaKey: any[]): Map<string, RGridRow[]> {
+  private groupByItems(lambdaKey: any[]): Map<string, RGridRow[]> {
     let data = new Map();
     for (let index = 0; index < this.DataItems.Rows.length; index++) {
       const element = this.DataItems.Rows[index];

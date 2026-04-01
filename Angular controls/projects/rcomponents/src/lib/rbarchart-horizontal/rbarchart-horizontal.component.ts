@@ -182,7 +182,7 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
     return this._columns;
   }
 
-  PopupItems: RPopupChartItem[] = [];
+  private PopupItems: RPopupChartItem[] = [];
 
   @Input()
   @ValidateInput("color")
@@ -197,9 +197,9 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
   PopupBackgroundOpacity: number = 1;
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
-  bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
+  private bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
-  context: CanvasRenderingContext2D | null = null;
+  private context: CanvasRenderingContext2D | null = null;
 
   public IsRendered: boolean = false;
 
@@ -230,7 +230,7 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
   }
 
 
-  MouseMove(event: MouseEvent) {
+  private MouseMove(event: MouseEvent) {
 
     let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
     let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
@@ -294,7 +294,7 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
+  private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -310,7 +310,7 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
   }
 
 
-  getWidthFromString(value: string): number {
+  private getWidthFromString(value: string): number {
     if (this.context) {
       let metrics = this.context.measureText(value);
       return metrics.width;
@@ -319,11 +319,11 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
     return 50;
   }
 
-  getTextHeight(met: TextMetrics) {
+  private getTextHeight(met: TextMetrics) {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
-  getNameIndicator(itm: RBarChartItem) {
+  private getNameIndicator(itm: RBarChartItem) {
     return typeof itm.barItemsBackColor === 'string' ? itm.barItemsBackColor : itm.barItemsBackColor.length > 0 ?
       itm.barItemsBackColor[0] : "orangered";
   }
@@ -332,7 +332,7 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
     return typeof prop === 'string';
   }
 
-  EnableGlassyEffectOnTopOfChart() {
+  private EnableGlassyEffectOnTopOfChart() {
     if (this.context && this.bar && this.GlassyEffect) {
 
       let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight,
@@ -359,7 +359,11 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
     }
   }
 
-  RenderBarChart() {
+  public Render() {
+   this.RenderBarChart();
+  }
+
+  private RenderBarChart() {
     this.IsRendered = false;
 
     const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;

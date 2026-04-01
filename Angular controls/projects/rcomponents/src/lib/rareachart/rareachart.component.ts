@@ -153,8 +153,6 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
     return this._height;
   }
 
-  PopupItems: RPopupChartItem[] = [];
-
   @Input()
   @ValidateInput("number")
   DataListHeight: number = 50;
@@ -199,10 +197,12 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   @ValidateInput("boolean")
   EnablePlotOnPoints: boolean = false;
 
-  @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
-  bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
+  private PopupItems: RPopupChartItem[] = [];
 
-  context: CanvasRenderingContext2D | null = null;
+  @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
+  private bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
+
+  private context: CanvasRenderingContext2D | null = null;
 
   public IsRendered: boolean = false;
 
@@ -235,7 +235,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
     return item.Id;
   }
 
-  MouseMove(event: MouseEvent) {
+  private MouseMove(event: MouseEvent) {
     if (this.context && this.bar) {
 
       let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
@@ -302,7 +302,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
+  private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -317,7 +317,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
     return undefined;
   }
 
-  getWidthFromString(value: string): number {
+  private getWidthFromString(value: string): number {
     if (this.context) {
       let metrics = this.context.measureText(value);
       return metrics.width;
@@ -326,7 +326,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
     return 50;
   }
 
-  getTextHeight(met: TextMetrics) {
+  private getTextHeight(met: TextMetrics) {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
@@ -335,7 +335,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   }
 
 
-  EnableGlassyEffectOnTopOfChart() {
+  private EnableGlassyEffectOnTopOfChart() {
     if (this.context && this.bar && this.GlassyEffect) {
 
       let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight,
@@ -362,7 +362,11 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
     }
   }
 
-  RenderAreaChart() {
+  public Render() {
+    this.RenderAreaChart();
+  }
+
+  private RenderAreaChart() {
     this.IsRendered = false;
     this.PopupItems = [];
 

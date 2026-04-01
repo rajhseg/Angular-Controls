@@ -36,21 +36,21 @@ import { ValidateInput } from '../Validator';
 })
 export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IRPopupCloseInterface {
 
-  self: RCalendarComponent = this;
+  private self: RCalendarComponent = this;
   isDropdownChild: boolean = true;
-  selectedDate: Date | null = null;
+  private selectedDate: Date | null = null;
   currentMonth: Month | null = null;
-  selectedMonthInString: string = '';
+  private selectedMonthInString: string = '';
 
   IsMonthDropdownOpen: boolean = false;
   IsYearDropdownOpen: boolean = false;
 
-  changemonthisCalled: boolean = false;
+  private changemonthisCalled: boolean = false;
 
   private injector = inject(Injector);
 
-  _value: string = '';
-  IsValueChanged: boolean = false;
+  private _value: string = '';
+  private IsValueChanged: boolean = false;
 
   set Value(val: string) {
     if (val != this._value && !this.ReadOnly) {
@@ -63,8 +63,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     return this._value;
   }
 
-  totalYears: DropdownModel[] = [];
-  monthNames = [
+   totalYears: DropdownModel[] = [];
+   monthNames = [
     new DropdownModel(0, "Jan"),
     new DropdownModel(1, "Feb"),
     new DropdownModel(2, "Mar"),
@@ -79,7 +79,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     new DropdownModel(11, "Dec")
   ];
 
-  isSelectDayTriggered: boolean = false;
+  private isSelectDayTriggered: boolean = false;
 
   @Input()
   @ValidateInput("label")
@@ -89,8 +89,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   year: DropdownModel | undefined = this.totalYears.find(x => x.Value == new Date().getFullYear());
 
 
-  onChange: any = () => { };
-  onTouch: any = () => { };
+  private onChange: any = () => { };
+  private onTouch: any = () => { };
 
   @Input()
   @ValidateInput("label")
@@ -119,7 +119,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @Output()
   onDateSelected = new EventEmitter<Date>(); // output<Date>();
 
-  @ViewChild('calmodal', { read: ElementRef }) calModal!: ElementRef;
+  @ViewChild('calmodal', { read: ElementRef }) private calModal!: ElementRef;
 
   @Input()
   @ValidateInput("boolean")
@@ -133,8 +133,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @ValidateInput("boolean")
   IsChildOfAnotherControl: boolean = false;
 
-  @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
-  @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
+  @ViewChild('openbtn', { read: ElementRef }) private openBtn!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef }) private startElement!: ElementRef;
 
 
   @Output()
@@ -252,13 +252,13 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   private windowObj!: Window;
 
-  @ViewChild('monthdropdown', { read: RDropdownComponent }) monthDropDownControl!: RDropdownComponent;
+  @ViewChild('monthdropdown', { read: RDropdownComponent }) private monthDropDownControl!: RDropdownComponent;
 
-  @ViewChild('yeardropdown', { read: RDropdownComponent }) yearDropDownControl!: RDropdownComponent;
+  @ViewChild('yeardropdown', { read: RDropdownComponent }) private yearDropDownControl!: RDropdownComponent;
 
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
-  cls!: RCloseService;
+  private cls!: RCloseService;
 
   constructor(private calService: RCalenderService, private popupService: RPopupService,
     windowHelper: RWindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
@@ -286,12 +286,12 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   }
   
-  NotifyChangeMonth(){
+  private NotifyChangeMonth(){
     let monthInfo = new CalenderChangeMonthInfo(this.year?.Value, this.month.Value);
     this.ChangeMonthEvent.emit(monthInfo);
   }
   
-  windowOnClick(evt: MouseEvent) {
+  private windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
 
     this.cls.PrintLog();
@@ -384,7 +384,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   }
 
-  RenderUI(obj: string | Date) {
+  private RenderUI(obj: string | Date) {
     try {
       if (obj != undefined && obj != '') {
         if (typeof (obj) === 'string') {
@@ -444,7 +444,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     }
   }
 
-  clearDateOnBlur() {
+  private clearDateOnBlur() {
     this.selectedDate = null;
     this._value = '';
 
@@ -460,7 +460,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   }
 
-  clearDate() {
+  private clearDate() {
     this.selectedDate = null;
     this._value = '';
     this.onChange(this._value);
@@ -567,7 +567,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   }
 
 
-  AttachDropdown() {
+  private AttachDropdown() {
     let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
@@ -658,7 +658,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     }
   }
 
-  closeCalender() {
+  private closeCalender() {
 
     if (this.IsChildOfAnotherControl) {
       this.IsChildOfAnotherControlClicked = true;
@@ -669,7 +669,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     this.IsCalenderOpen = false;
   }
 
-  addPrevYears($evt: Event) {
+  private addPrevYears($evt: Event) {
     $evt.preventDefault();
     $evt.stopPropagation();
 
@@ -681,7 +681,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     }
   }
 
-  addNextYears($evt: Event) {
+  private addNextYears($evt: Event) {
     $evt.preventDefault();
     $evt.stopPropagation();
 
@@ -693,7 +693,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     }
   }
 
-  loadYears(year: number) {
+  private loadYears(year: number) {
 
     this.totalYears = [];
 
@@ -847,7 +847,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     this.changemonthisCalled = false;
   }
 
-  LoadMonth(date: Date, isSelect: boolean = true) {
+  private LoadMonth(date: Date, isSelect: boolean = true) {
 
     if (this.IsChildOfAnotherControl) {
       this.IsChildOfAnotherControlClicked = true;
@@ -933,7 +933,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   }
 
-  NotifyToModel() {
+  private NotifyToModel() {
     if (this.selectedDate) {
       this.onChange(this.Value);
       this.onTouch(this.Value);
@@ -942,14 +942,14 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     }
   }
 
-  NotifyToUI() {
+  private NotifyToUI() {
     if (this.selectedDate) {
       this.onDateSelected.emit(this.selectedDate);
       this.valueChanged.emit(this.selectedDate);
     }
   }
 
-  SetDate(date: Date) {
+  private SetDate(date: Date) {
 
     this.selectedDate = date;
 
@@ -971,7 +971,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     }
   }
 
-  getDateString(date: Date): string {
+  private getDateString(date: Date): string {
     // const today = date;
     // const yyyy = today.getFullYear();
     // let mm: any = today.getMonth() + 1;
@@ -988,7 +988,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     return formatDate ?? '';
   }
 
-  isDateEqual(a: Date, b: Date) {
+  private isDateEqual(a: Date, b: Date) {
     if (a != null && b != null) {
       return a.getDate() == b.getDate() && a.getMonth() == b.getMonth() && a.getFullYear() == b.getFullYear();
     } else {

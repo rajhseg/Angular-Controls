@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, inject, Output } from "@angular/core";
 import { RWindowHelper } from "../rwindowObject";
-import { InputPropValidator } from "../rcss-units.service";
+import { Constructor, InputPropValidator } from "../rcss-units.service";
 
 @Directive()
 export abstract class RBaseComponent<T> {
@@ -14,6 +14,13 @@ export abstract class RBaseComponent<T> {
     valueChanged = new EventEmitter<T>();
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
+  
+    public ValidSpecificType<T extends object>(
+    value: unknown,
+    type: Constructor<T> | [Constructor<T>]
+    ): T | T[] {
+        return this.propValidator.getValidateSpecificType(value, type);
+    }
 
     ValidDataForAnyType(value: any): any {
         return this.propValidator.getValidAny(value);
@@ -83,6 +90,13 @@ export abstract class RChartBaseComponent {
 
     protected propValidator: InputPropValidator = inject(InputPropValidator);
     
+    public ValidSpecificType<T extends object>(
+    value: unknown,
+    type: Constructor<T> | [Constructor<T>]
+    ): T | T[] {
+        return this.propValidator.getValidateSpecificType(value, type);
+    }
+
     ValidDataForAnyType(value: any): any {
         return this.propValidator.getValidAny(value);
     }

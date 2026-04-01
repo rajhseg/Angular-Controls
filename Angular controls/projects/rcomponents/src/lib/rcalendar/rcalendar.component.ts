@@ -12,6 +12,7 @@ import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 import { CalenderChangeMonthInfo, RBaseComponent } from '../rmodels/RBaseComponent';
+import { ValidateInput } from '../Validator';
 
 @Component({
   selector: 'rcalendar',
@@ -81,6 +82,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   isSelectDayTriggered: boolean = false;
 
   @Input()
+  @ValidateInput("label")
   ParentDropDownId: string = '';
 
   month: DropdownModel = this.monthNames[0];
@@ -91,21 +93,27 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   onTouch: any = () => { };
 
   @Input()
+  @ValidateInput("label")
   Font: string = '';
 
   @Input()
+  @ValidateInput("boolean")
   ReadOnly: boolean = false;
 
   @Input()
+  @ValidateInput("boolean")
   Disabled: boolean = false;
 
   @Input()
+  @ValidateInput("size")
   Width: string = '170px';
 
   @Input()
+  @ValidateInput("label")
   DateFormat: string = 'MM-dd-yyyy';
 
   @Input()
+  @ValidateInput("size")
   Height: string = '15px';
 
   @Output()
@@ -114,12 +122,15 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @ViewChild('calmodal', { read: ElementRef }) calModal!: ElementRef;
 
   @Input()
+  @ValidateInput("boolean")
   EnableFilterOptionForYear: boolean = true;
 
   @Input()
+  @ValidateInput("boolean")
   EnableFilterOptionForMonth: boolean = true;
 
   @Input()
+  @ValidateInput("boolean")
   IsChildOfAnotherControl: boolean = false;
 
   @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
@@ -165,7 +176,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   @Input()
   set SelectedItemBackGroundColor(color: string) {
-    this._selectedItemBackColor = color;
+    this._selectedItemBackColor = this.ValidColor(color);
   }
   get SelectedItemBackGroundColor(): string {
     return this._selectedItemBackColor;
@@ -176,6 +187,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @Input()
   set IsCalenderOpen(value: boolean) {
 
+    value = this.ValidBoolean(value);
+    
     if (this._showCalender && !value) {
       this._showCalender = value;
       if (this.Closed)

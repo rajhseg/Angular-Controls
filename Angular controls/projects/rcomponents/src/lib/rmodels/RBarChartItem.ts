@@ -1,6 +1,6 @@
-import { inject, Injectable } from "@angular/core";
+import { forwardRef, inject, Injectable } from "@angular/core";
 import { RWindowHelper, RWINDOWHELPEROBJECT } from "../rwindowObject";
-import { ValidateInput } from "../Validator";
+import { ValidateInput, ValidateInputType } from "../Validator";
 
 
 @Injectable({
@@ -12,6 +12,21 @@ export class RBaseChartItem {
 
     constructor() {
         this.Id = 'rid' + crypto.randomUUID().replace(/-/g,'');
+    }
+}
+
+export class RGraph extends RBaseChartItem {
+    
+    @ValidateInput("number")
+    public xPoint!: number;
+     
+    @ValidateInput("number")
+    public yPoint!: number;
+
+    constructor(_xPoint: number, _yPoint: number) {
+        super();
+        this.xPoint = _xPoint;
+        this.yPoint = _yPoint;
     }
 }
 
@@ -42,11 +57,27 @@ export class RBarChartItem extends RBaseChartItem {
     }
 }
 
+export class RAllocationData extends RBaseChartItem {
+
+    @ValidateInput("number")
+    public Allocated!: number;
+    
+    @ValidateInput("number")
+    public Spent!: number
+
+    constructor(_allocated: number,  _spent: number) {
+        super();
+        this.Allocated = _allocated;
+        this.Spent = _spent;
+    }
+}
+
 export class RAllocatedBarChartItem extends RBaseChartItem {
     
     @ValidateInput('label')
     public DisplayName!: string;
 
+    @ValidateInputType(RAllocationData)
     public Values!: RAllocationData[];
 
     @ValidateInput("colororcolorarray")
@@ -76,21 +107,6 @@ export class RAllocatedBarChartItem extends RBaseChartItem {
             this.AllocatedDisplayName = _allocatedDisplayName;
             this.SpentDisplayName = _spentDisplayName;
         }
-}
-
-export class RAllocationData extends RBaseChartItem {
-
-    @ValidateInput("number")
-    public Allocated!: number;
-    
-    @ValidateInput("number")
-    public Spent!: number
-
-    constructor(_allocated: number,  _spent: number) {
-        super();
-        this.Allocated = _allocated;
-        this.Spent = _spent;
-    }
 }
 
 export class RLineChartItem extends RBaseChartItem {
@@ -140,6 +156,7 @@ export class RScatterChartItem extends RBaseChartItem {
     @ValidateInput("color")
     public ItemColor!: string; 
     
+    @ValidateInputType(RGraph)
     public Values!: RGraph[];
 
     constructor(_itemName: string, _itemColor: string, _values: RGraph[] = []) {
@@ -159,6 +176,7 @@ export class RGraphSeriesChartItem extends RBaseChartItem {
     @ValidateInput("color")
     public ItemColor!: string; 
     
+    @ValidateInputType(RGraph)
     public Values!: RGraph[];
 
     constructor(_itemName: string, _itemColor: string, _values: RGraph[] = []) {
@@ -191,20 +209,6 @@ export class RYSeriesChartItem extends RBaseChartItem {
 }
 
 
-export class RGraph extends RBaseChartItem {
-    
-    @ValidateInput("number")
-    public xPoint!: number;
-     
-    @ValidateInput("number")
-    public yPoint!: number;
-
-    constructor(_xPoint: number, _yPoint: number) {
-        super();
-        this.xPoint = _xPoint;
-        this.yPoint = _yPoint;
-    }
-}
 
 export class RPopupChartItem extends RBaseChartItem {
 

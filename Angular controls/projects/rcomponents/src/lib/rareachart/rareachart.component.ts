@@ -183,6 +183,9 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set Items(val: RAreaChartItem[]) {
+    
+    val = this.ValidSpecificType(val, [RAreaChartItem]) as RAreaChartItem[];
+
     if (!this.IsLineItemListEqual(val, this._items)) {
       this._items = val;
       this.RenderAreaChart();

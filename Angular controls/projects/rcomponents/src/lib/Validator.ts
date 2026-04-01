@@ -355,6 +355,46 @@ function isValidDate(value: any): boolean {
   return value instanceof Date && !isNaN(value.getTime());
 }
 
+export function ValidateInputType<T extends object>(Type: new (...args: any[]) => T) {
+  return function (target: any, key: string) {
+    const privateKey = Symbol(key); // safer than __key
+
+    Object.defineProperty(target, key, {
+      get(): T | T[] {
+        return this[privateKey];
+      },
+      set(value: unknown) {
+        if (value == null) {
+          this[privateKey] = value;
+          return;
+        }
+
+        const transform = (obj: any): T => {
+          // already instance
+          if (obj instanceof Type) return obj;
+
+          const instance = new Type() as T;
+          return Object.assign(instance, obj);
+        };
+
+        let result: T | T[];
+
+        if (Array.isArray(value)) {
+          result = value.map(v => transform(v));
+        } else if (typeof value === 'object') {
+          result = transform(value);
+        } else {
+          throw new Error(`Invalid type for ${key}`);
+        }
+
+        this[privateKey] = result;
+      },
+      enumerable: true,
+      configurable: true
+    });
+  };
+}
+
 export function ValidateInput(type: 'any' | 'size' | 'object' | 'objectarray' | 'enum' | 'color' | 'colorarray' | 'colororcolorarray' | 'number' | 'numberarray' 
   | 'boolean' | 'label' | 'stringarray' | 'stringorstringarray', config? : any) {
   return function (target: any, propertyKey: string) {

@@ -170,6 +170,9 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set Columns(val: RAllocatedBarChartItem[]) {
+    
+    val = this.ValidSpecificType(val, [RAllocatedBarChartItem]) as RAllocatedBarChartItem[];
+
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
       this.RenderBarChart();

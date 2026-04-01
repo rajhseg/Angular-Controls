@@ -18,7 +18,7 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
 import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
 import { RProgressbarComponent } from "../rprogressbar/rprogressbar.component";
 import { RBaseComponent } from '../rmodels/RBaseComponent';
-import { ValidateInput } from '../Validator';
+import { ValidateInput, ValidateInputType } from '../Validator';
 
 @Component({
   selector: 'rgrid',
@@ -44,7 +44,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   private _items: any[] = [];
 
-  public ColValues: DropdownModel[] = [];
+  private ColValues: DropdownModel[] = [];
 
   private indxKey: string = "rgrid_index";
 
@@ -162,6 +162,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   SelectCheckBoxSize: string = "13px";
   
   @Input()
+  @ValidateInputType(DropdownModel)
   ItemsPerPage!: DropdownModel;
 
   _tableHeight: string = '200px';

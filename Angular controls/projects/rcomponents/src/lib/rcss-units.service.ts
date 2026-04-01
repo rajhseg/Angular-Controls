@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { validateValue } from './Validator';
 
 
+export type Constructor<T extends object> = new (...args: any[]) => T;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -110,6 +112,40 @@ export class InputPropValidator {
   public getValidateEnum(value: any, enumType: any) : any {
     return validateValue("enum", value, enumType);
   } 
+
+ public getValidateSpecificType<T extends object>(
+  value: unknown,
+  type: Constructor<T> | [Constructor<T>]
+): T | T[] {
+
+  const isObject = (val: unknown): val is object =>
+    typeof val === 'object' && val !== null;
+
+  const transform = (obj: unknown, Type: Constructor<T>): T => {
+    if (obj instanceof Type) return obj;
+
+    if (!isObject(obj)) {
+      throw new Error('Invalid object');
+    }
+
+    const instance = new Type();
+    return Object.assign(instance, obj as Partial<T>);
+  };
+
+  // 🔹 Array type: [RHeader]
+  if (Array.isArray(type)) {
+    const Type = type[0];
+
+    if (!Array.isArray(value)) {
+      throw new Error('Expected array input');
+    }
+
+    return value.map(v => transform(v, Type));
+  }
+
+  // 🔹 Single type: RHeader
+  return transform(value, type);
+}
   
 }
 

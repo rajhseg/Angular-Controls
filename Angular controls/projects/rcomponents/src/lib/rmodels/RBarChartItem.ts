@@ -11,7 +11,7 @@ export class RBaseChartItem {
     Id!: string;
 
     constructor() {
-        this.Id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+        this.Id = 'rid' + crypto.randomUUID().replace(/-/g,'');
     }
 }
 

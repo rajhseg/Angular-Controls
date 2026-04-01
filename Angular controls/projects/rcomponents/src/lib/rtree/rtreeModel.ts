@@ -5,7 +5,7 @@ export class RTreeItem {
   private _childItems: RTreeItem[] = [];
   private _loaderItem: boolean = false;
 
-  public Id: string = Date.now().toString(36) + Math.random().toString(36).substr(2);
+  public Id: string = 'rid' + crypto.randomUUID().replace(/-/g,'');
 
   public CustomPropertyObject: any | undefined = {};
 

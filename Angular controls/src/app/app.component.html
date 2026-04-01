@@ -826,13 +826,14 @@
             <span>{{Item.Name}} -- {{cell.Value}}</span>
           </ng-template>
           <ng-template editviewtemplate let-cell="CellInfo">
-            <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-              [TextBoxWidth]="'140px'" [(ngModel)]="cell.Value" />
+            <div>{{cell.Value}}</div>
+            <!-- <rtextbox [BottomLineColor]="bColor" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+              [TextBoxWidth]="'140px'" [(ngModel)]="cell.Value" /> -->
           </ng-template>
         </rcolumn>
 
         <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="'Age'" [Width]="'170px'">
-          <ng-template readviewtemplate let-Item>
+          <ng-template readviewtemplate let-Item let-cell="CellInfo">
             <span>{{Item.Age}}</span>
           </ng-template>
           <ng-template editviewtemplate let-cell="CellInfo">
@@ -843,7 +844,7 @@
 
         <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education.Higher.Course'" [HeaderText]="'Degree'"
           [Width]="'160px'">
-          <ng-template readviewtemplate let-Item>
+          <ng-template readviewtemplate let-Item let-cell="CellInfo">
             <span>{{Item.Education.Higher.Id}}</span> -
             <span>{{Item.Education.Higher.Course}}</span>
           </ng-template>

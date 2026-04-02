@@ -12,7 +12,6 @@ import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 import { CalenderChangeMonthInfo, RBaseComponent } from '../rmodels/RBaseComponent';
-import { ValidateCustomTypeProp, ValidateProp } from '../rvalidator';
 
 @Component({
   selector: 'rcalendar',
@@ -40,15 +39,12 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   private selectedDate: Date | null = null;
   private selectedMonthInString: string = '';
 
-  @ValidateProp("boolean")
   isDropdownChild: boolean = true;
 
   currentMonth: Month | null = null;
 
-  @ValidateProp("boolean")
   IsMonthDropdownOpen: boolean = false;
 
-  @ValidateProp("boolean")
   IsYearDropdownOpen: boolean = false;
 
   private changemonthisCalled: boolean = false;
@@ -69,11 +65,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     return this._value;
   }
 
-  @ValidateCustomTypeProp(DropdownModel)
    totalYears: DropdownModel[] = [];
 
-   
-  @ValidateCustomTypeProp(DropdownModel)
    monthNames = [
     new DropdownModel(0, "Jan"),
     new DropdownModel(1, "Feb"),
@@ -92,10 +85,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   private isSelectDayTriggered: boolean = false;
 
   @Input()
-  @ValidateProp("label")
   ParentDropDownId: string = '';
 
-  @ValidateCustomTypeProp(DropdownModel)
   month: DropdownModel = this.monthNames[0];
 
   year: DropdownModel | undefined = this.totalYears.find(x => x.Value == new Date().getFullYear());
@@ -105,27 +96,21 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   private onTouch: any = () => { };
 
   @Input()
-  @ValidateProp("label")
   Font: string = '';
 
   @Input()
-  @ValidateProp("boolean")
   ReadOnly: boolean = false;
 
   @Input()
-  @ValidateProp("boolean")
   Disabled: boolean = false;
 
   @Input()
-  @ValidateProp("size")
   Width: string = '170px';
 
   @Input()
-  @ValidateProp("label")
   DateFormat: string = 'MM-dd-yyyy';
 
   @Input()
-  @ValidateProp("size")
   Height: string = '15px';
 
   @Output()
@@ -134,15 +119,12 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @ViewChild('calmodal', { read: ElementRef }) private calModal!: ElementRef;
 
   @Input()
-  @ValidateProp("boolean")
   EnableFilterOptionForYear: boolean = true;
 
   @Input()
-  @ValidateProp("boolean")
   EnableFilterOptionForMonth: boolean = true;
 
   @Input()
-  @ValidateProp("boolean")
   IsChildOfAnotherControl: boolean = false;
 
   @ViewChild('openbtn', { read: ElementRef }) private openBtn!: ElementRef;
@@ -155,25 +137,18 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @Output()
   NextMonthClicked = new EventEmitter<any>();
 
-  @ValidateProp("boolean")
   IsChildOfAnotherControlClicked: boolean = false;
 
-  @ValidateProp("boolean")
   IsWindowsOs: boolean = false;
 
-  @ValidateProp("boolean")
   IsLinuxOs: boolean = false;
 
-  @ValidateProp("size")
   DDEBottom: string = '';
 
-  @ValidateProp("size")
   DDETop: string = '';
 
-  @ValidateProp("size")
   DDELeft: string = '';
 
-  @ValidateProp("size")
   DDERight: string = '';
 
   get DDEWidth(): string {
@@ -195,7 +170,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   @Input()
   set SelectedItemBackGroundColor(color: string) {
-    this._selectedItemBackColor = this.ValidColor(color);
+    this._selectedItemBackColor = color;
   }
   get SelectedItemBackGroundColor(): string {
     return this._selectedItemBackColor;
@@ -206,8 +181,6 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @Input()
   set IsCalenderOpen(value: boolean) {
 
-    value = this.ValidBoolean(value);
-    
     if (this._showCalender && !value) {
       this._showCalender = value;
       if (this.Closed)

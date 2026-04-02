@@ -4,7 +4,6 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RAreaChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
-import { ValidateCustomTypeProp, ValidateProp } from '../rvalidator';
 import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
@@ -26,44 +25,35 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   private _textColor: string = "gray";
 
   @Input()
-  @ValidateProp("boolean")
   EnableBorder: boolean = false;
 
   @Input()
-  @ValidateProp("color")
   BorderColor: string = 'lightgray';
 
   @Input()
-  @ValidateProp("boolean")
   GlassyEffect: boolean = true;
 
   @Input()
-  @ValidateProp("color")
   GlassyEffectColor: string = 'lightgray';
 
   @Input()
-  @ValidateProp("number")
   PaddingLeft: number = 20;
 
   @Input()
-  @ValidateProp("number")
   PaddingRight: number = 20;
 
   @Input()
-  @ValidateProp("number")
   PaddingTop: number = 20;
 
   @Input()
-  @ValidateProp("number")
   PaddingBottom: number = 10;
 
   @Input()
-  @ValidateProp("number")
   PlotItemSize: number = 3;
 
   @Input()
   public set TextColor(val: string) {
-    this._textColor = this.ValidColor(val);
+    this._textColor = val
   }
   public get TextColor(): string {
     return this._textColor;
@@ -71,7 +61,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set XAxisTitle(val: string) {
-    this._xAxisTitle = this.ValidLabel(val);
+    this._xAxisTitle = val;
     this.RenderAreaChart();
   }
   public get XAxisTitle(): string {
@@ -80,7 +70,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set YAxisTitle(val: string) {
-    this._yAxisTitle = this.ValidLabel(val);
+    this._yAxisTitle = val;
     this.RenderAreaChart();
   }
   public get YAxisTitle(): string {
@@ -92,7 +82,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   @Input()
   public set xAxisItemNames(val: string[]){
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
-      this._xAxisItemNames = this.ValidLabelArray(val);
+      this._xAxisItemNames = val;
       this.RenderAreaChart();
     }    
   }
@@ -108,7 +98,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set NoOfSplitInYAxis(val: number) {
-    this._noOfSplitInYAxis = this.ValidNumber(val);
+    this._noOfSplitInYAxis = val;
   }
   public get NoOfSplitInYAxis(): number {
     return this._noOfSplitInYAxis;
@@ -116,7 +106,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set Width(val: number) {
-    this._width = this.ValidNumber(val);
+    this._width = val;
     this.RenderAreaChart();
   }
   public get Width(): number {
@@ -127,7 +117,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set MarginX(val: number) {
-    this._marginX = this.ValidNumber(val);
+    this._marginX = val;
   }
   public get MarginX(): number {
     return this._marginX;
@@ -138,7 +128,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set MarginY(val: number) {
-    this._marginY = this.ValidNumber(val);
+    this._marginY = val;
   }
   public get MarginY(): number {
     return this._marginY;
@@ -146,7 +136,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   @Input()
   public set Height(val: number) {
-    this._height = this.ValidNumber(val);
+    this._height = val;
     this.RenderAreaChart();
   }
   public get Height(): number {
@@ -154,36 +144,27 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   }
 
   @Input()
-  @ValidateProp("number")
   DataListHeight: number = 50;
 
   @Input()
-  @ValidateProp("color")
   PopupBackColor: string = "lightgray";
 
   @Input()
-  @ValidateProp("boolean")
   IsRenderFromInit:boolean = true;
 
   @Input()
-  @ValidateProp("boolean")
   EnableGradientInArea: boolean = true;
   
   @Input()
-  @ValidateProp("color")
   PopupForeColor: string | undefined = undefined;
 
   @Input()
-  @ValidateProp("number")
   PopupBackgroundOpacity: number = 1;
 
   private _items: RAreaChartItem[] = [];
 
   @Input()
   public set Items(val: RAreaChartItem[]) {
-    
-    val = this.ValidCustomArrayType(val, RAreaChartItem);
-
     if (!this.IsLineItemListEqual(val, this._items)) {
       this._items = val;
       this.RenderAreaChart();
@@ -194,10 +175,8 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   }
 
   @Input()
-  @ValidateProp("boolean")
   EnablePlotOnPoints: boolean = false;
 
-  @ValidateCustomTypeProp(RPopupChartItem)  
   private PopupItems: RPopupChartItem[] = [];
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
@@ -205,11 +184,9 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   private context: CanvasRenderingContext2D | null = null;
 
-  @ValidateProp("boolean")
   public IsRendered: boolean = false;
 
   @Input()
-  @ValidateProp("number")
   AreaOpacity: number = 0.2;
 
   Id:string = '';

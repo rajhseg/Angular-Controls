@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, input, Input, Vi
 import { RAllocatedBarChartItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { ValidateCustomTypeProp, ValidateProp } from '../rvalidator';
 import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
@@ -24,40 +23,32 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _textColor: string = "gray";
 
   @Input()
-  @ValidateProp("boolean")
   EnableBorder: boolean = false;
 
   @Input()
-  @ValidateProp("color")
   BorderColor: string = 'lightgray';
 
   @Input()
-  @ValidateProp("boolean")
   GlassyEffect: boolean = true;
 
   @Input()
-  @ValidateProp("color")
   GlassyEffectColor: string = 'lightgray';
 
   @Input()
-  @ValidateProp("number")
   PaddingLeft: number = 20;
 
   @Input()
-  @ValidateProp("number")
   PaddingRight: number = 20;
 
   @Input()
-  @ValidateProp("number")
   PaddingTop: number = 20;
 
   @Input()
-  @ValidateProp("number")
   PaddingBottom: number = 10;
 
   @Input()
   public set TextColor(val: string){
-    this._textColor = this.ValidColor(val);
+    this._textColor = val
   }
   public get TextColor(): string {
     return this._textColor;
@@ -65,7 +56,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   
   @Input()
   public set XAxisTitle(val: string){
-    this._xAxisTitle = this.ValidLabel(val);
+    this._xAxisTitle = val;
   }
   public get XAxisTitle(): string {
     return this._xAxisTitle;
@@ -73,7 +64,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set YAxisTitle(val: string) {
-    this._yAxisTitle = this.ValidLabel(val);
+    this._yAxisTitle = val;
   }
   public get YAxisTitle(): string {
     return this._yAxisTitle;
@@ -88,7 +79,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
       val = 3;
     }
 
-    this._noOfSplitInValueAxis = this.ValidNumber(val);
+    this._noOfSplitInValueAxis = val;
   }
   public get NoOfSplitInValueAxis(): number {
     return this._noOfSplitInValueAxis;
@@ -97,7 +88,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set Width(val: number) {
-    this._width = this.ValidNumber(val);
+    this._width = val;
   }
   public get Width(): number {
     return this._width;
@@ -107,7 +98,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set GapBetweenBars(val: RSpaceBetweenBars) {
-    this._gapBetweenBars =  this.ValidEnum(val, RSpaceBetweenBars);
+    this._gapBetweenBars =  val;
     this.RenderBarChart();
   }
   public get GapBetweenBars(): number {
@@ -118,7 +109,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set MarginX(val: number) {
-    this._marginX = this.ValidNumber(val);
+    this._marginX = val;
   }
   public get MarginX(): number {
     return this._marginX;
@@ -129,7 +120,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set MarginY(val: number) {
-    this._marginY = this.ValidNumber(val);
+    this._marginY = val;
   }
   public get MarginY(): number {
     return this._marginY;
@@ -137,7 +128,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set Height(val: number) {
-    this._height = this.ValidNumber(val);
+    this._height = val;
   }
   public get Height(): number {
     return this._height;
@@ -148,7 +139,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   @Input()
   public set xAxisItemNames(val: string[]) {
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
-      this._xAxisItemNames = this.ValidLabelArray(val);
+      this._xAxisItemNames = val;
       this.RenderBarChart();
     }
   }
@@ -160,7 +151,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set DataListHeight(val: number) {
-    this._dataListHeight = this.ValidNumber(val);
+    this._dataListHeight = val;
   }
   public get DataListHeight(): number {
     return this._dataListHeight;
@@ -170,8 +161,6 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   public set Columns(val: RAllocatedBarChartItem[]) {
-    
-    val = this.ValidCustomArrayType(val, RAllocatedBarChartItem);
 
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
@@ -183,23 +172,18 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   }
 
   @Input()
-  @ValidateProp("color")
   AllocatedValueIndicatorColor: string = 'grey';
 
   @Input()
-  @ValidateProp("color")
   EmptyAreaBorderColor: string = 'lightgray';
   
   @Input()
-  @ValidateProp("color")
   PopupBackColor: string = "lightgray";
 
   @Input()
-  @ValidateProp("color")
   PopupForeColor: string | undefined = undefined;
 
   @Input()
-  @ValidateProp("number")
   PopupBackgroundOpacity: number = 1;
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
@@ -207,10 +191,8 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   private context: CanvasRenderingContext2D | null = null;
 
-  @ValidateCustomTypeProp(RPopupChartItem)
   private PopupItems: RPopupChartItem[] = [];
 
-  @ValidateProp("boolean")
   public IsRendered: boolean = false;
 
   @HostBinding('id')

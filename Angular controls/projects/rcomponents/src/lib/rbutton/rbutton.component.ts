@@ -1,7 +1,6 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { RWindowHelper } from '../rwindowObject';
-import { ValidateProp } from '../rvalidator';
 
 @Component({
   selector: 'rbutton',
@@ -16,31 +15,24 @@ export class RButtonComponent {
   public ButtonClick = new EventEmitter<any>();
 
   @Input()
-  @ValidateProp("boolean")
   public EnableBackDrop: boolean = false;
   
   @Input()
-  @ValidateProp("size")
   public ButtonWidth: string = '100px';
 
   @Input()
-  @ValidateProp("size")
   public ButtonHeight: string = '32px';
 
   @Input()
-  @ValidateProp("label")
   public ButtonType: string = "button";
 
   @Input()
-  @ValidateProp("color")
   ForeColor: string = "whitesmoke";
 
   @Input()
-  @ValidateProp("color")
   BackgroundColor: string = "blue";
 
   @Input()
-  @ValidateProp("boolean")
   IsDisabled: boolean = false;
   
   onClick($event: any){

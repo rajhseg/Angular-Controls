@@ -10,7 +10,6 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RCloseService, IRDropDown } from '../rpopup.service';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
-import { ValidateCustomTypeProp, ValidateProp } from '../rvalidator';
 
 
 export enum RFilterDataType {
@@ -61,71 +60,56 @@ export enum RFilterAlign{
 export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implements IRDropDown, ControlValueAccessor {
 
   @Input()
-  @ValidateProp("label")
   DateFormat: string = 'MM-dd-yyyy';
   
-  @ValidateProp("enum", RFilterDataType)
   _dataType:RFilterDataType = RFilterDataType.StringType;
 
   @Input()
   public set DataType(value: RFilterDataType){
-    this._dataType = this.ValidEnum(value, RFilterDataType);
+    this._dataType = value;
   }
   public get DataType(): RFilterDataType {
     return this._dataType;
   }
 
-  @ValidateProp("number")
   public dropdownMaxChars: number = 178;
 
   @Input()
-  @ValidateProp("label")
   ParentDropDownId: string = '';
 
   @Input()
-  @ValidateProp("color")
   TextColor: string = 'gray';
 
   @Input()
-  @ValidateProp("size")
   Width: string = '15px'
 
   @Input()
-  @ValidateProp("size")
   Height: string = '15px';
 
   @Input()
-  @ValidateProp("color")
   Color: string = 'grey';
 
-  @ValidateProp("boolean")
   IsFilteredApplied: boolean = false;
 
-  @ValidateProp("boolean")
   IsFilterOpen: boolean = false;
 
   @Input()
-  @ValidateProp("color")
   BackgroundColor: string = 'white';
 
   @Input()
-  @ValidateProp("enum", RFilterAlign)
   Align: RFilterAlign = RFilterAlign.Right;
 
   @Input()
-  @ValidateProp("color")
   ForeColor: string = 'black';
 
   @Input()
-  @ValidateProp("boolean")
   EnableShadowOnDropdown: boolean = true;
 
-  @ValidateCustomTypeProp(DropdownModel)
   itemValues: DropdownModel[] = [];
 
   @Input()
   public set ItemValues(val: DropdownModel[]){
-    this.itemValues = this.ValidCustomArrayType(val, DropdownModel);
+    this.itemValues = val;
 
     let wth = 0;
 
@@ -238,7 +222,7 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
 
   @Input()
   set ColumnName(val: string){
-    this._columnName = this.ValidLabel(val);    
+    this._columnName = val;    
     this.ItemModel = this._itemModel;
   }
   get ColumnName(): string {
@@ -246,7 +230,6 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   }
   
   @Input()
-  @ValidateProp("color")
   BorderColor: string = 'lightgray';
 
   ContainsList: DropdownModel[] | undefined = undefined;
@@ -255,16 +238,12 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   GreaterThanNumber: number | undefined = undefined;
   GreaterThanDate: string | undefined = undefined;
 
-  @ValidateProp("size")
   DDEBottom: string = '';
 
-  @ValidateProp("size")
   DDETop: string = '';
 
-  @ValidateProp("size")
   DDELeft: string = '';
 
-  @ValidateProp("size")
   DDERight: string = '';
 
   get DDEWidth() : string {

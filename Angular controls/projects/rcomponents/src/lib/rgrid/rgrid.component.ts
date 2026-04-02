@@ -18,7 +18,6 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
 import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
 import { RProgressbarComponent } from "../rprogressbar/rprogressbar.component";
 import { RBaseComponent } from '../rmodels/RBaseComponent';
-import { ValidateProp, ValidateCustomTypeProp } from '../rvalidator';
 
 
 export class RGridHeader {
@@ -40,13 +39,10 @@ export class RGridHeader {
 
 export class RGridGroupData {
 
-  @ValidateProp("label")
   public Key: string; 
   
-  @ValidateCustomTypeProp(RGridRow)
   public Values: RGridRow[];
   
-  @ValidateProp("boolean")
   public IsExpanded: boolean;
 
   constructor(_key: string, _values: RGridRow[], _isExpanded: boolean = false) {
@@ -87,43 +83,33 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   private selectKey: string = "rgrid_select";
 
-  @ValidateProp("enum", RProgressBarDisplayType)
   progressDisplayType: RProgressBarDisplayType = RProgressBarDisplayType.Circle;
 
-  @ValidateProp("enum", RProgressBarType)
   progressType: RProgressBarType = RProgressBarType.Infinite;
 
   @Input()
-  @ValidateProp("color")
   SortIconColor: string = 'white';
 
   @Input()
-  @ValidateProp("color")
   FilterIconColor: string = 'white';
 
   @Input()
-  @ValidateProp("color")
   GroupHeaderBackColor: string = '#edecec';
 
   @Input()
-  @ValidateProp("color")
   GroupHeaderForeColor: string = 'black';
 
   @Input()
-  @ValidateProp("color")
   LoaderForeColor: string = '#8f19ff';
 
   @Input()
-  @ValidateProp("color")
   LoaderTrackColor: string = 'lightgray';
 
   EnableLoader: boolean = false;
 
   @Input()
-  @ValidateProp("boolean")
   EnableSelectColummn: boolean = true;
 
-  @ValidateProp("boolean")
   IsSelectedAll: boolean = false;
 
   @Output()
@@ -152,14 +138,11 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   @Input()
-  @ValidateCustomTypeProp(DropdownModel)
   PageItems: DropdownModel[] = []
 
-  @ValidateProp("number")
   currentPage: number = 1;  
 
   @Input()
-  @ValidateProp("color")
   GroupByIconColor: string = "#00c7ba";
 
   @Output()
@@ -205,23 +188,18 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   OnGroupCliked = new EventEmitter<RGridGroupData>();
 
   @Input()
-  @ValidateProp("size")
   RowHeightInPx: string = 'auto';
   
   @Input()
-  @ValidateProp("size")
   HeaderHeightInPx: string = '50px';
 
   @Input()
-  @ValidateProp("size")
   GroupHeaderRowHeightInPx: string = '50px';
 
   @Input()
-  @ValidateProp("size")
   SelectCheckBoxSize: string = "13px";
   
   @Input()
-  @ValidateCustomTypeProp(DropdownModel)
   ItemsPerPage!: DropdownModel;
 
   private _tableHeight: string = '200px';
@@ -248,7 +226,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Input()
   set TableHeight(val: string){
     if(this.winObj.isExecuteInBrowser()) {
-      let _val = this.ValidSize(val);
+      let _val = val;
       let _height = this.cssUnit.ToPxString(_val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
       this._tableHeight = _height;
     }
@@ -267,7 +245,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Input()
   set TableWidth(val: string){
     if(this.winObj.isExecuteInBrowser()) {
-      let _val = this.ValidSize(val);
+      let _val = val;
       let _width = this.cssUnit.ToPxString(_val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
       this._tableWidth = _width;
     }
@@ -278,27 +256,21 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   @Input()
-  @ValidateProp("boolean")
   EnableVirtualScroll: boolean = false;
 
   @Input()
-  @ValidateProp("boolean")
   ShowEditUpdate: boolean = true;
 
   @Input()
-  @ValidateProp("boolean")
   ShowGroupHeader: boolean = true;
 
   @Input()
-  @ValidateProp("color")
   HeaderBackgroundColor: string = "rgb(35, 206, 236)";
 
   @Input()
-  @ValidateProp("color")
   HeaderForeColor: string = "white";
 
   @Input()
-  @ValidateProp("label")
   FilterDateFormat: string = 'MM-dd-yyyy';
 
   @Output()
@@ -316,34 +288,24 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Output()
   ItemsPerPageClicked = new EventEmitter<RGridPaginationValue>();
   
-  @ValidateProp("boolean")
   EditModeEnabled: boolean = false;
 
-  @ValidateCustomTypeProp(RGridItems)
   DataItems!: RGridItems;
 
-  @ValidateCustomTypeProp(RGridEditRowInfo)
   EditRows: RGridEditRowInfo[] = [];
 
-  @ValidateCustomTypeProp(RGridItems)
   ShowItems!: RGridItems | undefined;
 
-  @ValidateProp("boolean")
   ColumnsNotDefined: boolean = false;
 
-  @ValidateProp("boolean")
   IsGroupHaveColumns: boolean = false;
 
-  @ValidateProp("boolean")
   HeaderGroupPanelShow: boolean = false;
 
-  @ValidateProp("any")
   filterModel: any = {};
 
-  @ValidateCustomTypeProp(RGridGroupData)
   GroupItems: RGridGroupData[] = [];
 
-  @ValidateCustomTypeProp(RGridGroupData)
   DisplayGroupItems: RGridGroupData[] = [];
 
   private GroupedData!: Map<string, RGridRow[]> | undefined;
@@ -368,7 +330,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Input()
   public set Items(value: any[]) {
   
-    let scannedValue = this.ValidObjectArray(value);
+    let scannedValue = value;
 
     this.RenderUI(scannedValue);
     
@@ -393,8 +355,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return this.enableShadow;
   }
   public set EnableShadow(value: boolean) {
-
-    this.enableShadow = this.ValidBoolean(value);
+    this.enableShadow = value;
   }
 
   public get TotalRows(): number {

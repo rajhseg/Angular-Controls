@@ -14,7 +14,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { RouterOutlet } from '@angular/router';
-import { RCell, RCellInfo, RGridPaginationValue, RGridRowInfo, RPageContentDirective, RSpaceBetweenBars, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT, ValidateProp } from 'rcomponents';
+import { RCell, RCellInfo, RGridPaginationValue, RGridRowInfo, RPageContentDirective, RSpaceBetweenBars, RSplitPageComponent, RSplitterComponent, RSplitterType, RWINDOWHELPEROBJECT } from 'rcomponents';
 import { RDropdownComponent } from 'rcomponents';
 import { DropdownModel } from 'rcomponents';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -159,7 +159,6 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   splitType = RSplitterType;
   calenderEvents!: EventsCalenderModel;
   
-  @ValidateProp("label")
   title = 'angularcontrols';
   
   items: DropdownModel[] = [];

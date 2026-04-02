@@ -1,6 +1,5 @@
 import { forwardRef, inject, Injectable } from "@angular/core";
 import { RWindowHelper, RWINDOWHELPEROBJECT } from "../rwindowObject";
-import { ValidateProp, ValidateCustomTypeProp } from "../rvalidator";
 
 
 @Injectable({
@@ -17,10 +16,8 @@ export class RBaseChartItem {
 
 export class RGraph extends RBaseChartItem {
     
-    @ValidateProp("number")
     public xPoint!: number;
      
-    @ValidateProp("number")
     public yPoint!: number;
 
     constructor(_xPoint: number, _yPoint: number) {
@@ -32,16 +29,12 @@ export class RGraph extends RBaseChartItem {
 
 export class RBarChartItem extends RBaseChartItem {
 
-    @ValidateProp("label")
     public DisplayName!: string;       
         
-    @ValidateProp("numberarray")
     public Values!: number[];
         
-    @ValidateProp("colororcolorarray")
     public barItemsBackColor!: string[] | string;
     
-    @ValidateProp("colororcolorarray")
     public barItemsForeColor!: string[] | string;
 
     constructor(_displayName: string,         
@@ -59,10 +52,8 @@ export class RBarChartItem extends RBaseChartItem {
 
 export class RAllocationData extends RBaseChartItem {
 
-    @ValidateProp("number")
     public Allocated!: number;
     
-    @ValidateProp("number")
     public Spent!: number
 
     constructor(_allocated: number,  _spent: number) {
@@ -74,22 +65,16 @@ export class RAllocationData extends RBaseChartItem {
 
 export class RAllocatedBarChartItem extends RBaseChartItem {
     
-    @ValidateProp('label')
     public DisplayName!: string;
 
-    @ValidateCustomTypeProp(RAllocationData)
     public Values!: RAllocationData[];
 
-    @ValidateProp("colororcolorarray")
     public barItemsBackColor!: string[] | string;
 
-    @ValidateProp("colororcolorarray")
     public barItemsForeColor!: string[] | string;
     
-    @ValidateProp("label")
     public AllocatedDisplayName!: string;
 
-    @ValidateProp("label")
     public SpentDisplayName!: string;
 
     constructor(
@@ -111,13 +96,10 @@ export class RAllocatedBarChartItem extends RBaseChartItem {
 
 export class RLineChartItem extends RBaseChartItem {
 
-    @ValidateProp("label")
     public ItemName!: string; 
     
-    @ValidateProp("color")
     public ItemColor!: string; 
     
-    @ValidateProp("numberarray")
     public Values!: number[];
 
     constructor(_itemName: string, _itemColor: string, _values: number[] = []){
@@ -131,13 +113,10 @@ export class RLineChartItem extends RBaseChartItem {
 
 export class RAreaChartItem extends RBaseChartItem {
 
-    @ValidateProp("label")
     public ItemName!: string;
     
-    @ValidateProp("color")
     public ItemColor!: string; 
     
-    @ValidateProp("numberarray")
     public Values!: number[];
 
     constructor(_itemName: string, _itemColor: string, _values: number[] = []){
@@ -150,13 +129,10 @@ export class RAreaChartItem extends RBaseChartItem {
 
 export class RScatterChartItem extends RBaseChartItem {
         
-    @ValidateProp("label")
     public ItemName!: string; 
     
-    @ValidateProp("color")
     public ItemColor!: string; 
     
-    @ValidateCustomTypeProp(RGraph)
     public Values!: RGraph[];
 
     constructor(_itemName: string, _itemColor: string, _values: RGraph[] = []) {
@@ -170,13 +146,10 @@ export class RScatterChartItem extends RBaseChartItem {
 
 export class RGraphSeriesChartItem extends RBaseChartItem {
        
-    @ValidateProp("label")
     public ItemName!: string; 
     
-    @ValidateProp("color")
     public ItemColor!: string; 
     
-    @ValidateCustomTypeProp(RGraph)
     public Values!: RGraph[];
 
     constructor(_itemName: string, _itemColor: string, _values: RGraph[] = []) {
@@ -191,13 +164,10 @@ export class RGraphSeriesChartItem extends RBaseChartItem {
 
 export class RYSeriesChartItem extends RBaseChartItem {
     
-    @ValidateProp("label")
     public ItemName!: string;
     
-    @ValidateProp("color")
     public ItemColor!: string; 
     
-    @ValidateProp("numberarray")
     public Values!: number[];
 
     constructor(_itemName: string, _itemColor: string, _values: number[] = []){
@@ -212,28 +182,20 @@ export class RYSeriesChartItem extends RBaseChartItem {
 
 export class RPopupChartItem extends RBaseChartItem {
 
-    @ValidateProp("number")
     public x1!: number; 
     
-    @ValidateProp("number")
     public y1!: number; 
     
-    @ValidateProp("number")
     public x2!: number; 
     
-    @ValidateProp("number")
     public y2!: number;
 
-    @ValidateProp("any")
     public Item!: any; 
     
-    @ValidateProp("number")
     public ValueIndex!: number;
      
-    @ValidateProp("number")
     public ItemIndex!: number;
  
-    @ValidateProp("color")
     public ItemColor!: string;
 
     constructor(_x1: number, _y1: number, _x2: number, _y2: number, 
@@ -255,19 +217,14 @@ export class RPopupChartItem extends RBaseChartItem {
 
 export class RDrawTextItem extends RBaseChartItem {
 
-    @ValidateProp("label")
     public value!: string; 
     
-    @ValidateProp("number")
     public x!: number; 
     
-    @ValidateProp("number")
     public y!: number;
      
-    @ValidateProp("color")
     public color!: string; 
     
-    @ValidateProp("boolean")
     public rotate!: boolean;
 
     constructor( _value: string,  _x: number,  _y: number,  _color: string,  _rotate: boolean = false) {

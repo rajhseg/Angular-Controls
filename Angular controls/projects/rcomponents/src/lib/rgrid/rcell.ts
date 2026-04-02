@@ -2,12 +2,8 @@
 import { Directive, EventEmitter, inject } from "@angular/core";
 import { RColumnComponent } from "./rcolumn/rcolumn.component";
 import { RGridComponent, RGridHeader } from "./rgrid.component";
-import { InputPropValidator } from "../rcss-units.service";
-import { ValidateCustomTypeProp, ValidateProp } from "../rvalidator";
 
 export class RCell {
-
-    private propValidator: InputPropValidator  = new InputPropValidator();
 
     public component!: RGridComponent;
   
@@ -110,18 +106,11 @@ export class RCell {
 
         if(value ) {
             if(typeof this._value === 'string' && this._value != undefined) {
-                this._value = (this._value as string)
-                            .replace(/&amp;/g, '&')
-                            .replace(/&lt;/g, '<')
-                            .replace(/&gt;/g, '>')
-                            .replace(/&quot;/g, '"')
-                            .replace(/&#x27;/g, "'")
-                            .replace(/&#x60;/g, '`') as any;
+                 
             }
         } else {
             if(this._isEditmode== true && value==false) {
-                let _validData = this.propValidator.getValidAny(this._value);
-                this._value = _validData;
+               
             }
         }
 
@@ -201,7 +190,6 @@ export class RGridRowInfo {
 
 export class RGridItems {
 
-    @ValidateCustomTypeProp(RGridRow)
     public Rows: RGridRow[] = [];
 }
 
@@ -224,19 +212,14 @@ export class RGridEditRowInfo {
 
 export class RGridPaginationValue {
 
-    @ValidateProp("number")
     public CurrentPage: number;
     
-    @ValidateProp("number")
     public RowsPerPage: number;
      
-    @ValidateProp("number")
     public TotalPagesInGrid: number;
 
-    @ValidateProp("number")
     public TotalRows: number; 
     
-    @ValidateProp("number")
     public RowsInCurrentPage: number;
 
     constructor( _currentPage: number, _rowsPerPage: number, _totalPagesInGrid: number, 

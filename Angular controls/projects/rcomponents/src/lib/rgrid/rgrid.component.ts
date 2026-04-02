@@ -574,6 +574,9 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
     let fulllist = this.BackupItems.length > 0 ? this.BackupItems.slice() : this.Items.slice();
 
+    if(fulllist.length > 0)
+        this.BackupItems = fulllist;
+      
     this.onChanged(fulllist);
     this.onTouched(fulllist);
 

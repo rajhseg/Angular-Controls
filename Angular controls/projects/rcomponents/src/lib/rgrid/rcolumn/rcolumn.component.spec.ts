@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RcolumnComponent } from './rcolumn.component';
+import { RColumnComponent } from './rcolumn.component';
 
-describe('RcolumnComponent', () => {
-  let component: RcolumnComponent;
-  let fixture: ComponentFixture<RcolumnComponent>;
+describe('ColumnComponent', () => {
+  let component: RColumnComponent;
+  let fixture: ComponentFixture<RColumnComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RcolumnComponent]
+      imports: [RColumnComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RcolumnComponent);
+    fixture = TestBed.createComponent(RColumnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DropdownserviceService } from './rdropdownservice.service';
+import { DropdownService } from './rdropdownservice.service';
 
-describe('DropdownserviceService', () => {
-  let service: DropdownserviceService;
+describe('DropdownService', () => {
+  let service: DropdownService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DropdownserviceService);
+    service = TestBed.inject(DropdownService);
   });
 
   it('should be created', () => {

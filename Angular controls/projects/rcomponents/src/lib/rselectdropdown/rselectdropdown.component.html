@@ -42,12 +42,14 @@
       <div class="option-content" style="padding-left:6px;">
 
         <ng-container *ngFor="let item of ComplexItems | rfilter: SearchItem">
-          <div style="display: flex;flex-direction: row;align-self: center;">
-          <rcheckbox (OnCheckChanged)="checkValue($event, item)" [IsChecked]="item.IsSelected"
-            style="width: auto;padding: 6px;cursor: pointer;"
-            [DisplayText]="''"></rcheckbox>
+          <div style="display: flex;flex-direction: row;align-self: center;"
+              (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)">
 
-            <div (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)" 
+            <rcheckbox [IsChecked]="item.IsSelected"
+              style="width: auto;padding: 6px;cursor: pointer;"
+              [DisplayText]="''"></rcheckbox>
+
+            <div 
                 style="display: flex;flex-direction: row;align-self: center;width: 100%;text-align: left;">
 
                 <ng-container *ngIf="OptionsTemplate==undefined">
@@ -62,7 +64,7 @@
 
             </div>
 
-        </div>
+          </div>
         </ng-container>
       </div>
     </div>

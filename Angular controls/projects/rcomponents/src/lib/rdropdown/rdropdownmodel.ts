@@ -1,11 +1,11 @@
-import { ValidateInput } from "../Validator";
+import { ValidateProp } from "../rvalidator";
 
 export class DropdownModel {
     
-    @ValidateInput("any")
+    @ValidateProp("any")
     public Value: any = {};
 
-    @ValidateInput("label")
+    @ValidateProp("label")
     public DisplayValue: string = '';    
     
     constructor(value:any, display:string){
@@ -16,6 +16,6 @@ export class DropdownModel {
 
 export class DropDownItemModel extends DropdownModel {
 
-    @ValidateInput("boolean")
+    @ValidateProp("boolean")
     public IsSelected: boolean = false;
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { validateValue } from './Validator';
+import { validateValue } from './rvalidator';
 
 
 export type Constructor<T extends object> = new (...args: any[]) => T;

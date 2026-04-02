@@ -41,15 +41,15 @@
 
         <ng-container *ngFor="let item of ComplexItems| rfilter: SearchItem">
 
-          <div style="display: flex;flex-direction: row;align-self: center;">
+          <div style="display: flex;flex-direction: row;align-self: center;"
+           (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)">
 
 
-            <rcheckbox (OnCheckChanged)="checkValue($event, item)" [IsChecked]="item.IsSelected"
+            <rcheckbox [IsChecked]="item.IsSelected"
               style="width: auto;padding: 6px;cursor: pointer;" [DisplayText]="''">
             </rcheckbox>
 
-            <div (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)"
-              style="display: flex;flex-direction: row;align-self: center;width: 100%;text-align: left;">
+            <div style="display: flex;flex-direction: row;align-self: center;width: 100%;text-align: left;">
               <ng-container>
                 {{item.DisplayValue}}
               </ng-container>

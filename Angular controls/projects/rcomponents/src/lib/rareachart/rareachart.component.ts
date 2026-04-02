@@ -4,7 +4,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RAreaChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
-import { ValidateInput } from '../Validator';
+import { ValidateCustomTypeProp, ValidateProp } from '../rvalidator';
 import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
@@ -26,39 +26,39 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   private _textColor: string = "gray";
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   EnableBorder: boolean = false;
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   BorderColor: string = 'lightgray';
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   GlassyEffect: boolean = true;
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   GlassyEffectColor: string = 'lightgray';
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingLeft: number = 20;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingRight: number = 20;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingTop: number = 20;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingBottom: number = 10;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PlotItemSize: number = 3;
 
   @Input()
@@ -154,27 +154,27 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   }
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   DataListHeight: number = 50;
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   PopupBackColor: string = "lightgray";
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   IsRenderFromInit:boolean = true;
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   EnableGradientInArea: boolean = true;
   
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   PopupForeColor: string | undefined = undefined;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PopupBackgroundOpacity: number = 1;
 
   private _items: RAreaChartItem[] = [];
@@ -194,9 +194,10 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   }
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   EnablePlotOnPoints: boolean = false;
 
+  @ValidateCustomTypeProp(RPopupChartItem)  
   private PopupItems: RPopupChartItem[] = [];
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
@@ -204,10 +205,11 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
 
   private context: CanvasRenderingContext2D | null = null;
 
+  @ValidateProp("boolean")
   public IsRendered: boolean = false;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   AreaOpacity: number = 0.2;
 
   Id:string = '';

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, input, Input, Vi
 import { RAllocatedBarChartItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { ValidateInput } from '../Validator';
+import { ValidateCustomTypeProp, ValidateProp } from '../rvalidator';
 import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
@@ -24,35 +24,35 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private _textColor: string = "gray";
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   EnableBorder: boolean = false;
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   BorderColor: string = 'lightgray';
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   GlassyEffect: boolean = true;
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   GlassyEffectColor: string = 'lightgray';
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingLeft: number = 20;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingRight: number = 20;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingTop: number = 20;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PaddingBottom: number = 10;
 
   @Input()
@@ -183,23 +183,23 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   }
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   AllocatedValueIndicatorColor: string = 'grey';
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   EmptyAreaBorderColor: string = 'lightgray';
   
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   PopupBackColor: string = "lightgray";
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   PopupForeColor: string | undefined = undefined;
 
   @Input()
-  @ValidateInput("number")
+  @ValidateProp("number")
   PopupBackgroundOpacity: number = 1;
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
@@ -207,8 +207,10 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   private context: CanvasRenderingContext2D | null = null;
 
+  @ValidateCustomTypeProp(RPopupChartItem)
   private PopupItems: RPopupChartItem[] = [];
 
+  @ValidateProp("boolean")
   public IsRendered: boolean = false;
 
   @HostBinding('id')

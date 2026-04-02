@@ -10,6 +10,33 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModu
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RCloseService, IRDropDown } from '../rpopup.service';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { ValidateCustomTypeProp, ValidateProp } from '../rvalidator';
+
+
+export enum RFilterDataType {
+  StringType = 'string',
+  NumberType = 'number',
+  DateType = 'date'
+}
+
+export class RFilterApplyModel {
+  constructor(
+    public IsCleared: boolean,
+    public IsFiltered: boolean,
+    public ColumnName: string, 
+    public Type: RFilterDataType, 
+    public Contains: DropdownModel[] |undefined,
+    public LesserThan: number | string | undefined, 
+    public  GreaterThan: number | string | undefined
+  ){
+
+  }
+}
+
+export enum RFilterAlign{
+  Left = 0,
+  Right,
+}
 
 @Component({
   selector: 'rfilter',
@@ -34,56 +61,71 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
 export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implements IRDropDown, ControlValueAccessor {
 
   @Input()
+  @ValidateProp("label")
   DateFormat: string = 'MM-dd-yyyy';
   
+  @ValidateProp("enum", RFilterDataType)
   _dataType:RFilterDataType = RFilterDataType.StringType;
 
   @Input()
   public set DataType(value: RFilterDataType){
-    this._dataType = value;
+    this._dataType = this.ValidEnum(value, RFilterDataType);
   }
   public get DataType(): RFilterDataType {
     return this._dataType;
   }
 
+  @ValidateProp("number")
   public dropdownMaxChars: number = 178;
 
   @Input()
+  @ValidateProp("label")
   ParentDropDownId: string = '';
 
   @Input()
+  @ValidateProp("color")
   TextColor: string = 'gray';
 
   @Input()
+  @ValidateProp("size")
   Width: string = '15px'
 
   @Input()
+  @ValidateProp("size")
   Height: string = '15px';
 
   @Input()
+  @ValidateProp("color")
   Color: string = 'grey';
 
+  @ValidateProp("boolean")
   IsFilteredApplied: boolean = false;
 
+  @ValidateProp("boolean")
   IsFilterOpen: boolean = false;
 
   @Input()
+  @ValidateProp("color")
   BackgroundColor: string = 'white';
 
   @Input()
+  @ValidateProp("enum", RFilterAlign)
   Align: RFilterAlign = RFilterAlign.Right;
 
   @Input()
+  @ValidateProp("color")
   ForeColor: string = 'black';
 
   @Input()
+  @ValidateProp("boolean")
   EnableShadowOnDropdown: boolean = true;
 
+  @ValidateCustomTypeProp(DropdownModel)
   itemValues: DropdownModel[] = [];
 
   @Input()
   public set ItemValues(val: DropdownModel[]){
-    this.itemValues = val;
+    this.itemValues = this.ValidCustomArrayType(val, DropdownModel);
 
     let wth = 0;
 
@@ -196,7 +238,7 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
 
   @Input()
   set ColumnName(val: string){
-    this._columnName = val;    
+    this._columnName = this.ValidLabel(val);    
     this.ItemModel = this._itemModel;
   }
   get ColumnName(): string {
@@ -204,6 +246,7 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   }
   
   @Input()
+  @ValidateProp("color")
   BorderColor: string = 'lightgray';
 
   ContainsList: DropdownModel[] | undefined = undefined;
@@ -212,13 +255,16 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   GreaterThanNumber: number | undefined = undefined;
   GreaterThanDate: string | undefined = undefined;
 
-  
+  @ValidateProp("size")
   DDEBottom: string = '';
 
+  @ValidateProp("size")
   DDETop: string = '';
 
+  @ValidateProp("size")
   DDELeft: string = '';
 
+  @ValidateProp("size")
   DDERight: string = '';
 
   get DDEWidth() : string {
@@ -229,13 +275,13 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
     return this.DataType== RFilterDataType.DateType ? "250px" : "210px";
   }
 
-  @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
-  @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
+  @ViewChild('openbtn', { read: ElementRef }) private openBtn!: ElementRef;
+  @ViewChild('startElement', { read: ElementRef }) private  startElement!: ElementRef;
 
-  @ViewChild('myDropdown', { read: ElementRef}) mydropDown!: ElementRef;
+  @ViewChild('myDropdown', { read: ElementRef}) private mydropDown!: ElementRef;
 
-  onChanged = (obj: RFilterApplyModel)=>{};
-  onTouched = (obj: RFilterApplyModel)=> {};
+  private onChanged = (obj: RFilterApplyModel)=>{};
+  private onTouched = (obj: RFilterApplyModel)=> {};
 
 
   cls!: RCloseService;
@@ -301,7 +347,7 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   }
 
   
-  AttachDropdown() {
+  private AttachDropdown() {
     let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
@@ -471,7 +517,7 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
     return this.IsFilterOpen;
   }
 
-  windowOnClick($event: Event) {
+  private windowOnClick($event: Event) {
 
     this.cls.PrintLog();
 
@@ -501,28 +547,3 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
 
 }
 
-
-export enum RFilterDataType {
-  StringType = 'string',
-  NumberType = 'number',
-  DateType = 'date'
-}
-
-export class RFilterApplyModel {
-  constructor(
-    public IsCleared: boolean,
-    public IsFiltered: boolean,
-    public ColumnName: string, 
-    public Type: RFilterDataType, 
-    public Contains: DropdownModel[] |undefined,
-    public LesserThan: number | string | undefined, 
-    public  GreaterThan: number | string | undefined
-  ){
-
-  }
-}
-
-export enum RFilterAlign{
-  Left = 0,
-  Right,
-}

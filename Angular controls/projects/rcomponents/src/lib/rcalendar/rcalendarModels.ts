@@ -1,26 +1,26 @@
-import { ValidateInput, ValidateCustomTypeInput } from "../Validator";
+import { ValidateProp, ValidateCustomTypeProp } from "../rvalidator";
 
 export class Day {
     
-    @ValidateInput("number")
+    @ValidateProp("number")
     public num:number;
     
-    @ValidateInput("number")
+    @ValidateProp("number")
     public dayInWeek: number; 
     
-    @ValidateInput("number")
+    @ValidateProp("number")
     public Month: number; 
     
-    @ValidateInput("number")
+    @ValidateProp("number")
     public Year: number
 
-    @ValidateInput("boolean")
+    @ValidateProp("boolean")
     public isActiveMonth: boolean = false;
 
-    @ValidateInput("label")
+    @ValidateProp("label")
     public DayInString: string = "";
 
-    @ValidateInput("boolean")
+    @ValidateProp("boolean")
     public isSelected: boolean =false;
 
     constructor(_num:number, _dayInWeek: number, _Month: number, _Year: number){
@@ -35,7 +35,7 @@ export class Day {
 
 export class Week {
 
-    @ValidateCustomTypeInput(Day)
+    @ValidateCustomTypeProp(Day)
     public days:Day[]
 
     constructor(_days:Day[]){
@@ -49,7 +49,7 @@ export class Week {
 
 export class Month {
 
-    @ValidateCustomTypeInput(Week)
+    @ValidateCustomTypeProp(Week)
     public weeks: Week[]
 
     constructor(_weeks: Week[]){

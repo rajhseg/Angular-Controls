@@ -18,7 +18,44 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
 import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
 import { RProgressbarComponent } from "../rprogressbar/rprogressbar.component";
 import { RBaseComponent } from '../rmodels/RBaseComponent';
-import { ValidateInput, ValidateCustomTypeInput } from '../Validator';
+import { ValidateProp, ValidateCustomTypeProp } from '../rvalidator';
+
+
+export class RGridHeader {
+
+  constructor(public Id: string, public PropToBind: string, public ColumnName: string,
+    public Index: number, public HeaderText: string, public IsComputationColumn: boolean,
+    public sortType: RGridHeaderSortType | undefined = undefined,
+    public Width: string = 'auto', public Height: string = 'auto',
+    public ColumnWidth: string = 'auto', public ColumnHeight: string = 'auto',
+    public readView: TemplateRef<any> | null = null, 
+    public editView: TemplateRef<any> | null = null,
+    public headerTemplate: TemplateRef<any> | null = null,
+    public disableSort: boolean = false,
+    public disableFilter: boolean = false
+  ) {
+
+  }
+}
+
+export class RGridGroupData {
+
+  @ValidateProp("label")
+  public Key: string; 
+  
+  @ValidateCustomTypeProp(RGridRow)
+  public Values: RGridRow[];
+  
+  @ValidateProp("boolean")
+  public IsExpanded: boolean;
+
+  constructor(_key: string, _values: RGridRow[], _isExpanded: boolean = false) {
+    this.Key = _key;
+    this.Values = _values;
+    this.IsExpanded = _isExpanded;
+  }
+}
+
 
 @Component({
   selector: 'rgrid',
@@ -50,41 +87,43 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   private selectKey: string = "rgrid_select";
 
+  @ValidateProp("enum", RProgressBarDisplayType)
   progressDisplayType: RProgressBarDisplayType = RProgressBarDisplayType.Circle;
 
+  @ValidateProp("enum", RProgressBarType)
   progressType: RProgressBarType = RProgressBarType.Infinite;
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   SortIconColor: string = 'white';
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   FilterIconColor: string = 'white';
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   GroupHeaderBackColor: string = '#edecec';
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   GroupHeaderForeColor: string = 'black';
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   LoaderForeColor: string = '#8f19ff';
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   LoaderTrackColor: string = 'lightgray';
 
   EnableLoader: boolean = false;
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   EnableSelectColummn: boolean = true;
 
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   IsSelectedAll: boolean = false;
 
   @Output()
@@ -113,14 +152,14 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   @Input()
-  @ValidateCustomTypeInput(DropdownModel)
+  @ValidateCustomTypeProp(DropdownModel)
   PageItems: DropdownModel[] = []
 
-  @ValidateInput("number")
+  @ValidateProp("number")
   currentPage: number = 1;  
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   GroupByIconColor: string = "#00c7ba";
 
   @Output()
@@ -166,23 +205,23 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   OnGroupCliked = new EventEmitter<RGridGroupData>();
 
   @Input()
-  @ValidateInput("size")
+  @ValidateProp("size")
   RowHeightInPx: string = 'auto';
   
   @Input()
-  @ValidateInput("size")
+  @ValidateProp("size")
   HeaderHeightInPx: string = '50px';
 
   @Input()
-  @ValidateInput("size")
+  @ValidateProp("size")
   GroupHeaderRowHeightInPx: string = '50px';
 
   @Input()
-  @ValidateInput("size")
+  @ValidateProp("size")
   SelectCheckBoxSize: string = "13px";
   
   @Input()
-  @ValidateCustomTypeInput(DropdownModel)
+  @ValidateCustomTypeProp(DropdownModel)
   ItemsPerPage!: DropdownModel;
 
   private _tableHeight: string = '200px';
@@ -239,27 +278,27 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   EnableVirtualScroll: boolean = false;
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   ShowEditUpdate: boolean = true;
 
   @Input()
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   ShowGroupHeader: boolean = true;
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   HeaderBackgroundColor: string = "rgb(35, 206, 236)";
 
   @Input()
-  @ValidateInput("color")
+  @ValidateProp("color")
   HeaderForeColor: string = "white";
 
   @Input()
-  @ValidateInput("label")
+  @ValidateProp("label")
   FilterDateFormat: string = 'MM-dd-yyyy';
 
   @Output()
@@ -277,34 +316,34 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Output()
   ItemsPerPageClicked = new EventEmitter<RGridPaginationValue>();
   
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   EditModeEnabled: boolean = false;
 
-  @ValidateCustomTypeInput(RGridItems)
+  @ValidateCustomTypeProp(RGridItems)
   DataItems!: RGridItems;
 
-  @ValidateCustomTypeInput(RGridEditRowInfo)
+  @ValidateCustomTypeProp(RGridEditRowInfo)
   EditRows: RGridEditRowInfo[] = [];
 
-  @ValidateCustomTypeInput(RGridItems)
+  @ValidateCustomTypeProp(RGridItems)
   ShowItems!: RGridItems | undefined;
 
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   ColumnsNotDefined: boolean = false;
 
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   IsGroupHaveColumns: boolean = false;
 
-  @ValidateInput("boolean")
+  @ValidateProp("boolean")
   HeaderGroupPanelShow: boolean = false;
 
-  @ValidateInput("any")
+  @ValidateProp("any")
   filterModel: any = {};
 
-  @ValidateCustomTypeInput(forwardRef(()=> RGridGroupData))
+  @ValidateCustomTypeProp(RGridGroupData)
   GroupItems: RGridGroupData[] = [];
 
-  @ValidateCustomTypeInput(forwardRef(()=> RGridGroupData))
+  @ValidateCustomTypeProp(RGridGroupData)
   DisplayGroupItems: RGridGroupData[] = [];
 
   private GroupedData!: Map<string, RGridRow[]> | undefined;
@@ -321,7 +360,8 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   private onChanged: Function = () => { };
   private onTouched: Function = () => { };
 
-  public BackupItems: any[] = [];
+  BackupItems: any[] = [];
+
   private IsFilteredApplied: boolean = false;
   private IsUpdateFromFilter: boolean = false;
   
@@ -2032,39 +2072,4 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     });
   }
 
-}
-
-export class RGridHeader {
-
-  constructor(public Id: string, public PropToBind: string, public ColumnName: string,
-    public Index: number, public HeaderText: string, public IsComputationColumn: boolean,
-    public sortType: RGridHeaderSortType | undefined = undefined,
-    public Width: string = 'auto', public Height: string = 'auto',
-    public ColumnWidth: string = 'auto', public ColumnHeight: string = 'auto',
-    public readView: TemplateRef<any> | null = null, 
-    public editView: TemplateRef<any> | null = null,
-    public headerTemplate: TemplateRef<any> | null = null,
-    public disableSort: boolean = false,
-    public disableFilter: boolean = false
-  ) {
-
-  }
-}
-
-export class RGridGroupData {
-
-  @ValidateInput("label")
-  public Key: string; 
-  
-  @ValidateCustomTypeInput(RGridRow)
-  public Values: RGridRow[];
-  
-  @ValidateInput("boolean")
-  public IsExpanded: boolean;
-
-  constructor(_key: string, _values: RGridRow[], _isExpanded: boolean = false) {
-    this.Key = _key;
-    this.Values = _values;
-    this.IsExpanded = _isExpanded;
-  }
 }

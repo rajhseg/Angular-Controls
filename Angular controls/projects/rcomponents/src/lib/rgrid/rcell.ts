@@ -3,7 +3,7 @@ import { Directive, EventEmitter, inject } from "@angular/core";
 import { RColumnComponent } from "./rcolumn/rcolumn.component";
 import { RGridComponent, RGridHeader } from "./rgrid.component";
 import { InputPropValidator } from "../rcss-units.service";
-import { ValidateCustomTypeInput, ValidateInput } from "../Validator";
+import { ValidateCustomTypeProp, ValidateProp } from "../rvalidator";
 
 export class RCell {
 
@@ -201,7 +201,7 @@ export class RGridRowInfo {
 
 export class RGridItems {
 
-    @ValidateCustomTypeInput(RGridRow)
+    @ValidateCustomTypeProp(RGridRow)
     public Rows: RGridRow[] = [];
 }
 
@@ -224,19 +224,19 @@ export class RGridEditRowInfo {
 
 export class RGridPaginationValue {
 
-    @ValidateInput("number")
+    @ValidateProp("number")
     public CurrentPage: number;
     
-    @ValidateInput("number")
+    @ValidateProp("number")
     public RowsPerPage: number;
      
-    @ValidateInput("number")
+    @ValidateProp("number")
     public TotalPagesInGrid: number;
 
-    @ValidateInput("number")
+    @ValidateProp("number")
     public TotalRows: number; 
     
-    @ValidateInput("number")
+    @ValidateProp("number")
     public RowsInCurrentPage: number;
 
     constructor( _currentPage: number, _rowsPerPage: number, _totalPagesInGrid: number, 

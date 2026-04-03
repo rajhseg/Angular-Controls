@@ -23,6 +23,9 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
   @Input() 
   DisplayLabel: string = '';
 
+  @Input()
+  LabelForeColor: string = 'blue';
+
   private _backColor: string = 'rgba(27, 81, 199, 0.692)';
 
   @Input()

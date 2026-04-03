@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RDonutChartItem, RPieChartItem, RSequenceHorizontalItem, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RDonutChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem } from 'rcomponents';
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
 import { RPieChartComponent } from 'rcomponents';
@@ -78,8 +78,10 @@ import { RSequenceVerticalItem } from 'rcomponents';
     RDonutChartComponent,
     RLineChartVerticalComponent,
     RScatterChartComponent,
+    RAreaChartComponent,
     RStackedBarChartVerticalComponent,
     RProgressbarComponent,
+    RSeriesChartComponent,
     // Forms
     RButtonComponent,
     RCheckboxComponent,
@@ -117,6 +119,10 @@ import { RSequenceVerticalItem } from 'rcomponents';
 })
 export class AppRootComponent {
 
+  optionA: boolean = true;
+  optionB: boolean = false;
+  optionC: boolean = false;
+  
   // ─── Section visibility ──────────────────────────────────────────────
   activeSection = 'charts';
   sections = ['charts', 'forms', 'layout', 'navigation', 'data'];
@@ -192,6 +198,12 @@ export class AppRootComponent {
     new RLineChartItem('Users', '#378ADD', [1200, 1900, 1700, 2400, 2100, 3000]),
     new RLineChartItem('Sessions', '#D85A30', [2000, 2800, 2400, 3200, 2900, 4100]),
   ];
+
+  seriesModel2: RYSeriesChartItem[] = [
+    new RYSeriesChartItem('Users', '#378ADD', [1030, 1900, 1700, 2400, 2100, 3000]),
+    new RYSeriesChartItem('Sessions', '#D85A30', [2060, 2800, 2400, 3200, 2900, 4100]),
+  ];
+
 
   // ─── Scatter Chart ───────────────────────────────────────────────────
   scatterItems: RScatterChartItem[] = [

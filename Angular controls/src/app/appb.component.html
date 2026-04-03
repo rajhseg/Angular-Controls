@@ -117,7 +117,7 @@
           <rpiechart
             [Items]="pieItems"
             [ChartWidth]="280"
-            [DataListHeight]="220"
+            [DataListHeight]="100"
             TextColor="#666"
             [EnableBorder]="false"
             BorderColor="#e0e0e0">
@@ -137,7 +137,7 @@
           <rdonutchart
             [Items]="donutItems"
             [ChartWidth]="280"
-            [DataListHeight]="220"
+            [DataListHeight]="100"
             TextColor="#666"
             [EnableBorder]="false"
             BorderColor="#e0e0e0">
@@ -193,6 +193,29 @@
         <div class="card-hint">Price vs sales correlation per product.</div>
       </div>
 
+      
+      
+      <!-- Area Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Area Chart</h2>
+          <code class="card-selector">&lt;rareachart&gt;</code>
+        </div>
+        <div class="card-body center">
+                   
+        <rareachart [xAxisItemNames]="lineMonths" 
+          [XAxisTitle]="'Month'" [YAxisTitle]="'Count'"
+          [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" 
+          [EnableBorder]="false" [EnablePlotOnPoints]="true"
+          [PopupBackColor]="'violet'" [PopupForeColor]="'white'" 
+          [Items]="lineItems" [Width]="370" [Height]="260">
+        </rareachart>
+
+        </div>
+        <div class="card-hint">Price vs sales correlation per product.</div>
+      </div>
+      
       <!-- Progress Bar -->
       <div class="card">
         <div class="card-header">
@@ -206,7 +229,7 @@
             <input type="range" min="0" max="100" [(ngModel)]="progressValue" style="width: 100%;" />
           </div>
           
-        <rprogressbar [FloatInCenter]="false" [ForeColor]="'#7F77DD'" [TrackColor]="'#e8e8f0'" [EnableBackDrop]="false"
+        <rprogressbar style="margin-left: 100px;margin-top: 50px;" [FloatInCenter]="false" [ForeColor]="'#7F77DD'" [TrackColor]="'#e8e8f0'" [EnableBackDrop]="false"
            [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
           [ProgressBarWidth]="'150px'" [Percentage]="progressValue" [CircularLineWidth]="'15px'"
           [FiniteCircularDisplayText]="'Progress'" [Type]="progressBarType">
@@ -215,6 +238,31 @@
         </div>
         <div class="card-hint">Drag the slider to update the progress bar value.</div>
       </div>
+
+      
+      <!-- Series Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Series Chart</h2>
+          <code class="card-selector">&lt;rserieschart&gt;</code>
+        </div>
+        <div class="card-body center">
+                  
+            <rserieschart [XAxisTitle]="'Disk'" 
+              [EnableBorder]="false" 
+              [GlassyEffect]="false" 
+              [GlassyEffectColor]="'darkgray'"
+              [TextColor]="'#666'"
+              [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" 
+              [YAxisTitle]="'Speed'" [FillAreaColor]="false" [Width]="340"
+              [Height]="240" [Items]="seriesModel2">
+            </rserieschart>
+
+        </div>
+        <div class="card-hint">Price vs sales correlation per product.</div>
+      </div>
+
 
     </section>
 
@@ -386,21 +434,24 @@
         <div class="card-body" style="display: flex; flex-direction: column; gap: 10px;">
           <rradiobutton
             DisplayText="Option A"
-            GroupName="demo-group"
+            [GroupName]="'demo-group'"
+            [(ngModel)]="optionA"
             Value="A">
           </rradiobutton>
           <rradiobutton
             DisplayText="Option B"
-            GroupName="demo-group"
+            [GroupName]="'demo-group'"
+            [(ngModel)]="optionB"
             Value="B">
           </rradiobutton>
           <rradiobutton
             DisplayText="Option C"
-            GroupName="demo-group"
+            [GroupName]="'demo-group'"
+            [(ngModel)]="optionC"
             Value="C">
           </rradiobutton>
         </div>
-        <div class="card-hint">Selected: <strong>{{ radioSelected || 'none' }}</strong>.</div>
+        <div class="card-hint">Selected: <strong>{{ optionA ? 'Option A' : optionB ? 'Option B' : optionC ? 'Option C' : 'none' }}</strong>.</div>
       </div>
 
       <!-- Dropdown -->
@@ -513,9 +564,9 @@
             TitleForeColor="#7F77DD"
             [EnableShadowEffect]="false">
             <div style="display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0;">
-              <rtextbox PlaceholderText="First name" LabelText="First name" Width="180px"></rtextbox>
-              <rtextbox PlaceholderText="Last name" LabelText="Last name" Width="180px"></rtextbox>
-              <rtextbox PlaceholderText="Email" LabelText="Email" Width="220px"></rtextbox>
+              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="First name" LabelText="First name" Width="180px"></rtextbox>
+              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Last name" LabelText="Last name" Width="180px"></rtextbox>
+              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Email" LabelText="Email" Width="220px"></rtextbox>
             </div>
           </rgroup-panel>
 
@@ -524,9 +575,9 @@
             TitleForeColor="#1D9E75"
             [IsItemsArrangeHorizontal]="true"
             style="margin-top: 16px; display: block;">
-            <rswitch DisplayLabel="Newsletter" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
-            <rswitch DisplayLabel="SMS alerts" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
-            <rswitch DisplayLabel="Push notifications" SwitchBackColor="#1D9E75"></rswitch>
+            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="Newsletter" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
+            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="SMS alerts" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
+            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="Push notifications" SwitchBackColor="#1D9E75"></rswitch>
           </rgroup-panel>
         </div>
         <div class="card-hint">Groups content with a titled border. Supports horizontal and vertical layouts.</div>
@@ -623,7 +674,26 @@
         <div class="card-hint">Tabs support drag-to-reorder and content projection via <code>&lt;rtab&gt;</code>.</div>
       </div>
 
-     
+      <!-- Tree -->
+
+       <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h2 class="card-title">Tree</h2>
+          <code class="card-selector">&lt;rtree&gt;</code>
+        </div>
+        <div class="card-body">
+        <rtree
+            [Items]="treeItems"
+            ExpandIconColor="#7F77DD"
+            (onExpandClicked)="onTreeExpand($event)"
+            (onItemSelected)="onTreeExpand($event)">
+          </rtree>
+          
+        </div>
+        <div class="card-hint">Hierarchical file-tree. Click items to expand/collapse nodes.</div>
+      </div>
+
       <!-- stepper -->
       <div class="card card-wide">
         <div class="card-header">
@@ -670,26 +740,6 @@
         </div>
         <div class="card-hint">Step {{ stepperActiveIndex + 1 }} of 4 active. Each step projects custom content.</div>
       
-      </div>
-
-      <!-- Tree -->
-
-       <div class="card card-wide">
-        <div class="card-header">
-          <span class="card-tag tag-nav">Nav</span>
-          <h2 class="card-title">Tree</h2>
-          <code class="card-selector">&lt;rtree&gt;</code>
-        </div>
-        <div class="card-body">
-        <rtree
-            [Items]="treeItems"
-            ExpandIconColor="#7F77DD"
-            (onExpandClicked)="onTreeExpand($event)"
-            (onItemSelected)="onTreeExpand($event)">
-          </rtree>
-          
-        </div>
-        <div class="card-hint">Hierarchical file-tree. Click items to expand/collapse nodes.</div>
       </div>
 
        <!-- stepper -->

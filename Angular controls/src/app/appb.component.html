@@ -204,12 +204,12 @@
         </div>
         <div class="card-body center">
                    
-        <rareachart [xAxisItemNames]="lineMonths" 
+        <rareachart [xAxisItemNames]="arealineMonths" 
           [XAxisTitle]="'Month'" [YAxisTitle]="'Count'"
           [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" 
           [EnableBorder]="false" [EnablePlotOnPoints]="true"
           [PopupBackColor]="'violet'" [PopupForeColor]="'white'" 
-          [Items]="lineItems" [Width]="370" [Height]="260">
+          [Items]="arealineItems" [Width]="370" [Height]="260">
         </rareachart>
 
         </div>
@@ -256,6 +256,7 @@
               [TextColor]="'#666'"
               [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" 
               [YAxisTitle]="'Speed'" [FillAreaColor]="false" [Width]="340"
+              [PlotItemSize]="30"
               [Height]="240" [Items]="seriesModel2">
             </rserieschart>
 
@@ -263,6 +264,111 @@
         <div class="card-hint">Price vs sales correlation per product.</div>
       </div>
 
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Series Chart</h2>
+          <code class="card-selector">&lt;rserieschart&gt;</code>
+        </div>
+        <div class="card-body center">
+                          
+            <rserieschart 
+              [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
+              [EnableBorder]="false" [GlassyEffect]="false"
+              [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" 
+              [PopupForeColor]="'white'" [Width]="340" [Height]="240"
+              [Items]="seriesModel">
+            </rserieschart>
+
+        </div>
+
+        <div class="card-hint">Elements vs Values correlation per product.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Graph Series Chart</h2>
+          <code class="card-selector">&lt;rserieschart&gt;</code>
+        </div>
+        <div class="card-body center">
+                  
+            <rserieschart 
+              [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
+              [EnableBorder]="false" [GlassyEffect]="false"
+              [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" 
+              [PopupForeColor]="'white'" [Width]="340" [Height]="240"
+              [Items]="seriesModel1">
+            </rserieschart>
+
+        </div>
+        <div class="card-hint">Graph series chart.</div>
+      </div>
+
+
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Stacked Bar Chart Vertical</h2>
+          <code class="card-selector">&lt;rstackedbarchart-vertical&gt;</code>
+        </div>
+        <div class="card-body center">      
+              
+          <rstackedbarchart-vertical [MarginX]="60" [Width]="340" [Height]="240" 
+            [EnableBorder]="false" [GlassyEffect]="false" 
+            [GlassyEffectColor]="'darkgray'"
+            [PopupBackColor]="'smokewhite'" [PopupForeColor]="'black'" 
+            [XAxisTitle]="'Monthly Expenses'"
+            [YAxisTitle]="'Amount Spent'" 
+            [xAxisItemNames]="stackedbarChartXAxisItemNames1"
+            [Columns]="stackedbarChartItems1">
+          </rstackedbarchart-vertical>
+
+        </div>
+        <div class="card-hint">Monthly Expenses vs Amount spent.</div>
+      </div>
+
+        <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Stacked Bar Chart Horizontal</h2>
+          <code class="card-selector">&lt;rstackedbarchart-horizontal&gt;</code>
+        </div>
+        <div class="card-body center">      
+              
+          
+        <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
+          [EnableBorder]="false" [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" [Width]="340" [Height]="240" [MarginX]="50"
+          [MarginY]="50" [yAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
+        </rstackedbarchart-horizontal>
+
+        </div>
+        <div class="card-hint">Monthly Expenses vs Amount spent.</div>
+      </div>
+
+
+        <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Stacked Range Bar Chart Vertical</h2>
+          <code class="card-selector">&lt;rstackedrangebarchart-verticall&gt;</code>
+        </div>
+        <div class="card-body center">      
+              
+          
+        <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
+          [GlassyEffect]="false"   [EnableBorder]="false"
+          [GlassyEffectColor]="'darkgray'" [Columns]="stackedrangebarChartItems1" [Width]="340" [Height]="240"
+          [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount spent'">
+
+        </rstackedrangebarchart-vertical>
+
+        </div>
+        <div class="card-hint">Monthly Expenses vs Amount spent.</div>
+      </div>
+
+        
 
     </section>
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RDonutChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
 import { RPieChartComponent } from 'rcomponents';
@@ -82,6 +82,9 @@ import { RSequenceVerticalItem } from 'rcomponents';
     RStackedBarChartVerticalComponent,
     RProgressbarComponent,
     RSeriesChartComponent,
+    RStackedBarChartHorizontalComponent,
+    RStackedBarChartVerticalComponent,
+    RStackedRangeBarChartVerticalComponent,
     // Forms
     RButtonComponent,
     RCheckboxComponent,
@@ -113,7 +116,9 @@ import { RSequenceVerticalItem } from 'rcomponents';
     RStateVerticalComponent,
     RStateHorizontalComponent,
     RCalendarComponent,
-  ],
+    RStackedBarChartHorizontalComponent,
+    RStackedRangeBarChartVerticalComponent
+],
   templateUrl: './appb.component.html',
   styleUrl: './appb.component.css'
 })
@@ -199,11 +204,17 @@ export class AppRootComponent {
     new RLineChartItem('Sessions', '#D85A30', [2000, 2800, 2400, 3200, 2900, 4100]),
   ];
 
-  seriesModel2: RYSeriesChartItem[] = [
-    new RYSeriesChartItem('Users', '#378ADD', [1030, 1900, 1700, 2400, 2100, 3000]),
-    new RYSeriesChartItem('Sessions', '#D85A30', [2060, 2800, 2400, 3200, 2900, 4100]),
+  // -- Area chart ---
+  arealineMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+  arealineItems: RAreaChartItem[] = [
+    new RAreaChartItem('Users', '#378ADD', [1200, 1900, 1700, 2400, 2100, 3000]),
+    new RAreaChartItem('Sessions', '#D85A30', [2000, 2800, 2400, 3200, 2900, 4100]),
   ];
 
+  seriesModel2: RYSeriesChartItem[] = [
+    new RYSeriesChartItem('Users', '#378ADD', [10, 1030, 1900, 1700, 2400, 2100, 3000]),
+    new RYSeriesChartItem('Sessions', '#D85A30', [10, 2060, 2800, 2400, 3200, 2900, 4100]),
+  ];
 
   // ─── Scatter Chart ───────────────────────────────────────────────────
   scatterItems: RScatterChartItem[] = [
@@ -344,4 +355,76 @@ export class AppRootComponent {
 
   // ─── Helper ──────────────────────────────────────────────────────────
   setSection(s: string) { this.activeSection = s; }
+
+  
+  seriesModel: RYSeriesChartItem[] = [];
+  seriesModel1: RGraphSeriesChartItem[] = [];
+  stackedbarChartItems1: RBarChartItem[] = []
+  stackedbarChartXAxisItemNames1: string[] = [];
+
+  stackedrangebarChartItems1: RBarChartItem[] = []
+  stackedrangebarChartXAxisItemNames1: string[] = [];
+
+  stackedrangebarChartItems: RBarChartItem[] = []
+  stackedrangebarChartXAxisItemNames: string[] = [];
+  
+  constructor() {
+
+    this.DrawYSeriesChart();
+    this.DrawBarChart();
+    
+  }
+
+  DrawBarChart() {
+    
+    this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
+    this.stackedbarChartItems1.push(new RBarChartItem("Food Expenses", [2500, 2000, 1500, 1090, 1650, 2700, 2400, 1800], "#534AB7", "white"));
+    this.stackedbarChartItems1.push(new RBarChartItem("Vehicle Expenses", [160, 377, 486, 1090, 200, 450, 5, 350], "lightgreen", "white"));
+    this.stackedbarChartItems1.push(new RBarChartItem("Dress Expenses", [1000, 775, 1096, 1090, 700, 1200, 800, 1400], ["#0F6E56","red","orange", "blue"], "white"));    
+
+    
+    this.stackedrangebarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
+    this.stackedrangebarChartItems1.push(new RBarChartItem("Food Expenses", [-1170, 2000, 1170, -610, 1650, 3000, 2400, -1800], "#534AB7", "white"));
+    this.stackedrangebarChartItems1.push(new RBarChartItem("Vehicle Expenses", [-1170, 377, 1170, -610, -1590, 450, 5, 350], "lightgreen", "white"));
+    this.stackedrangebarChartItems1.push(new RBarChartItem("Dress Expenses", [1170, 775, 1170, -758, 1860, 1200, 800, 1400], ["#0F6E56","red","orange", "blue"], "white"));    
+        
+    this.stackedrangebarChartXAxisItemNames = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly", "Aug"];
+    this.stackedrangebarChartItems.push(new RBarChartItem("Food Expenses", [25, 20, 15, -61, 60, 30, 24, -18], "#534AB7", "white"));
+    this.stackedrangebarChartItems.push(new RBarChartItem("Vehicle Expenses", [16, 30, 40, -60, -15, 50, 5, 35], "lightgreen", "white"));
+    this.stackedrangebarChartItems.push(new RBarChartItem("Dress Expenses", [10, 17, 10, 58, 70, 20, 60, 14], ["#0F6E56","red","orange", "blue"], "white"));    
+
+  }
+
+  DrawYSeriesChart() {
+    
+   let graphnums = [];
+
+    for (let index = 1; index < 80; index++) {
+      graphnums.push(new RGraph(index, this.GenRandomNum(1, 100)));      
+    }
+
+    graphnums.push(new RGraph(80, 45));
+
+    let nums = [];
+
+    for (let index = 0; index < 50; index++) {
+      nums.push(this.GenRandomNum(1, 100));      
+    }
+
+
+    this.seriesModel.push(new RYSeriesChartItem("Foo", "#8f19ff", nums));
+    
+    for (let index = 0; index < 50; index++) {
+      nums.push(this.GenRandomNum(1, 100));      
+    }
+
+    this.seriesModel1 = [new RGraphSeriesChartItem("Foo", "#8f19ff", graphnums)];
+
+  }
+
+  
+  GenRandomNum(min: number, max: number): number{
+    let num = Math.floor(Math.random() * (max-min)+ min);
+    return num;
+  }
 }

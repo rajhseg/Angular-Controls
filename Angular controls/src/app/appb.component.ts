@@ -212,8 +212,8 @@ export class AppRootComponent {
   ];
 
   seriesModel2: RYSeriesChartItem[] = [
-    new RYSeriesChartItem('Users', '#378ADD', [10, 1030, 1900, 1700, 2400, 2100, 3000]),
-    new RYSeriesChartItem('Sessions', '#D85A30', [10, 2060, 2800, 2400, 3200, 2900, 4100]),
+    new RYSeriesChartItem('Users', '#378ADD', [10, 30, 40, 50]),
+    new RYSeriesChartItem('Sessions', '#D85A30', [10, 50, 60 ,60]),
   ];
 
   // ─── Scatter Chart ───────────────────────────────────────────────────

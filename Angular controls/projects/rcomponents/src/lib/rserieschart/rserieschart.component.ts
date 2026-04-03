@@ -133,9 +133,6 @@ export class RSeriesChartComponent {
   public get Height(): number {
     return this._height;
   }
-
-  @Input()
-  IsRenderFromInit: boolean = true;
   
   @Input()
   DataListHeight: number = 50;
@@ -504,11 +501,6 @@ export class RSeriesChartComponent {
           
           let areaItems: RPopupChartItem[] = [];
           
-          if (this.IsRenderFromInit) {
-            prevX = this.MarginX + this.PaddingLeft;
-            prevY = this.Height + this.PaddingTop - this.MarginY;
-          }
-          
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
 
@@ -516,7 +508,7 @@ export class RSeriesChartComponent {
             let xPoint = undefined;
             
             if(isYSeriesChart){
-              xPoint = StartX +  (xvDistance * (v + 1));
+              xPoint = StartX +  (xvDistance * (v));
             } else {
               xPoint = xvDistance * indx + StartX;
             }

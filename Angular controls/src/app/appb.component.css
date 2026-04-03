@@ -1,0 +1,163 @@
+/* =====================================================================
+   rcomponents Showcase — app.component.css
+   ===================================================================== */
+
+/* Root layout */
+.showcase-root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1a1a1a;
+  min-height: 100vh;
+  background: #f7f7f8;
+}
+
+/* Header */
+.showcase-header {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 20px 32px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.showcase-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 2px;
+}
+
+.showcase-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 16px;
+}
+
+/* Nav tabs */
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-tab {
+  padding: 8px 18px;
+  font-size: 14px;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav-tab:hover { color: #333; }
+
+.nav-tab.active {
+  color: #1a1a1a;
+  border-bottom-color: #7F77DD;
+  font-weight: 500;
+}
+
+/* Body */
+.showcase-body {
+  padding: 28px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section = card grid */
+.section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-wide {
+  grid-column: 1 / -1;
+}
+
+.card-header {
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 4px 0 2px;
+  color: #1a1a1a;
+}
+
+.card-selector {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #888;
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.card-body {
+  padding: 20px 18px;
+  flex: 1;
+}
+
+.card-body.center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card-hint {
+  padding: 10px 18px 14px;
+  font-size: 12px;
+  color: #999;
+  border-top: 1px solid #f5f5f5;
+}
+
+.card-hint strong { color: #555; }
+.card-hint code {
+  font-family: monospace;
+  font-size: 11px;
+  background: #f0f0f0;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* Category tags */
+.card-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+.tag-chart   { background: #E6F1FB; color: #185FA5; }
+.tag-form    { background: #EAF3DE; color: #3B6D11; }
+.tag-layout  { background: #EEEDFE; color: #3C3489; }
+.tag-nav     { background: #FAEEDA; color: #633806; }
+.tag-data    { background: #E1F5EE; color: #085041; }
+
+/* Form label utility */
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}

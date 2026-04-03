@@ -1,0 +1,745 @@
+<!-- =====================================================================
+     rcomponents Showcase — app.component.html
+     Displays every component in a card grid, grouped by category.
+     ===================================================================== -->
+
+<div class="showcase-root">
+
+  <!-- Top navigation -->
+  <header class="showcase-header">
+    <h1 class="showcase-title">rcomponents</h1>
+    <p class="showcase-subtitle">Angular component library showcase</p>
+    <nav class="nav-tabs">
+      <button
+        *ngFor="let s of sections"
+        class="nav-tab"
+        [class.active]="activeSection === s"
+        (click)="setSection(s)">
+        {{ s | titlecase }}
+      </button>
+    </nav>
+  </header>
+
+  <main class="showcase-body">
+
+    <!-- ================================================================
+         CHARTS
+         ================================================================ -->
+    <section *ngIf="activeSection === 'charts'" class="section">
+
+      <!-- Allocated Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Allocated Bar Chart</h2>
+          <code class="card-selector">&lt;rallocated-barchart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rallocated-barchart
+            [Columns]="allocatedColumns"
+            [xAxisItemNames]="allocatedMonths"
+            [Width]="360"
+            [Height]="240"
+            [GapBetweenBars]="allocatedGap"
+            [NoOfSplitInValueAxis]="5"
+            XAxisTitle="Month"
+            YAxisTitle="Budget"
+            TextColor="#666"
+            [EnableBorder]="false"
+            BorderColor="#e0e0e0"
+            [GlassyEffect]="false"
+            AllocatedValueIndicatorColor="#333"
+            PopupBackColor="#fff"
+            [PopupBackgroundOpacity]="0.95">
+          </rallocated-barchart>
+        </div>
+        <div class="card-hint">
+          Bars show <strong>Spent</strong> vs <strong>Allocated</strong> budget. Hover a bar for tooltip.
+        </div>
+      </div>
+
+      <!-- Vertical Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Bar Chart (Vertical)</h2>
+          <code class="card-selector">&lt;rbarchart-vertical&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rbarchart-vertical
+            [Columns]="barVerticalColumns"
+            [xAxisItemNames]="barVerticalMonths"
+            [Width]="360"
+            [Height]="240"
+            XAxisTitle="Quarter"
+            YAxisTitle="Amount"
+            TextColor="#666"
+            [GlassyEffect]="false"
+            [EnableBorder]="false"
+            BorderColor="#e0e0e0">
+          </rbarchart-vertical>
+        </div>
+        <div class="card-hint">Revenue vs Expenses per quarter.</div>
+      </div>
+
+      <!-- Horizontal Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Bar Chart (Horizontal)</h2>
+          <code class="card-selector">&lt;rbarchart-horizontal&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rbarchart-horizontal
+            [Columns]="barHorizontalColumns"
+            [yAxisItemNames]="barHorizontalItems"
+            [Width]="320"
+            [Height]="240"
+            XAxisTitle="Hours"
+            YAxisTitle="Team"
+            TextColor="#666"
+            [GlassyEffect]="false"
+            [EnableBorder]="false"
+            BorderColor="#e0e0e0">
+          </rbarchart-horizontal>
+        </div>
+        <div class="card-hint">Planned vs actual hours per team.</div>
+      </div>
+
+      <!-- Pie Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Pie Chart</h2>
+          <code class="card-selector">&lt;rpiechart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rpiechart
+            [Items]="pieItems"
+            [ChartWidth]="280"
+            [DataListHeight]="220"
+            TextColor="#666"
+            [EnableBorder]="false"
+            BorderColor="#e0e0e0">
+          </rpiechart>
+        </div>
+        <div class="card-hint">Browser market share breakdown.</div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Donut Chart</h2>
+          <code class="card-selector">&lt;rdonutchart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rdonutchart
+            [Items]="donutItems"
+            [ChartWidth]="280"
+            [DataListHeight]="220"
+            TextColor="#666"
+            [EnableBorder]="false"
+            BorderColor="#e0e0e0">
+          </rdonutchart>
+        </div>
+        <div class="card-hint">Task completion status ring.</div>
+      </div>
+
+      <!-- Line Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Line Chart (Vertical)</h2>
+          <code class="card-selector">&lt;rlinechart-vertical&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rlinechart-vertical
+            [Items]="lineItems"
+            [xAxisItemNames]="lineMonths"
+            [Width]="380"
+            [Height]="240"
+            XAxisTitle="Month"
+            YAxisTitle="Count"
+            TextColor="#666"
+            [EnableBorder]="false"
+            BorderColor="#e0e0e0"
+            [GlassyEffect]="false">
+          </rlinechart-vertical>
+        </div>
+        <div class="card-hint">Users and sessions over 6 months.</div>
+      </div>
+
+      <!-- Scatter Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Scatter Chart</h2>
+          <code class="card-selector">&lt;rscatterchart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rscatterchart
+            [Items]="scatterItems"
+            [Width]="380"
+            [Height]="240"
+            XAxisTitle="Price"
+            YAxisTitle="Sales"
+            TextColor="#666"
+            [EnableBorder]="false"
+            BorderColor="#e0e0e0"
+            [GlassyEffect]="false">
+          </rscatterchart>
+        </div>
+        <div class="card-hint">Price vs sales correlation per product.</div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h2 class="card-title">Progress Bar</h2>
+          <code class="card-selector">&lt;rprogressbar&gt;</code>
+        </div>
+        <div class="card-body">
+          <div style="margin-bottom: 16px;">
+            <label class="form-label">Value: {{ progressValue }}%</label>
+            <input type="range" min="0" max="100" [(ngModel)]="progressValue" style="width: 100%;" />
+          </div>
+          
+        <rprogressbar [FloatInCenter]="false" [ForeColor]="'#7F77DD'" [TrackColor]="'#e8e8f0'" [EnableBackDrop]="false"
+           [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
+          [ProgressBarWidth]="'150px'" [Percentage]="progressValue" [CircularLineWidth]="'15px'"
+          [FiniteCircularDisplayText]="'Progress'" [Type]="progressBarType">
+        </rprogressbar>
+
+        </div>
+        <div class="card-hint">Drag the slider to update the progress bar value.</div>
+      </div>
+
+    </section>
+
+    <!-- ================================================================
+         FORMS
+         ================================================================ -->
+    <section *ngIf="activeSection === 'forms'" class="section">
+
+      <!-- Button -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Button</h2>
+          <code class="card-selector">&lt;rbutton&gt;</code>
+        </div>
+        <div class="card-body" style="gap: 12px; display: flex; flex-wrap: wrap;">
+          <rbutton
+            ButtonText="Primary"
+            BackColor="#7F77DD"
+            ForeColor="white"
+            ButtonWidth="110px"
+            (ButtonClick)="onButtonClick()">
+            Primary
+          </rbutton>
+          <rbutton
+            ButtonText="Secondary"
+            BackColor="#1D9E75"
+            ForeColor="white"
+            ButtonWidth="110px"
+            (ButtonClick)="onButtonClick()">
+            Secondary
+          </rbutton>
+          <rbutton
+            ButtonText="Danger"
+            BackColor="#E24B4A"
+            ForeColor="white"
+            ButtonWidth="110px"
+            (ButtonClick)="onButtonClick()">
+            Danger
+          </rbutton>
+        </div>
+        <div class="card-hint">Clicked {{ buttonClickCount }} time(s). Supports <code>ButtonClick</code> output event.</div>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Checkbox</h2>
+          <code class="card-selector">&lt;rcheckbox&gt;</code>
+        </div>
+        <div class="card-body" style="gap: 12px; display: flex; flex-direction: column;">
+          <rcheckbox
+            DisplayText="Enable notifications"
+            [(ngModel)]="checkboxValue"
+            CheckedColor="#7F77DD">
+          </rcheckbox>
+          <rcheckbox
+            DisplayText="Accept terms and conditions"
+            [IsChecked]="false"
+            CheckedColor="#1D9E75">
+          </rcheckbox>
+        </div>
+        <div class="card-hint">Value: <strong>{{ checkboxValue }}</strong>. Supports <code>ControlValueAccessor</code>.</div>
+      </div>
+
+      <!-- Textbox -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Text Box</h2>
+          <code class="card-selector">&lt;rtextbox&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtextbox
+            PlaceholderText="Type something..."
+            LabelText="Full name"
+            [(ngModel)]="textboxValue"
+            Width="320px">
+          </rtextbox>
+        </div>
+        <div class="card-hint">Value: "{{ textboxValue }}"</div>
+      </div>
+
+      <!-- Numeric -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Numeric Input</h2>
+          <code class="card-selector">&lt;rnumeric&gt;</code>
+        </div>
+        <div class="card-body">
+          <rnumeric
+            LabelText="Quantity"
+            [(ngModel)]="numericValue"
+            Width="200px">
+          </rnumeric>
+        </div>
+        <div class="card-hint">Value: <strong>{{ numericValue }}</strong>. Spin buttons with min/max validation.</div>
+      </div>
+
+      <!-- Slider -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Slider</h2>
+          <code class="card-selector">&lt;rslider&gt;</code>
+        </div>
+        <div class="card-body">
+          <rslider
+            [MinValue]="0"
+            [MaxValue]="100"
+            [(ngModel)]="sliderValue"
+            SliderColor="#7F77DD"
+            Width="320px">
+          </rslider>
+        </div>
+        <div class="card-hint">Value: <strong>{{ sliderValue }}</strong>. Drag-based slider using Angular CDK.</div>
+      </div>
+
+      <!-- Switch -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Switch</h2>
+          <code class="card-selector">&lt;rswitch&gt;</code>
+        </div>
+        <div class="card-body" style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+          <rswitch
+            DisplayLabel="Dark mode"
+            [(ngModel)]="switchValue"
+            SwitchBackColor="#7F77DD">
+          </rswitch>
+          <rswitch
+            DisplayLabel="Notifications"
+            [ngModel]="true"
+            SwitchBackColor="#1D9E75">
+          </rswitch>
+        </div>
+        <div class="card-hint">Dark mode: <strong>{{ switchValue }}</strong>.</div>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Star Rating</h2>
+          <code class="card-selector">&lt;rstarrating&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstarrating
+            [noOfStars]="10"
+            [(ngModel)]="ratingValue"
+            StarColor="orange"
+            [starWidth]="28">
+          </rstarrating>
+        </div>
+        <div class="card-hint">Rating: <strong>{{ ratingValue }} / 10</strong>. Click to set value.</div>
+      </div>
+
+      <!-- Radio Button -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Radio Button</h2>
+          <code class="card-selector">&lt;rradiobutton&gt;</code>
+        </div>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 10px;">
+          <rradiobutton
+            DisplayText="Option A"
+            GroupName="demo-group"
+            Value="A">
+          </rradiobutton>
+          <rradiobutton
+            DisplayText="Option B"
+            GroupName="demo-group"
+            Value="B">
+          </rradiobutton>
+          <rradiobutton
+            DisplayText="Option C"
+            GroupName="demo-group"
+            Value="C">
+          </rradiobutton>
+        </div>
+        <div class="card-hint">Selected: <strong>{{ radioSelected || 'none' }}</strong>.</div>
+      </div>
+
+      <!-- Dropdown -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Dropdown</h2>
+          <code class="card-selector">&lt;rdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rdropdown
+            [Items]="dropdownItems"
+            PlaceholderText="Choose a framework"
+            [DropDownContentWidth]="'310px'"
+            Width="280px"
+            [(ngModel)]="dropdownSelected">
+          </rdropdown>
+        </div>
+        <div class="card-hint">Selected: <strong>{{ dropdownSelected?.DisplayValue || 'none' }}</strong>.</div>
+      </div>
+
+      <!-- Select Dropdown -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Select Dropdown</h2>
+          <code class="card-selector">&lt;rselectdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rselectdropdown
+            [Items]="selectItems"
+            PlaceholderText="Select languages"
+            [DropDownContentWidth]="'310px'"
+            Width="280px"
+            [IsMulti]="true">
+          </rselectdropdown>
+        </div>
+        <div class="card-hint">Supports multi-select and search filtering.</div>
+      </div>
+
+      <!-- Color Picker -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Color Picker</h2>
+          <code class="card-selector">&lt;rcolorpicker&gt;</code>
+        </div>
+        <div class="card-body" style="align-items: center; display: flex; gap: 16px;">
+          <rcolorpicker
+            [(ngModel)]="pickedColor"
+            Width="200px">
+          </rcolorpicker>
+          <div style="width: 40px; height: 40px; border-radius: 8px; border: 1px solid #ccc;"
+               [style.background]="pickedColor">
+          </div>
+        </div>
+        <div class="card-hint">Hex: <strong>{{ pickedColor }}</strong>. Canvas-based color picker.</div>
+      </div>
+
+      <!-- File Upload -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">File Upload</h2>
+          <code class="card-selector">&lt;rfileupload&gt;</code>
+        </div>
+        <div class="card-body">
+          <rfileupload
+            LabelText="Drop files here or click to browse"
+            [SelectMultipleFiles]="true"
+            Width="320px">
+          </rfileupload>
+        </div>
+        <div class="card-hint">Supports multi-file selection with file list preview.</div>
+      </div>
+
+      <!-- Time Selector -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Time Selector</h2>
+          <code class="card-selector">&lt;rtimeselector&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtimeselector
+            [(ngModel)]="selectedTime"
+            Width="200px">
+          </rtimeselector>
+        </div>
+        <div class="card-hint">Selected: <strong>{{ selectedTime }}</strong>. Hour/minute/AM-PM dropdowns.</div>
+      </div>
+
+    </section>
+
+    <!-- ================================================================
+         LAYOUT
+         ================================================================ -->
+    <section *ngIf="activeSection === 'layout'" class="section">
+
+      <!-- Group Panel -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-layout">Layout</span>
+          <h2 class="card-title">Group Panel</h2>
+          <code class="card-selector">&lt;rgroup-panel&gt;</code>
+        </div>
+        <div class="card-body">
+          <rgroup-panel
+            groupname="Personal Info"
+            TitleForeColor="#7F77DD"
+            [EnableShadowEffect]="false">
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0;">
+              <rtextbox PlaceholderText="First name" LabelText="First name" Width="180px"></rtextbox>
+              <rtextbox PlaceholderText="Last name" LabelText="Last name" Width="180px"></rtextbox>
+              <rtextbox PlaceholderText="Email" LabelText="Email" Width="220px"></rtextbox>
+            </div>
+          </rgroup-panel>
+
+          <rgroup-panel
+            groupname="Preferences"
+            TitleForeColor="#1D9E75"
+            [IsItemsArrangeHorizontal]="true"
+            style="margin-top: 16px; display: block;">
+            <rswitch DisplayLabel="Newsletter" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
+            <rswitch DisplayLabel="SMS alerts" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
+            <rswitch DisplayLabel="Push notifications" SwitchBackColor="#1D9E75"></rswitch>
+          </rgroup-panel>
+        </div>
+        <div class="card-hint">Groups content with a titled border. Supports horizontal and vertical layouts.</div>
+      </div>
+
+      <!-- Splitter -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-layout">Layout</span>
+          <h2 class="card-title">Splitter</h2>
+          <code class="card-selector">&lt;rsplitter&gt;</code>
+        </div>
+        <div class="card-body" style="min-height: 200px;">
+          <rsplitter TotalWidth="560px" TotalHeight="180px">
+            <ng-template rpagecontent [InitialWidth]="'40%'">
+              <div style="padding: 12px; background: #f5f3ff; height: 100%; color: #534AB7; font-size: 14px;">
+                <strong>Left pane</strong>
+                <p style="margin-top: 8px; color: #888; font-size: 13px;">Drag the divider to resize.</p>
+              </div>
+            </ng-template>
+            <ng-template rpagecontent [InitialWidth]="'60%'">
+              <div style="padding: 12px; background: #f0fdf8; height: 100%; color: #0F6E56; font-size: 14px;">
+                <strong>Right pane</strong>
+                <p style="margin-top: 8px; color: #888; font-size: 13px;">Can contain any content or component.</p>
+              </div>
+            </ng-template>
+          </rsplitter>
+        </div>
+        <div class="card-hint">Draggable splitter between two resizable panes.</div>
+      </div>
+
+    </section>
+
+    <!-- ================================================================
+         NAVIGATION
+         ================================================================ -->
+    <section *ngIf="activeSection === 'navigation'" class="section">
+
+      <!-- Flat Tabs -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h2 class="card-title">Flat Tabs</h2>
+          <code class="card-selector">&lt;rflattabs&gt;</code>
+        </div>
+        <div class="card-body">
+          <rflattabs TabWidth="100%" TabHeight="140px">
+            <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Overview', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Overview content — summarise your feature here.
+              </div>
+            </rtab>
+            <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'Details', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Details content — expand with tables or charts.
+              </div>  
+            </rtab>
+            <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'Settings', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Settings content — use form controls here.
+              </div>
+            </rtab>
+          </rflattabs>
+        </div>
+        <div class="card-hint">Tabs support drag-to-reorder and content projection via <code>&lt;rtab&gt;</code>.</div>
+      </div>
+
+      <!-- stepper -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h2 class="card-title">Stepper (Vertical)</h2>
+          <code class="card-selector">&lt;rstepper-vertical&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstepper-vertical
+            [ActiveBackColor]="'blue'"
+            [ShowStateVertical]="false">
+            <rstep [Title]="'Account'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+            </rstep>
+            <rstep [Title]="'Profile'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
+            </rstep>
+            <rstep [Title]="'Preferences'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
+            </rstep>
+            <rstep [Title]="'Confirm'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
+            </rstep>
+          </rstepper-vertical>
+        
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button
+              (click)="stepperActiveIndex = stepperActiveIndex > 0 ? stepperActiveIndex - 1 : 0"
+              style="padding: 6px 16px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; background: white;">
+              Back
+            </button>
+            <button
+              (click)="stepperActiveIndex = stepperActiveIndex < 3 ? stepperActiveIndex + 1 : 3"
+              style="padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer; background: #7F77DD; color: white;">
+              Next
+            </button>
+          </div>
+        </div>
+        <div class="card-hint">Step {{ stepperActiveIndex + 1 }} of 4 active. Each step projects custom content.</div>
+      
+      </div>
+
+      <!-- Tree -->
+
+       <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h2 class="card-title">Tree</h2>
+          <code class="card-selector">&lt;rtree&gt;</code>
+        </div>
+        <div class="card-body">
+        <rtree
+            [Items]="treeItems"
+            ExpandIconColor="#7F77DD"
+            (onExpandClicked)="onTreeExpand($event)"
+            (onItemSelected)="onTreeExpand($event)">
+          </rtree>
+          
+        </div>
+        <div class="card-hint">Hierarchical file-tree. Click items to expand/collapse nodes.</div>
+      </div>
+
+    </section>
+
+    <!-- ================================================================
+         DATA DISPLAY
+         ================================================================ -->
+    <section *ngIf="activeSection === 'data'" class="section">
+
+      <!-- Calendar -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-data">Data</span>
+          <h2 class="card-title">Calendar</h2>
+          <code class="card-selector">&lt;rcalendar&gt;</code>
+        </div>
+        <div class="card-body center" style="margin-left:-100px">
+          <rcalendar
+            [(ngModel)]="calendarSelectedDate"
+            (valueChanged)="onCalendarChange($event)"
+            SelectedDateColor="#7F77DD"
+            TodayColor="#1D9E75">
+          </rcalendar>
+        </div>
+        <div class="card-hint">
+          Selected: <strong>{{ calendarSelectedDate ? (calendarSelectedDate | date:'mediumDate') : 'none' }}</strong>.
+        </div>
+      </div>
+
+      <!-- Timer -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-data">Data</span>
+          <h2 class="card-title">Timer</h2>
+          <code class="card-selector">&lt;rtimer&gt;</code>
+        </div>
+        <div class="card-body center" style="flex-direction: column; gap: 16px;">
+          <rtimer
+            [DisplayType]="0"
+            [CircularWidth]="100"
+            #timerRef
+            ForeColor="#7F77DD"
+            [HoursForeColor]="'#7F77DD'" [HoursTrackColor]="'#e8e8f0'"
+            [MinuteForeColor]="'#7F77DD'" [MinuteTrackColor]="'#e8e8f0'"
+            [SecondsForeColor]="'#7F77DD'" [SecondsTrackColor]="'#e8e8f0'"
+            FontSize="32px">
+          </rtimer>
+          <div style="display: flex; gap: 10px;">
+            <rbutton
+              [BackgroundColor]="'#1D9E75'">
+              Start
+            </rbutton>
+            <rbutton
+              [BackgroundColor]="'#E24B4A'">
+              Stop
+            </rbutton>
+            <rbutton
+              [BackgroundColor]="'#888'">
+              Reset
+            </rbutton>
+          </div>
+        </div>
+        <div class="card-hint">Countdown or stopwatch. Control via <code>Start()</code>, <code>Stop()</code>, <code>Reset()</code>.</div>
+      </div>
+
+      <!-- Sequences (Vertical) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-data">Data</span>
+          <h2 class="card-title">Sequences (Vertical)</h2>
+          <code class="card-selector">&lt;rstate-vertical&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstate-vertical
+            [Items]="sequenceItems"
+            ActiveColor="#7F77DD"
+            CompletedColor="#1D9E75"
+            PendingColor="#ccc"
+            LineColor="#e0e0e0">
+          
+          </rstate-vertical>
+        </div>
+        <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

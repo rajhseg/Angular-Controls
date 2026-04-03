@@ -380,13 +380,13 @@ export class AppRootComponent {
     this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun"];
     this.stackedbarChartItems1.push(new RBarChartItem("Food Expenses", [2500, 2000, 1650, 2700, 2400, 1800], "#534AB7", "white"));
     this.stackedbarChartItems1.push(new RBarChartItem("Vehicle Expenses", [160, 377, 200, 450, 5, 350], "#a39cf3", "white"));
-    this.stackedbarChartItems1.push(new RBarChartItem("Dress Expenses", [1000, 775, 700, 1200, 800, 1400], "#5a549e", "white"));    
+    //this.stackedbarChartItems1.push(new RBarChartItem("Dress Expenses", [1000, 775, 700, 1200, 800, 1400], "#5a549e", "white"));    
 
     
     this.stackedrangebarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jly"];
     this.stackedrangebarChartItems1.push(new RBarChartItem("Food Expenses", [-1170, 2000, 1170, -610,  3000, 2400, -1800], "#534AB7", "white"));
     this.stackedrangebarChartItems1.push(new RBarChartItem("Vehicle Expenses", [-1170, 377, 1170, -1590, 450, 5, 350], "#a39cf3", "white"));
-    this.stackedrangebarChartItems1.push(new RBarChartItem("Dress Expenses", [1170, 775, 1170, -758, 1200, 800, 1400], "#5a549e", "white"));    
+    //this.stackedrangebarChartItems1.push(new RBarChartItem("Dress Expenses", [1170, 775, 1170, -758, 1200, 800, 1400], "#5a549e", "white"));    
         
   }
 

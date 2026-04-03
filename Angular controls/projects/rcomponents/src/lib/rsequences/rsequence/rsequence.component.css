@@ -16,7 +16,7 @@
 
 .circle {      
     border-radius: 50%;
-    display: block;      
+    display: flex;      
     box-shadow: rgba(0, 0, 0, 0.6) 0px 3px 8px; 
     outline: none;
     opacity: 0.7;

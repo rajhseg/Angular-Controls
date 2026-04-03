@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { RSequenceVerticalItem } from './rsequenceitem';
 import { NgIf, NgStyle } from '@angular/common';
 

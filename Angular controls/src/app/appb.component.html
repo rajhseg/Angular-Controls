@@ -291,7 +291,8 @@
         <div class="card-body">
           <rtextbox
             PlaceholderText="Type something..."
-            LabelText="Full name"
+            LabelText="Full Name"
+            [LabelForeColor]="'black'"
             [(ngModel)]="textboxValue"
             Width="320px">
           </rtextbox>
@@ -572,7 +573,7 @@
           <code class="card-selector">&lt;rflattabs&gt;</code>
         </div>
         <div class="card-body">
-          <rflattabs TabWidth="100%" TabHeight="140px">
+          <rflattabs [TabWidth]="'500px'" [TabHeight]="'140px'">
             <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Overview', 'Context':this }">
               <div style="padding: 16px; font-size: 14px; color: #555;">
                 Overview content — summarise your feature here.
@@ -593,6 +594,36 @@
         <div class="card-hint">Tabs support drag-to-reorder and content projection via <code>&lt;rtab&gt;</code>.</div>
       </div>
 
+       <!--  Tabs -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h2 class="card-title">Tabs</h2>
+          <code class="card-selector">&lt;rtabs&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtabs [TabWidth]="'500px'" [TabHeight]="'140px'">
+            <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Overview', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Overview content — summarise your feature here.
+              </div>
+            </rtab>
+            <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'Details', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Details content — expand with tables or charts.
+              </div>  
+            </rtab>
+            <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'Settings', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Settings content — use form controls here.
+              </div>
+            </rtab>
+          </rtabs>
+        </div>
+        <div class="card-hint">Tabs support drag-to-reorder and content projection via <code>&lt;rtab&gt;</code>.</div>
+      </div>
+
+     
       <!-- stepper -->
       <div class="card card-wide">
         <div class="card-header">
@@ -602,7 +633,13 @@
         </div>
         <div class="card-body">
           <rstepper-vertical
-            [ActiveBackColor]="'blue'"
+            [ActiveBackColor]="'#7F77DD'"
+            [ActiveBorderColor]="'7F77DD'"
+            [StripLineColor]="'#7F77DD'"
+            [PendingBackColor]="'#7F77DD'"
+            [PendingBorderColor]="'#7F77DD'"
+            [NextButtonBackColor]="'#7F77DD'"
+            [BackButtonBackColor]="'#7F77DD'"
             [ShowStateVertical]="false">
             <rstep [Title]="'Account'" [IsStepValid]="true">
               <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
@@ -653,6 +690,41 @@
           
         </div>
         <div class="card-hint">Hierarchical file-tree. Click items to expand/collapse nodes.</div>
+      </div>
+
+       <!-- stepper -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h2 class="card-title">Stepper (Horizontal)</h2>
+          <code class="card-selector">&lt;rstepper-horizontal&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstepper-horizontal
+            [ActiveBackColor]="'#7F77DD'"
+            [ActiveBorderColor]="'7F77DD'"
+            [StripLineColor]="'#7F77DD'"
+            [PendingBackColor]="'#7F77DD'"
+            [PendingBorderColor]="'#7F77DD'"
+            [NextButtonBackColor]="'#7F77DD'"
+            [BackButtonBackColor]="'#7F77DD'"
+            [ShowStateHorizontal]="false">
+            <rstep [Title]="'Account'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+            </rstep>
+            <rstep [Title]="'Profile'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
+            </rstep>
+            <rstep [Title]="'Preferences'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
+            </rstep>
+            <rstep [Title]="'Confirm'" [IsStepValid]="true">
+              <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
+            </rstep>
+          </rstepper-horizontal>
+        </div>
+        <div class="card-hint">Step {{ stepperActiveIndex + 1 }} of 4 active. Each step projects custom content.</div>
+      
       </div>
 
     </section>
@@ -734,6 +806,27 @@
             LineColor="#e0e0e0">
           
           </rstate-vertical>
+        </div>
+        <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>
+      </div>
+
+      
+      <!-- Sequences (Horizontal) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-data">Data</span>
+          <h2 class="card-title">Sequences (Horizontal)</h2>
+          <code class="card-selector">&lt;rstate-horizontal&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstate-horizontal
+            [Items]="hsequenceItems"
+            ActiveColor="#7F77DD"
+            CompletedColor="#1D9E75"
+            PendingColor="#ccc"
+            LineColor="#e0e0e0">
+          
+          </rstate-horizontal>
         </div>
         <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>
       </div>

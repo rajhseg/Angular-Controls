@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { startWith } from 'rxjs';
@@ -11,6 +11,7 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   imports: [NgFor],
   templateUrl: './rrating.component.html',
   styleUrl: './rrating.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers:[
     {
       provide:NG_VALUE_ACCESSOR,
@@ -75,7 +76,7 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
   }
 
 
-  constructor(winObj: RWindowHelper){
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef){
     super(winObj);
   }
 
@@ -225,6 +226,7 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
   RenderUIAfterRatingValueChanged(){
     if(this.container!=undefined){
       this.renderUI();
+      this.cdr.detectChanges();
     }
   }
 

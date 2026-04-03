@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RDonutChartItem, RPieChartItem } from 'rcomponents';
+import { RAllocatedBarChartComponent, RDonutChartItem, RPieChartItem, RSequenceHorizontalItem, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent } from 'rcomponents';
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
 import { RPieChartComponent } from 'rcomponents';
@@ -69,6 +69,7 @@ import { RSequenceVerticalItem } from 'rcomponents';
     CommonModule,
     FormsModule,
     RTabIdFor,
+    RTabsComponent,
     // Charts
     RAllocatedBarChartComponent,
     RBarChartVerticalComponent,
@@ -102,11 +103,13 @@ import { RSequenceVerticalItem } from 'rcomponents';
     RFlatTabsComponent,
     RTabComponent,
     RStepperVerticalComponent,
+    RStepperHorizontalComponent,
     RStepComponent,
     RTreeComponent,
     // Data display
     RTimerComponent,
     RStateVerticalComponent,
+    RStateHorizontalComponent,
     RCalendarComponent,
   ],
   templateUrl: './appb.component.html',
@@ -298,6 +301,19 @@ export class AppRootComponent {
     const steps = ['Order placed', 'Processing', 'Shipped', 'Delivered'];
     return steps.map((text, i) => {
       const item = new RSequenceVerticalItem();
+      item.StepNo = i + 1;
+      item.DisplayText = text;
+      if (i < 2) item.IsCompleted = true;
+      else if (i === 2) item.IsActive = true;
+      else item.IsPending = true;
+      return item;
+    });
+  })();
+
+  hsequenceItems: RSequenceHorizontalItem[] = (() => {
+    const steps = ['Order placed', 'Shipped', 'Delivered'];
+    return steps.map((text, i) => {
+      const item = new RSequenceHorizontalItem();
       item.StepNo = i + 1;
       item.DisplayText = text;
       if (i < 2) item.IsCompleted = true;

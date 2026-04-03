@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
 import { RSequenceVerticalComponent } from "./rsequence/rsequence.component";
 import { RSequenceVerticalItem } from './rsequence/rsequenceitem';
 import { NgForOf } from '@angular/common';

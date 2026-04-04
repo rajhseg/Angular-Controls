@@ -3,12 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, 
-  RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, 
-  RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, 
-  RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, 
-  CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, 
-  REventsDateSchedule, REvent, REventChannelItem, REventsSchedules } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent } from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -78,6 +73,7 @@ import { delay, from, of, switchMap } from 'rxjs';
     RTabIdFor,
     RTabsComponent,
     // Charts
+    RGridComponent,
     RAllocatedBarChartComponent,
     RBarChartVerticalComponent,
     RBarChartHorizontalComponent,
@@ -126,7 +122,8 @@ import { delay, from, of, switchMap } from 'rxjs';
     RCalendarComponent,
     RStackedBarChartHorizontalComponent,
     RStackedRangeBarChartVerticalComponent,
-    REventsScheduleComponent
+    REventsScheduleComponent,
+    RGridComponent
 ],
   templateUrl: './appb.component.html',
   styleUrl: './appb.component.css'
@@ -137,6 +134,9 @@ export class AppRootComponent {
   optionB: boolean = false;
   optionC: boolean = false;
   
+  
+  ItemsPerPage = new DropdownModel(10, "10");
+
   // ─── Section visibility ──────────────────────────────────────────────
   activeSection = 'charts';
   sections = ['charts', 'forms', 'layout', 'navigation', 'data'];
@@ -384,12 +384,57 @@ export class AppRootComponent {
 
   selectedDate: string = "";
   
+  gridItems1:any[] = [];
+  
+  ditems: DropdownModel[] = [];
+
   constructor() {
 
     this.DrawYSeriesChart();
     this.DrawBarChart();
     this.addCalenderEvents();
     this.createScheduleItems();
+    this.DrawGridItems();
+  }
+
+  DrawGridItems() {
+    
+    this.ditems.push(new DropdownModel(5, "5"));
+    this.ditems.push(new DropdownModel(10, "10"));
+    this.ditems.push(new DropdownModel(15, "15"));
+    this.ditems.push(new DropdownModel(20, "20"));
+    this.ditems.push(new DropdownModel(25, "25"));
+    this.ditems.push(new DropdownModel(50, "50"));
+    this.ditems.push(new DropdownModel(100, "100"));
+
+    this.ditems.push(new DropdownModel(200, "200"));
+    this.ditems.push(new DropdownModel(500, "500"));
+    this.ditems.push(new DropdownModel(1000, "1000"));
+
+    this.ditems.push(new DropdownModel(5000, "5000"));
+    this.ditems.push(new DropdownModel(10000, "10000"));
+
+    let d = new Date("1982/03/25");
+
+    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script>', 'Age': 24, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
+    this.gridItems1.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1981)), 'IsGrad': true });
+    this.gridItems1.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': false });
+    this.gridItems1.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1983)), 'IsGrad': true });
+    this.gridItems1.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1984)), 'IsGrad': false });
+    this.gridItems1.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1985)), 'IsGrad': true });
+    this.gridItems1.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
+    this.gridItems1.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': 'BBA', 'DOB': new Date(d.setFullYear(1986)), 'IsGrad': false });
+    this.gridItems1.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': 'BPharm', 'DOB': new Date(d.setFullYear(1987)), 'IsGrad': true });
+    this.gridItems1.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': true });
+    this.gridItems1.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1983)), 'IsGrad': true });
+    this.gridItems1.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1984)), 'IsGrad': false });
+    this.gridItems1.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1985)), 'IsGrad': true });
+    this.gridItems1.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': true });
+    this.gridItems1.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': 'BBA', 'DOB': new Date(d.setFullYear(1984)), 'IsGrad': true });
+    this.gridItems1.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1986)), 'IsGrad': true });
+    this.gridItems1.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
+    this.gridItems1.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
+
   }
 
   DrawBarChart() {

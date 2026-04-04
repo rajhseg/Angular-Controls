@@ -15,9 +15,9 @@
         
         <table class="tblheader" [ngStyle]="{ 'width': '100%' }">
             <thead>
-                <tr [ngStyle]="{'background-color':HeaderBackgroundColor, 
-                                'color': HeaderForeColor, 
-                                'height' : HeaderHeightInPx, 
+                <tr [ngStyle]="{'background': 'linear-gradient(135deg, ' + HeaderBackgroundColor + ' 0%, ' + HeaderBackgroundColor + ' 100%)',
+                                'color': HeaderForeColor,
+                                'height' : HeaderHeightInPx,
                                 'align-content' : 'center' }"
                     cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
                     (cdkDropListDropped)="draggeddropForPopup($event)">

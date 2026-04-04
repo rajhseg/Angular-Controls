@@ -969,7 +969,7 @@
       </div>
 
       <!-- Events Schedule -->
-       <div class="card card-wide"  style="height: 550px;">
+       <div class="card card-wide"  style="height: 600px;">
         <div class="card-header">
           <span class="card-tag tag-nav">Data</span>
           <h2 class="card-title">Programs List</h2>
@@ -996,6 +996,31 @@
       
       </div>
 
+      
+
+      <!-- RGrid -->
+       <div class="card card-wide"  style="height: 760px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Data</span>
+          <h2 class="card-title">RGrid</h2>
+          <code class="card-selector">&lt;rgrid&gt;</code>
+        </div>
+        <div class="card-body">
+      
+            <rgrid [PageItems]="ditems" [Items]="gridItems1"
+                  [EnableShadow]="false" [ShowGroupHeader]="true"
+                  [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
+                  [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
+                  [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
+                  [HeaderBackgroundColor]="'#534AB7'"
+                  [TableHeight]="'400px'" [TableWidth]="'950px'">
+            </rgrid>
+                
+        </div>
+        <div class="card-hint">RGrid</div>
+      
+      </div>  
+      
       <!-- Events Calendar -->
        <div class="card card-wide"  style="height: 900px;">
         <div class="card-header">

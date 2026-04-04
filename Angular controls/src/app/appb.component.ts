@@ -139,11 +139,13 @@ export class AppRootComponent {
 
   // ─── Section visibility ──────────────────────────────────────────────
   activeSection = 'charts';
-  sections = ['charts', 'forms', 'layout', 'navigation', 'data'];
+  sections = ['charts', 'forms', 'layout', 'navigation', 'data', 'events', 'grid'];
 
   // ─── Allocated Bar Chart ─────────────────────────────────────────────
   allocatedMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
   allocatedGap = RSpaceBetweenBars.OneBar;
+  
   allocatedColumns: RAllocatedBarChartItem[] = [
     new RAllocatedBarChartItem(
       'Marketing',

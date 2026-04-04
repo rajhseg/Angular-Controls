@@ -967,77 +967,6 @@
         </div>
         <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>
       </div>
-
-      <!-- Events Schedule -->
-       <div class="card card-wide"  style="height: 600px;">
-        <div class="card-header">
-          <span class="card-tag tag-nav">Data</span>
-          <h2 class="card-title">Programs List</h2>
-          <code class="card-selector">&lt;revents-schedule&gt;</code>
-        </div>
-        <div class="card-body">
-        
-          <revents-schedule 
-            [ContainerBackgroundColor]="'#534AB7'" 
-            [ContainerBorderColor]="'#a39cf3'" 
-            [EventBorderColor]="'#a39cf3'"
-            [EventBackgroundColor]="'#534AB7'" 
-            [MarkerBackgroundColor]="'white'" 
-            [ShowMarker]="true" [ShowScrollBar]="false"
-            [SelectedDateBackgroundColor]="'#a39cf3'"
-            [MinutesForEachCell]="30" [SelectedDate]="selectedDate" 
-            [EnableMovePageToCurrentTime]="true"
-            [ScheduleItems]="scheduleItems">
-          </revents-schedule>
-
-        </div>
-
-        <div class="card-hint">Events Schedule</div>
-      
-      </div>
-
-      
-
-      <!-- RGrid -->
-       <div class="card card-wide"  style="height: 760px;">
-        <div class="card-header">
-          <span class="card-tag tag-nav">Data</span>
-          <h2 class="card-title">RGrid</h2>
-          <code class="card-selector">&lt;rgrid&gt;</code>
-        </div>
-        <div class="card-body">
-      
-            <rgrid [PageItems]="ditems" [Items]="gridItems1"
-                  [EnableShadow]="false" [ShowGroupHeader]="true"
-                  [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
-                  [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
-                  [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
-                  [HeaderBackgroundColor]="'#534AB7'"
-                  [TableHeight]="'400px'" [TableWidth]="'950px'">
-            </rgrid>
-                
-        </div>
-        <div class="card-hint">RGrid</div>
-      
-      </div>  
-      
-      <!-- Events Calendar -->
-       <div class="card card-wide"  style="height: 900px;">
-        <div class="card-header">
-          <span class="card-tag tag-nav">Data</span>
-          <h2 class="card-title">Events Calendar</h2>
-          <code class="card-selector">&lt;revents-calender&gt;</code>
-        </div>
-        <div class="card-body">
-        
-            <revents-calender 
-              (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'50px'"
-              [EachDayWidthInPx]="'60px'" [(ngModel)]="calenderEvents"></revents-calender>
-                
-        </div>
-        <div class="card-hint">Calender Events</div>
-      
-      </div>  
       
       <!-- Sequences (Horizontal) -->
       <div class="card">
@@ -1058,6 +987,84 @@
         </div>
         <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>
       </div>
+
+    </section>
+
+    <section *ngIf="activeSection === 'events'" class="section">
+
+      <!-- Events Schedule -->
+       <div class="card card-wide"  style="height: 600px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Events</span>
+          <h2 class="card-title">Programs List</h2>
+          <code class="card-selector">&lt;revents-schedule&gt;</code>
+        </div>
+        <div class="card-body">
+        
+          <revents-schedule 
+            [ContainerBackgroundColor]="'#534AB7'" 
+            [ContainerBorderColor]="'#a39cf3'" 
+            [EventBorderColor]="'#a39cf3'"
+            [EventBackgroundColor]="'#534AB7'" 
+            [MarkerBackgroundColor]="'white'" 
+            [ShowMarker]="true" [ShowScrollBar]="false"
+            [SelectedDateBackgroundColor]="'#a39cf3'"
+            [MinutesForEachCell]="30" [SelectedDate]="selectedDate" 
+            [EnableMovePageToCurrentTime]="true"
+            [ScheduleItems]="scheduleItems">
+          </revents-schedule>
+
+        </div>
+
+        <div class="card-hint">Events Schedule which will use to show the scedhule for entire day, you can configure for all days.</div>
+      
+      </div>
+
+      <!-- Events Calendar -->
+       <div class="card card-wide"  style="height: 900px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Events</span>
+          <h2 class="card-title">Events Calendar</h2>
+          <code class="card-selector">&lt;revents-calender&gt;</code>
+        </div>
+        <div class="card-body">
+        
+            <revents-calender 
+              (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'50px'"
+              [EachDayWidthInPx]="'60px'" [(ngModel)]="calenderEvents"></revents-calender>
+                
+        </div>
+        <div class="card-hint">Events Calender which will use to add events to particular date. you can use the defer loading of events for a month.</div>
+      
+      </div>  
+      
+
+    </section>
+
+    <section *ngIf="activeSection === 'grid'" class="section">
+
+      <!-- RGrid -->
+       <div class="card card-wide"  style="height: 760px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Grid</span>
+          <h2 class="card-title">RGrid</h2>
+          <code class="card-selector">&lt;rgrid&gt;</code>
+        </div>
+        <div class="card-body">
+      
+            <rgrid [PageItems]="ditems" [Items]="gridItems1"
+                  [EnableShadow]="false" [ShowGroupHeader]="true"
+                  [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
+                  [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
+                  [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
+                  [HeaderBackgroundColor]="'#534AB7'"
+                  [TableHeight]="'400px'" [TableWidth]="'950px'">
+            </rgrid>
+                
+        </div>
+        <div class="card-hint">RGrid which can sort, filter, group the given data, you can edit the data and bind to cell.</div>
+      
+      </div>  
 
     </section>
 

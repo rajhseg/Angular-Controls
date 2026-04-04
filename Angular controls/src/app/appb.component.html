@@ -503,12 +503,12 @@
           <rswitch
             DisplayLabel="Dark mode"
             [(ngModel)]="switchValue"
-            SwitchBackColor="#7F77DD">
+            SwitchBackColor="rgb(76 67 205)">
           </rswitch>
           <rswitch
             DisplayLabel="Notifications"
             [ngModel]="true"
-            SwitchBackColor="#1D9E75">
+            [SwitchBackColor]="'rgb(76 67 205)'">
           </rswitch>
         </div>
         <div class="card-hint">Dark mode: <strong>{{ switchValue }}</strong>.</div>
@@ -683,9 +683,9 @@
             TitleForeColor="#1D9E75"
             [IsItemsArrangeHorizontal]="true"
             style="margin-top: 16px; display: block;">
-            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="Newsletter" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
-            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="SMS alerts" SwitchBackColor="#1D9E75"></rswitch> &nbsp;&nbsp;
-            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="Push notifications" SwitchBackColor="#1D9E75"></rswitch>
+            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="Newsletter" SwitchBackColor="rgb(76 67 205)"></rswitch> &nbsp;&nbsp;
+            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="SMS alerts" SwitchBackColor="rgb(76 67 205)"></rswitch> &nbsp;&nbsp;
+            <rswitch [LabelForeColor]="'#7F77DD'" DisplayLabel="Push notifications" SwitchBackColor="rgb(76 67 205)"></rswitch>
           </rgroup-panel>
         </div>
         <div class="card-hint">Groups content with a titled border. Supports horizontal and vertical layouts.</div>
@@ -991,7 +991,7 @@
           </revents-schedule>
 
         </div>
-        
+
         <div class="card-hint">Events Schedule</div>
       
       </div>
@@ -1005,9 +1005,9 @@
         </div>
         <div class="card-body">
         
-            <revents-calender
-              (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'110px'"
-              [EachDayWidthInPx]="'110px'" [(ngModel)]="calenderEvents"></revents-calender>
+            <revents-calender 
+              (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'50px'"
+              [EachDayWidthInPx]="'60px'" [(ngModel)]="calenderEvents"></revents-calender>
                 
         </div>
         <div class="card-hint">Calender Events</div>

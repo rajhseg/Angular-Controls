@@ -446,7 +446,7 @@
         </div>
         <div class="card-body">
           <rtextbox
-            PlaceholderText="Type something..."
+            PlaceholderText="Please enter full name"
             LabelText="Full Name"
             [LabelForeColor]="'black'"
             [(ngModel)]="textboxValue"
@@ -968,6 +968,51 @@
         <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>
       </div>
 
+      <!-- Events Schedule -->
+       <div class="card card-wide"  style="height: 550px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Data</span>
+          <h2 class="card-title">Programs List</h2>
+          <code class="card-selector">&lt;revents-schedule&gt;</code>
+        </div>
+        <div class="card-body">
+        
+          <revents-schedule 
+            [ContainerBackgroundColor]="'#534AB7'" 
+            [ContainerBorderColor]="'#a39cf3'" 
+            [EventBorderColor]="'#a39cf3'"
+            [EventBackgroundColor]="'#534AB7'" 
+            [MarkerBackgroundColor]="'white'" 
+            [ShowMarker]="true" [ShowScrollBar]="false"
+            [SelectedDateBackgroundColor]="'#a39cf3'"
+            [MinutesForEachCell]="30" [SelectedDate]="selectedDate" 
+            [EnableMovePageToCurrentTime]="true"
+            [ScheduleItems]="scheduleItems">
+          </revents-schedule>
+
+        </div>
+        
+        <div class="card-hint">Events Schedule</div>
+      
+      </div>
+
+      <!-- Events Calendar -->
+       <div class="card card-wide"  style="height: 900px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Data</span>
+          <h2 class="card-title">Events Calendar</h2>
+          <code class="card-selector">&lt;revents-calender&gt;</code>
+        </div>
+        <div class="card-body">
+        
+            <revents-calender
+              (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'110px'"
+              [EachDayWidthInPx]="'110px'" [(ngModel)]="calenderEvents"></revents-calender>
+                
+        </div>
+        <div class="card-hint">Calender Events</div>
+      
+      </div>  
       
       <!-- Sequences (Horizontal) -->
       <div class="card">

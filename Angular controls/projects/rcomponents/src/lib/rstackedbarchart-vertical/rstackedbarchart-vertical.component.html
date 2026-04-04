@@ -5,10 +5,12 @@
             [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }">
 
     </canvas>
-    <div *ngIf="IsRendered"  style="margin-top:8px; position: relative; align-content: center;" 
+    <div *ngIf="IsRendered"  style="margin-top:8px; position: relative; align-content: center;display: flex;flex-direction: row;" 
             [ngStyle]="{'bottom':  '10px', 'height': DataListHeight+'px'}">
 
-        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px', 'left': (PaddingLeft + MarginX) + 'px'}">
+        <div [ngStyle]="{'width': (MarginX + PaddingLeft) + 'px'}"></div>
+
+        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX - PaddingLeft) +'px'}">
             <div class="data" *ngFor="let itm of this.Columns; trackBy: trackById">
                 
                 <ng-container *ngIf="isPropString(itm.barItemsBackColor)">
@@ -26,7 +28,9 @@
                     {{itm.DisplayName}}
                 </span>                
             </div>
-        </div>     
+        </div>    
+        
+        <div [ngStyle]="{'width': PaddingRight + 'px'}"></div>
            
     </div>
 </div>

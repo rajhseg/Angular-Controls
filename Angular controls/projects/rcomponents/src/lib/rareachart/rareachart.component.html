@@ -4,14 +4,19 @@
             [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }">
 
     </canvas>
-    <div *ngIf="IsRendered"  style="position: relative; align-content: center;" 
+    <div *ngIf="IsRendered"  style="position: relative; align-content: center;display: flex;flex-direction: row;" 
             [ngStyle]="{'bottom':  '10px', 'height': DataListHeight+'px'}">
-        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX) +'px', 'left': (PaddingLeft + MarginX) + 'px'}">
+
+        <div [ngStyle]="{'width': (MarginX + PaddingLeft) + 'px'}"></div>
+
+        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX - PaddingLeft) +'px'}">
             <div class="data" *ngFor="let itm of this.Items; trackBy: trackById">
                 <div class="indicator" [ngStyle]="{'backgroundColor': itm.ItemColor}">
                 </div>
                 <span class="title" style="width: fit-content;">{{itm.ItemName}}</span>
             </div>
-        </div>        
+        </div>  
+        
+        <div [ngStyle]="{'width': PaddingRight + 'px'}"></div>
     </div>
 </div>

@@ -3,7 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, 
+  RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, 
+  RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, 
+  RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, 
+  CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, 
+  REventsDateSchedule, REvent, REventChannelItem, REventsSchedules } from 'rcomponents';
+
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
 import { RPieChartComponent } from 'rcomponents';
@@ -61,6 +67,7 @@ import { DropdownModel, DropDownItemModel } from 'rcomponents';
 import { RSelectItemModel } from 'rcomponents';
 import { RTreeItem } from 'rcomponents';
 import { RSequenceVerticalItem } from 'rcomponents';
+import { delay, from, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -112,12 +119,14 @@ import { RSequenceVerticalItem } from 'rcomponents';
     RStepComponent,
     RTreeComponent,
     // Data display
+    REventsCalenderComponent,
     RTimerComponent,
     RStateVerticalComponent,
     RStateHorizontalComponent,
     RCalendarComponent,
     RStackedBarChartHorizontalComponent,
-    RStackedRangeBarChartVerticalComponent
+    RStackedRangeBarChartVerticalComponent,
+    REventsScheduleComponent
 ],
   templateUrl: './appb.component.html',
   styleUrl: './appb.component.css'
@@ -227,6 +236,9 @@ export class AppRootComponent {
       new RGraph(65, 40), new RGraph(80, 65), new RGraph(90, 90),
     ]),
   ];
+
+
+  calenderEvents!: EventsCalenderModel;
 
   // ─── Progress Bar ────────────────────────────────────────────────────
   progressBarType = RProgressBarType.Progress;
@@ -367,12 +379,17 @@ export class AppRootComponent {
 
   stackedrangebarChartItems: RBarChartItem[] = []
   stackedrangebarChartXAxisItemNames: string[] = [];
+    
+  scheduleItems!: REventsSchedules;
+
+  selectedDate: string = "";
   
   constructor() {
 
     this.DrawYSeriesChart();
     this.DrawBarChart();
-    
+    this.addCalenderEvents();
+    this.createScheduleItems();
   }
 
   DrawBarChart() {
@@ -390,6 +407,29 @@ export class AppRootComponent {
         
   }
 
+
+  addCalenderEvents(){
+    this.calenderEvents = new EventsCalenderModel();
+    let eachday = new EachDayEventsModel(new Date(Date.now()));
+    eachday.Events.push(new AddEventModel("1","Event1", "07:02 PM", "07:02 PM", "#2D37D0"));
+    eachday.Events.push(new AddEventModel("2","Event2", "07:02 PM", "07:02 PM", "#2D37D0"));
+    this.calenderEvents.EachDay.push(eachday);
+  }
+
+  changeCalenderMonth(month: CalenderChangeMonthInfo){
+    this.calenderEvents = new EventsCalenderModel();
+    let eachday = new EachDayEventsModel(new Date(month.Year, month.Month, 3));
+    eachday.Events.push(new AddEventModel("1","Event1", "07:02 PM", "07:02 PM", "#2D37D0"));
+    eachday.Events.push(new AddEventModel("2","Event2", "07:02 PM", "07:02 PM", "#A00FBF"));
+    eachday.Events.push(new AddEventModel("3","Event3", "07:02 PM", "07:02 PM", "#BF0F53"));
+            
+    from([eachday]).pipe(
+      switchMap( item => of(item).pipe ( delay( 1000 ) ))
+    ).subscribe ( timedItem => {
+      this.calenderEvents.EachDay.push(timedItem);
+    });
+  }
+  
   DrawYSeriesChart() {
     
    let graphnums = [];
@@ -421,5 +461,94 @@ export class AppRootComponent {
   GenRandomNum(min: number, max: number): number{
     let num = Math.floor(Math.random() * (max-min)+ min);
     return num;
+  }
+
+
+  createScheduleItems(){
+    let items = new REventsSchedules();
+
+    let ritem = new REventChannelItem();
+    ritem.ChannelTitle = "Channel Title1";    
+    ritem.CalculateStartAndEndTimeBasedOnDuration = true;
+    ritem.RenderEventsInContinousSequence = true;
+    ritem.ValueKey = {};
+
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 15, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 60, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    ritem.Events.push(new REvent("", 15, "Event title 1", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 2", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 3", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 4", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 5", {}));
+    ritem.Events.push(new REvent("", 120, "Event title 6", {}));
+    ritem.Events.push(new REvent("", 45, "Event title 7", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 8", {}));
+    ritem.Events.push(new REvent("", 30, "Event title 9", {}));
+
+    let ritem2 = new REventChannelItem();
+    ritem2.ChannelTitle = "Channel Title2";
+    ritem2.RenderEventsInContinousSequence = false;
+    ritem2.CalculateStartAndEndTimeBasedOnDuration = false;
+    ritem2.ValueKey = {};  
+
+    ritem2.Events.push(new REvent("5:30", 30, "Event title 4", {}));
+    ritem2.Events.push(new REvent("15:40", 20, "Event title 4", {}));
+    ritem2.Events.push(new REvent("3:15", 30, "Event title 1", {}));
+    ritem2.Events.push(new REvent("13:10", 30, "Event title 3", {}));
+    ritem2.Events.push(new REvent("13:30", 30, "Event title 3.2", {}));
+    ritem2.Events.push(new REvent("4:0", 30, "Event title 2", {}));
+    ritem2.Events.push(new REvent("16:30", 120, "Event title 5", {}));
+    ritem2.Events.push(new REvent("0:30", 30, "Event title 6", {}));
+    ritem2.Events.push(new REvent("16:00", 30, "Event title 7", {}));
+    ritem2.Events.push(new REvent("17:20", 40, "Event title 8", {}));
+    ritem2.Events.push(new REvent("18:20", 40, "Event title 10", {}));
+    ritem2.Events.push(new REvent("23:30", 30, "Event title 11", {}));
+    
+
+    let evItem = new REventsDateSchedule();    
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem2);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem2);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem);
+    evItem.ChannelItems.push(ritem);
+
+    items["12-17-2024"] = evItem;
+    items["12-18-2024"] = evItem;
+    items["12-19-2024"] = evItem;
+
+    this.selectedDate = "12-17-2024";
+
+    this.scheduleItems = items;
   }
 }

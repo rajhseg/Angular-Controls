@@ -1051,13 +1051,22 @@
           <code class="card-selector">&lt;rgrid&gt;</code>
         </div>
         <div class="card-body">
-      
+            <span>Header Theme:</span> &nbsp; &nbsp;
+            <rdropdown
+                [Items]="colors"
+                PlaceholderText="Choose a Color"
+                [DropDownContentWidth]="'310px'"
+                Width="280px"
+                [(ngModel)]="selectedColor">
+            </rdropdown>
+            <br />
+            <br />
             <rgrid [PageItems]="ditems" [Items]="gridItems1"
                   [EnableShadow]="false" [ShowGroupHeader]="true"
                   [RowHeightInPx]="'auto'" [GroupHeaderRowHeightInPx]="'50px'"
                   [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
                   [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
-                  [HeaderBackgroundColor]="'#534AB7'"
+                  [HeaderBackgroundColor]="selectedColor.Value"
                   [TableHeight]="'400px'" [TableWidth]="'950px'">
             </rgrid>
                 

@@ -281,6 +281,15 @@ export class AppRootComponent {
   ];
   dropdownSelected: DropdownModel | undefined;
 
+  colors: DropDownItemModel[] = [
+    new DropDownItemModel('#534AB7', 'Dark Blue'),
+    new DropDownItemModel('Coral', 'Coral'),
+    new DropDownItemModel('Blue', 'Blue'),
+    new DropDownItemModel('teal', 'Teal')
+  ]
+
+  selectedColor: DropdownModel = this.colors[0];
+
   // ─── Form: Select Dropdown ───────────────────────────────────────────
   selectItems: RSelectItemModel[] = [
     Object.assign(new RSelectItemModel({ id: 1 }, 'TypeScript'), { IsSelected: true }),

@@ -146,8 +146,8 @@
 
                 <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                     
-                    <tr *ngFor="let item of ShowItems.Rows; trackBy:cdkVirtualTrackBy" 
-                    [ngStyle]="{ 'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center' }">
+                    <tr *ngFor="let item of ShowItems.Rows; let i = index; trackBy:cdkVirtualTrackBy" 
+                    [ngStyle]="{ 'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center', 'overflow': 'hidden' }">
     
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center; width:26px">
@@ -215,7 +215,8 @@
                 <ng-container *ngIf="IsGroupHaveColumns && DisplayGroupItems">
 
                     <ng-container *ngFor="let grpitem of DisplayGroupItems; trackBy: cdkVirtualGroupTrackBy">
-                        <tr style="border-bottom: 1px solid lightgray;" [ngStyle]="{ 'width': '100%', 'height': GroupHeaderRowHeightInPx, 'align-content' : 'center' }">
+                        <tr style="border-bottom: 1px solid lightgray;" [ngStyle]="{ 'width': '100%', 'overflow': 'hidden', 
+                                                    'height': GroupHeaderRowHeightInPx, 'align-content' : 'center' }">
                             <td colspan="2">
                                 <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"
                                     [ngStyle]="{'--groupbyiconcolor': GroupByIconColor}"
@@ -226,7 +227,8 @@
                         </tr>
 
                         <ng-container *ngIf="grpitem.IsExpanded">
-                            <tr *ngFor="let item of grpitem.Values" [ngStyle]="{ 'width': '100%', 'height': RowHeightInPx, 'align-content' : 'center' }">
+                            <tr *ngFor="let item of grpitem.Values" [ngStyle]="{ 'width': '100%', 'height': RowHeightInPx, 
+                                    'align-content' : 'center', 'overflow': 'hidden' }">
 
                                 <ng-container *ngIf="EnableSelectColummn">
                                     <td style="text-align: center; width:26px">

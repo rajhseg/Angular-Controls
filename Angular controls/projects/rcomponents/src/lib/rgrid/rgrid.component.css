@@ -237,7 +237,6 @@ tbody tr td{
     cursor: pointer;    
   }
 
-/* ── Scrollbar ──────────────────────────────── */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;

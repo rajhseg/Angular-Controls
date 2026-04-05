@@ -227,10 +227,15 @@
         <div class="card-body">
           <div style="margin-bottom: 16px;">
             <label class="form-label">Value: {{ progressValue }}%</label>
-            <input type="range" min="0" max="100" [(ngModel)]="progressValue" style="width: 100%;" />
+
+            <rslider [(ngModel)]="progressValue" [MinValue]="0" 
+                     [MaxValue]="100" 
+                     [SliderBarWidth]="'330px'" [BackgroundColor]="'#e8e8f0'" 
+                     [IsDisplayValue]="false">
+            </rslider>
           </div>
           
-        <rprogressbar style="margin-left: 100px;margin-top: 50px;" [FloatInCenter]="false" [ForeColor]="'#7F77DD'" [TrackColor]="'#e8e8f0'" [EnableBackDrop]="false"
+        <rprogressbar style="margin-left: 100px;margin-top: 20px;" [FloatInCenter]="false" [ForeColor]="'#7F77DD'" [TrackColor]="'#e8e8f0'" [EnableBackDrop]="false"
            [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
           [ProgressBarWidth]="'150px'" [Percentage]="progressValue" [CircularLineWidth]="'15px'"
           [FiniteCircularDisplayText]="'Progress'" [Type]="progressBarType">

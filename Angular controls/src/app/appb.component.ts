@@ -289,6 +289,8 @@ export class AppRootComponent {
     new DropDownItemModel('teal', 'Teal')
   ]
 
+  password: string = '';
+  
   selectedColor: DropdownModel = this.colors[0];
 
   // ─── Form: Select Dropdown ───────────────────────────────────────────

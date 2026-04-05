@@ -3,6 +3,7 @@
      Displays every component in a card grid, grouped by category.
      ===================================================================== -->
 
+     
 <div class="showcase-root">
 
   <!-- Top navigation -->
@@ -415,7 +416,46 @@
         <div class="card-hint">Clicked {{ buttonClickCount }} time(s). Supports <code>ButtonClick</code> output event.</div>
       </div>
 
-      <!-- Checkbox -->
+
+      <!-- Textbox -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Text Box</h2>
+          <code class="card-selector">&lt;rtextbox&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtextbox
+            PlaceholderText="Please enter full name"
+            LabelText="Full Name"
+            [LabelForeColor]="'black'"
+            [(ngModel)]="textboxValue"
+            Width="320px">
+          </rtextbox>
+        </div>
+        <div class="card-hint">Value: "{{ textboxValue }}"</div>
+      </div>
+
+      <!-- Password -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Password Box</h2>
+          <code class="card-selector">&lt;rtextbox&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtextbox [IsPasswordBox]="true"
+            PlaceholderText="Please enter password"
+            LabelText="Password"
+            [LabelForeColor]="'black'"
+            [(ngModel)]="password"
+            Width="320px">
+          </rtextbox>
+        </div>
+        <div class="card-hint">Value: "{{ password }}"</div>
+      </div>
+
+            <!-- Checkbox -->
       <div class="card">
         <div class="card-header">
           <span class="card-tag tag-form">Form</span>
@@ -437,23 +477,24 @@
         <div class="card-hint">Value: <strong>{{ checkboxValue }}</strong>. Supports <code>ControlValueAccessor</code>.</div>
       </div>
 
-      <!-- Textbox -->
+
       <div class="card">
         <div class="card-header">
-          <span class="card-tag tag-form">Form</span>
-          <h2 class="card-title">Text Box</h2>
-          <code class="card-selector">&lt;rtextbox&gt;</code>
+          <span class="card-tag tag-data">Data</span>
+          <h2 class="card-title">Calendar</h2>
+          <code class="card-selector">&lt;rcalendar&gt;</code>
         </div>
-        <div class="card-body">
-          <rtextbox
-            PlaceholderText="Please enter full name"
-            LabelText="Full Name"
-            [LabelForeColor]="'black'"
-            [(ngModel)]="textboxValue"
-            Width="320px">
-          </rtextbox>
+        <div class="card-body center" style="margin-left:-100px">
+          <rcalendar
+            [(ngModel)]="calendarSelectedDate"
+            (valueChanged)="onCalendarChange($event)"
+            SelectedDateColor="#7F77DD"
+            TodayColor="#1D9E75">
+          </rcalendar>
         </div>
-        <div class="card-hint">Value: "{{ textboxValue }}"</div>
+        <div class="card-hint">
+          Selected: <strong>{{ calendarSelectedDate ? (calendarSelectedDate | date:'mediumDate') : 'none' }}</strong>.
+        </div>
       </div>
 
       <!-- Numeric -->
@@ -627,7 +668,8 @@
           <code class="card-selector">&lt;rfileupload&gt;</code>
         </div>
         <div class="card-body">
-          <rfileupload
+          <rfileupload [EnableShadowEffect]="false" 
+            [ShowFilesAsDropdownContainer]="true"
             LabelText="Drop files here or click to browse"
             [SelectMultipleFiles]="true"
             Width="320px">

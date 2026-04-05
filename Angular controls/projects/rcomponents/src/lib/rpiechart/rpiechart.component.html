@@ -1,7 +1,7 @@
 
 
 
-<div [id]="Id" style="position: relative;" [ngStyle]="{ 'width': ChartWidth+'px', 
+<div  [style.font-family]="FontFamily" [id]="Id" style="position: relative;" [ngStyle]="{ 'width': ChartWidth+'px', 
                                                         'height': (ChartWidth + DataListHeight) +'px'}">
     <canvas style="position: absolute;" #procan width="{{ChartWidth}}" height="{{ChartWidth}}" 
                 [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }"

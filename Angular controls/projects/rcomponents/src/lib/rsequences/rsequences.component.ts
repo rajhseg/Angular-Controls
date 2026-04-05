@@ -4,6 +4,7 @@ import { RSequenceVerticalItem } from './rsequence/rsequenceitem';
 import { NgForOf } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstate-vertical',
@@ -19,7 +20,7 @@ import { RWindowHelper } from '../rwindowObject';
     }
   ]
 })
-export class RStateVerticalComponent implements ControlValueAccessor {
+export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalItem> implements ControlValueAccessor {
 
   private _currentActiveIndex: number = -1;
 
@@ -139,12 +140,8 @@ export class RStateVerticalComponent implements ControlValueAccessor {
   OnChanged: Function = (item: RSequenceVerticalItem) => { };
   OnTouched: Function = (item: RSequenceVerticalItem) => { };
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private cdr: ChangeDetectorRef, private winObj: RWindowHelper) {
+  constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

@@ -4,6 +4,7 @@ import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOu
 import { RWindowHelper } from "../rwindowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup, CdkDragMove } from '@angular/cdk/drag-drop';
 import { RTabService } from "../rtab.service";
+import { RBaseComponent } from "../rmodels/RBaseComponent";
 
 
 @Component({
@@ -16,7 +17,7 @@ import { RTabService } from "../rtab.service";
   imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
     NgClass, CdkDrag, CdkDropList, JsonPipe]
 })
-export class RTabsComponent implements AfterContentInit, AfterContentChecked, AfterViewInit {
+export class RTabsComponent extends RBaseComponent<any> implements AfterContentInit, AfterContentChecked, AfterViewInit {
 
 
   private _selectedTabId: string | undefined = undefined;
@@ -94,15 +95,10 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
 
   @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
   @Output()
   headerClicked = new EventEmitter<RTabHeaderWithTabId>();
 
-  constructor(private winobj: RWindowHelper,
+  constructor(winobj: RWindowHelper,
     private cdr: ChangeDetectorRef,
     private cfr: ComponentFactoryResolver,
     private rendererFactory: RendererFactory2,
@@ -112,8 +108,9 @@ export class RTabsComponent implements AfterContentInit, AfterContentChecked, Af
     private viewRef: ViewContainerRef,
     @Host() public hostElementRef: ElementRef
   ) {
-    this.Id = this.winobj.GenerateUniqueId();
-    this.HostElementId = this.winobj.GenerateUniqueId();
+    super(winobj);
+    this.Id = this.winObj.GenerateUniqueId();
+    this.HostElementId = this.winObj.GenerateUniqueId();
     this.renderer = this.rendererFactory.createRenderer(null, null);
     RTabService.GetInstance().AddTabsInstance(this);
   }

@@ -1,6 +1,6 @@
 
 
-<div #startElement class="rfilterclose dropdown" [id]="Id">
+<div #startElement class="rfilterclose dropdown"  [style.font-family]="FontFamily" [id]="Id">
     <div #openbtn (click)="FilterToggle($event)">
         <svg *ngIf="!IsFilteredApplied" [attr.width]="Width" [attr.height]="Height" viewBox="0 0 24 24" 
             [attr.fill]="Color"  xmlns="http://www.w3.org/2000/svg">

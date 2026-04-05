@@ -2,6 +2,7 @@ import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RBarChartItem, RDrawTextItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstackedbarchart-vertical',
@@ -10,7 +11,7 @@ import { RWindowHelper } from '../rwindowObject';
   templateUrl: './rstackedbarchart-vertical.component.html',
   styleUrl: './rstackedbarchart-vertical.component.css'
 })
-export class RStackedBarChartVerticalComponent implements AfterViewInit {
+export class RStackedBarChartVerticalComponent extends RChartBaseComponent implements AfterViewInit {
 
   private _width: number = 300;
   private _height: number = 300;
@@ -186,12 +187,8 @@ export class RStackedBarChartVerticalComponent implements AfterViewInit {
 
   public IsRendered: boolean = false;
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

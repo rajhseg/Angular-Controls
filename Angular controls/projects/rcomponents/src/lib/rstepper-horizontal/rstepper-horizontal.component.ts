@@ -5,6 +5,7 @@ import { RSequenceHorizontalItem } from '../rsequences-horizontal/rsequence-hori
 import { RStateHorizontalComponent } from "../rsequences-horizontal/rsequences-horizontal.component";
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { RButtonComponent } from '../rbutton/rbutton.component';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstepper-horizontal',
@@ -13,7 +14,7 @@ import { RButtonComponent } from '../rbutton/rbutton.component';
   templateUrl: './rstepper-horizontal.component.html',
   styleUrl: './rstepper-horizontal.component.css'
 })
-export class RStepperHorizontalComponent implements AfterContentInit {
+export class RStepperHorizontalComponent extends RBaseComponent<any> implements AfterContentInit {
 
   
   seqItems: RSequenceHorizontalItem[] = [];
@@ -147,12 +148,8 @@ export class RStepperHorizontalComponent implements AfterContentInit {
     return this._activeStepNo;
   }
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private cdr: ChangeDetectorRef, private winObj: RWindowHelper) {
+  constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
+    super(winObj);
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();

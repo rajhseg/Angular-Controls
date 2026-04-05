@@ -1,6 +1,6 @@
 <div style="display: flex;cursor: pointer;align-items: center;" 
     [ngStyle]="{ 'font': Font, 'pointer-events':(Disabled || ReadOnly) ? 'none': '' }"
-    [id]="Id"  (click)="check($event)">
+     [style.font-family]="FontFamily" [id]="Id"  (click)="check($event)">
     
     <div *ngIf="!DisplayTextRightAlign" class="label" [ngStyle]="{ 'color': LabelColor}">
         {{DisplayText}}

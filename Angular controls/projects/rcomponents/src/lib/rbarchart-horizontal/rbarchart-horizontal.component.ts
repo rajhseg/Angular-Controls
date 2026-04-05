@@ -188,13 +188,8 @@ export class RBarChartHorizontalComponent extends RChartBaseComponent implements
 
   public IsRendered: boolean = false;
 
-  Id: string = '';
-
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
-    super();
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

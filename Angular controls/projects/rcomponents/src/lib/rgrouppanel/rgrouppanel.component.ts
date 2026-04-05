@@ -1,6 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
 import { RWindowHelper } from '../rwindowObject';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rgroup-panel',
@@ -9,7 +10,7 @@ import { RWindowHelper } from '../rwindowObject';
   templateUrl: './rgrouppanel.component.html',
   styleUrl: './rgrouppanel.component.css'
 })
-export class RGrouppanelComponent {
+export class RGrouppanelComponent  extends RBaseComponent<any>  {
 
 @Input()
 public EnableShadowEffect: boolean = false;
@@ -23,12 +24,8 @@ IsItemsArrangeHorizontal: boolean = false;
 @Input()
 TitleForeColor: string = "gray";
 
-Id: string = '';
-
-@HostBinding('id')
-HostElementId: string = '';
-
 constructor(private windowHelper: RWindowHelper){
+  super(windowHelper);
   this.Id = this.windowHelper.GenerateUniqueId();
   this.HostElementId = this.windowHelper.GenerateUniqueId();
 }

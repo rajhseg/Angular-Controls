@@ -1,5 +1,5 @@
 <div class="display: flex;" [ngClass]="{ 'root': EnableShadow, 'rootNormal': !EnableShadow }"
-        [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
+         [style.font-family]="FontFamily" [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
     <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
         [ngStyle]="{ 'width': TableWidth }"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">

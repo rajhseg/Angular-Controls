@@ -6,6 +6,7 @@ import { EditViewTemplateDirective } from "../rgrid/edit-template.directive";
 import { RWindowHelper } from '../rwindowObject';
 import { RStateVerticalComponent } from "../rsequences/rsequences.component";
 import { RSequenceVerticalItem } from '../rsequences/rsequence/rsequenceitem';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { RSequenceVerticalItem } from '../rsequences/rsequence/rsequenceitem';
   styleUrl: './rstepper-vertical.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RStepperVerticalComponent implements AfterContentInit {
+export class RStepperVerticalComponent extends RBaseComponent<any> implements AfterContentInit {
 
   seqItems: RSequenceVerticalItem[] = [];
 
@@ -181,12 +182,8 @@ export class RStepperVerticalComponent implements AfterContentInit {
     return this._activeStepNo;
   }
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private cdr: ChangeDetectorRef, private winObj: RWindowHelper) {
+  constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
+    super(winObj);
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();

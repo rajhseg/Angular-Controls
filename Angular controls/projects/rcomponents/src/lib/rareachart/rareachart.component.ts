@@ -189,13 +189,8 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   @Input()
   AreaOpacity: number = 0.2;
 
-  Id:string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
-    super();
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

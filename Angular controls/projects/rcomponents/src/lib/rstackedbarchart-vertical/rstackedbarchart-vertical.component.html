@@ -1,6 +1,6 @@
 
 
-<div [id]="Id">
+<div  [style.font-family]="FontFamily" [id]="Id">
     <canvas #rbar width="{{Width + PaddingLeft + PaddingRight}}" height="{{Height + PaddingTop + PaddingBottom}}"
             [ngStyle]="{ 'border-radius': EnableBorder ? '5px' : '', 'border': EnableBorder ? '0.5px solid '+BorderColor : '' }">
 

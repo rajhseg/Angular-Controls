@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild
 import { RBarChartItem, RGraph, RPopupChartItem, RYSeriesChartItem, RGraphSeriesChartItem, RBaseChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rserieschart',
@@ -10,7 +11,7 @@ import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
   templateUrl: './rserieschart.component.html',
   styleUrl: './rserieschart.component.css'
 })
-export class RSeriesChartComponent {
+export class RSeriesChartComponent  extends RChartBaseComponent {
 
 
   private _width: number = 300;
@@ -173,12 +174,8 @@ export class RSeriesChartComponent {
 
   public IsRendered: boolean = false;
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

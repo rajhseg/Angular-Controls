@@ -4,6 +4,7 @@ import { RSequenceHorizontalItem } from './rsequence-horizontal/sequenceitemhori
 import { NgForOf } from '@angular/common';
 import { RSequenceHorizontalComponent } from './rsequence-horizontal/rsequence-horizontal.component';
 import { RWindowHelper } from '../rwindowObject';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstate-horizontal',
@@ -19,7 +20,7 @@ import { RWindowHelper } from '../rwindowObject';
     }
   ]
 })
-export class RStateHorizontalComponent  implements ControlValueAccessor {
+export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizontalItem> implements ControlValueAccessor {
 
   private _currentActiveIndex: number = -1;
 
@@ -127,12 +128,8 @@ export class RStateHorizontalComponent  implements ControlValueAccessor {
   OnChanged: Function = (item: RSequenceHorizontalItem) => { };
   OnTouched: Function = (item: RSequenceHorizontalItem) => { };
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private cdr: ChangeDetectorRef, private winObj: RWindowHelper) {
+  constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

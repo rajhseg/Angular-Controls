@@ -194,14 +194,9 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   private PopupItems: RPopupChartItem[] = [];
 
   public IsRendered: boolean = false;
-
-  @HostBinding('id')
-  HostElementId: string = ''
-
-  Id: string = '';
   
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
-    super();
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

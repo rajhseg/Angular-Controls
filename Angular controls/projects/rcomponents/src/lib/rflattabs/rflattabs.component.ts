@@ -4,6 +4,7 @@ import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOu
 import { RWindowHelper } from "../rwindowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup, CdkDragMove } from '@angular/cdk/drag-drop';
 import { RTabService } from "../rtab.service";
+import { RBaseComponent } from "../rmodels/RBaseComponent";
 
 @Component({
   selector: 'rflattabs',
@@ -15,7 +16,7 @@ import { RTabService } from "../rtab.service";
   templateUrl: './rflattabs.component.html',
   styleUrl: './rflattabs.component.css'
 })
-export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked, AfterViewInit {
+export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterContentInit, AfterContentChecked, AfterViewInit {
   
     private _selectedTabId: string | undefined = undefined;
     private _tabWidth: string = '100%';
@@ -103,11 +104,6 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
   
     @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;
   
-    Id: string = '';
-    
-    @HostBinding('id')
-    HostElementId: string = '';
-  
     constructor(private winobj: RWindowHelper,
       private cdr: ChangeDetectorRef,
       private cfr: ComponentFactoryResolver,
@@ -118,7 +114,7 @@ export class RFlatTabsComponent implements AfterContentInit, AfterContentChecked
       private viewRef: ViewContainerRef,
       @Host() public hostElementRef: ElementRef
     ) {
-      
+      super(winobj);
       this.Id = this.winobj.GenerateUniqueId();
       this.HostElementId = this.winobj.GenerateUniqueId();
 

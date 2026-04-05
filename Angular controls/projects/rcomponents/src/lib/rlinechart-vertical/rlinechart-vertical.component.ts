@@ -2,6 +2,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RLineChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rlinechart-vertical',
@@ -10,7 +11,7 @@ import { RWindowHelper } from '../rwindowObject';
   templateUrl: './rlinechart-vertical.component.html',
   styleUrl: './rlinechart-vertical.component.css'
 })
-export class RLineChartVerticalComponent implements AfterViewInit {
+export class RLineChartVerticalComponent  extends RChartBaseComponent  implements AfterViewInit {
 
   
   private _width: number = 300;
@@ -177,12 +178,8 @@ export class RLineChartVerticalComponent implements AfterViewInit {
 
   public IsRendered: boolean = false;
 
-  Id: string = '';
-
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

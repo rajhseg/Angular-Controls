@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RBaseChartItem } from '../rmodels/RBarChartItem';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rpiechart',
@@ -10,7 +11,7 @@ import { RBaseChartItem } from '../rmodels/RBarChartItem';
   templateUrl: './rpiechart.component.html',
   styleUrl: './rpiechart.component.css'
 })
-export class RPieChartComponent {
+export class RPieChartComponent  extends RChartBaseComponent {
 
   @Input()
   EnableBorder: boolean = false;
@@ -86,12 +87,8 @@ export class RPieChartComponent {
 
   context: CanvasRenderingContext2D | null | undefined = null;
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

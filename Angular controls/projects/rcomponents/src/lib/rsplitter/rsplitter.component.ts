@@ -6,6 +6,7 @@ import { JsonPipe, NgFor, NgIf, NgStyle, NgTemplateOutlet } from "@angular/commo
 import { ChangeDetectionStrategy } from "@angular/core";
 import { RCssUnitsService } from "../rcss-units.service";
 import { RelativeUnitType } from "../rcss-units.service";
+import { RBaseComponent } from "../rmodels/RBaseComponent";
 
 
 @Component({
@@ -16,15 +17,11 @@ import { RelativeUnitType } from "../rcss-units.service";
   imports: [NgFor, NgIf, NgTemplateOutlet, JsonPipe, NgStyle],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RSplitterComponent implements AfterContentInit {
+export class RSplitterComponent extends RBaseComponent<any> implements AfterContentInit {
 
   RenderItems: IRSplitterInterface[] = [];
 
   RSType = RSplitterType;
-
-  Id: string = '';
-
-  HostElementId: string = '';
 
   _totalWidthInPx: string = '500px';
 
@@ -80,9 +77,10 @@ export class RSplitterComponent implements AfterContentInit {
 
   @ContentChildren(RPageContentDirective, { descendants: true }) Contents!: QueryList<RPageContentDirective>;
 
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef,
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef,
               private winHelper: RWindowHelper, private destroy: DestroyRef,
               private cssUnitService: RCssUnitsService, private eleRef: ElementRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, HostBinding, Input, output, Output
 import { RTreeItem } from './rtreeModel';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RWindowHelper } from '../rwindowObject';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rtree',
@@ -10,7 +11,7 @@ import { RWindowHelper } from '../rwindowObject';
   templateUrl: './rtree.component.html',
   styleUrl: './rtree.component.css'
 })
-export class RTreeComponent {
+export class RTreeComponent extends RBaseComponent<any> {
 
   private _items: RTreeItem[] = [];
 
@@ -32,12 +33,8 @@ export class RTreeComponent {
     return this._items;
   }
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper){
+  constructor(winObj: RWindowHelper){
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

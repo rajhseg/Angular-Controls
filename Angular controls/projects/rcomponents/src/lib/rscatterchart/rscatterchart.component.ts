@@ -5,6 +5,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RBarChartItem, RDrawTextItem, RPopupChartItem, RScatterChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { RWindowHelper } from '../rwindowObject';
   templateUrl: './rscatterchart.component.html',
   styleUrl: './rscatterchart.component.css'
 })
-export class RScatterChartComponent implements AfterViewInit {
+export class RScatterChartComponent extends RChartBaseComponent implements AfterViewInit {
 
   private _width: number = 300;
   private _height: number = 300;
@@ -171,12 +172,8 @@ export class RScatterChartComponent implements AfterViewInit {
 
   public IsRendered: boolean = false;
 
-  Id: string = '';
-  
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

@@ -1,6 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { RWindowHelper } from '../rwindowObject';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rbutton',
@@ -9,7 +10,7 @@ import { RWindowHelper } from '../rwindowObject';
   templateUrl: './rbutton.component.html',
   styleUrl: './rbutton.component.css'
 })
-export class RButtonComponent {
+export class RButtonComponent extends RBaseComponent<any> {
 
   @Output()
   public ButtonClick = new EventEmitter<any>();
@@ -39,12 +40,8 @@ export class RButtonComponent {
     this.ButtonClick.emit($event);
   }
 
-  Id: string = '';
-
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper){
+  constructor(winObj: RWindowHelper){
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

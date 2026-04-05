@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, inject, Output } from "@angular/core";
+import { Directive, ElementRef, EventEmitter, HostBinding, inject, Input, Output } from "@angular/core";
 import { RWindowHelper } from "../rwindowObject";
 
 @Directive()
@@ -12,6 +12,9 @@ export abstract class RBaseComponent<T> {
     @Output()
     valueChanged = new EventEmitter<T>();
 
+    @Input()
+    FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
     constructor(protected winObj: RWindowHelper) {
         this.Id = this.winObj.GenerateUniqueId();
         this.HostElementId = this.winObj.GenerateUniqueId();
@@ -21,6 +24,19 @@ export abstract class RBaseComponent<T> {
 
 @Directive()
 export abstract class RChartBaseComponent {
+
+    Id: string = '';
+
+    @HostBinding('id')
+    HostElementId: string = '';
+    
+    @Input()
+    FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+    constructor(protected winObj: RWindowHelper){
+        this.Id = this.winObj.GenerateUniqueId();
+        this.HostElementId = this.winObj.GenerateUniqueId();
+    }
 
 }
 

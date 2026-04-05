@@ -2,6 +2,7 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RProgressBarDisplayType, RProgressBarType } from './rprogressbarType';
 import { WINDOWOBJECT, RWindowHelper } from '../rwindowObject';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rprogressbar',
@@ -10,7 +11,7 @@ import { WINDOWOBJECT, RWindowHelper } from '../rwindowObject';
   templateUrl: './rprogressbar.component.html',
   styleUrl: './rprogressbar.component.css'
 })
-export class RProgressbarComponent implements AfterViewInit, AfterViewChecked {
+export class RProgressbarComponent extends RBaseComponent<any> implements AfterViewInit, AfterViewChecked {
 
   @ViewChild('flatitemProgress', { read: ElementRef, static: false })
   stLineElement: ElementRef | undefined = undefined;
@@ -29,9 +30,6 @@ export class RProgressbarComponent implements AfterViewInit, AfterViewChecked {
 
   @Input()
   EnableBackDrop: boolean = false;
-
-  @HostBinding('id')
-  Id: string = '';
 
   _foreColor: string = 'blue';
 
@@ -317,6 +315,7 @@ export class RProgressbarComponent implements AfterViewInit, AfterViewChecked {
   }
 
   constructor(private winobj: RWindowHelper) {
+    super(winobj);
     this.Id = this.winobj.GenerateUniqueId();
   }
 

@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, I
 import { RWindowHelper } from '../rwindowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RBaseChartItem } from '../rmodels/RBarChartItem';
+import { RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rdonutchart',
@@ -10,7 +11,7 @@ import { RBaseChartItem } from '../rmodels/RBarChartItem';
   templateUrl: './rdonutchart.component.html',
   styleUrl: './rdonutchart.component.css'
 })
-export class RDonutChartComponent implements AfterViewInit {
+export class RDonutChartComponent  extends RChartBaseComponent  implements AfterViewInit {
 
   @Input()
   EnableBorder: boolean = false;
@@ -82,13 +83,9 @@ export class RDonutChartComponent implements AfterViewInit {
   }
 
   context: CanvasRenderingContext2D | null | undefined = null;
-  
-  Id: string = '';
 
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }

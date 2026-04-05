@@ -19,7 +19,7 @@ import { RGridComponent } from "../rgrid/rgrid.component";
 import { RColumnComponent } from '../rgrid/rcolumn/rcolumn.component';
 import { ReadViewTemplateDirective } from '../rgrid/view-template.directive';
 import { EditViewTemplateDirective } from '../rgrid/edit-template.directive';
-import { CalenderChangeMonthInfo } from '../rmodels/RBaseComponent';
+import { CalenderChangeMonthInfo, RBaseComponent, RChartBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'revents-calender',
@@ -40,7 +40,7 @@ import { CalenderChangeMonthInfo } from '../rmodels/RBaseComponent';
     DatePipe
   ]
 })
-export class REventsCalenderComponent implements IRDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IRPopupCloseInterface {
+export class REventsCalenderComponent  extends RBaseComponent<any> implements IRDropDown, OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, IRPopupCloseInterface {
 
   self: REventsCalenderComponent = this;
   isDropdownChild: boolean = true;
@@ -84,7 +84,6 @@ export class REventsCalenderComponent implements IRDropDown, OnInit, AfterViewIn
   ];
 
   isSelectDayTriggered: boolean = false;
-  Id: string = '';
 
   @Input()
   ParentDropDownId: string = '';
@@ -310,16 +309,13 @@ export class REventsCalenderComponent implements IRDropDown, OnInit, AfterViewIn
   @Output()
   Closed = new EventEmitter<boolean>(); //output<boolean>();
 
-  private winObj!: Window;
+  private windowObj!: Window;
 
   @ViewChild('monthdropdown', { read: RDropdownComponent }) monthDropDownControl!: RDropdownComponent;
 
   @ViewChild('yeardropdown', { read: RDropdownComponent }) yearDropDownControl!: RDropdownComponent;
 
   dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/
-
-  @HostBinding('id')
-  HostElementId: string = '';
 
   cls!: RCloseService;
   isModalOpen: boolean = false;
@@ -336,7 +332,8 @@ export class REventsCalenderComponent implements IRDropDown, OnInit, AfterViewIn
   constructor(private popupService: RPopupService,
     private windowHelper: RWindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
     private cdr: ChangeDetectorRef, private cssUnitSer: RCssUnitsService) {
-
+      
+    super(windowHelper);
     this.cls = RCloseService.GetInstance();
 
     this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
@@ -350,7 +347,7 @@ export class REventsCalenderComponent implements IRDropDown, OnInit, AfterViewIn
     this.Id = this.windowHelper.GenerateUniqueId();
     this.selectedDate = null;
     this.loadYears(new Date().getFullYear());    
-    this.winObj = inject(WINDOWOBJECT);
+    this.windowObj = inject(WINDOWOBJECT);
     this.LoadMonth(new Date(), false);
     this.cls.AddInstance(this);
 
@@ -599,8 +596,8 @@ export class REventsCalenderComponent implements IRDropDown, OnInit, AfterViewIn
   ngOnDestroy(): void {
 
     if (this.windowHelper.isExecuteInBrowser()) {
-      if (this.winObj) {
-        this.winObj.removeEventListener('click', this.WindowClick.bind(this));
+      if (this.windowObj) {
+        this.windowObj.removeEventListener('click', this.WindowClick.bind(this));
       }
     }
 

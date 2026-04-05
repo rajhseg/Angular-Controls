@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, HostBinding, Input, OnDestroy, Vi
 import { REventsHorizontalItem, REventsHorizontalTimeItems, REventsRenderDateSchedule, REventsRenderObj, REventsRenderChannelItem, REventsRenderSchedules, REventsSchedules, REventsVerticalChannels, RDateAndVerticalChannels } from './reventsschedule';
 import { DatePipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RWindowHelper } from '../rwindowObject';
+import { RBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'revents-schedule',
@@ -11,7 +12,7 @@ import { RWindowHelper } from '../rwindowObject';
   styleUrl: './reventsschedule.component.css',
   providers:[DatePipe]
 })
-export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
+export class REventsScheduleComponent  extends RBaseComponent<any>  implements AfterViewInit, OnDestroy {
 
   @ViewChild('hscroll', { read: ElementRef }) hScroll!: ElementRef;
 
@@ -314,13 +315,8 @@ export class REventsScheduleComponent implements AfterViewInit, OnDestroy {
   @Input()
   EventBorderColor: string = "#10C4C8";
 
-  Id: string = '';
-
-  @HostBinding('id')
-  HostElementId: string = '';
-
-  constructor(private winObj: RWindowHelper, private datePipe: DatePipe) {
-    
+  constructor(winObj: RWindowHelper, private datePipe: DatePipe) {
+    super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
 

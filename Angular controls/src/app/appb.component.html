@@ -1061,9 +1061,10 @@
             </rdropdown>
             <br />
             <br />
-            <rgrid [PageItems]="ditems" [Items]="gridItems1"
+            <rgrid [PageItems]="ditems" [Items]="gridItems1" 
+                  [EnableAlternateRowColor]="true"
                   [EnableShadow]="false" [ShowGroupHeader]="true"
-                  [RowHeightInPx]="'auto'" [GroupHeaderRowHeightInPx]="'50px'"
+                  [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
                   [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
                   [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
                   [HeaderBackgroundColor]="selectedColor.Value"

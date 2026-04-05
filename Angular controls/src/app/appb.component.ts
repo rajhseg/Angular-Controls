@@ -285,6 +285,7 @@ export class AppRootComponent {
     new DropDownItemModel('#534AB7', 'Dark Blue'),
     new DropDownItemModel('Coral', 'Coral'),
     new DropDownItemModel('Blue', 'Blue'),
+    new DropDownItemModel('Purple', 'Purple'),
     new DropDownItemModel('teal', 'Teal')
   ]
 
@@ -427,24 +428,24 @@ export class AppRootComponent {
 
     let d = new Date("1982/03/25");
 
-    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script>', 'Age': 24, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
-    this.gridItems1.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1981)), 'IsGrad': true });
-    this.gridItems1.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': false });
-    this.gridItems1.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1983)), 'IsGrad': true });
-    this.gridItems1.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1984)), 'IsGrad': false });
-    this.gridItems1.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1985)), 'IsGrad': true });
-    this.gridItems1.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
-    this.gridItems1.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': 'BBA', 'DOB': new Date(d.setFullYear(1986)), 'IsGrad': false });
-    this.gridItems1.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': 'BPharm', 'DOB': new Date(d.setFullYear(1987)), 'IsGrad': true });
-    this.gridItems1.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': true });
-    this.gridItems1.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1983)), 'IsGrad': true });
-    this.gridItems1.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1984)), 'IsGrad': false });
-    this.gridItems1.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1985)), 'IsGrad': true });
-    this.gridItems1.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': true });
-    this.gridItems1.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': 'BBA', 'DOB': new Date(d.setFullYear(1984)), 'IsGrad': true });
-    this.gridItems1.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': 'BA', 'DOB': new Date(d.setFullYear(1986)), 'IsGrad': true });
-    this.gridItems1.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
-    this.gridItems1.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
+    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script>', 'Age': 24, 'Education': 'BCom',  'IsGrad': true });
+    this.gridItems1.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC', 'IsGrad': true });
+    this.gridItems1.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE', 'IsGrad': false });
+    this.gridItems1.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom', 'IsGrad': true });
+    this.gridItems1.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': 'BE',  'IsGrad': false });
+    this.gridItems1.push({'Id':6, 'Name': 'AAA', 'Age': 22, 'Education': 'BSC',  'IsGrad': true });
+    this.gridItems1.push({'Id':7, 'Name': 'CCC', 'Age': 21, 'Education': 'BA', 'IsGrad': true });
+    this.gridItems1.push({'Id':8, 'Name': 'AAA', 'Age': 28, 'Education': 'BBA',  'IsGrad': false });
+    this.gridItems1.push({'Id':9, 'Name': 'AAA', 'Age': 32, 'Education': 'BPharm','IsGrad': true });
+    this.gridItems1.push({'Id':10, 'Name': 'BBB', 'Age': 54, 'Education': 'BE',  'IsGrad': true });
+    this.gridItems1.push({'Id':11, 'Name': 'DDD', 'Age': 34, 'Education': 'BSC', 'IsGrad': true });
+    this.gridItems1.push({'Id':12, 'Name': 'RRT', 'Age': 64, 'Education': 'BA', 'IsGrad': false });
+    this.gridItems1.push({'Id':13, 'Name': 'BBB', 'Age': 24, 'Education': 'BA',  'IsGrad': true });
+    this.gridItems1.push({'Id':14, 'Name': 'AAA', 'Age': 14, 'Education': 'BE',  'IsGrad': true });
+    this.gridItems1.push({'Id':15, 'Name': 'CCC', 'Age': 84, 'Education': 'BBA', 'IsGrad': true });
+    this.gridItems1.push({'Id':16, 'Name': 'DDD', 'Age': 34, 'Education': 'BA',  'IsGrad': true });
+    this.gridItems1.push({'Id':17, 'Name': 'AAA', 'Age': 22, 'Education': 'BE',  'IsGrad': true });
+    this.gridItems1.push({'Id':18, 'Name': 'AAA', 'Age': 26, 'Education': 'BE', 'IsGrad': true });
 
   }
 

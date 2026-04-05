@@ -202,6 +202,18 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Input()
   ItemsPerPage!: DropdownModel;
 
+  @Input()
+  OddRowBackColor: string = 'white';
+
+  @Input()
+  EnableAlternateRowColor: boolean = true;
+
+  @Input()
+  RowBackColor: string = 'white';
+
+  @Input()
+  EvenRowBackColor: string = '#f8fafc';
+
   private _tableHeight: string = '200px';
 
   private ActualWidth: string = "100%";

@@ -147,7 +147,8 @@
                 <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                     
                     <tr *ngFor="let item of ShowItems.Rows; let i = index; trackBy:cdkVirtualTrackBy" 
-                    [ngStyle]="{ 'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center', 'overflow': 'hidden' }">
+                    [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
+                        'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center', 'overflow': 'hidden' }">
     
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center; width:26px">
@@ -227,8 +228,10 @@
                         </tr>
 
                         <ng-container *ngIf="grpitem.IsExpanded">
-                            <tr *ngFor="let item of grpitem.Values" [ngStyle]="{ 'width': '100%', 'height': RowHeightInPx, 
-                                    'align-content' : 'center', 'overflow': 'hidden' }">
+                            <tr *ngFor="let item of grpitem.Values; let i = index;" 
+                                    [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
+                                        'width': '100%', 'height': RowHeightInPx, 
+                                        'align-content' : 'center', 'overflow': 'hidden' }">
 
                                 <ng-container *ngIf="EnableSelectColummn">
                                     <td style="text-align: center; width:26px">

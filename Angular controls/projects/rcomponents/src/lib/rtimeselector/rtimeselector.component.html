@@ -1,6 +1,6 @@
 <div #startElement [id]="Id" class="rtimeselectorwindowclose dropdown">
   <div>
-    <div style="display: flex;width: fit-content;">
+    <div style="display: flex;width: fit-content;" (click)="openDropdown($event)">
       <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" 
           [LabelForeColor]="TextBottomLineColor" (Click)="openDropdown($event)"
           [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="'110px'" 
@@ -8,10 +8,8 @@
       <rbutton #openbtn class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"
           [ButtonHeight]="'34px'"
           [ButtonWidth]="'30px'"
-          [ngStyle]="{ 'top': LabelText.trim() !='' ? '8px': '-1px'}"
-          (ButtonClick)="openDropdown($event)">
+          [ngStyle]="{ 'top': LabelText.trim() !='' ? '8px': '-1px'}">
           <span>&#9716;</span>
-          <!-- {{IsDropDownOpen ? 'Close' : 'Open'}} -->
         </rbutton>
     </div>
 

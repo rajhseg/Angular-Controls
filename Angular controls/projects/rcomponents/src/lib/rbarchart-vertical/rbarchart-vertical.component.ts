@@ -170,7 +170,7 @@ export class RBarChartVerticalComponent extends RChartBaseComponent implements A
   }
 
   @Input()
-  PopupBackColor: string = "lightgray";
+  PopupBackColor: string = "#e8e8f0";
 
   @Input()
   PopupForeColor: string | undefined = undefined;

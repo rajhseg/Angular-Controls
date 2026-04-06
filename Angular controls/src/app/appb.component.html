@@ -50,7 +50,6 @@
             BorderColor="#e0e0e0"
             [GlassyEffect]="false"
             AllocatedValueIndicatorColor="#333"
-            PopupBackColor="#fff"
             [PopupBackgroundOpacity]="0.95">
           </rallocated-barchart>
         </div>
@@ -209,7 +208,6 @@
           [XAxisTitle]="'Month'" [YAxisTitle]="'Count'"
           [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" 
           [EnableBorder]="false" [EnablePlotOnPoints]="true"
-          [PopupBackColor]="'violet'" [PopupForeColor]="'white'" 
           [Items]="arealineItems" [Width]="370" [Height]="260">
         </rareachart>
 
@@ -260,7 +258,6 @@
               [GlassyEffect]="false" 
               [GlassyEffectColor]="'darkgray'"
               [TextColor]="'#666'"
-              [PopupBackColor]="'#8f19ff'" [PopupForeColor]="'white'" 
               [YAxisTitle]="'Speed'" [FillAreaColor]="false" [Width]="340"
               [PlotItemSize]="30"
               [Height]="240" [Items]="seriesModel2">
@@ -281,8 +278,7 @@
             <rserieschart 
               [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
               [EnableBorder]="false" [GlassyEffect]="false"
-              [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" 
-              [PopupForeColor]="'white'" [Width]="340" [Height]="240"
+              [Width]="340" [Height]="240"
               [Items]="seriesModel">
             </rserieschart>
 
@@ -302,8 +298,8 @@
             <rserieschart 
               [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
               [EnableBorder]="false" [GlassyEffect]="false"
-              [GlassyEffectColor]="'darkgray'" [PopupBackColor]="'#8f19ff'" 
-              [PopupForeColor]="'white'" [Width]="340" [Height]="240"
+              [GlassyEffectColor]="'darkgray'" 
+              [Width]="340" [Height]="240"
               [Items]="seriesModel1">
             </rserieschart>
 
@@ -324,7 +320,7 @@
           <rstackedbarchart-vertical [MarginX]="60" [Width]="340" [Height]="240" 
             [EnableBorder]="false" [GlassyEffect]="false" 
             [GlassyEffectColor]="'darkgray'"
-            [PopupBackColor]="'smokewhite'" [PopupForeColor]="'black'" 
+            [PopupForeColor]="'black'" 
             [XAxisTitle]="'Monthly Expenses'"
             [YAxisTitle]="'Amount Spent'" 
             [xAxisItemNames]="stackedbarChartXAxisItemNames1"
@@ -345,7 +341,7 @@
               
           
         <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
-          [PopupBackColor]="'smokewhite'" [PopupForeColor]="'black'" 
+          [PopupForeColor]="'black'" 
           [EnableBorder]="false" [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" [Width]="340" [Height]="240" [MarginX]="50"
           [MarginY]="50" [yAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
         </rstackedbarchart-horizontal>
@@ -366,7 +362,7 @@
           
         <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
           [GlassyEffect]="false"   [EnableBorder]="false"
-          [PopupBackColor]="'smokewhite'" [PopupForeColor]="'black'" 
+          [PopupForeColor]="'black'" 
           [GlassyEffectColor]="'darkgray'" [Columns]="stackedrangebarChartItems1" [Width]="340" [Height]="240"
           [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount spent'">
 

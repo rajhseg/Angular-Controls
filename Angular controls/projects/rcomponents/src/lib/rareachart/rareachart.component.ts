@@ -147,7 +147,7 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   DataListHeight: number = 50;
 
   @Input()
-  PopupBackColor: string = "lightgray";
+  PopupBackColor: string = "#e8e8f0";
 
   @Input()
   IsRenderFromInit:boolean = true;

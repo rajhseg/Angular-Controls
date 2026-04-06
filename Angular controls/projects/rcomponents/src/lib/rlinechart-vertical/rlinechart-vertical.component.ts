@@ -147,7 +147,7 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
   DataListHeight: number = 50;
 
   @Input()
-  PopupBackColor: string = "lightgray";
+  PopupBackColor: string = "#e8e8f0";
   
   @Input()
   PopupForeColor: string | undefined = undefined;

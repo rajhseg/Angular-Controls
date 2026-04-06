@@ -175,7 +175,7 @@ export class RStackedBarChartVerticalComponent extends RChartBaseComponent imple
   context: CanvasRenderingContext2D | null = null;
 
   @Input()
-  PopupBackColor: string = "lightgray";
+  PopupBackColor: string = "#e8e8f0";
 
   @Input()
   PopupForeColor: string | undefined = undefined;

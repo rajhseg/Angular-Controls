@@ -178,7 +178,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
   EmptyAreaBorderColor: string = 'lightgray';
   
   @Input()
-  PopupBackColor: string = "lightgray";
+  PopupBackColor: string = "#e8e8f0";
 
   @Input()
   PopupForeColor: string | undefined = undefined;

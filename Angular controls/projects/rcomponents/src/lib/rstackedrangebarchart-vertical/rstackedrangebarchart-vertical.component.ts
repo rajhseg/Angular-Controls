@@ -174,7 +174,7 @@ export class RStackedRangeBarChartVerticalComponent extends RChartBaseComponent 
   bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
   @Input()
-  PopupBackColor: string = "lightgray";
+  PopupBackColor: string = "#e8e8f0";
 
   @Input()
   PopupForeColor: string | undefined = undefined;

@@ -14,14 +14,14 @@
 
 .hgh:hover {
   opacity: var(--rowhoverbackgroundopacity);
-  background-color: var(--rowhoverbackcolor);
-  color: var(--rowhoverforecolor);
+  background: var(--rowhoverbackcolor) !important;
+  color: var(--rowhoverforecolor) !important;
 }
 
 .hgh:hover > td {
   opacity: var(--rowhoverbackgroundopacity);
-  background-color: var(--rowhoverbackcolor);
-  color: var(--rowhoverforecolor);
+  background: var(--rowhoverbackcolor) !important;
+  color: var(--rowhoverforecolor) !important;
 }
 
 .grpheaderItem{

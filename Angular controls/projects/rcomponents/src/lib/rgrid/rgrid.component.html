@@ -147,10 +147,10 @@
                 <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
                     
                     <tr class="hgh" *ngFor="let item of ShowItems.Rows; let i = index; trackBy:cdkVirtualTrackBy" 
-                    [ngStyle]="{ '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
-                       '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity,
-                        'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
-                        'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center', 'overflow': 'hidden' }">
+                    [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
+                        'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center', 'overflow': 'hidden',
+                        '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
+                        '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity }">
     
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center; width:26px">
@@ -231,11 +231,11 @@
 
                         <ng-container *ngIf="grpitem.IsExpanded">
                             <tr class="hgh"  *ngFor="let item of grpitem.Values; let i = index;" 
-                                    [ngStyle]="{ '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
-                                        '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity,
-                                        'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
+                                    [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
                                         'width': '100%', 'height': RowHeightInPx, 
-                                        'align-content' : 'center', 'overflow': 'hidden' }">
+                                        'align-content' : 'center', 'overflow': 'hidden',
+                                        '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
+                                        '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity }">
 
                                 <ng-container *ngIf="EnableSelectColummn">
                                     <td style="text-align: center; width:26px">

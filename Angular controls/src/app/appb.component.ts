@@ -282,11 +282,11 @@ export class AppRootComponent {
   dropdownSelected: DropdownModel | undefined;
 
   colors: DropDownItemModel[] = [
-    new DropDownItemModel('#534AB7', 'Dark Blue'),
-    new DropDownItemModel('Coral', 'Coral'),
-    new DropDownItemModel('Blue', 'Blue'),
-    new DropDownItemModel('Purple', 'Purple'),
-    new DropDownItemModel('teal', 'Teal')
+    new DropDownItemModel({ header: 'rgb(30 23 107)', rowhover: '#7c6edc' , evenrow: '#534AB7' }, 'Violet'),
+    new DropDownItemModel({ header: '#7b1a1a', rowhover: '#c0392b' , evenrow: '#7b1a1a' }, 'Coral'),
+    new DropDownItemModel({ header: '#0d2e55 ', rowhover: '#1a7abf' , evenrow: '#0d2e55' }, 'Blue'),
+    new DropDownItemModel({ header: 'Purple', rowhover: '#7c6edc' , evenrow: 'Purple' }, 'Purple'),
+    new DropDownItemModel({ header: '#083a38 ' , rowhover: '#0b8a80 ' , evenrow: '#083a38'}, 'Teal')
   ]
 
   password: string = '';

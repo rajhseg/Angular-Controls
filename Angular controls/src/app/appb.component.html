@@ -1121,7 +1121,9 @@
                   [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
                   [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
                   [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
-                  [HeaderBackgroundColor]="selectedColor.Value"
+                  [HeaderBackgroundColor]="selectedColor.Value.header"
+                  [RowHoverBackColor]="selectedColor.Value.rowhover"
+                  [RowHoverBackgroundOpacity]="1"
                   [TableHeight]="'400px'" [TableWidth]="'950px'">
             </rgrid>
                 

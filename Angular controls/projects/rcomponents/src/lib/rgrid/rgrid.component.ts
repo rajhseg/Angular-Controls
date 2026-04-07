@@ -91,6 +91,15 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   SortIconColor: string = 'white';
 
   @Input()
+  RowHoverBackColor: string = '#534AB7';
+
+  @Input()
+  RowHoverForeColor: string = 'white';
+
+  @Input()
+  RowHoverBackgroundOpacity: number = 0.7;
+
+  @Input()
   FilterIconColor: string = 'white';
 
   @Input()

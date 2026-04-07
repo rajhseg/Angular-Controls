@@ -8,6 +8,22 @@
   overflow: hidden;  
 }
 
+.hgh {
+
+}
+
+.hgh:hover {
+  opacity: var(--rowhoverbackgroundopacity);
+  background-color: var(--rowhoverbackcolor);
+  color: var(--rowhoverforecolor);
+}
+
+.hgh:hover > td {
+  opacity: var(--rowhoverbackgroundopacity);
+  background-color: var(--rowhoverbackcolor);
+  color: var(--rowhoverforecolor);
+}
+
 .grpheaderItem{
   margin-left: 5px;
   margin-right:5px;

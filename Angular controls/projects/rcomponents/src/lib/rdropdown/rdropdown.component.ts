@@ -50,6 +50,9 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
   }
 
   @Input()
+  SearchBoxBottomLineColor: string = '#7F77DD';
+  
+  @Input()
   IsMulti: boolean = false;
 
   @Input()

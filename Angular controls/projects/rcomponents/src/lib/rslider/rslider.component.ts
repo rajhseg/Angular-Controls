@@ -47,7 +47,7 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
   EnablePathColor: boolean = true;
 
   @Input()
-  BackgroundColor: string = "blue";
+  BackgroundColor: string = "#e8e8f0";
 
   _sliderBarWidth: string = "200px";
   _sliderBarWidthVM: string = "200px";

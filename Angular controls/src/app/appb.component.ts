@@ -261,7 +261,7 @@ export class AppRootComponent {
   numericValue = 42;
 
   // ─── Form: Slider ────────────────────────────────────────────────────
-  sliderValue = 0;
+  sliderValue = 70;
 
   // ─── Form: Switch ────────────────────────────────────────────────────
   switchValue = false;

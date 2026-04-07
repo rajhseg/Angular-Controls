@@ -45,6 +45,9 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
   }
   
   @Input()
+  SearchBoxBottomLineColor: string = '#7F77DD';
+  
+  @Input()
   EnableFilterOption: boolean = true;
   
   @Input()

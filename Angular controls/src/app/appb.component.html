@@ -391,7 +391,7 @@
         <div class="card-body" style="gap: 12px; display: flex; flex-wrap: wrap;">
           <rbutton
             ButtonText="Primary"
-            BackColor="#7F77DD"
+            BackgroundColor="#7F77DD"
             ForeColor="white"
             ButtonWidth="110px"
             (ButtonClick)="onButtonClick()">
@@ -399,7 +399,7 @@
           </rbutton>
           <rbutton
             ButtonText="Secondary"
-            BackColor="#1D9E75"
+            BackgroundColor="#1D9E75"
             ForeColor="white"
             ButtonWidth="110px"
             (ButtonClick)="onButtonClick()">
@@ -407,7 +407,7 @@
           </rbutton>
           <rbutton
             ButtonText="Danger"
-            BackColor="#E24B4A"
+            BackgroundColor="#E24B4A"
             ForeColor="white"
             ButtonWidth="110px"
             (ButtonClick)="onButtonClick()">
@@ -430,6 +430,7 @@
             PlaceholderText="Please enter full name"
             LabelText="Full Name"
             [LabelForeColor]="'black'"
+            [BottomLineColor]="'#7F77DD'"
             [(ngModel)]="textboxValue"
             Width="320px">
           </rtextbox>
@@ -447,6 +448,7 @@
         <div class="card-body">
           <rtextbox [IsPasswordBox]="true"
             PlaceholderText="Please enter password"
+            [BottomLineColor]="'#7F77DD'"
             LabelText="Password"
             [LabelForeColor]="'black'"
             [(ngModel)]="password"
@@ -509,6 +511,10 @@
           <rnumeric
             LabelText="Quantity"
             [(ngModel)]="numericValue"
+            [BottomLineColor]="'#7F77DD'"
+            [PlusBackgroundColor]="'#7F77DD'"
+            [MinusBackgroundColor]="'#7F77DD'"
+            [LabelTextForeColor]="'black'"
             Width="200px">
           </rnumeric>
         </div>
@@ -527,7 +533,6 @@
             [MinValue]="0"
             [MaxValue]="100"
             [(ngModel)]="sliderValue"
-            SliderColor="#7F77DD"
             Width="320px">
           </rslider>
         </div>
@@ -545,12 +550,14 @@
           <rswitch
             DisplayLabel="Dark mode"
             [(ngModel)]="switchValue"
+            [LabelForeColor]="'black'"
             SwitchBackColor="rgb(76 67 205)">
           </rswitch>
           <rswitch
             DisplayLabel="Notifications"
+            [LabelForeColor]="'black'"
             [ngModel]="true"
-            [SwitchBackColor]="'rgb(76 67 205)'">
+            [SwitchBackColor]="'#e8e8f0'">
           </rswitch>
         </div>
         <div class="card-hint">Dark mode: <strong>{{ switchValue }}</strong>.</div>
@@ -671,7 +678,7 @@
         <div class="card-body">
           <rfileupload [EnableShadowEffect]="false" 
             [ShowFilesAsDropdownContainer]="true"
-            LabelText="Drop files here or click to browse"
+            [IconForeColor]="'#7F77DD'"
             [SelectMultipleFiles]="true"
             Width="320px">
           </rfileupload>
@@ -689,6 +696,9 @@
         <div class="card-body">
           <rtimeselector
             [(ngModel)]="selectedTime"
+            [ButtonBackgroundColor]="'#7F77DD'"
+            [TextBottomLineColor]="'#7F77DD'"
+            [SelectedItemBackgroundColor]="'#7F77DD'"
             Width="200px">
           </rtimeselector>
         </div>

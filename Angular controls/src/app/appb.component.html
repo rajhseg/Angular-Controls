@@ -43,13 +43,13 @@
             [Height]="240"
             [GapBetweenBars]="allocatedGap"
             [NoOfSplitInValueAxis]="5"
-            XAxisTitle="Month"
-            YAxisTitle="Budget"
-            TextColor="#666"
+            [XAxisTitle]="'Month'"
+            [YAxisTitle]="'Budget'"
+            [TextColor]="'#666'"
             [EnableBorder]="false"
-            BorderColor="#e0e0e0"
+            [BorderColor]="'#e0e0e0'"
             [GlassyEffect]="false"
-            AllocatedValueIndicatorColor="#333"
+            [AllocatedValueIndicatorColor]="'#333'"
             [PopupBackgroundOpacity]="0.95">
           </rallocated-barchart>
         </div>
@@ -390,26 +390,23 @@
         </div>
         <div class="card-body" style="gap: 12px; display: flex; flex-wrap: wrap;">
           <rbutton
-            ButtonText="Primary"
-            BackgroundColor="#7F77DD"
-            ForeColor="white"
-            ButtonWidth="110px"
+            [BackgroundColor]="'#7F77DD'"
+            [ForeColor]="'white'"
+            [ButtonWidth]="'110px'"
             (ButtonClick)="onButtonClick()">
             Primary
           </rbutton>
           <rbutton
-            ButtonText="Secondary"
-            BackgroundColor="#1D9E75"
-            ForeColor="white"
-            ButtonWidth="110px"
+            [BackgroundColor]="'#1D9E75'"
+            [ForeColor]="'white'"
+            [ButtonWidth]="'110px'"
             (ButtonClick)="onButtonClick()">
             Secondary
           </rbutton>
           <rbutton
-            ButtonText="Danger"
-            BackgroundColor="#E24B4A"
-            ForeColor="white"
-            ButtonWidth="110px"
+            [BackgroundColor]="'#E24B4A'"
+            [ForeColor]="'white'"
+            [ButtonWidth]="'110px'"
             (ButtonClick)="onButtonClick()">
             Danger
           </rbutton>
@@ -427,12 +424,11 @@
         </div>
         <div class="card-body">
           <rtextbox
-            PlaceholderText="Please enter full name"
-            LabelText="Full Name"
+            [PlaceholderText]="'Please enter full name'"
+            [LabelText]="'Full Name'"
             [LabelForeColor]="'black'"
             [BottomLineColor]="'#7F77DD'"
-            [(ngModel)]="textboxValue"
-            Width="320px">
+            [(ngModel)]="textboxValue">
           </rtextbox>
         </div>
         <div class="card-hint">Value: "{{ textboxValue }}"</div>
@@ -447,12 +443,11 @@
         </div>
         <div class="card-body">
           <rtextbox [IsPasswordBox]="true"
-            PlaceholderText="Please enter password"
+            [PlaceholderText]="'Please enter password'"
             [BottomLineColor]="'#7F77DD'"
-            LabelText="Password"
+            [LabelText]="'Password'"
             [LabelForeColor]="'black'"
-            [(ngModel)]="password"
-            Width="320px">
+            [(ngModel)]="password">
           </rtextbox>
         </div>
         <div class="card-hint">Value: "{{ password }}"</div>
@@ -469,12 +464,12 @@
           <rcheckbox
             DisplayText="Enable notifications"
             [(ngModel)]="checkboxValue"
-            CheckedColor="#7F77DD">
+            [CheckedColor]="'#7F77DD'">
           </rcheckbox>
           <rcheckbox
             DisplayText="Accept terms and conditions"
             [IsChecked]="false"
-            CheckedColor="#1D9E75">
+            [CheckedColor]="'#1D9E75'">
           </rcheckbox>
         </div>
         <div class="card-hint">Value: <strong>{{ checkboxValue }}</strong>. Supports <code>ControlValueAccessor</code>.</div>
@@ -491,8 +486,7 @@
           <rcalendar
             [(ngModel)]="calendarSelectedDate"
             (valueChanged)="onCalendarChange($event)"
-            SelectedDateColor="#7F77DD"
-            TodayColor="#1D9E75">
+            [SelectedItemBackGroundColor]="'#1a7abf'">
           </rcalendar>
         </div>
         <div class="card-hint">
@@ -511,11 +505,10 @@
           <rnumeric
             LabelText="Quantity"
             [(ngModel)]="numericValue"
-            [BottomLineColor]="'#7F77DD'"
-            [PlusBackgroundColor]="'#7F77DD'"
-            [MinusBackgroundColor]="'#7F77DD'"
-            [LabelTextForeColor]="'black'"
-            Width="200px">
+            [BottomLineColor]="'#1E1198'"
+            [PlusBackgroundColor]="'#1E1198'"
+            [MinusBackgroundColor]="'#1E1198'"
+            [LabelTextForeColor]="'black'">
           </rnumeric>
         </div>
         <div class="card-hint">Value: <strong>{{ numericValue }}</strong>. Spin buttons with min/max validation.</div>
@@ -533,7 +526,7 @@
             [MinValue]="0"
             [MaxValue]="100"
             [(ngModel)]="sliderValue"
-            Width="320px">
+            [SliderBarWidth]="'300px'">
           </rslider>
         </div>
         <div class="card-hint">Value: <strong>{{ sliderValue }}</strong>. Drag-based slider using Angular CDK.</div>
@@ -592,20 +585,17 @@
           <rradiobutton
             DisplayText="Option A"
             [GroupName]="'demo-group'"
-            [(ngModel)]="optionA"
-            Value="A">
+            [(ngModel)]="optionA">
           </rradiobutton>
           <rradiobutton
             DisplayText="Option B"
             [GroupName]="'demo-group'"
-            [(ngModel)]="optionB"
-            Value="B">
+            [(ngModel)]="optionB">
           </rradiobutton>
           <rradiobutton
             DisplayText="Option C"
             [GroupName]="'demo-group'"
-            [(ngModel)]="optionC"
-            Value="C">
+            [(ngModel)]="optionC">
           </rradiobutton>
         </div>
         <div class="card-hint">Selected: <strong>{{ optionA ? 'Option A' : optionB ? 'Option B' : optionC ? 'Option C' : 'none' }}</strong>.</div>
@@ -621,9 +611,8 @@
         <div class="card-body">
           <rdropdown
             [Items]="dropdownItems"
-            PlaceholderText="Choose a framework"
             [DropDownContentWidth]="'310px'"
-            Width="280px"
+            [Width]="'280px'"
             [(ngModel)]="dropdownSelected">
           </rdropdown>
         </div>
@@ -640,9 +629,8 @@
         <div class="card-body">
           <rselectdropdown
             [Items]="selectItems"
-            PlaceholderText="Select languages"
             [DropDownContentWidth]="'310px'"
-            Width="280px"
+            [Width]="'280px'"
             [IsMulti]="true">
           </rselectdropdown>
         </div>
@@ -658,8 +646,7 @@
         </div>
         <div class="card-body" style="align-items: center; display: flex; gap: 16px;">
           <rcolorpicker
-            [(ngModel)]="pickedColor"
-            Width="200px">
+            [(ngModel)]="pickedColor">
           </rcolorpicker>
           <div style="width: 40px; height: 40px; border-radius: 8px; border: 1px solid #ccc;"
                [style.background]="pickedColor">
@@ -678,9 +665,8 @@
         <div class="card-body">
           <rfileupload [EnableShadowEffect]="false" 
             [ShowFilesAsDropdownContainer]="true"
-            [IconForeColor]="'#7F77DD'"
-            [SelectMultipleFiles]="true"
-            Width="320px">
+            [IconForeColor]="'#1E1198'"
+            [SelectMultipleFiles]="true">
           </rfileupload>
         </div>
         <div class="card-hint">Supports multi-file selection with file list preview.</div>
@@ -696,10 +682,9 @@
         <div class="card-body">
           <rtimeselector
             [(ngModel)]="selectedTime"
-            [ButtonBackgroundColor]="'#7F77DD'"
-            [TextBottomLineColor]="'#7F77DD'"
-            [SelectedItemBackgroundColor]="'#7F77DD'"
-            Width="200px">
+            [ButtonBackgroundColor]="'#1E1198'"
+            [TextBottomLineColor]="'#1E1198'"
+            [SelectedItemBackgroundColor]="'#7F77DD'">
           </rtimeselector>
         </div>
         <div class="card-hint">Selected: <strong>{{ selectedTime }}</strong>. Hour/minute/AM-PM dropdowns.</div>
@@ -725,9 +710,9 @@
             TitleForeColor="#7F77DD"
             [EnableShadowEffect]="false">
             <div style="display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0;">
-              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="First name" LabelText="First name" Width="180px"></rtextbox>
-              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Last name" LabelText="Last name" Width="180px"></rtextbox>
-              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Email" LabelText="Email" Width="220px"></rtextbox>
+              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="First name" LabelText="First name"></rtextbox>
+              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Last name" LabelText="Last name"></rtextbox>
+              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Email" LabelText="Email"></rtextbox>
             </div>
           </rgroup-panel>
 
@@ -753,18 +738,18 @@
         </div>
         <div class="card-body" style="min-height: 200px;">
           <rsplitter TotalWidth="560px" TotalHeight="180px">
-            <ng-template rpagecontent [InitialWidth]="'40%'">
+            <rsplitpage *rpagecontent [InitialWidth]="'40%'">
               <div style="padding: 12px; background: #f5f3ff; height: 100%; color: #534AB7; font-size: 14px;">
                 <strong>Left pane</strong>
                 <p style="margin-top: 8px; color: #888; font-size: 13px;">Drag the divider to resize.</p>
               </div>
-            </ng-template>
-            <ng-template rpagecontent [InitialWidth]="'60%'">
+            </rsplitpage>
+            <rsplitpage *rpagecontent [InitialWidth]="'60%'">
               <div style="padding: 12px; background: #f0fdf8; height: 100%; color: #0F6E56; font-size: 14px;">
                 <strong>Right pane</strong>
                 <p style="margin-top: 8px; color: #888; font-size: 13px;">Can contain any content or component.</p>
               </div>
-            </ng-template>
+            </rsplitpage>
           </rsplitter>
         </div>
         <div class="card-hint">Draggable splitter between two resizable panes.</div>
@@ -956,8 +941,7 @@
           <rcalendar
             [(ngModel)]="calendarSelectedDate"
             (valueChanged)="onCalendarChange($event)"
-            SelectedDateColor="#7F77DD"
-            TodayColor="#1D9E75">
+            [SelectedItemBackGroundColor]="'#1a7abf'">
           </rcalendar>
         </div>
         <div class="card-hint">
@@ -977,11 +961,10 @@
             [DisplayType]="0"
             [CircularWidth]="100"
             #timerRef
-            ForeColor="#7F77DD"
+            [DisplayTextForeColor]="'#1E1198'"
             [HoursForeColor]="'#7F77DD'" [HoursTrackColor]="'#e8e8f0'"
             [MinuteForeColor]="'#7F77DD'" [MinuteTrackColor]="'#e8e8f0'"
-            [SecondsForeColor]="'#7F77DD'" [SecondsTrackColor]="'#e8e8f0'"
-            FontSize="32px">
+            [SecondsForeColor]="'#7F77DD'" [SecondsTrackColor]="'#e8e8f0'">
           </rtimer>
           <div style="display: flex; gap: 10px;">
             <rbutton
@@ -1009,14 +992,15 @@
           <code class="card-selector">&lt;rstate-vertical&gt;</code>
         </div>
         <div class="card-body">
+
           <rstate-vertical
             [Items]="sequenceItems"
-            ActiveColor="#7F77DD"
-            CompletedColor="#1D9E75"
-            PendingColor="#ccc"
-            LineColor="#e0e0e0">
-          
+            [ActiveBackgroundColor]="'#7F77DD'"
+            [CompletedBackgroundColor]="'#1D9E75'"
+            [PendingBackgroundColor]="'darkblue'"
+            [StripLineColor]="'#e0e0e0'">
           </rstate-vertical>
+
         </div>
         <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>
       </div>
@@ -1031,11 +1015,10 @@
         <div class="card-body">
           <rstate-horizontal
             [Items]="hsequenceItems"
-            ActiveColor="#7F77DD"
-            CompletedColor="#1D9E75"
-            PendingColor="#ccc"
-            LineColor="#e0e0e0">
-          
+            [ActiveForeColor]="'#7F77DD'"
+            [CompletedForeColor]="'#1D9E75'"
+            [PendingForeColor]="'darkblue'"
+            [StripLineColor]="'#e0e0e0'">
           </rstate-horizontal>
         </div>
         <div class="card-hint">Order tracking pipeline. States: completed, active, pending.</div>

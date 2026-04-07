@@ -302,7 +302,7 @@ export class AppRootComponent {
   ];
 
   // ─── Form: Color Picker ──────────────────────────────────────────────
-  pickedColor = '#7F77DD';
+  pickedColor = '#1E1198';
 
   // ─── Form: Time Selector ─────────────────────────────────────────────
   selectedTime = '09:00 AM';

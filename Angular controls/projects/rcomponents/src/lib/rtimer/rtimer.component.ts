@@ -4,7 +4,7 @@ import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprog
 import { RWindowHelper } from '../rwindowObject';
 import { interval, Observable } from 'rxjs';
 import { NgIf, NgStyle } from '@angular/common';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, RTimerResult } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rtimer',
@@ -85,7 +85,7 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
   CallbackAfterCertainSeconds: number = 0;
 
   @Output()
-  CallbackTriggeredAfterCertainSeconds = new EventEmitter<string>();
+  CallbackTriggeredAfterCertainSeconds = new EventEmitter<RTimerResult>();
 
   @Input()
   DisplayType: TimerType = TimerType.FlatStyle;
@@ -161,8 +161,8 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
         x.CalculateTime();
 
         if (x.CallbackAfterCertainSeconds > 0 && x.count >= this.CallbackAfterCertainSeconds) {
-          let timeString: string = x.Hour + ":" + x.Minute + ":" + x.Second;
-          x.CallbackTriggeredAfterCertainSeconds.emit(timeString);
+          let result: RTimerResult = new RTimerResult(x.Hour, x.Minute, x.Second);
+          x.CallbackTriggeredAfterCertainSeconds.emit(result);
           x.count = 0;
         }
 

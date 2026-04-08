@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult } from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -424,13 +424,13 @@ export class AppRootComponent {
     
   }
   
-  async CallbackMethodAfterCertainSeconds(timeString: string) {
+  async CallbackMethodAfterCertainSeconds(result: RTimerResult) {
 
     //const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
 
     //await sleep(10000);
 
-    this.callbackResult = `${timeString}`;
+    this.callbackResult =  result.Hour + " : " + result.Minute + " : " + result.Seconds;
   }
 
   DrawGridItems() {

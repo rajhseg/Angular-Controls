@@ -45,3 +45,18 @@ export class CalenderChangeMonthInfo{
 
   }
 }
+
+export class RTimerResult {
+    
+    public Hour!: string;
+
+    public Minute!: string;
+
+    public Seconds!: string;
+
+    constructor(_hour: string, _minute: string, _seconds: string) {
+        this.Hour = _hour;
+        this.Minute = _minute;
+        this.Seconds = _seconds;
+    }
+}

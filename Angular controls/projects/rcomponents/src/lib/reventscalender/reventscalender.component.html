@@ -10,7 +10,8 @@
             <div class="modalContent">
                 <div>                    
                     <div class="closeBtn">
-                        <span style="font-weight: 100; float:left;font-size: 13px;color: blue;">
+                        <span style="font-weight: 100; float:left;font-size: 13px;"
+                            [ngStyle]="{ 'color' : EventGroupLabelColor }">
                             {{SelectedEventDate | date:DateFormat }}
                         </span>
                         <span (click)="closeModal($event)" class="spanbtn">&times;</span>
@@ -20,27 +21,60 @@
                     <rgroup-panel style="position: relative; top:-20px;font-size: 12px;width:100%" [EnableShadowEffect]="false"  [groupname]="'Event'" 
                         [IsItemsArrangeHorizontal]="true">
                     <div style="display: flex; flex-direction: row;justify-content: space-between;width: 100%;">
-                        <rtextbox class="evtAdd" [LabelText]="'Event Name'" [(ngModel)]="NewEvent.Name"></rtextbox>
 
-                        <rtimeselector style="top:-3px" class="evtAdd" [(ngModel)]="NewEvent.FromTime" [LabelText]="'From Time'"></rtimeselector>
+                        <rtextbox class="evtAdd" [LabelText]="'Event Name'" [(ngModel)]="NewEvent.Name"
+                                  [BottomLineColor]="EventGroupBottomLineColor"
+                                  [LabelForeColor]="EventGroupLabelColor">
+                        </rtextbox>
 
-                        <rtimeselector style="top:-3px"class="evtAdd" [(ngModel)]="NewEvent.ToTime" [LabelText]="'To Time'"></rtimeselector>
+                        <rtimeselector style="top:-3px" class="evtAdd" [(ngModel)]="NewEvent.FromTime" 
+                                  [LabelText]="'From Time'"
+                                  [TextBottomLineColor]="EventGroupBottomLineColor"
+                                  [ButtonBackgroundColor]="EventGroupButtonBackColor"
+                                  [ButtonForeColor]="EventGroupButtonForeColor">
+                        </rtimeselector>
 
-                        <rcolorpicker style="top:12px" class="evtAdd" [(ngModel)]="NewEvent.Indicator" [IsDisplayColorCode]="false" [IsDisplayLabelText]="true" 
-                            [LabelText]="'Indicator'"></rcolorpicker>                                                      
+                        <rtimeselector style="top:-3px"class="evtAdd" [(ngModel)]="NewEvent.ToTime" 
+                                    [LabelText]="'To Time'"
+                                    [TextBottomLineColor]="EventGroupBottomLineColor"
+                                    [ButtonBackgroundColor]="EventGroupButtonBackColor"
+                                    [ButtonForeColor]="EventGroupButtonForeColor">
+                        </rtimeselector>
+
+                        <rcolorpicker style="top:12px" class="evtAdd" [(ngModel)]="NewEvent.Indicator" 
+                                    [LabelTextForeColor]="EventGroupLabelColor"
+                                    [IsDisplayColorCode]="false" [IsDisplayLabelText]="true" 
+                                    [LabelText]="'Indicator'">
+                        </rcolorpicker>
+
                     </div>
                     </rgroup-panel>
 
                     <div style="font-size: 12px; clear: left;text-align: center;margin:10px;top: -20px;position: relative;">
-                        <rbutton (ButtonClick)="addEvent($event)">Add</rbutton>
+
+                        <rbutton (ButtonClick)="addEvent($event)" [BackgroundColor]="EventGroupButtonBackColor" 
+                                [ForeColor]="EventGroupButtonForeColor">
+                                Add
+                        </rbutton>
+
                     </div> 
-                    <div style="font-size: 12px; clear: left;text-align: center;top: -20px;position: relative;">                        
-                            <rgrid [ShowGroupHeader]="false" *ngIf="SelectedEventModel" [Items]="SelectedEventModel.Events" 
-                                [ItemsPerPage]="ItemsPerPage" [ShowEditUpdate]="false" [HeaderBackgroundColor]="'blue'"                                
-                                [TableHeight]="GridHeight" [TableWidth]="'100%'">
+                    <div style="font-size: 12px; clear: left;text-align: center;top: -20px;position: relative;"> 
+
+                            <rgrid  [ShowGroupHeader]="false" *ngIf="SelectedEventModel" 
+                                    [Items]="SelectedEventModel.Events" 
+                                    [ItemsPerPage]="ItemsPerPage" 
+                                    [ShowEditUpdate]="false" 
+                                    [HeaderBackgroundColor]="PopupGridHeaderBackColor"   
+                                    [HeaderForeColor]="PopupGridHeaderForeColor" 
+                                    [RowHoverBackColor]="PopupGridRowHoverBackColor"
+                                    [RowHoverForeColor]="PopupGridRowHoverForeColor"
+                                    [EvenRowBackColor]="PopupGridEvenRowBackColor"      
+                                    [OddRowBackColor]="PopupGridOddRowBackColor"                      
+                                    [TableHeight]="GridHeight" 
+                                    [TableWidth]="'100%'">
 
                                 <rcolumn [Name]="'Name'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'Name'" 
-                                        [Width]="'32.8%'" [Height]="'20px'">
+                                        [Width]="'26.8%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
                                     </ng-template>                                    
@@ -48,7 +82,7 @@
                             
                                 
                                 <rcolumn [Name]="'FromTime'" [PropToBindToCellInfo]="'FromTime'" [HeaderText]="'From Time'" 
-                                        [Width]="'20%'" [Height]="'20px'">
+                                        [Width]="'23%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
                                     </ng-template>                                    
@@ -56,7 +90,7 @@
 
                                 
                                 <rcolumn [Name]="'ToTime'" [PropToBindToCellInfo]="'ToTime'" [HeaderText]="'To Time'" 
-                                        [Width]="'20%'" [Height]="'20px'">
+                                        [Width]="'23%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
                                     </ng-template>                                    

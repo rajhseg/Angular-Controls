@@ -329,6 +329,42 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   NewEvent!: AddEventModel;
   ItemsPerPage = new DropdownModel(10, "10");
 
+  @Input()
+  PopupGridHeaderBackColor: string = 'DarkBlue';
+
+  @Input()
+  PopupGridHeaderForeColor: string = 'white';
+
+  @Input()
+  PopupGridRowHoverBackColor: string = '#bfc2ee';
+
+  @Input()
+  PopupGridRowHoverForeColor: string = 'white';
+
+  @Input()
+  PopupGridEvenRowBackColor: string = 'rgb(248, 250, 252)';
+
+  @Input()
+  PopupGridOddRowBackColor: string = 'white';
+
+  @Input()
+  EventGroupLabelColor: string = 'DarkBlue';
+
+  @Input()
+  EventGroupBottomLineColor: string = 'DarkBlue';
+
+  @Input()
+  EventGroupControlValueForeColor: string = 'lightgray';
+
+  @Input()
+  EventGroupButtonBackColor: string = 'DarkBlue';
+
+  @Input()
+  EventGroupButtonForeColor: string = 'white';
+
+  @Input()
+  EventGroupColorPickerColorOnLoad: string = '#21067F';
+
   constructor(private popupService: RPopupService,
     private windowHelper: RWindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
     private cdr: ChangeDetectorRef, private cssUnitSer: RCssUnitsService) {
@@ -336,7 +372,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
     super(windowHelper);
     this.cls = RCloseService.GetInstance();
 
-    this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
+    this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "", this.EventGroupColorPickerColorOnLoad);
 
     if (this.windowHelper.isExecuteInBrowser()) {
       this.IsWindowsOs = navigator.platform == "Win32";

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -345,6 +345,9 @@ export class AppRootComponent {
   // ─── Data: Timer ─────────────────────────────────────────────────────
   timerRunning = false;
 
+  @ViewChild('timerRef', { static: false })
+  timerComponent!: RTimerComponent;
+
   // ─── Data: Sequences ─────────────────────────────────────────────────
   sequenceItems: RSequenceVerticalItem[] = (() => {
     const steps = ['Order placed', 'Processing', 'Shipped', 'Delivered'];
@@ -382,7 +385,9 @@ export class AppRootComponent {
   // ─── Helper ──────────────────────────────────────────────────────────
   setSection(s: string) { this.activeSection = s; }
 
-  
+  callbackAfterCertainSeconds = 10;
+  callbackResult: string = '';
+
   seriesModel: RYSeriesChartItem[] = [];
   seriesModel1: RGraphSeriesChartItem[] = [];
   stackedbarChartItems1: RBarChartItem[] = []
@@ -409,6 +414,23 @@ export class AppRootComponent {
     this.addCalenderEvents();
     this.createScheduleItems();
     this.DrawGridItems();
+  }
+
+  Start($event: any) {
+  
+  }
+
+  Stop($event: any) {
+    
+  }
+  
+  async CallbackMethodAfterCertainSeconds(timeString: string) {
+
+    //const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));
+
+    //await sleep(10000);
+
+    this.callbackResult = `${timeString}`;
   }
 
   DrawGridItems() {

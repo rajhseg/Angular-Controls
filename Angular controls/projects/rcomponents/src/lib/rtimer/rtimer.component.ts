@@ -147,7 +147,15 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
   }
 
   ngOnInit(): void {
+    this.StartTimer();
+  }
+
+
+  StartTimer() {
     if (this.winObj.isExecuteInBrowser()) {
+      
+      //this.#initiatedStop = false;
+
       this.windowInterval = this.window.setInterval((x: RTimerComponent) => {
         x.count++;
         x.CalculateTime();
@@ -162,6 +170,7 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
       }, 1000, this);
     }
   }
+
 
   private CalculateTime() {
     let date = new Date();

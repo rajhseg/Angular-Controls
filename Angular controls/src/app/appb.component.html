@@ -961,6 +961,8 @@
             [DisplayType]="0"
             [CircularWidth]="100"
             #timerRef
+            [CallbackAfterCertainSeconds]="callbackAfterCertainSeconds"
+            (CallbackTriggeredAfterCertainSeconds)="CallbackMethodAfterCertainSeconds($event)"
             [DisplayTextForeColor]="'#1E1198'"
             [HoursForeColor]="'#7F77DD'" [HoursTrackColor]="'#e8e8f0'"
             [MinuteForeColor]="'#7F77DD'" [MinuteTrackColor]="'#e8e8f0'"
@@ -968,20 +970,20 @@
           </rtimer>
           <div style="display: flex; gap: 10px;">
             <rbutton
+              (ButtonClick)="Start($event)"
               [BackgroundColor]="'#1D9E75'">
               Start
             </rbutton>
             <rbutton
+              (ButtonClick)="Stop($event)"
               [BackgroundColor]="'#E24B4A'">
               Stop
             </rbutton>
-            <rbutton
-              [BackgroundColor]="'#888'">
-              Reset
-            </rbutton>
           </div>
         </div>
-        <div class="card-hint">Countdown or stopwatch. Control via <code>Start()</code>, <code>Stop()</code>, <code>Reset()</code>.</div>
+        <div class="card-hint">
+          Callback triggered at : {{callbackResult}}
+        </div>
       </div>
 
       <!-- Sequences (Vertical) -->

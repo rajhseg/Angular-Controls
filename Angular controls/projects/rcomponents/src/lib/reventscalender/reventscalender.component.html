@@ -61,6 +61,7 @@
                     <div style="font-size: 12px; clear: left;text-align: center;top: -20px;position: relative;"> 
 
                             <rgrid  [ShowGroupHeader]="false" *ngIf="SelectedEventModel" 
+                                    [PageItems]="ditems"
                                     [Items]="SelectedEventModel.Events" 
                                     [ItemsPerPage]="ItemsPerPage" 
                                     [ShowEditUpdate]="false" 

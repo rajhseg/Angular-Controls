@@ -384,6 +384,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
     if (this.bar && this.context && this.Columns.length > 0 && this.xAxisItemNames.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
+      
       this.context.clearRect(0, 0, totalWidth, totalHeight);
 
       this.EnableGlassyEffectOnTopOfChart();

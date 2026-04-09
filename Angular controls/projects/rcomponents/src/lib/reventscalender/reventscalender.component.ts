@@ -365,6 +365,8 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   @Input()
   EventGroupColorPickerColorOnLoad: string = '#21067F';
 
+  ditems: DropdownModel[] = [];
+
   constructor(private popupService: RPopupService,
     private windowHelper: RWindowHelper, private datePipe: DatePipe, private eleRef: ElementRef,
     private cdr: ChangeDetectorRef, private cssUnitSer: RCssUnitsService) {
@@ -386,12 +388,31 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
     this.windowObj = inject(WINDOWOBJECT);
     this.LoadMonth(new Date(), false);
     this.cls.AddInstance(this);
-
+    this.AddPagination();
     this.RenderUI(new Date());
   }
 
   ngAfterViewInit(): void {
 
+  }
+
+  private AddPagination() {
+    this.ditems =[];
+
+    this.ditems.push(new DropdownModel(5, "5"));
+    this.ditems.push(new DropdownModel(10, "10"));
+    this.ditems.push(new DropdownModel(15, "15"));
+    this.ditems.push(new DropdownModel(20, "20"));
+    this.ditems.push(new DropdownModel(25, "25"));
+    this.ditems.push(new DropdownModel(50, "50"));
+    this.ditems.push(new DropdownModel(100, "100"));
+
+    this.ditems.push(new DropdownModel(200, "200"));
+    this.ditems.push(new DropdownModel(500, "500"));
+    this.ditems.push(new DropdownModel(1000, "1000"));
+
+    this.ditems.push(new DropdownModel(5000, "5000"));
+    this.ditems.push(new DropdownModel(10000, "10000"));
   }
 
   NotifyChangeMonth(){
@@ -454,7 +475,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
           this.SelectedEventModel.Events = _eventDay.Events.slice();
         } 
         
-        this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "","#2D37D0");
+        this.NewEvent = new AddEventModel(this.windowHelper.GenerateUniqueId(), "", "", "", this.EventGroupColorPickerColorOnLoad);
       }
 
       this.NotifyToModel();

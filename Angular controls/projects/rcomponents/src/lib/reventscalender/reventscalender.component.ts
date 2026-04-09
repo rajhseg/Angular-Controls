@@ -365,6 +365,9 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   @Input()
   EventGroupColorPickerColorOnLoad: string = '#21067F';
 
+  @Input()
+  PopupGridRowHoverBackgroundOpacity: number = 1;
+
   ditems: DropdownModel[] = [];
 
   constructor(private popupService: RPopupService,

@@ -407,11 +407,13 @@ export class AppRootComponent {
   
   ditems: DropdownModel[] = [];
 
-  leftPanelWidth: number = 360;
-  rightPanelWidth: number = 360;
+  leftPanelWidth: number = 260;
+  middlePanelWidth: number = 260;
+  rightPanelWidth: number = 260;
 
   @ViewChild('leftChart', { read: RAllocatedBarChartComponent }) leftChart!: RAllocatedBarChartComponent;
   @ViewChild('rightChart', { read: RAllocatedBarChartComponent }) rightChart!: RAllocatedBarChartComponent;
+  @ViewChild('middleChart', { read: RAllocatedBarChartComponent }) middleChart!: RAllocatedBarChartComponent;
 
   @ViewChild('splitcomp', { read: RSplitterComponent }) splitter!: RSplitterComponent;
 
@@ -436,14 +438,28 @@ export class AppRootComponent {
     let leftWidth = Number(data.PreviousPanelSize.replace('px',''));
     let rightWidth = Number(data.NextPanelSize.replace('px',''));
 
-    this.leftPanelWidth = leftWidth - 100;
-    this.rightPanelWidth = rightWidth - 100;
+    if(data.SplitterPosition == 1) {
+      this.leftPanelWidth = leftWidth - 100;
+      this.middlePanelWidth = rightWidth - 100;
+    }
+
+    if(data.SplitterPosition == 2) {
+      this.middlePanelWidth = leftWidth - 100;
+      this.rightPanelWidth = rightWidth - 100;
+    }
 
     this.cdr.detectChanges();
     
-    setTimeout(()=>{  
-      this.leftChart.Render();
-      this.rightChart.Render();
+    setTimeout(() => {  
+
+      if(data.SplitterPosition == 1) {
+        this.leftChart.Render();
+        this.middleChart.Render();
+      } else if(data.SplitterPosition == 2) {
+        this.middleChart.Render();
+        this.rightChart.Render();
+      }
+      
     }, 400);
     
   }

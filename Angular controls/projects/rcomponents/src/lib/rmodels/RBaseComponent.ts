@@ -66,13 +66,27 @@ export class RSplitterResult {
 
     SplitterType: RSplitterType = RSplitterType.Vertical;
 
+    SplitterId: string = '';
+
     PreviousPanelSize: string = '';
 
     NextPanelSize: string = '';
 
-    constructor(private _splitterType: RSplitterType, private _previousPanelSize: string, private _nextPanelSize: string) {
+    SplitterPosition: number = 0;
+
+    PreviousPanelId: string = '';
+
+    NextPanelId: string = '';
+
+    constructor(_splitterId: string, _splitterType: RSplitterType, _previousPanelSize: string, _nextPanelSize: string,
+         _splitterPosition: number, _previousPanelId: string, _nextPanelId: string
+    ) {
+        this.SplitterId = _splitterId;
         this.SplitterType = _splitterType;
         this.PreviousPanelSize = _previousPanelSize;
         this.NextPanelSize = _nextPanelSize;
+        this.SplitterPosition = _splitterPosition;
+        this.PreviousPanelId = _previousPanelId;
+        this.NextPanelId = _nextPanelId;
     }
 }

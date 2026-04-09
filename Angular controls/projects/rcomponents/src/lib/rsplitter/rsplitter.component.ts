@@ -159,7 +159,7 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
 
         const dividers = document.querySelectorAll(selectorobj);
 
-        dividers.forEach(divider => {
+        dividers.forEach((divider, index) => {
 
           let isDragging = false;
           let startX = 0;
@@ -213,8 +213,17 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
                 nextPanel.style.height = newNextSize + 'px';
               }
 
-              this.valueChanged.emit(new RSplitterResult(this.SplitterType, newPrevSize + 'px', newNextSize + 'px'));
-              this.OnSizeChanged.emit(new RSplitterResult(this.SplitterType, newPrevSize + 'px', newNextSize + 'px'));
+              let position = index + 1;
+
+              let dragInfo = new RSplitterResult(divider.id, 
+                                                  this.SplitterType, 
+                                                  newPrevSize + 'px', 
+                                                  newNextSize + 'px', 
+                                                  position, 
+                                                  prevPanel.id, 
+                                                  nextPanel.id);   
+              this.valueChanged.emit(dragInfo);
+              this.OnSizeChanged.emit(dragInfo);
             }
           };
 

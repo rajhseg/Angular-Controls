@@ -149,8 +149,6 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
 
       });
 
-      console.log(this.RenderItems);
-
       if (this.RenderItems.length > 0) {
         this.RenderItems.splice(this.RenderItems.length - 1);
       }

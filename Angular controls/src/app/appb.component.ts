@@ -413,6 +413,8 @@ export class AppRootComponent {
   @ViewChild('leftChart', { read: RAllocatedBarChartComponent }) leftChart!: RAllocatedBarChartComponent;
   @ViewChild('rightChart', { read: RAllocatedBarChartComponent }) rightChart!: RAllocatedBarChartComponent;
 
+  @ViewChild('splitcomp', { read: RSplitterComponent }) splitter!: RSplitterComponent;
+
   constructor(private cdr: ChangeDetectorRef, private cssUnitService: RCssUnitsService) {
     this.DrawYSeriesChart();
     this.DrawBarChart();
@@ -438,7 +440,7 @@ export class AppRootComponent {
     this.rightPanelWidth = rightWidth - 100;
 
     this.cdr.detectChanges();
-
+    
     setTimeout(()=>{  
       this.leftChart.Render();
       this.rightChart.Render();

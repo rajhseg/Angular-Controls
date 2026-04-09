@@ -737,7 +737,7 @@
           <code class="card-selector">&lt;rsplitter&gt;</code>
         </div>
         <div class="card-body" style="min-height: 200px;">
-          <rsplitter TotalWidth="1060px" TotalHeight="380px" (OnSizeChanged)="panelSizeChange($event)">
+          <rsplitter #splitcomp TotalWidth="1060px" TotalHeight="380px" (OnSizeChanged)="panelSizeChange($event)">
             <rsplitpage *rpagecontent [InitialWidth]="'50%'">
               <div style="padding: 12px; background: #f5f3ff; height: 93%; color: #534AB7; font-size: 14px;">
                 <strong>Left pane</strong>

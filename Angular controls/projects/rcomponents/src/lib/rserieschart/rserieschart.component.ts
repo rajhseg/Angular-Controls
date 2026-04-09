@@ -340,7 +340,11 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
     }
   }
 
-  RenderSeriesChart() {
+  public Render() {
+    this.RenderSeriesChart();
+  }
+
+  private RenderSeriesChart() {
     this.IsRendered = false;
 
     const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
@@ -349,6 +353,8 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
+
+      this.PopupItems = [];
 
       this.context.clearRect(0, 0, totalWidth, totalHeight);      
 

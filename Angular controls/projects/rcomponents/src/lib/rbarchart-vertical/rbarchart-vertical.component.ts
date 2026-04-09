@@ -350,6 +350,8 @@ export class RBarChartVerticalComponent extends RChartBaseComponent implements A
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
       
+      this.PopupItems = [];
+      
       this.context.clearRect(0, 0, totalWidth, totalHeight);
       
       this.EnableGlassyEffectOnTopOfChart();

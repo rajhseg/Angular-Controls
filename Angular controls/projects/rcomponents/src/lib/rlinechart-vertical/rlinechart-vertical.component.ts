@@ -324,7 +324,11 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
     }
   }
 
-  RenderLineChart() {
+  public Render() {
+    this.RenderLineChart();
+  }
+
+  private RenderLineChart() {
     this.IsRendered = false;
     this.PopupItems = [];
     

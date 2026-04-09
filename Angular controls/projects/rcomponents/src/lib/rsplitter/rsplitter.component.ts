@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewContainerRef } from "@angular/core";
 import { RSplitPageComponent } from "./rsplitpage.component";
 import { IRSplitterInterface, RPageContentDirective, RSPLIT_ITEM, RSplitterObj, RSplitterType } from "./rpagecontent.directive";
 import { RWindowHelper } from "../rwindowObject";
@@ -6,7 +6,7 @@ import { JsonPipe, NgFor, NgIf, NgStyle, NgTemplateOutlet } from "@angular/commo
 import { ChangeDetectionStrategy } from "@angular/core";
 import { RCssUnitsService } from "../rcss-units.service";
 import { RelativeUnitType } from "../rcss-units.service";
-import { RBaseComponent } from "../rmodels/RBaseComponent";
+import { RBaseComponent, RSplitterResult } from "../rmodels/RBaseComponent";
 
 
 @Component({
@@ -17,7 +17,7 @@ import { RBaseComponent } from "../rmodels/RBaseComponent";
   imports: [NgFor, NgIf, NgTemplateOutlet, JsonPipe, NgStyle],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RSplitterComponent extends RBaseComponent<any> implements AfterContentInit {
+export class RSplitterComponent extends RBaseComponent<RSplitterResult> implements AfterContentInit {
 
   RenderItems: IRSplitterInterface[] = [];
 
@@ -74,6 +74,9 @@ export class RSplitterComponent extends RBaseComponent<any> implements AfterCont
   get SplitterType(): RSplitterType {
     return this._splitterType;
   }
+
+  @Output()
+  OnSizeChanged = new EventEmitter<RSplitterResult>();
 
   @ContentChildren(RPageContentDirective, { descendants: true }) Contents!: QueryList<RPageContentDirective>;
 
@@ -211,6 +214,9 @@ export class RSplitterComponent extends RBaseComponent<any> implements AfterCont
                 prevPanel.style.height = newPrevSize + 'px';
                 nextPanel.style.height = newNextSize + 'px';
               }
+
+              this.valueChanged.emit(new RSplitterResult(this.SplitterType, newPrevSize + 'px', newNextSize + 'px'));
+              this.OnSizeChanged.emit(new RSplitterResult(this.SplitterType, newPrevSize + 'px', newNextSize + 'px'));
             }
           };
 

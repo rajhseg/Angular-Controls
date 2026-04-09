@@ -163,12 +163,16 @@ export class RPieChartComponent  extends RChartBaseComponent {
     context.closePath();       
   }
 
-  RenderChart() {
+  public Render() {
+    this.RenderChart();
+  }
+
+  private RenderChart() {
     this.IsRendered = false;
     if (this.progressCanvas && this.context && this._items.length > 0) {
-      //this.context.reset();
+      
       this.context.clearRect(0, 0, this.progressCanvas.nativeElement.width, this.progressCanvas.nativeElement.height);
-      //this.context.restore();
+    
       let x = this.ChartWidth / 2;
       let y = this.ChartWidth / 2;
       let radius = this.ChartWidth / 2;

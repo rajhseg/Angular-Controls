@@ -1,5 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, inject, Input, Output } from "@angular/core";
 import { RWindowHelper } from "../rwindowObject";
+import { RSplitterType } from "../rsplitter/rpagecontent.directive";
 
 @Directive()
 export abstract class RBaseComponent<T> {
@@ -58,5 +59,20 @@ export class RTimerResult {
         this.Hour = _hour;
         this.Minute = _minute;
         this.Seconds = _seconds;
+    }
+}
+
+export class RSplitterResult {
+
+    SplitterType: RSplitterType = RSplitterType.Vertical;
+
+    PreviousPanelSize: string = '';
+
+    NextPanelSize: string = '';
+
+    constructor(private _splitterType: RSplitterType, private _previousPanelSize: string, private _nextPanelSize: string) {
+        this.SplitterType = _splitterType;
+        this.PreviousPanelSize = _previousPanelSize;
+        this.NextPanelSize = _nextPanelSize;
     }
 }

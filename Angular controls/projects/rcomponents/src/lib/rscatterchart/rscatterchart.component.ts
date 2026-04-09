@@ -321,12 +321,19 @@ export class RScatterChartComponent extends RChartBaseComponent implements After
     }
   }
 
-  RenderScatterChart() {
+  public Render() {
+    this.RenderScatterChart();
+  }
+  
+  private RenderScatterChart() {
     this.IsRendered = false;
 
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
+
+      this.PopupItems = [];
+
       this.context.clearRect(0, 0, this.Width + this.PaddingLeft + this.PaddingRight, this.Height + this.PaddingTop + this.PaddingBottom);
       
       this.EnableGlassyEffectOnTopOfChart();

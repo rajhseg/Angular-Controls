@@ -336,7 +336,11 @@ export class RStackedBarChartHorizontalComponent extends RChartBaseComponent {
     }
   }
 
-  RenderBarChart() {
+  public Render() {
+    this.RenderBarChart();
+  }
+
+  private RenderBarChart() {
     this.IsRendered = false;
 
     const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
@@ -345,6 +349,8 @@ export class RStackedBarChartHorizontalComponent extends RChartBaseComponent {
     if (this.bar && this.context && this.Columns.length > 0 && this.yAxisItemNames.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
+
+      this.PopupItems = [];
 
       this.context.clearRect(0, 0, totalWidth, totalHeight);
       this.EnableGlassyEffectOnTopOfChart();

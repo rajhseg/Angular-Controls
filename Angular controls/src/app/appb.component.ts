@@ -1,9 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult, RSplitterResult, RCssUnitsService } from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -407,8 +407,13 @@ export class AppRootComponent {
   
   ditems: DropdownModel[] = [];
 
-  constructor() {
+  leftPanelWidth: number = 360;
+  rightPanelWidth: number = 360;
 
+  @ViewChild('leftChart', { read: RAllocatedBarChartComponent }) leftChart!: RAllocatedBarChartComponent;
+  @ViewChild('rightChart', { read: RAllocatedBarChartComponent }) rightChart!: RAllocatedBarChartComponent;
+
+  constructor(private cdr: ChangeDetectorRef, private cssUnitService: RCssUnitsService) {
     this.DrawYSeriesChart();
     this.DrawBarChart();
     this.addCalenderEvents();
@@ -424,6 +429,23 @@ export class AppRootComponent {
     
   }
   
+  panelSizeChange(data: RSplitterResult) {
+
+    let leftWidth = Number(data.PreviousPanelSize.replace('px',''));
+    let rightWidth = Number(data.NextPanelSize.replace('px',''));
+
+    this.leftPanelWidth = leftWidth - 100;
+    this.rightPanelWidth = rightWidth - 100;
+
+    this.cdr.detectChanges();
+
+    setTimeout(()=>{  
+      this.leftChart.Render();
+      this.rightChart.Render();
+    }, 400);
+    
+  }
+
   async CallbackMethodAfterCertainSeconds(result: RTimerResult) {
 
     //const sleep = (ms: any) => new Promise(resolve => setTimeout(resolve, ms));

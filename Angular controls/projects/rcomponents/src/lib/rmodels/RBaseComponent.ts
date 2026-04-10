@@ -16,6 +16,12 @@ export abstract class RBaseComponent<T> {
     @Input()
     FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
+    @Input()
+    ErrorIndicatorColor: string = "red";
+
+    @Input()
+    IsReadOnly: boolean = false;
+
     constructor(protected winObj: RWindowHelper) {
         this.Id = this.winObj.GenerateUniqueId();
         this.HostElementId = this.winObj.GenerateUniqueId();

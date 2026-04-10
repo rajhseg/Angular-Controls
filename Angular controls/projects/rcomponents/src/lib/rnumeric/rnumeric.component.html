@@ -7,7 +7,7 @@
         <label [ngStyle]="{ 'color': LabelTextForeColor }">{{LabelText}}</label>
     </div>
 
-    <div style="display: flex;flex-direction: row;">
+    <div style="display: flex;flex-direction: row-reverse;">
 
         <rtextbox [ReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
             [BottomLineColor]="BottomLineColor" [LabelText]="''"
@@ -17,7 +17,7 @@
             [(ngModel)]="Value">
         </rtextbox>    
 
-        <div class="buttons" [ngStyle]="{ 'padding-left' : ButtonPaddingLeft}">
+        <div class="buttons" [ngStyle]="{ 'padding-right' : '3px'}">
             <rbutton    
                         [ButtonHeight]="ButtonHeight"
                         [ButtonWidth]="'25px'"

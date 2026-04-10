@@ -504,8 +504,11 @@
         </div>
         <div class="card-body">
           <rnumeric
+            [IsReadOnly]="false"
             LabelText="Quantity"
             [(ngModel)]="numericValue"
+            [TextBoxWidth]="'100px'"
+            [TextBoxHeight]="'25px'"
             [BottomLineColor]="'#1E1198'"
             [PlusBackgroundColor]="'#1E1198'"
             [MinusBackgroundColor]="'#1E1198'"

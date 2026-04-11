@@ -51,6 +51,8 @@ import { RPageContentDirective } from './rsplitter/rpagecontent.directive';
 import { RSplitPageComponent } from './rsplitter/rsplitpage.component';
 import { RSplitterComponent } from './rsplitter/rsplitter.component';
 import { RCell, RGridHeaderSort, RGridEditRowInfo, RGridHeaderSortType, RGridItems, RGridRow } from './rgrid/rcell';
+import { RRangeSliderComponent } from './rrangeslider/rrangeslider.component'
+
 
 @NgModule({
     imports: [
@@ -106,6 +108,7 @@ import { RCell, RGridHeaderSort, RGridEditRowInfo, RGridHeaderSortType, RGridIte
         RPageContentDirective,
         RSplitPageComponent,
         RSplitterComponent,
+        RRangeSliderComponent
     ],
     exports: [
         RCalendarComponent,
@@ -158,7 +161,8 @@ import { RCell, RGridHeaderSort, RGridEditRowInfo, RGridHeaderSortType, RGridIte
         REventsCalenderComponent,
         RPageContentDirective,
         RSplitPageComponent,
-        RSplitterComponent
+        RSplitterComponent,
+        RRangeSliderComponent
     ]
 })
 export class RComponentsModule {

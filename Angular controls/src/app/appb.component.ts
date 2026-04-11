@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult, RSplitterResult, RCssUnitsService } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult, RSplitterResult, RCssUnitsService, RRangeSliderComponent, RRangeSliderData } from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -94,6 +94,7 @@ import { delay, from, of, switchMap } from 'rxjs';
     RTextboxComponent,
     RNumericComponent,
     RSliderComponent,
+    RRangeSliderComponent,
     RSwitchComponent,
     RStarRatingComponent,
     RRadiobuttonComponent,
@@ -134,7 +135,8 @@ export class AppRootComponent {
   optionB: boolean = false;
   optionC: boolean = false;
   
-  
+  rrangeSliderData: RRangeSliderData = new RRangeSliderData(40, 70);
+
   ItemsPerPage = new DropdownModel(10, "10");
 
   // ─── Section visibility ──────────────────────────────────────────────

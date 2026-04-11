@@ -64,5 +64,6 @@ export * from './lib/rcheckbox/rcheckbox.service';
 export * from './lib/rsplitter/rsplitter.component';
 export * from './lib/rsplitter/rsplitpage.component';
 export * from './lib/rsplitter/rpagecontent.directive';
+export * from './lib/rrangeslider/rrangeslider.component';
 
 export * from './lib/rcomponents.module';

@@ -68,6 +68,19 @@ export class RTimerResult {
     }
 }
 
+export class RRangeSliderData {
+    
+    public FromValue: number | undefined = undefined;
+
+    public ToValue: number | undefined = undefined;
+    
+    constructor(_fromValue: number | undefined, _toValue: number | undefined) {
+        this.FromValue = _fromValue;
+        this.ToValue = _toValue;
+    }
+
+}
+
 export class RSplitterResult {
 
     SplitterType: RSplitterType = RSplitterType.Vertical;

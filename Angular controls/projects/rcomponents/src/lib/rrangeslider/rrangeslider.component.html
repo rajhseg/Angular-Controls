@@ -1,0 +1,36 @@
+<div  [style.font-family]="FontFamily"  [id]="Id" style="display: flex;" [ngStyle]="{'width': _totalWidth }">
+    <div class="sbox sli">
+
+        <div class="box" [ngStyle]="{
+            'background-color': EnableEmptyPathColor ? EmptyTrackColor : 'transparent',
+            'width': _sliderBarWidthVM, 
+            'height': _sliderBarHeightVM }"></div>
+        
+        
+        <div class="cbox" 
+            [ngStyle]="{ 'background-color': EnablePathColor ? TrackColor : 'transparent', 
+                'margin-left':Slider1MarginLeft,
+                'width':MiddleBarWidth+'px', 'height': _sliderBarHeightVM }"></div>
+
+        <div #slider1 class="slider" [ngStyle]="{'background-color': Slider1Color,
+            'height': _sliderMarkerSizeVM, 'width': _sliderMarkerSizeVM, 'top': getMarkerTop() }" cdkDragLockAxis="x" cdkDrag
+         (cdkDragMoved)="dragMove1($event)" (cdkDragStarted)="dragStarted1($event)"            
+            (cdkDragReleased)="dragEnded1($event)">
+        </div>
+
+
+        <div #slider2 class="slider" [ngStyle]="{'background-color': Slider2Color,
+            'height': _sliderMarkerSizeVM, 'width': _sliderMarkerSizeVM, 'top': getMarkerTop() }" cdkDragLockAxis="x" cdkDrag
+            (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"            
+            (cdkDragReleased)="dragEnded($event)">
+        </div>
+    
+        <div *ngIf="IsDisplayValue" class="displayValue" style="width: 100px;"
+                [ngStyle]="{ 'left': _sliderBarWidthVM , 'top': getDisplayValueTop() }">
+                <span>
+                  {{Slider1Value}} - {{Slider2Value}}
+                </span>
+        </div> 
+        
+    </div>    
+</div>

@@ -22,8 +22,6 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
 })
 export class RSliderComponent extends RBaseComponent<number> implements ControlValueAccessor, OnInit {
 
-  private offsetLeft: number = 0;
-  private additionalSizeToAdd = 3;
   public currentDistance: number = 0;
   private resize: number = 0;
 
@@ -114,9 +112,6 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
 
   public SliderValue: number = 0;
 
-  private LeftBoundry: number = this.offsetLeft + this.additionalSizeToAdd + 1;
-  private rightBoundary: number = this.LeftBoundry + this._sliderBarWidthValue + 20 - 1;
-
   onChange: Function = (value: number) => { };
 
   onTouch: Function = (value: number) => { };
@@ -125,9 +120,6 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
   constructor(@Host() private ele: ElementRef, winObj: RWindowHelper, private cssunit: RCssUnitsService) {
     super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
-    this.offsetLeft = (this.ele.nativeElement as HTMLElement).offsetLeft;
-    // 12 offsetLeft + 2 + 1 +first position 1 = 16 
-    // 16 + 200 = 216 + 20 = 236-1; layerX    
   }
 
   ngOnInit(): void {
@@ -277,16 +269,6 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
   }
 
   dragEnded($event: CdkDragRelease) {
-    // let mEvent = ($event.event as MouseEvent);
-    // let value = 0;
-
-    // if(mEvent.layerX>this.rightBoundary)
-    //   value = this.rightBoundary;
-    // else if(mEvent.layerX < this.LeftBoundry)
-    //   value = this.LeftBoundry;
-    // else
-    //   value = mEvent.layerX;
-
-    //this.SliderValue = ((value - this.LeftBoundry) * 100) / (this.rightBoundary - this.LeftBoundry)    
+    
   }
 }

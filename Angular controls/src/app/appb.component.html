@@ -3,7 +3,6 @@
      Displays every component in a card grid, grouped by category.
      ===================================================================== -->
 
-     
 <div class="showcase-root">
 
   <!-- Top navigation -->
@@ -538,6 +537,25 @@
         <div class="card-hint">Value: <strong>{{ sliderValue }}</strong>. Drag-based slider using Angular CDK.</div>
       </div>
 
+
+      <!-- Range Slider -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Range Slider</h2>
+          <code class="card-selector">&lt;rrangeslider&gt;</code>
+        </div>
+        <div class="card-body">
+          <rrangeslider [(ngModel)]="rrangeSliderData" 
+              [MinValue]="25" [MaxValue]="75">
+          </rrangeslider>
+        </div>
+        <div class="card-hint">
+          From Value: <strong>{{ rrangeSliderData.FromValue }}</strong>.
+          To Value: <strong>{{ rrangeSliderData.ToValue }}</strong>.
+          Drag-based range slider using Angular CDK.</div>
+      </div>
+      
       <!-- Switch -->
       <div class="card">
         <div class="card-header">

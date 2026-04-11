@@ -531,6 +531,7 @@
             [MinValue]="0"
             [MaxValue]="100"
             [(ngModel)]="sliderValue"
+            [IsDisplayValue]="false"
             [SliderBarWidth]="'300px'">
           </rslider>
         </div>
@@ -547,6 +548,7 @@
         </div>
         <div class="card-body">
           <rrangeslider [(ngModel)]="rrangeSliderData" 
+              [IsDisplayValue]="false"
               [MinValue]="25" [MaxValue]="75">
           </rrangeslider>
         </div>

@@ -360,6 +360,47 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     (this.sliderElement2.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance2 + "px)"; //this.currentDistance+"px";
   }
 
+  clickOnBar($event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+
+    let isSilder1: boolean = true;
+
+    if($event.offsetX < this.currentDistance1){
+      isSilder1 = true;
+    } else {
+      isSilder1 = false;
+    }
+
+    let total = this._sliderBarWidthValue - marker + 3;
+
+    if(isSilder1) {
+      this.currentDistance1 = ($event as MouseEvent).offsetX;
+
+      this.calculateMiddleBar(marker);
+
+      this.Slider1MarginLeft = (this.currentDistance1 + marker -2) + 'px';
+
+      this.AdjustSlider1BasedOnCurrentDistance(total);
+
+      (this.sliderElement1.nativeElement as HTMLElement).style.transform = "0px";
+      (this.sliderElement1.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance1 + "px)"; 
+    } else {
+
+      this.currentDistance2 = ($event as MouseEvent).offsetX;
+
+      this.calculateMiddleBar(marker);
+
+      this.Slider1MarginLeft = (this.currentDistance1 + marker -2) + 'px';
+
+      this.AdjustSlider2BasedOnCurrentDistance(total);
+
+      (this.sliderElement2.nativeElement as HTMLElement).style.transform = "0px";
+      (this.sliderElement2.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance2 + "px)"; 
+    }
+  
+  }
   
   AdjustSlider1BasedOnCurrentDistance(total: number) {
 

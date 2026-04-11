@@ -1,7 +1,7 @@
 <div  [style.font-family]="FontFamily"  [id]="Id" style="display: flex;" [ngStyle]="{'width': _totalWidth }">
     <div class="sbox sli">
 
-        <div class="box" [ngStyle]="{
+        <div class="box" (click)="clickOnBar($event)" [ngStyle]="{
             'background-color': EnableEmptyPathColor ? EmptyTrackColor : 'transparent',
             'width': _sliderBarWidthVM, 
             'height': _sliderBarHeightVM }"></div>

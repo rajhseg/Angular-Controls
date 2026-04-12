@@ -232,7 +232,7 @@ FileUpload Control
 
 <br/>
 
-<img width="612" height="277" alt="image" src="https://github.com/user-attachments/assets/3f5c827e-4812-4596-b129-492c6c704cc3" />
+<img width="320" height="120" alt="image" src="https://github.com/user-attachments/assets/8a949651-b5c9-4554-a809-83748dcd1b46" />
 
 <br />
 <br />

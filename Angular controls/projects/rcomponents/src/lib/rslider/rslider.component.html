@@ -11,11 +11,23 @@
          (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"            
             (cdkDragReleased)="dragEnded($event)">
         </div>
-        <div *ngIf="IsDisplayValue" class="displayValue" 
-                [ngStyle]="{ 'left': _sliderBarWidthVM , 'top': getDisplayValueTop() }">
-                <span>
-                    {{RangeValue}}
-                </span>
-        </div>
-    </div>    
+    </div>  
+    <div class="displayValue" 
+            [ngStyle]="{ 'width': _sliderBarWidthVM, 'color': DisplayLabelColor, 
+                         'font-family': DisplayLabelFontFamily, 
+                         'font-size': DisplayLabelFontSize  
+                       }" 
+            *ngIf="IsDisplayLabel">
+        
+        <span>
+            {{MinValue}}                
+        </span>
+        <span *ngIf="IsDisplayValue" [ngStyle]="{ 'color': DisplayValueForeColor }">
+            {{RangeValue}}
+        </span>
+        <span>
+            {{MaxValue}}
+        </span>
+
+    </div>  
 </div>

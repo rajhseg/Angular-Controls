@@ -123,6 +123,22 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     return this._sliderMarkerSize;
   }
 
+  @Input()
+  IsDisplayLabel: boolean = true;
+
+  @Input()
+  DisplayLabelFontSize: string = "12px";
+
+  @Input()  
+  DisplayLabelColor: string = "#999";
+
+  @Input()
+  DisplayLabelFontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+  @Input()
+  DisplayValueForeColor: string = "#000";
+
+
   private slider2FromStart: boolean = false;
   private slider1FromStart: boolean = false;
 

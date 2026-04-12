@@ -107,6 +107,22 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
     return this._sliderMarkerSize;
   }
 
+  
+  @Input()
+  DisplayLabelFontSize: string = "12px";
+
+  @Input()  
+  DisplayLabelColor: string = "#999";
+
+  @Input()
+  DisplayLabelFontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+  @Input()
+  DisplayValueForeColor: string = "#000";
+  
+  @Input()
+  IsDisplayLabel: boolean = true;
+  
   private sliderFromStart: boolean = false;
   private clickonInitHaveValues: boolean = true;
 

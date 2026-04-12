@@ -142,11 +142,20 @@ Slider
 
 <br />
 
-<img width="453" height="81" alt="image" src="https://github.com/user-attachments/assets/bb972bf6-ce47-41c4-b375-fa3aed6ab2e8" />
+<img width="366" height="78" alt="image" src="https://github.com/user-attachments/assets/1992ddec-3b1e-4577-b00e-fbae3d57968d" />
 
 <br />
 <br />
 
+RangeSlider
+-----------------------------
+
+<br />
+
+<img width="341" height="81" alt="image" src="https://github.com/user-attachments/assets/561acbaa-0c93-4f80-bbc6-fcc9504879c7" />
+
+<br />
+<br />
 
  StarRating Control
 ---------------------

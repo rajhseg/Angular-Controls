@@ -147,6 +147,15 @@ Slider
 <br />
 <br />
 
+RangeSlider
+-----------------------------
+
+<br />
+
+<img width="221" height="46" alt="image" src="https://github.com/user-attachments/assets/cb1639e2-539e-4431-b593-553a03a4f99c" />
+
+<br />
+<br />
 
  StarRating Control
 ---------------------

@@ -73,7 +73,7 @@
       <div></div>
       <br />
 
-      <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" [MinValue]="0"
+      <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0"
         [MaxValue]="1" [(ngModel)]="rangeValue">
       </rslider>
 
@@ -198,7 +198,7 @@
 
       &nbsp;
 
-      <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" [MinValue]="0"
+      <rslider [IsDisplayValue]="true" [ShowDecimalValues]="true" [MinValue]="0"
         [MaxValue]="100" [(ngModel)]="rangeValue">
       </rslider>
 
@@ -611,14 +611,14 @@
 
   </div>
 
-  <rslider [IsDisplayValue]="true" [BackgroundColor]="tColor" [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1"
+  <rslider [IsDisplayValue]="true"  [ShowDecimalValues]="true" [MinValue]="0" [MaxValue]="1"
     [(ngModel)]="rangeValue">
   </rslider>
 
   <br />
   <br />
 
-  <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [BackgroundColor]="bColor" [MinValue]="25"
+  <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [TrackColor]="bColor" [MinValue]="25"
     [MaxValue]="75">
   </rslider>
 
@@ -626,7 +626,7 @@
   <br />
   
   <rslider [SliderBarWidth]="'400px'" [SliderBarHeight]="'2px'" [SliderMarkerSize]="'12px'" [EnablePathColor]="true"
-    [BackgroundColor]="bColor"></rslider>
+    [TrackColor]="bColor"></rslider>
 
   <br />
   <br />
@@ -1308,13 +1308,13 @@
 
         <br />
 
-        <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [BackgroundColor]="'Red'" [MinValue]="25"
+        <rslider [SliderBarWidth]="'400px'" [EnablePathColor]="false" [TrackColor]="'Red'" [MinValue]="25"
           [MaxValue]="75"></rslider>
 
         <br />
 
         <rslider [(ngModel)]="rangeValue1" [SliderBarWidth]="'300px'" [EnablePathColor]="true"
-          [BackgroundColor]="'Orange'">
+          [TrackColor]="'Orange'">
         </rslider>
 
         <br />

@@ -1,16 +1,23 @@
 <div  [style.font-family]="FontFamily" [id]="Id" style="display: flex;" [ngStyle]="{'width': _totalWidth }">
     <div class="sbox sli">
-        <div class="box" (click)="clickOnBar($event)" [ngStyle]="{
+
+        <div class="box" (click)="clickOnBar($event)" [ngStyle]="{ 
+            'background-color': EmptyTrackColor, 
             'width': _sliderBarWidthVM, 
-            'height': _sliderBarHeightVM }"></div>
+            'height': _sliderBarHeightVM }">
+        </div>
+
         <div class="cbox"  (click)="clickOnBar($event)"
-            [ngStyle]="{'background-color': EnablePathColor ? BackgroundColor : 'transparent', 
-                'width':currentDistance+'px', 'height': _sliderBarHeightVM }"></div>
-        <div #slider class="slider" [ngStyle]="{'background-color': BackgroundColor,
+            [ngStyle]="{'background-color': EnablePathColor ? TrackColor : 'transparent', 
+                'width':currentDistance+'px', 'height': _sliderBarHeightVM }">
+        </div>
+
+        <div #slider class="slider" [ngStyle]="{'background-color': SliderColor,
             'height': _sliderMarkerSizeVM, 'width': _sliderMarkerSizeVM, 'top': getMarkerTop() }" cdkDragLockAxis="x" cdkDrag
          (cdkDragMoved)="dragMove($event)" (cdkDragStarted)="dragStarted($event)"            
             (cdkDragReleased)="dragEnded($event)">
         </div>
+
     </div>  
     <div class="displayValue" 
             [ngStyle]="{ 'width': _sliderBarWidthVM, 'color': DisplayLabelColor, 

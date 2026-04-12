@@ -1,7 +1,6 @@
 
 
 :host {
-    /* display: block; */
     width: fit-content;
     margin-top: 6px; 
     margin-bottom: 6px;      
@@ -10,8 +9,6 @@
 }
 
 .checkroot{
-    /* width: 15px;
-    height: 15px; */
     border: 2px solid lightgray;
     background-color: whitesmoke;    
     cursor: pointer;

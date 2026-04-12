@@ -26,14 +26,14 @@
 }
 
 .staroutlinecontainer {
-    position: relative; /* base layer */
+    position: relative; 
     display: inline-block;
     z-index: 1;
 }
 
 .starcontainer{
     overflow: hidden;
-    position: absolute; /* filled layer, clipped to rating */
+    position: absolute; 
     left: 0;
     top: 0;
     z-index: 2;

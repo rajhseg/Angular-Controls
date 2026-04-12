@@ -22,14 +22,6 @@
 }
 
 .bar {
-
-    /* width: 12px;
-    height: 2px;
-    background: blue;
-    position: relative;
-    top: -8px;
-    left: 6px; */
-
     width: 11px;
     height: 2px;
     background: #b7b7e3;
@@ -97,7 +89,6 @@
     align-content: center;
     align-self: center;
     cursor: pointer;
-    /* color: blue; */
 }
 
 
@@ -121,7 +112,6 @@
     right: 5px;
     position: relative;
     float: right;
-    /* color: blue; */
     top: -15px;
 }
 
@@ -154,7 +144,6 @@
 }
 
 .tab tr:hover {
-    /* background-color: antiquewhite; */
 }
 
 .closebtn {
@@ -165,7 +154,6 @@
     justify-content: center;
     align-content: center;
     background-color: white;
-    /* color: blue; */
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;    
     float: right;    
     vertical-align: middle;    
@@ -210,15 +198,6 @@
   stroke-linejoin: round;
   transition: stroke 0.15s ease;
 }
-
-/*
-.upload-icon:hover {
-  background: blue; 
-}
-.upload-icon:hover svg {
-  stroke: white;
-} 
-*/
 
 /* Active/pressed */
 .upload-icon:active {

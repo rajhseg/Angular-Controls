@@ -48,11 +48,6 @@
     overflow-y: hidden;
   }
 
-  /* .selected{
-    color: white;
-    background-color: blue;
-  } */
-
   ::-webkit-scrollbar {
     width: 0.3px;
     height: 0.3px;

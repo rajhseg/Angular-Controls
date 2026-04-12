@@ -534,8 +534,9 @@
             [MinValue]="0"
             [MaxValue]="100"
             [(ngModel)]="sliderValue"
-            [TrackColor]="'darkblue'"
-            [SliderColor]="'darkblue'"
+            [TrackColor]="'#e8e8f0'"
+            [EmptyTrackColor]="'white'"
+            [SliderColor]="'#e8e8f0'"
             [IsDisplayValue]="true"
             [IsDisplayLabel]="true"
             [SliderBarWidth]="'300px'">
@@ -554,6 +555,10 @@
         </div>
         <div class="card-body">
           <rrangeslider [(ngModel)]="rrangeSliderData" 
+              [TrackColor]="'#e8e8f0'"
+              [EmptyTrackColor]="'white'"
+              [Slider1Color]="'#e8e8f0'"
+              [Slider2Color]="'#e8e8f0'"
               [IsDisplayValue]="true" 
               [IsDisplayLabel]="true" [SliderBarWidth]="'300px'"
               [MinValue]="25" [MaxValue]="75">

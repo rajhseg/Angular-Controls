@@ -1,12 +1,8 @@
 
 .calender {
-    /* width: 285px; */
     padding: 10px;
-    /* margin: 10px 1px; */
     border: 1px solid #80808047;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
-    /* box-shadow: 8px 16px 0px rgba(0, 0, 0, 0.2); */
     position: absolute;
     z-index: 9999999;
     background-color: white;    
@@ -62,9 +58,7 @@ width: fit-content;
 .day { 
     flex: 1 0 35px; 
     background-color: #fff; 
-    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/ 
     padding: 2px; 
-    /* border-radius: 10px;  */
     transition: transform 0.3s ease-in-out; 
     text-align: center;
     cursor: pointer;
@@ -91,9 +85,7 @@ width: fit-content;
     position: relative;
     flex: 1 0 90px; 
     background-color: #fff; 
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
     padding: 2px; 
-    /* border-radius: 10px;  */
     transition: transform 0.3s ease-in-out; 
     text-align: center;
     cursor: pointer;
@@ -170,9 +162,7 @@ width: fit-content;
 
   .calIcon {
     position: relative;
-    /* top: -3px; */
     cursor: pointer;
-    /* font-size: x-large; */
     left: -2px;
     color: #808080cf;
     width: fit-content;
@@ -180,9 +170,7 @@ width: fit-content;
   
   .calIconLinux {
     position: relative;
-    /* top: -3px; */
     cursor: pointer;
-    /* font-size: x-large; */
     left: -2px;
     color: #808080cf;
     width: fit-content;

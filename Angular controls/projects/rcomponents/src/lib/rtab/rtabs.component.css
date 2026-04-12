@@ -23,12 +23,10 @@
 }
 
 .tabheader:hover {
-  /* background-color: #d8d8db; */
   background-color: #e7e7e9;
 }
 
 .tabSelected{
-  /* background-color: #e5e5e5; */
   background-color: #e7e7e9; 
   background-image: linear-gradient(white, lightgray, #e7e7e9);
 }
@@ -41,7 +39,6 @@
   position: relative;
   background-color: #e7e7e9;
   overflow: auto;
-  /* overflow: visible; */
 }
 
 .tab {
@@ -53,11 +50,8 @@
 
 .active {
   visibility: visible;
-  /* background-color:#e5e5e5; */
   background-color: #e7e7e9;
   display: block;
-  /* background-image: linear-gradient(#e7e7e9, transparent); */
-  /* overflow: auto; */
 }
 
 
@@ -70,8 +64,6 @@
   margin-top: 2px; 
   margin-bottom: 2px;
   width: fit-content;
-  /* display: inline-block; */
-  /* display: inline-flex; */
   background: #e7e7e9;
   border-radius: 30%;  
   
@@ -90,11 +82,9 @@
   background-color: #e7e7e9;
   color: rgba(0, 0, 0, 0.87);
   cursor: move;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* background: #fff; */
   border-radius: 4px;
   position: absolute;
   z-index: 9999999998;  

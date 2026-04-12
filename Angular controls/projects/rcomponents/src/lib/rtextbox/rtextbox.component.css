@@ -37,8 +37,6 @@
 .span {
     position: relative;
     top: -5px;
-    /* color: blue; */
-    /* width:200px; */
 }
 
 :host{

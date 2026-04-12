@@ -98,7 +98,6 @@
     width: 50px;
     color: white;
     flex-shrink: 0;
-    /* flex-basis: 50px; */
     flex-grow: 0;
     text-align: center;
     align-content: center;
@@ -108,8 +107,6 @@
 
 .rowheaderitem{
     height: 50px;
-    /* width: 250px;     */
-    /* flex-basis: 60px; */
     flex-grow: 0;
     flex-shrink: 0;
     text-align: center;
@@ -119,9 +116,6 @@
 
 .ritem {
     height: 50px;
-    /* width: 250px; */
-    /* padding: 6px; */
-    /* flex-basis: 200px; */
     flex-grow: 0;
     flex-shrink: 0;
     text-align: center;
@@ -135,10 +129,7 @@
 }
 
 .ritemHeader {    
-    /* height: 50px; */
-    /* width: 50px; */    
     flex-shrink: 0;
-     /* flex-basis: 60px;  */
     flex-grow: 0;
     text-align: center;
     align-content: center;          

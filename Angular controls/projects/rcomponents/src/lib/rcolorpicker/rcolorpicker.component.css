@@ -32,12 +32,10 @@
     background-color: white;
     overflow: auto;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;     
-    /* height: 250px; */
     overflow-y: auto;
     z-index: 9999999;
     margin-top: 2px;
     padding: 15px;
-    /* width: 285px; */
 }
 
 .mainContainer {
@@ -45,7 +43,6 @@
     flex-direction: row;    
     width: fit-content;
     cursor: pointer;
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  */
     border: 1px solid lightgray;
     padding: 5px;
     margin-top: 4px;

@@ -9,8 +9,6 @@
 }
 
 .checkroot{
-    /* width: 16px;
-    height: 16px; */
     border: 4px solid lightgray;
     background-color: whitesmoke;    
     cursor: pointer;
@@ -24,7 +22,6 @@
 .round {
     height: var(--height);
     width: var(--width); 
-    /* background-color: lightgray; */
     display: inline-block;
     border-radius: 50%;
     box-shadow: 0 0 0 1px whitesmoke;

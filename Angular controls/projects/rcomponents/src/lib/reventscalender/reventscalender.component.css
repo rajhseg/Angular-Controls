@@ -82,18 +82,7 @@ width: fit-content;
 .selday {
     cursor: pointer;
     border-radius: 50%;
-    /* background-color: #0004ffe5; */
-    /* color: white; */
-    /* font-weight: 700; */
-    /* position: relative;
-    left: var(--sdayLeftpx);
-    width: 25px;
-    top: var(--sdaytoppx);
-    text-align: center; */
-    /* line-height: 180%; */
-    /* height: 25px; */
     align-content: center;
-    /* font-size: smaller; */
 }
 
 .modal {
@@ -105,7 +94,6 @@ width: fit-content;
   top: 0px;
   left:0px;
   z-index: 1;  
-  /* background-color: rgba(0, 0, 0, 0.4);  */
   background-color: whitesmoke;
 }
 
@@ -155,9 +143,7 @@ width: fit-content;
     position: relative;
     flex: 1 0 90px; 
     background-color: #fff; 
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
     padding: 2px; 
-    /* border-radius: 10px;  */
     transition: transform 0.3s ease-in-out; 
     text-align: center;
     cursor: pointer;
@@ -208,7 +194,6 @@ width: fit-content;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
     padding: 12px 16px;
     z-index: 10;
   }
@@ -234,9 +219,7 @@ width: fit-content;
 
   .calIcon {
     position: relative;
-    /* top: -3px; */
     cursor: pointer;
-    /* font-size: x-large; */
     left: -2px;
     color: #808080cf;
     width: fit-content;
@@ -244,9 +227,7 @@ width: fit-content;
   
   .calIconLinux {
     position: relative;
-    /* top: -3px; */
     cursor: pointer;
-    /* font-size: x-large; */
     left: -2px;
     color: #808080cf;
     width: fit-content;

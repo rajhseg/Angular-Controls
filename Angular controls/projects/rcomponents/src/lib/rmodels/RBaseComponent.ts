@@ -17,6 +17,9 @@ export abstract class RBaseComponent<T> {
     FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
     @Input()
+    FontSize: string = '12px';
+
+    @Input()
     ErrorIndicatorColor: string = "red";
 
     @Input()
@@ -40,6 +43,9 @@ export abstract class RChartBaseComponent {
     @Input()
     FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
+    @Input()
+    FontSize: string = '12px';
+    
     constructor(protected winObj: RWindowHelper){
         this.Id = this.winObj.GenerateUniqueId();
         this.HostElementId = this.winObj.GenerateUniqueId();

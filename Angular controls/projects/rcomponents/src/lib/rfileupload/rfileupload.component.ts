@@ -194,7 +194,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
           exceed_size = true;
           error_no += 1;
           max_files_size = max_files_size+ error_no+ "." + element.name + ";\n "
-          this.ErrorMessages.push(error_no+ "." + element.name);
+          this.ErrorMessages.push(element.name);
         }
       }
 

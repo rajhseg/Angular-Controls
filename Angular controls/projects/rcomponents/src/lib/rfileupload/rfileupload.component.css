@@ -135,12 +135,12 @@
 
 .tab th {
     padding: 7px;
-    font-size: small;
+    font-size: var(--tdsize);
 }
 
 .tab td {
-    padding: 5px;
-    font-size: small;
+    padding: 7px;
+    font-size: var(--tdsize);
 }
 
 .tab tr:hover {

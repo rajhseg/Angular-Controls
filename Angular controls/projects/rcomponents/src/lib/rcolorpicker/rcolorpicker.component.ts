@@ -100,19 +100,6 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   @Input()
   public EnableShadowEffect: boolean = false;
 
-  // private _inputColorInHex: string | undefined = undefined;
-
-  // @Input()
-  // public set InputColorInHex(value: string) {
-  //   if (value) {
-  //     this._inputColorInHex = value;
-  //     this.AssignColorsForInputColor(value);
-  //   }
-  // }
-  // public get InputColorInHex(): string | undefined {
-  //   return this._inputColorInHex;
-  // }
-
   @Output()
   public ColorSelected = new EventEmitter<RColorPickerEventArgs>();
 
@@ -127,9 +114,6 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   @Input()
   public IsDisplayLabelText: boolean = false;
-
-  @Input()
-  public FontSize: string = "small";
 
   @Input()
   public IsDisplayColorCode: boolean = true;

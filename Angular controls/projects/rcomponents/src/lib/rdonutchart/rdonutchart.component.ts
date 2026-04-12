@@ -20,9 +20,6 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
   BorderColor: string = 'lightgray';
 
   @Input()
-  FontSize: number = 10;
-
-  @Input()
   TextForeColor: string = 'white';
 
   @Input()
@@ -86,6 +83,7 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
 
   constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     super(winObj);
+    this.FontSize = "10px";
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -228,7 +226,7 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
             this.context.rotate(Math.PI / 2);
           }
 
-          this.context.font = this.FontSize + 'px verdana';
+          this.context.font = this.FontSize + ' verdana';
           this.context.fillStyle = this.TextForeColor;
           this.context.fillText(element.Title, 0, 0);
 

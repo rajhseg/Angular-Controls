@@ -1,4 +1,4 @@
-<div  class="dropdown fileuploadclose"  [style.font-family]="FontFamily" [id]="Id">
+<div  class="dropdown fileuploadclose"  [style.font-family]="FontFamily" [style.font-size]="FontSize" [id]="Id">
     <input [hidden]="true" [multiple]="SelectMultipleFiles" [accept]="Accept" type="file" #rfile (change)="onFilesSelected($event)" />
     <div style="width: 285px;">
     <rgroup-panel [groupname]="'Files Upload'" [TitleForeColor]="TextForeColor" 
@@ -14,7 +14,7 @@
                         [ngClass]="{ 'icon-down': !showFiles, 'icon-up': showFiles}"
                         [ngStyle]="{'color': IconForeColor}"></span>
                     <span (click)="clear($event)" class="closebtn" 
-                            [ngStyle]="{'color': IconForeColor}">
+                            [ngStyle]="{'color': IconForeColor, 'font-size': '13px' }">
                             
                             <div>x</div>
                              
@@ -40,27 +40,30 @@
         <div *ngIf="showFiles" class="tableContainer rfileuploaddropdownclose" id="dropdownId"
             [ngClass]="{'dropdown-content': ShowFilesAsDropdownContainer }"
             [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse', 'height':'fit-content',
+                '--tdsize': FontSize,
                 'background-color': ShowFilesAsDropdownContainer ? 'white': '',
                 'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
             <table class="tab" *ngIf="ErrorMessages.length == 0">
                 <thead>
-                    <th style="width: 140px;overflow-wrap:anywhere;">Name</th>
-                    <th style="width: 60px;overflow-wrap:anywhere;">Size</th>               
+                    <th style="width: 130px;overflow-wrap:anywhere;">Name</th>
+                    <th style="width: 56px;overflow-wrap:anywhere;">Size</th>               
                 </thead>
                 <tbody class="">
                     <tr *ngFor="let item of Files" [ngStyle]="{ 'color': TextForeColor }">
-                        <td style="width: 140px; overflow-wrap: anywhere; text-wrap: wrap;">{{item.name}}</td>
-                        <td style="width: 60px;overflow-wrap:anywhere;">{{item.size}}</td>                      
+                        <td style="width: 130px; overflow-wrap: anywhere; text-wrap: wrap;">{{item.name}}</td>
+                        <td style="width: 56px;overflow-wrap:anywhere;">{{item.size}}</td>                      
                     </tr>
                 </tbody>
             </table>
             <table class="tab" *ngIf="ErrorMessages.length > 0">
                 <thead>
-                    <th  style="width: 200px;overflow-wrap:anywhere;">Error Exceed Max Size {{AllowedMaxFileSizeInMB}} MB</th>
+                    <th style="width: 20px;overflow-wrap:anywhere;">No</th>
+                    <th  style="width: 166px;overflow-wrap:anywhere;">Error Exceed Max Size {{AllowedMaxFileSizeInMB}} MB</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let ErrorMessage of ErrorMessages" [ngStyle]="{ 'color': TextForeColor }">
-                        <td style="width: 200px; overflow-wrap: anywhere; text-wrap: wrap;">
+                    <tr *ngFor="let ErrorMessage of ErrorMessages; let i = index" [ngStyle]="{ 'color': TextForeColor }">
+                        <td style="width: 20px;overflow-wrap:anywhere;padding: 7px;">{{i + 1}}</td>
+                        <td style="width: 166px; overflow-wrap: anywhere; text-wrap: wrap;">
                             {{ErrorMessage}}
                         </td>
                     </tr>

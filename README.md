@@ -142,7 +142,7 @@ Slider
 
 <br />
 
-<img width="366" height="78" alt="image" src="https://github.com/user-attachments/assets/1992ddec-3b1e-4577-b00e-fbae3d57968d" />
+<img width="351" height="88" alt="image" src="https://github.com/user-attachments/assets/cd2fb13c-e2a1-4e10-9fd5-ca03cc38f246" />
 
 <br />
 <br />

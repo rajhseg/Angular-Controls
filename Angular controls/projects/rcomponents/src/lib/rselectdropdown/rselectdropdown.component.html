@@ -1,13 +1,16 @@
 <div #startElement  [style.font-family]="FontFamily" [id]="Id" class="dropdown rselectdropdownWindowClose">
-  <input (click)="openDropdown($event)" readonly class="inpdrop" type="text" [value]="SelectedDisplay"
+  <input [id]="'inp'+Id" (click)="openDropdown($event)" readonly class="inpdrop" type="text" [value]="SelectedDisplay"
     style="padding-right: 20px;"
-    [ngStyle]="{'width': TextBoxWidth }">
+    [ngStyle]="{'width': TextBoxWidth, 'font-size': FontSize }">
+  
   <button #openbtn (click)="openDropdown($event)" class="dropdownbtn">
     <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
   </button>
+
   <div [hidden]="!IsDropDownOpen" #myDropdown id="myDropdown" 
       (scroll)="scrollHandler($event)" tabindex="1" (focusout)="onBlur($event)"
-    class="dropdown-content" style="background-color: white; overflow-x: hidden;text-overflow: ellipsis;" 
+    
+      class="dropdown-content" style="background-color: white; overflow-x: hidden;text-overflow: ellipsis;" 
         
         [ngStyle]="{ 'maxWidth': DDEWidth,           
           'background-color': BackgroundColor,
@@ -15,12 +18,13 @@
           ' box-shadow': EnableShadowOnDropdown ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px': '',
           'width': DDEWidth, 'height': DDEHeight, 
           'top':DDETop, 'bottom': DDEBottom,
-          'left': DDELeft, 'right': DDERight 
+          'left': DDELeft, 'right': DDERight,
+          'font-size': DropdownFontSize
           }">
 
       <div *ngIf="EnableFilterOption">
         <rtextbox [TextBoxWidth]="getFilterBoxWidth(DDEWidth)" [EnableMarginTextBottom]="false" 
-          [BottomLineColor]="SearchBoxBottomLineColor"
+          [BottomLineColor]="SearchBoxBottomLineColor" [FontSize]="DropdownFontSize"
           [PlaceholderText]="'Search ...'" [(ngModel)]="SearchItem"  style="margin-top: 0px;"></rtextbox>        
       </div>
 
@@ -31,11 +35,12 @@
 
       <div class="option-content" style="padding-left:6px;padding-top:6px;cursor: pointer;display: flex;">
         <rcheckbox style="width: auto;padding: 6px;" (OnCheckBoxClick)="selectall($event)" 
-            [IsChecked]="isSelectAllChecked" [(ngModel)]="isSelectAllChecked"
+            [IsChecked]="isSelectAllChecked" [(ngModel)]="isSelectAllChecked" [FontSize]="DropdownFontSize"
             [DisplayText]="'' ">
         </rcheckbox>
         
-        <div (click)="selectallFromSpan($event)" style="padding-top: 12px;width: 100%;text-align: left;">
+        <div (click)="selectallFromSpan($event)" [ngStyle]="{ 'font-size': DropdownFontSize }" 
+             style="padding-top: 12px;width: 100%;text-align: left;">
           <span>Select All</span>          
         </div>
 
@@ -46,11 +51,11 @@
           <div style="display: flex;flex-direction: row;align-self: center;"
               (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)">
 
-            <rcheckbox [IsChecked]="item.IsSelected"
+            <rcheckbox [IsChecked]="item.IsSelected" [FontSize]="DropdownFontSize"
               style="width: auto;padding: 6px;cursor: pointer;"
               [DisplayText]="''"></rcheckbox>
 
-            <div 
+            <div [ngStyle]="{'font-size': DropdownFontSize}"
                 style="display: flex;flex-direction: row;align-self: center;width: 100%;text-align: left;">
 
                 <ng-container *ngIf="OptionsTemplate==undefined">
@@ -76,6 +81,7 @@
         <div class="item" style="padding-top:8px; padding-bottom: 10px; text-align: left;" 
           (click)="selectSingleValue($event, item)"
           *ngFor="let item of ComplexItems | rfilter: SearchItem" 
+          [ngStyle]="{'font-size': DropdownFontSize}"
           [ngClass]="{'dropdown-content-selected': item.IsSelected}">
           
           <ng-container *ngIf="OptionsTemplate==undefined">

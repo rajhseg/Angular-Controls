@@ -47,6 +47,7 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
 
   constructor(winObj: RWindowHelper){
     super(winObj);
+    this.FontSize = "13px";
   }
 
   writeValue(obj: any): void {

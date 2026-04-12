@@ -45,6 +45,9 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
   }
   
   @Input()
+  DropdownFontSize: string = "12px";
+  
+  @Input()
   SearchBoxBottomLineColor: string = '#7F77DD';
   
   @Input()

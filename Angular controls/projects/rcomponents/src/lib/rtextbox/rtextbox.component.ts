@@ -46,10 +46,10 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   Disabled: boolean = false;
 
   @Input()
-  TextBoxWidth: string = '200px';
+  TextBoxWidth: string = '150px';
 
   @Input()
-  TextBoxHeight: string = '30px';
+  TextBoxHeight: string = '20px';
 
   @Input()
   Font: string = '';

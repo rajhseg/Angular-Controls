@@ -31,7 +31,7 @@
     padding-bottom: 7px;
     cursor: pointer;
     text-align: center;
-    font-size: small;
+    font-size: var(--fontsize);
   }
 
   .mod {
@@ -41,7 +41,7 @@
       padding-bottom: 7px;
       cursor: pointer;
       text-align: center;
-      font-size: small;
+      font-size: var(--fontsize);
   }
 
   .scrl:hover{

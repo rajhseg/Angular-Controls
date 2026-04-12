@@ -50,6 +50,9 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
   }
 
   @Input()
+  DropdownFontSize: string = "12px";
+  
+  @Input()
   SearchBoxBottomLineColor: string = '#7F77DD';
   
   @Input()

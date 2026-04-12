@@ -75,9 +75,11 @@ width: fit-content;
     left: 15%;
     width: 25px;
     top: -15%;
-    text-align: center;
     line-height: 180%;
     font-size: smaller;
+    height: 25px;
+    text-align: center;
+    align-content: center;
 }
 
 .mnyr {

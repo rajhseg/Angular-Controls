@@ -511,8 +511,6 @@
             [(ngModel)]="numericValue"
             [MinValue]="11"
             [MaxValue]="3000"
-            [TextBoxWidth]="'100px'"
-            [TextBoxHeight]="'25px'"
             [BottomLineColor]="'#1E1198'"
             [PlusBackgroundColor]="'#1E1198'"
             [MinusBackgroundColor]="'#1E1198'"
@@ -703,6 +701,8 @@
         <div class="card-body">
           <rfileupload [EnableShadowEffect]="false" 
             [ShowFilesAsDropdownContainer]="true"
+            [EnableMaximumHeightForShowFiles]="true"
+            [ShowFilesListMaximumHeight]="'150px'"
             [IconForeColor]="'#1E1198'"
             [SelectMultipleFiles]="true">
           </rfileupload>

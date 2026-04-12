@@ -2,7 +2,7 @@
 <div #startElement style="position: relative;"  [style.font-family]="FontFamily" [id]="Id" class="rcal dropdown rcalenderWindowsClose" *ngIf="IsWindowsOs || IsLinuxOs">
     <div class="rcalinputdiv" style="display: flex;flex-direction: row;">
 
-        <input [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 
+        <input [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 'font-size': FontSize,
                             'pointer-events':(Disabled || ReadOnly) ? 'none': '' }"
             [readOnly]="ReadOnly" [disabled]="Disabled"
             class="calendarinput"  type="text"              
@@ -21,7 +21,8 @@
             [ngStyle]="{
                         'width': DDEWidth, 'height': DDEHeight, 
                         'top':DDETop, 'bottom': DDEBottom,
-                        'left': DDELeft, 'right': DDERight 
+                        'left': DDELeft, 'right': DDERight,
+                        'font-size': '12px'
                         }">
         <div class="week">
             <div>

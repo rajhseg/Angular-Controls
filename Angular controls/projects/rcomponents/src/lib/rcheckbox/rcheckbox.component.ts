@@ -65,7 +65,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   LabelColor: string = "black";
 
   @Input()
-  CheckSize: string = "15px";
+  CheckSize: string = "12px";
   
   constructor(private windowHelper: RWindowHelper, private service: CheckboxService, private destroyRef: DestroyRef) {
     super(windowHelper);

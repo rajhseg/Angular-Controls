@@ -52,6 +52,12 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   LabelText: string = "";
   
   @Input()
+  DropdownFontSize: string = "12px";
+
+  @Input()
+  IconButtonHeight: string = "30px";
+
+  @Input()
   public Is24HourFormat: boolean = false;
 
   @Input()

@@ -3,10 +3,10 @@
     <div style="display: flex;width: fit-content;" (click)="openDropdown($event)">
       <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" 
           [LabelForeColor]="TextBottomLineColor" (Click)="openDropdown($event)"
-          [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="'110px'" 
+          [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="'110px'"  [FontSize]="FontSize"
           [ReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
       <rbutton #openbtn class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"
-          [ButtonHeight]="'34px'"
+          [ButtonHeight]="IconButtonHeight" 
           [ButtonWidth]="'30px'"
           [ngStyle]="{ 'top': LabelText.trim() !='' ? '8px': '-1px'}">
           <span>&#9716;</span>
@@ -19,7 +19,8 @@
             'display': IsDropDownOpen ? 'flex' :'',
             'width': DDEWidth, 'height': DDEHeight, 
             'top':DDETop, 'bottom': DDEBottom,
-            'left': DDELeft, 'right': DDERight 
+            'left': DDELeft, 'right': DDERight ,
+            '--fontsize': DropdownFontSize
             }">
       <div style="overflow-y: auto; border-right: 1px solid lightgray;" class="scrl">
         <div class="cmb" [ngStyle]="{'color': item.IsSelected ? SelectedItemForeColor : '', 

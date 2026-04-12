@@ -3,7 +3,7 @@
 
 <div  [style.font-family]="FontFamily" [id]="Id" class="txtroot">
 
-    <span class="span" [ngStyle]="{ 'width': TextBoxWidth, 'color': LabelForeColor}"> 
+    <span class="span" [ngStyle]="{ 'width': TextBoxWidth, 'color': LabelForeColor, 'font-size': FontSize }"> 
         {{LabelText}} 
     </span>
     
@@ -27,6 +27,7 @@
                     'border-bottom-color': BottomLineColor,       
                     'margin-bottom': EnableMarginTextBottom ? MarginTextBottom : '', 
                     'font': Font, 
+                    'font-size': FontSize,
                     'pointer-events':(Disabled || ReadOnly) ? 'none': '' ,
                     'box-shadow': EnableBoxShadow ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : ''
                 }"

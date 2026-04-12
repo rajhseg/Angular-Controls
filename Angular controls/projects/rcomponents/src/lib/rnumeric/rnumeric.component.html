@@ -4,13 +4,13 @@
      style="display: flex;flex-direction: column;">  
 
     <div>
-        <label [ngStyle]="{ 'color': LabelTextForeColor }">{{LabelText}}</label>
+        <label [ngStyle]="{ 'color': LabelTextForeColor, 'font-size': FontSize }">{{LabelText}}</label>
     </div>
 
     <div style="display: flex;flex-direction: row-reverse;">
 
         <rtextbox [ReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
-            [BottomLineColor]="BottomLineColor" [LabelText]="''"
+            [BottomLineColor]="BottomLineColor" [LabelText]="''" [FontSize]="FontSize"
             [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth" (focusout)="onBlur($event)"
             (keypress)="keyPress($event)"
             (paste)="onPaste($event)"

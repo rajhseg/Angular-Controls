@@ -33,10 +33,10 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   public BottomLineColor: string = "blue";
 
   @Input()
-  public TextBoxWidth: string = '80px';
+  public TextBoxWidth: string = '150px';
   
   @Input()
-  public TextBoxHeight: string = '16px';
+  public TextBoxHeight: string = '20px';
 
   @Input()
   public EnableMarginTextBottom: boolean = false;

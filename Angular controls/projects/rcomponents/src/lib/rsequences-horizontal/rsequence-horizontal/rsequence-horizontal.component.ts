@@ -14,6 +14,12 @@ export class RSequenceHorizontalComponent {
   private _item: RSequenceHorizontalItem | undefined = undefined;
 
   @Input()
+  FontSize: string = "12px";
+
+  @Input()
+  NumberFontSize: string = "11px";
+  
+  @Input()
   public IsDisplayStepNo: boolean = true;
 
   @Input()

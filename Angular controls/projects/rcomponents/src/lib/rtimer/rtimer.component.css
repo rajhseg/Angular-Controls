@@ -5,11 +5,10 @@
     align-self: center;
     position: relative;
     top:-5px;
-    font-size: small;    
+    font-size: var(--fontsize);    
 }
 
-:host{
-    
+:host{    
   display: inline-block;
   vertical-align: top;
     width: fit-content;
@@ -30,7 +29,7 @@
     position: relative;
     top: 0px;
     padding-left: 7px;
-    font-size: small;
+    font-size: var(--fontsize);
 }
 
 

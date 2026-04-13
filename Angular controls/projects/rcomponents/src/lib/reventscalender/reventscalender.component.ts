@@ -97,6 +97,9 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   changemonthisCalled: boolean = false;
 
   @Input()
+  PopupGridFontSize: string = "12px";
+  
+  @Input()
   Font: string = '';
 
   @Input()

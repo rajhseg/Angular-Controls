@@ -1,4 +1,4 @@
-<div class="htl">
+<div class="htl" [ngStyle]="{'--fontsize': FontSize, 'font-size': FontSize, '--nfontsize': NumberFontSize }">
     <div>
         <div *ngIf="Item?.IsTopAlign" class="topContent" [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
                             CompletedForeColor : PendingForeColor),            

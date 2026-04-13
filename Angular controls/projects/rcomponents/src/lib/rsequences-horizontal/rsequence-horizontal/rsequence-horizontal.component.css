@@ -36,7 +36,7 @@
 
 .number {
     text-align: center;
-    font-size: 11px;    
+    font-size: var(--nfontsize);    
     vertical-align: middle;
     align-content: center;
     margin: auto;
@@ -68,7 +68,7 @@
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;      
-    font-size: 12px;    
+    font-size: var(--fontsize);    
 }
 
 .topContent {
@@ -85,7 +85,7 @@
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;           
-    font-size: 12px;
+    font-size: var(--fontsize);
 }
 
 .topemptyContent{
@@ -102,7 +102,7 @@
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;           
-    font-size: 12px;
+    font-size: var(--fontsize);
 }
 
 

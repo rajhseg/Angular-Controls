@@ -14,6 +14,12 @@ export class RSequenceVerticalComponent {
   private _item: RSequenceVerticalItem | undefined = undefined;
 
   @Input()
+  NumberFontSize: string = "11px";
+  
+  @Input()
+  FontSize: string = "12px";
+  
+  @Input()
   public StepNo: number = -1;
 
   @Input()

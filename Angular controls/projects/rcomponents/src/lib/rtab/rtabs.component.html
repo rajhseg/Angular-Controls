@@ -9,7 +9,7 @@
         *ngFor="let header of TabHeaders; trackBy:trackByHeader" cdkDrag (cdkDragEnded)="dragEnded($event)"
         (cdkDragStarted)="dragStarted($event)" [cdkDragData]="header" (click)="HeaderClicked(header)"
         (cdkDragMoved)="onDragMoved($event)" [ngClass]="{ tabSelected: header.IsSelected}">
-        <div>
+        <div [ngStyle]="{ 'font-size': FontSize }">
             {{header.headerText}}
         </div>
       </button>

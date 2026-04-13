@@ -282,7 +282,7 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
 
             txtctx.beginPath();
             txtctx.fillStyle = this.ForeColor;
-            txtctx.font = 'bold 16px Arial, sans-serif';
+            txtctx.font = 'bold '+this.FontSize+' Arial, sans-serif';
             let _text = '';
 
             if (this._displayText == '') {

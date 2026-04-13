@@ -31,6 +31,9 @@ export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizont
   public _allItemsAreInBottom: boolean = false;
   
   @Input()
+  NumberFontSize: string = "11px";
+  
+  @Input()
   public ApplyItemForeColorToStepNo: boolean = false;
 
   @Input()

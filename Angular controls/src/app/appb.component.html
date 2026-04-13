@@ -1142,7 +1142,7 @@
         </div>
         <div class="card-body">
         
-          <revents-schedule 
+          <revents-schedule [FontSize]="'12px'"
             [ContainerBackgroundColor]="'#534AB7'" 
             [ContainerBorderColor]="'#a39cf3'" 
             [EventBorderColor]="'#a39cf3'"
@@ -1170,7 +1170,7 @@
         </div>
         <div class="card-body">
         
-            <revents-calender 
+            <revents-calender [FontSize]="'12px'"
               (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'50px'"
               [EachDayWidthInPx]="'120px'" [(ngModel)]="calenderEvents"></revents-calender>
                 

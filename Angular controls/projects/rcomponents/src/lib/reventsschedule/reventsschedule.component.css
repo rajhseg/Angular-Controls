@@ -45,7 +45,7 @@
     top: 7px;
     text-align: center;
     align-self: center;
-    font-size: smaller;
+    font-size: var(--fontsize);
 }
 
 .marker{
@@ -82,7 +82,7 @@
     flex-grow: 0;
     flex-shrink: 0;    
     z-index: 1;
-    font-size: small;
+    font-size: var(--fontsize);
 }
 
 .rowheader{
@@ -91,6 +91,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    font-size: var(--fontsize);
 }
 
 .rowheaderlistname {    
@@ -111,7 +112,7 @@
     flex-shrink: 0;
     text-align: center;
     align-content: center;        
-    font-size: small;       
+    font-size: var(--fontsize);       
 }
 
 .ritem {
@@ -120,7 +121,7 @@
     flex-shrink: 0;
     text-align: center;
     align-content: center;            
-    font-size: small;    
+    font-size: var(--fontsize);    
 }
 
 :host{
@@ -132,7 +133,8 @@
     flex-shrink: 0;
     flex-grow: 0;
     text-align: center;
-    align-content: center;          
+    align-content: center;   
+    font-size: var(--fontsize);       
 }
 
   .scl ::-webkit-scrollbar {

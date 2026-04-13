@@ -3,6 +3,7 @@
 
 <div class="calender" #calmodal [id]="Id"  [style.font-family]="FontFamily" 
             [ngStyle]="{
+                        'font-size': FontSize,
                         'width': DDEWidth, 'height': DDEHeight,
                         'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''
                         }">
@@ -18,12 +19,12 @@
                     </div> 
                 </div>
                 <div style="margin:15px">
-                    <rgroup-panel style="position: relative; top:-20px;font-size: 12px;width:100%" [EnableShadowEffect]="false"  [groupname]="'Event'" 
+                    <rgroup-panel [FontSize]="FontSize" style="position: relative; top:-20px;width:100%" [EnableShadowEffect]="false"  [groupname]="'Event'" 
                         [IsItemsArrangeHorizontal]="true">
                     <div style="display: flex; flex-direction: row;justify-content: space-between;width: 100%;">
 
                         <rtextbox class="evtAdd" [LabelText]="'Event Name'" [(ngModel)]="NewEvent.Name"
-                                  [BottomLineColor]="EventGroupBottomLineColor"
+                                  [BottomLineColor]="EventGroupBottomLineColor" [FontSize]="FontSize"
                                   [LabelForeColor]="EventGroupLabelColor">
                         </rtextbox>
 
@@ -50,7 +51,7 @@
                     </div>
                     </rgroup-panel>
 
-                    <div style="font-size: 12px; clear: left;text-align: center;margin:10px;top: -20px;position: relative;">
+                    <div style="clear: left;text-align: center;margin:10px;top: -20px;position: relative;">
 
                         <rbutton (ButtonClick)="addEvent($event)" [BackgroundColor]="EventGroupButtonBackColor" 
                                 [ForeColor]="EventGroupButtonForeColor">
@@ -58,11 +59,12 @@
                         </rbutton>
 
                     </div> 
-                    <div style="font-size: 12px; clear: left;text-align: center;top: -20px;position: relative;"> 
+                    <div style="clear: left;text-align: center;top: -20px;position: relative;"> 
 
                             <rgrid  [ShowGroupHeader]="false" *ngIf="SelectedEventModel" 
                                     [PageItems]="ditems"
                                     [Items]="SelectedEventModel.Events" 
+                                    [FontSize]="PopupGridFontSize"
                                     [ItemsPerPage]="ItemsPerPage" 
                                     [ShowEditUpdate]="false" 
                                     [HeaderBackgroundColor]="PopupGridHeaderBackColor"   

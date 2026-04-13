@@ -1,5 +1,5 @@
 
-<div style="display: flex;">
+<div style="display: flex;" [ngStyle]="{'font-size': FontSize, '--fontsize': FontSize, '--nfontsize': NumberFontSize }">
     <div *ngIf="Item?.IsLeftAlign" class="leftContent" 
         [ngStyle]="{'color': Item?.IsActive ? ActiveForeColor : (Item?.IsCompleted ? 
                             CompletedForeColor : PendingForeColor),

@@ -7,7 +7,7 @@
 
         <div class="items" *ngIf="(ShowStateVertical && StateVerticalAlignment == 1)">
 
-            <rstate-vertical style="font-size: small;" [SelectedActiveIndex]="verticalItemActiveItem" 
+            <rstate-vertical [ngStyle]="{ 'font-size': FontSize }" [SelectedActiveIndex]="verticalItemActiveItem" 
                 
                 [ApplyItemForeColorToStepNo]="ApplyItemForeColorToStepNo"  
                 [CompletedBackgroundColor]="CompletedBackColor"
@@ -16,6 +16,7 @@
                 [ActiveForeColor]="ActiveForeColor"
                 [PendingBackgroundColor]="PendingBackColor"
                 [PendingForeColor]="PendingForeColor"
+                [FontSize]="FontSize"
 
                 [StepNoForeColor]="StepNoForeColor" 
                 [StripLineColor]="StripLineColor"
@@ -33,6 +34,8 @@
                 <div *ngFor="let no of StepsNos">
     
                     <div class="circle" [ngStyle]="{
+                        'font-size': FontSize,
+                        '--fontsize': FontSize,
                         '--activebackcolor': ActiveBackColor,
                         '--bshadow': (IsLastStepFinished ?  CompletedBorderColor : ActiveBorderColor) + ' 0px 2px 10px',
                         '--pbshadow': ((CurrentViewStep && no > CurrentViewStep.StepNo) ? PendingBorderColor : CompletedBorderColor) + ' 0px 2px 10px',
@@ -67,8 +70,9 @@
 
             <ng-container *ngIf="CurrentViewStep">
                 
-                <div class="stepHeader">
-                    <label [ngStyle]="{ 'color': CurrentViewStep.IsStepValid ? 
+                <div class="stepHeader" [ngStyle]="{ 'font-size': FontSize }">
+                    <label [ngStyle]="{ 'font-size': FontSize,
+                                        'color': CurrentViewStep.IsStepValid ? 
                                             CurrentStepValidLabelColor : CurrentStepInValidLabelColor}">
                         {{CurrentViewStep.Title}}
                     </label>
@@ -86,17 +90,20 @@
 
                         <rbutton *ngIf="!(CurrentViewStep.StepNo==1) && !IsLastStepFinished" 
                             [ForeColor]="BackButtonForeColor" 
+                            [FontSize]="FontSize"
                             [BackgroundColor]="BackButtonBackColor"                           
                             style="margin-right: 10px;cursor: pointer;"
                             (ButtonClick)="PrevStep()">Back</rbutton>
 
                         <rbutton [IsDisabled]="!CurrentViewStep.IsStepValid" *ngIf="!IsLastStep()"
                             [ForeColor]="NextButtonForeColor" 
+                            [FontSize]="FontSize"
                             [BackgroundColor]="NextButtonBackColor"
                             style="cursor: pointer;" (ButtonClick)="NextStep()">Next</rbutton>
 
                         <rbutton (ButtonClick)="Done($event)" [IsDisabled]="!CurrentViewStep.IsStepValid"
                             [ForeColor]="DoneButtonForeColor" 
+                            [FontSize]="FontSize"
                             [BackgroundColor]="DoneButtonBackColor"
                             *ngIf="IsLastStep() && !IsLastStepFinished" style="cursor: pointer;">Done</rbutton>
 
@@ -104,6 +111,7 @@
                             
                         <rbutton *ngIf="IsLastStepFinished" (ButtonClick)="PrevStep()" 
                             [ForeColor]="BackButtonForeColor" 
+                            [FontSize]="FontSize"
                             [BackgroundColor]="BackButtonBackColor">
                             Back
                         </rbutton>
@@ -111,6 +119,7 @@
 
                         <rbutton *ngIf="IsLastStepFinished" style="margin-left: 10px; cursor: pointer;" 
                                 [BackgroundColor] = "CompletedButtonBackColor"
+                                [FontSize]="FontSize"
                                 [ForeColor] = "CompletedButtonForeColor"
                                 (ButtonClick)="CompletedClick($event)">
                                 Completed

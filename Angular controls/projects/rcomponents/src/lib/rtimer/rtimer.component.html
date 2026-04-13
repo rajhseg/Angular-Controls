@@ -1,13 +1,19 @@
 
 
 
-<div  [style.font-family]="FontFamily" [id]="Id" [ngStyle]="{'visibility': IsHidden ? 'collapse': 'visible', 'height': IsHidden ? '0px' : '', 'width': IsHidden ? '0px':'' }">
+<div  [style.font-family]="FontFamily" [id]="Id" [ngStyle]="{ 'visibility': IsHidden ? 'collapse': 'visible', 
+                                                              'height': IsHidden ? '0px' : '', 
+                                                              'width': IsHidden ? '0px':'',
+                                                              '--fontsize': FontSize,
+                                                              'font-size': FontSize }">
+
     <div [ngStyle]="{'padding': EnableShadowEffect ? '15px' : '','box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}"
         *ngIf="DisplayType == allDisplayTypes.Circle" style="display: flex;">
 
         <div style="display: flex; flex-direction: column;">
             <rprogressbar [ForeColor]="HoursForeColor" [TrackColor]="HoursTrackColor" [EnableBackDrop]="false"
                 [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [FontSize]="FontSize"
                 [Percentage]="HourPercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Hour"
                 [Type]="ProgressType">
             </rprogressbar>
@@ -20,6 +26,7 @@
         <div style="display: flex; flex-direction: column;">
             <rprogressbar [ForeColor]="MinuteForeColor" [TrackColor]="MinuteTrackColor" [EnableBackDrop]="false"
                 [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [FontSize]="FontSize"
                 [Percentage]="MinutePercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Minute"
                 [Type]="ProgressType">
             </rprogressbar>
@@ -31,6 +38,7 @@
         <div style="display: flex; flex-direction: column;">
             <rprogressbar [ForeColor]="SecondsForeColor" [TrackColor]="SecondsTrackColor" [EnableBackDrop]="false"
                 [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [FontSize]="FontSize"
                 [Percentage]="SecondPercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Second"
                 [Type]="ProgressType">
             </rprogressbar>
@@ -43,7 +51,7 @@
 
     <div [ngStyle]="{'padding': EnableShadowEffect ? '15px' : '','box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}" 
             *ngIf="DisplayType == allDisplayTypes.FlatStyle" style="display: flex; flex-direction: column;">
-        <div [ngStyle]="{'color':FlatStyleForeColor, 'border-color': FlatStyleForeColor}"
+        <div [ngStyle]="{'color':FlatStyleForeColor, 'border-color': FlatStyleForeColor, 'font-size': FontSize }"
             style="display: flex;border: 1px solid lightgray;">
             <div class="simpleTimer">
                 {{Hour}}

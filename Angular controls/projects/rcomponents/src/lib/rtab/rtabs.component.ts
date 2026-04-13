@@ -1,6 +1,6 @@
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, inject, Injector, Input, ModuleWithProviders, NgModule, NgModuleRef, Output, QueryList, Renderer2, RendererFactory2, Self, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent, RTabIdFor, RTabHeaderWithTabId } from "./rtab.component";
-import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
+import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet, NgStyle } from "@angular/common";
 import { RWindowHelper } from "../rwindowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup, CdkDragMove } from '@angular/cdk/drag-drop';
 import { RTabService } from "../rtab.service";
@@ -14,8 +14,8 @@ import { RBaseComponent } from "../rmodels/RBaseComponent";
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './rtabs.component.html',
   styleUrl: './rtabs.component.css',
-  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf,
-    NgClass, CdkDrag, CdkDropList, JsonPipe]
+  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle,
+    NgClass, CdkDrag, CdkDropList, JsonPipe, NgStyle]
 })
 export class RTabsComponent extends RBaseComponent<any> implements AfterContentInit, AfterContentChecked, AfterViewInit {
 

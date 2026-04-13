@@ -84,7 +84,7 @@
 
 .number {
     text-align: center;
-    font-size: 11px;    
+    font-size: var(--nfontsize);    
     vertical-align: middle;
     align-content: center;
     margin: auto;

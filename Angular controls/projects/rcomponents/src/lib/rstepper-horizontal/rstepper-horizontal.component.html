@@ -3,12 +3,14 @@
 
     <div class="items" *ngIf="ShowStateHorizontal">
 
-        <rstate-horizontal style="font-size: small;" [SelectedActiveIndex]="verticalItemActiveItem"             
+        <rstate-horizontal [ngStyle]="{'font-size': FontSize }" 
+            [SelectedActiveIndex]="verticalItemActiveItem"             
             [ApplyItemForeColorToStepNo]="false"              
             [CompletedForeColor]="RStateItemCompletedColor"                           
             [ActiveForeColor]="RStateItemActiveColor"            
             [PendingForeColor]="RStateItemPendingColor"            
-            [StripLineColor]="StripLineColor"            
+            [StripLineColor]="StripLineColor"   
+            [FontSize]="FontSize"         
             [Items]="seqItems">
         </rstate-horizontal>
         
@@ -26,6 +28,8 @@
             <div *ngFor="let no of StepsNos">
 
                 <div class="circle" [ngStyle]="{
+                        'font-size': FontSize,
+                        '--fontsize': FontSize,
                         '--activebackcolor': ActiveBackColor,
                         '--bshadow': (IsLastStepFinished ? CompletedBorderColor : ActiveBorderColor) + ' 0px 2px 10px',
                         '--pbshadow': ((CurrentViewStep && no > CurrentViewStep.StepNo) ? PendingBorderColor : CompletedBorderColor) + ' 0px 2px 10px',
@@ -61,7 +65,8 @@
         <ng-container *ngIf="CurrentViewStep">
 
             <div class="stepHeader">
-                <label [ngStyle]="{ 'color': CurrentViewStep.IsStepValid ? 
+                <label [ngStyle]="{ 'font-size': FontSize,
+                                    'color': CurrentViewStep.IsStepValid ? 
                                     CurrentStepValidLabelColor : CurrentStepInValidLabelColor}">
                     {{CurrentViewStep.Title}}
                 </label>
@@ -77,25 +82,30 @@
                 <div style="float: right;">
 
                     <rbutton *ngIf="!(CurrentViewStep.StepNo==1) && !IsLastStepFinished" [ForeColor]="BackButtonForeColor"
+                        [FontSize]="FontSize"
                         [BackgroundColor]="BackButtonBackColor" style="margin-right: 10px;cursor: pointer;"
                         (ButtonClick)="PrevStep()">Back</rbutton>
 
                     <rbutton [IsDisabled]="!CurrentViewStep.IsStepValid" 
                         *ngIf="!IsLastStep() && !IsLastStepFinished"
+                        [FontSize]="FontSize"
                         [ForeColor]="NextButtonForeColor" [BackgroundColor]="NextButtonBackColor"
                         style="cursor: pointer;" (ButtonClick)="NextStep()">Next</rbutton>
 
                     <rbutton (ButtonClick)="Done($event)" [IsDisabled]="!CurrentViewStep.IsStepValid"
                         [ForeColor]="DoneButtonForeColor" [BackgroundColor]="DoneButtonBackColor"
+                        [FontSize]="FontSize"
                         *ngIf="IsLastStep() && !IsLastStepFinished" 
                         style="cursor: pointer;">Done</rbutton>
                             
                     <rbutton *ngIf="IsLastStepFinished" (ButtonClick)="PrevStep()" [ForeColor]="BackButtonForeColor"
+                        [FontSize]="FontSize"
                         [BackgroundColor]="BackButtonBackColor">
                         Back
                     </rbutton>
                 
                     <rbutton *ngIf="IsLastStepFinished" style="margin-left: 10px; cursor: pointer;" [BackgroundColor]="CompletedButtonBackColor"
+                        [FontSize]="FontSize"
                         [ForeColor]="CompletedButtonForeColor" (ButtonClick)="CompletedClick($event)">
                         Completed
                     </rbutton>

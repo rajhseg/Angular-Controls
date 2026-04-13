@@ -1193,6 +1193,7 @@
         </div>
         <div class="card-body">
             <span>Header Theme:</span> &nbsp; &nbsp;
+
             <rdropdown
                 [Items]="colors"
                 PlaceholderText="Choose a Color"
@@ -1200,10 +1201,12 @@
                 Width="280px"
                 [(ngModel)]="selectedColor">
             </rdropdown>
+
             <br />
             <br />
             
             <rgrid [PageItems]="ditems" [Items]="gridItems1" 
+
                   [RowHoverBackgroundOpacity] = "0.8"
                   [EnableAlternateRowColor]="true"
                   [EnableShadow]="false" [ShowGroupHeader]="true"
@@ -1223,10 +1226,11 @@
                   [RowHoverBackgroundOpacity]="1"
 
                   [TableHeight]="'400px'" [TableWidth]="'950px'">
+
             </rgrid>
                 
         </div>
-        <div class="card-hint">RGrid which can sort, filter, group the given data, you can edit the data and bind to cell.</div>
+        <div class="card-hint">RGrid with default UI for given data.</div>
       </div>
 
       <!-- RGrid Columns Defined-->
@@ -1336,7 +1340,7 @@
             </rgrid>
                 
         </div>
-        <div class="card-hint">RGrid which can sort, filter, group the given data, you can edit the data and bind to cell.</div>
+        <div class="card-hint">RGrid with columns template defined.</div>
             
        </div>
 

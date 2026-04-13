@@ -308,6 +308,15 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   @Output()
   ItemsPerPageClicked = new EventEmitter<RGridPaginationValue>();
+
+  @Input()
+  GroupHeaderRowBorderColor: string = 'lightgray';
+  
+  @Input()
+  GroupHeaderRowBackColor: string = 'white';
+  
+  @Input()
+  GroupHeaderRowForeColor: string = 'lightgray';
   
   EditModeEnabled: boolean = false;
 
@@ -1488,7 +1497,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
           }
 
-          if (filter.Contains == undefined && (filter.LesserThan == undefined || filter.LesserThan == '')
+          if ((filter.Contains == undefined || filter.Contains.length == 0) && (filter.LesserThan == undefined || filter.LesserThan == '')
             && (filter.GreaterThan == undefined || filter.GreaterThan == '')) {
             newIndexes = filteredIndexes.slice();
             continue;

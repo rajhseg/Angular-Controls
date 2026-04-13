@@ -1210,9 +1210,18 @@
                   [RowHeightInPx]="'auto'" [GroupHeaderRowHeightInPx]="'30px'"
                   [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
                   [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
+
+                  [EnableAlternateRowColor]="true"
+                  [GroupByIconColor]="'white'"
+                  [GroupHeaderForeColor]="'darkblue'" 
+                  [GroupHeaderRowBorderColor]="selectedColor.Value.header"
+                  [GroupHeaderRowForeColor]="'white'"
+                  [GroupHeaderRowBackColor]="selectedColor.Value.header"
                   [HeaderBackgroundColor]="selectedColor.Value.header"
                   [RowHoverBackColor]="selectedColor.Value.rowhover"
+                  [RowHoverForeColor]="selectedColor.Value.rowhoverfore"
                   [RowHoverBackgroundOpacity]="1"
+
                   [TableHeight]="'400px'" [TableWidth]="'950px'">
             </rgrid>
                 
@@ -1238,16 +1247,28 @@
             </rdropdown>
             <br />
             <br />
+
             <rgrid [PageItems]="ditems" [Items]="gridItems1" 
-                  [RowHoverBackgroundOpacity] = "0.8"
+     
+                  [EnableShadow]="false" 
+                  [ShowGroupHeader]="true"
+                  [RowHeightInPx]="'auto'" 
+                  [GroupHeaderRowHeightInPx]="'50px'"
+                  [ShowEditUpdate]="true"
+                  [EnableSelectColummn]="true" 
+                  [ItemsPerPage]="ItemsPerPage"
+
                   [EnableAlternateRowColor]="true"
-                  [EnableShadow]="false" [ShowGroupHeader]="true"
-                  [RowHeightInPx]="'auto'" [GroupHeaderRowHeightInPx]="'30px'"
-                  [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
-                  [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
+                  [GroupByIconColor]="'white'"
+                  [GroupHeaderForeColor]="'darkblue'" 
+                  [GroupHeaderRowBorderColor]="selectedColor.Value.header"
+                  [GroupHeaderRowForeColor]="'white'"
+                  [GroupHeaderRowBackColor]="selectedColor.Value.header"
                   [HeaderBackgroundColor]="selectedColor.Value.header"
                   [RowHoverBackColor]="selectedColor.Value.rowhover"
+                  [RowHoverForeColor]="selectedColor.Value.rowhoverfore"
                   [RowHoverBackgroundOpacity]="1"
+
                   [TableHeight]="'400px'" [TableWidth]="'950px'">
 
                   <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"

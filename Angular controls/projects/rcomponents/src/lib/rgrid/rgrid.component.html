@@ -220,14 +220,22 @@
                 <ng-container *ngIf="IsGroupHaveColumns && DisplayGroupItems">
 
                     <ng-container *ngFor="let grpitem of DisplayGroupItems; trackBy: cdkVirtualGroupTrackBy">
-                        <tr style="border-bottom: 1px solid lightgray;" [ngStyle]="{ 'width': '100%', 'overflow': 'hidden', 
-                                                    'height': GroupHeaderRowHeightInPx, 'align-content' : 'center' }">
+
+                        <tr [ngStyle]="{ 'width': '100%', 'overflow': 'hidden', 
+                                         'border-top': '1px solid '+ GroupHeaderRowBorderColor,
+                                         'border-bottom': '1px solid '+ GroupHeaderRowBorderColor,
+                                         'height': GroupHeaderRowHeightInPx, 'align-content' : 'center' , 
+                                         'background-color': GroupHeaderRowBackColor }">
+
                             <td style="" colspan="2">
                                 <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"
                                     [ngStyle]="{'--groupbyiconcolor': GroupByIconColor}"
                                     (click)="expandGroup($event, grpitem)">
                                 </span>
-                                <span style="text-overflow: ellipsis;">{{getGroupHeaderAsString(grpitem)}}</span>
+                                <span style="text-overflow: ellipsis;" 
+                                 [ngStyle]="{ 'color': GroupHeaderRowForeColor }">
+                                    {{getGroupHeaderAsString(grpitem)}}
+                                </span>
                             </td>
                         </tr>
 

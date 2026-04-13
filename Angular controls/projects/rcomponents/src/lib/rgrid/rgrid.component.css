@@ -27,7 +27,7 @@
   margin-left: 5px;
   margin-right:5px;
   height: 15px;
-  font-size: small;
+  font-size: var(--fontsize);
   text-align: center;
   vertical-align: middle;  
   align-content: center;
@@ -78,19 +78,19 @@
 } */
 
 .header {    
-    padding-top: 10px;    
     cursor: pointer;
-    font-size: small;
-    font-weight: 700;
-    padding-bottom: 10px;
-    vertical-align: bottom;    
+    font-size: var(--fontsize);
+    font-weight: 700;  
+/* 
+    padding-top: 10px;    
+    padding-bottom: 10px; 
     padding-left: 8px;
-    padding-right: 8px;    
+    padding-right: 8px;     */
 }
 
 .headerpadding {
-  padding-top: 2px;
-  padding-bottom: 2px;
+  /* padding-top: 2px;
+  padding-bottom: 2px; */
 }
 
 .symbol {
@@ -172,17 +172,26 @@ th {
 tbody tr{
     background-color: white;
     color: rgb(175, 169, 169);
-    font-size: small;    
+    font-size: var(--fontsize);    
     text-align: left;
     display: block;  
 }
 
+
 tbody tr td{
-    padding-left: 7px;
-    padding-top:7px;
-    padding-bottom: 7px;
-    padding-right: 7px;
+    padding-left: 0px;
+    padding-right: 0px;
     text-wrap: auto;
+}
+
+th, td {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.hgh {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 :host{

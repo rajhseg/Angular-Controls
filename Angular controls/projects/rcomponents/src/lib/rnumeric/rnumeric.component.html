@@ -12,7 +12,7 @@
         <rtextbox [ReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
             [BottomLineColor]="BottomLineColor" [LabelText]="''" [FontSize]="FontSize"
             [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth" (focusout)="onBlur($event)"
-            (keypress)="keyPress($event)"
+            (keypress)="keyPress($event)" [SpaceAtStartChar]="SpaceAtStartChar"
             (paste)="onPaste($event)"
             [(ngModel)]="Value">
         </rtextbox>    

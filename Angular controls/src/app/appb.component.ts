@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult, RSplitterResult, RCssUnitsService, RRangeSliderComponent, RRangeSliderData } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult, RSplitterResult, RCssUnitsService, RRangeSliderComponent, RRangeSliderData, RColumnComponent, ReadViewTemplateDirective, EditViewTemplateDirective } from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -124,6 +124,9 @@ import { delay, from, of, switchMap } from 'rxjs';
     RStackedBarChartHorizontalComponent,
     RStackedRangeBarChartVerticalComponent,
     REventsScheduleComponent,
+    ReadViewTemplateDirective,
+    EditViewTemplateDirective,
+    RColumnComponent,
     RGridComponent
 ],
   templateUrl: './appb.component.html',
@@ -494,7 +497,7 @@ export class AppRootComponent {
 
     let d = new Date("1982/03/25");
 
-    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script>', 'Age': 24, 'Education': 'BCom',  'IsGrad': true });
+    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script> Sample text1, sample text2, sample text3', 'Age': 24, 'Education': 'BCom Sample text1, sample text2, sample text3',  'IsGrad': true });
     this.gridItems1.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC', 'IsGrad': true });
     this.gridItems1.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE', 'IsGrad': false });
     this.gridItems1.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom', 'IsGrad': true });

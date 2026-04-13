@@ -1202,11 +1202,12 @@
             </rdropdown>
             <br />
             <br />
+            
             <rgrid [PageItems]="ditems" [Items]="gridItems1" 
                   [RowHoverBackgroundOpacity] = "0.8"
                   [EnableAlternateRowColor]="true"
                   [EnableShadow]="false" [ShowGroupHeader]="true"
-                  [RowHeightInPx]="'50px'" [GroupHeaderRowHeightInPx]="'50px'"
+                  [RowHeightInPx]="'auto'" [GroupHeaderRowHeightInPx]="'30px'"
                   [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
                   [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
                   [HeaderBackgroundColor]="selectedColor.Value.header"
@@ -1217,8 +1218,106 @@
                 
         </div>
         <div class="card-hint">RGrid which can sort, filter, group the given data, you can edit the data and bind to cell.</div>
-      
-      </div>  
+      </div>
+
+      <!-- RGrid Columns Defined-->
+       <div class="card card-wide"  style="height: 760px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Grid</span>
+          <h2 class="card-title">RGrid</h2>
+          <code class="card-selector">&lt;rgrid&gt;</code>
+        </div>
+        <div class="card-body">
+            <span>Header Theme:</span> &nbsp; &nbsp;
+            <rdropdown
+                [Items]="colors"
+                PlaceholderText="Choose a Color"
+                [DropDownContentWidth]="'310px'"
+                Width="280px"
+                [(ngModel)]="selectedColor">
+            </rdropdown>
+            <br />
+            <br />
+            <rgrid [PageItems]="ditems" [Items]="gridItems1" 
+                  [RowHoverBackgroundOpacity] = "0.8"
+                  [EnableAlternateRowColor]="true"
+                  [EnableShadow]="false" [ShowGroupHeader]="true"
+                  [RowHeightInPx]="'auto'" [GroupHeaderRowHeightInPx]="'30px'"
+                  [GroupByIconColor]="'#8f19ff'" [ShowEditUpdate]="true"
+                  [EnableSelectColummn]="true" [ItemsPerPage]="ItemsPerPage"
+                  [HeaderBackgroundColor]="selectedColor.Value.header"
+                  [RowHoverBackColor]="selectedColor.Value.rowhover"
+                  [RowHoverBackgroundOpacity]="1"
+                  [TableHeight]="'400px'" [TableWidth]="'950px'">
+
+                  <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'S.No'" [Width]="'100px'"
+                    [Height]="'20px'">
+                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                      <span>{{cell.Value}}</span>
+                    </ng-template>
+                    <ng-template editviewtemplate let-Item let-rcell="CellInfo">
+                      <rtextbox [BottomLineColor]="'lightblue'" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+                        [SpaceAtStartChar]="'0px'"
+                        [TextBoxWidth]="'50px'" [(ngModel)]="rcell.Value" />
+                    </ng-template>
+                  </rcolumn>
+
+                  <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'First Name'" [Width]="'240px'">
+                    <ng-template headertemplate let-Item>
+                      {{Item.HeaderText}}
+                    </ng-template>
+                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                      <span>{{Item.Name}} -- {{cell.Value}}</span>
+                    </ng-template>
+                    <ng-template editviewtemplate let-cell="CellInfo">
+                      <rtextbox [BottomLineColor]="'lightblue'" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+                        [SpaceAtStartChar]="'0px'"
+                        [TextBoxWidth]="'140px'" [(ngModel)]="cell.Value" />
+                    </ng-template>
+                  </rcolumn>
+
+                  <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="'Age'" [Width]="'170px'">
+                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                      <span>{{Item.Age}}</span>
+                    </ng-template>
+                    <ng-template editviewtemplate let-cell="CellInfo">
+                      <rnumeric [BottomLineColor]="'lightblue'" [MinusBackgroundColor]="'darkblue'" 
+                        [SpaceAtStartChar]="'0px'" 
+                        [PlusBackgroundColor]="'darkblue'"
+                        [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'120px'" [TextBoxHeight]="'15px'"></rnumeric>
+                    </ng-template>
+                  </rcolumn>
+
+                  <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education'" [HeaderText]="'Degree'"
+                    [Width]="'160px'">
+                    <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                      <span>{{Item.Education}}</span> -
+                      <span>{{Item.Education}}</span>
+                    </ng-template>
+                    <ng-template editviewtemplate let-cell="CellInfo">
+                      <rtextbox [BottomLineColor]="'lightblue'" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+                        [SpaceAtStartChar]="'0px'"
+                        [TextBoxWidth]="'100px'" [(ngModel)]="cell.Value" />
+                    </ng-template>
+                  </rcolumn>
+
+                  <rcolumn [Name]="'column5'" [IsComputationalColumn]="true" [HeaderText]="'Pass Age'" [Width]="'100px'">
+                    <ng-template readviewtemplate let-Item>
+                      <span>{{Item.Age + 4}}</span>
+                    </ng-template>
+                    <ng-template editviewtemplate let-cell="CellInfo">
+                      <rtextbox [BottomLineColor]="'lightblue'" [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
+                        [SpaceAtStartChar]="'0px'"
+                        [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+                    </ng-template>
+                  </rcolumn>
+
+            </rgrid>
+                
+        </div>
+        <div class="card-hint">RGrid which can sort, filter, group the given data, you can edit the data and bind to cell.</div>
+            
+       </div>
 
     </section>
 

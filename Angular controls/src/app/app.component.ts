@@ -767,7 +767,7 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   populateGridValues(){
     let d = new Date("1982/03/25");
 
-    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script>', 'Age': 24, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
+    this.gridItems1.push({'Id':1, 'Name': 'AAA B <script></script> Sample Text1, Sample Text2, Sample Text3', 'Age': 24, 'Education': 'BCom - SampleText1 SampleTExt2 Sample Text3', 'DOB': new Date(d.setFullYear(1980)), 'IsGrad': true });
     this.gridItems1.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': 'BSC', 'DOB': new Date(d.setFullYear(1981)), 'IsGrad': true });
     this.gridItems1.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': 'BE', 'DOB': new Date(d.setFullYear(1982)), 'IsGrad': false });
     this.gridItems1.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': 'BCom', 'DOB': new Date(d.setFullYear(1983)), 'IsGrad': true });

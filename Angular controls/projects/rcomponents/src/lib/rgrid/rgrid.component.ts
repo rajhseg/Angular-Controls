@@ -206,7 +206,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   GroupHeaderRowHeightInPx: string = '50px';
 
   @Input()
-  SelectCheckBoxSize: string = "13px";
+  SelectCheckBoxSize: string = "12px";
   
   @Input()
   ItemsPerPage!: DropdownModel;
@@ -1590,10 +1590,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
       let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);
       
       if(this.ShowEditUpdate)
-        _wth = _wth - 80;
+        _wth = _wth - this.GetEditColumnTotalSize;
 
       if(this.EnableSelectColummn)
-        _wth = _wth - 40;
+        _wth = _wth - this.GetSelectColumnTotalSize;
 
       let twth = _wth+CssUnit.Px.toString();
 
@@ -1620,10 +1620,27 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return val+CssUnit.Px.toString();
   }
 
-  GetColumnsNotDefinedViewModeWidth(header: RGridHeader){
+  GetColumnsWidth(header: RGridHeader){
     let k = header.ColumnWidth.split("px");
-    let val = parseFloat(k[0]) - 17;
+    let val = parseFloat(k[0]) - 20;
     return val+CssUnit.Px.toString();
+  }
+
+  get GetSelectColumnWidth() {
+    return "26px";
+  }
+
+  get GetEditColumnWidth() {
+    return "80px";
+  }
+
+  
+  get GetSelectColumnTotalSize() {
+    return 46;
+  }
+
+  get GetEditColumnTotalSize() {
+    return 100;
   }
 
   private async PopulateData(): Promise<RGridItems> {
@@ -1680,10 +1697,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
           let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);              
           
           if(this.ShowEditUpdate)
-            _wth = _wth - 80;
+            _wth = _wth - this.GetEditColumnTotalSize;
 
           if(this.EnableSelectColummn)
-            _wth = _wth - 40;
+            _wth = _wth - this.GetSelectColumnTotalSize;
 
           let twth = _wth+CssUnit.Px.toString();
     
@@ -1722,10 +1739,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);          
     
     if(this.ShowEditUpdate)
-      _wth = _wth - 80;
+      _wth = _wth - this.GetEditColumnTotalSize;
 
     if(this.EnableSelectColummn)
-      _wth = _wth - 40;
+      _wth = _wth - this.GetSelectColumnTotalSize;
 
     let twth = _wth+CssUnit.Px.toString();
 
@@ -1738,10 +1755,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     }
     
     if(this.ShowEditUpdate)
-      totalW += 80;
+      totalW += this.GetEditColumnTotalSize;
 
     if(this.EnableSelectColummn)
-      totalW += 40;
+      totalW += this.GetSelectColumnTotalSize;
 
     this.ActualWidth = (totalW - 6) + CssUnit.Px.toString();
 
@@ -1798,10 +1815,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
         let _wth = this.cssUnit.ToPxValue(this.TableWidth, null, null);              
         
         if(this.ShowEditUpdate)
-          _wth = _wth - 80;
+          _wth = _wth - this.GetEditColumnTotalSize;
   
         if(this.EnableSelectColummn)
-          _wth = _wth - 40;
+          _wth = _wth - this.GetSelectColumnTotalSize;
 
         let twth = _wth+CssUnit.Px.toString();
   
@@ -1851,10 +1868,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     }    
     
     if(this.ShowEditUpdate)
-      TotalW = TotalW + 80;
+      TotalW = TotalW + this.GetEditColumnTotalSize;
 
     if(this.EnableSelectColummn)
-      TotalW = TotalW + 40;
+      TotalW = TotalW + this.GetSelectColumnTotalSize;
 
     this.ActualWidth = (TotalW - 6) + CssUnit.Px.toString();
 

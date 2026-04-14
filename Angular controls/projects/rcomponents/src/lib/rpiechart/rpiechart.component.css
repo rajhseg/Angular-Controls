@@ -14,7 +14,7 @@
 }
 
 .data {
-    font-size: small;
+    font-size: var(--fontsize);
     display: flex;
     flex-direction: row;    
     align-items: center;    

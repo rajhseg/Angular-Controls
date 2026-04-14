@@ -9,7 +9,7 @@
         <div [ngStyle]="{'width': (MarginX + PaddingLeft) + 'px'}"></div>
 
         <div class="dataContainer"
-            [ngStyle]="{'width': (Width - MarginX - PaddingLeft) +'px'}">
+            [ngStyle]="{ '--fontsize': FontSize, 'width': (Width - MarginX - PaddingLeft) +'px'}">
             <div class="data" *ngFor="let itm of this.Columns; trackBy: trackById">
 
                 <ng-container *ngIf="isPropString(itm.barItemsBackColor)">

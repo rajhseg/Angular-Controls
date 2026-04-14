@@ -3,6 +3,7 @@
      Displays every component in a card grid, grouped by category.
      ===================================================================== -->
 
+     
 <div class="showcase-root">
 
   <!-- Top navigation -->
@@ -115,8 +116,10 @@
         <div class="card-body center">
           <rpiechart
             [Items]="pieItems"
+            [ShadowBlur]="10"
             [ChartWidth]="280"
             [DataListHeight]="100"
+            [ChartFontSize]="'11px'"
             TextColor="#666"
             [EnableBorder]="false"
             BorderColor="#e0e0e0">
@@ -135,6 +138,7 @@
         <div class="card-body center">
           <rdonutchart
             [Items]="donutItems"
+            [ShadowBlur]="10"
             [ChartWidth]="280"
             [DataListHeight]="100"
             TextColor="#666"

@@ -8,7 +8,8 @@
         class="canvasCenter">
 
     </canvas>    
-    <div *ngIf="IsRendered"  style="position: relative;" [ngStyle]="{'bottom':-ChartWidth+'px', 'height': DataListHeight+'px'}">
+    <div *ngIf="IsRendered"  style="position: relative;" [ngStyle]="{ '--fontsize': FontSize, 'bottom':-ChartWidth+'px', 
+                                                                      'height': DataListHeight+'px'}">
         <div class="dataContainer">
             <div class="data" *ngFor="let itm of this.Items; trackBy: trackById">
                 <div class="indicator" [ngStyle]="{'backgroundColor': itm.BackgroundColor}">                    

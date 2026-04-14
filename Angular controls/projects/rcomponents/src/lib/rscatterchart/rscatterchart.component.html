@@ -12,7 +12,7 @@
 
         <div [ngStyle]="{'width': (MarginX + PaddingLeft) + 'px'}"></div>
 
-        <div class="dataContainer" [ngStyle]="{'width': (Width - MarginX - PaddingLeft) +'px'}">
+        <div class="dataContainer" [ngStyle]="{ '--fontsize': FontSize, 'width': (Width - MarginX - PaddingLeft) +'px'}">
             <div class="data" *ngFor="let itm of this.Items; trackBy: trackById">
                 <div class="indicator" [ngStyle]="{'backgroundColor': itm.ItemColor}">                    
                 </div>

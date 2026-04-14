@@ -4,7 +4,7 @@
 
     </canvas>
     <div *ngIf="IsRendered" style="margin-top: 8px; position: relative; align-content: center;display: flex;flex-direction: row;"
-        [ngStyle]="{'bottom':  '10px', 'height': DataListHeight+'px'}">
+        [ngStyle]="{ '--fontsize': FontSize, 'bottom':  '10px', 'height': DataListHeight+'px'}">
 
         <div [ngStyle]="{'width': (MarginX + PaddingLeft) + 'px'}"></div>
         

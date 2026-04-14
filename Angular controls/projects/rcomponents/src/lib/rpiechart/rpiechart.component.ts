@@ -81,12 +81,15 @@ export class RPieChartComponent  extends RChartBaseComponent {
   public get Items(): RPieChartItem[] {
     return this._items.map(x => x.ConverToItem());
   }
+ 
+  @Input()
+  ChartFontSize: string = "10px";
 
   context: CanvasRenderingContext2D | null | undefined = null;
 
   constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef) {
     super(winObj);
-    this.FontSize = "10px";
+    this.FontSize = "12px";
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
@@ -232,7 +235,7 @@ export class RPieChartComponent  extends RChartBaseComponent {
             this.context.rotate(Math.PI / 2);
           }
 
-          this.context.font = this.FontSize + ' verdana';
+          this.context.font = this.ChartFontSize + ' verdana';
           this.context.fillStyle = this.TextForeColor;
           this.context.fillText(element.Title, 0, 0);
 

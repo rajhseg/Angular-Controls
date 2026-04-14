@@ -1,6 +1,7 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, inject, Input, Output } from "@angular/core";
+import { Directive, ElementRef, EventEmitter, HostBinding, inject, Input, NgZone, Output } from "@angular/core";
 import { RWindowHelper } from "../rwindowObject";
 import { RSplitterType } from "../rsplitter/rpagecontent.directive";
+import { filter, fromEvent, map, take } from "rxjs";
 
 @Directive()
 export abstract class RBaseComponent<T> {
@@ -22,14 +23,46 @@ export abstract class RBaseComponent<T> {
     @Input()
     ErrorIndicatorColor: string = "red";
 
+    private _readonly: boolean = false;
+    private _disabled: boolean = false;
+
     @Input()
-    IsReadOnly: boolean = false;
+    set IsReadOnly(value: boolean) {
+        this._readonly = value;
+    }
+    get IsReadOnly(): boolean {
+        return this._readonly;
+    }
+
+    @Input()
+    set IsDisabled(value: boolean) {
+        this._disabled = value;
+    }
+    get IsDisabled(): boolean {
+        return this._disabled;
+    }
 
     constructor(protected winObj: RWindowHelper) {
         this.Id = this.winObj.GenerateUniqueId();
         this.HostElementId = this.winObj.GenerateUniqueId();
+
+        let ngZone = inject(NgZone);
+
+        if(winObj.isExecuteInBrowser()) {
+            ngZone.onStable
+            .pipe(take(1))
+            .subscribe(() => {
+                const el = document.getElementById(this.HostElementId);
+                if (el) {
+                    this.onComponentLoadedInDom(el);
+                }
+            });
+        }
     }
 
+    protected onComponentLoadedInDom(el: HTMLElement) {
+
+    }
 }
 
 @Directive()

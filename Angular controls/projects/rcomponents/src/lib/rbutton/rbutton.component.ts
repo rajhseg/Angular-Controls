@@ -32,9 +32,6 @@ export class RButtonComponent extends RBaseComponent<any> {
 
   @Input()
   BackgroundColor: string = "blue";
-
-  @Input()
-  IsDisabled: boolean = false;
   
   onClick($event: any){
     this.ButtonClick.emit($event);

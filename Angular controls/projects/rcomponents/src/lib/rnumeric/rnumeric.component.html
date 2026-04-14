@@ -9,7 +9,7 @@
 
     <div style="display: flex;flex-direction: row-reverse;">
 
-        <rtextbox [ReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
+        <rtextbox [IsReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
             [BottomLineColor]="BottomLineColor" [LabelText]="''" [FontSize]="FontSize"
             [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth" (focusout)="onBlur($event)"
             (keypress)="keyPress($event)" [PaddingLeft]="PaddingLeft" [PaddingRight]="PaddingRight"

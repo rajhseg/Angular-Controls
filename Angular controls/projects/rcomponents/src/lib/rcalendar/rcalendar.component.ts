@@ -55,7 +55,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   private IsValueChanged: boolean = false;
 
   set Value(val: string) {
-    if (val != this._value && !this.ReadOnly) {
+    if (val != this._value && !this.IsReadOnly) {
       this.IsValueChanged = true;
       this._value = val;
     }
@@ -103,12 +103,6 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   @Input()
   Font: string = '';
-
-  @Input()
-  ReadOnly: boolean = false;
-
-  @Input()
-  Disabled: boolean = false;
 
   @Input()
   Width: string = '170px';
@@ -478,10 +472,10 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   }
 
   writeValue(obj: string | Date): void {
-    let rd = this.ReadOnly;
+    let rd = this.IsReadOnly;
 
     try {
-      this.ReadOnly = false;
+      this.IsReadOnly = false;
       this.RenderUI(obj);
       this.NotifyToUI();
     }
@@ -489,7 +483,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
     }
 
-    this.ReadOnly = rd;
+    this.IsReadOnly = rd;
   }
 
   registerOnChange(fn: any): void {
@@ -501,7 +495,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.Disabled = isDisabled;
+    this.IsDisabled = isDisabled;
   }
 
   ngOnDestroy(): void {
@@ -706,7 +700,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   selectDate($evt: Event, day: Day) {
 
-    if (!this.ReadOnly) {
+    if (!this.IsReadOnly) {
       $evt.stopPropagation();
       $evt.preventDefault();
 

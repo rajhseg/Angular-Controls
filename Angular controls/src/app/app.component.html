@@ -706,7 +706,7 @@
   <br />
   <br />
   <div>
-    <rtextbox [ReadOnly]="true" [(ngModel)]="userName" [BottomLineColor]="bColor" [LabelForeColor]="bColor"
+    <rtextbox [IsReadOnly]="true" [(ngModel)]="userName" [BottomLineColor]="bColor" [LabelForeColor]="bColor"
       [PlaceholderText]="'Please enter user name'" [LabelText]="'UserName'"></rtextbox>
     <rtextbox [BottomLineColor]="bColor" [LabelForeColor]="bColor" [LabelText]="'Email'"></rtextbox>
     <br />
@@ -1399,7 +1399,7 @@
       <rtab *tabidfor="{ 'TabId':'tab25', 'HeaderText':'rtextbox', 'Context':this }">
 
         <div>
-          <rtextbox [ReadOnly]="true" [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'"
+          <rtextbox [IsReadOnly]="true" [(ngModel)]="userName" [PlaceholderText]="'Please enter user name'"
             [LabelText]="'UserName'">
           </rtextbox>
           <rtextbox [LabelText]="'Email'"></rtextbox>
@@ -1616,8 +1616,8 @@
   <br />
   <div>
 
-    <rcalendar [(ngModel)]="selectedDate1" [ReadOnly]="true"></rcalendar>
-    <rcalendar [ReadOnly]="true"></rcalendar>
+    <rcalendar [(ngModel)]="selectedDate1" [IsReadOnly]="true"></rcalendar>
+    <rcalendar [IsReadOnly]="true"></rcalendar>
     <rcalendar [(ngModel)]="selectedDate1"></rcalendar>
 
     <rcolorpicker [DisplayColorInHex]="false" [IsDisplayLabelText]="true" (ColorSelected)="ColorSelected($event)"

@@ -57,7 +57,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   IsValueChanged: boolean = false;
 
   set Value(val: string) {
-    if (val != this._value && !this.ReadOnly) {
+    if (val != this._value && !this.IsReadOnly) {
       this.IsValueChanged = true;
       this._value = val;
     }
@@ -101,12 +101,6 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   
   @Input()
   Font: string = '';
-
-  @Input()
-  ReadOnly: boolean = false;
-
-  @Input()
-  Disabled: boolean = false;
 
   // @Input()
   // Width: string = '170px';
@@ -630,10 +624,10 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   }
 
   writeValue(obj: EventsCalenderModel): void {
-    let rd = this.ReadOnly;
+    let rd = this.IsReadOnly;
 
     try {
-      this.ReadOnly = false;
+      this.IsReadOnly = false;
       this.Items = obj;
       this.NotifyToUI();
     }
@@ -641,7 +635,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
 
     }
 
-    this.ReadOnly = rd;
+    this.IsReadOnly = rd;
   }
 
   registerOnChange(fn: any): void {
@@ -653,7 +647,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.Disabled = isDisabled;
+    this.IsDisabled = isDisabled;
   }
 
   ngOnDestroy(): void {
@@ -720,7 +714,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
 
   selectDate($evt: Event, day: EventDay) {
 
-    if (!this.ReadOnly) {
+    if (!this.IsReadOnly) {
       $evt.stopPropagation();
       $evt.preventDefault();
 

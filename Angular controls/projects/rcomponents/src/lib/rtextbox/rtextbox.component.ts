@@ -40,12 +40,6 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   BottomLineColor: string = "blue";
 
   @Input()
-  ReadOnly: boolean = false;
-
-  @Input()
-  Disabled: boolean = false;
-
-  @Input()
   TextBoxWidth: string = '150px';
 
   @Input()
@@ -84,7 +78,7 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   InputId: string = this.winObj.GenerateUniqueId();
 
   public set TextboxValue(value: string) {
-    if(this._textboxValue != value && !this.ReadOnly) {
+    if(this._textboxValue != value && !this.IsReadOnly) {
       this._textboxValue = value;
       this.notifyToModel();
     }
@@ -130,7 +124,7 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.Disabled = isDisabled;
+    this.IsDisabled = isDisabled;
   }
 
 }

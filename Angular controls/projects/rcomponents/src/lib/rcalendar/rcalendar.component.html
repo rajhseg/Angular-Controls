@@ -4,8 +4,8 @@
 
         <input [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 'font-size': FontSize,
                             '--pleft': PaddingLeft, '--pright': PaddingRight,
-                            'pointer-events':(Disabled || ReadOnly) ? 'none': '' }"
-            [readOnly]="ReadOnly" [disabled]="Disabled"
+                            'pointer-events':(IsDisabled || IsReadOnly) ? 'none': '' }"
+            [readOnly]="IsReadOnly" [disabled]="IsDisabled"
             class="calendarinput"  type="text"              
             
             (click)="openCalenderFromInput($event)"        
@@ -13,7 +13,7 @@
             [(ngModel)]="Value" />
 
         <div class="calIconContainer" #openbtn (click)="openCalender($event)"
-            [ngClass]="{'dis': (Disabled || ReadOnly) }">
+            [ngClass]="{'dis': (IsDisabled || IsReadOnly) }">
             <b *ngIf="IsWindowsOs || IsLinuxOs" [ngStyle]="{ 'font-size': IconSize, 'top': TopPx }"
                 [ngClass]="{ 'calIcon': IsWindowsOs, 'calIconLinux': IsLinuxOs}">&#9782;</b>
         </div>

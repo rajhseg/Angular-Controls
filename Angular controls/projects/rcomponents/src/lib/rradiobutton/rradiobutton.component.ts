@@ -29,15 +29,8 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   @Input()
   DisplayTextRightAlign: boolean = true;
 
-  
   @Input()
   Font: string = '';
-
-  @Input()
-  ReadOnly: boolean = false;
-
-  @Input()
-  Disabled: boolean = false;
 
   @Input()
   GroupName: string = "";
@@ -91,13 +84,13 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   }
 
   check(event: Event) {
-    if(!this.ReadOnly && !this.Disabled) {
+    if(!this.IsReadOnly && !this.IsDisabled) {
       this.toggleCheck(event);
     } 
   }
 
   toggleCheck($event: Event) {
-    if(!this.ReadOnly) {
+    if(!this.IsReadOnly) {
       let checkValue = !this.IsChecked;
 
       if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
@@ -172,7 +165,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.Disabled = isDisabled;
+    this.IsDisabled = isDisabled;
   }
   
 }

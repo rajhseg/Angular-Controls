@@ -15,8 +15,8 @@
 
     </p> -->
 
-    <input [readOnly]="ReadOnly" type="text" [id]="InputId"
-            [disabled]="Disabled"
+    <input type="text" [id]="InputId"
+            [disabled]="IsDisabled" [readOnly]="IsReadOnly"
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
 
@@ -28,7 +28,7 @@
                     'margin-bottom': EnableMarginTextBottom ? MarginTextBottom : '', 
                     'font': Font, 
                     'font-size': FontSize,
-                    'pointer-events':(Disabled || ReadOnly) ? 'none': '' ,
+                    'pointer-events':(IsDisabled || IsReadOnly) ? 'none': '' ,
                     'box-shadow': EnableBoxShadow ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : ''
                 }"
 

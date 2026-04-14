@@ -34,12 +34,6 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   Font: string = '';
 
   @Input()
-  ReadOnly: boolean = false;
-
-  @Input()
-  Disabled: boolean = false;
-
-  @Input()
   DisplayText: string = "";
 
   @Input()
@@ -85,13 +79,13 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   }
 
   check(event: Event) {
-    if(!this.ReadOnly && !this.Disabled) {  
+    if(!this.IsReadOnly && !this.IsDisabled) {  
       this.toggleCheck(event);
     }
   }
 
   toggleCheck($event: Event) {
-    if(!this.ReadOnly) {
+    if(!this.IsReadOnly) {
       let checkValue = !this.IsChecked;
 
       if (checkValue && this.GroupName != "" && this.GroupName != null && this.GroupName != undefined) {
@@ -165,7 +159,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.Disabled = isDisabled;
+    this.IsDisabled = isDisabled;
   }
 
 }

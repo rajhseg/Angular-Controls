@@ -51,7 +51,7 @@
                 <tbody class="">
                     <tr *ngFor="let item of Files" [ngStyle]="{ 'color': TextForeColor }">
                         <td style="width: 130px; overflow-wrap: anywhere; text-wrap: wrap;">{{item.name}}</td>
-                        <td style="width: 56px;overflow-wrap:anywhere;">{{item.size}}</td>                      
+                        <td style="width: 56px;overflow-wrap:anywhere;">{{ formatSize(item.size) }}</td>                      
                     </tr>
                 </tbody>
             </table>

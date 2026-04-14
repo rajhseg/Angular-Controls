@@ -239,7 +239,17 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
         
   }   
 
-  
+ formatSize(bytes: any, decimals: number = 2) {
+
+    if (bytes === 0) return '0 Bytes';
+
+    const b = 1024;
+    const sizesinString = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const sizeindex = Math.floor(Math.log(bytes) / Math.log(b));
+
+    return parseFloat((bytes / Math.pow(b, sizeindex)).toFixed(decimals)) + ' ' + sizesinString[sizeindex];
+  }
+
   AttachDropdown() {
     let windowHeight = this.windowObj.innerHeight;
 

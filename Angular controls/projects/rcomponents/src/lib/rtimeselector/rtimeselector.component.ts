@@ -46,6 +46,12 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   selectedMode!: DropDownItemModel;
 
   @Input()
+  PaddingLeft: string = "7px";
+
+  @Input()
+  PaddingRight: string = "7px";
+
+  @Input()
   ParentDropDownId: string = '';
 
   @Input()

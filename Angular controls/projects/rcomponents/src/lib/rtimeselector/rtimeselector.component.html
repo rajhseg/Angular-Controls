@@ -3,6 +3,7 @@
     <div style="display: flex;width: fit-content;" (click)="openDropdown($event)">
       <rtextbox [EnableMarginTextBottom]="false" [LabelText]="LabelText" 
           [LabelForeColor]="TextBottomLineColor" (Click)="openDropdown($event)"
+          [PaddingLeft]="PaddingLeft" [PaddingRight]="PaddingRight"
           [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="'110px'"  [FontSize]="FontSize"
           [ReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
       <rbutton #openbtn class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"

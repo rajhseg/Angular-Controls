@@ -43,6 +43,12 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
   @Input() set styleDisplay(val: any) {
 
   }
+
+  @Input()
+  PaddingLeft: string = "5px";
+
+  @Input()
+  PaddingRight: string = "5px";
   
   @Input()
   DropdownFontSize: string = "12px";

@@ -49,7 +49,10 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   TextBoxWidth: string = '150px';
 
   @Input()
-  SpaceAtStartChar: string = "7px";
+  PaddingLeft: string = "7px";
+
+  @Input()
+  PaddingRight: string = "7px";
 
   @Input()
   TextBoxHeight: string = '20px';

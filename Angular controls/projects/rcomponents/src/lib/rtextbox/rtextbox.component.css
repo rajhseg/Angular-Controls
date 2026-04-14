@@ -17,8 +17,8 @@
     position: relative;
     padding-top: 4px;
     padding-bottom: 4px;
-    padding-left: var(--spaceatstartchar);
-    padding-right: 7px;
+    padding-left: var(--pleft);
+    padding-right: var(--pright);
 }
 
 .brdr {

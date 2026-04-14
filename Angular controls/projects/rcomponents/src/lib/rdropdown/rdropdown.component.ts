@@ -50,6 +50,12 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
   }
 
   @Input()
+  PaddingLeft: string = "5px";
+
+  @Input()
+  PaddingRight: string = "5px";
+  
+  @Input()
   DropdownFontSize: string = "12px";
   
   @Input()

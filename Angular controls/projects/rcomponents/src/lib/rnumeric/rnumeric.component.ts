@@ -47,7 +47,10 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   public EnableShadowEffect: boolean = false;
 
   @Input()
-  SpaceAtStartChar: string = '7px';
+  PaddingLeft: string = '7px';
+
+  @Input()
+  PaddingRight: string = "7px";
 
   @Input()
   public MinusBackgroundColor: string = "blue";

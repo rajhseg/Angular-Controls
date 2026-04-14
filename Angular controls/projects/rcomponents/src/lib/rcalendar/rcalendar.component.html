@@ -3,6 +3,7 @@
     <div class="rcalinputdiv" style="display: flex;flex-direction: row;">
 
         <input [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 'font-size': FontSize,
+                            '--pleft': PaddingLeft, '--pright': PaddingRight,
                             'pointer-events':(Disabled || ReadOnly) ? 'none': '' }"
             [readOnly]="ReadOnly" [disabled]="Disabled"
             class="calendarinput"  type="text"              

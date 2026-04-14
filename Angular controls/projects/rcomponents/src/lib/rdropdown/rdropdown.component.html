@@ -1,6 +1,9 @@
 <div  [style.font-family]="FontFamily" [id]="Id" class="dropdown rdropdownWindowClose">
+  
   <input [id]="'inp'+Id" #startElement (click)="openDropdown($event)" readonly class="inpdrop" type="text" style="padding-right: 20px;"
-    [(ngModel)]="SelectedDisplay" [ngStyle]="{'width': TextBoxWidth, 'font-size': FontSize }">
+    [(ngModel)]="SelectedDisplay" [ngStyle]="{'width': TextBoxWidth, 
+              'font-size': FontSize, '--pleft': PaddingLeft, '--pright': PaddingRight }">
+              
   <button #openbtn (click)="openDropdown($event)" class="dropdownbtn">
     <span [ngClass]="{'icon-down': IsDropDownOpen, 'icon-up':!IsDropDownOpen}"></span>
   </button>

@@ -87,6 +87,12 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @Input()
   ParentDropDownId: string = '';
 
+  @Input()
+  PaddingLeft: string = "5px";
+
+  @Input()
+  PaddingRight: string = "5px";
+
   month: DropdownModel = this.monthNames[0];
 
   year: DropdownModel | undefined = this.totalYears.find(x => x.Value == new Date().getFullYear());

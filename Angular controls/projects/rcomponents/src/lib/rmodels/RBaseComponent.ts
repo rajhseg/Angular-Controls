@@ -54,13 +54,13 @@ export abstract class RBaseComponent<T> {
             .subscribe(() => {
                 const el = document.getElementById(this.HostElementId);
                 if (el) {
-                    this.onComponentLoadedInDom(el);
+                    this.onComponentLoadedInDom();
                 }
             });
         }
     }
 
-    protected onComponentLoadedInDom(el: HTMLElement) {
+    protected onComponentLoadedInDom() {
 
     }
 }

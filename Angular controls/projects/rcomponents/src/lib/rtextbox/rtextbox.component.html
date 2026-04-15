@@ -19,7 +19,7 @@
             [disabled]="IsDisabled" [readOnly]="IsReadOnly"
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
-
+        [required]="IsRequired" 
         [ngClass]="{'brdr' : !EnableBoxShadow }"
 
        [ngStyle]="{ 'height': TextBoxHeight, 

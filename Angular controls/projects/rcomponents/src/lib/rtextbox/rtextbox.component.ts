@@ -63,6 +63,9 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   MarginTextBottom: string = '10px';
   
   @Input()
+  IsRequired: boolean = false;
+  
+  @Input()
   public set IsPasswordBox(value: boolean) {
     this.isPassword = value;
   }

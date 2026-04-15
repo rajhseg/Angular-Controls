@@ -78,7 +78,7 @@
                                     [TableWidth]="'100%'">
 
                                 <rcolumn [Name]="'Name'" [PropToBindToCellInfo]="'Name'" [HeaderText]="'Name'" 
-                                        [Width]="'26.8%'" [Height]="'20px'">
+                                        [Width]="'26.2%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span>{{cell.Value}}</span>
                                     </ng-template>                                    
@@ -112,7 +112,7 @@
 
                                 <rcolumn [IsComputationalColumn]="true" 
                                         [Name]="'Id'" [PropToBindToCellInfo]="'Id'" [HeaderText]="'Delete'" 
-                                        [Width]="'7.2%'" [Height]="'20px'">
+                                        [Width]="'7.8%'" [Height]="'20px'">
                                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
                                       <span class="delBtn" (click)="DeleteEvent($event, cell.Value)">&times;</span>
                                     </ng-template>                                    

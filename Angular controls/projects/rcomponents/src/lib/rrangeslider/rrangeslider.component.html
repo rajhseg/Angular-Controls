@@ -1,4 +1,7 @@
-<div  [style.font-family]="FontFamily"  [id]="Id" style="display: flex;" [ngStyle]="{'width': _totalWidth }">
+<div  [style.font-family]="FontFamily"  [id]="Id" style="display: flex;" 
+        [ngStyle]="{'width': _totalWidth,
+            'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' 
+         }">
     <div class="sbox sli">
 
         <div class="box" (click)="clickOnBar($event)" [ngStyle]="{

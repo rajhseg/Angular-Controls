@@ -219,7 +219,7 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ? true : null;
   }
 
   dragStarted($event: CdkDragStart) {
@@ -230,6 +230,10 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
 
     $event.preventDefault();
     $event.stopPropagation();
+
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+
     let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
     let total = this._sliderBarWidthValue - marker + 3;
@@ -245,6 +249,12 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
 
     $event.event.preventDefault();
     $event.event.stopPropagation();
+
+    if(this.IsReadOnly || this.IsDisabled) {
+      this.TranslateX();
+      return;
+    }
+    
     let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
     let total = this._sliderBarWidthValue - marker + 3;
@@ -256,9 +266,12 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
 
     this.currentDistance = this.resize + $event.distance.x;
     this.AdjustSlideBasedOnCurrentDistance(total);
+    this.TranslateX();  
+  }
 
+  private TranslateX() {
     (this.sliderElement.nativeElement as HTMLElement).style.transform = "0px";
-    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance + "px)"; //this.currentDistance+"px";
+    (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance + "px)";
   }
 
   AdjustSlideBasedOnCurrentDistance(total: number) {

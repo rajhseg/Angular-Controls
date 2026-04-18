@@ -474,7 +474,7 @@
           </rcheckbox>
           <rcheckbox
             DisplayText="Accept terms and conditions"
-            [IsChecked]="false"
+            [IsChecked]="true"
             [CheckedColor]="'#1D9E75'">
           </rcheckbox>
         </div>
@@ -491,6 +491,8 @@
         </div>
         <div class="card-body center" style="margin-left:-100px">
           <rcalendar
+            [IsReadOnly]="false"
+            [IsDisabled]="false"
             [(ngModel)]="calendarSelectedDate"
             (valueChanged)="onCalendarChange($event)"
             [SelectedItemBackGroundColor]="'rgb(127, 119, 221)'">
@@ -510,7 +512,6 @@
         </div>
         <div class="card-body">
           <rnumeric
-            [IsReadOnly]="false"
             LabelText="Quantity"
             [(ngModel)]="numericValue"
             [MinValue]="11"
@@ -533,6 +534,7 @@
         </div>
         <div class="card-body">
           <rslider
+            [IsReadOnly]="false"
             [MinValue]="0"
             [MaxValue]="100"
             [(ngModel)]="sliderValue"
@@ -557,6 +559,7 @@
         </div>
         <div class="card-body">
           <rrangeslider [(ngModel)]="rrangeSliderData" 
+              [IsReadOnly]="false"
               [TrackColor]="'#e8e8f0'"
               [EmptyTrackColor]="'white'"
               [Slider1Color]="'#e8e8f0'"
@@ -580,7 +583,7 @@
           <code class="card-selector">&lt;rswitch&gt;</code>
         </div>
         <div class="card-body" style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-          <rswitch
+          <rswitch [IsDisabled]="false"
             DisplayLabel="Dark mode"
             [(ngModel)]="switchValue"
             [LabelForeColor]="'black'"
@@ -604,7 +607,7 @@
           <code class="card-selector">&lt;rstarrating&gt;</code>
         </div>
         <div class="card-body">
-          <rstarrating
+          <rstarrating [IsReadOnly]="false"
             [noOfStars]="10"
             [(ngModel)]="ratingValue"
             StarColor="orange"
@@ -627,11 +630,13 @@
             [GroupName]="'demo-group'"
             [(ngModel)]="optionA">
           </rradiobutton>
-          <rradiobutton
+
+          <rradiobutton [IsReadOnly]="true"
             DisplayText="Option B"
             [GroupName]="'demo-group'"
             [(ngModel)]="optionB">
           </rradiobutton>
+
           <rradiobutton
             DisplayText="Option C"
             [GroupName]="'demo-group'"
@@ -649,7 +654,8 @@
           <code class="card-selector">&lt;rdropdown&gt;</code>
         </div>
         <div class="card-body">
-          <rdropdown
+          <rdropdown 
+            [IsReadOnly]="false"
             [Items]="dropdownItems"
             [DropDownContentWidth]="'310px'"
             [Width]="'280px'"
@@ -667,7 +673,8 @@
           <code class="card-selector">&lt;rselectdropdown&gt;</code>
         </div>
         <div class="card-body">
-          <rselectdropdown
+          <rselectdropdown 
+            [IsReadOnly]="false"
             [Items]="selectItems"
             [DropDownContentWidth]="'310px'"
             [Width]="'280px'"
@@ -685,12 +692,16 @@
           <code class="card-selector">&lt;rcolorpicker&gt;</code>
         </div>
         <div class="card-body" style="align-items: center; display: flex; gap: 16px;">
-          <rcolorpicker
+
+          <rcolorpicker 
+            [IsReadOnly]="false"
             [(ngModel)]="pickedColor">
           </rcolorpicker>
+          
           <div style="width: 40px; height: 40px; border-radius: 8px; border: 1px solid #ccc;"
                [style.background]="pickedColor">
           </div>
+
         </div>
         <div class="card-hint">Hex: <strong>{{ pickedColor }}</strong>. Canvas-based color picker.</div>
       </div>
@@ -709,6 +720,7 @@
             [ShowFilesListMaximumHeight]="'150px'"
             [AllowedMaxFileSizeInMB]="10"
             [IconForeColor]="'#1E1198'"
+            [IsReadOnly]= "false"
             [SelectMultipleFiles]="true">
           </rfileupload>
         </div>
@@ -726,7 +738,7 @@
           <rtimeselector
             [(ngModel)]="selectedTime"
             [ButtonBackgroundColor]="'#1E1198'"
-            [IsReadOnly]="true"
+            [IsReadOnly]="false"
             [TextBottomLineColor]="'#1E1198'"
             [SelectedItemBackgroundColor]="'#7F77DD'">
           </rtimeselector>
@@ -754,8 +766,8 @@
             TitleForeColor="#7F77DD"
             [EnableShadowEffect]="false">
             <div style="display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0;">
-              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="First name" LabelText="First name"></rtextbox>
-              <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Last name" LabelText="Last name"></rtextbox>
+              <rtextbox [IsDisabled]="true" [ngModel]="'First'" [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="First name" LabelText="First name"></rtextbox>
+              <rtextbox [IsReadOnly]="true" [ngModel]="'Last'" [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Last name" LabelText="Last name"></rtextbox>
               <rtextbox [BottomLineColor]="'#7F77DD'" [LabelForeColor]="'#7F77DD'" PlaceholderText="Email" LabelText="Email"></rtextbox>
             </div>
           </rgroup-panel>
@@ -1176,7 +1188,7 @@
         </div>
         <div class="card-body">
         
-            <revents-calender [FontSize]="'12px'"
+            <revents-calender [FontSize]="'12px'" [IsPopupModalReadOnly]="false"
               (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'50px'"
               [EachDayWidthInPx]="'120px'" [(ngModel)]="calenderEvents"></revents-calender>
                 
@@ -1212,7 +1224,7 @@
             <br />
             
             <rgrid [PageItems]="ditems" [Items]="gridItems1" 
-
+                   [IsReadOnly]="false"
                   [RowHoverBackgroundOpacity] = "0.8"
                   [EnableAlternateRowColor]="true"
                   [EnableShadow]="false" [ShowGroupHeader]="true"

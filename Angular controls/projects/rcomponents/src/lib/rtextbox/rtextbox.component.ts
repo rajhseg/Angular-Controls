@@ -127,7 +127,7 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.IsDisabled = isDisabled;
+    this._formDisabled = isDisabled ? true : null;
   }
 
 }

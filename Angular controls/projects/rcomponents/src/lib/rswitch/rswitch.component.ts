@@ -88,14 +88,25 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
+    this._formDisabled = isDisabled ? true : null;
   }
   
   toggle() {
+    
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+
     this.isChecked = !this.isChecked;        
     this.onChange(this.isChecked);
     this.onTouch(this.isChecked);
     this.checked.emit(this.isChecked);
     this.valueChanged.emit(this.isChecked);
   }
+
+  blockTriggerChange(event: Event) {
+    if(this.IsReadOnly || this.IsDisabled) {
+      event.preventDefault();
+    }
+  }
+
 }

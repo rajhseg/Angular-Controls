@@ -284,7 +284,7 @@ export class AppRootComponent {
     new DropDownItemModel({ id: 3 }, 'Vue'),
     new DropDownItemModel({ id: 4 }, 'Svelte'),
   ];
-  dropdownSelected: DropdownModel | undefined;
+  dropdownSelected: DropdownModel | undefined = this.dropdownItems[0];
 
   colors: DropDownItemModel[] = [
     new DropDownItemModel({ header: 'rgb(30 23 107)', rowhover: '#ecebf5', rowhoverfore: 'black' , evenrow: '#534AB7' }, 'Violet'),
@@ -381,8 +381,8 @@ export class AppRootComponent {
   })();
 
   // ─── Data: Calendar ──────────────────────────────────────────────────
-  calendarSelectedDate: Date | undefined;
-
+  calendarSelectedDate: Date | undefined = new Date();
+  
   onCalendarChange(date: any) {
     this.calendarSelectedDate = date;
   }

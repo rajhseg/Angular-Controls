@@ -198,7 +198,7 @@ export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalIte
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ?  true : null;
   }
 
   public moveToNext() {

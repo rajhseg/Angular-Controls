@@ -382,7 +382,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ? true : null;
   }
 
   ngOnInit(): void {
@@ -467,6 +467,9 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     evt.stopPropagation();
     evt.preventDefault();
 
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+    
     // this.popupService.CloseAllPopupsOnOpen(this);
     var currentValueToSet = !this.IsDropDownOpen;
     if (currentValueToSet) {

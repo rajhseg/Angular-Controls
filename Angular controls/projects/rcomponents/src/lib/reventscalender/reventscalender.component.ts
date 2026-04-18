@@ -327,6 +327,9 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   ItemsPerPage = new DropdownModel(10, "10");
 
   @Input()
+  IsPopupModalReadOnly: boolean = false;
+
+  @Input()
   PopupGridHeaderBackColor: string = 'DarkBlue';
 
   @Input()
@@ -462,6 +465,10 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
 
 
   addEvent($evt: Event) {
+
+    if(this.IsReadOnly || this.IsDisabled || this.IsPopupModalReadOnly)
+      return;
+
     if(this.NewEvent.Name!= undefined && this.NewEvent.Name.trim()!="") {
       if(this.year) {      
         let _eventDay = this.Items.EachDay.find(x=>x.EventDate.toDateString() == this.SelectedEventModel?.EventDate.toDateString());
@@ -556,6 +563,10 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   }
 
   DeleteEvent($evt: Event, value: object|undefined){
+    
+    if(this.IsReadOnly || this.IsDisabled || this.IsPopupModalReadOnly)
+      return;
+
     if(value && this.SelectedEventModel){      
       let _indx = this.SelectedEventModel.Events.findIndex(x=>x.Id==value.toString());
       if(_indx>-1){
@@ -647,7 +658,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.IsDisabled = isDisabled;
+    this._formDisabled = isDisabled ? true : null;
   }
 
   ngOnDestroy(): void {

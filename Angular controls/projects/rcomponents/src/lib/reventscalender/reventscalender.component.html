@@ -5,7 +5,7 @@
             [ngStyle]="{
                         'font-size': FontSize,
                         'width': DDEWidth, 'height': DDEHeight,
-                        'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''
+                        'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':'' 
                         }">
         <div #modal class="modal" [ngStyle]="{ 'display' : isModalOpen ? 'block' : 'none' }">
             <div class="modalContent">
@@ -25,11 +25,13 @@
 
                         <rtextbox class="evtAdd" [LabelText]="'Event Name'" [(ngModel)]="NewEvent.Name"
                                   [BottomLineColor]="EventGroupBottomLineColor" [FontSize]="FontSize"
+                                  [IsReadOnly]="IsReadOnly || IsPopupModalReadOnly" [IsDisabled]="IsDisabled"
                                   [LabelForeColor]="EventGroupLabelColor">
                         </rtextbox>
 
                         <rtimeselector style="top:-3px" class="evtAdd" [(ngModel)]="NewEvent.FromTime" 
                                   [LabelText]="'From Time'"
+                                  [IsReadOnly]="IsReadOnly || IsPopupModalReadOnly" [IsDisabled]="IsDisabled"
                                   [TextBottomLineColor]="EventGroupBottomLineColor"
                                   [ButtonBackgroundColor]="EventGroupButtonBackColor"
                                   [ButtonForeColor]="EventGroupButtonForeColor">
@@ -37,6 +39,7 @@
 
                         <rtimeselector style="top:-3px"class="evtAdd" [(ngModel)]="NewEvent.ToTime" 
                                     [LabelText]="'To Time'"
+                                    [IsReadOnly]="IsReadOnly || IsPopupModalReadOnly" [IsDisabled]="IsDisabled"
                                     [TextBottomLineColor]="EventGroupBottomLineColor"
                                     [ButtonBackgroundColor]="EventGroupButtonBackColor"
                                     [ButtonForeColor]="EventGroupButtonForeColor">
@@ -44,6 +47,7 @@
 
                         <rcolorpicker style="top:12px" class="evtAdd" [(ngModel)]="NewEvent.Indicator" 
                                     [LabelTextForeColor]="EventGroupLabelColor"
+                                    [IsReadOnly]="IsReadOnly || IsPopupModalReadOnly" [IsDisabled]="IsDisabled"
                                     [IsDisplayColorCode]="false" [IsDisplayLabelText]="true" 
                                     [LabelText]="'Indicator'">
                         </rcolorpicker>
@@ -63,6 +67,8 @@
 
                             <rgrid  [ShowGroupHeader]="false" *ngIf="SelectedEventModel" 
                                     [PageItems]="ditems"
+                                    [IsReadOnly]="IsReadOnly || IsPopupModalReadOnly"
+                                    [IsDisabled]="IsDisabled"
                                     [Items]="SelectedEventModel.Events" 
                                     [FontSize]="PopupGridFontSize"
                                     [ItemsPerPage]="ItemsPerPage" 
@@ -123,7 +129,8 @@
                 </div>
             </div>
         </div>
-        <div class="week">
+        <div class="week" [ngStyle]="{'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
+                                      'user-select': IsDisabled ? 'none': 'auto' }">
             <div>
                 <a (click)="previousMonth($event)" class="atag previous around">&#8249;</a>
             </div>
@@ -131,7 +138,7 @@
             <div class="mnyr">
 
                 <rdropdown #monthdropdown [IsDropDownOpen]="IsMonthDropdownOpen" [ParentComponent]="this"
-                    [EnableFilterOption]="EnableFilterOptionForMonth"
+                    [EnableFilterOption]="EnableFilterOptionForMonth" [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
                     (Closed)="isMonthDropdownClosed($event)" (Opened)="isMonthDropdownOpened($event)"
                     [IsChildOfAnotherControl]="isDropdownChild" [IsMulti]="false" (valueChanged)="changeMonth($event)"
                     [(ngModel)]="month" [Items]="monthNames" 
@@ -144,7 +151,7 @@
             <div class="mnyr">
 
                 <rdropdown #yeardropdown [IsDropDownOpen]="IsYearDropdownOpen" [ParentComponent]="this"    
-                    [EnableFilterOption]="EnableFilterOptionForYear"                
+                    [EnableFilterOption]="EnableFilterOptionForYear"  [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"              
                     [IsChildOfAnotherControl]="isDropdownChild" (valueChanged)="changeYear($event)" [IsMulti]="false"
                     [(ngModel)]="year" [Items]="totalYears"
                     [Width]="'52px'" [DropDownContentWidth]="'77px'" 

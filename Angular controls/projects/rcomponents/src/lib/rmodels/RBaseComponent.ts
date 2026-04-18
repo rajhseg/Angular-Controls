@@ -24,7 +24,8 @@ export abstract class RBaseComponent<T> {
     ErrorIndicatorColor: string = "red";
 
     private _readonly: boolean = false;
-    private _disabled: boolean = false;
+    private _disabled: boolean | null = false;
+    protected _formDisabled: boolean | null = false;
 
     @Input()
     set IsReadOnly(value: boolean) {
@@ -35,11 +36,12 @@ export abstract class RBaseComponent<T> {
     }
 
     @Input()
-    set IsDisabled(value: boolean) {
+    set IsDisabled(value: boolean | null) {
         this._disabled = value;
     }
-    get IsDisabled(): boolean {
-        return this._disabled;
+
+    get IsDisabled(): boolean | null {
+        return this._disabled || this._formDisabled;
     }
 
     constructor(protected winObj: RWindowHelper) {

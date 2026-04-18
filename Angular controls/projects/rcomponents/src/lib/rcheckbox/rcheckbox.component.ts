@@ -159,7 +159,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.IsDisabled = isDisabled;
+    this._formDisabled = isDisabled ? true : null;
   }
 
 }

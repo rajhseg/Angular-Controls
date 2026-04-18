@@ -195,7 +195,7 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
+    this._formDisabled = isDisabled ? true : null;
   }  
 
   renderUI(){
@@ -231,6 +231,10 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
   }
 
   selected(value:number){
+    
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+
     this.ratingValue = value;    
   }
 

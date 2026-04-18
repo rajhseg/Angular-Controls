@@ -27,6 +27,7 @@
                         <th style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
 
                             <rcheckbox [(ngModel)]="IsSelectedAll" [CheckSize]="SelectCheckBoxSize"
+                                       [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
                                        (OnCheckChanged)="SelectAll($event)"></rcheckbox>
                         </th>
                     </ng-container>
@@ -154,11 +155,14 @@
                     [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
                         'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center', 'overflow': 'hidden',
                         '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
-                        '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity }">
+                        '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity,
+                        'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
+                        'user-select': IsDisabled ? 'none': 'auto'  }">
     
                         <ng-container *ngIf="EnableSelectColummn">
                             <td style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
                                 <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [CheckSize]="SelectCheckBoxSize"
+                                    [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
                                 (OnCheckChanged)="ItemSelect($event, item)"></rcheckbox>
                             </td>
                         </ng-container>
@@ -250,6 +254,7 @@
                                 <ng-container *ngIf="EnableSelectColummn">
                                     <td style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
                                         <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [CheckSize]="SelectCheckBoxSize"
+                                                   [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
                                         (OnCheckChanged)="ItemSelect($event, item)"></rcheckbox>
                                     </td>
                                 </ng-container>

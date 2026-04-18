@@ -1,7 +1,11 @@
 
 
 
-<div  [style.font-family]="FontFamily" [id]="Id" class="txtroot" [ngStyle]="{'--pleft': PaddingLeft, '--pright': PaddingRight }">
+<div  [style.font-family]="FontFamily" [id]="Id" class="txtroot" 
+    [ngStyle]="{'--pleft': PaddingLeft, 
+        '--pright': PaddingRight,
+        'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
+        'user-select': IsDisabled ? 'none': 'auto' }">
 
     <span class="span" [ngStyle]="{ 'width': TextBoxWidth, 'color': LabelForeColor, 'font-size': FontSize }"> 
         {{LabelText}} 
@@ -16,7 +20,7 @@
     </p> -->
 
     <input type="text" [id]="InputId"
-            [disabled]="IsDisabled" [readOnly]="IsReadOnly"
+            [attr.disabled]="IsDisabled || null" [readonly]="IsReadOnly"
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
         [required]="IsRequired" 

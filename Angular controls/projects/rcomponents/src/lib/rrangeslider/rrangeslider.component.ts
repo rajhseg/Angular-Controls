@@ -287,7 +287,7 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ? true : null;
   }
 
   dragStarted1($event: CdkDragStart) {
@@ -299,6 +299,11 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     $event.event.preventDefault();
     $event.event.stopPropagation();
 
+    if(this.IsReadOnly || this.IsDisabled) {
+      this.TranslateX1();
+      return;
+    }
+    
     if (this.slider1FromStart) {
       this.Resize1 = this.currentDistance1;
       this.slider1FromStart = false;
@@ -319,9 +324,11 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
 
     this.Slider1MarginLeft = (this.currentDistance1 + marker -2) + 'px';
     this.AdjustSlider1BasedOnCurrentDistance(total);
+    this.TranslateX1();
+  }
 
+  private TranslateX1() {
     (this.sliderElement1.nativeElement as HTMLElement).style.zIndex = (this.sliderElement2.nativeElement as HTMLElement).style.zIndex + 1;
-
     (this.sliderElement1.nativeElement as HTMLElement).style.transform = "0px";
     (this.sliderElement1.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance1 + "px)"; 
   }
@@ -350,6 +357,11 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     $event.event.preventDefault();
     $event.event.stopPropagation();
 
+    if(this.IsReadOnly || this.IsDisabled) {
+      this.TranslateX2();
+      return;
+    }
+    
     let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
     let total = this._sliderBarWidthValue - marker + 3;
@@ -370,15 +382,22 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
 
     this.AdjustSlider2BasedOnCurrentDistance(total);
 
-    (this.sliderElement2.nativeElement as HTMLElement).style.zIndex = (this.sliderElement1.nativeElement as HTMLElement).style.zIndex + 1;
+    this.TranslateX2();
+  }
 
+  private TranslateX2() {
+    (this.sliderElement2.nativeElement as HTMLElement).style.zIndex = (this.sliderElement1.nativeElement as HTMLElement).style.zIndex + 1;
     (this.sliderElement2.nativeElement as HTMLElement).style.transform = "0px";
-    (this.sliderElement2.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance2 + "px)"; //this.currentDistance+"px";
+    (this.sliderElement2.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance2 + "px)";
   }
 
   clickOnBar($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
+
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+    
     let marker = this.cssunit.ToPxValue(this.SliderMarkerSize, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
 
     let isSilder1: boolean = true;

@@ -495,7 +495,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.IsDisabled = isDisabled;
+    this._formDisabled = isDisabled ? true : null;
   }
 
   ngOnDestroy(): void {
@@ -533,6 +533,9 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   openCalender($evt: Event, isopenFromInput: boolean = false) {
     $evt.stopPropagation();
     $evt.preventDefault();
+
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
 
     this.IsChildOfAnotherControlClicked = false;
 

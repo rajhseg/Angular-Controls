@@ -186,6 +186,9 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
 
   public Dec(){
     
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+
     if(this._value==undefined)
       this._value = 0;
 
@@ -202,6 +205,9 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
 
   public Inc(){
 
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+    
     if(this._value==undefined)
       this._value = 0;
 
@@ -260,7 +266,7 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
+    this._formDisabled = isDisabled ? true : null;
   }
 
   onBlur($event: Event){

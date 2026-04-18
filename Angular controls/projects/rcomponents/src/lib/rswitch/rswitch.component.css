@@ -48,6 +48,11 @@
   .sdr.round:before {
     border-radius: 50%;
   }
+
+  input[type="checkbox"][readonly],
+  input[type="checkbox"][disabled] {
+    pointer-events: none;
+  }
   
   :host {
     display: inline-block;

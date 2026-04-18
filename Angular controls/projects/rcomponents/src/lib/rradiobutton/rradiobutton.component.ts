@@ -165,7 +165,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.IsDisabled = isDisabled;
+    this._formDisabled = isDisabled ? true : null;
   }
   
 }

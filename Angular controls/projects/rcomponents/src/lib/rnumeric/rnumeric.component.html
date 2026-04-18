@@ -1,6 +1,7 @@
 
 
-<div  [style.font-family]="FontFamily" [id]="Id" [ngStyle]="{}" [ngStyle]="{ 'pointer-events': IsReadOnly ? 'none': '' }"
+<div  [style.font-family]="FontFamily" [id]="Id" [ngStyle]="{}" 
+      [ngStyle]="{ 'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }"
      style="display: flex;flex-direction: column;">  
 
     <div>
@@ -10,6 +11,7 @@
     <div style="display: flex;flex-direction: row-reverse;">
 
         <rtextbox [IsReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
+            [IsDisabled]="IsDisabled"
             [BottomLineColor]="BottomLineColor" [LabelText]="''" [FontSize]="FontSize"
             [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth" (focusout)="onBlur($event)"
             (keypress)="keyPress($event)" [PaddingLeft]="PaddingLeft" [PaddingRight]="PaddingRight"
@@ -20,6 +22,8 @@
         <div class="buttons" [ngStyle]="{ 'padding-right' : '3px'}">
             <rbutton    
                         [ButtonHeight]="ButtonHeight"
+                        [IsReadOnly]="IsReadOnly" 
+                        [IsDisabled]="IsDisabled"
                         [ButtonWidth]="'25px'"
                         [BackgroundColor]="MinusBackgroundColor" 
                         [ForeColor]="MinusForeColor" 
@@ -28,6 +32,8 @@
 
             <rbutton    
                         [ButtonHeight]="ButtonHeight"
+                        [IsReadOnly]="IsReadOnly"
+                        [IsDisabled]="IsDisabled"
                         [ButtonWidth]="'25px'"
                         [BackgroundColor]="PlusBackgroundColor" 
                         [ForeColor]="PlusForeColor"

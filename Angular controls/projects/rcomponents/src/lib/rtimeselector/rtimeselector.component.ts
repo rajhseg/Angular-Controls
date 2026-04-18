@@ -207,7 +207,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ? true : null;
   }
 
   NotifyToModel() {
@@ -362,6 +362,9 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     $event.stopPropagation();
     $event.preventDefault();
 
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+    
     this.IsDropDownOpen = !this.IsDropDownOpen;
     if(this.IsDropDownOpen){
       this.cls.CloseAllPopups(this);

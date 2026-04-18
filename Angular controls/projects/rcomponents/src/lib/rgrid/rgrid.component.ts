@@ -587,7 +587,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ? true : null;
   }
 
   NotifyToModel(cellInfo: RCell) {
@@ -1891,6 +1891,9 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   async ShowEdit($event: Event, item: RGridRow, isUpdate: boolean) {
 
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+    
     let keys = Object.keys(item)
     for (let index = 0; index < keys.length; index++) {
       const element = item[keys[index]];

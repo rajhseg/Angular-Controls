@@ -380,7 +380,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ? true : null;
   }
 
   ngOnInit(): void {
@@ -455,6 +455,9 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
     evt.stopPropagation();
     evt.preventDefault();
 
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+    
     var currentValueToSet = !this.IsDropDownOpen;
     if (currentValueToSet) {
 

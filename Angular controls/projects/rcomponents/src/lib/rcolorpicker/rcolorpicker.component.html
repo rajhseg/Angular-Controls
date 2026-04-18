@@ -1,5 +1,6 @@
 
-<div #startElement  [style.font-family]="FontFamily" [id]="Id" class="dropdown rcolorpickerwindowclose" style="position: relative;">
+<div #startElement  [style.font-family]="FontFamily" [id]="Id" class="dropdown rcolorpickerwindowclose" style="position: relative;"
+    [ngStyle]="{'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto'}">
 <div [ngStyle]="{'color': LabelTextForeColor, 'font-size':FontSize,
             'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px':''}"
         #openbtn class="mainContainer" (click)="toggle($event)">

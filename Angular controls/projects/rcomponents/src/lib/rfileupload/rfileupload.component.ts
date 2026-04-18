@@ -155,7 +155,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    
+    this._formDisabled = isDisabled ? true : null;
   }
 
   clear($event: Event) {
@@ -231,6 +231,9 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     $event.stopPropagation();
     $event.preventDefault();
    
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+
     this.showFiles = !this.showFiles;
 
     if(this.showFiles){
@@ -238,6 +241,12 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     }
         
   }   
+
+  blockFileBrowse(event: Event){
+    if(this.IsReadOnly ||this.IsDisabled){
+      event.preventDefault();
+    }
+  }
 
  formatSize(bytes: any, decimals: number = 2) {
 

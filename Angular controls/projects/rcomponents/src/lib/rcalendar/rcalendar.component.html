@@ -1,11 +1,15 @@
 
-<div #startElement style="position: relative;"  [style.font-family]="FontFamily" [id]="Id" class="rcal dropdown rcalenderWindowsClose" *ngIf="IsWindowsOs || IsLinuxOs">
-    <div class="rcalinputdiv" style="display: flex;flex-direction: row;">
+<div #startElement style="position: relative;"  [style.font-family]="FontFamily" [id]="Id" 
+        [ngStyle]="{'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto'}"
+        class="rcal dropdown rcalenderWindowsClose" 
+        *ngIf="IsWindowsOs || IsLinuxOs">
+    <div class="rcalinputdiv" style="display: flex;flex-direction: row;" [ngStyle]="{'user-select': IsDisabled ? 'none': ''}">
 
-        <input [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 'font-size': FontSize,
+        <input id="{{'inp_'+Id}}" [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 'font-size': FontSize,
                             '--pleft': PaddingLeft, '--pright': PaddingRight,
-                            'pointer-events':(IsDisabled || IsReadOnly) ? 'none': '' }"
-            [readOnly]="IsReadOnly" [disabled]="IsDisabled"
+                            'pointer-events':(IsDisabled || IsReadOnly) ? 'none': '',
+                            'user-select': (IsDisabled) ? 'none' : 'auto' }"
+            [readonly]="IsReadOnly" [attr.disabled]="IsDisabled || null"
             class="calendarinput"  type="text"              
             
             (click)="openCalenderFromInput($event)"        

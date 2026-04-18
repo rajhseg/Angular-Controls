@@ -226,7 +226,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
+    this._formDisabled = isDisabled ? true : null;
   }
 
   AssignColorsForInputColor(value: string) {
@@ -516,6 +516,9 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     $event.stopPropagation();
     $event.preventDefault();
     
+    if(this.IsReadOnly || this.IsDisabled)
+      return;
+
     this.IsColorPickerOpen = !this.IsColorPickerOpen;
     if (this.IsColorPickerOpen) {
       this.cls.CloseAllPopups(this);

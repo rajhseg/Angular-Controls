@@ -2,6 +2,7 @@
 </div>
 
     <div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.Circle"
+        [ngStyle]="{ 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }"
         [ngClass]="{ 'progress_container': FloatInCenter }">
         <div class="progressbar_infinite"
          [ngStyle]="{'borderWidth': CircularLineWidth, 'borderColor': CircleColor,
@@ -13,7 +14,7 @@
     <div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.StraightLine"
         [ngClass]="{ 'progress_flat_container': FloatInCenter }"
         [style.left.px]="LeftPosition"
-        [ngStyle]="{ 'width': ProgressBarWidth}">
+        [ngStyle]="{ 'width': ProgressBarWidth, 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto'}">
         <div class="progress_flattrack" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight }">
             <div [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem">
 
@@ -25,7 +26,7 @@
     <div style="place-items: center; place-content: center;text-align: right;" [ngClass]="{ 'progress_flat_container': FloatInCenter,
           'hide': !(Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.StraightLine) }"
         [style.left.px]="LeftPosition"
-        [ngStyle]="{ 'width': ProgressBarWidth, 'display': DisplayType == allDisplayTypes.StraightLine && Type==allProgressBarTypes.Progress ? 'block' : 'none'}">
+        [ngStyle]="{ 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto', 'width': ProgressBarWidth, 'display': DisplayType == allDisplayTypes.StraightLine && Type==allProgressBarTypes.Progress ? 'block' : 'none'}">
 
         <div class="progress_flattrack_finite" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight, 'width': ProgressBarWidth }">
             <div #flatitemProgress [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem_Progress">
@@ -39,6 +40,7 @@
 
 
     <div *ngIf="Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.Circle"
+        [ngStyle]="{ 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }"
         [ngClass]="{ 'progress_container': FloatInCenter }">
         <canvas style="position: absolute;" #procan width="{{ProgressBarWidth.split('px')[0]}}" height="{{ProgressBarWidth.split('px')[0]}}" class="canvasCenter">
 

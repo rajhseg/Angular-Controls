@@ -80,6 +80,9 @@ export abstract class RChartBaseComponent {
 
     @Input()
     FontSize: string = '12px';
+
+    @Input()
+    IsDisabled: boolean = false;
     
     constructor(protected winObj: RWindowHelper){
         this.Id = this.winObj.GenerateUniqueId();

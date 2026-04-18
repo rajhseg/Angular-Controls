@@ -763,6 +763,7 @@
         <div class="card-body">
           <rgroup-panel
             groupname="Personal Info"
+            [IsReadOnly]="false"
             TitleForeColor="#7F77DD"
             [EnableShadowEffect]="false">
             <div style="display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0;">
@@ -774,6 +775,7 @@
 
           <rgroup-panel
             groupname="Preferences"
+            [IsReadOnly]="false"
             TitleForeColor="#1D9E75"
             [IsItemsArrangeHorizontal]="true"
             style="margin-top: 16px; display: block;">
@@ -794,7 +796,7 @@
         </div>
         <div class="card-body" style="min-height: 200px;">
 
-          <rsplitter #splitcomp TotalWidth="1060px" TotalHeight="380px" (OnSizeChanged)="panelSizeChange($event)">
+          <rsplitter [IsReadOnly]="false" #splitcomp TotalWidth="1060px" TotalHeight="380px" (OnSizeChanged)="panelSizeChange($event)">
 
             <rsplitpage *rpagecontent [InitialWidth]="'30%'">
               <div style="padding: 12px; background: #f5f3ff; height: 93%; color: #534AB7; font-size: 14px;">

@@ -237,7 +237,9 @@
                                     (click)="expandGroup($event, grpitem)">
                                 </span>
                                 <span style="text-overflow: ellipsis;" 
-                                 [ngStyle]="{ 'color': GroupHeaderRowForeColor }">
+                                 [ngStyle]="{ 'color': GroupHeaderRowForeColor,  
+                                              'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
+                                              'user-select': IsDisabled ? 'none': 'auto'}">
                                     {{getGroupHeaderAsString(grpitem)}}
                                 </span>
                             </td>

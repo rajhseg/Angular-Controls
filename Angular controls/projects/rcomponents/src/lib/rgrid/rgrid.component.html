@@ -229,7 +229,9 @@
                                          'border-top': '1px solid '+ GroupHeaderRowBorderColor,
                                          'border-bottom': '1px solid '+ GroupHeaderRowBorderColor,
                                          'height': GroupHeaderRowHeightInPx, 'align-content' : 'center' , 
-                                         'background-color': GroupHeaderRowBackColor }">
+                                         'background-color': GroupHeaderRowBackColor,
+                                         'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
+                                         'user-select': IsDisabled ? 'none': 'auto' }">
 
                             <td style="" colspan="2">
                                 <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"
@@ -248,6 +250,8 @@
                                     [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
                                         'width': '100%', 'height': RowHeightInPx, 
                                         'align-content' : 'center', 'overflow': 'hidden',
+                                        'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
+                                        'user-select': IsDisabled ? 'none': 'auto',
                                         '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
                                         '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity }">
 

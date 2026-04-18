@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RSequenceHorizontalItem } from './rsequence-horizontal/sequenceitemhorizontal';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgStyle } from '@angular/common';
 import { RSequenceHorizontalComponent } from './rsequence-horizontal/rsequence-horizontal.component';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
@@ -9,7 +9,7 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
 @Component({
   selector: 'rstate-horizontal',
   standalone: true,
-  imports: [RSequenceHorizontalComponent, NgForOf],
+  imports: [RSequenceHorizontalComponent, NgForOf, NgStyle],
   templateUrl: './rsequences-horizontal.component.html',
   styleUrl: './rsequences-horizontal.component.css',
   providers:[

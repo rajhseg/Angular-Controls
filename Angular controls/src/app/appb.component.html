@@ -893,7 +893,7 @@
           <code class="card-selector">&lt;rflattabs&gt;</code>
         </div>
         <div class="card-body">
-          <rflattabs [TabWidth]="'500px'" [TabHeight]="'140px'">
+          <rflattabs [IsDisabled]="false" [TabWidth]="'500px'" [TabHeight]="'140px'">
             <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Overview', 'Context':this }">
               <div style="padding: 16px; font-size: 14px; color: #555;">
                 Overview content — summarise your feature here.
@@ -922,7 +922,7 @@
           <code class="card-selector">&lt;rtabs&gt;</code>
         </div>
         <div class="card-body">
-          <rtabs [TabWidth]="'500px'" [TabHeight]="'140px'">
+          <rtabs [IsDisabled]="false" [TabWidth]="'500px'" [TabHeight]="'140px'">
             <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Overview', 'Context':this }">
               <div style="padding: 16px; font-size: 14px; color: #555;">
                 Overview content — summarise your feature here.
@@ -952,7 +952,7 @@
           <code class="card-selector">&lt;rtree&gt;</code>
         </div>
         <div class="card-body">
-        <rtree
+        <rtree [IsDisabled]="false"
             [Items]="treeItems"
             ExpandIconColor="#7F77DD"
             (onExpandClicked)="onTreeExpand($event)"
@@ -971,7 +971,7 @@
           <code class="card-selector">&lt;rstepper-vertical&gt;</code>
         </div>
         <div class="card-body">
-          <rstepper-vertical
+          <rstepper-vertical [IsDisabled]="false"
             [ActiveBackColor]="'#7F77DD'"
             [ActiveBorderColor]="'7F77DD'"
             [StripLineColor]="'#7F77DD'"
@@ -1019,7 +1019,7 @@
           <code class="card-selector">&lt;rstepper-horizontal&gt;</code>
         </div>
         <div class="card-body">
-          <rstepper-horizontal
+          <rstepper-horizontal [IsDisabled]="false"
             [ActiveBackColor]="'#7F77DD'"
             [ActiveBorderColor]="'7F77DD'"
             [StripLineColor]="'#7F77DD'"
@@ -1080,7 +1080,7 @@
           <code class="card-selector">&lt;rtimer&gt;</code>
         </div>
         <div class="card-body center" style="flex-direction: column; gap: 16px;">
-          <rtimer
+          <rtimer [IsDisabled]="false"
             [DisplayType]="0"
             [CircularWidth]="100"
             #timerRef
@@ -1118,7 +1118,7 @@
         </div>
         <div class="card-body">
 
-          <rstate-vertical
+          <rstate-vertical [IsDisabled]="false"
             [Items]="sequenceItems"
             [ActiveBackgroundColor]="'#7F77DD'"
             [CompletedBackgroundColor]="'#1D9E75'"
@@ -1138,7 +1138,7 @@
           <code class="card-selector">&lt;rstate-horizontal&gt;</code>
         </div>
         <div class="card-body">
-          <rstate-horizontal
+          <rstate-horizontal [IsDisabled]="false"
             [Items]="hsequenceItems"
             [ActiveForeColor]="'#7F77DD'"
             [CompletedForeColor]="'#1D9E75'"
@@ -1162,7 +1162,7 @@
         </div>
         <div class="card-body">
         
-          <revents-schedule [FontSize]="'12px'"
+          <revents-schedule [IsDisabled]="false" [FontSize]="'12px'"
             [ContainerBackgroundColor]="'#534AB7'" 
             [ContainerBorderColor]="'#a39cf3'" 
             [EventBorderColor]="'#a39cf3'"

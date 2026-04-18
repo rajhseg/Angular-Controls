@@ -157,6 +157,7 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
       //this.#initiatedStop = false;
 
       this.windowInterval = this.window.setInterval((x: RTimerComponent) => {
+
         x.count++;
         x.CalculateTime();
 

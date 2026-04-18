@@ -1,4 +1,7 @@
-<div [class.scl]="!ShowScrollBar"  [style.font-family]="FontFamily" [id]="Id" [ngStyle]="{ '--fontsize': FontSize }">
+<div [class.scl]="!ShowScrollBar"  [style.font-family]="FontFamily" [id]="Id" 
+     [ngStyle]="{ '--fontsize': FontSize, 
+                  'pointer-events': (IsDisabled) ? 'none' : '', 
+                  'user-select': IsDisabled ? 'none' : 'auto' }">
     <div>
         <div class="timeDiv">
             <div [ngStyle]="{ 

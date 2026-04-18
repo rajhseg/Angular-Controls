@@ -1,5 +1,6 @@
 
-<div  [style.font-family]="FontFamily" [id]="Id">
+<div  [style.font-family]="FontFamily" [id]="Id"
+      [ngStyle]="{ 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
     <rsequence-vertical *ngFor="let item of Items" [Item]="item"
      [FontSize]="FontSize"
      [ActiveBackgroundColor]="ActiveBackgroundColor"

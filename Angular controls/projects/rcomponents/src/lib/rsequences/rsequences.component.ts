@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
 import { RSequenceVerticalComponent } from "./rsequence/rsequence.component";
 import { RSequenceVerticalItem } from './rsequence/rsequenceitem';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgStyle } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
@@ -9,7 +9,7 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
 @Component({
   selector: 'rstate-vertical',
   standalone: true,
-  imports: [RSequenceVerticalComponent, NgForOf],
+  imports: [RSequenceVerticalComponent, NgForOf, NgStyle],
   templateUrl: './rsequences.component.html',
   styleUrl: './rsequences.component.css',
   providers: [

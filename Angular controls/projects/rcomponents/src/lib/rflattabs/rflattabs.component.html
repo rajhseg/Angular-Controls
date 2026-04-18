@@ -1,4 +1,5 @@
-<div class="rtabroot"  [style.font-family]="FontFamily" [id]="Id">
+<div class="rtabroot"  [style.font-family]="FontFamily" [id]="Id"
+              [ngStyle]="{'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none' : 'auto' }">
 
     <div cdkDropList cdkDropListOrientation="mixed"
       *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
@@ -17,7 +18,7 @@
     </div>
   
     <ng-container>
-      <div class="tabcontent" *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
+      <div [ngStyle]="{ 'pointer-events': IsReadOnly ? 'none': '' }" class="tabcontent" *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
         [style.width]="TabWidth" [style.height]="TabHeight">
   
         <div *ngIf="SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined"

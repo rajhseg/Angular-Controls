@@ -66,7 +66,9 @@
 
         <div class="tabcontent"
             [ngClass]="{ 'box': EnableShadow }" 
-            [ngStyle]="{ 'background-color': 'white', 'height': ContentHeight+'px', 'width': ContentWidth+'px'}">
+            [ngStyle]="{ 'background-color': 'white', 'height': ContentHeight+'px', 'width': ContentWidth+'px',
+                         'pointer-events': (IsDisabled) ? 'none' : '',
+                         'user-select' : IsDisabled ? 'none' : 'auto' }">
 
             <ng-container *ngIf="CurrentViewStep">
                 
@@ -79,7 +81,7 @@
                 </div>
 
                 <div style="padding:10px; overflow: auto;"
-                    [ngStyle]="{'height': (ContentHeight - 148)+'px' }">                                        
+                    [ngStyle]="{ 'pointer-events': IsReadOnly ? 'none': '', 'height': (ContentHeight - 148)+'px' }">                                        
                     <ng-container #view *ngTemplateOutlet="CurrentViewStep.Content">
 
                     </ng-container>
@@ -91,18 +93,19 @@
                         <rbutton *ngIf="!(CurrentViewStep.StepNo==1) && !IsLastStepFinished" 
                             [ForeColor]="BackButtonForeColor" 
                             [FontSize]="FontSize"
+                            [IsDisabled]="IsDisabled"
                             [BackgroundColor]="BackButtonBackColor"                           
                             style="margin-right: 10px;cursor: pointer;"
                             (ButtonClick)="PrevStep()">Back</rbutton>
 
                         <rbutton [IsDisabled]="!CurrentViewStep.IsStepValid" *ngIf="!IsLastStep()"
-                            [ForeColor]="NextButtonForeColor" 
+                            [ForeColor]="NextButtonForeColor" [IsDisabled]="IsDisabled"
                             [FontSize]="FontSize"
                             [BackgroundColor]="NextButtonBackColor"
                             style="cursor: pointer;" (ButtonClick)="NextStep()">Next</rbutton>
 
                         <rbutton (ButtonClick)="Done($event)" [IsDisabled]="!CurrentViewStep.IsStepValid"
-                            [ForeColor]="DoneButtonForeColor" 
+                            [ForeColor]="DoneButtonForeColor" [IsDisabled]="IsDisabled"
                             [FontSize]="FontSize"
                             [BackgroundColor]="DoneButtonBackColor"
                             *ngIf="IsLastStep() && !IsLastStepFinished" style="cursor: pointer;">Done</rbutton>
@@ -111,7 +114,7 @@
                             
                         <rbutton *ngIf="IsLastStepFinished" (ButtonClick)="PrevStep()" 
                             [ForeColor]="BackButtonForeColor" 
-                            [FontSize]="FontSize"
+                            [FontSize]="FontSize" [IsDisabled]="IsDisabled"
                             [BackgroundColor]="BackButtonBackColor">
                             Back
                         </rbutton>
@@ -119,7 +122,7 @@
 
                         <rbutton *ngIf="IsLastStepFinished" style="margin-left: 10px; cursor: pointer;" 
                                 [BackgroundColor] = "CompletedButtonBackColor"
-                                [FontSize]="FontSize"
+                                [FontSize]="FontSize" [IsDisabled]="IsDisabled"
                                 [ForeColor] = "CompletedButtonForeColor"
                                 (ButtonClick)="CompletedClick($event)">
                                 Completed

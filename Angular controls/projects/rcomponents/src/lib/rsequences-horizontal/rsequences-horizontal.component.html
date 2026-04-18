@@ -1,6 +1,7 @@
 
 
-<div  [style.font-family]="FontFamily" [id]="Id" style="width: fit-content;">
+<div  [style.font-family]="FontFamily" [id]="Id" style="width: fit-content;"
+      [ngStyle]="{ 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
     <rsequence-horizontal style="float: left;" *ngFor="let item of Items;" [Item]="item"
      [ActiveForeColor]="ActiveForeColor"
      [CompletedForeColor]="CompletedForeColor"

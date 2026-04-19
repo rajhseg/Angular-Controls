@@ -229,6 +229,8 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
         if (this.draggedTabs.length == 0)
           this.ispopuphidden = true;
       }
+
+      this._currentlyMovingTab = undefined;
     }
   }
 

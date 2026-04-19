@@ -235,6 +235,8 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
           if (this.draggedTabs.length == 0)
             this.ispopuphidden = true;
         }
+
+        this._currentlyMovingTab = undefined;
       }
     }
   

@@ -328,7 +328,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
 
   }
 
-  checkMarker(){
+  private checkMarker(){
     this.clearMarker();
     this.clearPage();
     if (this.isCurrentDate) {
@@ -387,7 +387,8 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     let eachWidth = this.TotalCellWidthInPx / this.DisplayDatesOnLoad.length;
     return eachWidth + 'px';
   }
-  CalculateDates() {
+
+  private CalculateDates() {
     let today = new Date();
     let list1 = this.GenerateDates(today, -2);
     let list2 = this.GenerateDates(today, 3);
@@ -409,7 +410,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return result;
   }
 
-  GenerateDatesFromString(fromDate: string, addDays: number): string[] {
+  private GenerateDatesFromString(fromDate: string, addDays: number): string[] {
 
     let list = [];
 
@@ -429,7 +430,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return list;
   }
 
-  GenerateDates(fromDate: Date, addDays: number): string[] {
+  private GenerateDates(fromDate: Date, addDays: number): string[] {
 
     let list = [];
 
@@ -460,7 +461,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return false;
   }
 
-  getDate(dt: Date, addDays: number): string {
+  private getDate(dt: Date, addDays: number): string {
     let k = new Date(dt);
     k.setDate(k.getDate() + addDays);    
 
@@ -494,7 +495,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return undefined;
   }
 
-  getDateFromString(dt: string, addDays: number): string {
+  private getDateFromString(dt: string, addDays: number): string {
 
     let date = this.getFormatDateFromString(dt);
 
@@ -507,7 +508,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return "";
   }
 
-  renderMarker() {
+  private renderMarker() {
     let time = new Date();
     let hr = time.getHours();
     let min = time.getMinutes();
@@ -529,7 +530,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     }
   }
 
-  movePageToCurrentTime() {
+  private movePageToCurrentTime() {
     let time = new Date();
     let hr = time.getHours();
     let min = time.getMinutes();
@@ -546,7 +547,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     }
   }
 
-  ResetPageAndMarker(){
+  private ResetPageAndMarker(){
     if(this.marker) {
       let _marker = (this.marker.nativeElement as HTMLElement)
       _marker.style.left = 0+'px';
@@ -560,13 +561,13 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     }
   }
 
-  EventsSort(a: REventsRenderObj, b: REventsRenderObj): number {
+  private EventsSort(a: REventsRenderObj, b: REventsRenderObj): number {
     let aDate = '2024/01/01 ' + a.StartTime;
     let bDate = '2024/01/01 ' + b.StartTime;
     return (Date.parse(aDate)) - (Date.parse(bDate));
   }
 
-  GetDifferenceInMinutes(endTime: string, startTime: string): number {
+  private GetDifferenceInMinutes(endTime: string, startTime: string): number {
     let aDate = '2024/01/01 ' + endTime;
     let bDate = '2024/01/01 ' + startTime;
     let diff = Math.abs((Date.parse(aDate)) - (Date.parse(bDate)));
@@ -578,7 +579,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
       return minutes;
   }
 
-  GetBordersCountUptoTargetTimeCell(time: string) {
+  private GetBordersCountUptoTargetTimeCell(time: string) {
     let parts = time.split(":");
     // 2 is for borders for each cell
     let firstPart = parseInt((parseInt(parts[0]) * (2 * (60 / this.MinutesForEachCell))).toString());
@@ -588,12 +589,12 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return totalBorders;
   }
 
-  GetBordersMergedWithInCell(duration: number) {
+  private GetBordersMergedWithInCell(duration: number) {
     let noOfBorders = (4 * parseInt((duration / this.MinutesForEachCell).toString())) - 4;
     return noOfBorders;
   }
 
-  GetOffsetLeftForEvent(previousEventEndTime: string, currentEventStartTime: string) {
+  private GetOffsetLeftForEvent(previousEventEndTime: string, currentEventStartTime: string) {
     let min: number = 0;
 
     if (previousEventEndTime == undefined || previousEventEndTime == "")
@@ -606,18 +607,18 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return left;
   }
 
-  GetOffsetLeftForStartTime(startTime: string): number {
+  private GetOffsetLeftForStartTime(startTime: string): number {
     let parts = startTime.split(":");
     let totalMinutes = parseInt(parts[0]) * 60 + parseInt(parts[1]);
     let left = totalMinutes * this.EachMinuteInPx;
     return left;
   }
 
-  GetTimeInString(time: number): string {
+  private GetTimeInString(time: number): string {
     return time.toString().length == 1 ? "0" + time.toString() : time.toString();
   }
 
-  IsDatePresentInThisCell(fromTime: string, toTime: string, currTime: string) {
+  private IsDatePresentInThisCell(fromTime: string, toTime: string, currTime: string) {
     let from = fromTime.split(":");
     let to = toTime.split(":");
 
@@ -630,7 +631,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return false;
   }
 
-  AddDurationToTimeString(time: string, duration: number) {
+  private AddDurationToTimeString(time: string, duration: number) {
     let start = time.split(":");
     let initnum = duration / 60;
     let remain = duration % 60;
@@ -655,7 +656,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     return fpart + ":" + spart;
   }
 
-  CalculateHorizontalHeaders() {
+  private CalculateHorizontalHeaders() {
 
     let FromDate = (new Date()).setHours(0, 0, 0, 0);
 
@@ -711,19 +712,20 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     }
   }
 
-  clearMarker() {
+  private clearMarker() {
     if (this.winObj.isExecuteInBrowser() && this.markerInterval) {
       window.clearInterval(this.markerInterval);
       this.markerInterval = undefined;
     }
   }
 
-  clearPage() {
+  private clearPage() {
     if (this.winObj.isExecuteInBrowser() && this.pageInterval) {
       window.clearInterval(this.pageInterval);
       this.pageInterval = undefined
     }
   }
+
   ngOnDestroy(): void {
     this._ele.removeEventListener('mousedown', this.startDrag.bind(this), false);
     this._ele.removeEventListener('mouseup', this.stopDrag.bind(this), false);
@@ -736,17 +738,17 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     }
   }
 
-  stopDrag(e: Event) {
+  private stopDrag(e: Event) {
     this.mosDown = false;
   }
 
-  startDrag(e: MouseEvent) {
+  private startDrag(e: MouseEvent) {
     this.mosDown = true;
     this.startPos = e.pageX - this._ele.offsetLeft;
     this.left = this._ele.scrollLeft;
   }
 
-  dragging(e: MouseEvent) {
+  private dragging(e: MouseEvent) {
 
     e.preventDefault();
 

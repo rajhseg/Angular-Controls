@@ -349,7 +349,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     this.NotifyToModel();    
   }
 
-  loadSelectedItems() {
+  private loadSelectedItems() {
     if (this.IsMulti) {
       this.SelectedItems = [];
       this.SelectedIndexes = [];
@@ -430,7 +430,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     this.cdr.detectChanges();
   }
 
-  windowOnClick($event: Event) {
+  private windowOnClick($event: Event) {
 
     this.cls.PrintLog();
 
@@ -493,7 +493,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     
   }
 
-  AttachDropdown() {
+  private AttachDropdown() {
     let windowHeight = this.windowObject.innerHeight;    
     const exp = /(-?[\d.]+)([a-z%]*)/;
     
@@ -578,7 +578,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     }
   }
 
-  AssignItems(item: DropDownItemModel, val: boolean) {
+  private AssignItems(item: DropDownItemModel, val: boolean) {
 
     if (item instanceof DropDownItemModel) {
       item.IsSelected = val;
@@ -591,7 +591,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     this.SelectedItem = new DropdownModel(item.Value, item.DisplayValue);
   }
 
-  SelectItem(item: DropDownItemModel | string | number) {
+  private SelectItem(item: DropDownItemModel | string | number) {
 
     if (item instanceof DropDownItemModel) {
       item.IsSelected = true;
@@ -647,7 +647,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
       this.SearchItem = "";
   }
 
-  ObjEquals(xValue: any, yValue: any): boolean {
+  private ObjEquals(xValue: any, yValue: any): boolean {
     'use strict';
 
     if (xValue === null || xValue === undefined || yValue === null || yValue === undefined) { 

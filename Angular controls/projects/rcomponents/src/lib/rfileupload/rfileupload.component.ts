@@ -138,7 +138,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     this.cls.RemoveInstance(this);
   }
 
-  populateFilesList(files: FileList | undefined) {
+  private populateFilesList(files: FileList | undefined) {
     this._rFilesList = [];
     
     if (this._files != undefined) {
@@ -219,7 +219,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     this.renderDisplayText();    
   }
 
-  renderDisplayText(){
+  private renderDisplayText(){
     if (this._files != undefined) {
 
       if (this._files.length > 0) {
@@ -263,7 +263,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     return parseFloat((bytes / Math.pow(b, sizeindex)).toFixed(decimals)) + ' ' + sizesinString[sizeindex];
   }
 
-  AttachDropdown() {
+  private AttachDropdown() {
     let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
@@ -343,7 +343,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     }
   }
 
-  windowOnClick($event: Event) {
+  private windowOnClick($event: Event) {
 
     this.cls.PrintLog();
 

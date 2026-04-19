@@ -104,13 +104,13 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
     }
   }
 
-  GetXYForText(x: number, y: number, length: number, angle: number): { X: number, Y: number } {
+  private GetXYForText(x: number, y: number, length: number, angle: number): { X: number, Y: number } {
     let x2 = x + length * Math.cos(angle);
     let y2 = y + length * Math.sin(angle);
     return { X: x2, Y: y2 };
   }
 
-  DrawText(context: CanvasRenderingContext2D, x: number, y: number, length: number, angle: number, color: string) {
+  private DrawText(context: CanvasRenderingContext2D, x: number, y: number, length: number, angle: number, color: string) {
     let rad = (angle * Math.PI) / 180;
     context.beginPath();
     context.moveTo(x, y);
@@ -121,7 +121,7 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
   }
 
   
-  calculateTitleWidth(){
+ calculateTitleWidth(){
     var names = this.Items.map(x=>x.Title);
     var length = 0;
 

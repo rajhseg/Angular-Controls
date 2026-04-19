@@ -423,7 +423,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
     this.ChangeMonthEvent.emit(monthInfo);
   }
 
-  windowOnClick(evt: MouseEvent) {
+  private windowOnClick(evt: MouseEvent) {
     var tar: any = evt.target;
 
     this.cls.PrintLog();
@@ -712,7 +712,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
     }
   }
 
-  loadYears(year: number) {
+  private loadYears(year: number) {
 
     this.totalYears = [];
 
@@ -851,7 +851,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
     this.changemonthisCalled = false;
   }
 
-  LoadMonth(date: Date, isSelect: boolean = true) {
+  private LoadMonth(date: Date, isSelect: boolean = true) {
 
     if (this.IsChildOfAnotherControl) {
       this.IsChildOfAnotherControlClicked = true;
@@ -971,7 +971,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
     this.onEventAdded.emit(this.Items);    
   }
 
-  SetDate(date: Date) {
+  private SetDate(date: Date) {
 
     this.selectedDate = date;
 

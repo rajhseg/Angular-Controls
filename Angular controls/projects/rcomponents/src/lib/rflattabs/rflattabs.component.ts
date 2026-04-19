@@ -11,7 +11,7 @@ import { RBaseComponent } from "../rmodels/RBaseComponent";
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle,
+  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,
     NgClass, CdkDrag, CdkDropList, JsonPipe, NgStyle],
   templateUrl: './rflattabs.component.html',
   styleUrl: './rflattabs.component.css'
@@ -254,7 +254,8 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
           _item.X = mEvent.pageX;
           _item.Y = mEvent.pageY;
   
-          this.draggedTabs.push(_item);
+          if(this.draggedTabs.findIndex(x=>x==_item) < 0)
+            this.draggedTabs.push(_item);
   
           return;
         }

@@ -14,7 +14,7 @@ import { RBaseComponent } from "../rmodels/RBaseComponent";
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './rtabs.component.html',
   styleUrl: './rtabs.component.css',
-  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle,
+  imports: [NgForOf, NgTemplateOutlet, AsyncPipe, NgIf, NgStyle, CdkDropListGroup,
     NgClass, CdkDrag, CdkDropList, JsonPipe, NgStyle]
 })
 export class RTabsComponent extends RBaseComponent<any> implements AfterContentInit, AfterContentChecked, AfterViewInit {
@@ -248,7 +248,9 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
         _item.X = mEvent.pageX;
         _item.Y = mEvent.pageY;
 
-        this.draggedTabs.push(_item);
+        
+        if(this.draggedTabs.findIndex(x=>x==_item) < 0)
+            this.draggedTabs.push(_item);
 
         return;
       }

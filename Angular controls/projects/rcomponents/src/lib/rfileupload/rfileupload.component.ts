@@ -134,6 +134,10 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     }
   }
   
+  ngOnDestroy(): void {
+    this.cls.RemoveInstance(this);
+  }
+
   populateFilesList(files: FileList | undefined) {
     this._rFilesList = [];
     

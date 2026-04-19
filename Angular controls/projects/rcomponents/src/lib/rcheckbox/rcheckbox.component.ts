@@ -74,7 +74,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
     this.service.RemoveInstance(this);
   }
 
-  resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
+  private resetValueForGroupedCheckbox($event: Event | undefined, groupname: string) {
     this.service.ResetCheckboxesForGroup($event, groupname, this);
   }
 
@@ -84,7 +84,7 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
     }
   }
 
-  toggleCheck($event: Event) {
+  private toggleCheck($event: Event) {
     if(!this.IsReadOnly) {
       let checkValue = !this.IsChecked;
 

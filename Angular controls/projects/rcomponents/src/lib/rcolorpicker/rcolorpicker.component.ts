@@ -229,7 +229,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     this._formDisabled = isDisabled ? true : null;
   }
 
-  AssignColorsForInputColor(value: string) {
+  private AssignColorsForInputColor(value: string) {
     value = value.toString().toLowerCase();
     this.SelectedColorHex = value;
     this.SelectedColorRgb = this.HexToRgb(value);
@@ -241,7 +241,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     this.SelectedColorB = nums[2];
   }
 
-  GetVarXValueWithInRect(_x: number): number {
+  private GetVarXValueWithInRect(_x: number): number {
 
     let _wth = this.cssUnitSer.ConvertToPxValue(this.varCanvasWidth, CssUnit.Px, null, null);
 
@@ -256,7 +256,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     return _x;
   }
 
-  GetVarYValueWithInRect(_y: number): number {
+  private GetVarYValueWithInRect(_y: number): number {
 
     let _hgt = this.cssUnitSer.ConvertToPxValue(this.varCanvasHeight, CssUnit.Px, null, null);
 
@@ -271,7 +271,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     return _y;
   }
 
-  GetMainYValueWithInRect(_y: number): number {
+  private GetMainYValueWithInRect(_y: number): number {
 
     let _hgt = this.cssUnitSer.ConvertToPxValue(this.colorCanvasHeight, CssUnit.Px, null, null);
 
@@ -286,7 +286,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     return _y;
   }
 
-  GetOffset() {
+  private GetOffset() {
     if (this.variations) {
       let _offset = this.variations.nativeElement.getBoundingClientRect();
       this.varOffSetX = _offset.left;
@@ -300,7 +300,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  VariationsMouseDown($event: MouseEvent) {
+  private VariationsMouseDown($event: MouseEvent) {
     this.isColorPickerSelected = true;
 
     $event.preventDefault();
@@ -316,7 +316,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  VariationsMouseMove($event: MouseEvent) {
+  private VariationsMouseMove($event: MouseEvent) {
 
     $event.preventDefault();
     $event.stopPropagation();
@@ -340,7 +340,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     
   }
 
-  mouseIsOnTopOfRect(x: number, y: number, shape: RectShape) {
+  private mouseIsOnTopOfRect(x: number, y: number, shape: RectShape) {
     let Left = shape.x;
     let Right = shape.x + this.varSelectorWidth;
     let top = shape.y;
@@ -353,7 +353,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     return false;
   }
 
-  VariationsMouseUp($event: MouseEvent) {
+  private VariationsMouseUp($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
     if (this.isVariationsColorPickerDrag) {
@@ -366,7 +366,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  MainMouseDown($event: MouseEvent) {
+  private MainMouseDown($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
 
@@ -379,7 +379,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  MainMouseMove($event: MouseEvent) {
+  private MainMouseMove($event: MouseEvent) {
 
     $event.preventDefault();
     $event.stopPropagation();
@@ -400,7 +400,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     this.mainStartY = _y;
   }
 
-  mouseIsOnTopOfRectOfMain(x: number, y: number, shape: RectShape) {
+  private mouseIsOnTopOfRectOfMain(x: number, y: number, shape: RectShape) {
     let Left = shape.x;
     let Right = shape.x + this.mainSelectorWidth;
     let top = shape.y;
@@ -413,7 +413,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     return false;
   }
 
-  MainMouseUp($event: MouseEvent) {
+  private MainMouseUp($event: MouseEvent) {
     $event.preventDefault();
     $event.stopPropagation();
     if (this.isMainColorPickerDrag) {
@@ -422,7 +422,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  AttachDropdown() {
+  private AttachDropdown() {
     let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
@@ -536,7 +536,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     return this.IsColorPickerOpen;
   }
 
-  windowOnClick($event: Event) {
+  private windowOnClick($event: Event) {
 
     this.cls.PrintLog();
 
@@ -564,7 +564,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  AddColorGradients() {
+  private AddColorGradients() {
 
     if (this.colors) {
       if (this.colorsContext == undefined && this.windowHelper.isExecuteInBrowser()) {
@@ -608,7 +608,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  GetXYFromColorCode(from: number, to: number): Promise<{x:number|undefined, y: number|undefined} | undefined> {
+  private GetXYFromColorCode(from: number, to: number): Promise<{x:number|undefined, y: number|undefined} | undefined> {
     
     var tol = 2;
     return new Promise((res, rej)=>{
@@ -646,7 +646,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     });
   }
 
-  async GetClosestXYFromColorCode(varContext: any, w: number, h: number, r: number, g: number, b: number, tol: number = 60, numChunks: number = 8) {
+  private async GetClosestXYFromColorCode(varContext: any, w: number, h: number, r: number, g: number, b: number, tol: number = 60, numChunks: number = 8) {
 
     let bestDist = Number.MAX_VALUE;
     let bestX, bestY;
@@ -701,7 +701,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
 
-  async setColorPickerOnLoad() { 
+  private async setColorPickerOnLoad() { 
 
     var backR = this.DisplayColorR, backG = this.DisplayColorG, backB = this.DisplayColorB;
 
@@ -782,7 +782,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     this.SetDisplayColorsUsingHex(this.SelectedColorHex);
   }
 
-  async RenderCanvas() {
+  private async RenderCanvas() {
 
     if (!this.LoadColorOnFirst || !this.isColorPickerSelected) {
       if (this.SelectedColorHex == undefined)
@@ -845,7 +845,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   // based on https://stackoverflow.com/questions/39171824/calculate-x-y-pixel-position-on-gradient-based-on-hex-color-using-javascript
-  RGBToHSL(r: number, g: number, b: number) {
+  private RGBToHSL(r: number, g: number, b: number) {
     var r = r / 255;
     var g = g / 255;
     var b = b / 255;
@@ -880,7 +880,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   // based on https://stackoverflow.com/questions/3423214/convert-hsb-hsv-color-to-hsl
-  ConvertHsvORHslColor(h: number, s: number, ind: number, convertToHSV: boolean, convertToHSL: boolean): number[] {
+  private ConvertHsvORHslColor(h: number, s: number, ind: number, convertToHSV: boolean, convertToHSL: boolean): number[] {
 
     let hsl2hsv = (h: number, s: number, l: number, v = s * Math.min(l, 1 - l) + l) => [h, v ? 2 - 2 * l / v : 0, v];
 
@@ -909,7 +909,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
 
-  HexToRgbInNumbers(hex: any) {
+  private HexToRgbInNumbers(hex: any) {
     hex = hex.substring(1);
     let num = [];
     var bigint = parseInt(hex, 16);
@@ -924,16 +924,16 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     return num;
   }
 
-  colorCodeToHex(c: any) {
+  private colorCodeToHex(c: any) {
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
   }
 
-  RGBToHex(r: number, g: number, b: number) {
+  private RGBToHex(r: number, g: number, b: number) {
     return "#" + this.colorCodeToHex(r) + this.colorCodeToHex(g) + this.colorCodeToHex(b);
   }
 
-  LoadDefault() {
+  private LoadDefault() {
     this._prevRectX = 0;
     this._prevRectY = 40;
     this._varprevRectX = 200;
@@ -948,7 +948,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     this.RenderVariations();
   }
 
-  RenderVariations() {
+  private RenderVariations() {
     if (this.variations && this.windowHelper.isExecuteInBrowser()) {
       this.varContext = this.variations.nativeElement.getContext('2d', { willReadFrequently: true });
 
@@ -980,7 +980,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  RenderColors() {
+  private RenderColors() {
     //red, yellow, lime , aqua, blue, fuchsia
     if (this.colors) {
       if (this.colorsContext) {
@@ -1002,7 +1002,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  GetRgbClick(event: any) {
+  private GetRgbClick(event: any) {
 
     this.GetRgbSub(event);
 
@@ -1020,7 +1020,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  SetDisplayColorsUsingHex(colorInHex: string) {
+  private SetDisplayColorsUsingHex(colorInHex: string) {
     this.DisplayColorHex = colorInHex;
     this.DisplayColorRGB = this.HexToRgb(colorInHex);
 
@@ -1031,10 +1031,11 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   }
 
-  GetRgb(event: any) {
+  private GetRgb(event: any) {
     this.GetRgbSub(event);
   }
-  GetRgbSub(event: any) {
+
+  private GetRgbSub(event: any) {
 
     if (this.colorsContext) {
       this.colorsContext.clearRect(0, 0, 25, 150);
@@ -1063,7 +1064,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  GetActualColorFromVariationClick(event: any) {
+  private GetActualColorFromVariationClick(event: any) {
     this.GetActualColorFromVariartionSub(event);
 
     // if(this.SelectedColorHex)
@@ -1083,7 +1084,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  GetActualColorFromVariartionSub(event: any) {
+  private GetActualColorFromVariartionSub(event: any) {
 
     if (this.varContext) {
       this.varContext.clearRect(0, 0, 250, 150);
@@ -1114,11 +1115,11 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  GetActualColorFromVariartion(event: any) {
+  private GetActualColorFromVariartion(event: any) {
     this.GetActualColorFromVariartionSub(event);
   }
 
-  DrawMainRectShape(shape: RectShape) {
+  private DrawMainRectShape(shape: RectShape) {
     if (this.colorsContext) {
       this.colorsContext.beginPath();
       this.colorsContext.fillStyle = "transparent";
@@ -1129,7 +1130,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  DrawRectShape(shape: RectShape) {
+  private DrawRectShape(shape: RectShape) {
     if (this.varContext) {
       this.varContext.beginPath();
       this.varContext.fillStyle = "transparent";
@@ -1140,7 +1141,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     }
   }
 
-  FindColorsInUI(colorValueInHex: string) {
+  private FindColorsInUI(colorValueInHex: string) {
 
     if (this.colorsContext) {
       let _loopY = this.colorCanvasHeight;
@@ -1176,6 +1177,9 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
 
   ngOnDestroy(): void {
+    
+    this.cls.RemoveInstance(this);
+
     if (this.windowHelper.isExecuteInBrowser()) {
       window.onscroll = null;
       window.onresize = null;

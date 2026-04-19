@@ -280,6 +280,10 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
     this.cdr.detectChanges();
   }
 
+  ngOnDestroy(): void {  
+    this.cls.RemoveInstance(this);
+  }
+
   writeValue(obj: RFilterApplyModel): void {
     if(obj != undefined && obj != null){
       this.ContainsList = obj.Contains;

@@ -114,6 +114,13 @@ export class RCloseService {
     }
   }
 
+  RemoveInstance(ins: IRDropDown) {
+    let _index = this.objects.findIndex(x=> x == ins);
+    if(_index > -1){
+      this.objects.splice(_index, 1);
+    }
+  }
+
   CloseAllPopups(currentDropdown: IRDropDown | undefined): void{
     let noCloseList = [];
 

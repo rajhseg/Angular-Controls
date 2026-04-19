@@ -662,6 +662,8 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   }
 
   ngOnDestroy(): void {
+    
+    this.cls.RemoveInstance(this);
 
     if (this.windowHelper.isExecuteInBrowser()) {
       if (this.windowObj) {

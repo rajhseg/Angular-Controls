@@ -389,8 +389,8 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
     }
   }
 
-  ngOnDestroy(): void {
-
+  ngOnDestroy(): void {  
+    this.cls.RemoveInstance(this);
   }
 
   ngAfterContentInit(): void {

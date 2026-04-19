@@ -500,6 +500,9 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   ngOnDestroy(): void {
 
+    this.calService.RemoveInstance(this);
+    this.cls.RemoveInstance(this);
+    
     if (this.winObj.isExecuteInBrowser()) {
       if (this.windowObj) {
         this.windowObj.removeEventListener('click', this.WindowClick.bind(this));

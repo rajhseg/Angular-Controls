@@ -125,6 +125,10 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     this.RenderUIFromModel(obj);   
   }
 
+  ngOnDestroy(): void {  
+    this.cls.RemoveInstance(this);
+  }
+  
   RenderUIFromModel(obj: any){
     if (obj == null || obj == undefined) {
       obj = "";

@@ -19,4 +19,11 @@ export class RCalenderService {
     return this.calenderList;
   }
 
+  RemoveInstance(instance: RCalendarComponent) {
+    let _index = this.calenderList.findIndex(x=>x==instance);
+    if(_index > -1){
+      this.calenderList.splice(_index, 1);
+    }
+  }
+
 }

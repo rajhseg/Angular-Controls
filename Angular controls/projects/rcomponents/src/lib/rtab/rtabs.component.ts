@@ -98,6 +98,8 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
   @Output()
   headerClicked = new EventEmitter<RTabHeaderWithTabId>();
 
+  private _currentlyMovingTab: RTabHeaderWithTabId | undefined = undefined;
+  
   constructor(winobj: RWindowHelper,
     private cdr: ChangeDetectorRef,
     private cfr: ComponentFactoryResolver,
@@ -126,6 +128,14 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
 
   dragEnded(event: CdkDragEnd) {
     let item = (event.source.data as RTabHeaderWithTabId);
+
+    let _tabs = this.tabTemps?.toArray();
+    let _prevIndex = _tabs?.findIndex(x => x.TabId == item.TabId);
+
+    if(_prevIndex > -1) {
+      this._currentlyMovingTab = item;
+    }
+
     this.deleteSourceItemOnDrag(item);
   }
 
@@ -173,6 +183,21 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
     if (curContainer && PreContainer) {
 
       if (!event.isPointerOverContainer) {
+
+        let _indx = this.draggedTabs.findIndex(x=>x==this._currentlyMovingTab);
+
+        let mEvent = (event.event as MouseEvent);
+
+        if(this._currentlyMovingTab) {
+          this._currentlyMovingTab.X = mEvent.pageX;
+          this._currentlyMovingTab.Y = mEvent.pageY;
+        }
+
+        if(_indx < 0 && this._currentlyMovingTab){
+          this.draggedTabs.push(this._currentlyMovingTab);
+          this._currentlyMovingTab = undefined;
+        }
+
         return;
       }
 
@@ -212,7 +237,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
   }
 
   dragStarted(event: any) {
-
+    this._currentlyMovingTab = undefined;
   }
 
   dropDataExchange(event: CdkDragDrop<RTabHeaderWithTabId[]>, isSameContainer: boolean) {
@@ -252,6 +277,8 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
         if(this.draggedTabs.findIndex(x=>x==_item) < 0)
             this.draggedTabs.push(_item);
 
+        this._currentlyMovingTab = undefined;
+
         return;
       }
 
@@ -278,6 +305,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
       this.SelectedTabIndex = event.currentIndex;
       this.SelectedTabId = this.tabTemps?.get(this.SelectedTabIndex)?.TabId;
 
+      this._currentlyMovingTab = undefined;      
     }
   }
 

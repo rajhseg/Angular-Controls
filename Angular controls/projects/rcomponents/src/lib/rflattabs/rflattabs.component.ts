@@ -101,6 +101,8 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     TotalTabCount: number = 0;
     private renderer!: Renderer2;
+
+    private _currentlyMovingTab: RTabHeaderWithTabId | undefined = undefined;
   
     @ContentChildren(RTabIdFor) tabTemps!: QueryList<RTabIdFor>;
   
@@ -133,6 +135,14 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     dragEnded(event: CdkDragEnd) {
       let item = (event.source.data as RTabHeaderWithTabId);
+
+      let _tabs = this.tabTemps?.toArray();
+      let _prevIndex = _tabs?.findIndex(x => x.TabId == item.TabId);
+
+      if(_prevIndex > -1) {
+        this._currentlyMovingTab = item;
+      }
+
       this.deleteSourceItemOnDrag(item);
     }
   
@@ -180,6 +190,21 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
       if (curContainer && PreContainer) {
   
         if (!event.isPointerOverContainer) {
+
+          let _indx = this.draggedTabs.findIndex(x=>x==this._currentlyMovingTab);
+
+          let mEvent = (event.event as MouseEvent);
+
+          if(this._currentlyMovingTab) {
+            this._currentlyMovingTab.X = mEvent.pageX;
+            this._currentlyMovingTab.Y = mEvent.pageY;
+          }
+          
+          if(_indx < 0 && this._currentlyMovingTab){
+            this.draggedTabs.push(this._currentlyMovingTab);
+            this._currentlyMovingTab = undefined;
+          }
+
           return;
         }
   
@@ -218,7 +243,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
     }
   
     dragStarted(event: any) {
-  
+      this._currentlyMovingTab = undefined;
     }
   
     dropDataExchange(event: CdkDragDrop<RTabHeaderWithTabId[]>, isSameContainer: boolean) {
@@ -257,6 +282,8 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
           if(this.draggedTabs.findIndex(x=>x==_item) < 0)
             this.draggedTabs.push(_item);
   
+          this._currentlyMovingTab = undefined;
+
           return;
         }
   
@@ -283,6 +310,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
         this.SelectedTabIndex = event.currentIndex;
         this.SelectedTabId = this.tabTemps?.get(this.SelectedTabIndex)?.TabId;
   
+        this._currentlyMovingTab = undefined;
       }
     }
   

@@ -63,11 +63,14 @@ import { RSelectItemModel } from 'rcomponents';
 import { RTreeItem } from 'rcomponents';
 import { RSequenceVerticalItem } from 'rcomponents';
 import { delay, from, of, switchMap } from 'rxjs';
+import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    CdkDropListGroup,
+    CdkDrag, CdkDropList,
     CommonModule,
     FormsModule,
     RTabIdFor,

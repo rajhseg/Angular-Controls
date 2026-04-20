@@ -148,9 +148,9 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
 
   public MinSliderValue: number = 0;
 
-  onChange: Function = (value: RRangeSliderData) => { };
+  private onChange: Function = (value: RRangeSliderData) => { };
 
-  onTouch: Function = (value: RRangeSliderData) => { };
+  private onTouch: Function = (value: RRangeSliderData) => { };
 
   Slider1MarginLeft: string = '';
 

@@ -92,8 +92,8 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   year: DropdownModel | undefined = this.totalYears.find(x => x.Value == new Date().getFullYear());
 
 
-  onChange: any = (value: EventsCalenderModel) => { };
-  onTouch: any = (value: EventsCalenderModel) => { };
+  private onChange: any = (value: EventsCalenderModel) => { };
+  private onTouch: any = (value: EventsCalenderModel) => { };
   changemonthisCalled: boolean = false;
 
   @Input()

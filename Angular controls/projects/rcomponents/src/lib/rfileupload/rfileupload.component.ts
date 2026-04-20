@@ -84,8 +84,8 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;
   @ViewChild('dde', { read: ElementRef }) ddeElement!: ElementRef;
 
-  onChanged: Function = ()=> {};
-  onTouched: Function = ()=> {};
+  private onChanged: Function = ()=> {};
+  private onTouched: Function = ()=> {};
 
   DDEBottom: string = '';
 

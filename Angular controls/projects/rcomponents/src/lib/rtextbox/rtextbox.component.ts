@@ -73,8 +73,8 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
     return this.isPassword;
   }
 
-  onChanged: Function = (e: string) => { };
-  onTouched: Function = (e: string) => { };
+  private onChanged: Function = (e: string) => { };
+  private onTouched: Function = (e: string) => { };
 
   private _textboxValue: string = "";
 

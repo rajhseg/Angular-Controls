@@ -138,8 +138,8 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   public RenderOnToggle: boolean = false;
 
-  onChanged: Function = () => { };
-  onTocuhed: Function = () => { };
+  private onChanged: Function = () => { };
+  private onTocuhed: Function = () => { };
 
   DDEHeight: string = '250px';
 

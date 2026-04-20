@@ -48,9 +48,9 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
   @Output()
   OnCheckBoxClick = new EventEmitter<CheckboxEventArgs>();
   
-  onChange: Function = () => { };
+  private onChange: Function = () => { };
 
-  onTouch: Function = () => { };
+  private onTouch: Function = () => { };
 
   @Input()
   CheckedColor: string = "#00c7ba";

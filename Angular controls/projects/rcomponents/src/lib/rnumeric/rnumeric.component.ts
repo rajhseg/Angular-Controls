@@ -110,8 +110,8 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     return this._maxValue;
   }
 
-  onChanged: Function = () =>{};
-  onTouched: Function = () => {};
+  private onChanged: Function = () =>{};
+  private onTouched: Function = () => {};
 
   ErrorMessage: string = "";
   backupColor: string =  this.BottomLineColor;

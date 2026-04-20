@@ -85,8 +85,8 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   SelectedItemForeColor: string = "white";
 
 
-  onChanged: Function = () => { };
-  onTouched: Function = () => { };
+  private onChanged: Function = () => { };
+  private onTouched: Function = () => { };
 
   @ViewChild('openbtn', { read: ElementRef }) openBtn!: ElementRef;
   @ViewChild('startElement', { read: ElementRef }) startElement!: ElementRef;

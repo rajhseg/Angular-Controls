@@ -137,8 +137,8 @@ export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalIte
   @Output()
   OnActiveValueChanged = new EventEmitter<RSequenceVerticalItem>();
 
-  OnChanged: Function = (item: RSequenceVerticalItem) => { };
-  OnTouched: Function = (item: RSequenceVerticalItem) => { };
+  private OnChanged: Function = (item: RSequenceVerticalItem) => { };
+  private OnTouched: Function = (item: RSequenceVerticalItem) => { };
 
   constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
     super(winObj);

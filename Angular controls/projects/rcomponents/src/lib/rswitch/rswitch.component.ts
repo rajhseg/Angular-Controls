@@ -38,9 +38,9 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
 
   isChecked: boolean = false;
 
-  onChange: Function = ()=>{};
+  private onChange: Function = ()=>{};
 
-  onTouch: Function = () => {};
+  private onTouch: Function = () => {};
 
   @Output()
   checked = new EventEmitter<boolean>(); // output<boolean>();

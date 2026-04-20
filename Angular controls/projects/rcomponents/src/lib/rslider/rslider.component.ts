@@ -134,9 +134,9 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
 
   public SliderValue: number = 0;
 
-  onChange: Function = (value: number) => { };
+  private onChange: Function = (value: number) => { };
 
-  onTouch: Function = (value: number) => { };
+  private onTouch: Function = (value: number) => { };
 
 
   constructor(@Host() private ele: ElementRef, winObj: RWindowHelper, private cssunit: RCssUnitsService) {

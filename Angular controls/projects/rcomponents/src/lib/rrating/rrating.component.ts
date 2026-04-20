@@ -29,8 +29,8 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
 
   Items: number[] = [];
 
-  onChange: any = ()=>{};
-  onTouch: any = ()=> {};
+  private onChange: any = ()=>{};
+  private onTouch: any = ()=> {};
 
   @Input()
   set noOfStars(value: number){

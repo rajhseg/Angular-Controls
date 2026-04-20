@@ -128,8 +128,8 @@ export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizont
   @Output()
   OnActiveValueChanged = new EventEmitter<RSequenceHorizontalItem>();
 
-  OnChanged: Function = (item: RSequenceHorizontalItem) => { };
-  OnTouched: Function = (item: RSequenceHorizontalItem) => { };
+  private OnChanged: Function = (item: RSequenceHorizontalItem) => { };
+  private OnTouched: Function = (item: RSequenceHorizontalItem) => { };
 
   constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
     super(winObj);

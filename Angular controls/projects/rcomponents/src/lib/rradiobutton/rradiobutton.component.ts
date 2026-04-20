@@ -58,9 +58,9 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   @Output()
   OnRadioButtonClick = new EventEmitter<RadioEventArgs>();
 
-  onChange: Function = () => { };
+  private onChange: Function = () => { };
 
-  onTouch: Function = () => { };
+  private onTouch: Function = () => { };
 
   @Input()
   LabelColor: string = "black";

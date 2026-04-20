@@ -34,8 +34,8 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
 export class RDropdownComponent extends RBaseComponent<DropdownModel | string | any> implements IRDropDown, AfterContentInit, OnDestroy, OnInit, ControlValueAccessor,
   AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
 
-  onChange: any = () => { }
-  onTouch: any = () => { }
+  private onChange: any = () => { }
+  private onTouch: any = () => { }
   private selectedElementRef: ElementRef | undefined = undefined;
   private isFocusDone: boolean = false;
   isSelectAllChecked: boolean = false;

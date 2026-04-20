@@ -43,6 +43,9 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
     ];
       
     @Input()
+    Name: string = "";
+    
+    @Input()
     EnableBoxShadow : boolean = true;
 
     @HostBinding('class.boxshadow')

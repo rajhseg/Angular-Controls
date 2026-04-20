@@ -46,6 +46,9 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
 
   public SelectedTabTemplateRef!: RTabIdFor | undefined;
 
+  @Input()
+  Name: string = "";
+  
   @Input({ required: true, alias: 'TabHeight' })
   set TabHeight(value: string) {
     if (value && value != '') {

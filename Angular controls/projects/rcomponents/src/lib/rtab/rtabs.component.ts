@@ -144,7 +144,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
 
   }
 
-  deleteSourceItemOnDrag(item: RTabHeaderWithTabId) {
+  private deleteSourceItemOnDrag(item: RTabHeaderWithTabId) {
     let _tabs = this.tabTemps?.toArray();
     if (item && _tabs) {
       let _prevIndex = _tabs?.findIndex(x => x.TabId == item.TabId);
@@ -243,7 +243,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
     this._currentlyMovingTab = undefined;
   }
 
-  dropDataExchange(event: CdkDragDrop<RTabHeaderWithTabId[]>, isSameContainer: boolean) {
+  private dropDataExchange(event: CdkDragDrop<RTabHeaderWithTabId[]>, isSameContainer: boolean) {
     let _itemData = (event.item.data as RTabHeaderWithTabId);
     let movedItemIndex = -2;
 
@@ -336,7 +336,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
     this.headerClicked.emit(selectedHeader);
   }
 
-  selectTab(selectedHeader: RTabHeaderWithTabId | undefined) {
+  private selectTab(selectedHeader: RTabHeaderWithTabId | undefined) {
 
     this.TabHeaders.forEach(x => x.IsSelected = false);
 
@@ -419,7 +419,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
     this.cdr.detectChanges();
   }
 
-  RenderUIOnEmpty() {
+  private RenderUIOnEmpty() {
     this.RenderHeaders();
     this.TabHeaders = [];
     this.selectedTab = undefined;
@@ -436,7 +436,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
 
   }
 
-  DeleteTab(tabId: string) {
+  private DeleteTab(tabId: string) {
 
     this.tabTemps?.forEach(x => {
       if (x.TabId == tabId) {
@@ -465,7 +465,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
     }
   }
 
-  DeleteTabBasedOnIndex(index: number) {
+  private DeleteTabBasedOnIndex(index: number) {
     if (this.tabTemps && index > -1 && index < this.tabTemps.length) {
       let tab = this.tabTemps.get(index);
 

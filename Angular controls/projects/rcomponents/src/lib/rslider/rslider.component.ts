@@ -274,7 +274,7 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
     (this.sliderElement.nativeElement as HTMLElement).style.transform = "translateX(" + this.currentDistance + "px)";
   }
 
-  AdjustSlideBasedOnCurrentDistance(total: number) {
+  private AdjustSlideBasedOnCurrentDistance(total: number) {
 
     if (this.currentDistance > total) {
       this.currentDistance = total;

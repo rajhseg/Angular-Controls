@@ -1058,13 +1058,11 @@ export class AppComponent implements AfterViewInit, AfterContentChecked {
   }
 
   DeleteTab() {
-    if (this.tabs.SelectedTabId)
-      this.tabs.DeleteTab(this.tabs.SelectedTabId);
+    if (this.tabs.SelectedTabId){}
   }
 
   DeleteTabBasedOnIndex() {
     if (this.deltabindex) {
-      this.tabs.DeleteTabBasedOnIndex(this.deltabindex);
     }
   }
 

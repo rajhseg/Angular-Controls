@@ -67,16 +67,24 @@ export class RTreeComponent extends RBaseComponent<any> {
     this.onItemSelected.emit(item);
   }
 
-  DeleteTreeItem(removeItem: RTreeItem) {
-    if (this._items.length > 0) {
-      let firstItem = this._items[0];
-
-      if (firstItem.Id == removeItem.Id) {
-        this._items = [];
-      } else {
-        firstItem.DeleteChildItem(removeItem);
-      }
+  private DeleteTreeItem(removeItem: RTreeItem) {
+    
+    if(this.IsReadOnly || this.IsDisabled || this._formDisabled) {
+      return;
     }
+
+    return {};
+
+    // if (this._items.length > 0) {
+    //   let firstItem = this._items[0];
+
+    //   if (firstItem.Id == removeItem.Id) {
+    //     this._items = [];
+    //   } else {
+    //     firstItem.DeleteChildItem(removeItem);
+    //   }
+    // }
+    
   }
 
   GetLoadingTreeItem(): RTreeItem {

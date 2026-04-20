@@ -195,7 +195,7 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
   }
 
   
-  MouseMove(event: MouseEvent) {
+  private MouseMove(event: MouseEvent) {
     if (this.context && this.bar) {
 
       let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
@@ -276,7 +276,7 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
+  private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -313,7 +313,7 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
     return typeof prop === 'string';
   }
 
-  EnableGlassyEffectOnTopOfChart() {
+  private EnableGlassyEffectOnTopOfChart() {
     if (this.context && this.bar && this.GlassyEffect) {
 
       let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight,

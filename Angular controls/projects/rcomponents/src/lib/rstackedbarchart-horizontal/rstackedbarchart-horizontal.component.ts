@@ -208,7 +208,7 @@ export class RStackedBarChartHorizontalComponent extends RChartBaseComponent {
   }
 
 
-  MouseMove(event: MouseEvent) {
+  private MouseMove(event: MouseEvent) {
 
     let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
     let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
@@ -272,7 +272,7 @@ export class RStackedBarChartHorizontalComponent extends RChartBaseComponent {
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
+  private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -309,7 +309,7 @@ export class RStackedBarChartHorizontalComponent extends RChartBaseComponent {
     return typeof prop === 'string';
   }
 
-  EnableGlassyEffectOnTopOfChart() {
+  private EnableGlassyEffectOnTopOfChart() {
     if (this.context && this.bar && this.GlassyEffect) {
 
       let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight,

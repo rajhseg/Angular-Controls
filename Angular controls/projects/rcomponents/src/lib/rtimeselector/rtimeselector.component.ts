@@ -129,7 +129,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     this.cls.RemoveInstance(this);
   }
   
-  RenderUIFromModel(obj: any){
+  private RenderUIFromModel(obj: any){
     if (obj == null || obj == undefined) {
       obj = "";
     }
@@ -228,7 +228,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     this.cdr.detectChanges();
   }
 
-  windowOnClick($event: Event) {
+  private windowOnClick($event: Event) {
 
     this.cls.PrintLog();
 
@@ -257,7 +257,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   }
 
 
-  setCurrentTime() {
+  private setCurrentTime() {
     let date = new Date();
     let _hour = date.getHours();
     let _minute = date.getMinutes();
@@ -305,7 +305,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     }
   }
 
-  LoadValues() {
+  private LoadValues() {
     this.hours = [];
     this.minutes = [];
     this.modes = [];
@@ -376,7 +376,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     }
   }
   
-  AttachDropdown() {
+  private AttachDropdown() {
     let windowHeight = this.windowObj.innerHeight;
 
     if (this.openBtn.nativeElement) {
@@ -449,7 +449,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     return this.IsDropDownOpen;
   }
 
-  SetDisplayText() {
+  private SetDisplayText() {
     if (this.selectedHour && this.selectedMinute && (this.Is24HourFormat || (!this.Is24HourFormat && this.selectedMode))) {
       if (this.Is24HourFormat) {
         this.displayText = "  " + this.selectedHour.DisplayValue + "  :   " + this.selectedMinute.DisplayValue;

@@ -347,7 +347,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
     this.NotifyToModel();    
   }
 
-  loadSelectedItems() {
+  private loadSelectedItems() {
     if (this.IsMulti) {
       this.SelectedItems = [];
       this.SelectedIndexes = [];
@@ -418,7 +418,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
     this.cdr.detectChanges();
   }
 
-  windowOnClick($event: Event) {
+  private windowOnClick($event: Event) {
     
     this.cls.PrintLog();
 
@@ -477,7 +477,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
     }
   }
 
-  AttachDropdown(){
+  private AttachDropdown() {
     let windowHeight = this.windowObj.innerHeight;    
     const exp = /(-?[\d.]+)([a-z%]*)/;
 
@@ -562,7 +562,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
   }
 
   
-  AssignItems(item: RSelectItemModel, val: boolean) {
+  private AssignItems(item: RSelectItemModel, val: boolean) {
 
     if (item instanceof RSelectItemModel) {
       item.IsSelected = val;
@@ -575,7 +575,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
     this.SelectedItem = new DropdownModel(item.Value, item.DisplayValue);
   }
 
-  SelectItem(item: RSelectItemModel | string | number) {
+  private SelectItem(item: RSelectItemModel | string | number) {
 
     if (item instanceof RSelectItemModel) {
       item.IsSelected = true;
@@ -621,7 +621,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
       this.SearchItem = "";
   }
 
-  ObjEquals(xValue: any, yValue: any): boolean {
+  private ObjEquals(xValue: any, yValue: any): boolean {
     'use strict';
 
     if (xValue === null || xValue === undefined || yValue === null || yValue === undefined) { 

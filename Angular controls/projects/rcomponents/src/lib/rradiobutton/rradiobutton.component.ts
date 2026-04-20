@@ -89,7 +89,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
     } 
   }
 
-  toggleCheck($event: Event) {
+  private toggleCheck($event: Event) {
     if(!this.IsReadOnly) {
       let checkValue = !this.IsChecked;
 

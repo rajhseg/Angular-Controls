@@ -126,7 +126,7 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
     return obj.Id;
   }
 
-  ReFill(){
+  private ReFill(){
     this.RenderItems = [];
     this.Contents.forEach((x, index) => {
       this.RenderItems.push(x);

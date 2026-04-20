@@ -155,7 +155,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     this.HostElementId = this.winObj.GenerateUniqueId();
   }
 
-  populateNos() {
+  private populateNos() {
     this.StepsNos = [];
     for (let index = 1; index <= this.TotalSteps; index++) {      
       this.StepsNos.push(index);
@@ -181,7 +181,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     this.CreateFinalItemsToDisplay();
   }
 
-  CreateFinalItemsToDisplay() {
+  private CreateFinalItemsToDisplay() {
 
     this.seqItems = [];
     
@@ -219,7 +219,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     }
   }
 
-  RenderSequenceItemsForValidSteps() {
+  private RenderSequenceItemsForValidSteps() {
     this.seqItems = [];    
 
     let isActiveItem = true;
@@ -353,7 +353,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     }
   }
 
-  RenderHorizontalItemsForAllDisplayType(lastcompletedStepNo: number) {
+  private RenderHorizontalItemsForAllDisplayType(lastcompletedStepNo: number) {
 
     if (this.StateHorizontalDisplayType == RStateDisplayType.AllItems) {
       for (let index = 1; index <= lastcompletedStepNo; index++) {
@@ -388,7 +388,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     this.calculateSteps();
   }
 
-  SelectStepDirectly(val: number) {
+  private SelectStepDirectly(val: number) {
 
     if (this.winObj.isExecuteInBrowser()) {
       window.setTimeout(() => {
@@ -419,7 +419,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     }
   }
 
-  SelectStep(val: number) {
+  private SelectStep(val: number) {
 
     if (this.winObj.isExecuteInBrowser()) {
       window.setTimeout(() => {
@@ -442,7 +442,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     }
   }
 
-  calculateSteps() {
+  private calculateSteps() {
     let cStep = this.CurrentViewStep?.StepNo;
 
     if (cStep) {

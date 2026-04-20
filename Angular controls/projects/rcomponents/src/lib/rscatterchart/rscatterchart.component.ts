@@ -193,7 +193,7 @@ export class RScatterChartComponent extends RChartBaseComponent implements After
   }
 
   
-  MouseMove(event: MouseEvent) {
+  private MouseMove(event: MouseEvent) {
     if(this.context && this.bar){            
       this.context?.beginPath();      
       
@@ -256,7 +256,7 @@ export class RScatterChartComponent extends RChartBaseComponent implements After
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
+  private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -294,7 +294,7 @@ export class RScatterChartComponent extends RChartBaseComponent implements After
   }
 
   
-  EnableGlassyEffectOnTopOfChart() {
+  private EnableGlassyEffectOnTopOfChart() {
     if(this.context && this.bar && this.GlassyEffect) {
 
       let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight, 

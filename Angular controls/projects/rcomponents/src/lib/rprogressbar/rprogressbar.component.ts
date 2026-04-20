@@ -199,7 +199,7 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
     }
   }
 
-  calculateStraightLineWidth(): number {
+  private calculateStraightLineWidth(): number {
     let percentage = this._percentage;
     let _w = this.ProgressBarWidth.split('px')[0];
 

@@ -152,7 +152,7 @@ export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalIte
     this.OnActiveValueChanged.emit(this._currentActiveItem);
   }
 
-  ResetValue(selindex: number) {
+  private ResetValue(selindex: number) {
 
     if (this.Items.length > 0 && selindex >= this.Items.length) {
       this._items[this._items.length - 1].IsCompleted = true;

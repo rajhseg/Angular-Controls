@@ -190,7 +190,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
   }
 
   
-  populateNos(){
+  private populateNos(){
     this.StepsNos = [];
     for (let index = 1; index <= this.TotalSteps; index++) {      
       this.StepsNos.push(index);
@@ -223,7 +223,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
       }          
   }
 
-  CreateFinalItemsToDisplay() {
+  private CreateFinalItemsToDisplay() {
 
     this.seqItems = [];
 
@@ -265,7 +265,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
     }
   }
 
-  RenderSequenceItemsForValidSteps() {
+  private RenderSequenceItemsForValidSteps() {
     this.seqItems = [];    
 
     let isActiveItem = true;
@@ -414,7 +414,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
     }
   }
 
-  RenderVerticalItemsForAllDisplayType(lastcompletedStepNo: number) {
+  private RenderVerticalItemsForAllDisplayType(lastcompletedStepNo: number) {
 
     if (this.StateVerticalDisplayType == RStateDisplayType.AllItems) {
       for (let index = 1; index <= lastcompletedStepNo; index++) {
@@ -449,7 +449,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
     this.calculateSteps();
   }
 
-  SelectStepDirectly(val: number) {
+  private SelectStepDirectly(val: number) {
 
     if (this.winObj.isExecuteInBrowser()) {
       window.setTimeout(() => {
@@ -480,7 +480,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
     }
   }
 
-  SelectStep(val: number) {
+  private SelectStep(val: number) {
 
     if (this.winObj.isExecuteInBrowser()) {
       window.setTimeout(() => {
@@ -503,7 +503,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
     }
   }
 
-  calculateSteps() {
+  private calculateSteps() {
     let cStep = this.CurrentViewStep?.StepNo;
 
     if (cStep) {

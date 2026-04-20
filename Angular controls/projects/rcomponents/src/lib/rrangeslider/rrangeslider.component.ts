@@ -247,7 +247,7 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     this.valueChanged.emit(new RRangeSliderData(this.Slider1Value, this.Slider2Value));
   }
 
-  calculateMiddleBar(marker: number) {
+  private calculateMiddleBar(marker: number) {
     if(this.currentDistance2 - this.currentDistance1 < 1){
       this.MiddleBarWidth = 0;
     } else {
@@ -437,7 +437,7 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
   
   }
   
-  AdjustSlider1BasedOnCurrentDistance(total: number) {
+  private AdjustSlider1BasedOnCurrentDistance(total: number) {
 
     if (this.currentDistance1 > total) {
       this.currentDistance1 = total;
@@ -460,7 +460,7 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     this.notifyToModel();
   }
 
-  AdjustSlider2BasedOnCurrentDistance(total: number) {
+  private AdjustSlider2BasedOnCurrentDistance(total: number) {
 
     if (this.currentDistance2 > total) {
       this.currentDistance2 = total;

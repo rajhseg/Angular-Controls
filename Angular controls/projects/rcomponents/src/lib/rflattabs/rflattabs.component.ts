@@ -3,7 +3,6 @@ import { RTabComponent, RTabIdFor, RTabHeaderWithTabId } from "../rtab/rtab.comp
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet, NgStyle } from "@angular/common";
 import { RWindowHelper } from "../rwindowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup, CdkDragMove } from '@angular/cdk/drag-drop';
-import { RTabService } from "../rtab.service";
 import { RBaseComponent } from "../rmodels/RBaseComponent";
 
 @Component({
@@ -124,7 +123,6 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
       this.HostElementId = this.winobj.GenerateUniqueId();
 
       this.renderer = this.rendererFactory.createRenderer(null, null);
-      // RTabService.GetInstance().AddTabsInstance(this);
     }
   
     ngAfterViewInit(): void {
@@ -153,7 +151,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     }
   
-    deleteSourceItemOnDrag(item: RTabHeaderWithTabId) {
+    private deleteSourceItemOnDrag(item: RTabHeaderWithTabId) {
       let _tabs = this.tabTemps?.toArray();
       if (item && _tabs) {
         let _prevIndex = _tabs?.findIndex(x => x.TabId == item.TabId);
@@ -251,7 +249,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
       this._currentlyMovingTab = undefined;
     }
   
-    dropDataExchange(event: CdkDragDrop<RTabHeaderWithTabId[]>, isSameContainer: boolean) {
+    private dropDataExchange(event: CdkDragDrop<RTabHeaderWithTabId[]>, isSameContainer: boolean) {
       let _itemData = (event.item.data as RTabHeaderWithTabId);
       let movedItemIndex = -2;
   
@@ -426,7 +424,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
       this.cdr.detectChanges();
     }
   
-    RenderUIOnEmpty() {
+    private RenderUIOnEmpty() {
       this.RenderHeaders();
       this.TabHeaders = [];
       this.selectedTab = undefined;
@@ -443,7 +441,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     }
   
-    DeleteTab(tabId: string) {
+    private DeleteTab(tabId: string) {
   
       this.tabTemps?.forEach(x => {
         if (x.TabId == tabId) {
@@ -472,7 +470,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
       }
     }
   
-    DeleteTabBasedOnIndex(index: number) {
+    private DeleteTabBasedOnIndex(index: number) {
       if (this.tabTemps && index > -1 && index < this.tabTemps.length) {
         let tab = this.tabTemps.get(index);
   

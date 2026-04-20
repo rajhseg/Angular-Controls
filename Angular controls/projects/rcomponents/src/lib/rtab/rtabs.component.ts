@@ -3,7 +3,6 @@ import { RTabComponent, RTabIdFor, RTabHeaderWithTabId } from "./rtab.component"
 import { AsyncPipe, CommonModule, JsonPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet, NgStyle } from "@angular/common";
 import { RWindowHelper } from "../rwindowObject";
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDropListGroup, CdkDragMove } from '@angular/cdk/drag-drop';
-import { RTabService } from "../rtab.service";
 import { RBaseComponent } from "../rmodels/RBaseComponent";
 
 
@@ -117,7 +116,6 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
     this.Id = this.winObj.GenerateUniqueId();
     this.HostElementId = this.winObj.GenerateUniqueId();
     this.renderer = this.rendererFactory.createRenderer(null, null);
-    RTabService.GetInstance().AddTabsInstance(this);
   }
 
   ngAfterViewInit(): void {

@@ -199,7 +199,7 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
     }
   }
 
-  MouseMove(event: MouseEvent) {
+  private MouseMove(event: MouseEvent) {
     if(this.context && this.bar){  
 
       let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;    
@@ -264,7 +264,7 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
     }
   }
 
-  MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
+  private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
     let boundaryRange = 3;
 
@@ -279,7 +279,7 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
     return undefined;
   }
 
-  getWidthFromString(value: string): number {
+  private getWidthFromString(value: string): number {
     if (this.context) {
       let metrics = this.context.measureText(value);
       return metrics.width;
@@ -288,7 +288,7 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
     return 50;
   }
 
-  getTextHeight(met: TextMetrics) {
+  private getTextHeight(met: TextMetrics) {
     return met.actualBoundingBoxAscent + met.actualBoundingBoxDescent;
   }
 
@@ -297,7 +297,7 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
   }
 
   
-  EnableGlassyEffectOnTopOfChart() {
+  private EnableGlassyEffectOnTopOfChart() {
     if(this.context && this.bar && this.GlassyEffect) {
 
       let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight, 

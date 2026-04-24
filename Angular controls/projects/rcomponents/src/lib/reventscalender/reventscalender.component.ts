@@ -2,7 +2,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { DaysEnum } from '../rcalendar/rcalendarModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RDropdownComponent } from '../rdropdown/rdropdown.component';
 
 import { DropdownService } from '../rdropdown/rdropdownservice.service';
@@ -19,7 +19,7 @@ import { RGridComponent } from "../rgrid/rgrid.component";
 import { RColumnComponent } from '../rgrid/rcolumn/rcolumn.component';
 import { ReadViewTemplateDirective } from '../rgrid/view-template.directive';
 import { EditViewTemplateDirective } from '../rgrid/edit-template.directive';
-import { CalenderChangeMonthInfo, RBaseComponent, RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { CalenderChangeMonthInfo, RBaseComponent, RChartBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'revents-calender',
@@ -36,6 +36,16 @@ import { CalenderChangeMonthInfo, RBaseComponent, RChartBaseComponent } from '..
       provide: NG_VALUE_ACCESSOR,
       multi: true,
       useExisting: forwardRef(() => REventsCalenderComponent)
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => REventsCalenderComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => REventsCalenderComponent),
+      multi: true
     },
     DatePipe
   ]
@@ -969,6 +979,19 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
 
   NotifyToUI() {    
     this.onEventAdded.emit(this.Items);    
+  }
+
+  
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.OnlyRequired;
+  }
+
+  protected override getValue() {
+    return this.Items;
   }
 
   private SetDate(date: Date) {

@@ -1,9 +1,9 @@
 import { NgFor } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { startWith } from 'rxjs';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstarrating',
@@ -16,6 +16,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
     {
       provide:NG_VALUE_ACCESSOR,
       useExisting:forwardRef(()=> RStarRatingComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RStarRatingComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RStarRatingComponent),
       multi: true
     }
   ]
@@ -85,6 +95,18 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
     for(let i=1; i<=this._noOfStars; i++){
       this.Items.push(i);
     }
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Range;
+  }
+
+  protected override getValue() {
+    return this._ratingValue;
   }
 
   ngAfterViewInit(): void {            

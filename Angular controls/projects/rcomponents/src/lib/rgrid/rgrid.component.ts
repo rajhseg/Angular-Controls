@@ -6,7 +6,7 @@ import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RCellInfo, RColumnComponentInfo, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow, RGridRowInfo } from './rcell';
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../rdropdown/rdropdown.component";
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RWindowHelper } from '../rwindowObject';
@@ -17,7 +17,7 @@ import { CheckboxEventArgs } from '../rcheckbox/rcheckbox.service';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { RProgressBarDisplayType, RProgressBarType } from '../rprogressbar/rprogressbarType';
 import { RProgressbarComponent } from "../rprogressbar/rprogressbar.component";
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 
 export class RGridHeader {
@@ -67,6 +67,16 @@ export class RGridGroupData {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RGridComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RGridComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RGridComponent),
       multi: true
     },
@@ -503,10 +513,6 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
   onTDClick(info: RCell) {
 
     let evtArgs = this.getCellInfo(info);
@@ -569,6 +575,18 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
     this._items = obj.slice();
     this.InitGrid();
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Grid;
+  }
+
+  protected override getValue() {
+    return this._items;
   }
 
   private InitGrid() {

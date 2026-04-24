@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, fo
 import { RSequenceVerticalComponent } from "./rsequence/rsequence.component";
 import { RSequenceVerticalItem } from './rsequence/rsequenceitem';
 import { NgForOf, NgStyle } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstate-vertical',
@@ -15,6 +15,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RStateVerticalComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RStateVerticalComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RStateVerticalComponent),
       multi: true
     }
@@ -150,6 +160,18 @@ export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalIte
     this.OnChanged(this._currentActiveItem);
     this.OnTouched(this._currentActiveItem);
     this.OnActiveValueChanged.emit(this._currentActiveItem);
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.OnlyRequired;
+  }
+
+  protected override getValue() {
+    return this._currentActiveItem;
   }
 
   private ResetValue(selindex: number) {

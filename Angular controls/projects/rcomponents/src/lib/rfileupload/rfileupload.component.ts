@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, Output, ViewChild } from '@angular/core';
 import { RGrouppanelComponent } from "../rgrouppanel/rgrouppanel.component";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RCloseService, IRDropDown } from '../rpopup.service';
 import { CssUnit } from '../rcss-units.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rfileupload',
@@ -17,6 +17,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
     {
       provide:NG_VALUE_ACCESSOR,
       useExisting:forwardRef(()=>RfileuploadComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RfileuploadComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RfileuploadComponent),
       multi: true
     }
   ],
@@ -217,6 +227,19 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     this.filesSelected.emit(this._files);
     this.valueChanged.emit(this._files);
     this.renderDisplayText();    
+  }
+
+  
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Array;
+  }
+
+  protected override getValue() {
+    return this._files;
   }
 
   private renderDisplayText(){

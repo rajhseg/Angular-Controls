@@ -1,10 +1,10 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, DestroyRef, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonService, RadioEventArgs } from './rradiobutton.service';
 import { RWindowHelper } from '../rwindowObject';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rradiobutton',
@@ -13,10 +13,20 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rradiobutton.component.html',
   styleUrl: './rradiobutton.component.css',
   providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => RRadiobuttonComponent),
-    multi: true
-  }]
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RRadiobuttonComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RRadiobuttonComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RRadiobuttonComponent),
+      multi: true
+    }]
 })
 export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implements ControlValueAccessor{
 
@@ -105,6 +115,18 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
       this.OnRadioButtonClick.emit(args);
       this.valueChanged.emit(args);
     }
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+   return ValidatorValueType.OnlyRequired; 
+  }
+
+  protected override getValue() {
+    return this.IsChecked;
   }
 
   emitValueToModel($event: Event | undefined){

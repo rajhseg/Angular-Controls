@@ -6,10 +6,10 @@ import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RCalendarComponent } from "../rcalendar/rcalendar.component";
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RCloseService, IRDropDown } from '../rpopup.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 
 export enum RFilterDataType {
@@ -52,6 +52,16 @@ export enum RFilterAlign{
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(()=> RFilterComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RFilterComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RFilterComponent),
       multi: true
     },
     DatePipe
@@ -229,6 +239,8 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
     return this._columnName;
   }
   
+  model: RFilterApplyModel | undefined = undefined;
+
   @Input()
   BorderColor: string = 'lightgray';
 
@@ -429,12 +441,12 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
     this.GreaterThanDate = undefined;
     this.IsFilteredApplied = false;
 
-    let model = new RFilterApplyModel(true, false, this.ColumnName, this.DataType, this.ContainsList, undefined, undefined);
-    this.ApplyCallback.emit(model);  
+    this.model = new RFilterApplyModel(true, false, this.ColumnName, this.DataType, this.ContainsList, undefined, undefined);
+    this.ApplyCallback.emit(this.model);  
     
-    this.onChanged(model);
-    this.onTouched(model);
-    this.valueChanged.emit(model);
+    this.onChanged(this.model);
+    this.onTouched(this.model);
+    this.valueChanged.emit(this.model);
 
     this.IsFilterOpen = false;    
   }
@@ -485,16 +497,28 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
         isFloatGreater ? parseFloat(this.GreaterThanNumber.toString()) 
               : parseInt(this.GreaterThanNumber.toString()) : this.GreaterThanDate;
     
-    let model = new RFilterApplyModel(false, true, this.ColumnName, this.DataType, this.ContainsList, lesser, greater);
-    this.ApplyCallback.emit(model);  
+    this.model = new RFilterApplyModel(false, true, this.ColumnName, this.DataType, this.ContainsList, lesser, greater);
+    this.ApplyCallback.emit(this.model);  
 
-    this.onChanged(model);
-    this.onTouched(model);
-    this.valueChanged.emit(model);
+    this.onChanged(this.model);
+    this.onTouched(this.model);
+    this.valueChanged.emit(this.model);
     
     this.IsFilterOpen = false;
   }
 
+  
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.OnlyRequired;
+  }
+
+  protected override getValue() {
+    return this.model;
+  }
   
   IsOpen(): boolean {
     return this.IsFilterOpen;

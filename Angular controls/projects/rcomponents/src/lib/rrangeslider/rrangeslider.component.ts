@@ -1,10 +1,10 @@
 import { CdkDrag, CdkDragEnd, CdkDragMove, CdkDragRelease, CdkDragStart, DragDropModule } from '@angular/cdk/drag-drop';
 import { NgIf, NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
-import { RBaseComponent, RRangeSliderData } from '../rmodels/RBaseComponent';
+import { RBaseComponent, RRangeSliderData, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 
 @Component({    
@@ -14,10 +14,20 @@ import { RBaseComponent, RRangeSliderData } from '../rmodels/RBaseComponent';
     templateUrl: "./rrangeslider.component.html",
     styleUrls: ["./rrangeslider.component.css"],
     providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => RRangeSliderComponent),
-            multi: true
+    {
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => RRangeSliderComponent),
+        multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RRangeSliderComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RRangeSliderComponent),
+      multi: true
     }]
 })
 export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> implements ControlValueAccessor, OnInit {
@@ -245,6 +255,57 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
 
     this.Slider1MarginLeft = (this.currentDistance1 + marker - 2) + 'px';
     this.valueChanged.emit(new RRangeSliderData(this.Slider1Value, this.Slider2Value));
+  }
+
+  
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Range;
+  }
+
+  protected override getValue() {
+    return null;
+  }
+
+  protected override getSyncErrors(control: AbstractControl): ValidationErrors | null {
+    
+    if(!this.IsValidatorSupported()) {
+      return null;
+    }
+
+    const errors: ValidationErrors = {};
+    const val1 = this.Slider1Value; 
+    const val2 = this.Slider2Value;
+    this.min = this.MinValue
+    this.max = this.MaxValue;
+
+    if ((this.required || control.hasValidator?.(Validators.required))) {
+        if (val1 === null || val1 === undefined || val2==null || val2 ===undefined) {
+            errors['required'] = true;
+        }
+    }
+
+    if (this.min != null && val1 != null && val1 < this.min) {
+        errors['min'] = { min: this.min, actual: val1 };
+    }
+
+    if (this.max != null && val1 != null && val1 > this.max) {
+        errors['max'] = { max: this.max, actual: val1 };
+    }
+
+    
+    if (this.min != null && val2 != null && val2 < this.min) {
+        errors['min'] = { min: this.min, actual: val2 };
+    }
+
+    if (this.max != null && val2 != null && val2 > this.max) {
+        errors['max'] = { max: this.max, actual: val2 };
+    }
+
+    return Object.keys(errors).length > 0 ? errors : null;
   }
 
   private calculateMiddleBar(marker: number) {

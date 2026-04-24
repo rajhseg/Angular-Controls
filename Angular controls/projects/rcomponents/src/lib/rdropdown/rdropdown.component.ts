@@ -1,7 +1,7 @@
 import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
 import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DropDownItemModel, DropdownModel } from './rdropdownmodel';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { DropdownService } from './rdropdownservice.service';
 import { RCloseService, IRDropDown, IRPopupCloseInterface, RPopupService } from '../rpopup.service';
@@ -11,7 +11,7 @@ import { CheckboxEventArgs } from '../rcheckbox/rcheckbox.service';
 import { RDropdownFilterPipe } from '../rdropdown-filter.pipe';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rdropdown',
@@ -23,6 +23,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RDropdownComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RDropdownComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RDropdownComponent),
       multi: true
     }
@@ -200,10 +210,10 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     return this._show;
   }
 
-  SelectedItems: DropdownModel[] | string[] | number[] | any[] = [];
+  SelectedItems: DropdownModel[] = [];
   SelectedIndexes: number[] = [];
 
-  SelectedItem: DropdownModel | string | any = '';
+  SelectedItem: DropdownModel | string | number | undefined  = undefined;
   SelectedIndex: number = -1;
 
   SelectedDisplay: string | number = '';
@@ -591,7 +601,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     this.SelectedItem = new DropdownModel(item.Value, item.DisplayValue);
   }
 
-  private SelectItem(item: DropDownItemModel | string | number) {
+  private SelectItem(item: DropDownItemModel) {
 
     if (item instanceof DropDownItemModel) {
       item.IsSelected = true;
@@ -635,6 +645,22 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
       this.onChange(this.SelectedItems);
       this.onTouch(this.SelectedItems);
       this.valueChanged.emit(this.SelectedItems as any);
+    }
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return this.IsMulti ? ValidatorValueType.Array : ValidatorValueType.Single;
+  }
+  
+  protected override getValue() {
+    if(!this.IsMulti){
+      return (this.SelectedItem instanceof  DropdownModel) ? this.SelectedItem.Value : this.SelectedItem;
+    } else {
+      return this.SelectedItems;
     }
   }
 

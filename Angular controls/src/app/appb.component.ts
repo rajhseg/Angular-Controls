@@ -1,9 +1,15 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { Form, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 
 // Chart components
-import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, RTimerResult, RSplitterResult, RCssUnitsService, RRangeSliderComponent, RRangeSliderData, RColumnComponent, ReadViewTemplateDirective, EditViewTemplateDirective } from 'rcomponents';
+import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, 
+  RPieChartItem, RSequenceHorizontalItem, RSeriesChartComponent, RStateHorizontalComponent, RStepperHorizontalComponent, 
+  RTabsComponent, RYSeriesChartItem, RStackedBarChartHorizontalComponent, RStackedRangeBarChartVerticalComponent, 
+  EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, 
+  REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, 
+  RTimerResult, RSplitterResult, RCssUnitsService, RRangeSliderComponent, RRangeSliderData, RColumnComponent, 
+  ReadViewTemplateDirective, EditViewTemplateDirective } from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -64,11 +70,14 @@ import { RTreeItem } from 'rcomponents';
 import { RSequenceVerticalItem } from 'rcomponents';
 import { delay, from, of, switchMap } from 'rxjs';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { RComponentsModule } from "rcomponents";
+import { ɵEmptyOutletComponent } from "@angular/router";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    JsonPipe,
     CdkDropListGroup,
     CdkDrag, CdkDropList,
     CommonModule,
@@ -130,7 +139,10 @@ import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
     ReadViewTemplateDirective,
     EditViewTemplateDirective,
     RColumnComponent,
-    RGridComponent
+    RGridComponent,
+    RComponentsModule,
+    ɵEmptyOutletComponent,
+    ReactiveFormsModule
 ],
   templateUrl: './appb.component.html',
   styleUrl: './appb.component.css'
@@ -141,6 +153,17 @@ export class AppRootComponent {
   optionB: boolean = false;
   optionC: boolean = false;
   
+  colorItems: DropdownModel[] = [
+      new DropdownModel('#1E1198', 'Dark Blue'),
+      new DropdownModel('#3569df', 'Blue'),
+      new DropdownModel('#00a5fe', 'Light Blue'),
+      new DropdownModel('#fda305', 'Yellow'),
+      new DropdownModel('#a459b8', 'Purple'),
+      new DropdownModel('#f70c6b', 'Pink')  
+  ];
+
+  selectedTheme: DropdownModel = this.colorItems[0];
+
   rrangeSliderData: RRangeSliderData = new RRangeSliderData(40, 70);
 
   ItemsPerPage = new DropdownModel(10, "10");
@@ -425,12 +448,25 @@ export class AppRootComponent {
 
   @ViewChild('splitcomp', { read: RSplitterComponent }) splitter!: RSplitterComponent;
 
-  constructor(private cdr: ChangeDetectorRef, private cssUnitService: RCssUnitsService) {
+  usernameForm!: FormGroup;
+
+  constructor(private cdr: ChangeDetectorRef, private cssUnitService: RCssUnitsService, private fb: FormBuilder) {
     this.DrawYSeriesChart();
     this.DrawBarChart();
     this.addCalenderEvents();
     this.createScheduleItems();
     this.DrawGridItems();
+    this.buildUserNameForm();
+  }
+
+  buildUserNameForm() {
+   this.usernameForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]]
+    });
+  }
+
+  _text($event: any, ins: any){
+    console.log(ins);
   }
 
   Start($event: any) {

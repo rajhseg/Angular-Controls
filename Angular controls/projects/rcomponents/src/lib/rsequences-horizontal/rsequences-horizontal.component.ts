@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RSequenceHorizontalItem } from './rsequence-horizontal/sequenceitemhorizontal';
 import { NgForOf, NgStyle } from '@angular/common';
 import { RSequenceHorizontalComponent } from './rsequence-horizontal/rsequence-horizontal.component';
 import { RWindowHelper } from '../rwindowObject';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstate-horizontal',
@@ -15,6 +15,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers:[
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RStateHorizontalComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RStateHorizontalComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RStateHorizontalComponent),
       multi: true
     }
@@ -141,6 +151,18 @@ export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizont
     this.OnChanged(this._currentActiveItem);
     this.OnTouched(this._currentActiveItem);
     this.OnActiveValueChanged.emit(this._currentActiveItem);
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.OnlyRequired;
+  }
+
+  protected override getValue() {
+    return this._currentActiveItem;
   }
 
   private ResetValue(selindex: number) {

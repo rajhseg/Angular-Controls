@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { Day, Month, Week } from './rcalendarModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RDropdownComponent } from '../rdropdown/rdropdown.component';
 
 import { DropdownService } from '../rdropdown/rdropdownservice.service';
@@ -11,7 +11,7 @@ import { WINDOWOBJECT, RWindowHelper } from '../rwindowObject';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
-import { CalenderChangeMonthInfo, RBaseComponent } from '../rmodels/RBaseComponent';
+import { CalenderChangeMonthInfo, RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rcalendar',
@@ -26,6 +26,16 @@ import { CalenderChangeMonthInfo, RBaseComponent } from '../rmodels/RBaseCompone
       provide: NG_VALUE_ACCESSOR,
       multi: true,
       useExisting: forwardRef(() => RCalendarComponent)
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RCalendarComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RCalendarComponent),
+      multi: true
     },
     DatePipe
   ],
@@ -277,7 +287,19 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   ngAfterViewInit(): void {
 
   }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
   
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Calender;
+  }
+
+  protected override getValue() {
+    return this.selectedDate;
+  }
+
   private NotifyChangeMonth(){
     let monthInfo = new CalenderChangeMonthInfo(this.year?.Value, this.month.Value);
     this.ChangeMonthEvent.emit(monthInfo);

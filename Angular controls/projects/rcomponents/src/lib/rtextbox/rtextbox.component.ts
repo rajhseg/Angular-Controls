@@ -1,6 +1,6 @@
 import { NgIf, NgStyle, NgClass } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Optional, Output, Self, ViewChild } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { RCssUnitsService } from '../rcss-units.service';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
@@ -17,6 +17,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RTextboxComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RTextboxComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RTextboxComponent),
       multi: true
     }
@@ -63,9 +73,6 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   MarginTextBottom: string = '10px';
   
   @Input()
-  IsRequired: boolean = false;
-  
-  @Input()
   public set IsPasswordBox(value: boolean) {
     this.isPassword = value;
   }
@@ -93,8 +100,9 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
 
   constructor(winObj: RWindowHelper, 
       private ele: ElementRef, 
-      private cssUnitServ: RCssUnitsService) {
-    super(winObj);
+      private cssUnitServ: RCssUnitsService,
+      ) {
+      super(winObj);
   }
 
   ngAfterViewInit(): void {
@@ -112,6 +120,14 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
     this.onChanged(this.TextboxValue);
     this.onTouched(this.TextboxValue);
     this.valueChanged.emit(this.TextboxValue);
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override getValue() {
+    return this.TextboxValue;
   }
 
   notifyToUI() {

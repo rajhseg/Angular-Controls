@@ -1,8 +1,8 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output, forwardRef, output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rswitch',
@@ -13,6 +13,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers:[
     { 
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RSwitchComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RSwitchComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RSwitchComponent),
       multi: true
     }
@@ -107,6 +117,18 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
     if(this.IsReadOnly || this.IsDisabled) {
       event.preventDefault();
     }
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Switch; 
+  }
+
+  protected override getValue() {
+    return this.isChecked;
   }
 
 }

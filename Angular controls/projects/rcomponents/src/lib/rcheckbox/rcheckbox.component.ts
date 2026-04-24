@@ -1,9 +1,9 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CheckboxEventArgs, CheckboxService } from './rcheckbox.service';
 import { RWindowHelper } from '../rwindowObject';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rcheckbox',
@@ -11,11 +11,22 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   imports: [NgClass, NgIf, NgStyle],
   templateUrl: './rcheckbox.component.html',
   styleUrl: './rcheckbox.component.css',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => RCheckboxComponent),
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RCheckboxComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RCheckboxComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RCheckboxComponent),
+      multi: true
+    }]
 })
 export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implements ControlValueAccessor {
 
@@ -101,7 +112,19 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
       this.valueChanged.emit(args);
     }
   }
+    
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
   
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Switch;
+  }
+
+  protected override getValue() {
+    return this.IsChecked;
+  }
+
   emitValueToModel($event: Event | undefined){
     let args=new CheckboxEventArgs($event, this.IsChecked);
     this.onChange(this.IsChecked);

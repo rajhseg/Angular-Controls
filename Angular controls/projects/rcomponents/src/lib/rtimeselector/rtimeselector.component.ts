@@ -4,10 +4,10 @@ import { RButtonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { DropDownItemModel, DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RDropdownComponent } from '../rdropdown/rdropdown.component';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RCloseService, IRDropDown } from '../rpopup.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rtimeselector',
@@ -19,6 +19,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RTimeSelectorComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RTimeSelectorComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RTimeSelectorComponent),
       multi: true
     }
@@ -221,6 +231,19 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
       this.onTouched(this.outputValue);
       this.valueChanged.emit(this.outputValue);
     }
+  }
+
+  
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.OnlyRequired;
+  }
+
+  protected override getValue() {
+    return this.outputValue;
   }
 
   closeDropdown(): void {

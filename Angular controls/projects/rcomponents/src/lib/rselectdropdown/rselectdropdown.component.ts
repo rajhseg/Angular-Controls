@@ -1,7 +1,7 @@
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Injector, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ROptionsTemplateDirective, RSelectItemModel } from './rselectModel';
 import { CommonModule, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RCloseService, IRDropDown, IRPopupCloseInterface } from '../rpopup.service';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
@@ -10,7 +10,7 @@ import { RCheckboxComponent } from '../rcheckbox/rcheckbox.component';
 import { RTextboxComponent } from '../rtextbox/rtextbox.component';
 import { RDropdownFilterPipe } from '../rdropdown-filter.pipe';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rselectdropdown',
@@ -22,6 +22,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
     { 
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(()=> RSelectDropdownComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RSelectDropdownComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: forwardRef(() => RSelectDropdownComponent),
       multi: true
     }
   ],
@@ -241,6 +251,18 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
 
   ngAfterContentChecked(): void {
 
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return this.IsMulti ? ValidatorValueType.Array : ValidatorValueType.Single;
+  }
+
+  protected override getValue() {
+    return this.IsMulti ? this.SelectedItems : this.SelectedItem instanceof DropdownModel ?  this.SelectedItem.Value : this.SelectedItem;
   }
 
   selectSingleValue($event: Event, selValue: RSelectItemModel) {

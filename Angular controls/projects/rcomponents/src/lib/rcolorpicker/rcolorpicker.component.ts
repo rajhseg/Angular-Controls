@@ -2,10 +2,10 @@ import { NgIf, NgStyle, UpperCasePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RectShape } from './rectShape';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CssUnit, RCssUnitsService } from '../rcss-units.service';
 import { RCloseService, IRDropDown } from '../rpopup.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rcolorpicker',
@@ -20,6 +20,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RColorPickerComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RColorPickerComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RColorPickerComponent),
       multi: true
     }
@@ -179,6 +189,18 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   closeDropdown(): void {
     this.IsColorPickerOpen = false;
     this.cdr.detectChanges();
+  }
+
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Color;
+  }
+
+  protected override getValue() {
+    return this.SelectedColorHex;
   }
 
   writeValue(obj: any): void {

@@ -1,10 +1,10 @@
 import { CdkDrag, CdkDragMove, CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { NgIf, NgStyle } from '@angular/common';
 import { Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
-import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rslider',
@@ -15,6 +15,16 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RSliderComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RSliderComponent),
+      multi: true
+    },
+    {
+      provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RSliderComponent),
       multi: true
     }
@@ -185,6 +195,21 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
     }
 
     this.valueChanged.emit(this.RangeValue);
+  }
+
+  
+  protected override IsValidatorSupported(): boolean {
+    return true;
+  }
+  
+  protected override GetValidatorValueType(): ValidatorValueType {
+    return ValidatorValueType.Range;
+  }
+
+  protected override getValue() {
+    this.min = this.MinValue;
+    this.max = this.MaxValue;
+    return this.RangeValue;
   }
 
   getMarkerTop(): string {

@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild, forwardRef, output, viewChild } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { startWith } from 'rxjs';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
@@ -20,8 +20,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RStarRatingComponent),
-      multi: true
+      useFactory: (instance: RStarRatingComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RStarRatingComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

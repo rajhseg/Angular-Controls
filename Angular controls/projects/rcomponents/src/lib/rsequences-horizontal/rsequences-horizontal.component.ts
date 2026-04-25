@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
-import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RSequenceHorizontalItem } from './rsequence-horizontal/sequenceitemhorizontal';
 import { NgForOf, NgStyle } from '@angular/common';
 import { RSequenceHorizontalComponent } from './rsequence-horizontal/rsequence-horizontal.component';
@@ -19,10 +19,17 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
       multi: true
     },
     {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RStateHorizontalComponent),
-      multi: true
-    },
+       provide: NG_VALIDATORS,
+       useFactory: (instance: RStateHorizontalComponent) => {
+         return {
+           validate: (control: AbstractControl) =>{
+             return instance.getSyncErrors(control);
+           }
+         }
+       },
+       multi: true,
+       deps:[forwardRef(()=> RStateHorizontalComponent)]
+     },
     {
       provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RStateHorizontalComponent),

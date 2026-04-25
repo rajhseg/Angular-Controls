@@ -1,7 +1,7 @@
 import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
 import { AfterContentChecked, EventEmitter, AfterContentInit, Component, ContentChild, ContentChildren, ElementRef, HostBinding, HostListener, Inject, Injector, Input, OnDestroy, OnInit, Output, QueryList, ViewEncapsulation, afterNextRender, forwardRef, inject, output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DropDownItemModel, DropdownModel } from './rdropdownmodel';
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { DropdownService } from './rdropdownservice.service';
 import { RCloseService, IRDropDown, IRPopupCloseInterface, RPopupService } from '../rpopup.service';
@@ -28,8 +28,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RDropdownComponent),
-      multi: true
+      useFactory: (instance: RDropdownComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RDropdownComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,
@@ -323,6 +330,12 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
         if (indexOfObj > -1) {
           this.SelectedIndex = indexOfObj;          
           this.SelectItem(this.ComplexItems[indexOfObj]);
+          
+          if(this.IsMulti){
+            this.AssignItems(this.ComplexItems[indexOfObj], true);
+            this.loadSelectedItems();
+          }
+
           this.NotifyToUI();
         }
       }

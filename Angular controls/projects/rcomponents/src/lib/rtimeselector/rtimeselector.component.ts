@@ -4,7 +4,7 @@ import { RButtonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { DropDownItemModel, DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RDropdownComponent } from '../rdropdown/rdropdown.component';
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RCloseService, IRDropDown } from '../rpopup.service';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
@@ -24,8 +24,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RTimeSelectorComponent),
-      multi: true
+      useFactory: (instance: RTimeSelectorComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RTimeSelectorComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

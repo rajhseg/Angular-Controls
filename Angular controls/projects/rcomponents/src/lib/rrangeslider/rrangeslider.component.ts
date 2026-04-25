@@ -21,8 +21,15 @@ import { RBaseComponent, RRangeSliderData, ValidatorValueType } from '../rmodels
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RRangeSliderComponent),
-      multi: true
+      useFactory: (instance: RRangeSliderComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RRangeSliderComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

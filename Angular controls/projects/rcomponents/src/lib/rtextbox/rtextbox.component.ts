@@ -22,8 +22,15 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RTextboxComponent),
-      multi: true
+      useFactory: (instance: RTextboxComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RTextboxComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

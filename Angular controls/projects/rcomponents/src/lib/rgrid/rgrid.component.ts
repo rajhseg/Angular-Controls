@@ -6,7 +6,7 @@ import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RCellInfo, RColumnComponentInfo, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow, RGridRowInfo } from './rcell';
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RDropdownComponent } from "../rdropdown/rdropdown.component";
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { RWindowHelper } from '../rwindowObject';
@@ -71,10 +71,17 @@ export class RGridGroupData {
       multi: true
     },
     {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RGridComponent),
-      multi: true
-    },
+       provide: NG_VALIDATORS,
+       useFactory: (instance: RGridComponent) => {
+         return {
+           validate: (control: AbstractControl) =>{
+             return instance.getSyncErrors(control);
+           }
+         }
+       },
+       multi: true,
+       deps:[forwardRef(()=> RGridComponent)]
+     },
     {
       provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RGridComponent),

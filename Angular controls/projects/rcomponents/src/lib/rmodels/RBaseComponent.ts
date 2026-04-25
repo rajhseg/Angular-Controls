@@ -1,7 +1,7 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, inject, Injector, Input, NgZone, Optional, Output, Self } from "@angular/core";
 import { RWindowHelper } from "../rwindowObject";
 import { RSplitterType } from "../rsplitter/rpagecontent.directive";
-import { filter, fromEvent, map, Observable, of, take } from "rxjs";
+import { filter, firstValueFrom, fromEvent, map, Observable, of, switchMap, take } from "rxjs";
 import { AbstractControl, AsyncValidator, NgControl, ValidationErrors, Validator, Validators } from "@angular/forms";
 
 @Directive()
@@ -83,19 +83,11 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
     }
 
     validate(control: AbstractControl): Observable<ValidationErrors | null> {
-        const syncErrors = this.getSyncErrors(control);
         if (this.asyncValidationFn) {
-            return this.asyncValidationFn(this.getValue()).pipe(
-                map(asyncErrors => {
-                    if (asyncErrors) {
-                        return { ...syncErrors, ...asyncErrors };
-                    }
-                    return syncErrors;
-                })
-            );
-        } else {
-            return of(syncErrors);
+            return this.asyncValidationFn(this.getValue());
         }
+
+        return of(null);
     }
 
     protected getSyncErrors(control: AbstractControl): ValidationErrors | null {
@@ -188,15 +180,9 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
         
         this.ngControl = this.baseinjector.get(NgControl, null);
 
-        if(this.ngControl) {
-            this.ngControl.valueAccessor = this as any;
-        }
-
         this.control = this.ngControl?.control ?? null;
 
         if (this.control) {
-            this.control.addValidators(this.getSyncErrors.bind(this));
-            this.control.addAsyncValidators(this.validate.bind(this));
             this.control.updateValueAndValidity({ emitEvent: false });
         }
     }
@@ -205,7 +191,13 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
       if (this.onValidatorChange) {
           this.onValidatorChange();
       }
-  }
+    }
+
+    protected TriggerValidator() {
+        if (this.onValidatorChange) {
+            this.onValidatorChange();
+        }
+    }
 }
 
 @Directive()

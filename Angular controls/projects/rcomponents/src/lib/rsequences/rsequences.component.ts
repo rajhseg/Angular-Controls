@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, fo
 import { RSequenceVerticalComponent } from "./rsequence/rsequence.component";
 import { RSequenceVerticalItem } from './rsequence/rsequenceitem';
 import { NgForOf, NgStyle } from '@angular/common';
-import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
@@ -20,8 +20,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RStateVerticalComponent),
-      multi: true
+      useFactory: (instance: RStateVerticalComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RStateVerticalComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

@@ -1,6 +1,6 @@
 import { NgStyle } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output, forwardRef, output } from '@angular/core';
-import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
 
@@ -18,8 +18,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RSwitchComponent),
-      multi: true
+      useFactory: (instance: RSwitchComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RSwitchComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

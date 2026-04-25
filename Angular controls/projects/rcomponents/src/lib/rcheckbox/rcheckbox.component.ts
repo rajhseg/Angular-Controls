@@ -1,6 +1,6 @@
 import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
-import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CheckboxEventArgs, CheckboxService } from './rcheckbox.service';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
@@ -19,8 +19,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RCheckboxComponent),
-      multi: true
+      useFactory: (instance: RCheckboxComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RCheckboxComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

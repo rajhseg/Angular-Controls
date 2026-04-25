@@ -2,7 +2,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Inject, Injector, Input, OnDestroy, OnInit, Output, ViewChild, afterNextRender, forwardRef, inject, output } from '@angular/core';
 import { DaysEnum } from '../rcalendar/rcalendarModels';
 import { NgFor, NgClass, CommonModule, NgIf, NgStyle, DatePipe } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RDropdownComponent } from '../rdropdown/rdropdown.component';
 
 import { DropdownService } from '../rdropdown/rdropdownservice.service';
@@ -39,8 +39,15 @@ import { CalenderChangeMonthInfo, RBaseComponent, RChartBaseComponent, Validator
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => REventsCalenderComponent),
-      multi: true
+      useFactory: (instance: REventsCalenderComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> REventsCalenderComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

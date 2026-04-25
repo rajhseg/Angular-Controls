@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Form, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
 
 // Chart components
 import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, 
@@ -68,7 +68,7 @@ import { DropdownModel, DropDownItemModel } from 'rcomponents';
 import { RSelectItemModel } from 'rcomponents';
 import { RTreeItem } from 'rcomponents';
 import { RSequenceVerticalItem } from 'rcomponents';
-import { delay, from, of, switchMap } from 'rxjs';
+import { delay, from, map, Observable, of, switchMap } from 'rxjs';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { RComponentsModule } from "rcomponents";
 import { ɵEmptyOutletComponent } from "@angular/router";
@@ -310,6 +310,7 @@ export class AppRootComponent {
     new DropDownItemModel({ id: 3 }, 'Vue'),
     new DropDownItemModel({ id: 4 }, 'Svelte'),
   ];
+  
   dropdownSelected: DropdownModel | undefined = this.dropdownItems[0];
 
   colors: DropDownItemModel[] = [
@@ -475,6 +476,28 @@ export class AppRootComponent {
 
   Stop($event: any) {
     
+  }
+
+  asyncValidationFn(obj: DropdownModel[]) : Observable<ValidationErrors|null> {
+    let errors: ValidationErrors = {};
+
+    return of(obj.map(x=>x.Value.id)).pipe(
+      
+      map((value) => {
+        
+          value.forEach((y, index)=>{
+
+            if(Number(y) <= 2)
+            {
+              errors['idTooSmall_'+index] = true;
+            }
+            
+          });
+
+          
+          return Object.keys(errors).length > 0 ? errors : null;
+      })
+    );
   }
   
   panelSizeChange(data: RSplitterResult) {

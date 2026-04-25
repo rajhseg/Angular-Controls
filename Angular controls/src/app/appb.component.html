@@ -26,14 +26,20 @@
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: baseline;">
         <label style="font-size: 14px; margin-right: 15px;">Theme:</label>
         
-        <rselectdropdown 
-            [EnableFilterOption]="true"
-            [IsReadOnly]="false"
-            [Items]="colorItems"
-            [DropDownContentWidth]="'310px'"
-            [Width]="'280px'"
-            [(ngModel)]="selectedTheme">
-        </rselectdropdown>
+        <form #userForm="ngForm">
+
+          <rselectdropdown 
+              [EnableFilterOption]="true"
+              [IsReadOnly]="false"
+              [Items]="colorItems"
+              name="themedropdown"
+              [DropDownContentWidth]="'310px'"
+              [Width]="'280px'"
+               #theme="ngModel"
+              [(ngModel)]="selectedTheme">
+          </rselectdropdown>
+
+        </form>
 
       </div>
         
@@ -466,8 +472,6 @@
         </div>
         <div class="card-hint">Value: "{{ usernameForm.get('username')?.value }}"</div>
      
-        <div class="card-hint">Value: "{{ usernameForm.get('username')?.errors | json}}"</div>
-     
       </div>
 
       <!-- Password -->
@@ -682,13 +686,23 @@
           <code class="card-selector">&lt;rdropdown&gt;</code>
         </div>
         <div class="card-body">
-          <rdropdown 
-            [IsReadOnly]="false"
-            [Items]="dropdownItems"
-            [DropDownContentWidth]="'310px'"
-            [Width]="'280px'"
-            [(ngModel)]="dropdownSelected">
-          </rdropdown>
+
+          <form #lform="ngForm">
+
+            <rdropdown 
+              name="ldropdown"
+              [minlength]="2"
+              [maxlength]="3"
+              [IsReadOnly]="false"
+              [Items]="dropdownItems"
+              [DropDownContentWidth]="'310px'"
+              [Width]="'280px'"
+              #ldrop="ngModel"
+              [(ngModel)]="dropdownSelected">
+            </rdropdown>
+
+          </form>
+
         </div>
         <div class="card-hint">Selected: <strong>{{ dropdownSelected?.DisplayValue || 'none' }}</strong>.</div>
       </div>

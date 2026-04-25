@@ -6,7 +6,7 @@ import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RCalendarComponent } from "../rcalendar/rcalendar.component";
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RSelectDropdownComponent } from "../rselectdropdown/rselectdropdown.component";
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RCloseService, IRDropDown } from '../rpopup.service';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
@@ -56,8 +56,15 @@ export enum RFilterAlign{
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RFilterComponent),
-      multi: true
+      useFactory: (instance: RFilterComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RFilterComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

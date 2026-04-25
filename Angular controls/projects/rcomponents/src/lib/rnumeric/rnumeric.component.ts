@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { RWindowHelper } from '../rwindowObject';
@@ -21,8 +21,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RNumericComponent),
-      multi: true
+      useFactory: (instance: RNumericComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RNumericComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

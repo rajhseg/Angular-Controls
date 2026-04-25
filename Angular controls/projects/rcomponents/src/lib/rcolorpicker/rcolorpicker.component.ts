@@ -2,7 +2,7 @@ import { NgIf, NgStyle, UpperCasePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, OnDestroy, Output, viewChild, ViewChild } from '@angular/core';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RectShape } from './rectShape';
-import { ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CssUnit, RCssUnitsService } from '../rcss-units.service';
 import { RCloseService, IRDropDown } from '../rpopup.service';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
@@ -25,8 +25,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RColorPickerComponent),
-      multi: true
+      useFactory: (instance: RColorPickerComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RColorPickerComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,

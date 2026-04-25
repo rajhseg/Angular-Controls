@@ -1,7 +1,7 @@
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Injector, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ROptionsTemplateDirective, RSelectItemModel } from './rselectModel';
 import { CommonModule, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownModel } from '../rdropdown/rdropdownmodel';
 import { RCloseService, IRDropDown, IRPopupCloseInterface } from '../rpopup.service';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
@@ -26,8 +26,15 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => RSelectDropdownComponent),
-      multi: true
+      useFactory: (instance: RSelectDropdownComponent) => {
+        return {
+          validate: (control: AbstractControl) =>{
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps:[forwardRef(()=> RSelectDropdownComponent)]
     },
     {
       provide: NG_ASYNC_VALIDATORS,
@@ -334,6 +341,12 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
         if (indexOfObj > -1) {
           this.SelectedIndex = indexOfObj;          
           this.SelectItem(this.ComplexItems[indexOfObj]);
+
+          if(this.IsMulti){
+            this.AssignItems(this.ComplexItems[indexOfObj], true);
+            this.loadSelectedItems();
+          }
+
           this.NotifyToUI();
         }
       }

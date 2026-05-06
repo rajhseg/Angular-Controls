@@ -24,7 +24,8 @@
     transition: opacity .2s;   
     position: relative;
     text-align: center;
-    align-items: center;       
+    align-items: center;   
+    z-index: 4;    
 }
 
 .bline {

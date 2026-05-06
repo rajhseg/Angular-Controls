@@ -471,11 +471,11 @@ export class AppRootComponent {
   }
 
   Start($event: any) {
-  
+  this.timerComponent.StartTimer();
   }
 
   Stop($event: any) {
-    
+    this.timerComponent.StopTimer();
   }
 
   asyncValidationFn(obj: DropdownModel[]) : Observable<ValidationErrors|null> {

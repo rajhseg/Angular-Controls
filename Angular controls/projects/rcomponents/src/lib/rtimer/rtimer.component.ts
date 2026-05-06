@@ -20,7 +20,7 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
   ProgressType: RProgressBarType = RProgressBarType.Progress;
 
   window!: Window;
-  windowInterval!: number;
+  windowInterval!: number | undefined;
   private hour: number = 0;
   private minute: number = 0;
   private second: number = 0;
@@ -90,6 +90,8 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
   @Input()
   DisplayType: TimerType = TimerType.FlatStyle;
 
+  private initiatedStop: boolean = false;
+  
   public HourPercentage: number = 0;
 
   public MinutePercentage: number = 0;
@@ -154,12 +156,20 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
   StartTimer() {
     if (this.winObj.isExecuteInBrowser()) {
       
-      //this.#initiatedStop = false;
-
       this.windowInterval = this.window.setInterval((x: RTimerComponent) => {
 
         x.count++;
         x.CalculateTime();
+
+        if(x.initiatedStop) {  
+          if(x.window){
+            x.window.clearInterval(x.windowInterval);
+            x.windowInterval = undefined;
+            x.count = 0;
+            x.initiatedStop = false;
+            return;
+          }
+        }
 
         if (x.CallbackAfterCertainSeconds > 0 && x.count >= this.CallbackAfterCertainSeconds) {
           let result: RTimerResult = new RTimerResult(x.Hour, x.Minute, x.Second);
@@ -170,6 +180,10 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
         x.cdr.detectChanges();
       }, 1000, this);
     }
+  }
+
+  StopTimer() {
+    this.initiatedStop = true;
   }
 
 

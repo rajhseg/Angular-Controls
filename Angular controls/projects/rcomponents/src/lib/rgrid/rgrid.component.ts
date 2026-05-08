@@ -798,7 +798,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
       gpString += "[" + keys[index + 1] + "] ";
     }
 
-    gpString += "(" + grpItem.Values.length + ")  items";
+    gpString += "   - " + grpItem.Values.length + " item(s)";
     return gpString;
   }
 

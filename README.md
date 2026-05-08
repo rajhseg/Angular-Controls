@@ -5,6 +5,27 @@ This project is under development which can offers a comprehensive suite of reus
 
 <br />
 
+```bash
+
+# Clone the repository
+git clone https://github.com/rajhseg/Angular-Controls
+
+cd Angular-Controls
+
+# Install dependencies
+npm install
+
+# Build the library (required before running the demo app)
+ng build rcomponents
+
+# Run demo application in development mode
+ng serve
+
+# Run SSR version
+npm run dev:ssr
+
+```
+
 Button Control
 --------------------------------------
 

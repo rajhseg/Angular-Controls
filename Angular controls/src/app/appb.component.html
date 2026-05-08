@@ -67,6 +67,7 @@
             [xAxisItemNames]="allocatedMonths"
             [Width]="360"
             [Height]="240"
+            [MarginX]="60"
             [GapBetweenBars]="allocatedGap"
             [NoOfSplitInValueAxis]="5"
             [XAxisTitle]="'Month'"
@@ -97,6 +98,7 @@
             [xAxisItemNames]="barVerticalMonths"
             [Width]="360"
             [Height]="240"
+            [MarginX]="60"
             XAxisTitle="Quarter"
             YAxisTitle="Amount"
             TextColor="#666"
@@ -188,6 +190,7 @@
             [xAxisItemNames]="lineMonths"
             [Width]="380"
             [Height]="240"
+            [MarginX]="55"
             XAxisTitle="Month"
             YAxisTitle="Count"
             TextColor="#666"
@@ -241,7 +244,7 @@
         </rareachart>
 
         </div>
-        <div class="card-hint">Price vs sales correlation per product.</div>
+        <div class="card-hint">User and Sessions over 6 months.</div>
       </div>
       
       <!-- Progress Bar -->
@@ -297,7 +300,7 @@
             </rserieschart>
 
         </div>
-        <div class="card-hint">Price vs sales correlation per product.</div>
+        <div class="card-hint">Disk vs Speed per users and sessions.</div>
       </div>
 
       <div class="card">
@@ -350,7 +353,7 @@
         </div>
         <div class="card-body center">      
               
-          <rstackedbarchart-vertical [MarginX]="60" [Width]="340" [Height]="240" 
+          <rstackedbarchart-vertical [MarginX]="55" [Width]="340" [Height]="240" 
             [EnableBorder]="false" [GlassyEffect]="false" 
             [GlassyEffectColor]="'darkgray'"
             [PopupForeColor]="'black'" 
@@ -375,7 +378,7 @@
           
         <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
           [PopupForeColor]="'black'" 
-          [EnableBorder]="false" [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" [Width]="340" [Height]="240" [MarginX]="50"
+          [EnableBorder]="false" [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" [Width]="340" [Height]="240" [MarginX]="55"
           [MarginY]="50" [yAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
         </rstackedbarchart-horizontal>
 
@@ -396,6 +399,7 @@
         <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
           [GlassyEffect]="false"   [EnableBorder]="false"
           [PopupForeColor]="'black'" 
+          [MarginX]="55"
           [GlassyEffectColor]="'darkgray'" [Columns]="stackedrangebarChartItems1" [Width]="340" [Height]="240"
           [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount spent'">
 

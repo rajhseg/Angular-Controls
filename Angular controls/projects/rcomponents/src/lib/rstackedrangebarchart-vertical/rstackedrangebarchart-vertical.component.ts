@@ -562,7 +562,7 @@ export class RStackedRangeBarChartVerticalComponent extends RChartBaseComponent 
               this.DrawBar(xPoint, PreviousMinusY, eachBarLength, -diff, color);
 
               this.PopupItems.push(new RPopupChartItem(xPoint, PreviousMinusY, xPoint + eachBarLength,
-                yPoint - diff, element, index, x, color));
+                PreviousMinusY - diff, element, index, x, color));
 
             }
             else {

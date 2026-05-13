@@ -278,7 +278,7 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
 
   private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
-    let boundaryRange = 3;
+    let boundaryRange = 2;
 
     for (let index = 0; index < this.PopupItems.length; index++) {
       const element = this.PopupItems[index];

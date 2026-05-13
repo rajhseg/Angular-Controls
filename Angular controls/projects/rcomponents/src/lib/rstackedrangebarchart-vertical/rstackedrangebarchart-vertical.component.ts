@@ -275,7 +275,7 @@ export class RStackedRangeBarChartVerticalComponent extends RChartBaseComponent 
 
   private MouseOnTopOfItem(x: number, y: number): RPopupChartItem | undefined {
 
-    let boundaryRange = 3;
+    let boundaryRange = 0;
 
     for (let index = 0; index < this.PopupItems.length; index++) {
       const element = this.PopupItems[index];

@@ -46,8 +46,16 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   @Input()
   public LabelTextForeColor: string = "blue";
 
+  private _bottomColor: string = "blue";
+
   @Input()
-  public BottomLineColor: string = "blue";
+  set BottomLineColor(value: string) {
+    this._bottomColor = value;
+    this.backupColor = value;
+  }
+  get BottomLineColor(): string {
+    return this._bottomColor;
+  }
 
   @Input()
   public TextBoxWidth: string = '150px';

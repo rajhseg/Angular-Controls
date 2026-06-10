@@ -52,7 +52,9 @@ import { RSplitPageComponent } from './rsplitter/rsplitpage.component';
 import { RSplitterComponent } from './rsplitter/rsplitter.component';
 import { RCell, RGridHeaderSort, RGridEditRowInfo, RGridHeaderSortType, RGridItems, RGridRow } from './rgrid/rcell';
 import { RRangeSliderComponent } from './rrangeslider/rrangeslider.component'
-
+import { RSequenceTrackerComponent } from './rsequence-tracker/rtracker/rsequence-tracker.component';
+import { RTrackerContentDirective } from './rsequence-tracker/rtracker/rtrackercontent.directive';
+import { RSequencesTrackerComponent } from './rsequence-tracker/rsequences-tracker.component';
 
 @NgModule({
     imports: [
@@ -108,7 +110,10 @@ import { RRangeSliderComponent } from './rrangeslider/rrangeslider.component'
         RPageContentDirective,
         RSplitPageComponent,
         RSplitterComponent,
-        RRangeSliderComponent
+        RRangeSliderComponent,
+        RTrackerContentDirective,
+        RSequenceTrackerComponent,
+        RSequencesTrackerComponent
     ],
     exports: [
         RCalendarComponent,
@@ -162,7 +167,10 @@ import { RRangeSliderComponent } from './rrangeslider/rrangeslider.component'
         RPageContentDirective,
         RSplitPageComponent,
         RSplitterComponent,
-        RRangeSliderComponent
+        RRangeSliderComponent,
+        RTrackerContentDirective,
+        RSequenceTrackerComponent,
+        RSequencesTrackerComponent
     ]
 })
 export class RComponentsModule {

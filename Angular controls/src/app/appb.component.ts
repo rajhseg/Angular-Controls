@@ -9,7 +9,9 @@ import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonu
   EventsCalenderModel, AddEventModel, EachDayEventsModel, CalenderChangeMonthInfo, REventsCalenderComponent, 
   REventsScheduleComponent, REventsDateSchedule, REvent, REventChannelItem, REventsSchedules, RGridComponent, 
   RTimerResult, RSplitterResult, RCssUnitsService, RRangeSliderComponent, RRangeSliderData, RColumnComponent, 
-  ReadViewTemplateDirective, EditViewTemplateDirective } from 'rcomponents';
+  ReadViewTemplateDirective, EditViewTemplateDirective, 
+  RSequencesTrackerComponent, RTrackerContentDirective,
+  RSequenceTrackerComponent} from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -70,7 +72,6 @@ import { RTreeItem } from 'rcomponents';
 import { RSequenceVerticalItem } from 'rcomponents';
 import { delay, from, map, Observable, of, switchMap } from 'rxjs';
 import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { RComponentsModule } from "rcomponents";
 import { ɵEmptyOutletComponent } from "@angular/router";
 
 @Component({
@@ -140,9 +141,11 @@ import { ɵEmptyOutletComponent } from "@angular/router";
     EditViewTemplateDirective,
     RColumnComponent,
     RGridComponent,
-    RComponentsModule,
     ɵEmptyOutletComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RSequenceTrackerComponent,
+    RSequencesTrackerComponent,
+    RTrackerContentDirective
 ],
   templateUrl: './appb.component.html',
   styleUrl: './appb.component.css'

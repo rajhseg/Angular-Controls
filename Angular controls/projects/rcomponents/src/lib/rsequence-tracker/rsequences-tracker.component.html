@@ -1,0 +1,36 @@
+<div [style.font-family]="FontFamily" [id]="Id"
+      [ngStyle]="{ 'width': ContentWidth, 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
+
+    <div style="display: flex; flex-direction: row;" 
+        *ngFor="let item of Items; let i = index; trackBy: trackById" [ngStyle]="{ 'height': item.Height }">
+
+        <div style="width: 34px;" [ngStyle]="{ 'height': item.Height, 'display': 'flex', 'justify-content':'center' }">
+            <div class="circle" [ngStyle]="{ 
+                'width':  '32px',
+                'position': 'absolute',
+                'height': '32px',
+                'display': 'flex',
+                'justify-content': 'center',         
+                'background-color': StepNoBackColor,
+                'z-index': '2'}">
+
+                <span [ngStyle]="{'color': StepNoForeColor, 'font-size': NumberFontSize }" 
+                        class="number">{{item.StepNo}}</span>
+
+            </div>
+            <div class="tline" [ngStyle]="{ 'position' : 'absolute', 'height':item.Height, 'margin-left':'-1px', 'z-index': '1'}" 
+                    [style.backgroundColor]="StripLineColor"></div>
+        </div>
+
+        <div class="cnt" [ngStyle]="{ 'background-color': ContentBackgroundColor,
+                            'font-size': FontSize,
+                            'height':item.Height, 'width': GetContentWidth,  
+                            'pointer-events': IsReadOnly ? 'none': ''}">
+            <ng-container *ngTemplateOutlet="item.templateRef">
+
+            </ng-container>
+        </div>
+
+    </div>
+
+</div> 

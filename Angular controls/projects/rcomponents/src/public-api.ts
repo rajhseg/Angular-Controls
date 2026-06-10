@@ -65,5 +65,8 @@ export * from './lib/rsplitter/rsplitter.component';
 export * from './lib/rsplitter/rsplitpage.component';
 export * from './lib/rsplitter/rpagecontent.directive';
 export * from './lib/rrangeslider/rrangeslider.component';
+export * from './lib/rsequence-tracker/rtracker/rtrackercontent.directive';
+export * from './lib/rsequence-tracker/rtracker/rsequence-tracker.component';
+export * from './lib/rsequence-tracker/rsequences-tracker.component';
 
 export * from './lib/rcomponents.module';

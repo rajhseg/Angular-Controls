@@ -350,6 +350,8 @@ RStepperHorizontal
 RSequencesTracker
 ------------------------------------
 
+![image](https://github.com/user-attachments/assets/95559b17-8596-4bfb-8931-73d4b46db996)
+
 <img width="1047" height="768" alt="image" src="https://github.com/user-attachments/assets/95559b17-8596-4bfb-8931-73d4b46db996" />
 
 <br />

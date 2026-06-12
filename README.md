@@ -416,7 +416,7 @@ RStackedBarChart Vertical Control
 
 <br/>
 
-<img width="561" height="370" alt="" src="https://github.com/user-attachments/assets/1bcc4c09-c94a-450a-a9c8-111629407ed1" />
+![image](https://github.com/user-attachments/assets/1bcc4c09-c94a-450a-a9c8-111629407ed1)
 
 <br/>
 <br/>
@@ -427,7 +427,7 @@ RStackedBarChart Horizontal Control
 
 <br/>
 
-<img width="560" height="498" alt="image" src="https://github.com/user-attachments/assets/43a8a50f-527e-4ea7-9683-428eece78dfb" />
+![image](https://github.com/user-attachments/assets/43a8a50f-527e-4ea7-9683-428eece78dfb)
 
 <br/>
 <br/>
@@ -439,8 +439,7 @@ RStackedRangeBarChart Vertical Control
 
 <br/>
 
-<img width="474" height="498" alt="image" src="https://github.com/user-attachments/assets/b5537a0b-2b5a-407d-8468-369f970353b9" />
-
+![image](https://github.com/user-attachments/assets/b5537a0b-2b5a-407d-8468-369f970353b9)
 
 <br/>
 <br/>

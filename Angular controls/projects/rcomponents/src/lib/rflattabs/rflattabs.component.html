@@ -6,7 +6,7 @@
       [cdkDropListData]="TabHeaders" (cdkDropListDropped)="drop($event)" class="tabheaderContainer"
       [style.width]="TabWidth">
       <ng-container *ngIf="tabTemps && tabTemps.length > 0">
-        <button id="rtabheader_{{header.TabId}}" class="tabheader"
+        <button id="rflattabheader_{{header.TabId}}" class="tabheader"
           *ngFor="let header of TabHeaders; trackBy:trackByHeader" cdkDrag (cdkDragEnded)="dragEnded($event)"
           (cdkDragStarted)="dragStarted($event)" [cdkDragData]="header" (click)="HeaderClicked(header)"
           (cdkDragMoved)="onDragMoved($event)" [ngClass]="{ tabSelected: header.IsSelected}">
@@ -22,7 +22,7 @@
         [style.width]="TabWidth" [style.height]="TabHeight">
   
         <div *ngIf="SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined"
-          id="rtabcontent_{{SelectedTabTemplateRef.TabId}}" class="tab active">
+          id="rflattabcontent_{{SelectedTabTemplateRef.TabId}}" class="tab active">
   
           <!-- Below line ng-content is used to remove duplication of tabs due to hydration runs 
             before settimeout runs in dynamic Component 

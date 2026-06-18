@@ -1,0 +1,58 @@
+
+.rtabroot{    
+    background: #F4F5F6;     
+    border: 0.4px solid lightgray;
+  }
+
+/* Header */
+.showcase-header {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 20px 32px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Nav tabs */
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.boxshadow {
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.24); 
+}
+
+.nav-tab {
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav-tab:hover { color: #333; }
+
+.nav-tab.active {
+  color: #1a1a1a;
+  border-bottom-color: #7F77DD;
+  font-weight: 500;
+}
+
+/* Body */
+.showcase-body {
+  padding: 5px 5px;
+  margin: 0 auto;
+  background: white;
+}
+
+/* Section = card grid */
+.section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+}

@@ -960,6 +960,41 @@
         <div class="card-hint">Tabs support drag-to-reorder and content projection via <code>&lt;rtab&gt;</code>.</div>
       </div>
 
+      
+      
+      <!-- Simple Tabs -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h2 class="card-title">RSimple Tabs</h2>
+          <code class="card-selector">&lt;rsimpletabs&gt;</code>
+        </div>
+        <div class="card-body">
+
+          <rsimpletabs [SelectedTabId]="'tab2'" [EnableBoxShadow]="true" [Name]="'container1'" [IsDisabled]="false" 
+              [TabWidth]="'500px'" [TabHeight]="'140px'">
+            <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Overview', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Overview content — summarise your feature here.
+              </div>
+            </rtab>
+            <rtab *tabidfor="{ 'TabId':'tab2', 'HeaderText':'Details', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Details content — expand with tables or charts.
+              </div>  
+            </rtab>
+            <rtab *tabidfor="{ 'TabId':'tab3', 'HeaderText':'Settings', 'Context':this }">
+              <div style="padding: 16px; font-size: 14px; color: #555;">
+                Settings content — use form controls here.
+              </div>
+            </rtab>
+          </rsimpletabs>
+
+        </div>
+        <div class="card-hint">Simple Tabs <code>&lt;rtab&gt;</code>.</div>
+      </div>
+
+
        <!--  Tabs -->
       <div class="card card-wide">
         <div class="card-header">

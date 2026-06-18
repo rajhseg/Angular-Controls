@@ -68,5 +68,6 @@ export * from './lib/rrangeslider/rrangeslider.component';
 export * from './lib/rsequence-tracker/rtracker/rtrackercontent.directive';
 export * from './lib/rsequence-tracker/rtracker/rsequence-tracker.component';
 export * from './lib/rsequence-tracker/rsequences-tracker.component';
+export * from './lib/rsimpletabs/rsimpletabs.component';
 
 export * from './lib/rcomponents.module';

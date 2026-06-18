@@ -331,6 +331,7 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
   }
 
   HeaderClicked(selectedHeader: RTabHeaderWithTabId) {
+    this.TabHeaders.forEach(x => x.IsSelected = false);
     selectedHeader.IsSelected = true;
     this.SelectedTabId = selectedHeader.TabId;
     this.headerClicked.emit(selectedHeader);

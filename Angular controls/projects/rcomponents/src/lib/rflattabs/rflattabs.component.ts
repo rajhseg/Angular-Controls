@@ -336,6 +336,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
     }
   
     HeaderClicked(selectedHeader: RTabHeaderWithTabId) {
+      this.TabHeaders.forEach(x => x.IsSelected = false);
       selectedHeader.IsSelected = true;
       this.SelectedTabId = selectedHeader.TabId;
       this.headerClicked.emit(selectedHeader);

@@ -11,7 +11,8 @@ import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonu
   RTimerResult, RSplitterResult, RCssUnitsService, RRangeSliderComponent, RRangeSliderData, RColumnComponent, 
   ReadViewTemplateDirective, EditViewTemplateDirective, 
   RSequencesTrackerComponent, RTrackerContentDirective,
-  RSequenceTrackerComponent} from 'rcomponents';
+  RSequenceTrackerComponent,
+  RSimpleTabsComponent} from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -128,6 +129,8 @@ import { ɵEmptyOutletComponent } from "@angular/router";
     RStepperHorizontalComponent,
     RStepComponent,
     RTreeComponent,
+    RSimpleTabsComponent,
+    
     // Data display
     REventsCalenderComponent,
     RTimerComponent,

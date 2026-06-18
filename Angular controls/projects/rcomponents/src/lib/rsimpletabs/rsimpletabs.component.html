@@ -1,0 +1,44 @@
+
+<div [ngClass]="{ 'boxshadow' : EnableBoxShadow }" class="rtabroot showcase-root" [style.font-family]="FontFamily" [id]="'rs_'+Id"
+     [style.width]="TabWidth" [ngStyle]="{'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none' : 'auto' }"> 
+  
+  <header class="showcase-header">
+    
+    <nav class="nav-tabs">
+      <button id="rsimpleheader_{{s.TabId}}"
+        *ngFor="let s of TabHeaders; trackBy: trackByHeader"
+        class="nav-tab"
+        [class.active]="activeSection === s.TabId"
+        (click)="setSection(s)">
+        {{ s.headerText| titlecase }}
+      </button>        
+    </nav>
+      
+  </header>
+
+    <main class="showcase-body">
+        <section class="section">
+                    
+            <ng-container>
+                <div [ngStyle]="{ 'pointer-events': IsReadOnly ? 'none': '' }" class="tabcontent" *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
+                    [style.width]="TabWidth" [style.height]="TabHeight">
+            
+                    <div *ngIf="SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined"
+                        id="rsimpletabcontent_{{SelectedTabTemplateRef.TabId}}" class="tab active">
+                
+                        <!-- Below line ng-content is used to remove duplication of tabs due to hydration runs 
+                            before settimeout runs in dynamic Component 
+                            (https://github.com/angular/angular/issues/50543)
+                        -->
+
+                    <ng-content />
+            
+                    <ng-container #tempVcr
+                        *ngTemplateOutlet="SelectedTabTemplateRef.templateRef; context:SelectedTabTemplateRef.ContextInstance"></ng-container>
+                    </div>
+                </div>
+            </ng-container>
+            
+        </section>
+    </main>
+  </div>

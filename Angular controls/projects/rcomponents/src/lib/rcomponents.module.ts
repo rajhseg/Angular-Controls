@@ -55,6 +55,7 @@ import { RRangeSliderComponent } from './rrangeslider/rrangeslider.component'
 import { RSequenceTrackerComponent } from './rsequence-tracker/rtracker/rsequence-tracker.component';
 import { RTrackerContentDirective } from './rsequence-tracker/rtracker/rtrackercontent.directive';
 import { RSequencesTrackerComponent } from './rsequence-tracker/rsequences-tracker.component';
+import { RSimpleTabsComponent } from './rsimpletabs/rsimpletabs.component';
 
 @NgModule({
     imports: [
@@ -113,7 +114,8 @@ import { RSequencesTrackerComponent } from './rsequence-tracker/rsequences-track
         RRangeSliderComponent,
         RTrackerContentDirective,
         RSequenceTrackerComponent,
-        RSequencesTrackerComponent
+        RSequencesTrackerComponent,
+        RSimpleTabsComponent
     ],
     exports: [
         RCalendarComponent,
@@ -170,7 +172,8 @@ import { RSequencesTrackerComponent } from './rsequence-tracker/rsequences-track
         RRangeSliderComponent,
         RTrackerContentDirective,
         RSequenceTrackerComponent,
-        RSequencesTrackerComponent
+        RSequencesTrackerComponent,
+        RSimpleTabsComponent
     ]
 })
 export class RComponentsModule {

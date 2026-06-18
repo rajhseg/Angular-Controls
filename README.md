@@ -237,6 +237,13 @@ RTabs Control
 <br />
 <br />
 
+RSimpleTabs Control
+-----------------------------
+
+![image](https://github.com/user-attachments/assets/cacb0da6-0ca3-4c24-9794-075dce17e843)
+
+<br />
+<br />
 
 RFlatTabs Control
 ------------------------------

@@ -347,6 +347,14 @@ RStepperHorizontal
 <br />
 <br />
 
+RSequencesTracker
+------------------------------------
+
+![image](https://github.com/user-attachments/assets/95559b17-8596-4bfb-8931-73d4b46db996)
+
+<br />
+<br />
+
 
 RDonutChart Control
 ----------------------------------
@@ -381,7 +389,7 @@ RBarChart Vertical Control
 
 <br/>
 
-<img width="899" height="371" alt="" src="https://github.com/user-attachments/assets/8d3a256c-4d8b-4017-9abe-2826e6fcfa8e" />
+<img width="371" height="508" alt="Barchart-Vertical" src="https://github.com/user-attachments/assets/e75f7328-11cf-4a4f-b554-534d98b59ea6" />
 
 <br/>
 <br/>
@@ -394,7 +402,7 @@ RBarChart Horizontal Control
 
 <br/>
 
-<img width="906" height="498" alt="image" src="https://github.com/user-attachments/assets/dd424b5d-3989-40d2-bc7d-4470d1cd4682" />
+<img width="367" height="503" alt="Barchart-Horizontal" src="https://github.com/user-attachments/assets/7af0bb8f-5b06-4ad8-88c3-ee17b1fd7cd7" />
 
 
 <br/>
@@ -408,7 +416,7 @@ RStackedBarChart Vertical Control
 
 <br/>
 
-<img width="561" height="370" alt="" src="https://github.com/user-attachments/assets/1bcc4c09-c94a-450a-a9c8-111629407ed1" />
+![image](https://github.com/user-attachments/assets/1bcc4c09-c94a-450a-a9c8-111629407ed1)
 
 <br/>
 <br/>
@@ -419,7 +427,7 @@ RStackedBarChart Horizontal Control
 
 <br/>
 
-<img width="560" height="498" alt="image" src="https://github.com/user-attachments/assets/43a8a50f-527e-4ea7-9683-428eece78dfb" />
+![image](https://github.com/user-attachments/assets/43a8a50f-527e-4ea7-9683-428eece78dfb)
 
 <br/>
 <br/>
@@ -431,8 +439,7 @@ RStackedRangeBarChart Vertical Control
 
 <br/>
 
-<img width="474" height="498" alt="image" src="https://github.com/user-attachments/assets/b5537a0b-2b5a-407d-8468-369f970353b9" />
-
+![image](https://github.com/user-attachments/assets/b5537a0b-2b5a-407d-8468-369f970353b9)
 
 <br/>
 <br/>
@@ -479,7 +486,7 @@ RAllocationBarChart
 
 <br/>
 
-<img width="659" height="476" alt="" src="https://github.com/user-attachments/assets/9838a950-ff56-44d7-b957-ae42c557573c" />
+<img width="366" height="508" alt="allocated barchart" src="https://github.com/user-attachments/assets/50dd96d7-18e6-461c-80ac-1477a7ee492f" />
 
 <br />
 <br/>

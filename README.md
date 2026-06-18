@@ -240,7 +240,7 @@ RTabs Control
 RSimpleTabs Control
 -----------------------------
 
-![image](https://github.com/user-attachments/assets/cacb0da6-0ca3-4c24-9794-075dce17e843)
+![image](https://github.com/user-attachments/assets/87ed4a09-b036-4a7f-97fb-b2b850e6a82d)
 
 <br />
 <br />

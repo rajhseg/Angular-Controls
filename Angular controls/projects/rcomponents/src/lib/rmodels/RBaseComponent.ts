@@ -216,10 +216,34 @@ export abstract class RChartBaseComponent {
 
     @Input()
     IsDisabled: boolean = false;
-    
+
     constructor(protected winObj: RWindowHelper){
         this.Id = this.winObj.GenerateUniqueId();
         this.HostElementId = this.winObj.GenerateUniqueId();
+    }
+
+}
+
+@Directive()
+export abstract class RChartPopupBaseComponent extends RChartBaseComponent {
+
+    @Input()
+    PopupBorderColor: string = 'lightgray';
+
+    @Input()
+    PopupBackColor: string = "white";
+
+    @Input()
+    PopupForeColor: string | undefined = undefined;
+
+    @Input()
+    PopupBackgroundOpacity: number = 1;
+
+    @Input()
+    EnableBorderForPopup: boolean = true;
+
+    constructor(winObj: RWindowHelper) {
+        super(winObj);
     }
 
 }

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild
 import { RBarChartItem, RGraph, RPopupChartItem, RYSeriesChartItem, RGraphSeriesChartItem, RBaseChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
-import { RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { RChartBaseComponent, RChartPopupBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rserieschart',
@@ -11,7 +11,7 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rserieschart.component.html',
   styleUrl: './rserieschart.component.css'
 })
-export class RSeriesChartComponent  extends RChartBaseComponent {
+export class RSeriesChartComponent  extends RChartPopupBaseComponent {
 
 
   private _width: number = 300;
@@ -138,15 +138,6 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
   @Input()
   DataListHeight: number = 50;
 
-  @Input()
-  PopupBackColor: string = "#e8e8f0";
-  
-  @Input()
-  PopupForeColor: string | undefined = undefined;
-
-  @Input()
-  PopupBackgroundOpacity: number = 1;
-
   public IsYSeriesChart: boolean = false;
 
   @Input()
@@ -251,8 +242,14 @@ export class RSeriesChartComponent  extends RChartBaseComponent {
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
+             
+        if(this.EnableBorderForPopup) {
+          this.context.strokeStyle = this.PopupBorderColor;
+        }
+
         this.context.roundRect(x, y, textWidth, 40, 4); 
         this.context.fill();
+        this.context.stroke();
         this.context.restore();
         this.context.closePath();
         

@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, I
 import { RBarChartItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
-import { RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { RChartBaseComponent, RChartPopupBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rbarchart-vertical',
@@ -11,7 +11,7 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rbarchart-vertical.component.html',
   styleUrl: './rbarchart-vertical.component.css'
 })
-export class RBarChartVerticalComponent extends RChartBaseComponent implements AfterViewInit {
+export class RBarChartVerticalComponent extends RChartPopupBaseComponent implements AfterViewInit {
 
   private _width: number = 300;
   private _height: number = 300;
@@ -169,15 +169,6 @@ export class RBarChartVerticalComponent extends RChartBaseComponent implements A
     return this._columns;
   }
 
-  @Input()
-  PopupBackColor: string = "#e8e8f0";
-
-  @Input()
-  PopupForeColor: string | undefined = undefined;
-
-  @Input()
-  PopupBackgroundOpacity: number = 1;
-
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
   private bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
@@ -274,8 +265,14 @@ export class RBarChartVerticalComponent extends RChartBaseComponent implements A
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
+             
+        if(this.EnableBorderForPopup) {
+          this.context.strokeStyle = this.PopupBorderColor;
+        }
+
         this.context.roundRect(x, y, textWidth, 40, 4); 
         this.context.fill();
+        this.context.stroke();
         this.context.restore();
         this.context.closePath();
         

@@ -2,7 +2,7 @@ import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RBarChartItem, RDrawTextItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
-import { RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { RChartBaseComponent, RChartPopupBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rstackedrangebarchart-vertical',
@@ -11,7 +11,7 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rstackedrangebarchart-vertical.component.html',
   styleUrl: './rstackedrangebarchart-vertical.component.css'
 })
-export class RStackedRangeBarChartVerticalComponent extends RChartBaseComponent implements AfterViewInit {
+export class RStackedRangeBarChartVerticalComponent extends RChartPopupBaseComponent implements AfterViewInit {
 
 
   private _width: number = 300;
@@ -173,15 +173,6 @@ export class RStackedRangeBarChartVerticalComponent extends RChartBaseComponent 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
   bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
-  @Input()
-  PopupBackColor: string = "#e8e8f0";
-
-  @Input()
-  PopupForeColor: string | undefined = undefined;
-
-  @Input()
-  PopupBackgroundOpacity: number = 1;
-
   PopupItems: RPopupChartItem[] = [];
 
   context: CanvasRenderingContext2D | null = null;
@@ -253,8 +244,14 @@ export class RStackedRangeBarChartVerticalComponent extends RChartBaseComponent 
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
+             
+        if(this.EnableBorderForPopup) {
+          this.context.strokeStyle = this.PopupBorderColor;
+        }
+
         this.context.roundRect(x, y, textWidth, 40, 4);
         this.context.fill();
+        this.context.stroke();
         this.context.restore();
         this.context.closePath();
 

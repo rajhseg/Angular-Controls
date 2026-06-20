@@ -4,7 +4,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RAreaChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
-import { RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { RChartBaseComponent, RChartPopupBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rareachart',
@@ -13,7 +13,7 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rareachart.component.html',
   styleUrl: './rareachart.component.css'
 })
-export class RAreaChartComponent extends RChartBaseComponent implements AfterViewInit {
+export class RAreaChartComponent extends RChartPopupBaseComponent implements AfterViewInit {
 
   
   private _width: number = 300;
@@ -147,20 +147,11 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
   DataListHeight: number = 50;
 
   @Input()
-  PopupBackColor: string = "#e8e8f0";
-
-  @Input()
   IsRenderFromInit:boolean = true;
 
   @Input()
   EnableGradientInArea: boolean = true;
   
-  @Input()
-  PopupForeColor: string | undefined = undefined;
-
-  @Input()
-  PopupBackgroundOpacity: number = 1;
-
   private _items: RAreaChartItem[] = [];
 
   @Input()
@@ -255,9 +246,15 @@ export class RAreaChartComponent extends RChartBaseComponent implements AfterVie
         this.context.beginPath();
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
-        this.context.fillStyle = this.PopupBackColor;
+        this.context.fillStyle = this.PopupBackColor;   
+             
+        if(this.EnableBorderForPopup) {
+          this.context.strokeStyle = this.PopupBorderColor;
+        }
+
         this.context.roundRect(x, y, textWidth, 40, 4); 
         this.context.fill();
+        this.context.stroke();
         this.context.restore();
         this.context.closePath();
 

@@ -2,7 +2,7 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { RLineChartItem, RPopupChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
-import { RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { RChartBaseComponent, RChartPopupBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rlinechart-vertical',
@@ -11,7 +11,7 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rlinechart-vertical.component.html',
   styleUrl: './rlinechart-vertical.component.css'
 })
-export class RLineChartVerticalComponent  extends RChartBaseComponent  implements AfterViewInit {
+export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  implements AfterViewInit {
 
   
   private _width: number = 300;
@@ -147,15 +147,6 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
   DataListHeight: number = 50;
 
   @Input()
-  PopupBackColor: string = "#e8e8f0";
-  
-  @Input()
-  PopupForeColor: string | undefined = undefined;
-
-  @Input()
-  PopupBackgroundOpacity: number = 1;
-
-  @Input()
   IsRenderFromInit: boolean = true;
 
   private _items: RLineChartItem[] = [];
@@ -244,8 +235,14 @@ export class RLineChartVerticalComponent  extends RChartBaseComponent  implement
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
+             
+        if(this.EnableBorderForPopup) {
+          this.context.strokeStyle = this.PopupBorderColor;
+        }
+
         this.context.roundRect(x, y, textWidth, 40, 4); 
         this.context.fill();
+        this.context.stroke();
         this.context.restore();
         this.context.closePath();
 

@@ -77,6 +77,8 @@
             [BorderColor]="'#e0e0e0'"
             [GlassyEffect]="false"
             [AllocatedValueIndicatorColor]="'#333'"
+            [PopupBackColor]="'white'"
+            [EnableBorderForPopup] = "true"
             [PopupBackgroundOpacity]="0.95">
           </rallocated-barchart>
         </div>
@@ -194,6 +196,7 @@
             XAxisTitle="Month"
             YAxisTitle="Count"
             TextColor="#666"
+            [PopupBorderColor]="'lightgray'"
             [EnableBorder]="false"
             BorderColor="#e0e0e0"
             [GlassyEffect]="false">
@@ -314,6 +317,7 @@
             <rserieschart 
               [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
               [EnableBorder]="false" [GlassyEffect]="false"
+              [PopupBorderColor]="'lightgray'"
               [Width]="340" [Height]="240"
               [Items]="seriesModel">
             </rserieschart>
@@ -336,6 +340,7 @@
               [EnableBorder]="false" [GlassyEffect]="false"
               [GlassyEffectColor]="'darkgray'" 
               [Width]="340" [Height]="240"
+              [PopupBorderColor]="'lightgray'"
               [Items]="seriesModel1">
             </rserieschart>
 

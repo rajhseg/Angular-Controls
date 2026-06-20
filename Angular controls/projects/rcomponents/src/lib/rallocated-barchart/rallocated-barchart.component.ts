@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, input, Input, Vi
 import { RAllocatedBarChartItem, RPopupChartItem, RSpaceBetweenBars } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { RChartBaseComponent } from '../rmodels/RBaseComponent';
+import { RChartBaseComponent, RChartPopupBaseComponent } from '../rmodels/RBaseComponent';
 
 @Component({
   selector: 'rallocated-barchart',
@@ -11,9 +11,8 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rallocated-barchart.component.html',
   styleUrl: './rallocated-barchart.component.css'
 })
-export class RAllocatedBarChartComponent  extends RChartBaseComponent {
+export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent {
 
-  
   private _width: number = 300;
   private _height: number = 300;
 
@@ -176,15 +175,6 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
   @Input()
   EmptyAreaBorderColor: string = 'lightgray';
-  
-  @Input()
-  PopupBackColor: string = "#e8e8f0";
-
-  @Input()
-  PopupForeColor: string | undefined = undefined;
-
-  @Input()
-  PopupBackgroundOpacity: number = 1;
 
   @ViewChild('rbar', { read: ElementRef<HTMLCanvasElement>, static: false })
   private bar: ElementRef<HTMLCanvasElement> | undefined = undefined;
@@ -290,8 +280,14 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
         this.context.save();
         this.context.globalAlpha = this.PopupBackgroundOpacity;
         this.context.fillStyle = this.PopupBackColor;
+        
+        if(this.EnableBorderForPopup) {
+          this.context.strokeStyle = this.PopupBorderColor;
+        }
+
         this.context.roundRect(x, y, textWidth, 90, 4); 
         this.context.fill();
+        this.context.stroke();
         this.context.restore();
         this.context.closePath();
         
@@ -429,6 +425,7 @@ export class RAllocatedBarChartComponent  extends RChartBaseComponent {
 
       /* Draw Vertical Line */
       this.context.beginPath();
+      this.context.globalAlpha = 1;
       this.context.moveTo(StartX, StartY);
       this.context.lineTo(StartX, this.PaddingTop);
       this.context.strokeStyle = this.TextColor;

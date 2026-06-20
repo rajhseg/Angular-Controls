@@ -231,10 +231,10 @@ export abstract class RChartPopupBaseComponent extends RChartBaseComponent {
     PopupBorderColor: string = 'lightgray';
 
     @Input()
-    PopupBackColor: string = "white";
+    PopupBackColor: string = "#AFA6FF";
 
     @Input()
-    PopupForeColor: string | undefined = undefined;
+    PopupForeColor: string | undefined = 'white';
 
     @Input()
     PopupBackgroundOpacity: number = 1;

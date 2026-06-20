@@ -79,7 +79,10 @@
             [AllocatedValueIndicatorColor]="'#333'"
             [PopupBackColor]="'white'"
             [EnableBorderForPopup] = "true"
-            [PopupBackgroundOpacity]="0.95">
+            [PopupBackColor]="'#AFA6FF'"
+            [PopupForeColor]="'white'"
+            [PopupBorderColor]="'lightgray'"
+            [PopupBackgroundOpacity]="1">
           </rallocated-barchart>
         </div>
         <div class="card-hint">
@@ -361,7 +364,6 @@
           <rstackedbarchart-vertical [MarginX]="55" [Width]="340" [Height]="240" 
             [EnableBorder]="false" [GlassyEffect]="false" 
             [GlassyEffectColor]="'darkgray'"
-            [PopupForeColor]="'black'" 
             [XAxisTitle]="'Monthly Expenses'"
             [YAxisTitle]="'Amount Spent'" 
             [xAxisItemNames]="stackedbarChartXAxisItemNames1"
@@ -382,7 +384,6 @@
               
           
         <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
-          [PopupForeColor]="'black'" 
           [EnableBorder]="false" [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" [Width]="340" [Height]="240" [MarginX]="55"
           [MarginY]="50" [yAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
         </rstackedbarchart-horizontal>
@@ -403,7 +404,6 @@
           
         <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
           [GlassyEffect]="false"   [EnableBorder]="false"
-          [PopupForeColor]="'black'" 
           [MarginX]="55"
           [GlassyEffectColor]="'darkgray'" [Columns]="stackedrangebarChartItems1" [Width]="340" [Height]="240"
           [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount spent'">

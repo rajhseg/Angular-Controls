@@ -24,6 +24,14 @@
       </button>
       
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: baseline;">
+        
+        <rswitch [LabelForeColor]="'black'" [DisplayLabel]="'Enable Glassy Effect'" [(ngModel)]="enableGlassyEffect"></rswitch>  
+
+        <rcolorpicker [LabelTextForeColor]="'black'" style="margin-left:20px" [IsDisplayLabelText]="true" 
+                [IsDisplayColorCode]="false" [LabelText]="'GlassyEffectColor'" [(ngModel)]="glassyColor"></rcolorpicker>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; width: 100%; align-items: baseline;">
         <label style="font-size: 14px; margin-right: 15px;">Theme:</label>
         
         <form #userForm="ngForm">
@@ -75,7 +83,7 @@
             [TextColor]="'#666'"
             [EnableBorder]="false"
             [BorderColor]="'#e0e0e0'"
-            [GlassyEffect]="false"
+            [GlassyEffect]="enableGlassyEffect"  [GlassyEffectColor]="glassyColor"
             [AllocatedValueIndicatorColor]="'#333'"
             [PopupBackColor]="'white'"
             [EnableBorderForPopup] = "true"
@@ -107,7 +115,7 @@
             XAxisTitle="Quarter"
             YAxisTitle="Amount"
             TextColor="#666"
-            [GlassyEffect]="false"
+            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
             [EnableBorder]="false"
             BorderColor="#e0e0e0">
           </rbarchart-vertical>
@@ -126,12 +134,13 @@
           <rbarchart-horizontal
             [Columns]="barHorizontalColumns"
             [yAxisItemNames]="barHorizontalItems"
-            [Width]="320"
+            [Width]="340"
+            [PaddingLeft]="40"
             [Height]="240"
             XAxisTitle="Hours"
             YAxisTitle="Team"
             TextColor="#666"
-            [GlassyEffect]="false"
+            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
             [EnableBorder]="false"
             BorderColor="#e0e0e0">
           </rbarchart-horizontal>
@@ -202,7 +211,7 @@
             [PopupBorderColor]="'lightgray'"
             [EnableBorder]="false"
             BorderColor="#e0e0e0"
-            [GlassyEffect]="false">
+            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  >
           </rlinechart-vertical>
         </div>
         <div class="card-hint">Users and sessions over 6 months.</div>
@@ -225,7 +234,7 @@
             TextColor="#666"
             [EnableBorder]="false"
             BorderColor="#e0e0e0"
-            [GlassyEffect]="false">
+            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  >
           </rscatterchart>
         </div>
         <div class="card-hint">Price vs sales correlation per product.</div>
@@ -244,7 +253,7 @@
                    
         <rareachart [xAxisItemNames]="arealineMonths" 
           [XAxisTitle]="'Month'" [YAxisTitle]="'Count'"
-          [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" 
+          [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"   [GlassyEffectColor]="'darkgray'" 
           [EnableBorder]="false" [EnablePlotOnPoints]="true"
           [Items]="arealineItems" [Width]="370" [Height]="260">
         </rareachart>
@@ -297,7 +306,7 @@
                   
             <rserieschart [XAxisTitle]="'Disk'" 
               [EnableBorder]="false" 
-              [GlassyEffect]="false" 
+              [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"   
               [GlassyEffectColor]="'darkgray'"
               [TextColor]="'#666'"
               [YAxisTitle]="'Speed'" [FillAreaColor]="false" [Width]="340"
@@ -319,7 +328,7 @@
                           
             <rserieschart 
               [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
-              [EnableBorder]="false" [GlassyEffect]="false"
+              [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
               [PopupBorderColor]="'lightgray'"
               [Width]="340" [Height]="240"
               [Items]="seriesModel">
@@ -340,7 +349,7 @@
                   
             <rserieschart 
               [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
-              [EnableBorder]="false" [GlassyEffect]="false"
+              [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
               [GlassyEffectColor]="'darkgray'" 
               [Width]="340" [Height]="240"
               [PopupBorderColor]="'lightgray'"
@@ -362,7 +371,7 @@
         <div class="card-body center">      
               
           <rstackedbarchart-vertical [MarginX]="55" [Width]="340" [Height]="240" 
-            [EnableBorder]="false" [GlassyEffect]="false" 
+            [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"   
             [GlassyEffectColor]="'darkgray'"
             [XAxisTitle]="'Monthly Expenses'"
             [YAxisTitle]="'Amount Spent'" 
@@ -384,7 +393,7 @@
               
           
         <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
-          [EnableBorder]="false" [GlassyEffect]="false" [GlassyEffectColor]="'darkgray'" [Width]="340" [Height]="240" [MarginX]="55"
+          [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"   [GlassyEffectColor]="'darkgray'" [Width]="340" [Height]="240" [MarginX]="55"
           [MarginY]="50" [yAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
         </rstackedbarchart-horizontal>
 
@@ -403,7 +412,7 @@
               
           
         <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
-          [GlassyEffect]="false"   [EnableBorder]="false"
+          [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"     [EnableBorder]="false"
           [MarginX]="55"
           [GlassyEffectColor]="'darkgray'" [Columns]="stackedrangebarChartItems1" [Width]="340" [Height]="240"
           [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount spent'">
@@ -866,7 +875,7 @@
                             [TextColor]="'#666'"
                             [EnableBorder]="false"
                             [BorderColor]="'#e0e0e0'"
-                            [GlassyEffect]="false"
+                            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
                             [AllocatedValueIndicatorColor]="'#333'"
                             [PopupBackgroundOpacity]="0.95">
                           </rallocated-barchart>
@@ -891,7 +900,7 @@
                             [TextColor]="'#666'"
                             [EnableBorder]="false"
                             [BorderColor]="'#e0e0e0'"
-                            [GlassyEffect]="false"
+                            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
                             [AllocatedValueIndicatorColor]="'#333'"
                             [PopupBackgroundOpacity]="0.95">
                           </rallocated-barchart>
@@ -916,7 +925,7 @@
                             [TextColor]="'#666'"
                             [EnableBorder]="false"
                             [BorderColor]="'#e0e0e0'"
-                            [GlassyEffect]="false"
+                            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
                             [AllocatedValueIndicatorColor]="'#333'"
                             [PopupBackgroundOpacity]="0.95">
                           </rallocated-barchart>

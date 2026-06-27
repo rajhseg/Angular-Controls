@@ -29,12 +29,6 @@ export class RStackedRangeBarChartVerticalComponent extends RChartPopupBaseCompo
   BorderColor: string = 'lightgray';
 
   @Input()
-  GlassyEffect: boolean = true;
-
-  @Input()
-  GlassyEffectColor: string = 'lightgray';
-
-  @Input()
   PaddingLeft: number = 20;
 
   @Input()

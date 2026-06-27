@@ -29,12 +29,6 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
   BorderColor: string = 'lightgray';
 
   @Input()
-  GlassyEffect: boolean = true;
-
-  @Input()
-  GlassyEffectColor: string = 'lightgray';
-
-  @Input()
   PaddingLeft: number = 20;
 
   @Input()

@@ -62,14 +62,14 @@
 /* Body */
 .showcase-body {
   padding: 28px 32px;
-  max-width: 1200px;
+  max-width: 80%;
   margin: 0 auto;
 }
 
 /* Section = card grid */
 .section {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 20px;
 }
 

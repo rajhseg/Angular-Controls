@@ -204,6 +204,9 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
 export abstract class RChartBaseComponent {
 
     Id: string = '';
+    
+    private _glassyEffect: boolean = true;
+    private _glassyEffectColor: string = 'lightgray';
 
     @HostBinding('id')
     HostElementId: string = '';
@@ -216,11 +219,31 @@ export abstract class RChartBaseComponent {
 
     @Input()
     IsDisabled: boolean = false;
+    
+    @Input()
+    set GlassyEffect(val: boolean){
+        this._glassyEffect = val;
+        this.Render();
+    }
+    get GlassyEffect() : boolean {
+        return this._glassyEffect;
+    }
+
+    @Input()
+    set GlassyEffectColor(val: string){
+        this._glassyEffectColor = val;
+        this.Render();
+    }
+    get GlassyEffectColor(): string {
+        return this._glassyEffectColor;
+    }
 
     constructor(protected winObj: RWindowHelper){
         this.Id = this.winObj.GenerateUniqueId();
         this.HostElementId = this.winObj.GenerateUniqueId();
     }
+
+    public abstract Render(): void;
 
 }
 

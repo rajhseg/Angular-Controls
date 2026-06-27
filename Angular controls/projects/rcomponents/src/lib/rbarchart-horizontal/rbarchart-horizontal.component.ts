@@ -28,12 +28,6 @@ export class RBarChartHorizontalComponent extends RChartPopupBaseComponent imple
   BorderColor: string = 'lightgray';
 
   @Input()
-  GlassyEffect: boolean = true;
-
-  @Input()
-  GlassyEffectColor: string = 'lightgray';
-
-  @Input()
   PaddingLeft: number = 20;
 
   @Input()

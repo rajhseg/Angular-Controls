@@ -31,12 +31,6 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
   BorderColor: string = 'lightgray';
 
   @Input()
-  GlassyEffect: boolean = true;
-
-  @Input()
-  GlassyEffectColor: string = 'lightgray';
-
-  @Input()
   PaddingLeft: number = 20;
 
   @Input()

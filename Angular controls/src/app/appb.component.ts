@@ -158,6 +158,9 @@ export class AppRootComponent {
   optionA: boolean = true;
   optionB: boolean = false;
   optionC: boolean = false;
+
+  enableGlassyEffect: boolean = false;
+  glassyColor: string = '#C3C6C2';
   
   colorItems: DropdownModel[] = [
       new DropdownModel('#1E1198', 'Dark Blue'),

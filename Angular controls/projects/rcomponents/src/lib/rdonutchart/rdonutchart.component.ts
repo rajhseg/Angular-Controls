@@ -71,8 +71,10 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
         let itm = new RRenderDonutChartItem(element.Value, element.Title, element.BackgroundColor, element.ForeColor);
         this._items.push(itm);
       }
-
-      this.RenderChart();
+      
+      if(!this.IsInitialized) {
+        this.Render();
+      }
     }
   }
   public get Items(): RDonutChartItem[] {

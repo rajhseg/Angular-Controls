@@ -75,7 +75,9 @@ export class RPieChartComponent  extends RChartBaseComponent implements AfterVie
         this._items.push(itm);
       }
 
-      this.RenderChart();
+      if(!this.IsInitialized) {
+        this.Render();
+      }
     }
   }
   public get Items(): RPieChartItem[] {

@@ -56,7 +56,10 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
   @Input()
   public set XAxisTitle(val: string) {
     this._xAxisTitle = val;
-    this.RenderAreaChart();
+      
+    if(!this.IsInitialized) {
+      this.RenderAreaChart();
+    }
   }
   public get XAxisTitle(): string {
     return this._xAxisTitle;
@@ -65,7 +68,10 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
   @Input()
   public set YAxisTitle(val: string) {
     this._yAxisTitle = val;
-    this.RenderAreaChart();
+      
+    if(!this.IsInitialized) {
+      this.RenderAreaChart();
+    }
   }
   public get YAxisTitle(): string {
     return this._yAxisTitle;
@@ -77,7 +83,10 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
   public set xAxisItemNames(val: string[]){
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
       this._xAxisItemNames = val;
-      this.RenderAreaChart();
+      
+      if(!this.IsInitialized) {
+        this.RenderAreaChart();
+      }
     }    
   }
   public get xAxisItemNames(): string[] {
@@ -101,7 +110,10 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
   @Input()
   public set Width(val: number) {
     this._width = val;
-    this.RenderAreaChart();
+      
+    if(!this.IsInitialized) {
+      this.RenderAreaChart();
+    }
   }
   public get Width(): number {
     return this._width;
@@ -131,7 +143,10 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
   @Input()
   public set Height(val: number) {
     this._height = val;
-    this.RenderAreaChart();
+      
+    if(!this.IsInitialized) {
+      this.RenderAreaChart();
+    }
   }
   public get Height(): number {
     return this._height;
@@ -152,7 +167,10 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
   public set Items(val: RAreaChartItem[]) {
     if (!this.IsLineItemListEqual(val, this._items)) {
       this._items = val;
-      this.RenderAreaChart();
+      
+      if(!this.IsInitialized) {
+        this.RenderAreaChart();
+      }
     }
   }
   public get Items(): RAreaChartItem[] {

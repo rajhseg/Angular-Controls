@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { RWindowHelper } from '../rwindowObject';
 import { NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RBaseChartItem } from '../rmodels/RBarChartItem';
@@ -11,7 +11,7 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rdonutchart.component.html',
   styleUrl: './rdonutchart.component.css'
 })
-export class RDonutChartComponent  extends RChartBaseComponent  implements AfterViewInit {
+export class RDonutChartComponent  extends RChartBaseComponent  implements AfterViewInit, OnChanges {
 
   @Input()
   EnableBorder: boolean = false;
@@ -94,10 +94,17 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
   trackById(index: number, item: RDonutChartItem){
     return item.Id;
   }
+ 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(Object.keys(changes).length > 0 && this.IsInitialized) {
+      this.Render();
+    }
+  }
 
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.progressCanvas != undefined) {
+        this.IsInitialized = true;
         this.context = this.progressCanvas.nativeElement.getContext('2d');
         this.RenderChart();
       }

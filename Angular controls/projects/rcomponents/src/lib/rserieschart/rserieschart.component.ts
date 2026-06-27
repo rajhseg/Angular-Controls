@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { RBarChartItem, RGraph, RPopupChartItem, RYSeriesChartItem, RGraphSeriesChartItem, RBaseChartItem } from '../rmodels/RBarChartItem';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -11,7 +11,7 @@ import { RChartBaseComponent, RChartPopupBaseComponent } from '../rmodels/RBaseC
   templateUrl: './rserieschart.component.html',
   styleUrl: './rserieschart.component.css'
 })
-export class RSeriesChartComponent  extends RChartPopupBaseComponent {
+export class RSeriesChartComponent  extends RChartPopupBaseComponent implements AfterViewInit, OnChanges {
 
 
   private _width: number = 300;
@@ -169,9 +169,16 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent {
     return item.Id;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(Object.keys(changes).length > 0 && this.IsInitialized) {
+      this.Render();
+    }
+  }
+  
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.bar != undefined) {
+        this.IsInitialized = true;
         this.context = this.bar.nativeElement.getContext('2d');
         this.bar.nativeElement.onmousemove = this.MouseMove.bind(this);
         this.RenderSeriesChart();

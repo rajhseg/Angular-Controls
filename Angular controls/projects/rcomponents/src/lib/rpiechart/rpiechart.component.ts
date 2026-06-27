@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { RWindowHelper } from '../rwindowObject';
 import { NgClass, NgForOf, NgIf, NgStyle } from '@angular/common';
 import { RBaseChartItem } from '../rmodels/RBarChartItem';
@@ -11,7 +11,7 @@ import { RChartBaseComponent } from '../rmodels/RBaseComponent';
   templateUrl: './rpiechart.component.html',
   styleUrl: './rpiechart.component.css'
 })
-export class RPieChartComponent  extends RChartBaseComponent {
+export class RPieChartComponent  extends RChartBaseComponent implements AfterViewInit, OnChanges {
 
   @Input()
   EnableBorder: boolean = false;
@@ -97,10 +97,17 @@ export class RPieChartComponent  extends RChartBaseComponent {
   trackById(index: number, item: RPieChartItem){
     return item.Id;
   }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if(Object.keys(changes).length > 0 && this.IsInitialized) {
+      this.Render();
+    }
+  }
 
   ngAfterViewInit(): void {
     if (this.winObj.isExecuteInBrowser()) {
       if (this.progressCanvas != undefined) {
+        this.IsInitialized = true;
         this.context = this.progressCanvas.nativeElement.getContext('2d');
         this.RenderChart();
       }

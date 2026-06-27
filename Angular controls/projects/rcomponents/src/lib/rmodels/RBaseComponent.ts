@@ -27,6 +27,7 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
     private _readonly: boolean = false;
     private _disabled: boolean | null = false;
     protected _formDisabled: boolean | null = false;
+    protected IsInitialized: boolean = false;
     
     private onValidatorChange?: () => void;
 
@@ -204,6 +205,8 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
 export abstract class RChartBaseComponent {
 
     Id: string = '';
+
+    protected IsInitialized: boolean = false;
     
     private _glassyEffect: boolean = true;
     private _glassyEffectColor: string = 'lightgray';
@@ -223,7 +226,6 @@ export abstract class RChartBaseComponent {
     @Input()
     set GlassyEffect(val: boolean){
         this._glassyEffect = val;
-        this.Render();
     }
     get GlassyEffect() : boolean {
         return this._glassyEffect;
@@ -232,7 +234,6 @@ export abstract class RChartBaseComponent {
     @Input()
     set GlassyEffectColor(val: string){
         this._glassyEffectColor = val;
-        this.Render();
     }
     get GlassyEffectColor(): string {
         return this._glassyEffectColor;

@@ -92,10 +92,6 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
   @Input()
   public set GapBetweenBars(val: RSpaceBetweenBars) {
     this._gapBetweenBars =  val;
-    
-    if(!this.IsInitialized) {
-      this.RenderBarChart();
-    }
   }
   public get GapBetweenBars(): number {
     return this._gapBetweenBars;
@@ -136,10 +132,6 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
   public set xAxisItemNames(val: string[]) {
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
       this._xAxisItemNames = val;
-
-      if(!this.IsInitialized) {
-        this.RenderBarChart();
-      }
     }
   }
   public get xAxisItemNames(): string[] {
@@ -163,10 +155,6 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
 
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
-      
-      if(!this.IsInitialized) {
-        this.RenderBarChart();
-      }
     }
   }
   public get Columns(): RAllocatedBarChartItem[] {

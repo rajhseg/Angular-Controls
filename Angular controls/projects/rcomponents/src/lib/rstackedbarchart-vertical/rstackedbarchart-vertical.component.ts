@@ -92,10 +92,6 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
   @Input()
   public set GapBetweenBars(val: RSpaceBetweenBars) {
     this._gapBetweenBars = val;
-    
-    if(!this.IsInitialized) {
-      this.Render();
-    }
   }
   public get GapBetweenBars(): number {
     return this._gapBetweenBars;
@@ -136,10 +132,6 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
   public set xAxisItemNames(val: string[]) {
     if (val == undefined || val == null || val.toString() != this._xAxisItemNames.toString()) {
       this._xAxisItemNames = val;
-    
-      if(!this.IsInitialized) {
-        this.Render();
-      }
     }
   }
   public get xAxisItemNames(): string[] {
@@ -162,10 +154,6 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
   public set Columns(val: RBarChartItem[]) {
     if (!this.IsBarItemListEqual(val, this._columns)) {
       this._columns = val;
-    
-      if(!this.IsInitialized) {
-        this.Render();
-      }
     }
   }
   public get Columns(): RBarChartItem[] {

@@ -143,10 +143,6 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent implements 
   public set Items(val: RYSeriesChartItem[] | RGraphSeriesChartItem[]) {
     if (!this.IsScatterItemListEqual(val, this._items)) {
       this._items = val;
-      
-      if(!this.IsInitialized) {
-        this.Render();
-      }
     }
   }
   public get Items(): any {

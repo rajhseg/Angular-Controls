@@ -141,10 +141,6 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
   public set Items(val: RScatterChartItem[]) {
     if (!this.IsScatterItemListEqual(val, this._items)) {
       this._items = val;
-    
-      if(!this.IsInitialized) {
-        this.Render();
-      }
     }
   }
   public get Items(): RScatterChartItem[] {

@@ -74,10 +74,6 @@ export class RPieChartComponent  extends RChartBaseComponent implements AfterVie
         let itm = new RRenderPieChartItem(element.Value, element.Title, element.BackgroundColor, element.ForeColor);
         this._items.push(itm);
       }
-
-      if(!this.IsInitialized) {
-        this.Render();
-      }
     }
   }
   public get Items(): RPieChartItem[] {

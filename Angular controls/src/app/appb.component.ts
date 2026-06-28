@@ -233,7 +233,7 @@ export class AppRootComponent {
        new RPieChartItem(35,'Volleyball', 'purple', 'white'),
        new RPieChartItem(12,'Tennis', 'gray', 'white'),
       new RPieChartItem(44,'BaseBall', 'teal', 'white'),
-       new RPieChartItem(14,'Hockey', 'dark#8f19ff', 'white'),
+       new RPieChartItem(14,'Hockey', '#8f19ff', 'white'),
        new RPieChartItem(44,'Football', '#13297A', 'white')
   ];
 
@@ -243,7 +243,7 @@ export class AppRootComponent {
     new RDonutChartItem(35,'Volleyball', 'purple', 'white'),
     new RDonutChartItem(12,'Tennis', 'gray', 'white'),
     new RDonutChartItem(44,'BaseBall', 'teal', 'white'),
-    new RDonutChartItem(14,'Hockey', 'dark#8f19ff', 'white'),
+    new RDonutChartItem(14,'Hockey', '#8f19ff', 'white'),
     new RDonutChartItem(44,'Football', '#13297A', 'white'),
 
   ];

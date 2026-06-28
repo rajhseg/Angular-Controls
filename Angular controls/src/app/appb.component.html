@@ -136,6 +136,9 @@
             [yAxisItemNames]="barHorizontalItems"
             [Width]="340"
             [Height]="240"
+            [MarginX]="50"
+            [MarginY]="50"
+            [PaddingLeft]="30"
             XAxisTitle="Hours"
             YAxisTitle="Team"
             TextColor="#666"
@@ -200,7 +203,9 @@
         <div class="card-body center">
           <rlinechart-vertical
             [Items]="lineItems"
+            [PlotItemSize]="2"
             [xAxisItemNames]="lineMonths"
+            [PaddingRight]="20"
             [Width]="380"
             [Height]="240"
             [MarginX]="55"

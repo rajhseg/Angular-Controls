@@ -402,7 +402,7 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
 
       /* Draw Horizontal Line */
       this.context.moveTo(StartX, StartY);
-      this.context.lineTo(this.Width, StartY);
+      this.context.lineTo(this.PaddingLeft + this.Width, StartY);
       this.context.strokeStyle = this.TextColor;
       this.context.stroke();
       this.context.closePath();
@@ -411,7 +411,7 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
       this.context.beginPath();
       
       let met = this.context.measureText(this.XAxisTitle);
-      let xTextPoint = (this.Width - this.MarginX - this.PaddingLeft - this.PaddingRight)/2 + this.MarginX + this.PaddingLeft;
+      let xTextPoint = (this.Width - this.MarginX)/2 + (this.MarginX/1.5) + this.PaddingLeft;
       xTextPoint = xTextPoint - (met.width/2);
       let yTextPoint = this.Height + this.PaddingTop - 5;
 
@@ -427,7 +427,7 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
       this.context.save();
 
       met = this.context.measureText(this.XAxisTitle);
-      yTextPoint = (this.Height - this.MarginY)/2;
+      yTextPoint = (this.Height - this.MarginY)/2 - this.PaddingBottom;
       yTextPoint = yTextPoint + this.PaddingTop + this.PaddingBottom + (met.width/2);
       xTextPoint = this.PaddingLeft + 15;            
       this.context.fillStyle = this.TextColor;

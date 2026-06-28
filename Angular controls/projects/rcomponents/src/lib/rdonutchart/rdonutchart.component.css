@@ -18,7 +18,6 @@
 }
 
 .dataContainer {
-    float: left; 
     display: flex;
     flex-direction: row; 
     flex-wrap: wrap;
@@ -28,12 +27,10 @@
 .indicator {
     width: 5px; 
     height: 5px;
-    float: left;
     margin-right: 4px;
 }
 
 .title {
-    float: left;
     margin-right: 5px;
     color: black;
     padding: 5px;

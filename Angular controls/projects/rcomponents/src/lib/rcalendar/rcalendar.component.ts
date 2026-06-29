@@ -405,6 +405,10 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   }
 
+  public Render() {
+    this.RenderUI(this.selectedDate);
+  }
+
   private RenderUI(obj: string | Date) {
     try {
       if (obj != undefined && obj != '') {

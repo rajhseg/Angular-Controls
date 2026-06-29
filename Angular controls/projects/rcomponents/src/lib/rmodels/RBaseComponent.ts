@@ -199,6 +199,8 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
             this.onValidatorChange();
         }
     }
+
+    public abstract Render(): void;
 }
 
 @Directive()

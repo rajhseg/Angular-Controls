@@ -201,7 +201,9 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
 
       let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
       let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
-
+ 
+      this.ResetCanvasContext(this.context);
+      
       this.context?.beginPath();
       this.context.clearRect(0, 0, totalWidth, totalHeight);
       this.context.closePath();
@@ -343,7 +345,8 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
-
+ 
+      this.ResetCanvasContext(this.context);
       this.context.clearRect(0, 0, totalWidth, totalHeight);
 
       this.EnableGlassyEffectOnTopOfChart();

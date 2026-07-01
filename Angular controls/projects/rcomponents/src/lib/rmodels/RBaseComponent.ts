@@ -200,7 +200,7 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
         }
     }
 
-    public abstract Render(): void;
+    //public abstract Render(): void;
 }
 
 @Directive()
@@ -247,6 +247,17 @@ export abstract class RChartBaseComponent {
     }
 
     public abstract Render(): void;
+
+    protected ResetCanvasContext(context: CanvasRenderingContext2D): void {
+        if (!context) {
+        return;
+        }
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.globalAlpha = 1;
+        context.filter = 'none';
+        context.lineWidth = 1;
+    }
 
 }
 

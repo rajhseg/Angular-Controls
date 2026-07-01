@@ -406,7 +406,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   }
 
   public Render() {
-    this.RenderUI(this.selectedDate);
+    if(this.selectedDate)
+      this.RenderUI(this.selectedDate);
   }
 
   private RenderUI(obj: string | Date) {

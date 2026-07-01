@@ -191,7 +191,9 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent implements 
 
       let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
       let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
-
+ 
+      this.ResetCanvasContext(this.context);
+      
       this.context?.beginPath();
       this.context.clearRect(0, 0, totalWidth, totalHeight);
       this.context.closePath();
@@ -352,6 +354,8 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent implements 
       let max: number | undefined = undefined;
 
       this.PopupItems = [];
+ 
+      this.ResetCanvasContext(this.context);
 
       this.context.clearRect(0, 0, totalWidth, totalHeight);      
 

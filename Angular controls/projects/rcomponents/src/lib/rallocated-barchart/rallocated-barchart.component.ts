@@ -232,6 +232,8 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
     let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
 
     if(this.context && this.bar){            
+      this.ResetCanvasContext(this.context);
+      
       this.context?.beginPath();
       this.context.clearRect(0, 0, totalWidth, totalHeight);
       this.context.closePath();
@@ -362,6 +364,7 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
       // Soft inner highlight
       this.context.fillStyle = "rgba(255, 255, 255, 0.1)";
       this.context.fillRect(x, y, gwidth, gheight);
+
     }
   }
 
@@ -380,11 +383,13 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
       let max: number | undefined = undefined;
       
       this.PopupItems = [];
+
+      this.ResetCanvasContext(this.context);
       
       this.context.clearRect(0, 0, totalWidth, totalHeight);
-
+      
       this.EnableGlassyEffectOnTopOfChart();
-
+      
       let spaceFromTopYAxis = 25;
 
       for (let index = 0; index < this.Columns.length; index++) {
@@ -579,6 +584,7 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
       }
 
       this.IsRendered = true;
+     // this.EnableReadOnlyOnTopOfChart(this.context, totalWidth, totalHeight);
       this.cdr.detectChanges();
     }
   }

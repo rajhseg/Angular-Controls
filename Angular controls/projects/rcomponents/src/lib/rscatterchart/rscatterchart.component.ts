@@ -185,7 +185,11 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
 
   
   private MouseMove(event: MouseEvent) {
-    if(this.context && this.bar){            
+    if(this.context && this.bar){   
+      
+       
+      this.ResetCanvasContext(this.context);
+      
       this.context?.beginPath();      
       
       this.context.clearRect(0, 0, this.Width + this.PaddingLeft + this.PaddingRight, 
@@ -325,11 +329,16 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
   private RenderScatterChart() {
     this.IsRendered = false;
 
-    if (this.bar && this.context && this.Items && this.Items.length > 0) {
+    const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
+    const totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+
+    if (this.bar && this.context && this.Items && this.Items.length > 0) {    
       let min: number | undefined = undefined;
       let max: number | undefined = undefined;
 
       this.PopupItems = [];
+ 
+      this.ResetCanvasContext(this.context);
 
       this.context.clearRect(0, 0, this.Width + this.PaddingLeft + this.PaddingRight, this.Height + this.PaddingTop + this.PaddingBottom);
       

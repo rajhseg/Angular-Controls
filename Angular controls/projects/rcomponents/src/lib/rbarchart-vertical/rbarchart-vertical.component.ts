@@ -28,16 +28,16 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
   BorderColor: string = 'lightgray';
 
   @Input()
-  PaddingLeft: number = 20;
+  MarginLeft: number = 20;
 
   @Input()
-  PaddingRight: number = 20;
+  MarginRight: number = 20;
 
   @Input()
-  PaddingTop: number = 20;
+  MarginTop: number = 20;
 
   @Input()
-  PaddingBottom: number = 10;
+  MarginBottom: number = 10;
 
   @Input()
   public set TextColor(val: string){
@@ -221,8 +221,8 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
   
   private MouseMove(event: MouseEvent) {
 
-    let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
-    let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+    let totalWidth = this.Width + this.MarginLeft + this.MarginRight;
+    let totalHeight = this.Height + this.MarginTop + this.MarginBottom;
 
     if(this.context && this.bar){     
        
@@ -310,8 +310,8 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
   private EnableGlassyEffectOnTopOfChart() {
     if (this.context && this.bar && this.GlassyEffect) {
 
-      let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight,
-        gheight = this.Height + this.PaddingTop + this.PaddingBottom;
+      let x = 0, y = 0, gwidth = this.Width + this.MarginLeft + this.MarginRight,
+        gheight = this.Height + this.MarginTop + this.MarginBottom;
 
       this.context.beginPath();
       this.context.save();
@@ -341,8 +341,8 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
   private RenderBarChart() {
     this.IsRendered = false;
 
-    const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
-    const totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+    const totalWidth = this.Width + this.MarginLeft + this.MarginRight;
+    const totalHeight = this.Height + this.MarginTop + this.MarginBottom;
 
     if (this.bar && this.context && this.Columns.length > 0 && this.xAxisItemNames.length > 0) {
       let min: number | undefined = undefined;
@@ -384,19 +384,19 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
       var MinLimit = 0;
       var MaxLimit = distance * (this.NoOfSplitInValueAxis);
 
-      var StartX: number = this._marginX + this.PaddingLeft;
-      var StartY: number = this.Height  + this.PaddingTop - this._marginY;
+      var StartX: number = this._marginX + this.MarginLeft;
+      var StartY: number = this.Height  + this.MarginTop - this._marginY;
 
       /* Draw Vertical Line */
       this.context.beginPath();
       this.context.moveTo(StartX, StartY);
-      this.context.lineTo(StartX, this.PaddingTop);
+      this.context.lineTo(StartX, this.MarginTop);
       this.context.strokeStyle = this.TextColor;
       this.context.stroke();
 
       /* Draw Horizontal Line */
       this.context.moveTo(StartX, StartY);
-      this.context.lineTo(this.PaddingLeft + this.Width, StartY);
+      this.context.lineTo(this.MarginLeft + this.Width, StartY);
       this.context.strokeStyle = this.TextColor;
       this.context.stroke();
       this.context.closePath();
@@ -405,9 +405,9 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
       this.context.beginPath();
       
       let met = this.context.measureText(this.XAxisTitle);
-      let xTextPoint = (this.Width - this.MarginX)/2 + (this.MarginX/1.5) + this.PaddingLeft;
+      let xTextPoint = (this.Width - this.MarginX)/2 + (this.MarginX/1.5) + this.MarginLeft;
       xTextPoint = xTextPoint - (met.width/2);
-      let yTextPoint = this.Height + this.PaddingTop - 5;
+      let yTextPoint = this.Height + this.MarginTop - 5;
 
       this.context.save();
       this.context.fillStyle = this.TextColor;
@@ -421,9 +421,9 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
       this.context.save();
 
       met = this.context.measureText(this.XAxisTitle);
-      yTextPoint = (this.Height - this.MarginY)/2 - this.PaddingBottom;
-      yTextPoint = yTextPoint + this.PaddingTop + this.PaddingBottom + (met.width/2);
-      xTextPoint = this.PaddingLeft + 15;            
+      yTextPoint = (this.Height - this.MarginY)/2 - this.MarginBottom;
+      yTextPoint = yTextPoint + this.MarginTop + this.MarginBottom + (met.width/2);
+      xTextPoint = this.MarginLeft + 15;            
       this.context.fillStyle = this.TextColor;
       this.context.translate(xTextPoint, yTextPoint);
       this.context.rotate((Math.PI/180) * 270);
@@ -433,12 +433,12 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
       this.context.closePath();
       
       /* Draw y axis line */
-      let vDistance = (StartY - this.PaddingTop - spaceFromTopYAxis) / (this.NoOfSplitInValueAxis);
+      let vDistance = (StartY - this.MarginTop - spaceFromTopYAxis) / (this.NoOfSplitInValueAxis);
 
       /* Draw Y Axis */
       for (let index = 0; index <= this.NoOfSplitInValueAxis; index++) {
         let yDisplayValue = Math.round(distance * (this.NoOfSplitInValueAxis - index));
-        let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis + this.PaddingTop);
+        let yPoint = Math.round((vDistance * index) + spaceFromTopYAxis + this.MarginTop);
 
         this.HorizontalLineInYAxis(StartX, yPoint);
         this.DrawHorizontalLine(StartX, yPoint);
@@ -466,14 +466,14 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
         let halfXPoint = remWidth / 2;
 
         /* Draw name on xAxis */
-        this.DrawXAxisName(xAxisName, xPoint + halfXPoint, this.Height + this.PaddingTop - this._marginY + 15);
+        this.DrawXAxisName(xAxisName, xPoint + halfXPoint, this.Height + this.MarginTop - this._marginY + 15);
 
         for (let x = 0; x < this.Columns.length; x++) {
           const element = this.Columns[x];
           let value = element.Values[index];
 
           if (value) {
-            let y = this.GetYStartPoint(value, distance, itemCount, vDistance, spaceFromTopYAxis + this.PaddingTop);
+            let y = this.GetYStartPoint(value, distance, itemCount, vDistance, spaceFromTopYAxis + this.MarginTop);
 
             let color = typeof element.barItemsBackColor === 'string' ?
               element.barItemsBackColor : element.barItemsBackColor.length > 0 && element.barItemsBackColor[index] ?
@@ -498,8 +498,8 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
             halfValueXPoint = remXWidth / 2;
             
             let yTextOnBar = 0;
-            if((y + 15) >= (this.Height + this.PaddingTop - this.MarginY)){
-              yTextOnBar = this.Height + this.PaddingTop - this.MarginY - 10;
+            if((y + 15) >= (this.Height + this.MarginTop - this.MarginY)){
+              yTextOnBar = this.Height + this.MarginTop - this.MarginY - 10;
               foreColor = this.TextColor;
             } else {
               yTextOnBar = y + 15;
@@ -586,7 +586,7 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX - this.PaddingLeft;
+      let endX = x + this.Width - this._marginX - this.MarginLeft;
       this.context.lineWidth = 0.4;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

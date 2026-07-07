@@ -32,16 +32,16 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
   BorderColor: string = 'lightgray';
 
   @Input()
-  PaddingLeft: number = 20;
+  MarginLeft: number = 20;
 
   @Input()
-  PaddingRight: number = 20;
+  MarginRight: number = 20;
 
   @Input()
-  PaddingTop: number = 20;
+  MarginTop: number = 20;
 
   @Input()
-  PaddingBottom: number = 10;
+  MarginBottom: number = 10;
 
   @Input()
   PlotItemSize: number = 3;
@@ -192,8 +192,8 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
       
       this.context?.beginPath();      
       
-      this.context.clearRect(0, 0, this.Width + this.PaddingLeft + this.PaddingRight, 
-        this.Height + this.PaddingTop + this.PaddingBottom);
+      this.context.clearRect(0, 0, this.Width + this.MarginLeft + this.MarginRight, 
+        this.Height + this.MarginTop + this.MarginBottom);
 
       this.context.closePath();
 
@@ -298,8 +298,8 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
   private EnableGlassyEffectOnTopOfChart() {
     if(this.context && this.bar && this.GlassyEffect) {
 
-      let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight, 
-          gheight = this.Height + this.PaddingTop + this.PaddingBottom;
+      let x = 0, y = 0, gwidth = this.Width + this.MarginLeft + this.MarginRight, 
+          gheight = this.Height + this.MarginTop + this.MarginBottom;
 
       this.context.beginPath();
       this.context.save();
@@ -329,8 +329,8 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
   private RenderScatterChart() {
     this.IsRendered = false;
 
-    const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
-    const totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+    const totalWidth = this.Width + this.MarginLeft + this.MarginRight;
+    const totalHeight = this.Height + this.MarginTop + this.MarginBottom;
 
     if (this.bar && this.context && this.Items && this.Items.length > 0) {    
       let min: number | undefined = undefined;
@@ -340,7 +340,7 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
  
       this.ResetCanvasContext(this.context);
 
-      this.context.clearRect(0, 0, this.Width + this.PaddingLeft + this.PaddingRight, this.Height + this.PaddingTop + this.PaddingBottom);
+      this.context.clearRect(0, 0, this.Width + this.MarginLeft + this.MarginRight, this.Height + this.MarginTop + this.MarginBottom);
       
       this.EnableGlassyEffectOnTopOfChart();
 
@@ -374,19 +374,19 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
         var MinLimit = 0;
         var MaxLimit = ydistance * (this.NoOfSplitInYAxis);
 
-        var StartX: number = this._marginX + this.PaddingLeft;
-        var StartY: number = this.Height + this.PaddingTop - this._marginY;
+        var StartX: number = this._marginX + this.MarginLeft;
+        var StartY: number = this.Height + this.MarginTop - this._marginY;
 
         /* Draw Vertical Line */
         this.context.beginPath();
         this.context.moveTo(StartX, StartY);
-        this.context.lineTo(StartX, this.PaddingTop);
+        this.context.lineTo(StartX, this.MarginTop);
         this.context.strokeStyle = this.TextColor;
         this.context.stroke();
 
         /* Draw Horizontal Line */
         this.context.moveTo(StartX, StartY);
-        this.context.lineTo(this.PaddingLeft + this.Width, StartY);
+        this.context.lineTo(this.MarginLeft + this.Width, StartY);
         this.context.strokeStyle = this.TextColor;
         this.context.stroke();
         this.context.closePath();
@@ -396,9 +396,9 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
         this.context.beginPath();
 
         let met = this.context.measureText(this.XAxisTitle);
-        let xTextPoint = (this.Width - this.MarginX) / 2 + (this.MarginX/1.5) + this.PaddingLeft;
+        let xTextPoint = (this.Width - this.MarginX) / 2 + (this.MarginX/1.5) + this.MarginLeft;
         xTextPoint = xTextPoint - (met.width / 2);
-        let yTextPoint = this.Height + this.PaddingTop - 5;
+        let yTextPoint = this.Height + this.MarginTop - 5;
 
         this.context.save();
         this.context.fillStyle = this.TextColor;
@@ -412,9 +412,9 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
         this.context.save();
 
         met = this.context.measureText(this.XAxisTitle);
-        yTextPoint = (this.Height - this.MarginY) / 2 - this.PaddingBottom;
-        yTextPoint = yTextPoint + this.PaddingTop + this.PaddingBottom + (met.width / 2);
-        xTextPoint = this.PaddingLeft + 15;
+        yTextPoint = (this.Height - this.MarginY) / 2 - this.MarginBottom;
+        yTextPoint = yTextPoint + this.MarginTop + this.MarginBottom + (met.width / 2);
+        xTextPoint = this.MarginLeft + 15;
         this.context.fillStyle = this.TextColor;
         this.context.translate(xTextPoint, yTextPoint);
         this.context.rotate((Math.PI / 180) * 270);
@@ -425,12 +425,12 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
 
 
         /* Draw y axis line */
-        let yvDistance = (StartY - this.PaddingTop - spaceFromTopYAxis) / this.NoOfSplitInYAxis;
+        let yvDistance = (StartY - this.MarginTop - spaceFromTopYAxis) / this.NoOfSplitInYAxis;
 
         /* Draw Y Axis */
         for (let index = 0; index <= this.NoOfSplitInYAxis; index++) {
           let yDisplayValue = Math.round(ydistance * (this.NoOfSplitInYAxis - index));
-          let yPoint = Math.round((yvDistance * index) + spaceFromTopYAxis + this.PaddingTop);
+          let yPoint = Math.round((yvDistance * index) + spaceFromTopYAxis + this.MarginTop);
 
           this.HorizontalLineInYAxis(StartX, yPoint);
           this.DrawHorizontalLine(StartX, yPoint);
@@ -452,7 +452,7 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
         for (let index = 1; index <= this.NoOfSplitInXAxis; index++) {
           let xDisplayValue = xdistance * index;
           let xPoint = (xvDistance * index) + StartX;
-          let yPoint = this.Height + this.PaddingTop - this.MarginY;
+          let yPoint = this.Height + this.MarginTop - this.MarginY;
 
           this.DrawVerticalLine(xPoint, yPoint);
           this.DrawVerticalLineInXAxis(xPoint, yPoint);
@@ -469,7 +469,7 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
             let xPoint = xvDistance * indx + StartX;
 
             let yindx = -(item.yPoint / ydistance) + this.NoOfSplitInYAxis;
-            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis + this.PaddingTop);
+            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis + this.MarginTop);
             
             this.Plot(xPoint, yPoint, element.ItemColor);
 
@@ -506,7 +506,7 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(xPoint, yPoint);
-      this.context.lineTo(xPoint, this.PaddingTop);
+      this.context.lineTo(xPoint, this.MarginTop);
       this.context.stroke();
       this.context.closePath();
     }
@@ -602,7 +602,7 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX - this.PaddingLeft;
+      let endX = x + this.Width - this._marginX - this.MarginLeft;
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

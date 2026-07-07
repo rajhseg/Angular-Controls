@@ -29,16 +29,16 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
   BorderColor: string = 'lightgray';
 
   @Input()
-  PaddingLeft: number = 20;
+  MarginLeft: number = 20;
 
   @Input()
-  PaddingRight: number = 20;
+  MarginRight: number = 20;
 
   @Input()
-  PaddingTop: number = 20;
+  MarginTop: number = 20;
 
   @Input()
-  PaddingBottom: number = 10;
+  MarginBottom: number = 10;
 
   @Input()
   PlotItemSize: number = 3;
@@ -189,8 +189,8 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
   private MouseMove(event: MouseEvent) {
     if(this.context && this.bar){  
 
-      let totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;    
-      let totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+      let totalWidth = this.Width + this.MarginLeft + this.MarginRight;    
+      let totalHeight = this.Height + this.MarginTop + this.MarginBottom;
  
       this.ResetCanvasContext(this.context);
 
@@ -295,8 +295,8 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
   private EnableGlassyEffectOnTopOfChart() {
     if(this.context && this.bar && this.GlassyEffect) {
 
-      let x = 0, y = 0, gwidth = this.Width + this.PaddingLeft + this.PaddingRight, 
-          gheight = this.Height + this.PaddingTop + this.PaddingBottom;
+      let x = 0, y = 0, gwidth = this.Width + this.MarginLeft + this.MarginRight, 
+          gheight = this.Height + this.MarginTop + this.MarginBottom;
 
       this.context.beginPath();
       this.context.save();
@@ -327,8 +327,8 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
     this.IsRendered = false;
     this.PopupItems = [];
     
-    const totalWidth = this.Width + this.PaddingLeft + this.PaddingRight;
-    const totalHeight = this.Height + this.PaddingTop + this.PaddingBottom;
+    const totalWidth = this.Width + this.MarginLeft + this.MarginRight;
+    const totalHeight = this.Height + this.MarginTop + this.MarginBottom;
 
     if (this.bar && this.context && this.Items && this.Items.length > 0) {
       let min: number | undefined = undefined;
@@ -366,19 +366,19 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
         var MinLimit = 0;
         var MaxLimit = ydistance * (this.NoOfSplitInYAxis);
 
-        var StartX: number = this._marginX + this.PaddingLeft;
-        var StartY: number = this.Height + this.PaddingTop - this._marginY;
+        var StartX: number = this._marginX + this.MarginLeft;
+        var StartY: number = this.Height + this.MarginTop - this._marginY;
 
         /* Draw Vertical Line */
         this.context.beginPath();
         this.context.moveTo(StartX, StartY);
-        this.context.lineTo(StartX, this.PaddingTop);
+        this.context.lineTo(StartX, this.MarginTop);
         this.context.strokeStyle = this.TextColor;
         this.context.stroke();
 
         /* Draw Horizontal Line */
         this.context.moveTo(StartX, StartY);
-        this.context.lineTo(this.PaddingLeft + this.Width, StartY);
+        this.context.lineTo(this.MarginLeft + this.Width, StartY);
         this.context.strokeStyle = this.TextColor;
         this.context.stroke();
         this.context.closePath();
@@ -388,9 +388,9 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
         this.context.beginPath();
 
         let met = this.context.measureText(this.XAxisTitle);
-        let xTextPoint = (this.Width - this.MarginX) / 2 + (this.MarginX/1.5) + this.PaddingLeft;
+        let xTextPoint = (this.Width - this.MarginX) / 2 + (this.MarginX/1.5) + this.MarginLeft;
         xTextPoint = xTextPoint - (met.width / 2);
-        let yTextPoint = this.Height + this.PaddingTop - 5;
+        let yTextPoint = this.Height + this.MarginTop - 5;
 
         this.context.save();
         this.context.fillStyle = this.TextColor;
@@ -404,9 +404,9 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
         this.context.save();
 
         met = this.context.measureText(this.XAxisTitle);
-        yTextPoint = (this.Height - this.MarginY) / 2 - this.PaddingBottom;
-        yTextPoint = yTextPoint + this.PaddingTop + this.PaddingBottom + (met.width / 2);
-        xTextPoint = this.PaddingLeft + 15;
+        yTextPoint = (this.Height - this.MarginY) / 2 - this.MarginBottom;
+        yTextPoint = yTextPoint + this.MarginTop + this.MarginBottom + (met.width / 2);
+        xTextPoint = this.MarginLeft + 15;
         this.context.fillStyle = this.TextColor;
         this.context.translate(xTextPoint, yTextPoint);
         this.context.rotate((Math.PI / 180) * 270);
@@ -417,12 +417,12 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
 
 
         /* Draw y axis line */
-        let yvDistance = (StartY - this.PaddingTop - spaceFromTopYAxis) / this.NoOfSplitInYAxis;
+        let yvDistance = (StartY - this.MarginTop - spaceFromTopYAxis) / this.NoOfSplitInYAxis;
 
         /* Draw Y Axis */
         for (let index = 0; index <= this.NoOfSplitInYAxis; index++) {
           let yDisplayValue = Math.round(ydistance * (this.NoOfSplitInYAxis - index));
-          let yPoint = Math.round((yvDistance * index) + spaceFromTopYAxis + this.PaddingTop);
+          let yPoint = Math.round((yvDistance * index) + spaceFromTopYAxis + this.MarginTop);
 
           this.HorizontalLineInYAxis(StartX, yPoint);
           this.DrawHorizontalLine(StartX, yPoint);
@@ -439,7 +439,7 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
         for (let index = 0; index < this.NoOfSplitInXAxis; index++) {
           let xDisplayValue = this.xAxisItemNames[index];
           let xPoint = ( xvDistance * (index +1) ) + StartX;
-          let yPoint = this.Height + this.PaddingTop - this.MarginY;
+          let yPoint = this.Height + this.MarginTop - this.MarginY;
 
           this.DrawVerticalLine(xPoint, yPoint);
           this.DrawVerticalLineInXAxis(xPoint, yPoint);
@@ -455,17 +455,17 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
 
 
           if (this.IsRenderFromInit) {
-            prevX = this.MarginX + this.PaddingLeft;
-            prevY = this.Height + this.PaddingTop - this.MarginY;
+            prevX = this.MarginX + this.MarginLeft;
+            prevY = this.Height + this.MarginTop - this.MarginY;
           }
 
           for (let v = 0; v < element.Values.length; v++) {
             const item = element.Values[v];
 
-            let xPoint = xvDistance * (v + 1) + this.MarginX + this.PaddingLeft;
+            let xPoint = xvDistance * (v + 1) + this.MarginX + this.MarginLeft;
 
             let yindx = -(item / ydistance) + this.NoOfSplitInYAxis;
-            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis + this.PaddingTop);
+            let yPoint = Math.round((yvDistance * yindx) + spaceFromTopYAxis + this.MarginTop);
 
             /* Plot Circle */
             this.Plot(xPoint, yPoint, element.ItemColor);
@@ -521,7 +521,7 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(xPoint, yPoint);
-      this.context.lineTo(xPoint, this.PaddingTop);
+      this.context.lineTo(xPoint, this.MarginTop);
       this.context.stroke();
       this.context.closePath();
     }
@@ -617,7 +617,7 @@ export class RLineChartVerticalComponent  extends RChartPopupBaseComponent  impl
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX - this.PaddingLeft;
+      let endX = x + this.Width - this._marginX - this.MarginLeft;
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

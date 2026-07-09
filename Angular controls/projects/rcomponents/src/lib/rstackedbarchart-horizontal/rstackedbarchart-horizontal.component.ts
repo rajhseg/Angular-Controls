@@ -464,11 +464,7 @@ export class RStackedBarChartHorizontalComponent extends RChartPopupBaseComponen
 
         let yAxisName = this.yAxisItemNames[index];
 
-        if (this.GapBetweenBars == 1) {
-          yPoint = yPoint - eachBarLength / 2;
-        } else {
-          yPoint = yPoint - eachBarLength;
-        }
+        yPoint -= this.GetGapBetweenBars(this.GapBetweenBars, eachBarLength);
 
         let xPoint = StartX;
         let nameWidth = this.context.measureText(yAxisName);
@@ -556,9 +552,9 @@ export class RStackedBarChartHorizontalComponent extends RChartPopupBaseComponen
         }
 
         if (this.GapBetweenBars == 1) {
-          yPoint = yPoint - eachBarLength - eachBarLength / 2;
+          yPoint = yPoint - eachBarLength - this.GetGapBetweenBars(this.GapBetweenBars, eachBarLength);;
         } else {
-          yPoint = yPoint - eachBarLength - eachBarLength;
+          yPoint = yPoint - eachBarLength - this.GetGapBetweenBars(this.GapBetweenBars, eachBarLength);;
         }
 
       }

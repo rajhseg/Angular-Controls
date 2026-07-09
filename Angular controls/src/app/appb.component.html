@@ -109,6 +109,7 @@
           <rbarchart-vertical
             [Columns]="barVerticalColumns"
             [xAxisItemNames]="barVerticalMonths"
+            [GapBetweenBars]="allocatedGap"
             [Width]="360"
             [Height]="240"
             [MarginX]="60"
@@ -134,6 +135,7 @@
           <rbarchart-horizontal
             [Columns]="barHorizontalColumns"
             [yAxisItemNames]="barHorizontalItems"
+            [GapBetweenBars]="allocatedGap"
             [Width]="340"
             [Height]="240"
             [MarginX]="50"
@@ -374,7 +376,7 @@
           <rstackedbarchart-vertical [MarginX]="55" [Width]="340" [Height]="240" 
             [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"   
             [XAxisTitle]="'Monthly Expenses'"
-            [YAxisTitle]="'Amount Spent'" 
+            [YAxisTitle]="'Amount Spent'"  [GapBetweenBars]="allocatedGap"
             [xAxisItemNames]="stackedbarChartXAxisItemNames1"
             [Columns]="stackedbarChartItems1">
           </rstackedbarchart-vertical>
@@ -394,7 +396,7 @@
           
         <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
           [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
-          [Width]="340" [Height]="240" [MarginX]="55"
+          [Width]="340" [Height]="240" [MarginX]="55" [GapBetweenBars]="allocatedGap"
           [MarginY]="50" [yAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
         </rstackedbarchart-horizontal>
 
@@ -414,7 +416,7 @@
           
         <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
           [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"     [EnableBorder]="false"
-          [MarginX]="55"
+          [MarginX]="55" [GapBetweenBars]="allocatedGap"
           [Columns]="stackedrangebarChartItems1" [Width]="340" [Height]="240"
           [XAxisTitle]="'Monthly Expenses'" [YAxisTitle]="'Amount spent'">
 

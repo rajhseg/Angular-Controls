@@ -459,11 +459,7 @@ export class RBarChartHorizontalComponent extends RChartPopupBaseComponent imple
 
         let yAxisName = this.yAxisItemNames[index];
 
-        if (this.GapBetweenBars == 1) {
-          yPoint -= eachBarLength / 2;
-        } else {
-          yPoint -= eachBarLength;
-        }
+        yPoint -= this.GetGapBetweenBars(this.GapBetweenBars, eachBarLength);
 
         let nameHeight = 6;
         let nameWidth = this.context.measureText(yAxisName);
@@ -514,11 +510,7 @@ export class RBarChartHorizontalComponent extends RChartPopupBaseComponent imple
           yPoint -= eachBarLength;
         }
 
-        if (this.GapBetweenBars == 1) {
-          yPoint -= eachBarLength / 2;
-        } else {
-          yPoint -= eachBarLength;
-        }
+        yPoint -= this.GetGapBetweenBars(this.GapBetweenBars, eachBarLength);
 
       }
 

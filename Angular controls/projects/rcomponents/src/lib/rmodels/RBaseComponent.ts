@@ -3,6 +3,7 @@ import { RWindowHelper } from "../rwindowObject";
 import { RSplitterType } from "../rsplitter/rpagecontent.directive";
 import { filter, firstValueFrom, fromEvent, map, Observable, of, switchMap, take } from "rxjs";
 import { AbstractControl, AsyncValidator, NgControl, ValidationErrors, Validator, Validators } from "@angular/forms";
+import { RSpaceBetweenBars } from "./RBarChartItem";
 
 @Directive()
 export abstract class RBaseComponent<T> implements AsyncValidator {
@@ -259,6 +260,22 @@ export abstract class RChartBaseComponent {
         context.lineWidth = 1;
     }
 
+    protected GetGapBetweenBars(gap: RSpaceBetweenBars, eachBarLength: number): number {
+        switch (gap) {
+            case RSpaceBetweenBars.None:
+                return 0;
+            case RSpaceBetweenBars.QuaterBar:
+                return eachBarLength / 8;
+            case RSpaceBetweenBars.HalfBar:
+                return eachBarLength / 4;
+            case RSpaceBetweenBars.OneBar:
+                return eachBarLength/2;
+            case RSpaceBetweenBars.TwoBar:
+                return eachBarLength;
+            default:
+                return eachBarLength/2;
+        }
+    }
 }
 
 @Directive()

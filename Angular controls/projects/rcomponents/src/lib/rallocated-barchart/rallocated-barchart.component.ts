@@ -494,11 +494,7 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
 
         let xAxisName = this.xAxisItemNames[index];
 
-        if (this.GapBetweenBars == 1) {
-          xPoint += eachBarLength / 2;
-        } else {
-          xPoint += eachBarLength;
-        }
+        xPoint += this.GetGapBetweenBars(this.GapBetweenBars, eachBarLength);
 
         let nameWidth = this.context.measureText(xAxisName);
         let remWidth = eachBarGroupLength - nameWidth.width - (eachBarLength * this.GapBetweenBars);
@@ -575,16 +571,10 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
           xPoint += eachBarLength;
         }
 
-        if (this.GapBetweenBars == 1) {
-          xPoint += eachBarLength / 2;
-        } else {
-          xPoint += eachBarLength;
-        }
-
+        xPoint += this.GetGapBetweenBars(this.GapBetweenBars, eachBarLength);
       }
 
       this.IsRendered = true;
-     // this.EnableReadOnlyOnTopOfChart(this.context, totalWidth, totalHeight);
       this.cdr.detectChanges();
     }
   }

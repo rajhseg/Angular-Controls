@@ -252,7 +252,7 @@ export class AppRootComponent {
   lineMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
   lineItems: RLineChartItem[] = [
     new RLineChartItem('Users', '#378ADD', [1200, 1900, 1700, 2400, 2100, 3000]),
-    new RLineChartItem('Sessions', '#D85A30', [2000, 2800, 2400, 3200, 2900, 4100]),
+    new RLineChartItem('Sessions', '#D85A30', [2000, 2800, 2400, 3200, 2900, 4120]),
   ];
 
   // -- Area chart ---
@@ -592,8 +592,8 @@ export class AppRootComponent {
   DrawBarChart() {
     
     this.stackedbarChartXAxisItemNames1 = ["Jan", "Feb", "Mar","Apr", "May", "Jun"];
-    this.stackedbarChartItems1.push(new RBarChartItem("Food Expenses", [2500, 2000, 1650, 2700, 2400, 1800], "#534AB7", "white"));
-    this.stackedbarChartItems1.push(new RBarChartItem("Vehicle Expenses", [160, 377, 200, 450, 5, 350], "#a39cf3", "white"));
+    this.stackedbarChartItems1.push(new RBarChartItem("Food Expenses", [2500, 2000, 1650, 2700, 2300, 1800], "#534AB7", "white"));
+    this.stackedbarChartItems1.push(new RBarChartItem("Vehicle Expenses", [160, 377, 200, 450, 70, 350], "#a39cf3", "white"));
     //this.stackedbarChartItems1.push(new RBarChartItem("Dress Expenses", [1000, 775, 700, 1200, 800, 1400], "#5a549e", "white"));    
 
     

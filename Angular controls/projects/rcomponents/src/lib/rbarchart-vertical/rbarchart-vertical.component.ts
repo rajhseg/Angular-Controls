@@ -446,7 +446,7 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
       }
 
       /* Draw the x Axis */
-      var eachBarGroupLength = (this.Width - StartX) / itemCount;
+      var eachBarGroupLength = (this.Width - this.MarginX) / itemCount;
       var eachBarLength = eachBarGroupLength / (this.Columns.length + this.GapBetweenBars);
       let xPoint = StartX;
 
@@ -586,7 +586,7 @@ export class RBarChartVerticalComponent extends RChartPopupBaseComponent impleme
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX - this.MarginLeft;
+      let endX = x + this.Width - this._marginX;
       this.context.lineWidth = 0.4;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

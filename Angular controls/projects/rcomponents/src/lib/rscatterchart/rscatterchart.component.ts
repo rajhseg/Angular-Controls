@@ -447,7 +447,7 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
         }
 
         xdistance = this.GetRoundToTenDigit(xdistance);
-        let xvDistance = (this.Width - StartX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
+        let xvDistance = (this.Width - this.MarginX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
 
         for (let index = 1; index <= this.NoOfSplitInXAxis; index++) {
           let xDisplayValue = xdistance * index;
@@ -602,7 +602,7 @@ export class RScatterChartComponent extends RChartPopupBaseComponent implements 
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX - this.MarginLeft;
+      let endX = x + this.Width - this._marginX;
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

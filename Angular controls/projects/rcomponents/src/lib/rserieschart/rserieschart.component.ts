@@ -469,7 +469,7 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent implements 
         let isYSeriesChart = false;
 
         if(xmin == 0 && xmax == 0) {
-          xdistance = (this.Width - StartX ) / yValues.length;
+          xdistance = (this.Width - this.MarginX) / yValues.length;
           isYSeriesChart = true;
         }        
         else if (xmin != undefined && xmax != undefined) {
@@ -477,10 +477,10 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent implements 
         }
 
         xdistance = this.GetRoundToTenDigit(xdistance);
-        let xvDistance = (this.Width - StartX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
+        let xvDistance = (this.Width - this.MarginX - spaceFromRightXAxis) / this.NoOfSplitInXAxis;
         
         if(xmin == 0 && xmax == 0) {
-          xvDistance = (this.Width - StartX ) / (yValues.length/this.Items.length);
+          xvDistance = (this.Width - this.MarginX) / (yValues.length/this.Items.length);
         }       
 
         if(!isYSeriesChart){
@@ -710,7 +710,7 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent implements 
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX - this.MarginLeft;
+      let endX = x + this.Width - this._marginX;
       this.context.lineWidth = 0.2;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

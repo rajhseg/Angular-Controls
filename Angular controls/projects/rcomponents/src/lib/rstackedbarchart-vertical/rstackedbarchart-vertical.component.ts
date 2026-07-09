@@ -458,7 +458,7 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
 
       /* Draw the x Axis */
       let maxBarsPerGroup = 1;
-      var eachBarGroupLength = (this.Width - StartX) / itemCount;
+      var eachBarGroupLength = (this.Width - this.MarginX) / itemCount;
       var eachBarLength = eachBarGroupLength / (maxBarsPerGroup + this.GapBetweenBars);
       let xPoint = StartX;
 
@@ -623,7 +623,7 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
     if (this.context) {
       this.context.beginPath();
       let startX = x;
-      let endX = x + this.Width - this._marginX - this.MarginLeft;
+      let endX = x + this.Width - this._marginX;
       this.context.lineWidth = 0.4;
       this.context.strokeStyle = this.TextColor;
       this.context.moveTo(startX, ypoint);

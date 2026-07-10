@@ -185,7 +185,16 @@ export class AppRootComponent {
   allocatedMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
   allocatedGap = RSpaceBetweenBars.OneBar;
-  
+
+  selectedSpace = new DropdownModel(RSpaceBetweenBars.OneBar, 'OneBar');
+
+  SpaceBars = RSpaceBetweenBars;
+
+  Spaces: DropdownModel[] = Object.keys(RSpaceBetweenBars)
+  .filter(key => isNaN(Number(key)))
+  .map(key => (new DropdownModel(RSpaceBetweenBars[key as keyof typeof RSpaceBetweenBars], key)));  
+
+
   allocatedColumns: RAllocatedBarChartItem[] = [
     new RAllocatedBarChartItem(
       'Marketing',
@@ -380,6 +389,10 @@ export class AppRootComponent {
     item.IsExpanded = !item.IsExpanded;
   }
 
+  spaceBarChanged(val: any){
+    this.allocatedGap = this.selectedSpace.Value;
+  }
+
   // ─── Navigation: Stepper ─────────────────────────────────────────────
   stepperActiveIndex = 1;
 
@@ -467,6 +480,7 @@ export class AppRootComponent {
     this.createScheduleItems();
     this.DrawGridItems();
     this.buildUserNameForm();
+    console.log(this.Spaces);
   }
 
   buildUserNameForm() {

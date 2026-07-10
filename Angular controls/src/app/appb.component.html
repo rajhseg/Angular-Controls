@@ -31,7 +31,23 @@
                 [IsDisplayColorCode]="false" [LabelText]="'GlassyEffectColor'" [(ngModel)]="glassyColor"></rcolorpicker>
       </div>
 
-      <div style="display: flex; justify-content: flex-end; width: 100%; align-items: baseline;">
+      
+      <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
+        <label style="font-size: 14px; margin-right: 15px;">Bar Gap :</label>
+        
+          <rselectdropdown 
+              [EnableFilterOption]="false"
+              [IsReadOnly]="false"
+              [Items]="Spaces"
+              name="themedropdown"
+              (valueChanged)="spaceBarChanged($event)"
+              [DropDownContentWidth]="'105px'"
+              [Width]="'80px'"
+              [(ngModel)]="selectedSpace">
+          </rselectdropdown>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         <label style="font-size: 14px; margin-right: 15px;">Theme:</label>
         
         <form #userForm="ngForm">
@@ -757,6 +773,10 @@
         <div class="card-body" style="align-items: center; display: flex; gap: 16px;">
 
           <rcolorpicker 
+            [IsDisplayLabelText]="true"
+            [DisplayColorInHex]="true"
+            [LabelText]="'Fore Color :'"
+            [LabelTextForeColor]="'black'"
             [IsReadOnly]="false"
             [(ngModel)]="pickedColor">
           </rcolorpicker>

@@ -23,14 +23,13 @@
         {{ s | titlecase }}
       </button>
       
-      <div style="display: flex; justify-content: flex-end; width: 100%; align-items: baseline;">
+      <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         
         <rswitch [LabelForeColor]="'black'" [DisplayLabel]="'Enable Glassy Effect'" [(ngModel)]="enableGlassyEffect"></rswitch>  
 
         <rcolorpicker [LabelTextForeColor]="'black'" style="margin-left:20px" [IsDisplayLabelText]="true" 
                 [IsDisplayColorCode]="false" [LabelText]="'GlassyEffectColor'" [(ngModel)]="glassyColor"></rcolorpicker>
       </div>
-
       
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         <label style="font-size: 14px; margin-right: 15px;">Bar Gap :</label>

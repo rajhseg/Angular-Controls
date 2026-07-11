@@ -240,7 +240,7 @@ export class RDrawTextItem extends RBaseChartItem {
 
 export enum RSpaceBetweenBars {
     None = 0,
-    QuaterBar = 0.25,
+    QuarterBar = 0.25,
     HalfBar = 0.5,
     OneBar = 1,
     TwoBar = 2

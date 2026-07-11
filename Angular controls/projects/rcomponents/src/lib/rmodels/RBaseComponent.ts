@@ -264,7 +264,7 @@ export abstract class RChartBaseComponent {
         switch (gap) {
             case RSpaceBetweenBars.None:
                 return 0;
-            case RSpaceBetweenBars.QuaterBar:
+            case RSpaceBetweenBars.QuarterBar:
                 return eachBarLength / 8;
             case RSpaceBetweenBars.HalfBar:
                 return eachBarLength / 4;

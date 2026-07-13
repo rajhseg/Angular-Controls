@@ -254,6 +254,13 @@ RFlatTabs Control
 <br/>
 <br/>
 
+RAccordion Control
+---------------------------------
+
+![image](https://github.com/user-attachments/assets/cbf39bd9-81e8-4f48-a35d-17028d7d1b93)
+
+<br />
+<br />
 
 FileUpload Control
 --------------------------------

@@ -1,13 +1,22 @@
     
     
-    .container {
-      display: flex;
-    }
+.container {
+  display: flex;
+}
 
-    .panel {
-      overflow: auto;
-    }
+.panel {
+  overflow: auto;
+}
+
+
+.divider {
+}
 
     
-    .divider {
-    }
+:host {  
+  margin-top: 2px; 
+  margin-bottom: 2px;
+  width: fit-content;
+  display: inline-block;
+  vertical-align: top;
+}

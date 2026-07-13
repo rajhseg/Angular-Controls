@@ -455,7 +455,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
       window.setTimeout(() => {
         if (val > 0 && val <= this.stepsList.length && this.stepsList.length > 0) {
 
-          let stepNo = 1;
+          let stepNo = this.stepsList.length;
 
           for (let index = 1; index <= val; index++) {
             if (!this.stepsList[index - 1].IsStepValid) {
@@ -473,6 +473,15 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
           }
 
         }
+
+        if (this.stepsList.length > 0 && this.stepsList.every(x=>x.IsStepValid)) {
+            this.IsCompleted = true;
+            this.IsLastStepFinished = true;      
+
+            this.CurrentViewStep = this.stepsList[this.stepsList.length-1];
+            this._activeStepNo = this.CurrentViewStep.StepNo;
+        }
+
         this.calculateSteps();
 
         this.cdr.detectChanges();

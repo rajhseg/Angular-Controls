@@ -1,4 +1,12 @@
 
+:host {  
+  margin-top: 2px; 
+  margin-bottom: 2px;
+  width: fit-content;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .tline {
     width: 4px;  
     border-radius: 10%;    

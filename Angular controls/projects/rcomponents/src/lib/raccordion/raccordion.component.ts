@@ -56,6 +56,11 @@ export class RAccordionComponent extends RBaseComponent<any> implements AfterCon
         return index;
     }
 
+    getActualWidth(): string {
+        let _wth = this.cssServ.ToPxValue(this.ContentWidth, null, null);
+        return (_wth + 20) + CssUnit.Px;
+    }
+
     toggle($evt: Event, item: RContentDirective) {
         item.IsOpened = !item.IsOpened;
         let div = ($evt.currentTarget as HTMLDivElement);

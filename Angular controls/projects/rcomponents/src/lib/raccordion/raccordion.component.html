@@ -1,5 +1,5 @@
 <div [style.font-family]="FontFamily" [id]="Id" class=""
-      [ngStyle]="{ 'width': ContentWidth, 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
+      [ngStyle]="{ 'width': getActualWidth(), 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
 
     <div class="" style="display: flex; flex-direction: column;"  [id]="item.ContentId"
         [ngStyle]="{ 'margin-bottom': GapBetweenContent}"
@@ -8,16 +8,19 @@
             [ngStyle]="{ 'width': ContentWidth, 'background-color': TitleBarBackColor, 'border': '1px solid '+ BorderColor, 
                          'border-bottom': !item.IsOpened ? 'none': '1px solid '+ BorderColor }">
             <span [ngStyle]="{'color': TitleForeColor}">{{item.Title}}</span>
-            <span class="circle">
-                <span class="droppos"
+
+            <span class="circle" [ngStyle]="{ 'border' : '0.5px solid ' + TitleForeColor }">
+
+                <span class="droppos" [ngStyle]="{ 'color': TitleForeColor }"
                     [ngClass]="{ 'icon-up': item.IsOpened, 'icon-down': !item.IsOpened}"></span>
+                    
             </span>
         </div>
         <div class="cnt" [ngStyle]="{ 'background-color': ContentBackgroundColor,
                             'height': item.IsOpened ? item.Height : '0px',
                             'font-size': FontSize,
                             'border': '1px solid '+ BorderColor,
-                            'border-top': !item.IsOpened ? 'none': '1px solid '+ BorderColor,
+                            'border-top': !item.IsOpened ? 'none': 'none',
                             'color': ContentForeColor,
                             'width': ContentWidth,  
                             'display':'block',

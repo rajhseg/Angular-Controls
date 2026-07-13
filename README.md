@@ -257,7 +257,7 @@ RFlatTabs Control
 RAccordion Control
 ---------------------------------
 
-![image](https://github.com/user-attachments/assets/5d948689-14b3-4aa9-9182-ceebffc213cd)
+![image](https://github.com/user-attachments/assets/a4bb0593-5636-4545-87fa-23399b1898d5)
 
 <br />
 <br />

@@ -58,7 +58,7 @@ export class RAccordionComponent extends RBaseComponent<any> implements AfterCon
 
     toggle($evt: Event, item: RContentDirective) {
         item.IsOpened = !item.IsOpened;
-        let div = ($evt.target as HTMLDivElement);
+        let div = ($evt.currentTarget as HTMLDivElement);
 
         if(div) {
             let panel = div.nextElementSibling;

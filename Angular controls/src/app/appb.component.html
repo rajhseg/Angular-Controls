@@ -1203,13 +1203,14 @@
           <code class="card-selector">&lt;raccordion&gt;</code>
         </div>
         <div class="card-body">
-          <raccordion [IsDisabled]="false" [BorderColor]="'lightgray'" [ContentWidth]="'1000px'">
-            <ng-container *rcontent="{ 'ContentId': 1, 'Title': 'Title 1', 'Height': '200px', 'IsOpened': false }">
+          <raccordion [IsDisabled]="false" [BorderColor]="'lightgray'" [GapBetweenContent]="'5px'" 
+                [ContentWidth]="'600px'">
+            <ng-container *rcontent="{ 'ContentId': 1, 'Title': 'Title 1', 'Height': '200px', 'IsOpened': true }">
               <div style="height: 90%;border-radius: 5px; padding:5px">
                 <div style="padding: 8px 0; font-size: 13px; color: gray;">Enter email and password.</div>
               </div>
             </ng-container>
-            <ng-container *rcontent="{ 'ContentId': 2, 'Title': 'Title 2', 'Height': '200px', 'IsOpened': false }">
+            <ng-container *rcontent="{ 'ContentId': 2, 'Title': 'Title 2', 'Height': '200px', 'IsOpened': true }">
               <div style="height: 80%;border-radius: 5px; padding:5px">
                 <div style="padding: 8px 0; font-size: 13px; color: gray;">Add your Name and Avatar.</div>
               </div>

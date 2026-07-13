@@ -5,7 +5,8 @@
         [ngStyle]="{ 'margin-bottom': GapBetweenContent}"
         *ngFor="let item of Items; let i = index; trackBy: trackById">
         <div (click)="toggle($event, item)" class="acc" 
-            [ngStyle]="{ 'width': ContentWidth, 'background-color': TitleBarBackColor, 'border': '1px solid '+ BorderColor }">
+            [ngStyle]="{ 'width': ContentWidth, 'background-color': TitleBarBackColor, 'border': '1px solid '+ BorderColor, 
+                         'border-bottom': !item.IsOpened ? 'none': '1px solid '+ BorderColor }">
             <span [ngStyle]="{'color': TitleForeColor}">{{item.Title}}</span>
             <span class="circle">
                 <span class="droppos"
@@ -13,8 +14,10 @@
             </span>
         </div>
         <div class="cnt" [ngStyle]="{ 'background-color': ContentBackgroundColor,
+                            'height': item.IsOpened ? item.Height : '0px',
                             'font-size': FontSize,
                             'border': '1px solid '+ BorderColor,
+                            'border-top': !item.IsOpened ? 'none': '1px solid '+ BorderColor,
                             'color': ContentForeColor,
                             'width': ContentWidth,  
                             'display':'block',

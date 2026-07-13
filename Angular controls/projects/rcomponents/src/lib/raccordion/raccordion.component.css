@@ -3,6 +3,7 @@
 .acc {
     padding: 15px;
     background-color: #eee;
+    cursor: pointer;
 }
 
 .cnt {

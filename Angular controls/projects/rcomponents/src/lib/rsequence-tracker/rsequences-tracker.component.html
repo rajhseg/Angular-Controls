@@ -24,7 +24,11 @@
 
         <div class="cnt" [ngStyle]="{ 'background-color': ContentBackgroundColor,
                             'font-size': FontSize,
-                            'height':item.Height, 'width': GetContentWidth,  
+                            'border-radius': '5px',
+                            'border': '0.5px solid '+ ContentBorderColor,
+                            'padding':'5px',
+                            'height':GetContentHeight(item.Height), 
+                            'width': GetContentWidth,  
                             'pointer-events': IsReadOnly ? 'none': ''}">
             <ng-container *ngTemplateOutlet="item.templateRef">
 

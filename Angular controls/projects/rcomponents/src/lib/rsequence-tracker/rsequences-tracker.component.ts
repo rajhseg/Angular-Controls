@@ -30,6 +30,9 @@ export class RSequencesTrackerComponent extends RBaseComponent<any> implements A
     
     @Input()
     public ContentBackgroundColor: string = 'white';
+
+    @Input()
+    public ContentBorderColor: string = 'lightgray';
     
     @Input()
     public ContentWidth: string = "250px";
@@ -53,6 +56,11 @@ export class RSequencesTrackerComponent extends RBaseComponent<any> implements A
   
     trackById(index: number, item: RTrackerContentDirective) : number {
         return index;
+    }
+
+    GetContentHeight(height: string): string {
+        let _hei = this.cssServ.ToPxValue(height, null, null);
+        return (_hei - 20) + CssUnit.Px;
     }
 
     get GetContentWidth(): string {

@@ -1,4 +1,13 @@
 
+:host {  
+  margin-top: 2px; 
+  margin-bottom: 2px;
+  width: fit-content;
+  display: inline-block;
+  vertical-align: top;
+}
+
+
 .rtabroot{    
     background: #F4F5F6;     
     border: 0.4px solid lightgray;

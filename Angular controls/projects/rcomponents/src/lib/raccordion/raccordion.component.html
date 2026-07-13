@@ -1,0 +1,30 @@
+<div [style.font-family]="FontFamily" [id]="Id" class=""
+      [ngStyle]="{ 'width': ContentWidth, 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
+
+    <div class="" style="display: flex; flex-direction: column;"  [id]="item.ContentId"
+        [ngStyle]="{ 'margin-bottom': GapBetweenContent}"
+        *ngFor="let item of Items; let i = index; trackBy: trackById">
+        <div (click)="toggle($event, item)" class="acc" 
+            [ngStyle]="{ 'width': ContentWidth, 'background-color': TitleBarBackColor, 'border': '1px solid '+ BorderColor }">
+            <span [ngStyle]="{'color': TitleForeColor}">{{item.Title}}</span>
+            <span class="circle">
+                <span class="droppos"
+                    [ngClass]="{ 'icon-up': item.IsOpened, 'icon-down': !item.IsOpened}"></span>
+            </span>
+        </div>
+        <div class="cnt" [ngStyle]="{ 'background-color': ContentBackgroundColor,
+                            'font-size': FontSize,
+                            'border': '1px solid '+ BorderColor,
+                            'color': ContentForeColor,
+                            'width': ContentWidth,  
+                            'display':'block',
+                            'overflow':'hidden',
+                            'pointer-events': IsReadOnly ? 'none': ''}">
+            <ng-container *ngTemplateOutlet="item.templateRef">
+
+            </ng-container>
+        </div>
+
+    </div>
+
+</div> 

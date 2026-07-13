@@ -12,7 +12,9 @@ import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonu
   ReadViewTemplateDirective, EditViewTemplateDirective, 
   RSequencesTrackerComponent, RTrackerContentDirective,
   RSequenceTrackerComponent,
-  RSimpleTabsComponent} from 'rcomponents';
+  RSimpleTabsComponent,
+  RAccordionComponent,
+  RContentDirective} from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -148,7 +150,9 @@ import { ɵEmptyOutletComponent } from "@angular/router";
     ReactiveFormsModule,
     RSequenceTrackerComponent,
     RSequencesTrackerComponent,
-    RTrackerContentDirective
+    RTrackerContentDirective,
+    RContentDirective, 
+    RAccordionComponent,
 ],
   templateUrl: './appb.component.html',
   styleUrl: './appb.component.css'

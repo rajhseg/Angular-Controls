@@ -34,7 +34,9 @@ import { RDonutChartComponent } from "./rdonutchart/rdonutchart.component";
 import { RStepperHorizontalComponent } from "./rstepper-horizontal/rstepper-horizontal.component";
 import { RPieChartComponent } from "./rpiechart/rpiechart.component";
 import { RBarChartVerticalComponent } from "./rbarchart-vertical/rbarchart-vertical.component";
-import { RBaseComponent } from "../public-api";
+import { RBaseComponent, RChartBaseComponent, RChartPopupBaseComponent, RContentDirective, CalenderChangeMonthInfo,
+        RContentContext, RRangeSliderData, RSplitterResult, RTimerResult, ValidatorValueType
+       } from "./rmodels/RBaseComponent";
 import { RBarChartHorizontalComponent } from "./rbarchart-horizontal/rbarchart-horizontal.component";
 import { RStackedBarChartVerticalComponent } from "./rstackedbarchart-vertical/rstackedbarchart-vertical.component";
 import { RStackedRangeBarChartVerticalComponent } from "./rstackedrangebarchart-vertical/rstackedrangebarchart-vertical.component";
@@ -56,9 +58,11 @@ import { RSequenceTrackerComponent } from './rsequence-tracker/rtracker/rsequenc
 import { RTrackerContentDirective } from './rsequence-tracker/rtracker/rtrackercontent.directive';
 import { RSequencesTrackerComponent } from './rsequence-tracker/rsequences-tracker.component';
 import { RSimpleTabsComponent } from './rsimpletabs/rsimpletabs.component';
+import { RAccordionComponent } from "./raccordion/raccordion.component";
 
 @NgModule({
     imports: [
+        RContentDirective,
         CommonModule, 
         RCalendarComponent,
         RDropdownComponent,
@@ -115,9 +119,11 @@ import { RSimpleTabsComponent } from './rsimpletabs/rsimpletabs.component';
         RTrackerContentDirective,
         RSequenceTrackerComponent,
         RSequencesTrackerComponent,
-        RSimpleTabsComponent
+        RSimpleTabsComponent,
+        RAccordionComponent
     ],
     exports: [
+        RContentDirective,
         RCalendarComponent,
         RDropdownComponent,
         RStarRatingComponent,
@@ -173,7 +179,8 @@ import { RSimpleTabsComponent } from './rsimpletabs/rsimpletabs.component';
         RTrackerContentDirective,
         RSequenceTrackerComponent,
         RSequencesTrackerComponent,
-        RSimpleTabsComponent
+        RSimpleTabsComponent,
+        RAccordionComponent
     ]
 })
 export class RComponentsModule {

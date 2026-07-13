@@ -1,0 +1,45 @@
+
+
+.acc {
+    padding: 15px;
+    background-color: #eee;
+}
+
+.cnt {
+    padding: 0 15px;
+    height: 0px;
+    transition: height 0.2s ease-out;
+}
+
+
+.icon-up:before {
+    content: "\276E";
+}
+
+.icon-down:before {
+    content: "\276F";
+}
+
+.icon-up, .icon-down {
+  font-size: 18px;
+  display: inline-block;
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.droppos {
+    right: -11px;
+    position: relative;
+    color: lightgray;
+}
+
+.circle {
+    border: 0.5px solid lightgray;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    float: right;
+    align-content: center;
+}

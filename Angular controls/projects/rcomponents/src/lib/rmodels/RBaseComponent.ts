@@ -1,11 +1,13 @@
-import { Directive, ElementRef, EventEmitter, HostBinding, inject, Injector, Input, NgZone, Optional, Output, Self } from "@angular/core";
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, inject, Injector, Input, NgZone, Optional, Output, Self, TemplateRef, ViewContainerRef } from "@angular/core";
 import { RWindowHelper } from "../rwindowObject";
 import { RSplitterType } from "../rsplitter/rpagecontent.directive";
 import { filter, firstValueFrom, fromEvent, map, Observable, of, switchMap, take } from "rxjs";
 import { AbstractControl, AsyncValidator, NgControl, ValidationErrors, Validator, Validators } from "@angular/forms";
 import { RSpaceBetweenBars } from "./RBarChartItem";
 
-@Directive()
+@Directive({
+    standalone: true
+})
 export abstract class RBaseComponent<T> implements AsyncValidator {
 
     Id: string = '';
@@ -204,7 +206,7 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
     //public abstract Render(): void;
 }
 
-@Directive()
+@Directive({standalone: true})
 export abstract class RChartBaseComponent {
 
     Id: string = '';
@@ -278,7 +280,7 @@ export abstract class RChartBaseComponent {
     }
 }
 
-@Directive()
+@Directive({standalone: true})
 export abstract class RChartPopupBaseComponent extends RChartBaseComponent {
 
     @Input()
@@ -375,4 +377,42 @@ export enum ValidatorValueType {
     Grid,
     Switch,
     OnlyRequired
+}
+
+@Directive({
+    selector:'[rcontent]',
+    standalone: true
+})
+export class RContentDirective {
+    
+    public Title: string = 'Title';
+
+    public ContentId: number = -1;
+        
+    public Height: string = '100px';
+
+    public IsOpened: boolean = false;
+          
+    constructor(public templateRef: TemplateRef<any>, public vcr: ViewContainerRef, public cdr: ChangeDetectorRef) {
+    
+    }
+
+    @Input('rcontent')
+    set rcontent(val: RContentContext) {
+        if (val) {
+            this.ContentId = val.ContentId;
+            this.Height = val.Height;
+            this.Title = val.Title;
+            this.IsOpened = val.IsOpened;
+        }
+    }
+    get rtrackercontent(): RContentContext {
+        return new RContentContext(this.ContentId, this.Title, this.Height, this.IsOpened);
+    }
+}
+
+export class RContentContext {
+    constructor(public ContentId: number, public Title: string, public Height: string = '100px', public IsOpened: boolean = false) {
+
+    }
 }

@@ -59,6 +59,8 @@ import { RTrackerContentDirective } from './rsequence-tracker/rtracker/rtrackerc
 import { RSequencesTrackerComponent } from './rsequence-tracker/rsequences-tracker.component';
 import { RSimpleTabsComponent } from './rsimpletabs/rsimpletabs.component';
 import { RAccordionComponent } from "./raccordion/raccordion.component";
+import { RCarouselComponent } from "./rcarousel/rcarousel.component";
+import { RImageDirective } from "./rcarousel/rcarousel.directive";
 
 @NgModule({
     imports: [
@@ -120,7 +122,9 @@ import { RAccordionComponent } from "./raccordion/raccordion.component";
         RSequenceTrackerComponent,
         RSequencesTrackerComponent,
         RSimpleTabsComponent,
-        RAccordionComponent
+        RAccordionComponent,
+        RCarouselComponent,
+        RImageDirective
     ],
     exports: [
         RContentDirective,
@@ -180,7 +184,9 @@ import { RAccordionComponent } from "./raccordion/raccordion.component";
         RSequenceTrackerComponent,
         RSequencesTrackerComponent,
         RSimpleTabsComponent,
-        RAccordionComponent
+        RAccordionComponent,
+        RCarouselComponent,
+        RImageDirective
     ]
 })
 export class RComponentsModule {

@@ -70,5 +70,7 @@ export * from './lib/rsequence-tracker/rtracker/rsequence-tracker.component';
 export * from './lib/rsequence-tracker/rsequences-tracker.component';
 export * from './lib/rsimpletabs/rsimpletabs.component';
 export * from './lib/raccordion/raccordion.component';
+export * from './lib/rcarousel/rcarousel.component';
+export * from './lib/rcarousel/rcarousel.directive';
 
 export * from './lib/rcomponents.module';

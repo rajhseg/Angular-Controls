@@ -1,0 +1,25 @@
+
+<div [id]="Id" class="carousel" [ngStyle]="{ 'margin-right': '10px', '--width': Width , '--cheight': ContainerHeight, 
+    '--height': ItemHeight, '--bcolor': SlideButtonsColor,
+    '--borcolor': BorderColor, 'border-right': 'none',
+    'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }">
+    <div class="sds" id="slides">
+        
+        <div [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}">
+            <img [src]="LastElement.src" class="clone" [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}" />
+        </div>
+
+        <div *ngFor="let img of Images; trackBy: trackById"  
+            [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}">
+            <img [src]="img.element.nativeElement.src" [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}">
+        </div>
+        
+        <div [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}">
+            <img [src]="FirstElement.src" class="clone" [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}" />
+        </div>
+
+    </div>
+
+    <button class="prev" (click)="slide(-1)">❮</button>
+    <button class="next" (click)="slide(1)">❯</button>
+</div>

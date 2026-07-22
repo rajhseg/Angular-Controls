@@ -16,7 +16,8 @@ import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonu
   RAccordionComponent,
   RContentDirective,
   RCarouselComponent,
-  RImageDirective} from 'rcomponents';
+  RImageDirective,
+  RCarouselListViewComponent} from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -156,6 +157,7 @@ import { ɵEmptyOutletComponent } from "@angular/router";
     RContentDirective, 
     RAccordionComponent,
     RCarouselComponent,
+    RCarouselListViewComponent,
     RImageDirective
 ],
   templateUrl: './appb.component.html',

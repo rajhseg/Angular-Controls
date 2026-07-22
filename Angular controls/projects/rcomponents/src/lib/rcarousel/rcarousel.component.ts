@@ -56,6 +56,9 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     @Input()
     AutoPlayDurationBetweenSlides: number = 4000;
 
+    @Input()
+    BorderColor: string = '#ccc';
+    
     private  index = 1; 
     private slides: HTMLElement | null = null;
     private total!: number | undefined;

@@ -2,16 +2,15 @@
 <div [id]="Id" class="carousel" [ngStyle]="{'--width': Width , '--height': Height, '--bcolor': SlideButtonsColor,
     '--borcolor': BorderColor,
     'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }">
-    <div class="slides" id="slides">
+    <div class="sds" id="slides">
         
         <img [src]="LastElement.src" class="clone" />
 
-        <!-- Real Slides -->
         <img *ngFor="let img of Images; trackBy: trackById" [src]="img.element.nativeElement.src">
         
         <img [src]="FirstElement.src" class="clone" />
     </div>
 
-    <button class="prev" (click)="move(-1)">❮</button>
-    <button class="next" (click)="move(1)">❯</button>
+    <button class="prev" (click)="slide(-1)">❮</button>
+    <button class="next" (click)="slide(1)">❯</button>
 </div>

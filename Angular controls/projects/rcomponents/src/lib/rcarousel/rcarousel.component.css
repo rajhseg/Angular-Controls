@@ -1,42 +1,42 @@
 
 .carousel {
+    overflow: hidden;
+    border: 1px solid var(--borcolor);
     position: relative;
     width: var(--width);
     height: var(--height);
     margin: auto;
-    overflow: hidden;
-    border: 1px solid var(--borcolor);
 }
 
-.slides {
+.sds {
     display: flex;
     transition: transform 0.5s ease-in-out;
 }
 
-.slides img {
+.sds img {
     width: var(--width);
     height: var(--height);
     object-fit: cover;
 }
 
 button {
+    background: rgba(0,0,0,0.5);
+    color: var(--bcolor);
+    border: none;
+    font-size: 20px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     padding: 10px;
     cursor: pointer;
-    background: rgba(0,0,0,0.5);
-    color: var(--bcolor);
-    border: none;
-    font-size: 20px;
 }
 
 .prev {
-    left: 10px;
+    left: 12px;
 }
 
 .next {
-    right: 10px;
+    right: 12px;
 }
 
 

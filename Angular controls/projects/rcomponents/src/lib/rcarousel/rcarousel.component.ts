@@ -59,9 +59,9 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     @Input()
     BorderColor: string = '#ccc';
     
-    private  index = 1; 
-    private slides: HTMLElement | null = null;
-    private total!: number | undefined;
+    private  currentItem = 1; 
+    private items: HTMLElement | null = null;
+    private totalItems!: number | undefined;
     private _interval: any;
 
     FirstElement!: HTMLImageElement;
@@ -75,33 +75,33 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
         super(windowHelper);
     }
 
-   move(step: number) {
-    this.index++;
+   slide(step: number) {
+    this.currentItem++;
 
       if (step < 0)
-          this.index -= 2;
+          this.currentItem -= 2;
 
-      if(this.slides) {
-        this.slides.style.transition = "transform .5s ease";
-        this.slides.style.transform = `translateX(-${this.index * this.WidthInNumber}px)`;
+      if(this.items) {
+        this.items.style.transition = "transform .5s ease";
+        this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
       }
 
       this.cdr.detectChanges();
     }
 
     CalculateSlides() {
-      if(this.slides && this.total) {
+      if(this.items && this.totalItems) {
         
-        if (this.index >= this.total - 1) {
-            this.slides.style.transition = "none";
-            this.index = 1;
-            this.slides.style.transform = `translateX(-${this.index * this.WidthInNumber}px)`;
+        if (this.currentItem >= this.totalItems - 1) {
+            this.items.style.transition = "none";
+            this.currentItem = 1;
+            this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
         }
 
-        if (this.index <= 0) {
-            this.slides.style.transition = "none";
-            this.index = this.total - 2;
-            this.slides.style.transform = `translateX(-${this.index * this.WidthInNumber}px)`;
+        if (this.currentItem <= 0) {
+            this.items.style.transition = "none";
+            this.currentItem = this.totalItems - 2;
+            this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
         }
 
         this.cdr.detectChanges();
@@ -113,22 +113,22 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     }
 
     ngAfterContentInit(): void {
-      this.slides = document.getElementById("slides");
-      this.total = this.Images.length + 2;
+      this.items = document.getElementById("slides");
+      this.totalItems = this.Images.length + 2;
 
-      if(this.slides) {
+      if(this.items) {
 
         this.FirstElement = this.Images.first.element.nativeElement;
         this.LastElement = this.Images.last.element.nativeElement;
 
-        this.slides.style.transform = `translateX(-${this.index * this.WidthInNumber}px)`;
+        this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
 
-        this.slides.addEventListener("transitionend", () => {
+        this.items.addEventListener("transitionend", () => {
           this.CalculateSlides();
         });
 
         if(this.EnableAutoPlay){
-          this._interval = setInterval(() => this.move(1), this.AutoPlayDurationBetweenSlides);
+          this._interval = setInterval(() => this.slide(1), this.AutoPlayDurationBetweenSlides);
           
           this.destroy.onDestroy(()=>{
             clearInterval(this._interval);

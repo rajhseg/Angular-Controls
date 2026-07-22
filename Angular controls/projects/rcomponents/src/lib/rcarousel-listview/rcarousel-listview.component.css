@@ -21,6 +21,10 @@
     object-fit: cover;
 }
 
+.sds div {
+    object-fit: cover;
+}
+
 button {
     background: rgba(0,0,0,0.5);
     color: var(--bcolor);

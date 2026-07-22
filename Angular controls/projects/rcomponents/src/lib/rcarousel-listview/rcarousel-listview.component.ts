@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList } from '@angular/core'
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList } from '@angular/core'
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
@@ -13,7 +13,7 @@ import { NgStyle, NgForOf } from '@angular/common';
  imports: [NgStyle, NgForOf],
  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RCarouselListViewComponent extends RBaseComponent<any> implements AfterContentInit {
+export class RCarouselListViewComponent extends RBaseComponent<any> implements AfterContentInit, AfterViewInit {
 
     private _width: string = '600px';
     
@@ -75,6 +75,7 @@ export class RCarouselListViewComponent extends RBaseComponent<any> implements A
     private items: HTMLElement | null = null;
     private totalItems!: number | undefined;
     private _interval: any;
+    public _slidesId!: string;
 
     FirstElement!: HTMLImageElement;
 
@@ -85,20 +86,46 @@ export class RCarouselListViewComponent extends RBaseComponent<any> implements A
             public cdr: ChangeDetectorRef
     ) {    
         super(windowHelper);
+        this._slidesId = this.winObj.GenerateUniqueId();
     }
 
    slide(step: number) {
-    this.currentItem++;
 
-      if (step < 0)
-          this.currentItem -= 2;
+    if(this.totalItems) {
 
-      if(this.items) {
-        this.items.style.transition = "transform .5s ease";
-        this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
+      let totalWidth = (this.ItemWidthInNumber + 20 ) * this.totalItems;
+      let StartX = 0;
+      let left: boolean = false;
+
+          if (step < 0) {
+            left = true;
+            this.currentItem--;
+            StartX = this.WidthInNumber * this.currentItem;
+
+            if(StartX < 0) {
+              StartX = 0;
+            }
+          }
+          else {
+            this.currentItem++;
+            StartX = this.WidthInNumber * (this.currentItem - 1)
+
+            if(StartX > totalWidth){
+              StartX = totalWidth;
+            }
+          }
+
+          if(this.items) {
+            this.items.style.transition = "transform .5s ease";
+            if(left) {
+              this.items.style.transform = `translateX(-${StartX}px)`;
+            } else {
+              this.items.style.transform = `translateX(${StartX}px)`;
+            }
+          }
+
+          this.cdr.detectChanges();
       }
-
-      this.cdr.detectChanges();
     }
 
     CalculateSlides() {
@@ -129,14 +156,20 @@ export class RCarouselListViewComponent extends RBaseComponent<any> implements A
       return index;
     }
 
-    ngAfterContentInit(): void {
-      this.items = document.getElementById("slides");
-      this.totalItems = this.Images.length + 2;
+  ngAfterContentInit(): void {
+    this.FirstElement = this.Images.first.element.nativeElement;
+    this.LastElement = this.Images.last.element.nativeElement;
+  }
+
+  ngAfterViewInit(): void {
+    this.Render();
+  }
+
+  Render(){
+     this.items = document.getElementById(this._slidesId);
+     this.totalItems = this.Images.length + 2;
 
       if(this.items) {
-
-        this.FirstElement = this.Images.first.element.nativeElement;
-        this.LastElement = this.Images.last.element.nativeElement;
 
         this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
 
@@ -146,6 +179,6 @@ export class RCarouselListViewComponent extends RBaseComponent<any> implements A
 
         this.cdr.detectChanges();
     }
-
   }
+
 }

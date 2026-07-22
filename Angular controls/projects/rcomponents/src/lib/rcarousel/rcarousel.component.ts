@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList } from '@angular/core'
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList } from '@angular/core'
 import { RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
@@ -13,7 +13,7 @@ import { NgStyle, NgForOf } from '@angular/common';
  imports: [NgStyle, NgForOf],
  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RCarouselComponent extends RBaseComponent<any> implements AfterContentInit {
+export class RCarouselComponent extends RBaseComponent<any> implements AfterContentInit, AfterViewInit {
 
     private _width: string = '600px';
     private _height: string = '300px';
@@ -63,16 +63,19 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     private items: HTMLElement | null = null;
     private totalItems!: number | undefined;
     private _interval: any;
+    public _slidesId!: string;
 
     FirstElement!: HTMLImageElement;
 
     LastElement!: HTMLImageElement;
+
 
     constructor(private eleRef: ElementRef, private cssUnitSer: RCssUnitsService,
             windowHelper: RWindowHelper, private destroy: DestroyRef,
             public cdr: ChangeDetectorRef
     ) {    
         super(windowHelper);
+        this._slidesId = this.winObj.GenerateUniqueId();
     }
 
    slide(step: number) {
@@ -112,14 +115,20 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
       return index;
     }
 
-    ngAfterContentInit(): void {
-      this.items = document.getElementById("slides");
-      this.totalItems = this.Images.length + 2;
+  ngAfterContentInit(): void {
+    this.FirstElement = this.Images.first.element.nativeElement;
+    this.LastElement = this.Images.last.element.nativeElement;
+  }
+
+  ngAfterViewInit(): void {
+    this.Render();
+  }
+
+  private Render() {
+    this.items = document.getElementById(this._slidesId);
+    this.totalItems = this.Images.length + 2;
 
       if(this.items) {
-
-        this.FirstElement = this.Images.first.element.nativeElement;
-        this.LastElement = this.Images.last.element.nativeElement;
 
         this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
 
@@ -136,7 +145,8 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
         }
 
         this.cdr.detectChanges();
-    }
-
+      }
   }
+
+
 }

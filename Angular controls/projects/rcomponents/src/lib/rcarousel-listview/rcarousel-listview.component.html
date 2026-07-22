@@ -3,7 +3,8 @@
     '--height': ItemHeight, '--bcolor': SlideButtonsColor,
     '--borcolor': BorderColor, 'border-right': 'none',
     'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }">
-    <div class="sds" id="slides">
+    
+    <div class="sds" #cvslides [id]="_slidesId">
         
         <div [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}">
             <img [src]="LastElement.src" class="clone" [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}" />

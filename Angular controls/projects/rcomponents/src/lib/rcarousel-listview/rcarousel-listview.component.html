@@ -3,7 +3,7 @@
     '--height': ItemHeight, '--bcolor': SlideButtonsColor,
     '--borcolor': BorderColor, 'border-right': 'none',
     'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }">
-    
+
     <div class="sds" #cvslides [id]="_slidesId">
         
         <div [ngStyle]="{ 'height': ItemHeight, 'width': ItemWidth}">
@@ -21,6 +21,6 @@
 
     </div>
 
-    <button class="prev" (click)="slide(-1)">❮</button>
-    <button class="next" (click)="slide(1)">❯</button>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
 </div>

@@ -1,9 +1,11 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, Input, QueryList } from '@angular/core'
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DestroyRef, ElementRef, EventEmitter, Input, Output, QueryList } from '@angular/core'
 import { RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
 import { RImageDirective } from './rcarousel.directive';
 import { NgStyle, NgForOf } from '@angular/common';
+import { Observable } from 'rxjs/internal/Observable';
+import { map, startWith } from 'rxjs';
 
 @Component({
  selector:'rcarousel',
@@ -47,6 +49,8 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
 
     @ContentChildren(RImageDirective) Images!: QueryList<RImageDirective>;
 
+    ImagesList!: RImageDirective[];
+
     @Input()
     SlideButtonsColor: string = 'white';
 
@@ -59,6 +63,9 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     @Input()
     BorderColor: string = '#ccc';
     
+    @Output()
+    OnContentClick = new EventEmitter<RCarouselEventArgs>();
+
     private  currentItem = 1; 
     private items: HTMLElement | null = null;
     private totalItems!: number | undefined;
@@ -78,7 +85,11 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
         this._slidesId = this.winObj.GenerateUniqueId();
     }
 
-   slide(step: number) {
+  imgClick(evt: Event, index: number) {
+    this.OnContentClick.emit(new RCarouselEventArgs(evt, index));
+  }
+
+   slide(evt: Event | null, step: number) {
     this.currentItem++;
 
       if (step < 0)
@@ -125,6 +136,20 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
   }
 
   private Render() {
+    
+    this.ImagesList = this.Images.toArray();
+
+    this.Images.changes.subscribe((images: QueryList<RImageDirective>) => {
+      
+      this.FirstElement = images.first.element.nativeElement;
+      this.LastElement = images.last.element.nativeElement;
+      this.ImagesList = images.toArray();
+      this.totalItems = images.length + 2;
+      
+      this.cdr.detectChanges();
+
+    });
+
     this.items = document.getElementById(this._slidesId);
     this.totalItems = this.Images.length + 2;
 
@@ -137,7 +162,7 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
         });
 
         if(this.EnableAutoPlay){
-          this._interval = setInterval(() => this.slide(1), this.AutoPlayDurationBetweenSlides);
+          this._interval = setInterval(() => this.slide(null, 1), this.AutoPlayDurationBetweenSlides);
           
           this.destroy.onDestroy(()=>{
             clearInterval(this._interval);
@@ -149,4 +174,8 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
   }
 
 
+}
+
+export class RCarouselEventArgs {
+  constructor(public event: Event | null, public currentItemNo: number) {}
 }

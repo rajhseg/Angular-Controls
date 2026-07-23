@@ -61,7 +61,6 @@ import { RSimpleTabsComponent } from './rsimpletabs/rsimpletabs.component';
 import { RAccordionComponent } from "./raccordion/raccordion.component";
 import { RCarouselComponent } from "./rcarousel/rcarousel.component";
 import { RImageDirective } from "./rcarousel/rcarousel.directive";
-import { RCarouselListViewComponent } from "./rcarousel-listview/rcarousel-listview.component";
 
 @NgModule({
     imports: [
@@ -125,7 +124,6 @@ import { RCarouselListViewComponent } from "./rcarousel-listview/rcarousel-listv
         RSimpleTabsComponent,
         RAccordionComponent,
         RCarouselComponent,
-        RCarouselListViewComponent,
         RImageDirective
     ],
     exports: [
@@ -188,7 +186,6 @@ import { RCarouselListViewComponent } from "./rcarousel-listview/rcarousel-listv
         RSimpleTabsComponent,
         RAccordionComponent,
         RCarouselComponent,
-        RCarouselListViewComponent,
         RImageDirective
     ]
 })

@@ -983,43 +983,23 @@
           </div>
           <div class="card-body">
 
-            <rcarousel [EnableAutoPlay]="true" [AutoPlayDurationBetweenSlides]="3000" [Width]="'700px'" [Height]="'350px'" [SlideButtonsColor]="'white'">
-              	<img rimage src="./images/1.png">
-                <img rimage src="./images/2.png">
-                <img rimage src="./images/3.png">
-                
-                <img rimage src="./images/4.png">
-                <img rimage src="./images/5.png">
+            <rcarousel [EnableAutoPlay]="true" [AutoPlayDurationBetweenSlides]="3000" [Width]="'700px'" 
+                      [Height]="'350px'" [SlideButtonsColor]="'white'"
+                      (OnContentClick)="OnContentClick($event)">
+
+                <img rimage *ngFor="let im of imagesNames" src="./images/{{im}}.png" />
+
             </rcarousel>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <rbutton [BackgroundColor]="'#7F77DD'" [ForeColor]="'white'" [ButtonWidth]="'120px'" (ButtonClick)="AddImages()">
+              Add Slides
+            </rbutton>
 
           </div>
           <div class="card-hint">RCarousel<code>&lt;rcarousel&gt;</code>.</div>
         </div>
-
-      
-        <!-- rcarousel -->
-        <!-- 
-        <div class="card card-wide">
-          <div class="card-header">
-            <span class="card-tag tag-nav">Nav</span>
-            <h2 class="card-title">Carousel</h2>
-            <code class="card-selector">&lt;rcarousel-listview&gt;</code>
-          </div>
-          <div class="card-body">
-
-            <rcarousel-listview [Width]="'700px'" [ItemHeight]="'250px'" [ItemWidth]="'250px'" [SlideButtonsColor]="'white'">
-              	<img rimage src="./images/1.png">
-                <img rimage src="./images/2.png">
-                <img rimage src="./images/3.png">
-                
-                <img rimage src="./images/4.png">
-                <img rimage src="./images/5.png">
-            </rcarousel-listview>
-
-          </div>
-          <div class="card-hint">RCarousel<code>&lt;rcarousel-listview&gt;</code>.</div>
-        </div>
-        -->
         
       <!-- Flat Tabs -->
       <div class="card card-wide">

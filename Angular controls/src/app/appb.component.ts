@@ -17,7 +17,7 @@ import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonu
   RContentDirective,
   RCarouselComponent,
   RImageDirective,
-  RCarouselListViewComponent} from 'rcomponents';
+  RCarouselEventArgs} from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -157,7 +157,6 @@ import { ɵEmptyOutletComponent } from "@angular/router";
     RContentDirective, 
     RAccordionComponent,
     RCarouselComponent,
-    RCarouselListViewComponent,
     RImageDirective
 ],
   templateUrl: './appb.component.html',
@@ -361,6 +360,8 @@ export class AppRootComponent {
     Object.assign(new RSelectItemModel({ id: 4 }, 'Rust'), { IsSelected: false }),
   ];
 
+  imagesNames: number[] = [1,2,3];
+
   // ─── Form: Color Picker ──────────────────────────────────────────────
   pickedColor = '#1E1198';
 
@@ -401,6 +402,15 @@ export class AppRootComponent {
 
   spaceBarChanged(val: any){
     this.allocatedGap = this.selectedSpace.Value;
+  }
+
+  OnContentClick(evt: RCarouselEventArgs) {
+    console.log('Carousel content clicked at index:', evt.currentItemNo);
+  }
+
+  AddImages(){
+    this.imagesNames.push(4);
+    this.imagesNames.push(5);
   }
 
   // ─── Navigation: Stepper ─────────────────────────────────────────────

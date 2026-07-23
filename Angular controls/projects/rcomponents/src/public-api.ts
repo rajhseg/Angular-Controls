@@ -72,6 +72,5 @@ export * from './lib/rsimpletabs/rsimpletabs.component';
 export * from './lib/raccordion/raccordion.component';
 export * from './lib/rcarousel/rcarousel.component';
 export * from './lib/rcarousel/rcarousel.directive';
-export * from './lib/rcarousel-listview/rcarousel-listview.component';
 
 export * from './lib/rcomponents.module';

@@ -5,13 +5,13 @@
     
     <div class="sds" #cslides [id]="_slidesId">
         
-        <img [src]="LastElement.src" class="clone" />
+        <img (click)="imgClick($event, ImagesList.length)" [src]="LastElement.src" class="clone" />
 
-        <img *ngFor="let img of Images; trackBy: trackById" [src]="img.element.nativeElement.src">
+        <img (click)="imgClick($event, i+1)" *ngFor="let img of ImagesList; let i = index; trackBy: trackById" [src]="img.element.nativeElement.src">
         
-        <img [src]="FirstElement.src" class="clone" />
+        <img (click)="imgClick($event, 1)" [src]="FirstElement.src" class="clone" />
     </div>
 
-    <button class="prev" (click)="slide(-1)">❮</button>
-    <button class="next" (click)="slide(1)">❯</button>
+    <button class="prev" (click)="slide($event,-1)">❮</button>
+    <button class="next" (click)="slide($event, 1)">❯</button>
 </div>

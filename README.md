@@ -229,7 +229,7 @@ ProgressBar Control
 RCarousel Control
 -------------------------
 
-![image](https://github.com/user-attachments/assets/24923335-f8df-4233-8e2c-89ed50e49702)
+![image](https://github.com/user-attachments/assets/3623c19d-04f3-4d76-b332-f0ff7f634e5f)
 
 <br />
 <br />

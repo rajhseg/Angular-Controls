@@ -70,6 +70,11 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     private items: HTMLElement | null = null;
     private totalItems!: number | undefined;
     private _interval: any;
+
+    private readonly onTransitionEnd = (): void => {
+      this.CalculateSlides();
+    };
+
     public _slidesId!: string;
 
     FirstElement!: HTMLImageElement;
@@ -156,15 +161,15 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
       if(this.items) {
 
         this.items.style.transform = `translateX(-${this.currentItem * this.WidthInNumber}px)`;
-
-        this.items.addEventListener("transitionend", () => {
-          this.CalculateSlides();
-        });
+        
+        this.items.removeEventListener("transitionend", this.onTransitionEnd);
+        this.items.addEventListener("transitionend", this.onTransitionEnd);
 
         if(this.EnableAutoPlay){
           this._interval = setInterval(() => this.slide(null, 1), this.AutoPlayDurationBetweenSlides);
           
           this.destroy.onDestroy(()=>{
+            this.items?.removeEventListener("transitionend", this.onTransitionEnd);
             clearInterval(this._interval);
           });
         }

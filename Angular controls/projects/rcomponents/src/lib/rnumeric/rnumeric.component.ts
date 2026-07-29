@@ -51,7 +51,6 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   @Input()
   set BottomLineColor(value: string) {
     this._bottomColor = value;
-    this.backupColor = value;
   }
   get BottomLineColor(): string {
     return this._bottomColor;

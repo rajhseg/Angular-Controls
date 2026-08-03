@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
 import { RStateAlignment, RStateDisplayType, RStepComponent } from '../rstep/rstep.component';
 import { RWindowHelper } from '../rwindowObject';
 import { RSequenceHorizontalItem } from '../rsequences-horizontal/rsequence-horizontal/sequenceitemhorizontal';
@@ -6,6 +6,7 @@ import { RStateHorizontalComponent } from "../rsequences-horizontal/rsequences-h
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { RButtonComponent } from '../rbutton/rbutton.component';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 
 @Component({
   selector: 'rstepper-horizontal',
@@ -19,11 +20,29 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
   
   seqItems: RSequenceHorizontalItem[] = [];
 
-  @Input()
+  private _width: string = '800px';
+  private _height: string = '530px';
+
   public ContentWidth: number = 800;
+  public ContentHeight: number = 530;
 
   @Input()
-  public ContentHeight: number = 530;
+  public set Width(value: string) {
+    this.ContentWidth = this.cssServ.ToPxValue(value, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    this._width = value;
+  }
+  public get Width(): string {
+    return this._width;
+  }
+
+  @Input()
+  public set Height(value: string) {
+     this.ContentHeight = this.cssServ.ToPxValue(value, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+    this._height = value;
+  }
+  public get Height(): string {
+    return this._height;
+  }
 
   @Input()
   EnableShadow: boolean = true;
@@ -148,7 +167,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
     return this._activeStepNo;
   }
 
-  constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
+  constructor(private ele: ElementRef, private cssServ: RCssUnitsService, private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
     super(winObj);
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();

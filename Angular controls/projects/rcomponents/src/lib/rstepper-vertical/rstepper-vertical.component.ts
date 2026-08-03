@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, Output, QueryList, ViewChild, ViewContainerRef } from '@angular/core';
 import { RStateAlignment, RStateDisplayType, RStepComponent } from '../rstep/rstep.component';
 import { RButtonComponent } from "../rbutton/rbutton.component";
 import { NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -7,6 +7,7 @@ import { RWindowHelper } from '../rwindowObject';
 import { RStateVerticalComponent } from "../rsequences/rsequences.component";
 import { RSequenceVerticalItem } from '../rsequences/rsequence/rsequenceitem';
 import { RBaseComponent } from '../rmodels/RBaseComponent';
+import { RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
 
 
 @Component({
@@ -21,12 +22,30 @@ import { RBaseComponent } from '../rmodels/RBaseComponent';
 export class RStepperVerticalComponent extends RBaseComponent<any> implements AfterContentInit {
 
   seqItems: RSequenceVerticalItem[] = [];
+  
+  private _width: string = '800px';
+  private _height: string = '530px';
 
-  @Input()
   public ContentWidth: number = 800;
+  public ContentHeight: number = 530;
 
   @Input()
-  public ContentHeight: number = 530;
+  public set Width(value: string) {
+    this.ContentWidth = this.cssServ.ToPxValue(value, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    this._width = value;
+  }
+  public get Width(): string {
+    return this._width;
+  }
+
+  @Input()
+  public set Height(value: string) {
+      this.ContentHeight = this.cssServ.ToPxValue(value, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+    this._height = value;
+  }
+  public get Height(): string {
+    return this._height;
+  }
 
   @Input()
   EnableShadow: boolean = true;
@@ -182,7 +201,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
     return this._activeStepNo;
   }
 
-  constructor(private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
+  constructor(private ele: ElementRef, private cssServ: RCssUnitsService, private cdr: ChangeDetectorRef, winObj: RWindowHelper) {
     super(winObj);
     this.seqItems = [];
     this.Id = this.winObj.GenerateUniqueId();

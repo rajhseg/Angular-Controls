@@ -5,6 +5,7 @@ import { RTabComponent, RTabHeaderWithTabId, RTabIdFor } from "../rtab/rtab.comp
 import { RWindowHelper } from "../rwindowObject";
 import { RBaseComponent } from "../rmodels/RBaseComponent";
 import { TitleCasePipe } from '@angular/common';
+import { CssUnit, RCssUnitsService, RelativeUnitType } from "../rcss-units.service";
 
 
 @Component({
@@ -39,7 +40,8 @@ export class RSimpleTabsComponent extends RBaseComponent<any> implements AfterCo
     @Input({ required: true, alias: 'TabHeight' })
     set TabHeight(value: string) {
         if (value && value != '') {
-        this._tabHeight = value;
+          let _val = this.cssServ.ToPxValue(value, this.hostElementRef.nativeElement.parentElement, RelativeUnitType.Height);
+          this._tabHeight = _val + CssUnit.Px.toString();
         } else {
         this._tabHeight = '200px';
         }
@@ -51,9 +53,10 @@ export class RSimpleTabsComponent extends RBaseComponent<any> implements AfterCo
     @Input()
     set TabWidth(value: string) {
         if (value && value != '') {
-        this._tabWidth = value;
+          let _val = this.cssServ.ToPxValue(value, this.hostElementRef.nativeElement.parentElement, RelativeUnitType.Width);
+          this._tabWidth = _val + CssUnit.Px.toString();
         } else {
-        this._tabWidth = '100%';
+          this._tabWidth = '100%';
         }
     }
     get TabWidth(): string {
@@ -84,6 +87,7 @@ export class RSimpleTabsComponent extends RBaseComponent<any> implements AfterCo
     constructor(private winobj: RWindowHelper,
         private cdr: ChangeDetectorRef,
         private viewRef: ViewContainerRef,
+        private cssServ: RCssUnitsService,
         @Host() public hostElementRef: ElementRef
     ) {
         super(winobj);

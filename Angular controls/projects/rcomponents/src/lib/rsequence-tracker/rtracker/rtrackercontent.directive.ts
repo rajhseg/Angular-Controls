@@ -1,4 +1,6 @@
-import { ChangeDetectorRef, Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
+import { ChangeDetectorRef, Directive, ElementRef, Host, Input, TemplateRef, ViewContainerRef } from "@angular/core";
+import { RCssUnitsService, RelativeUnitType } from "../../rcss-units.service";
+import { RSequencesTrackerComponent } from "../rsequences-tracker.component";
 
 @Directive({
     selector:'[rtrackercontent]',
@@ -8,9 +10,20 @@ export class RTrackerContentDirective {
     
     public StepNo: number = -1;
         
-    public Height: string = '100px';
+    private _height: string = '100px';
+
+    public set Height(value: string) {
+        let htmlele = this.vcr.injector.get(RSequencesTrackerComponent);
+        if(htmlele){
+            let _val = this.cssServ.ToPxString(value, htmlele.getElementRef().nativeElement.parentElement, RelativeUnitType.Height);
+            this._height = _val;
+        }
+    }
+    public get Height(): string {
+        return this._height;
+    }
           
-    constructor(public templateRef: TemplateRef<any>, public vcr: ViewContainerRef, public cdr: ChangeDetectorRef) {
+    constructor(@Host() private ele: ElementRef, private cssServ: RCssUnitsService, public templateRef: TemplateRef<any>, public vcr: ViewContainerRef, public cdr: ChangeDetectorRef) {
     
     }
 

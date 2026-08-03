@@ -384,7 +384,7 @@
   <br />
 
   <rstepper-vertical [StripLineColor]="bColor" [ActiveBackColor]="bColor" [PendingBackColor]="'dark#8f19ff'"
-    [PendingBorderColor]="'dark#8f19ff'" [ContentWidth]="1000" [ContentHeight]="760"
+    [PendingBorderColor]="'dark#8f19ff'" [Width]="'1000px'" [Height]="'760px'"
     (OnCompletedClick)="StepsCompleted($event)" [ShowStateVertical]="showVerticalItems"
     [(StateVerticalDisplayType)]="stepperDisplayType">
 
@@ -881,7 +881,7 @@
   <br />
   <br />
 
-  <rstepper-horizontal [ContentWidth]="980" [ContentHeight]="570" [ActiveBackColor]="bColor" [PendingForeColor]="tColor"
+  <rstepper-horizontal [Width]="'980px'" [Height]="'570px'" [ActiveBackColor]="bColor" [PendingForeColor]="tColor"
     [PendingBackColor]="'white'" [StripLineColor]="bColor" [ShowStateHorizontal]="showVerticalItems"
     (OnCompletedClick)="StepsCompleted($event)">
 
@@ -1191,7 +1191,7 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab13', 'HeaderText':'rstepper vertical', 'Context':this}">
 
-        <rstepper-vertical [ContentWidth]="800" [ContentHeight]="530" (OnCompletedClick)="StepsCompleted($event)">
+        <rstepper-vertical (OnCompletedClick)="StepsCompleted($event)">
           <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'"
             [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>
@@ -1236,7 +1236,7 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab14', 'HeaderText':'rstepper horizontal', 'Context':this}">
 
-        <rstepper-horizontal [ContentWidth]="800" [ContentHeight]="530" (OnCompletedClick)="StepsCompleted($event)">
+        <rstepper-horizontal (OnCompletedClick)="StepsCompleted($event)">
           <rstep [Title]="'UserInfo'" [IsStepValid]="stepOneValid" [DisplayTextForNextButton]="'Next'"
             [DisplayTextForBackButton]="'Back'">
             <ng-template rstepview>

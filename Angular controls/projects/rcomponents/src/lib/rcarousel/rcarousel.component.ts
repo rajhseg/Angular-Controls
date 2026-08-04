@@ -99,7 +99,7 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     this.OnContentClick.emit(new RCarouselEventArgs(evt, index));
   }
 
-   slide(evt: Event | null, step: number) {
+   slide(step: number) {
     this.currentItem++;
 
       if (step < 0)
@@ -171,7 +171,7 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
         this.items.addEventListener("transitionend", this.onTransitionEnd);
 
         if(this.EnableAutoPlay){
-          this._interval = setInterval(() => this.slide(null, 1), this.AutoPlayDurationBetweenSlides);
+          this._interval = setInterval(() => this.slide(1), this.AutoPlayDurationBetweenSlides);
           
           this.destroy.onDestroy(()=>{
             this.items?.removeEventListener("transitionend", this.onTransitionEnd);

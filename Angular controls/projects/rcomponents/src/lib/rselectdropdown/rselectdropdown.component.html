@@ -64,9 +64,9 @@
                 </ng-container>
       
               <ng-container *ngIf="OptionsTemplate!=undefined">
-                <ng-container *ngTemplateOutlet="OptionsTemplate; context:{$implicit: item}">
+                <ng-container *ngTemplateOutlet="OptionsTemplate || em1; context:{$implicit: item}">
                 </ng-container>
-                <ng-template #em>No Content</ng-template>
+                <ng-template #em1>No Content</ng-template>
               </ng-container>
 
             </div>
@@ -90,9 +90,9 @@
           </ng-container>
 
           <ng-container *ngIf="OptionsTemplate!=undefined">
-            <ng-container *ngTemplateOutlet="OptionsTemplate; context:{$implicit: item}">
+            <ng-container *ngTemplateOutlet="OptionsTemplate || em2; context:{$implicit: item}">
             </ng-container>
-            <ng-template #em>No Content</ng-template>
+            <ng-template #em2>No Content</ng-template>
           </ng-container>
 
         </div>

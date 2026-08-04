@@ -177,12 +177,12 @@
                                 <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
                                     <div>
                                         <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
-                                            item[header.PropToBind].columnDirective.EditView  || em :
-                                            item[header.PropToBind].columnDirective.ReadView || em;
+                                            item[header.PropToBind].columnDirective.EditView  || em1 :
+                                            item[header.PropToBind].columnDirective.ReadView || em1;
                                         context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                                         </ng-container>
                                         <!-- <ng-content></ng-content> -->
-                                        <ng-template #em>No Content</ng-template>
+                                        <ng-template #em1>No Content</ng-template>
                                     </div>
                                 </ng-container>
 
@@ -198,12 +198,12 @@
                                 style="cursor: pointer;">
 
                                 <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
-                                        defaultEditView || em :
-                                        defaultReadView || em;
+                                        defaultEditView || em2 :
+                                        defaultReadView || em2;
                                     context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                                 </ng-container>
                                 <!-- <ng-content></ng-content> -->
-                                <ng-template #em>No Content</ng-template>
+                                <ng-template #em2>No Content</ng-template>
                             </td>
                         </ng-container>
 
@@ -273,12 +273,12 @@
                                         <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
                                             <div>
                                                 <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
-                                                    item[header.PropToBind].columnDirective.EditView  || em :
-                                                    item[header.PropToBind].columnDirective.ReadView || em;
+                                                    item[header.PropToBind].columnDirective.EditView  || em3 :
+                                                    item[header.PropToBind].columnDirective.ReadView || em3;
                                                 context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                                                 </ng-container>
                                                 <!-- <ng-content></ng-content> -->
-                                                <ng-template #em>No Content</ng-template>
+                                                <ng-template #em3>No Content</ng-template>
                                             </div>
                                         </ng-container>
 
@@ -294,12 +294,12 @@
                                         style="cursor: pointer;">
 
                                         <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
-                                                defaultEditView || em :
-                                                defaultReadView || em;
+                                                defaultEditView || em4 :
+                                                defaultReadView || em4;
                                             context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
                                         </ng-container>
                                         <!-- <ng-content></ng-content> -->
-                                        <ng-template #em>No Content</ng-template>
+                                        <ng-template #em4>No Content</ng-template>
                                     </td>
                                 </ng-container>
 

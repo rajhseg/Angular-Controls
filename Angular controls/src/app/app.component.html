@@ -118,7 +118,7 @@
       <div></div>
       <br />
 
-      <rfileupload [SelectMultipleFiles]="true" [Accept]="'image/*'" [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+      <rfileupload [SelectMultipleFiles]="true" [Accept]="'image/*'" [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeightInPx]="'155px'"
         [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="'gray'"
         [IconForeColor]="bColor" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
       </rfileupload>
@@ -135,8 +135,8 @@
       <br />
 
       <rprogressbar [ForeColor]="'#8f19ff'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
-        [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
-        [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+        [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
+        [ProgressBarWidthInPx]="'150px'" [Percentage]="perc" [CircularLineWidthInPx]="'15px'"
         [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
       </rprogressbar>
 
@@ -229,7 +229,7 @@
 
       &nbsp;
 
-      <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+      <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeightInPx]="'155px'"
         [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
         [IconForeColor]="bColor" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
       </rfileupload>
@@ -242,8 +242,8 @@
       &nbsp;
 
       <rprogressbar [ForeColor]="'#8f19ff'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
-        [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
-        [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+        [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
+        [ProgressBarWidthInPx]="'150px'" [Percentage]="perc" [CircularLineWidthInPx]="'15px'"
         [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
       </rprogressbar>
 
@@ -687,14 +687,14 @@
   <div style="width: 600px;height:200px">
     <br />
 
-    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeightInPx]="'155px'"
       [ShowFilesAsDropdownContainer]="true" [EnableShadowEffect]="false" [TextForeColor]="bColor"
       [IconForeColor]="bColor" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
     </rfileupload>
 
     &nbsp;&nbsp;
 
-    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeight]="'155px'"
+    <rfileupload [EnableMaximumHeightForShowFiles]="true" [ShowFilesListMaximumHeightInPx]="'155px'"
       [ShowFilesAsDropdownContainer]="false" [EnableShadowEffect]="false" [TextForeColor]="bColor"
       [IconForeColor]="bColor" (filesCleared)="filesCleared($event)" (filesSelected)="filesSelected($event)">
     </rfileupload>
@@ -1141,7 +1141,7 @@
 
       <rtab *tabidfor="{ 'TabId': 'tab8', 'HeaderText':'rfileupload', 'Context':this}">
         <div style="display: flex;">
-          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" [ShowFilesListMaximumHeight]="'145px'"
+          <rfileupload (filesCleared)="filesCleared($event)" [(ngModel)]="files" [ShowFilesListMaximumHeightInPx]="'145px'"
             [EnableMaximumHeightForShowFiles]="true" [ShowFilesAsDropdownContainer]="true"
             (filesSelected)="filesSelected($event)"></rfileupload>
         </div>
@@ -1164,8 +1164,8 @@
           [(ngModel)]="IsInfiniteProgressBar"></rswitch>
 
         <rprogressbar [ForeColor]="'#8f19ff'" [TrackColor]="'lightgray'" [EnableBackDrop]="false"
-          [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
-          [ProgressBarWidth]="'150px'" [Percentage]="perc" [CircularLineWidth]="'15px'"
+          [FloatInCenter]="proincenter" [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
+          [ProgressBarWidthInPx]="'150px'" [Percentage]="perc" [CircularLineWidthInPx]="'15px'"
           [FiniteCircularDisplayText]="progressDisplayText" [Type]="progressType">
         </rprogressbar>
 

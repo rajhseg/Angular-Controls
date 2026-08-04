@@ -49,13 +49,18 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
   @Input()
   Name: string = "";
   
+  
+  TabWidth_C: string = '100%';
+  TabHeight_C: string = '200px';
+
   @Input({ required: true, alias: 'TabHeight' })
   set TabHeight(value: string) {
+    this._tabHeight = value;
     if (value && value != '') {
       let _val = this.cssServ.ToPxValue(value, this.hostElementRef.nativeElement.parentElement, RelativeUnitType.Height);
-      this._tabHeight = _val + CssUnit.Px.toString();          
+      this.TabHeight_C = _val + CssUnit.Px.toString();
     } else {
-      this._tabHeight = '200px';
+      this.TabHeight_C = '200px';
     }
   }
   get TabHeight(): string {
@@ -64,17 +69,18 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
 
   @Input()
   set TabWidth(value: string) {
+    this._tabWidth = value;
     if (value && value != '') {
       let _val = this.cssServ.ToPxValue(value, this.hostElementRef.nativeElement.parentElement, RelativeUnitType.Width);
-      this._tabWidth = _val + CssUnit.Px.toString();
+      this.TabWidth_C = _val + CssUnit.Px.toString();
     } else {
-      this._tabWidth = '100%';
+      this.TabWidth_C = '100%';
     }
   }
   get TabWidth(): string {
     return this._tabWidth;
   }
-
+  
   @Input()
   DisplayTabContainerWhenZeroTabs: boolean = false;
 

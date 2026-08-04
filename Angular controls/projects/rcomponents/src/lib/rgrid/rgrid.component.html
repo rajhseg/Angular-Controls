@@ -2,7 +2,7 @@
          [ngStyle]="{ '--fontsize': FontSize }"
          [style.font-family]="FontFamily" [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
     <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
-        [ngStyle]="{ 'width': TableWidth }"
+        [ngStyle]="{ 'width': TableWidth_C }"
         cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">
         <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" 
             [ngStyle]="{ 'width': grpheader.Width,
@@ -12,7 +12,7 @@
             <span (click)="removeFromGroup(grpheader)" [ngStyle]="{'color': GroupHeaderForeColor}" class="rbtn">&#10006;</span>
         </div>
     </div>
-    <div #parentElement [ngStyle]="{'width': TableWidth, 'height': TableHeight }" style="overflow: hidden;">   
+    <div #parentElement [ngStyle]="{'width': TableWidth_C, 'height': TableHeight_C }" style="overflow: hidden;">   
         
         <table class="tblheader" [ngStyle]="{ 'width': '100%' }">
             <thead>
@@ -323,12 +323,12 @@
         </table>
     </cdk-virtual-scroll-viewport>
     </div>
-    <div [ngStyle]="{ 'width': TableWidth }">
+    <div [ngStyle]="{ 'width': TableWidth_C }">
         <div>
-            <table [ngStyle]="{ 'width': TableWidth }">
-                <tbody [ngStyle]="{ 'width': TableWidth }">
+            <table [ngStyle]="{ 'width': TableWidth_C }">
+                <tbody [ngStyle]="{ 'width': TableWidth_C }">
                     <tr style="border-top: 1px solid lightgray;border-right: 1px solid lightgray" [ngStyle]="{ 'width': FooterWidth }">
-                        <td style="padding-top:0px; padding-bottom: 0px;" [ngStyle]="{ 'width': TableWidth }">
+                        <td style="padding-top:0px; padding-bottom: 0px;" [ngStyle]="{ 'width': TableWidth_C }">
                             <div class="page">
                                 <div [ngStyle]="{ 'font-size': FontSize }" style="display: block;color:grey">
                                     <div class="pageItem" (click)="FirstPage()">&#171;</div>
@@ -360,8 +360,8 @@
                         </td>
                         <td style="align-items: end;">
                             <rprogressbar *ngIf="EnableLoader" [ForeColor]="LoaderForeColor" [TrackColor]="LoaderTrackColor" [EnableBackDrop]="false"
-                                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
-                                [ProgressBarWidth]="'17px'" [CircularLineWidth]="'3px'"
+                                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
+                                [ProgressBarWidthInPx]="'17px'" [CircularLineWidthInPx]="'3px'"
                                 [FiniteCircularDisplayText]="''" [Type]="progressType">
                             </rprogressbar>
                         </td>

@@ -38,11 +38,11 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
   _straightLineHeight: string = '16px';
 
   @Input()
-  set StraightLineTrackHeight(val: string) {
+  set StraightLineTrackHeightInPx(val: string) {
     this._straightLineHeight = val;
     this.RenderStraightLine();
   }
-  get StraightLineTrackHeight() {
+  get StraightLineTrackHeightInPx() {
     return this._straightLineHeight;
   }
 
@@ -51,7 +51,7 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
   get LeftPosition(): number {
 
     if (this.winobj.isExecuteInBrowser()) {
-      let _w = parseInt(this.ProgressBarWidth.split('px')[0]);
+      let _w = parseInt(this.ProgressBarWidthInPx.split('px')[0]);
       let adjustLength = _w / 2;
       let middlevalue = document.body.clientWidth / 2;
       let left = middlevalue - adjustLength;
@@ -62,11 +62,11 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
   }
 
   @Input()
-  set CircularLineWidth(val: string) {
+  set CircularLineWidthInPx(val: string) {
     this._circularLineWidth = val;
     this.RenderProgressCircle();
   }
-  get CircularLineWidth(): string {
+  get CircularLineWidthInPx(): string {
     return this._circularLineWidth;
   }
 
@@ -132,10 +132,10 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
   }
 
   @Input()
-  set ProgressBarWidth(val: string) {
+  set ProgressBarWidthInPx(val: string) {
     this._width = val;
   }
-  get ProgressBarWidth(): string {
+  get ProgressBarWidthInPx(): string {
 
     if (this._width == '') {
       return this.DisplayType == this.allDisplayTypes.Circle ? '150px' : '250px';
@@ -201,7 +201,7 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
 
   private calculateStraightLineWidth(): number {
     let percentage = this._percentage;
-    let _w = this.ProgressBarWidth.split('px')[0];
+    let _w = this.ProgressBarWidthInPx.split('px')[0];
 
     // if(this.DisplayType==this.allDisplayTypes.StraightLine && this.Type==this.allProgressBarTypes.Progress){
     //  _w = (parseFloat(_w) * (88/100)).toString();
@@ -235,8 +235,8 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
       let per = this.Percentage / 100;
       let deg = per * 359.98 * (Math.PI / 180);
 
-      let _w = parseInt(this.ProgressBarWidth.split('px')[0]);
-      let _linewidth = parseInt(this.CircularLineWidth.split('px')[0]);
+      let _w = parseInt(this.ProgressBarWidthInPx.split('px')[0]);
+      let _linewidth = parseInt(this.CircularLineWidthInPx.split('px')[0]);
 
       let radius = 0;
 
@@ -332,9 +332,9 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
   }
 
   get InfiniteWidth(): string {
-    let _pw = parseInt(this.ProgressBarWidth.split('px')[0]);
+    let _pw = parseInt(this.ProgressBarWidthInPx.split('px')[0]);
 
-    let _w = _pw - parseInt(this.CircularLineWidth.split('px')[0]);
+    let _w = _pw - parseInt(this.CircularLineWidthInPx.split('px')[0]);
 
     if (_pw > 75) {
       _w = _w - 50;

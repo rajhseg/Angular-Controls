@@ -1,10 +1,10 @@
 <div [style.font-family]="FontFamily" [id]="Id"
-      [ngStyle]="{ 'width': ContentWidth, 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
+      [ngStyle]="{ 'width': ContentWidth_C, 'pointer-events': (IsDisabled || IsReadOnly) ? 'none' : '', 'user-select' : IsDisabled ? 'none' : 'auto' }">
 
     <div style="display: flex; flex-direction: row;" 
-        *ngFor="let item of Items; let i = index; trackBy: trackById" [ngStyle]="{ 'height': item.Height }">
+        *ngFor="let item of Items; let i = index; trackBy: trackById" [ngStyle]="{ 'height': item.Height_C }">
 
-        <div style="width: 34px;" [ngStyle]="{ 'height': item.Height, 'display': 'flex', 'justify-content':'center' }">
+        <div style="width: 34px;" [ngStyle]="{ 'height': item.Height_C, 'display': 'flex', 'justify-content':'center' }">
             <div class="circle" [ngStyle]="{ 
                 'width':  '32px',
                 'position': 'absolute',
@@ -18,7 +18,7 @@
                         class="number">{{item.StepNo}}</span>
 
             </div>
-            <div class="tline" [ngStyle]="{ 'position' : 'absolute', 'height':item.Height, 'margin-left':'-1px', 'z-index': '1'}" 
+            <div class="tline" [ngStyle]="{ 'position' : 'absolute', 'height':item.Height_C, 'margin-left':'-1px', 'z-index': '1'}" 
                     [style.backgroundColor]="StripLineColor"></div>
         </div>
 
@@ -27,7 +27,7 @@
                             'border-radius': '5px',
                             'border': '0.5px solid '+ ContentBorderColor,
                             'padding':'5px',
-                            'height':GetContentHeight(item.Height), 
+                            'height':GetContentHeight(item.Height_C), 
                             'width': GetContentWidth,  
                             'pointer-events': IsReadOnly ? 'none': ''}">
             <ng-container *ngTemplateOutlet="item.templateRef">

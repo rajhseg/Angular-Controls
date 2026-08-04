@@ -98,10 +98,10 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   TextColor: string = 'gray';
 
   @Input()
-  Width: string = '15px'
+  WidthInPx: string = '15px'
 
   @Input()
-  Height: string = '15px';
+  HeightInPx: string = '15px';
 
   @Input()
   Color: string = 'grey';

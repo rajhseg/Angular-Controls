@@ -14,9 +14,9 @@
 
         <div style="display: flex; flex-direction: column;">
             <rprogressbar [ForeColor]="HoursForeColor" [TrackColor]="HoursTrackColor" [EnableBackDrop]="false"
-                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidthInPx]="CircularWidth"
                 [FontSize]="FontSize"
-                [Percentage]="HourPercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Hour"
+                [Percentage]="HourPercentage" [CircularLineWidthInPx]="TrackWidth" [FiniteCircularDisplayText]="Hour"
                 [Type]="ProgressType">
             </rprogressbar>
             <div [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl">
@@ -27,9 +27,9 @@
 
         <div style="display: flex; flex-direction: column;">
             <rprogressbar [ForeColor]="MinuteForeColor" [TrackColor]="MinuteTrackColor" [EnableBackDrop]="false"
-                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidthInPx]="CircularWidth"
                 [FontSize]="FontSize"
-                [Percentage]="MinutePercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Minute"
+                [Percentage]="MinutePercentage" [CircularLineWidthInPx]="TrackWidth" [FiniteCircularDisplayText]="Minute"
                 [Type]="ProgressType">
             </rprogressbar>
             <div [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl">
@@ -39,9 +39,9 @@
 
         <div style="display: flex; flex-direction: column;">
             <rprogressbar [ForeColor]="SecondsForeColor" [TrackColor]="SecondsTrackColor" [EnableBackDrop]="false"
-                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidth]="CircularWidth"
+                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [ProgressBarWidthInPx]="CircularWidth"
                 [FontSize]="FontSize"
-                [Percentage]="SecondPercentage" [CircularLineWidth]="TrackWidth" [FiniteCircularDisplayText]="Second"
+                [Percentage]="SecondPercentage" [CircularLineWidthInPx]="TrackWidth" [FiniteCircularDisplayText]="Second"
                 [Type]="ProgressType">
             </rprogressbar>
             <div [ngStyle]="{'color': DisplayTextForeColor}" *ngIf="EnableDisplayText" class="lbl">

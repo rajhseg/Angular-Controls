@@ -8,7 +8,7 @@
           [BottomLineColor]="TextBottomLineColor" [TextBoxWidth]="'110px'"  [FontSize]="FontSize"
           [IsReadOnly]="true" [(ngModel)]="displayText"></rtextbox>
       <rbutton #openbtn class="btn" [BackgroundColor]="ButtonBackgroundColor" [ForeColor]="ButtonForeColor"
-          [ButtonHeight]="IconButtonHeight" 
+          [ButtonHeight]="IconButtonHeightInPx" 
           [ButtonWidth]="'30px'"
           [ngStyle]="{ 'top': LabelText.trim() !='' ? '8px': '-1px'}">
           <span>&#9716;</span>

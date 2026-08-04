@@ -31,6 +31,9 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
     public draggedTabs: RTabHeaderWithTabId[] = [];
   
     public ispopuphidden: boolean = true;
+
+    TabWidth_C: string = '100%';
+    TabHeight_C: string = '200px';
   
     @ViewChild('vcTemp', { read: ViewContainerRef, static: false }) vcElement!: ViewContainerRef;
   
@@ -57,11 +60,12 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     @Input({ required: true, alias: 'TabHeight' })
     set TabHeight(value: string) {
+      this._tabHeight = value;
       if (value && value != '') {
         let _val = this.cssServ.ToPxValue(value, this.hostElementRef.nativeElement.parentElement, RelativeUnitType.Height);
-        this._tabHeight = _val + CssUnit.Px.toString();
+        this.TabHeight_C = _val + CssUnit.Px.toString();
       } else {
-        this._tabHeight = '200px';
+        this.TabHeight_C = '200px';
       }
     }
     get TabHeight(): string {
@@ -70,11 +74,12 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     @Input()
     set TabWidth(value: string) {
+      this._tabWidth = value;
       if (value && value != '') {
         let _val = this.cssServ.ToPxValue(value, this.hostElementRef.nativeElement.parentElement, RelativeUnitType.Width);
-        this._tabWidth = _val + CssUnit.Px.toString();
+        this.TabWidth_C = _val + CssUnit.Px.toString();
       } else {
-        this._tabWidth = '100%';
+        this.TabWidth_C = '100%';
       }
     }
     get TabWidth(): string {
@@ -100,7 +105,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
     }
   
     public get TabHeightForDragged(): string {
-      let _width: number = Number.parseInt(this.TabHeight.split('px')[0]) + 48;
+      let _width: number = Number.parseInt(this.TabHeight_C.split('px')[0]) + 48;
       return _width + "px";
     }
   

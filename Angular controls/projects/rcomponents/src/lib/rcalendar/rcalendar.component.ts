@@ -118,17 +118,39 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   private onChange: any = () => { };
   private onTouch: any = () => { };
 
+  private _width: string = '170px';
+  private _height: string = '15px';
+
+  Width_C: string = '170px';
+  Height_C: string = '15px';
+
   @Input()
   Font: string = '';
 
   @Input()
-  Width: string = '170px';
+  set Width(value: string) {
+    this._width = value;
+    if(this.eleRef){
+      this.Width_C = this.cssUnitSer.ToPxString(value, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
+    }
+  }
+  get Width(): string {
+    return this._width;
+  }
 
   @Input()
   DateFormat: string = 'MM-dd-yyyy';
 
   @Input()
-  Height: string = '15px';
+  set Height(value: string){
+    this._height = value;
+    if(this.eleRef){
+      this.Height_C = this.cssUnitSer.ToPxString(value, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+    }
+  }
+  get Height(): string {
+    return this._height;
+  }
 
   @Output()
   onDateSelected = new EventEmitter<Date>(); // output<Date>();
@@ -222,10 +244,10 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   public get IconSize(): string {
 
-    if (this._iconSizeHeight != this.Height) {
+    if (this._iconSizeHeight != this.Height_C) {
       if (this.eleRef.nativeElement) {
-        let val = this.cssUnitSer.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
-        this._iconSizeHeight = this.Height;
+        let val = this.cssUnitSer.ToPxValue(this.Height_C, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+        this._iconSizeHeight = this.Height_C;
         this._iconVal = (val + 7) + CssUnit.Px.toString();
       }
     }
@@ -238,11 +260,11 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   public get TopPx(): string {
 
-    if (this._topPxHeight != this.Height) {
+    if (this._topPxHeight != this.Height_C) {
       if (this.eleRef.nativeElement) {
-        let val = this.cssUnitSer.ToPxValue(this.Height, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+        let val = this.cssUnitSer.ToPxValue(this.Height_C, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
         let rem = val / 10;
-        this._topPxHeight = this.Height;
+        this._topPxHeight = this.Height_C;
         this._topVal = '-' + (rem * 2) + CssUnit.Px.toString();
       }
     }

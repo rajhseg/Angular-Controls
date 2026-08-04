@@ -20,11 +20,15 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     private _width: string = '600px';
     private _height: string = '300px';
 
+    Width_C: string = '600px';
+    Height_C: string = '300px';
+
     @Input()
     set Width(val: string) {
+      this._width = val;
       if (this.eleRef.nativeElement) {
         let value = this.cssUnitSer.ToPxString(val, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
-        this._width = value;
+        this.Width_C = value;
       }
     }
     get Width(): string {
@@ -32,15 +36,16 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     }
 
     get WidthInNumber(): number {
-      let val = this.cssUnitSer.ToPxValue(this.Width, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
+      let val = this.cssUnitSer.ToPxValue(this.Width_C, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
       return val;
     }
 
     @Input()
     set Height(val: string) {
+      this._height = val;
       if (this.eleRef.nativeElement) {
         let value = this.cssUnitSer.ToPxString(val, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
-        this._height = value;
+        this.Height_C = value;
       }
     }
     get Height(): string {

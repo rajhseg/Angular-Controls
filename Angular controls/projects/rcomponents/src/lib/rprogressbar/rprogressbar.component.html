@@ -5,7 +5,7 @@
         [ngStyle]="{ 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }"
         [ngClass]="{ 'progress_container': FloatInCenter }">
         <div class="progressbar_infinite"
-         [ngStyle]="{'borderWidth': CircularLineWidth, 'borderColor': CircleColor,
+         [ngStyle]="{'borderWidth': CircularLineWidthInPx, 'borderColor': CircleColor,
                       'width': InfiniteWidth, 'height': InfiniteWidth} ">
 
         </div>
@@ -14,8 +14,8 @@
     <div *ngIf="Type===allProgressBarTypes.Infinite && DisplayType === allDisplayTypes.StraightLine"
         [ngClass]="{ 'progress_flat_container': FloatInCenter }"
         [style.left.px]="LeftPosition"
-        [ngStyle]="{ 'width': ProgressBarWidth, 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto'}">
-        <div class="progress_flattrack" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight }">
+        [ngStyle]="{ 'width': ProgressBarWidthInPx, 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto'}">
+        <div class="progress_flattrack" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeightInPx }">
             <div [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem">
 
             </div>
@@ -26,9 +26,9 @@
     <div style="place-items: center; place-content: center;text-align: right;" [ngClass]="{ 'progress_flat_container': FloatInCenter,
           'hide': !(Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.StraightLine) }"
         [style.left.px]="LeftPosition"
-        [ngStyle]="{ 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto', 'width': ProgressBarWidth, 'display': DisplayType == allDisplayTypes.StraightLine && Type==allProgressBarTypes.Progress ? 'block' : 'none'}">
+        [ngStyle]="{ 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto', 'width': ProgressBarWidthInPx, 'display': DisplayType == allDisplayTypes.StraightLine && Type==allProgressBarTypes.Progress ? 'block' : 'none'}">
 
-        <div class="progress_flattrack_finite" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeight, 'width': ProgressBarWidth }">
+        <div class="progress_flattrack_finite" [ngStyle]="{ 'backgroundColor': TrackColor, 'height': StraightLineTrackHeightInPx, 'width': ProgressBarWidthInPx }">
             <div #flatitemProgress [ngStyle]="{'backgroundColor': ForeColor }" class="progress_flatitem_Progress">
 
             </div>
@@ -42,11 +42,11 @@
     <div *ngIf="Type===allProgressBarTypes.Progress && DisplayType === allDisplayTypes.Circle"
         [ngStyle]="{ 'pointer-events': IsDisabled ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }"
         [ngClass]="{ 'progress_container': FloatInCenter }">
-        <canvas style="position: absolute;" #procan width="{{ProgressBarWidth.split('px')[0]}}" height="{{ProgressBarWidth.split('px')[0]}}" class="canvasCenter">
+        <canvas style="position: absolute;" #procan width="{{ProgressBarWidthInPx.split('px')[0]}}" height="{{ProgressBarWidthInPx.split('px')[0]}}" class="canvasCenter">
 
         </canvas>
 
-        <canvas #textcan width="{{ProgressBarWidth.split('px')[0]}}" height="{{ProgressBarWidth.split('px')[0]}}">
+        <canvas #textcan width="{{ProgressBarWidthInPx.split('px')[0]}}" height="{{ProgressBarWidthInPx.split('px')[0]}}">
 
         </canvas>
     </div>

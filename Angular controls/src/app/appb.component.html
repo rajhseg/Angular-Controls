@@ -306,8 +306,8 @@
           
         <rprogressbar style="margin-left: 100px;margin-top: 20px;" [FloatInCenter]="false" 
           [ForeColor]="'#7F77DD'" [TrackColor]="'#e8e8f0'" [EnableBackDrop]="false"
-           [DisplayType]="progressDisplayType" [StraightLineTrackHeight]="'16px'"
-          [ProgressBarWidth]="'150px'" [Percentage]="progressValue" [CircularLineWidth]="'15px'"
+           [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
+          [ProgressBarWidthInPx]="'150px'" [Percentage]="progressValue" [CircularLineWidthInPx]="'15px'"
           [FiniteCircularDisplayText]="'Progress '+progressValue+'%'" [Type]="progressBarType">
         </rprogressbar>
 
@@ -800,7 +800,7 @@
           <rfileupload [EnableShadowEffect]="false" 
             [ShowFilesAsDropdownContainer]="true"
             [EnableMaximumHeightForShowFiles]="true"
-            [ShowFilesListMaximumHeight]="'150px'"
+            [ShowFilesListMaximumHeightInPx]="'150px'"
             [AllowedMaxFileSizeInMB]="10"
             [IconForeColor]="selectedTheme.Value"
             [IsReadOnly]= "false"
@@ -1199,7 +1199,7 @@
 
         <!-- sequence Tracker -->
       <div class="card card-wide">
-        <div class="card-header">
+        <div class="card-header"> 
           <span class="card-tag tag-nav">Nav</span>
           <h2 class="card-title">RSequence (Tracker)</h2>
           <code class="card-selector">&lt;rsequences-tracker&gt;</code>

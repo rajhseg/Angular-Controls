@@ -2,7 +2,7 @@
   <div [id]="HostElementId">
 
     <div  [style.font-family]="FontFamily" [id]="Id" class="container" 
-          [ngStyle]="{ 'width': TotalWidth, 'height': TotalHeight,    
+          [ngStyle]="{ 'width': TotalWidthInPx, 'height': TotalHeightInPx,    
                      'border': EnableBorder ? '0.8px solid '+ BorderColor : '',
                      'border-radius': '8px',
                      'pointer-events':(IsDisabled || IsReadOnly) ? 'none': '',

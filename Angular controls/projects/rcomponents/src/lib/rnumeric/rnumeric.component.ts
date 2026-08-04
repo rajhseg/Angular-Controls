@@ -56,11 +56,35 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     return this._bottomColor;
   }
 
+  private _textboxWidth: string = '150px';
+  private _textboxHeight: string = '20px';
+  
+  public TextBoxHeight_C: string = '20px';
+  
+  public TextBoxWidth_C: string = '150px';
+
   @Input()
-  public TextBoxWidth: string = '150px';
+  public set TextBoxWidth(value: string) {
+    this._textboxWidth = value;
+    if(this.ele){
+      this.TextBoxWidth_C = this.cssUnitSer.ToPxString(value, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    }
+  }
+  public get TextBoxWidth(): string {
+    return this._textboxWidth;
+  }
   
   @Input()
-  public TextBoxHeight: string = '20px';
+  public set TextBoxHeight(value: string) {
+    this._textboxHeight = value;
+    if(this.ele){
+      this.TextBoxHeight_C = this.cssUnitSer.ToPxString(value, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+    }
+  }
+  public get TextBoxHeight(): string {
+    return this._textboxHeight;
+  }
+
 
   @Input()
   public EnableMarginTextBottom: boolean = false;
@@ -142,12 +166,12 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   backupValue: number = this._value;
 
   public get ButtonHeight(): string {
-    let value = this.cssUnitSer.ToPxValue(this.TextBoxHeight, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
+    let value = this.cssUnitSer.ToPxValue(this.TextBoxHeight_C, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
     return (value + 4) + CssUnit.Px.toString();
   }
 
   public get ButtonPaddingLeft(): string {
-    let value = this.cssUnitSer.ToPxValue(this.TextBoxWidth, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
+    let value = this.cssUnitSer.ToPxValue(this.TextBoxWidth_C, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
     return (value - 38) + CssUnit.Px.toString();
   }
 

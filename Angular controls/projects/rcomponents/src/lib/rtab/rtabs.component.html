@@ -4,7 +4,7 @@
   <div cdkDropList cdkDropListOrientation="mixed"
     *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
     [cdkDropListData]="TabHeaders" (cdkDropListDropped)="drop($event)" class="tabheaderContainer"
-    [style.width]="TabWidth">
+    [style.width]="TabWidth_C">
     <ng-container *ngIf="tabTemps && tabTemps.length > 0">
       <button id="rtabheader_{{header.TabId}}" class="tabheader"
         *ngFor="let header of TabHeaders; trackBy:trackByHeader" cdkDrag (cdkDragEnded)="dragEnded($event)"
@@ -19,7 +19,7 @@
 
   <ng-container>
     <div [ngStyle]="{ 'pointer-events': IsReadOnly ? 'none': '' }" class="tabcontent" *ngIf="contentVisible && (this.tabTemps.length > 0 || DisplayTabContainerWhenZeroTabs)"
-      [style.width]="TabWidth" [style.height]="TabHeight">
+      [style.width]="TabWidth_C" [style.height]="TabHeight_C">
 
       <div *ngIf="SelectedTabTemplateRef && SelectedTabTemplateRef.templateRef!=undefined"
         id="rtabcontent_{{SelectedTabTemplateRef.TabId}}" class="tab active">
@@ -40,9 +40,9 @@
   <div #tmp *ngFor="let header of draggedTabs" (click)="bringToTop($event, tmp)" class="draggedbox cursorForDrag" [hidden]="ispopuphidden"
     [style.left]="header.X + 'px'" [style.top]="header.Y +'px'" cdkDropList [cdkDropListData]="draggedTabs"
     cdkDropListOrientation="mixed" (cdkDropListDropped)="draggeddropForPopup($event)" cdkDragHandle cdkDrag
-    [style.width]="TabWidth" [style.height]="TabHeightForDragged">
+    [style.width]="TabWidth_C" [style.height]="TabHeightForDragged">
 
-    <div class="tabheaderContainer" [style.width]="TabWidth">
+    <div class="tabheaderContainer" [style.width]="TabWidth_C">
       <ng-container>
         <button cdkDrag (cdkDragStarted)="dragStartedForPopup($event)" [cdkDragData]="header"
           id="rdragtabheader_{{header.TabId}}" class="tabheader" [ngClass]="{ tabSelected: true}">
@@ -54,7 +54,7 @@
     </div>
 
     <ng-container>
-      <div class="tabcontent" [style.width]="TabWidth" [style.height]="TabHeight" 
+      <div class="tabcontent" [style.width]="TabWidth_C" [style.height]="TabHeight_C" 
             style="cursor: pointer;">
         <div id="rdraggedtabcontent_{{header.TabId}}" class="tab active">
           <ng-container

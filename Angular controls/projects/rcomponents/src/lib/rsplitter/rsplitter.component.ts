@@ -41,14 +41,21 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
   @Input()
    SplitterBackgroundColor: string = '#555';
 
+  private _totalWidth: string = '500px';
+  private _totalHeight: string = '400px';
+
   @Input()
   set TotalWidth(value: string) {
-    this._totalWidthInPx = value;
+    this._totalWidth = value;
   }
   get TotalWidth(): string {
+    return this._totalWidth;
+  }
+
+  get TotalWidthInPx(): string {
 
     if(this.winHelper.isExecuteInBrowser()) {
-        this._totalWidthInPx = this.cssUnitService.ToPxString(this._totalWidthInPx, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
+        this._totalWidthInPx = this.cssUnitService.ToPxString(this._totalWidth, this.eleRef.nativeElement.parentElement, RelativeUnitType.Width);
     }
 
     return this._totalWidthInPx;
@@ -56,12 +63,16 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
 
   @Input()
   set TotalHeight(value: string) {
-    this._totalHeightInPx = value;
+    this._totalHeight = value;
   }
   get TotalHeight(): string {
+    return this._totalHeight;
+  }
+
+  get TotalHeightInPx(): string {
 
     if(this.winHelper.isExecuteInBrowser()){
-       this._totalHeightInPx = this.cssUnitService.ToPxString(this._totalHeightInPx, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+       this._totalHeightInPx = this.cssUnitService.ToPxString(this._totalHeight, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
     }
 
     return this._totalHeightInPx;

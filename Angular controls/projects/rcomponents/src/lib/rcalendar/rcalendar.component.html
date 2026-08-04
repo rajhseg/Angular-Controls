@@ -5,7 +5,7 @@
         *ngIf="IsWindowsOs || IsLinuxOs">
     <div class="rcalinputdiv" style="display: flex;flex-direction: row;" [ngStyle]="{'user-select': IsDisabled ? 'none': ''}">
 
-        <input id="{{'inp_'+Id}}" [ngStyle]="{'height': Height, 'width': Width, 'font': Font, 'font-size': FontSize,
+        <input id="{{'inp_'+Id}}" [ngStyle]="{'height': Height_C, 'width': Width_C, 'font': Font, 'font-size': FontSize,
                             '--pleft': PaddingLeft, '--pright': PaddingRight,
                             'pointer-events':(IsDisabled || IsReadOnly) ? 'none': '',
                             'user-select': (IsDisabled) ? 'none' : 'auto' }"

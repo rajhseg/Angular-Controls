@@ -30,12 +30,15 @@ export class RAccordionComponent extends RBaseComponent<any> implements AfterCon
     public ContentBackgroundColor: string = 'white';
     
     private _contentWidth: string = "250px";
+    
+    ContentWidth_C: string = "250px";
 
     @Input()
     public set ContentWidth(val: string) {
+        this._contentWidth = val;
         if(this.ele) {
             let value = this.cssServ.ToPxValue(val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
-            this._contentWidth = (value) + CssUnit.Px.toString();
+            this.ContentWidth_C = (value) + CssUnit.Px.toString();
         }
     }
     public get ContentWidth(): string {
@@ -46,12 +49,15 @@ export class RAccordionComponent extends RBaseComponent<any> implements AfterCon
     public BorderColor: string = "lightgray";
 
     private _gapBetweenContent: string = '5px';
+    
+    GapBetweenContent_C: string = '5px';
 
     @Input()
     public set GapBetweenContent(val: string) {
+        this._gapBetweenContent = val;
         if(this.ele){
             let value = this.cssServ.ToPxValue(val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
-            this._gapBetweenContent = (value) + CssUnit.Px.toString();
+            this.GapBetweenContent_C = (value) + CssUnit.Px.toString();
         }
     }
     public get GapBetweenContent(): string {
@@ -77,7 +83,7 @@ export class RAccordionComponent extends RBaseComponent<any> implements AfterCon
     }
 
     getActualWidth(): string {
-        let _wth = this.cssServ.ToPxValue(this.ContentWidth, null, null);
+        let _wth = this.cssServ.ToPxValue(this.ContentWidth_C, null, null);
         return (_wth + 20) + CssUnit.Px;
     }
 

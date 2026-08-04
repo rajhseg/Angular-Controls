@@ -77,7 +77,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   public EnableShadowEffect: boolean = true;
   
   @Input()
-  ShowFilesListMaximumHeight: string = "150px";
+  ShowFilesListMaximumHeightInPx: string = "150px";
 
   @Input()
   EnableMaximumHeightForShowFiles: boolean = false;

@@ -12,11 +12,14 @@ export class RTrackerContentDirective {
         
     private _height: string = '100px';
 
+    Height_C: string = '100px';
+
     public set Height(value: string) {
+        this._height = value;
         let htmlele = this.vcr.injector.get(RSequencesTrackerComponent);
         if(htmlele){
             let _val = this.cssServ.ToPxString(value, htmlele.getElementRef().nativeElement.parentElement, RelativeUnitType.Height);
-            this._height = _val;
+            this.Height_C = _val;
         }
     }
     public get Height(): string {

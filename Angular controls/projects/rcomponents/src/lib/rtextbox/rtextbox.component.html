@@ -7,17 +7,10 @@
         'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
         'user-select': IsDisabled ? 'none': 'auto' }">
 
-    <span class="span" [ngStyle]="{ 'width': TextBoxWidth, 'color': LabelForeColor, 'font-size': FontSize }"> 
+    <span class="span" [ngStyle]="{ 'width': TextBoxWidth_C, 'color': LabelForeColor, 'font-size': FontSize }"> 
         {{LabelText}} 
     </span>
     
-    
-    <!-- <p #para contenteditable="true" onkeypress="return event.keyCode != 13;"  
-        class="txtbox" 
-        (click)="txtboxClicked($event)"
-        [ngStyle]="{'width': TextBoxWidth+'px','border-bottom': '2px solid {{BottomLineColor}};'}">
-
-    </p> -->
 
     <input type="text" [id]="InputId"
             [attr.disabled]="IsDisabled || null" [readonly]="IsReadOnly"
@@ -26,10 +19,10 @@
         [required]="required" 
         [ngClass]="{'brdr' : !EnableBoxShadow }"
 
-       [ngStyle]="{ 'height': TextBoxHeight, 
-                    'width': TextBoxWidth,
+       [ngStyle]="{ 'height': TextBoxHeight_C, 
+                    'width': TextBoxWidth_C,
                     'border-bottom-color': BottomLineColor,       
-                    'margin-bottom': EnableMarginTextBottom ? MarginTextBottom : '', 
+                    'margin-bottom': EnableMarginTextBottom ? MarginTextBottomInPx : '', 
                     'font': Font, 
                     'font-size': FontSize,
                     'pointer-events':(IsDisabled || IsReadOnly) ? 'none': '' ,

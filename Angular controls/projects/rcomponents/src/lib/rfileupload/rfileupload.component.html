@@ -45,7 +45,7 @@
             [ngStyle]="{ 'visibility':showFiles ? 'visible': 'collapse', 'height':'fit-content',
                 '--tdsize': FontSize,
                 'background-color': ShowFilesAsDropdownContainer ? 'white': '',
-                'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeight : ''}">
+                'max-height':EnableMaximumHeightForShowFiles ? ShowFilesListMaximumHeightInPx : ''}">
             <table class="tab" *ngIf="ErrorMessages.length == 0">   
                 <thead>
                     <th style="width: 130px;overflow-wrap:anywhere;">Name</th>

@@ -10,10 +10,10 @@
 
     <div style="display: flex;flex-direction: row-reverse;">
 
-        <rtextbox [IsReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight" [EnableMarginTextBottom]="false" 
+        <rtextbox [IsReadOnly]="IsReadOnly" [TextBoxHeight]="TextBoxHeight_C" [EnableMarginTextBottom]="false" 
             [IsDisabled]="IsDisabled"
             [BottomLineColor]="BottomLineColor" [LabelText]="''" [FontSize]="FontSize"
-            [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth" (focusout)="onBlur($event)"
+            [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth_C" (focusout)="onBlur($event)"
             (keypress)="keyPress($event)" [PaddingLeft]="PaddingLeft" [PaddingRight]="PaddingRight"
             (paste)="onPaste($event)"
             [(ngModel)]="Value">

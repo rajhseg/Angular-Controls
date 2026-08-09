@@ -387,6 +387,24 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     }
   
+    public AddTab(tabId: string, headerText: string, contextInstance: object, tabContent: TemplateRef<any>, isSelected: boolean) {
+      let tab = new RTabIdFor(tabContent, this.viewRef, this.cdr);
+      tab.IsSelected = isSelected;
+      tab.ContextInstance = contextInstance;
+      tab.TabId = tabId;
+      tab.HeaderText = headerText;
+      let _tabs = this.tabTemps?.toArray();
+
+      if(isSelected) {
+        _tabs?.forEach(x => x.IsSelected = false);
+        this.SelectedTabId = tabId;
+      }
+
+      this.tabTemps?.reset([..._tabs, tab]);
+      this.TotalTabCount = this.tabTemps.length;   
+      this.RenderUI();
+    }
+    
     private RenderHeaders() {
   
       if (this.tabTemps) {
@@ -451,7 +469,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
   
     }
   
-    private DeleteTab(tabId: string) {
+    public DeleteTab(tabId: string) {
   
       this.tabTemps?.forEach(x => {
         if (x.TabId == tabId) {

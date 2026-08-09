@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop";
 import { AsyncPipe, JsonPipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from "@angular/common";
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChildren, ElementRef, EventEmitter, Host, HostBinding, Input, Output, QueryList, RendererFactory2, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChildren, ElementRef, EventEmitter, Host, HostBinding, Input, Output, QueryList, RendererFactory2, TemplateRef, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { RTabComponent, RTabHeaderWithTabId, RTabIdFor } from "../rtab/rtab.component";
 import { RWindowHelper } from "../rwindowObject";
 import { RBaseComponent } from "../rmodels/RBaseComponent";
@@ -170,6 +170,24 @@ export class RSimpleTabsComponent extends RBaseComponent<any> implements AfterCo
 
   }
 
+  public AddTab(tabId: string, headerText: string, contextInstance: object, tabContent: TemplateRef<any>, isSelected: boolean) {
+    let tab = new RTabIdFor(tabContent, this.viewRef, this.cdr);
+    tab.IsSelected = isSelected;
+    tab.ContextInstance = contextInstance;
+    tab.TabId = tabId;
+    tab.HeaderText = headerText;
+    let _tabs = this.tabTemps?.toArray();
+
+    if(isSelected) {
+      _tabs?.forEach(x => x.IsSelected = false);
+      this.SelectedTabId = tabId;
+    }
+
+    this.tabTemps?.reset([..._tabs, tab]);
+    this.TotalTabCount = this.tabTemps.length;   
+    this.RenderUI();
+  }
+
   RenderUI() {
 
     let _wrapLength: number | undefined = undefined;
@@ -213,5 +231,34 @@ export class RSimpleTabsComponent extends RBaseComponent<any> implements AfterCo
     this.SelectedTabTemplateRef = undefined;
   }
 
+
+  public DeleteTab(tabId: string) {
+
+    this.tabTemps?.forEach(x => {
+      if (x.TabId == tabId) {
+        x.IsSelected = false;
+      }
+    });
+
+    let newTabs = this.tabTemps?.filter(x => x.TabId != tabId);
+    if (newTabs) {
+
+      if (this.SelectedTabIndex < 0 || this.SelectedTabIndex >= newTabs.length) {
+        this.SelectedTabIndex = newTabs.length - 1;
+      }
+
+      this.tabTemps?.reset(newTabs);
+
+      if (this.tabTemps) {
+        let _tab = this.tabTemps.get(this.SelectedTabIndex);
+        if (_tab) {
+          this.SelectedTabId = _tab.TabId;
+        }
+      }
+
+      this.RenderUI();
+
+    }
+  }
         
 }

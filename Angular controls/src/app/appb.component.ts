@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, TemplateRef, viewChild, ViewChild } from '@angular/core';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { Form, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
 
@@ -180,6 +180,11 @@ export class AppRootComponent {
       new DropdownModel('#f70c6b', 'Pink')  
   ];
 
+  @ViewChild('tabContent4') tabContent4!: TemplateRef<any>;
+  ind: number = 0;
+  @ViewChild('rtabContainer', { read: RTabsComponent }) rtabContainer!: RTabsComponent;
+  tabIdParam: string = 'rtabid4 from component';
+
   selectedTheme: DropdownModel = this.colorItems[0];
 
   rrangeSliderData: RRangeSliderData = new RRangeSliderData(40, 70);
@@ -297,7 +302,6 @@ export class AppRootComponent {
     ]),
   ];
 
-
   calenderEvents!: EventsCalenderModel;
 
   // ─── Progress Bar ────────────────────────────────────────────────────
@@ -398,6 +402,19 @@ export class AppRootComponent {
 
   onTreeExpand(item: RTreeItem) {
     item.IsExpanded = !item.IsExpanded;
+  }
+
+  addNewTab(){
+    this.ind++;
+    this.tabIdParam = 'rtabParam from component';
+    this.rtabContainer.AddTab('rtab4'+this.ind, 'Profile '+this.ind, this, this.tabContent4, this.ind % 2 == 0);
+  }
+
+  deleteNewTab(){
+    if(this.ind > 0){
+      this.rtabContainer.DeleteTab('rtab4'+this.ind);
+      this.ind--;
+    }
   }
 
   spaceBarChanged(val: any){

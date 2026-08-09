@@ -1073,7 +1073,26 @@
           <code class="card-selector">&lt;rtabs&gt;</code>
         </div>
         <div class="card-body">
-          <rtabs [Name]="'container3'" [IsDisabled]="false" [TabWidth]="'500px'" [TabHeight]="'140px'">
+          
+          <ng-template #tabContent4 let-tabIdParam="tabIdParam">
+            <div style="padding: 16px; font-size: 14px; color: #555;">
+              Content for {{ tabIdParam }} tab.
+            </div>
+          </ng-template>
+          
+          <rbutton [BackgroundColor]="'#7F77DD'" [ForeColor]="'white'" [ButtonWidth]="'120px'" (ButtonClick)="addNewTab()">
+            Add New Tab
+          </rbutton>
+          
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          
+          <rbutton [BackgroundColor]="'#7F77DD'" [ForeColor]="'white'" [ButtonWidth]="'120px'" (ButtonClick)="deleteNewTab()">
+            Delete New Tab
+          </rbutton>
+
+          <br/><br/>
+
+          <rtabs #rtabContainer [Name]="'container3'" [IsDisabled]="false" [TabWidth]="'500px'" [TabHeight]="'140px'">
             <rtab *tabidfor="{ 'TabId':'tab1', 'HeaderText':'Overview', 'Context':this }">
               <div style="padding: 16px; font-size: 14px; color: #555;">
                 Overview content — summarise your feature here.

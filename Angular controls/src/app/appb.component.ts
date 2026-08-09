@@ -406,8 +406,7 @@ export class AppRootComponent {
 
   addNewTab(){
     this.ind++;
-    this.tabIdParam = 'rtabParam from component';
-    this.rtabContainer.AddTab('rtab4'+this.ind, 'Profile '+this.ind, this, this.tabContent4, this.ind % 2 == 0);
+    this.rtabContainer.AddTab('rtab4'+this.ind, 'Profile '+this.ind, { tabIdParam: 'rtabParam from component Profile' + this.ind }, this.tabContent4, this.ind % 2 == 0);
   }
 
   deleteNewTab(){

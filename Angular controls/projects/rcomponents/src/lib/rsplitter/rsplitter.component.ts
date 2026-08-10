@@ -137,12 +137,23 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
     return obj.Id;
   }
 
+  
+  private RemoveLastSplitter(): void {
+    const lastItem = this.RenderItems[this.RenderItems.length - 1];
+
+    if (lastItem && lastItem.IsSplitObj) {
+      this.RenderItems.pop();
+    }
+  }
+
   private ReFill(){
     this.RenderItems = [];
     this.Contents.forEach((x, index) => {
       this.RenderItems.push(x);
       this.RenderItems.push(new RSplitterObj(this.winObj, this.SplitterType, this.getSplitterStyle()))
     });
+
+    this.RemoveLastSplitter();
 
     this.cdr.detectChanges();
   }
@@ -160,9 +171,7 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
 
       });
 
-      if (this.RenderItems.length > 0) {
-        this.RenderItems.splice(this.RenderItems.length - 1);
-      }
+      this.RemoveLastSplitter();
 
       if(this.winHelper.isExecuteInBrowser()) 
       {

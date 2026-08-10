@@ -65,7 +65,7 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   ParentDropDownId: string = '';
 
   @Input()
-  IconForeColor: string = "blue";
+  IconForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
   ShowFilesAsDropdownContainer: boolean = false;

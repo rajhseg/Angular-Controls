@@ -123,7 +123,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   GroupHeaderBackColor: string = '#edecec';
 
   @Input()
-  GroupHeaderForeColor: string = 'black';
+  GroupHeaderForeColor: string = 'darkblue';
 
   @Input()
   LoaderForeColor: string = '#8f19ff';
@@ -169,7 +169,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   currentPage: number = 1;  
 
   @Input()
-  GroupByIconColor: string = "#00c7ba";
+  GroupByIconColor: string = "white";
 
   @Output()
   OnCellValueChanged = new EventEmitter<RCellInfo>();
@@ -307,7 +307,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   ShowGroupHeader: boolean = true;
 
   @Input()
-  HeaderBackgroundColor: string = "rgb(35, 206, 236)";
+  HeaderBackgroundColor: string = "#0d2e55";
 
   @Input()
   HeaderForeColor: string = "white";
@@ -331,13 +331,13 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   ItemsPerPageClicked = new EventEmitter<RGridPaginationValue>();
 
   @Input()
-  GroupHeaderRowBorderColor: string = 'lightgray';
+  GroupHeaderRowBorderColor: string = '#0d2e55';
   
   @Input()
-  GroupHeaderRowBackColor: string = 'white';
+  GroupHeaderRowBackColor: string = '#0d2e55';
   
   @Input()
-  GroupHeaderRowForeColor: string = 'lightgray';
+  GroupHeaderRowForeColor: string = 'white';
   
   EditModeEnabled: boolean = false;
 

@@ -41,7 +41,7 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
   
   _ratingValue: number = 0;
   _starwidth: number = 20;
-  _starColor: string = 'orange';
+  _starColor: string = 'rgb(30, 17, 152)';
   _noOfStars: number = 10;
 
   Items: number[] = [];

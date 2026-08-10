@@ -84,16 +84,16 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   public Is24HourFormat: boolean = false;
 
   @Input()
-  TextBottomLineColor: string = "blue";
+  TextBottomLineColor: string = "rgb(30, 17, 152)";
 
   @Input()
-  ButtonBackgroundColor: string = "blue";
+  ButtonBackgroundColor: string = "rgb(30, 17, 152)";
 
   @Input()
   ButtonForeColor: string = "white";
 
   @Input()
-  SelectedItemBackgroundColor: string = "blue";
+  SelectedItemBackgroundColor: string = "rgb(30, 17, 152)";
 
   @Input()
   SetCurrentTimeAsDefaultOnLoad: boolean = true;

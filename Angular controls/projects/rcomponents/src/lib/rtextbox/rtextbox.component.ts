@@ -52,10 +52,10 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   PlaceholderText: string = "";
 
   @Input()
-  LabelForeColor: string = "blue";
+  LabelForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
-  BottomLineColor: string = "blue";
+  BottomLineColor: string = "rgb(30, 17, 152)";
 
   _txtHeight: string = '20px';
   _txtWidth: string = '150px';

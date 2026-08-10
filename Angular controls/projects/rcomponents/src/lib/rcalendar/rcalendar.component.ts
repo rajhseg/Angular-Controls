@@ -205,7 +205,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
   @Input()
   ParentComponent: any | undefined = undefined;
 
-  private _selectedItemBackColor: string = 'rgb(255 0 104 / 90%)';
+  private _selectedItemBackColor: string = 'rgb(30, 17, 152)';
 
   @Input()
   set SelectedItemBackGroundColor(color: string) {

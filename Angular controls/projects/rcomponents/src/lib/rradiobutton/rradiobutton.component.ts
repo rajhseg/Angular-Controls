@@ -70,7 +70,7 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   }
 
   @Input()
-  Color: string = "#00c7ba";
+  Color: string = "rgb(30, 17, 152)";
 
   @Output()
   OnRadioButtonClick = new EventEmitter<RadioEventArgs>();

@@ -69,13 +69,13 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
   EnableEmptyPathColor: boolean = true;
 
   @Input()
-  Slider1Color: string = "darkblue";
+  Slider1Color: string = "rgb(30, 17, 152)";
 
   @Input()
-  Slider2Color: string = "darkblue";
+  Slider2Color: string = "rgb(30, 17, 152)";
 
   @Input()
-  TrackColor: string = "darkblue";
+  TrackColor: string = "rgb(30, 17, 152)";
 
   @Input()
   EmptyTrackColor: string = "lightblue";

@@ -44,9 +44,9 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   public LabelText: string = "";
 
   @Input()
-  public LabelTextForeColor: string = "blue";
+  public LabelTextForeColor: string = "rgb(30, 17, 152)";
 
-  private _bottomColor: string = "blue";
+  private _bottomColor: string = "rgb(30, 17, 152)";
 
   @Input()
   set BottomLineColor(value: string) {
@@ -101,10 +101,10 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   PaddingRight: string = "7px";
 
   @Input()
-  public MinusBackgroundColor: string = "blue";
+  public MinusBackgroundColor: string = "rgb(30, 17, 152)";
 
   @Input()
-  public PlusBackgroundColor: string = "blue";
+  public PlusBackgroundColor: string = "rgb(30, 17, 152)";
 
   @Input()
   public MinusForeColor: string = "white";

@@ -17,7 +17,8 @@ import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonu
   RContentDirective,
   RCarouselComponent,
   RImageDirective,
-  RCarouselEventArgs} from 'rcomponents';
+  RCarouselEventArgs,
+  RStepViewDirective} from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -135,6 +136,7 @@ import { ɵEmptyOutletComponent } from "@angular/router";
     RStepComponent,
     RTreeComponent,
     RSimpleTabsComponent,
+    RStepViewDirective,
     
     // Data display
     REventsCalenderComponent,

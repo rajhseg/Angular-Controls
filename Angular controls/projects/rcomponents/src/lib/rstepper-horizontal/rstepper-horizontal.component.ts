@@ -226,6 +226,10 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
   }
 
   ngAfterContentInit(): void {
+    this.RenderUI();
+  }
+
+  private RenderUI() {
     if (this.winObj.isExecuteInBrowser()) {
       this.stepsList = this.Steps.toArray();
       let stepNo = 0;

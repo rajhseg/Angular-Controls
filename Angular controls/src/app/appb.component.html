@@ -1151,16 +1151,24 @@
             [BackButtonBackColor]="'#7F77DD'"
             [ShowStateVertical]="false">
             <rstep [Title]="'Account'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+              </ng-template>  
             </rstep>
             <rstep [Title]="'Profile'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
+              </ng-template>
             </rstep>
             <rstep [Title]="'Preferences'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
+              </ng-template>
             </rstep>
             <rstep [Title]="'Confirm'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
+              </ng-template>
             </rstep>
           </rstepper-vertical>
         
@@ -1199,16 +1207,24 @@
             [BackButtonBackColor]="'#7F77DD'"
             [ShowStateHorizontal]="false">
             <rstep [Title]="'Account'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+              </ng-template>
             </rstep>
             <rstep [Title]="'Profile'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
+              </ng-template>
             </rstep>
             <rstep [Title]="'Preferences'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
+              </ng-template>
             </rstep>
             <rstep [Title]="'Confirm'" [IsStepValid]="true">
-              <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
+              <ng-template rstepview>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
+              </ng-template>
             </rstep>
           </rstepper-horizontal>
         </div>

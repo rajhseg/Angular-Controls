@@ -268,6 +268,10 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
   }
 
   ngAfterContentInit(): void {
+    this.RenderUI();
+  }
+
+  private RenderUI() {
     if (this.winObj.isExecuteInBrowser()) {
       this.stepsList = this.Steps.toArray();
       let stepNo = 0;

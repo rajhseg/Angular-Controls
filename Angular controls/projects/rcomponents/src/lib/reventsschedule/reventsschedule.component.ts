@@ -289,10 +289,10 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
   NoOfDatesToShowOnHeader: number = 6;
 
   @Input()
-  ContainerBackgroundColor: string = "rgb(35, 206, 236)";
+  ContainerBackgroundColor: string = "#534AB7";
 
   @Input()
-  ContainerBorderColor: string = "#10C4C8";
+  ContainerBorderColor: string = "#a39cf3";
 
   @Input()
   ContainerForeColor: string = "white";
@@ -301,19 +301,19 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
   SelectedDateForeColor: string = "white";
 
   @Input()
-  SelectedDateBackgroundColor: string = "#10C4C8";
+  SelectedDateBackgroundColor: string = "#a39cf3";
 
   @Input()
-  MarkerBackgroundColor: string = "blue";
+  MarkerBackgroundColor: string = "white";
 
   @Input()
-  EventBackgroundColor: string = "rgb(35, 206, 236)";
+  EventBackgroundColor: string = "#534AB7";
 
   @Input()
   EventForeColor: string = "white";
 
   @Input()
-  EventBorderColor: string = "#10C4C8";
+  EventBorderColor: string = "#a39cf3";
 
   constructor(winObj: RWindowHelper, private datePipe: DatePipe) {
     super(winObj);

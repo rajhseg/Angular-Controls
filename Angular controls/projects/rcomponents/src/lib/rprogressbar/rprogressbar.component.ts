@@ -31,7 +31,7 @@ export class RProgressbarComponent extends RBaseComponent<any> implements AfterV
   @Input()
   EnableBackDrop: boolean = false;
 
-  _foreColor: string = 'blue';
+  _foreColor: string = 'rgb(30, 17, 152)';
 
   _trackColor: string = 'lightgray';
 

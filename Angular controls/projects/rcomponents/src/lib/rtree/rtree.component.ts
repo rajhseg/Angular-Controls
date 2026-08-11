@@ -22,7 +22,7 @@ export class RTreeComponent extends RBaseComponent<any> {
   onItemSelected = new EventEmitter<RTreeItem>();
 
   @Input()
-  ExpandIconColor: string = "#00c7ba";
+  ExpandIconColor: string = "rgb(30, 17, 152)";
 
   @Input()
   set Items(value: RTreeItem [] | undefined){        

@@ -54,7 +54,7 @@ export class RButtonComponent extends RBaseComponent<any> {
   ForeColor: string = "whitesmoke";
 
   @Input()
-  BackgroundColor: string = "blue";
+  BackgroundColor: string = "rgb(30, 17, 152)";
   
   onClick($event: any){
     this.ButtonClick.emit($event);

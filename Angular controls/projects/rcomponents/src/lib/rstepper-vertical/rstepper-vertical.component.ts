@@ -85,10 +85,10 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
   CompletedBackColor: string = 'white';
 
   @Input()
-  CompletedForeColor: string = 'green';
+  CompletedForeColor: string = 'rgb(30, 17, 152)';
 
   @Input()
-  ActiveBackColor: string = 'green';
+  ActiveBackColor: string = 'rgb(30, 17, 152)';
 
   @Input()
   ActiveForeColor: string = 'white';
@@ -116,7 +116,7 @@ export class RStepperVerticalComponent extends RBaseComponent<any> implements Af
   DoneButtonForeColor: string = 'white';
 
   @Input()
-  CurrentStepValidLabelColor: string = 'green';
+  CurrentStepValidLabelColor: string = 'rgb(30, 17, 152)';
 
   @Input()
   CurrentStepInValidLabelColor: string = 'blue';

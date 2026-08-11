@@ -52,7 +52,7 @@ export class RSequencesTrackerComponent extends RBaseComponent<any> implements A
     }
 
     @Input()
-    public StripLineColor: string = "purple";
+    public StripLineColor: string = "rgb(30, 17, 152)";
 
     @ContentChildren(RTrackerContentDirective) Items!: QueryList<RTrackerContentDirective>;
 

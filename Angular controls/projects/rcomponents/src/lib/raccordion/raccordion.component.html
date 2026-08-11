@@ -9,7 +9,7 @@
                          'border-bottom': !item.IsOpened ? 'none': '1px solid '+ BorderColor }">
             <span [ngStyle]="{'color': TitleForeColor}">{{item.Title}}</span>
 
-            <span class="circle" [ngStyle]="{ 'border' : '0.5px solid ' + TitleForeColor }">
+            <span class="circle" [ngStyle]="{ 'border' : '3px solid ' + TitleForeColor }">
 
                 <span class="droppos" [ngStyle]="{ 'color': TitleForeColor }"
                     [ngClass]="{ 'icon-up': item.IsOpened, 'icon-down': !item.IsOpened}"></span>

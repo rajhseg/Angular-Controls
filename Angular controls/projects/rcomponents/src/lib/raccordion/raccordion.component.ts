@@ -18,10 +18,10 @@ export class RAccordionComponent extends RBaseComponent<any> implements AfterCon
     override FontSize: string = "12px";
     
     @Input()
-    public TitleForeColor: string = "black";
+    public TitleForeColor: string = "white";
 
     @Input()
-    public TitleBarBackColor: string = 'white';
+    public TitleBarBackColor: string = 'rgb(30, 17, 152)';
     
     @Input()
     public ContentForeColor: string = "black";

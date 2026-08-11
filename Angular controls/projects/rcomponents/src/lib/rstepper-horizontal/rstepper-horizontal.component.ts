@@ -80,13 +80,13 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
   CompletedBackColor: string = 'white';
 
   @Input()
-  ActiveBackColor: string = 'blue';
+  ActiveBackColor: string = 'rgb(30, 17, 152)';
 
   @Input()
   PendingBackColor: string = 'white';
 
   @Input()
-  CompletedForeColor: string = 'green';
+  CompletedForeColor: string = 'rgb(30, 17, 152)';
 
   @Input()
   ActiveForeColor: string = 'white';
@@ -116,7 +116,7 @@ export class RStepperHorizontalComponent extends RBaseComponent<any> implements 
   DoneButtonForeColor: string = 'white';
 
   @Input()
-  CurrentStepValidLabelColor: string = 'green';
+  CurrentStepValidLabelColor: string = 'rgb(30, 17, 152)';
 
   @Input()
   CurrentStepInValidLabelColor: string = 'blue';

@@ -64,16 +64,16 @@ export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizont
   public ContentWidth: number = 100;
 
   @Input()
-  public CompletedForeColor: string = "orange";
+  public CompletedForeColor: string = "#1D9E75";
 
   @Input()
-  public StripLineColor: string = "purple";
+  public StripLineColor: string = "#e0e0e0";
 
   @Input()
-  public PendingForeColor: string = "purple";
+  public PendingForeColor: string = "darkblue";
 
   @Input()
-  public ActiveForeColor: string = "green";
+  public ActiveForeColor: string = "#7F77DD";
   
   @Input()
   public set Items(value: RSequenceHorizontalItem[]) {

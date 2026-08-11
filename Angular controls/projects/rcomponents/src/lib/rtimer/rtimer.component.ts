@@ -43,25 +43,25 @@ export class RTimerComponent extends RBaseComponent<string> implements OnInit, O
   HoursTrackColor: string = "lightgray";
 
   @Input()
-  HoursForeColor: string = "blue";
+  HoursForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
   MinuteTrackColor: string = "lightgray";
 
   @Input()
-  MinuteForeColor: string = "blue";
+  MinuteForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
   SecondsTrackColor: string = "lightgray";
 
   @Input()
-  SecondsForeColor: string = "blue";
+  SecondsForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
-  FlatStyleForeColor: string = "blue";
+  FlatStyleForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
-  DisplayTextForeColor: string = "blue";
+  DisplayTextForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
   public set TrackWidth(value: number) {

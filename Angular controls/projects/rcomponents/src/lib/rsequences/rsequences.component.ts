@@ -60,10 +60,10 @@ export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalIte
   public CompletedForeColor: string = "white";
 
   @Input()
-  public StripLineColor: string = "purple";
+  public StripLineColor: string = "#e0e0e0";
 
   @Input()
-  public CompletedBackgroundColor: string = "purple";
+  public CompletedBackgroundColor: string = "#1D9E75";
 
   @Input()
   public EnableShadowOnContent: boolean = true;
@@ -75,14 +75,14 @@ export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalIte
   public PendingForeColor: string = "white";
 
   @Input()
-  public PendingBackgroundColor: string = "orangered";
+  public PendingBackgroundColor: string = "darkblue";
 
 
   @Input()
   public ActiveForeColor: string = "white";
 
   @Input()
-  public ActiveBackgroundColor: string = "green";
+  public ActiveBackgroundColor: string = "#7F77DD";
 
   @Input()
   public set Items(value: RSequenceVerticalItem[]) {

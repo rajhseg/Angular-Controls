@@ -156,7 +156,6 @@ import { RCarouselComponent, RImageDirective } from 'rcomponents';
         RAccordionComponent,
     ],
     templateUrl: './default.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrl: './default.component.css'
 })
 export class DefaultComponent {
@@ -673,7 +672,11 @@ export class DefaultComponent {
     from([eachday]).pipe(
       switchMap( item => of(item).pipe ( delay( 1000 ) ))
     ).subscribe ( timedItem => {
-      this.calenderEvents.EachDay.push(timedItem);
+      let _cl = new EventsCalenderModel();
+      _cl.EachDay.push(timedItem);
+
+      this.calenderEvents = _cl;
+      this.cdr.detectChanges();
     });
   }
   

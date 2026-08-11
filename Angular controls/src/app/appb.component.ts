@@ -675,7 +675,11 @@ export class AppRootComponent {
     from([eachday]).pipe(
       switchMap( item => of(item).pipe ( delay( 1000 ) ))
     ).subscribe ( timedItem => {
-      this.calenderEvents.EachDay.push(timedItem);
+      let _cl = new EventsCalenderModel();
+      _cl.EachDay.push(timedItem);
+
+      this.calenderEvents = _cl;
+      this.cdr.detectChanges();
     });
   }
   

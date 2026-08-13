@@ -30,9 +30,6 @@ export class RSimpleTabsComponent extends RBaseComponent<any> implements AfterCo
     public activeSection: string = '';
 
     @Input()
-    Name: string = "";
-    
-    @Input()
     EnableBoxShadow : boolean = true;
     
     public SelectedTabTemplateRef!: RTabIdFor | undefined;

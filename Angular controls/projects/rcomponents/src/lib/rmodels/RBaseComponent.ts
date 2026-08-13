@@ -13,7 +13,12 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
     Id: string = '';
 
     @HostBinding('id')
+    @Input()
     HostElementId: string = '';
+
+    @HostBinding('attr.name')
+    @Input()
+    Name: string = '';
     
     @Output()
     valueChanged = new EventEmitter<T>();
@@ -74,7 +79,7 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
             ngZone.onStable
             .pipe(take(1))
             .subscribe(() => {
-                const el = document.getElementById(this.HostElementId);
+                const el = document.getElementById(this.Id);
                 if (el) {
                     this.onComponentLoadedInDom();
                 }
@@ -217,8 +222,13 @@ export abstract class RChartBaseComponent {
     private _glassyEffectColor: string = 'lightgray';
 
     @HostBinding('id')
+    @Input()
     HostElementId: string = '';
     
+    @HostBinding('attr.name')
+    @Input()
+    Name: string = '';
+
     @Input()
     FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 

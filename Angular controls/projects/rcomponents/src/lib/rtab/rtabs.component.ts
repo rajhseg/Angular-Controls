@@ -45,10 +45,6 @@ export class RTabsComponent extends RBaseComponent<any> implements AfterContentI
   ];
 
   public SelectedTabTemplateRef!: RTabIdFor | undefined;
-
-  @Input()
-  Name: string = "";
-  
   
   TabWidth_C: string = '100%';
   TabHeight_C: string = '200px';

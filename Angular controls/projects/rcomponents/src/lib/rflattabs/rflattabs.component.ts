@@ -46,9 +46,6 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
     ];
       
     @Input()
-    Name: string = "";
-    
-    @Input()
     EnableBoxShadow : boolean = true;
 
     @HostBinding('class.boxshadow')
@@ -65,7 +62,7 @@ export class RFlatTabsComponent  extends RBaseComponent<any> implements AfterCon
         let _val = this.cssServ.ToPxValue(value, this.hostElementRef.nativeElement.parentElement, RelativeUnitType.Height);
         this.TabHeight_C = _val + CssUnit.Px.toString();
       } else {
-        this.TabHeight_C = '200px';
+        this.TabHeight_C = '200px'; 
       }
     }
     get TabHeight(): string {

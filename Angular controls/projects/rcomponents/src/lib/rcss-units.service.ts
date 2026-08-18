@@ -17,6 +17,11 @@ export class RCssUnitsService {
       return value;
     }
     
+    // Check if running in browser environment
+    if (typeof document === 'undefined' || typeof window === 'undefined') {
+      return value; // Return the value as-is during SSR
+    }
+
     let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     let baseVal = rect.width.baseVal;
 
@@ -42,9 +47,25 @@ export class RCssUnitsService {
                   };
 
     const RelativeUnitsToPx: any = {
-        '%width': (value: number) => (value * parseFloat(getComputedStyle(parentElementForRelativeUnit as Element).width)) / 100,
-        '%height': (value: number) => (value * parseFloat(getComputedStyle(parentElementForRelativeUnit as Element).height)) / 100,
-        'rem': (value : number) => value * parseFloat(getComputedStyle(document.documentElement ).fontSize),
+        '%width': (value: number) => {
+                                        const parentEl = parentElementForRelativeUnit as HTMLElement;
+
+                                        if (!parentEl) {
+                                            return 0;
+                                        }
+
+                                        return (value * parentEl.getBoundingClientRect().width) / 100;
+                                    },
+        '%height': (value: number) => { 
+                                      const parentEl = parentElementForRelativeUnit as HTMLElement;
+                                     
+                                      if(!parentEl){
+                                        return 0;
+                                      }
+
+                                      return (value * parentEl.getBoundingClientRect().height) / 100;
+                                    },
+        'rem': (value : number) => value * parseFloat(getComputedStyle(document.documentElement).fontSize),
         'em': (value : number)  => value * parseFloat(getComputedStyle(parentElementForRelativeUnit as Element).fontSize),        
         'vw': (value : number)  => value / 100 * window.innerWidth,
         'vh': (value : number)  => value / 100 * window.innerHeight,

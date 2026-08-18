@@ -459,27 +459,32 @@
           <code class="card-selector">&lt;rbutton&gt;</code>
         </div>
         <div class="card-body" style="gap: 12px; display: flex; flex-wrap: wrap;">
-          <rbutton [HostElementId]="'sample1'" [Name]="'samplename'"
-            [BackgroundColor]="'#7F77DD'"
-            [ForeColor]="'white'"
-            [ButtonWidth]="'110px'"
-            (ButtonClick)="onButtonClick()">
-            Primary
-          </rbutton>
-          <rbutton
-            [BackgroundColor]="'#1D9E75'"
-            [ForeColor]="'white'"
-            [ButtonWidth]="'110px'"
-            (ButtonClick)="onButtonClick()">
-            Secondary
-          </rbutton>
-          <rbutton
-            [BackgroundColor]="'#E24B4A'"
-            [ForeColor]="'white'"
-            [ButtonWidth]="'110px'"
-            (ButtonClick)="onButtonClick()">
-            Danger
-          </rbutton>
+        
+            <rtextbox [LabelText]="'Primary Button Id'" [(ngModel)]="_HostId"></rtextbox> &nbsp;
+
+            <div style="margin-top: 18px;">    
+                
+                <rbutton [HostElementId]="_HostId" [Name]="_HostName"
+                  [BackgroundColor]="'#7F77DD'"
+                  [ForeColor]="'white'"
+                  [ButtonWidth]="'110px'"
+                  (ButtonClick)="onButtonClick()">
+                  Primary
+                </rbutton>
+
+                &nbsp;
+                
+                <rbutton
+                  [BackgroundColor]="'#1D9E75'"
+                  [ForeColor]="'white'"
+                  [ButtonWidth]="'110px'"
+                  (ButtonClick)="onButtonClick()">
+                  Secondary
+                </rbutton>
+
+            </div>
+
+
         </div>
         <div class="card-hint">Clicked {{ buttonClickCount }} time(s). Supports <code>ButtonClick</code> output event.</div>
       </div>

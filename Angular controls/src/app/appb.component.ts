@@ -192,6 +192,9 @@ export class AppRootComponent {
   rrangeSliderData: RRangeSliderData = new RRangeSliderData(40, 70);
 
   ItemsPerPage = new DropdownModel(10, "10");
+  
+  _HostId: string = "sampleId";
+  _HostName: string = "sampleName";
 
   // ─── Section visibility ──────────────────────────────────────────────
   activeSection = 'charts';

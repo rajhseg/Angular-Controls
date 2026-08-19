@@ -25,7 +25,7 @@ ng build rcomponents
 ng serve
 
 # Run SSR version
-npm run dev:ssr
+npm run serve:ssr:angularcontrols
 
 ```
 

@@ -29,13 +29,15 @@ npm run serve:ssr:angularcontrols
 
 ```
 
+
+
+
 Button Control
 --------------------------------------
 
 <br />
 
-
-<img width="110" height="58" alt="image" src="https://github.com/user-attachments/assets/a39ae1ca-a904-49b2-a604-56ac9c62408d" />
+<img width="511" height="267" alt="image" src="https://github.com/user-attachments/assets/cfcdb97d-6386-411e-8486-6bcf8a17984e" />
 
 <br />
 <br />
@@ -46,8 +48,7 @@ Textbox Control
 
 <br />
 
-
-<img width="561" height="90" alt="image" src="https://github.com/user-attachments/assets/66fb75ac-6320-4622-9b21-64d9a1e55a96" />
+<img width="515" height="266" alt="image" src="https://github.com/user-attachments/assets/29cb2a4f-1322-438f-8770-5c0d9328fa28" />
 
 <br />
 <br />
@@ -58,29 +59,18 @@ Password Control
 
 <br />
 
-
-<img width="574" height="88" alt="image" src="https://github.com/user-attachments/assets/34420472-4b75-4a87-b2ef-46e011546fff" />
-
-<br />
-<br />
-
-
-Group Panel Control
---------------------------------------
+<img width="514" height="268" alt="image" src="https://github.com/user-attachments/assets/687134b1-f15f-4f8a-baa4-02ec2d5ad851" />
 
 <br />
-
-
-![image](https://github.com/user-attachments/assets/d18acc04-5212-4118-a7b9-abc98a7fed1c)
-
 <br />
+
 
 Calender Control
 -------------------------------
 
 <br />
 
-<img width="345" height="297" alt="image" src="https://github.com/user-attachments/assets/28e93cae-48b4-47a6-b867-5b1dbbcfb328" />
+<img width="508" height="269" alt="image" src="https://github.com/user-attachments/assets/6a4a9e9c-9ce8-4f71-b262-b1809a79408d" />
 
 <br />
 <br />
@@ -90,9 +80,7 @@ Calender Control
 
 <br />
 
-
-<img width="283" height="283" alt="image" src="https://github.com/user-attachments/assets/516f7586-ea57-4ce9-a25e-74013c6ef70d" />
-
+<img width="513" height="330" alt="image" src="https://github.com/user-attachments/assets/2b4b3518-2589-4898-aac6-128e790b22ac" />
 
 <br />
 <br />
@@ -102,21 +90,10 @@ RSelectDropdown Control
 
 <br />
 
-
-<img width="300" height="285" alt="image" src="https://github.com/user-attachments/assets/d686b727-7fae-4056-9616-e9f26b4acc9a" />
+<img width="509" height="296" alt="image" src="https://github.com/user-attachments/assets/c84676d3-9f9f-4dab-8f3f-f0ed6a7293e6" />
 
 <br/>
 <br/>
-
-Tree Control
---------------------------
-
-<br />
-
-<img width="301" height="223" alt="image" src="https://github.com/user-attachments/assets/4e18aae7-4102-4059-bb1e-862e43919d98" />
-
-<br />
-<br />
 
 
 Checkbox
@@ -124,7 +101,7 @@ Checkbox
 
 <br />
 
-<img width="314" height="110" alt="image" src="https://github.com/user-attachments/assets/a7f2af42-e10c-4d55-8ebf-41a44181a9e9" />
+<img width="504" height="273" alt="image" src="https://github.com/user-attachments/assets/5d2309c8-87f7-41af-a106-7e33b71f830c" />
 
 <br />
 <br />
@@ -134,39 +111,18 @@ RadioButton
 
 <br />
 
-<img width="331" height="104" alt="image" src="https://github.com/user-attachments/assets/712eb7fe-d050-4541-b59f-e8bf40e7d32f" />
+<img width="514" height="330" alt="image" src="https://github.com/user-attachments/assets/3b836f01-88be-461d-b42a-b61a1b6f0f16" />
 
 <br />
 <br />
 
-
-Rstate-Horizontal Control
---------------------------------------
-
-<br />
-
-<img width="538" height="227" alt="image" src="https://github.com/user-attachments/assets/57ad1cb3-15a7-4b2f-a021-707558db4445" />
-
-<br />
-<br />
-
-
-Rstate-Vertical Control 
-----------------------------------------------
-
-<br />
-
-<img width="396" height="299" alt="image" src="https://github.com/user-attachments/assets/97f15f2f-b813-464f-9577-cdab75e07c1b" />
-
-<br />
-<br />
 
 Slider
 -----------------------------
 
 <br />
 
-<img width="351" height="88" alt="image" src="https://github.com/user-attachments/assets/cd2fb13c-e2a1-4e10-9fd5-ca03cc38f246" />
+<img width="516" height="255" alt="image" src="https://github.com/user-attachments/assets/3d079cbe-12f3-49ca-b892-ea90e953a7eb" />
 
 <br />
 <br />
@@ -176,7 +132,7 @@ RangeSlider
 
 <br />
 
-<img width="341" height="81" alt="image" src="https://github.com/user-attachments/assets/561acbaa-0c93-4f80-bbc6-fcc9504879c7" />
+<img width="515" height="254" alt="image" src="https://github.com/user-attachments/assets/374564ac-a659-4149-ba18-dbb1c0d6d6d2" />
 
 <br />
 <br />
@@ -186,7 +142,7 @@ RangeSlider
 
 <br />
 
-<img width="322" height="107" alt="image" src="https://github.com/user-attachments/assets/66b99462-bf44-454f-a05b-409420981211" />
+<img width="510" height="331" alt="image" src="https://github.com/user-attachments/assets/4152f231-2da5-4e14-a557-c13e419eeb6e" />
 
 <br />
 <br />
@@ -196,186 +152,113 @@ Switch Control
 
 <br />
 
-<img width="194" height="42" alt="image" src="https://github.com/user-attachments/assets/cb4ab400-9dad-4915-9442-18fbc6af81a8" />
+<img width="522" height="256" alt="image" src="https://github.com/user-attachments/assets/195bcd43-ef0e-498a-8de0-d5528cc46eb1" />
 
 <br />
 <br />
 
-ProgressBar Control
----------------------
-
-### Circle Infinite
-
-<img width="263" height="237" alt="image" src="https://github.com/user-attachments/assets/20d5481c-1c26-423f-9aa2-4bbb458b7215" />
-
-<br />
-
-### StraightLine Infinite
-
-<img width="484" height="148" alt="image" src="https://github.com/user-attachments/assets/87642eb4-36b7-46cf-b2ad-73becc8b424e" />
-
-<br />
-
-### StraightLine Finite
-
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/f429bb04-072f-4b12-af27-bf1fc2636fda)
-
-<br />
-
-### Circular Finite
-
-![image](https://github.com/rajhseg/Angular-Controls/assets/9523832/b5e76ad3-cfca-4fd4-999a-f8a68c544537)
-
-<br />
-<br />
-
-RCarousel Control
--------------------------
-
-![image](https://github.com/user-attachments/assets/8904a864-bd04-4fbe-8957-38f356588ddd)
-
-<br />
-<br />
-
-RTabs Control
--------------------------
-
-![image](https://github.com/user-attachments/assets/ee78238e-b42f-403f-9dd9-5728ef8019c7)
-
-
-<br />
-<br />
-
-RSimpleTabs Control
------------------------------
-
-![image](https://github.com/user-attachments/assets/87ed4a09-b036-4a7f-97fb-b2b850e6a82d)
-
-<br />
-<br />
-
-RFlatTabs Control
-------------------------------
-
-![image](https://github.com/user-attachments/assets/ba64778a-ed66-4f9d-a0e1-e6599a521066)
-
-
-<br/>
-<br/>
-
-RAccordion Control
----------------------------------
-
-![image](https://github.com/user-attachments/assets/a4bb0593-5636-4545-87fa-23399b1898d5)
-
-<br />
-<br />
-
-FileUpload Control
---------------------------------
-
-<br/>
-
-<img width="320" height="120" alt="image" src="https://github.com/user-attachments/assets/8a949651-b5c9-4554-a809-83748dcd1b46" />
-
-<br />
-<br />
-
-ColorPicker
----------------------------------
-
-<br />
-
-<img width="348" height="360" alt="image" src="https://github.com/user-attachments/assets/84e0613f-1ab8-4bd7-9673-15fd5c190076" />
-
-<br />
-<br />
-
-Numeric Control
----------------------------------
-
-<br />
-
-<img width="242" height="94" alt="image" src="https://github.com/user-attachments/assets/09a6af80-448e-482f-ab20-7d0a19d256e6" />
-
-<br />
-<br />
-
-Timer Control
------------------------------------
-
-<br />
-
-<img width="386" height="166" alt="image" src="https://github.com/user-attachments/assets/cf2502fb-e863-4a60-8c52-ca667d7c18eb" />
-
-<br/>
-<br />
-
-TimeSelector
--------------------------------------
-
-![image](https://github.com/user-attachments/assets/3af32442-7d88-4c53-84f9-1d4ace726636)
-
-<br/>
-<br/>
-
-RSplitter Component
+RColorPicker
 --------------------------
 
 <br />
 
-<img width="1004" height="333" alt="image" src="https://github.com/user-attachments/assets/e4ea40cd-28a3-4f97-bbd8-b481c7091432" />
+<img width="512" height="302" alt="image" src="https://github.com/user-attachments/assets/65ca253b-6ffc-4098-ace1-3da89d6e83c2" />
+
+<br />
+<br />
+
+RFileUpload
+---------------------------
+
+<br />
+
+<img width="510" height="295" alt="image" src="https://github.com/user-attachments/assets/612be1e7-9e55-4bfa-8d00-91292991d934" />
+
+<br />
+<br />
+
+RNumeric
+----------------------------
+
+<br />
+
+<img width="514" height="273" alt="image" src="https://github.com/user-attachments/assets/d2cf33b3-09f3-4018-89c1-ad860bfe8f29" />
 
 <br />
 <br />
 
 
-RGrid Control
+RSequence Horizontal
 ------------------------------
 
-#### ViewMode
-
-<img width="992" height="336" alt="Screenshot from 2025-12-01 14-42-15" src="https://github.com/user-attachments/assets/c52a71ec-1cd1-4568-93bb-7e159267554f" />
-
-
-#### EditMode
-
-<img width="992" height="336" alt="image" src="https://github.com/user-attachments/assets/dee8deb2-d5a0-4781-803a-72622375181a" />
-
-<br/>
 <br />
 
-REventsSchedule
--------------------------------
-
-![image](https://github.com/user-attachments/assets/97e54714-093f-46f7-b1ad-3e7dff7580a4)
-
-<br/>
-<br />
-
-RStepper-Vertical
--------------------------------
-
-![image](https://github.com/user-attachments/assets/f62388f4-6c1a-403a-a3db-a11791a3d2a3)
+<img width="440" height="282" alt="image" src="https://github.com/user-attachments/assets/acce056a-7559-4239-9a36-5696f4f66eb0" />
 
 <br />
 <br />
 
 
-RStepperHorizontal
------------------------------------
+RSequence Vertical
+------------------------------
 
-![image](https://github.com/user-attachments/assets/cc2a436f-feaa-4b8f-9edc-539df2327da1)
+<br />
+
+<img width="436" height="484" alt="image" src="https://github.com/user-attachments/assets/54bf5c64-28d3-4053-86fd-7c4a59bfa1a9" />
 
 <br />
 <br />
 
-RSequencesTracker
+
+RTimer
+------------------------------
+
+<br />
+
+<img width="436" height="394" alt="image" src="https://github.com/user-attachments/assets/9dc37ffb-3959-4cd3-a781-94051f6238a5" />
+
+<br />
+<br />
+
+RProgressBar
 ------------------------------------
 
-![image](https://github.com/user-attachments/assets/95559b17-8596-4bfb-8931-73d4b46db996)
+<br />
+
+<img width="515" height="576" alt="image" src="https://github.com/user-attachments/assets/d185aa2b-0a39-4509-ae17-557260c563a6" />
 
 <br />
+<br />
+
+RTree
+------------------------------------
+
+<br />
+
+<img width="557" height="271" alt="image" src="https://github.com/user-attachments/assets/6c7107bf-68eb-4e03-a1f2-4ccbb9bb3825" />
+
+<br />
+<br />
+
+RTimeSelector
+-----------------------------
+
+<br />
+
+<img width="514" height="258" alt="image" src="https://github.com/user-attachments/assets/0dc6fdc5-3f58-4e92-aa9c-b21deb8c8c4e" />
+
+<br />
+<br />
+
+
+RGroupPanel Control
+-----------------------------------
+
+<br />
+
+<img width="630" height="439" alt="image" src="https://github.com/user-attachments/assets/1a37629e-4d0d-4139-898b-399ffff5f66d" />
+
+<br/>
 <br />
 
 
@@ -384,11 +267,7 @@ RDonutChart Control
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/30ac5cd0-0750-4969-a13d-85825520a637)
-
-
-<br />
-<br />
+<img width="506" height="611" alt="image" src="https://github.com/user-attachments/assets/2da52728-c86a-4b51-9834-e7a27f4ebdd2" />
 
 <br/>
 <br/>
@@ -398,11 +277,7 @@ RPieChart Control
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/2c46f4d3-351c-4d05-b0b0-d6a491a923f0)
-
-
-<br/>
-<br/>
+<img width="511" height="608" alt="image" src="https://github.com/user-attachments/assets/66674c80-87b9-4d12-ab53-6275bc069490" />
 
 <br/>
 <br/>
@@ -412,10 +287,7 @@ RBarChart Vertical Control
 
 <br/>
 
-<img width="371" height="508" alt="Barchart-Vertical" src="https://github.com/user-attachments/assets/e75f7328-11cf-4a4f-b554-534d98b59ea6" />
-
-<br/>
-<br/>
+<img width="511" height="547" alt="image" src="https://github.com/user-attachments/assets/5810880b-860b-4f69-bc7a-5c9fb9ca8ba4" />
 
 <br/>
 <br/>
@@ -425,11 +297,7 @@ RBarChart Horizontal Control
 
 <br/>
 
-<img width="367" height="503" alt="Barchart-Horizontal" src="https://github.com/user-attachments/assets/7af0bb8f-5b06-4ad8-88c3-ee17b1fd7cd7" />
-
-
-<br/>
-<br/>
+<img width="510" height="544" alt="image" src="https://github.com/user-attachments/assets/67b3f2e8-491f-4aa0-a642-e1e4b8fc76d0" />
 
 <br/>
 <br/>
@@ -439,9 +307,8 @@ RStackedBarChart Vertical Control
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/1bcc4c09-c94a-450a-a9c8-111629407ed1)
+<img width="510" height="546" alt="image" src="https://github.com/user-attachments/assets/7be2363a-097a-4a49-9e19-cd162e719867" />
 
-<br/>
 <br/>
 <br/>
 
@@ -450,9 +317,8 @@ RStackedBarChart Horizontal Control
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/43a8a50f-527e-4ea7-9683-428eece78dfb)
+<img width="513" height="545" alt="image" src="https://github.com/user-attachments/assets/24721c87-ed01-4d16-9aad-b6bfa8e5dec4" />
 
-<br/>
 <br/>
 <br/>
 
@@ -462,11 +328,10 @@ RStackedRangeBarChart Vertical Control
 
 <br/>
 
-![image](https://github.com/user-attachments/assets/b5537a0b-2b5a-407d-8468-369f970353b9)
+<img width="511" height="549" alt="image" src="https://github.com/user-attachments/assets/3d57fe72-5b72-442f-8b56-a77b57a15e7a" />
 
 <br/>
 <br/>
-<br />
 
 
 RScatterChart
@@ -474,11 +339,9 @@ RScatterChart
 
 <br/>
 
-<img width="458" height="471" alt="" src="https://github.com/user-attachments/assets/c2c97d0a-c2a6-44b8-be38-bc0006c697b6" />
+<img width="510" height="577" alt="image" src="https://github.com/user-attachments/assets/8a23a61b-6367-47b5-92c1-509a14c3c18a" />
 
 <br />
-
-<br/>
 <br/>
 
 RLineChart
@@ -486,9 +349,7 @@ RLineChart
 
 <br/>
 
-<img width="456" height="478" alt="" src="https://github.com/user-attachments/assets/2b56727a-3ef6-4767-94a7-4d8cb250d881" />
-
-<br/>
+<img width="507" height="611" alt="image" src="https://github.com/user-attachments/assets/60f885ce-7d85-468a-8997-ccba80f30350" />
 
 <br/>
 <br/>
@@ -498,9 +359,8 @@ RAreaChart
 
 <br/>
 
-<img width="460" height="471" alt="" src="https://github.com/user-attachments/assets/4d2b391c-2b04-4725-8c18-16b2819c502f" />
+<img width="509" height="575" alt="image" src="https://github.com/user-attachments/assets/d7bc8580-3ed1-4e47-b8c3-6bf15b569566" />
 
-<br/>
 <br/>
 <br/>
 
@@ -509,9 +369,8 @@ RAllocationBarChart
 
 <br/>
 
-<img width="366" height="508" alt="allocated barchart" src="https://github.com/user-attachments/assets/50dd96d7-18e6-461c-80ac-1477a7ee492f" />
+<img width="511" height="548" alt="image" src="https://github.com/user-attachments/assets/9170a259-7adf-483a-ac1b-5c5e0d8d7716" />
 
-<br />
 <br/>
 <br/>
 
@@ -520,56 +379,154 @@ RSeriesChart
 
 #### YSeriesChart
 
-<img width="901" height="476" alt="" src="https://github.com/user-attachments/assets/d8444ffc-7cff-4f9c-bc08-cc38a1e1bb37" />
+<img width="515" height="560" alt="image" src="https://github.com/user-attachments/assets/8e6b8ba0-c253-4a64-9720-ceb569a39d55" />
 
-<br />
 <br/>
 <br/>
 
 #### GraphSeriesChart
 
-<img width="462" height="476" alt="" src="https://github.com/user-attachments/assets/02dea651-3c2c-41ab-9ab4-6b4f4dcdee4e" />
+<img width="510" height="556" alt="image" src="https://github.com/user-attachments/assets/b58206e7-ec85-4140-9dc0-ec6d24edb1c9" />
 
-<br/>
 <br/>
 <br/>
 
 RFilter
 -------------------------------------
 
+<br />
+
 ![image](https://github.com/user-attachments/assets/70f4fba1-9e1f-401d-a481-a9bdc0f029be)
 
 <br />
 
+
+RTabs Control
+-------------------------
+
+<br />
+
+<img width="565" height="443" alt="image" src="https://github.com/user-attachments/assets/602e62b0-a8c6-48c9-b231-830d00c8e683" />
+
+<br />
+<br />
+
+RSimpleTabs Control
+-----------------------------
+
+<br />
+
+<img width="575" height="415" alt="image" src="https://github.com/user-attachments/assets/1cc4babc-e53f-48ea-8937-141c3f5a4a1d" />
+
+<br />
+<br />
+
+RFlatTabs Control
+------------------------------
+
+<br />
+
+<img width="582" height="390" alt="image" src="https://github.com/user-attachments/assets/b5698949-7d6d-4cb4-92ae-7f3cd87bde66" />
+
+<br/>
+<br/>
+
+RAccordion Control
+---------------------------------
+
+<br />
+
+<img width="727" height="601" alt="image" src="https://github.com/user-attachments/assets/84e65d1f-21f5-4585-8a5e-c66773983a8e" />
+
+<br />
+<br />
+
+RStepper-Vertical
+-------------------------------
+
+<br />
+
+<img width="952" height="771" alt="image" src="https://github.com/user-attachments/assets/7c314fbf-f02f-444d-8bc7-2a5567c4ef9b" />
+
+<br />
+<br />
+
+
+RStepperHorizontal
+-----------------------------------
+
+<br />
+
+<img width="859" height="782" alt="image" src="https://github.com/user-attachments/assets/98e85743-7449-4412-9c62-801368e9a5e0" />
+
+<br />
+<br />
+
+RSequencesTracker
+------------------------------------
+
+<br />
+
+<img width="1055" height="639" alt="image" src="https://github.com/user-attachments/assets/9ae875e0-2146-4124-8782-83884fe24c6d" />
+
+<br />
+<br />
+
+
+
+RSplitter Component
+--------------------------
+
+<br />
+
+<img width="1132" height="590" alt="image" src="https://github.com/user-attachments/assets/6cb0b521-3430-4414-a82b-fe919a3b1b9f" />
+
+<br />
+<br />
+
+
+RGrid Control
+------------------------------
+
+<br />
+
+<img width="1012" height="781" alt="image" src="https://github.com/user-attachments/assets/d60a578e-7b64-4792-8dc4-1c6b93d93c09" />
+
+<br/>
+<br />
+
+REventsSchedule
+-------------------------------
+
+<br />
+
+<img width="785" height="624" alt="image" src="https://github.com/user-attachments/assets/a36275e0-3df9-4a3a-b607-27c31e0fe942" />
+
+<br/>
+<br />
+
+
 REventsCalender
 ------------------------
 
+<br />
+
 ### Main Screen
 
-![image](https://github.com/user-attachments/assets/f7fab9d8-f9c6-4b39-bc07-9988171cb750)
-
-
-### Add Events Screen (this screen will open on double click of Main screen Day Cell)
-
-<img width="785" height="672" alt="image" src="https://github.com/user-attachments/assets/95985ca1-d2cf-4fcc-b6ff-5bd874cefc48" />
+<img width="744" height="745" alt="image" src="https://github.com/user-attachments/assets/03541214-7957-4b60-b66b-caec474b227a" />
 
 <br />
 <br />
 
 
+RCarousel Control
+-------------------------
 
+<br />
 
+<img width="766" height="596" alt="image" src="https://github.com/user-attachments/assets/ce6aa2f9-f9af-491b-964b-d8f474eefd89" />
 
-
-
-
-
-
-
-
-
-
-
-
+<br />
+<br />
 
 

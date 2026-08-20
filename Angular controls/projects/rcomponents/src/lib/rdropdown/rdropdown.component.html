@@ -47,7 +47,7 @@
       </div>
       <div class="option-content" style="padding-left:6px;">
 
-        <ng-container *ngFor="let item of ComplexItems| rfilter: SearchItem">
+        <ng-container *ngFor="let item of ComplexItems| rfilterpipe: SearchItem">
 
           <div style="display: flex;flex-direction: row;align-self: center;"
            (click)="checkValue({event: $event, isChecked: !item.IsSelected}, item)">
@@ -74,7 +74,7 @@
       [ngStyle]="{ 'maxWidth': DDEWidth, 'width': DDEWidth }">
       <div class="option-content">
         <div class="item" style="padding-top:8px; padding-bottom: 10px;text-align: left;"
-          (click)="selectSingleValue($event, item)" *ngFor="let item of ComplexItems | rfilter: SearchItem"
+          (click)="selectSingleValue($event, item)" *ngFor="let item of ComplexItems | rfilterpipe: SearchItem"
             [ngStyle]="{ 'font-size': DropdownFontSize }"
             [ngClass]="{'dropdown-content-selected': item.IsSelected }">
           {{item.DisplayValue}}

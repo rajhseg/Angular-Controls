@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DropdownModel } from './rdropdown/rdropdownmodel';
 
 @Pipe({
-  name: 'rfilter',
+  name: 'rfilterpipe',
   pure: false,
   standalone: true
 })

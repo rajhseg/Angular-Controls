@@ -561,6 +561,12 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
       let btn = this.openBtn.nativeElement as HTMLElement;
       let dropDownElement = this.mydropDown.nativeElement as HTMLElement;
       let dropDownHeight = dropDownElement.clientHeight;
+
+      if(dropDownHeight == 0){
+        let _computedHeight = getComputedStyle(dropDownElement).height;
+        dropDownHeight = this.cssUnitSer.ToPxValue(_computedHeight, this.eleRef.nativeElement.parentElement, RelativeUnitType.Height);
+      }
+
       let btnPosTop = btn.getBoundingClientRect().top;
 
       

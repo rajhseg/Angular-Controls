@@ -1,5 +1,6 @@
-<div class="tabcontent" [ngClass]="{ 'root': EnableShadow, 'rootNormal': !EnableShadow }"
+<div  [ngClass]="{ 'root': EnableShadow, 'rootNormal': !EnableShadow }"
          [ngStyle]="{ '--fontsize': FontSize }"
+         [style.color]="FontColor"
          [style.font-family]="FontFamily" [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
     <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
         [ngStyle]="{ 'width': TableWidth_C }"
@@ -146,7 +147,7 @@
         </table>
 
     <cdk-virtual-scroll-viewport itemSize="40" [ngStyle]="{'height': GetContentHeight }" class="grid-viewport" [attr.key]="ShowItems?.Rows?.length">
-        <table class="tbl" [ngStyle]="{ 'width': '100%' }">
+        <table class="tbl tabcontent" [ngStyle]="{ 'width': '100%' }">
             <tbody  [ngStyle]="{ 'width': '100%' }">
 
                 <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">

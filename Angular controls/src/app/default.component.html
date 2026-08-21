@@ -1463,9 +1463,11 @@
                       <span>{{Item.Age}}</span>
                     </ng-template>
                     <ng-template editviewtemplate let-cell="CellInfo">
+                         
                       <rnumeric
                         [PaddingLeft]="'0px'" 
                         [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'120px'" [TextBoxHeight]="'15px'"></rnumeric>
+                        
                     </ng-template>
                   </rcolumn>
 
@@ -1488,7 +1490,7 @@
                     <ng-template editviewtemplate let-cell="CellInfo">
                       <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
                         [PaddingLeft]="'0px'"
-                        [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />
+                        [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />s
                     </ng-template>
                   </rcolumn>
 

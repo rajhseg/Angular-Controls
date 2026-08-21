@@ -27,6 +27,9 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
     FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
     @Input()
+    FontColor: string = 'black';
+
+    @Input()
     FontSize: string = '12px';
 
     @Input()
@@ -231,6 +234,9 @@ export abstract class RChartBaseComponent {
 
     @Input()
     FontFamily: string = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+    @Input()
+    FontColor: string = 'black';
 
     @Input()
     FontSize: string = '12px';

@@ -1472,13 +1472,12 @@
                   <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education'" [HeaderText]="'Degree'"
                     [Width]="'160px'">
                     <ng-template readviewtemplate let-Item let-cell="CellInfo">
-                      <span>{{Item.Education}}</span> -
-                      <span>{{Item.Education}}</span>
+                      <span>{{Item.Education.Value}}</span> -
+                      <span>{{Item.Education.DisplayValue}}</span>
                     </ng-template>
                     <ng-template editviewtemplate let-cell="CellInfo">
-                      <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-                        [PaddingLeft]="'0px'"
-                        [TextBoxWidth]="'100px'" [(ngModel)]="cell.Value" />
+                      <rdropdown [Items]="degrees" [DropDownContentWidth]="'100px'" [Width]="'100px'" [(ngModel)]="cell.Value">
+                      </rdropdown>
                     </ng-template>
                   </rcolumn>
 

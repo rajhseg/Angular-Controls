@@ -467,6 +467,8 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
       while(element && element != null && i > 0){
         if(element.nodeName.toLowerCase() == 'rflattabs' 
+          || element.nodeName.toLowerCase() == 'rsimpletabs' 
+          || element.nodeName.toLowerCase() == 'rgrid'
           || element.nodeName.toLowerCase() == 'rtabs'
           || element.nodeName.toLowerCase() == 'rstepper-vertical' 
           || element.nodeName.toLowerCase() == 'rstepper-horizontal'

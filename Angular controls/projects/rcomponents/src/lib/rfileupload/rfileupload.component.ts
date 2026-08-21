@@ -317,12 +317,20 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
         let tabEle : any = undefined;
 
         while(element && element != null && i > 0){
-          if(element.nodeName.toLowerCase() == 'rflattabs' || element.nodeName.toLowerCase() == 'rtabs'){
-            isInTab = true;
-            break;
-          }
           
+          if(element.nodeName.toLowerCase() == 'rflattabs' 
+              || element.nodeName.toLowerCase() == 'rsimpletabs' 
+              || element.nodeName.toLowerCase() == 'rgrid'
+              || element.nodeName.toLowerCase() == 'rtabs'
+              || element.nodeName.toLowerCase() == 'rstepper-vertical' 
+              || element.nodeName.toLowerCase() == 'rstepper-horizontal'
+              || element.nodeName.toLowerCase() == 'rgroup-panel' ){
+                isInTab = true;
+                break;
+              }
+
           i--;
+
           tabEle = element;
           element = element.parentElement;
         }

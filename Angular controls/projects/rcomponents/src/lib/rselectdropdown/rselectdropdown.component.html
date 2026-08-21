@@ -1,4 +1,4 @@
-<div #startElement  [style.font-family]="FontFamily" [id]="Id" class="dropdown rselectdropdownWindowClose"
+<div #startElement  [style.font-family]="FontFamily" [style.color]="FontColor"  [id]="Id" class="dropdown rselectdropdownWindowClose"
     [ngStyle]="{'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto'}">
   <input [id]="'inp'+Id" (click)="openDropdown($event)" readonly class="inpdrop" type="text" [value]="SelectedDisplay"
     style="padding-right: 20px;" [attr.disabled]="IsDisabled || null"

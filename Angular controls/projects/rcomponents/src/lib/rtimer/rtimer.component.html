@@ -1,7 +1,7 @@
 
 
 
-<div  [style.font-family]="FontFamily" [id]="Id" [ngStyle]="{ 'visibility': IsHidden ? 'collapse': 'visible', 
+<div  [style.font-family]="FontFamily" [style.color]="FontColor"  [id]="Id" [ngStyle]="{ 'visibility': IsHidden ? 'collapse': 'visible', 
                                                               'pointer-events': (IsReadOnly || IsDisabled) ? 'none' : '',
                                                               'user-select': IsDisabled ? 'none' : 'auto',
                                                               'height': IsHidden ? '0px' : '', 

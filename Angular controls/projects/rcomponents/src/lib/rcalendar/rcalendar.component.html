@@ -1,5 +1,5 @@
 
-<div #startElement style="position: relative;"  [style.font-family]="FontFamily" [id]="Id" [style.color]="FontColor"
+<div #startElement style="position: relative;"  [style.font-family]="FontFamily" [style.color]="FontColor"   [id]="Id" 
         [ngStyle]="{'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto'}"
         class="rcal dropdown rcalenderWindowsClose" 
         *ngIf="IsWindowsOs || IsLinuxOs">

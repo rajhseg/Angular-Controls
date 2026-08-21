@@ -1,4 +1,4 @@
-<div  class="dropdown fileuploadclose"  [style.font-family]="FontFamily" [style.font-size]="FontSize" [id]="Id"
+<div  class="dropdown fileuploadclose"  [style.font-family]="FontFamily" [style.color]="FontColor"  [style.font-size]="FontSize" [id]="Id"
       [ngStyle]="{ 'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 'user-select': IsDisabled ? 'none': 'auto' }">
     <input [hidden]="true" [multiple]="SelectMultipleFiles" [accept]="Accept" type="file" #rfile 
             (click)="blockFileBrowse($event)" (keydown)="blockFileBrowse($event)" 

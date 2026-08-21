@@ -1,5 +1,5 @@
 
-    <ul  [style.font-family]="FontFamily" [id]="Id" 
+    <ul  [style.font-family]="FontFamily" [style.color]="FontColor"  [id]="Id" 
         [ngStyle]="{ 'pointer-events': IsDisabled ? 'none' : '', 'user-select': IsDisabled ? 'none': 'auto'}">
         <li style="font-size: small; padding: 3px;" *ngFor="let Item of Items" 
             [ngClass]="{'moveleftforchild': Item.IsHaveChild}">

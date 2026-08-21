@@ -45,8 +45,8 @@ width: fit-content;
 :host{
   display: inline-block;
   vertical-align: top;
-  width: 200px;
-  height: 40px;
+  width: fit-content;
+  height: fit-content;
   padding-top: 5px;
   padding-bottom: 5px;
 }

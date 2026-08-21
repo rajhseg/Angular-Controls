@@ -14,7 +14,9 @@ import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonu
   RSequenceTrackerComponent,
   RSimpleTabsComponent,
   RAccordionComponent,
-  RContentDirective} from 'rcomponents';
+  RContentDirective,
+  RFilterDataType,
+  RFilterComponent} from 'rcomponents';
 
 import { RBarChartVerticalComponent } from 'rcomponents';
 import { RBarChartHorizontalComponent } from 'rcomponents';
@@ -154,11 +156,14 @@ import { RCarouselComponent, RImageDirective } from 'rcomponents';
         RTrackerContentDirective,
         RContentDirective,
         RAccordionComponent,
+        RFilterComponent
     ],
     templateUrl: './default.component.html',
     styleUrl: './default.component.css'
 })
 export class DefaultComponent {
+
+  dType:RFilterDataType = RFilterDataType.DateType;
 
   optionA: boolean = true;
   optionB: boolean = false;

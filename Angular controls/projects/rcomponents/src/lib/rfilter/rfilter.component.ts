@@ -89,7 +89,7 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
     return this._dataType;
   }
 
-  public dropdownMaxChars: number = 178;
+  public dropdownMaxChars: number = 191;
 
   @Input()
   ParentDropDownId: string = '';
@@ -266,11 +266,11 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   DDERight: string = '';
 
   get DDEWidth() : string {
-    return  '208px';
+    return  '228px';
   }
 
   get DDEHeight(): string {
-    return this.DataType== RFilterDataType.DateType ? "250px" : "210px";
+    return this.DataType== RFilterDataType.DateType ? "230px" : "230px";
   }
 
   @ViewChild('openbtn', { read: ElementRef }) private openBtn!: ElementRef;

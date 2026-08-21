@@ -1,6 +1,6 @@
 
 
-<div #startElement class="rfilterclose dropdown"  [style.font-family]="FontFamily" [id]="Id">
+<div #startElement class="rfilterclose dropdown"  [style.font-family]="FontFamily" [id]="Id" [style.font-size]="FontSize">
     <div #openbtn (click)="FilterToggle($event)">
         <svg *ngIf="!IsFilteredApplied" [attr.width]="WidthInPx" [attr.height]="HeightInPx" viewBox="0 0 24 24" 
             [attr.fill]="Color"  xmlns="http://www.w3.org/2000/svg">
@@ -31,66 +31,80 @@
 
         <div class="container">
 
-            <div class="space">
 
-                <span [ngStyle]="{'color': TextColor}">Contains</span>
-                                            
-                <div style="margin-top: 5px; margin-bottom: 15px;font-size: 16px;" 
-                        [ngStyle]="{ 'color': ForeColor}">
-                    <rselectdropdown [Items]="ItemValues" [IsMulti]="true" 
-                                 [ForeColor]="'gray'" [ParentDropDownId]="Id"
-                                 [Width]="'153px'" [(ngModel)]="ContainsList"
-                                 [DropDownContentWidth]="dropdownMaxChars+'px'">
-                    </rselectdropdown>                
+            <table>
+            <tbody>
+            <tr style="height: 70px;">
+
+              <td colspan="2">
+                <div class="space">
+
+                  <span [ngStyle]="{'color': TextColor}">Contains</span>
+
+                  <div style="margin-top: 5px;font-size: 16px;"
+                    [ngStyle]="{ 'color': ForeColor}">
+                    <rselectdropdown [Items]="ItemValues" [IsMulti]="true"
+                      [ForeColor]="'gray'" [ParentDropDownId]="Id"
+                      [Width]="'165px'" [(ngModel)]="ContainsList"
+                      [DropDownContentWidth]="dropdownMaxChars+'px'">
+                    </rselectdropdown>
+                  </div>
+
                 </div>
+              </td>
 
-            </div>
-            
-            <div  [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}"  style="width: 190px;">
-                <span [ngStyle]="{'color': TextColor}" style="float: left;"> Greater Than</span> 
+            </tr>
+            <tr>
+              <td>
+                  <span [ngStyle]="{'margin-top': DataType == 'date' ? '-10px': '', 'color': TextColor}" style="float: left;"> Greater Than</span>
+              </td>
+              <td>
+                  
+                    <rnumeric *ngIf="DataType!='date'" [IsReadOnly]="DataType != 'number' "
+                      [(ngModel)]="GreaterThanNumber"
+                      [TextBoxWidth]="'87px'">
+                    </rnumeric>
+                  
+                    <rcalendar  *ngIf="DataType == 'date'" [ParentDropDownId]="Id" [Width]="'91px'"
+                      [(ngModel)]="GreaterThanDate" [DateFormat]="DateFormat"></rcalendar>
+                  
+              </td>
+            </tr>
+            <tr>
+              <td>
+                 <span [ngStyle]="{'margin-top': DataType == 'date' ? '-10px': '', 'color': TextColor}" style="float: left;"> Lesser Than</span>
+              </td>
+              <td>
                 
-                <rnumeric [IsReadOnly]="DataType != 'number' " 
-                    [(ngModel)]="GreaterThanNumber"
-                    *ngIf="DataType != 'date'" 
-                    [TextBoxWidth]="'75px'" class="num">
-                </rnumeric>
+                    <rnumeric  *ngIf="DataType!='date'"  [IsReadOnly]="DataType != 'number'" [(ngModel)]="LessThanNumber"
+                      [TextBoxWidth]="'87px'" style="left: 4px;"></rnumeric>
+                  
+                    <rcalendar  *ngIf="DataType =='date'"  [ParentDropDownId]="Id" [Width]="'91px'"
+                      [(ngModel)]="LessThanDate" [DateFormat]="DateFormat"></rcalendar>
+                  
+              </td>
+            </tr>
+            <tr style="height: 58px;">
 
-                <rcalendar *ngIf="DataType =='date'" [ParentDropDownId]="Id"
-                    [(ngModel)]="GreaterThanDate" [DateFormat]="DateFormat"
-                    style="position: relative; left: -12px;"></rcalendar>
-            </div>
-                    
-            <div [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}" style="width: 190px;">
-                <span [ngStyle]="{'color': TextColor}" style="float: left;"> Lesser Than</span>                 
-                
-                <rnumeric [IsReadOnly]="DataType != 'number'" [(ngModel)]="LessThanNumber"
-                    *ngIf="DataType != 'date'" [TextBoxWidth]="'75px'" style="left: 4px;"
-                    class="num" 
-                   ></rnumeric>
-
-                <rcalendar *ngIf="DataType=='date'" [ParentDropDownId]="Id"
-                    [(ngModel)]="LessThanDate" [DateFormat]="DateFormat"
-                    style="position: relative; left: -12px;"></rcalendar>
-            </div>
-
-            <div [ngStyle]="{'margin-top': DataType=='date' ? '': '10px'}" style="width: 180px;">
-
-                <rbutton style="float: left;" [ButtonWidth]="'85px'" (ButtonClick)="Clear($event)" 
-                    [BackgroundColor]="'orangered'">
-                    <content>
-                        Clear
-                    </content>
+              <td>
+                <rbutton style="float: left;" [ButtonWidth]="'85px'" (ButtonClick)="Clear($event)"
+                  [BackgroundColor]="'orangered'">
+                  <content>
+                    Clear
+                  </content>
                 </rbutton>
+              </td>
 
-                &nbsp;
-                
-                <rbutton [ButtonWidth]="'85px'" (ButtonClick)="Apply($event)">
-                    <content>
-                        Apply
-                    </content>
+              <td>
+                <rbutton style="float:right" [ButtonWidth]="'85px'" (ButtonClick)="Apply($event)">
+                  <content>
+                    Apply
+                  </content>
                 </rbutton>
-
-            </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
 
         </div>
 

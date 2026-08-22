@@ -125,7 +125,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   public LabelText: string = "Color";
 
   @Input()
-  public LabelTextForeColor: string = "blue";
+  public LabelTextForeColor: string = "rgb(30, 17, 152)";
 
   @Input()
   public DisplayColorInHex: boolean = false;

@@ -149,7 +149,7 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
     
     this.ImagesList = this.Images.toArray();
 
-    this.Images.changes.subscribe((images: QueryList<RImageDirective>) => {
+    const imageChangesSub = this.Images.changes.subscribe((images: QueryList<RImageDirective>) => {
       
       this.FirstElement = images.first.element.nativeElement;
       this.LastElement = images.last.element.nativeElement;
@@ -170,16 +170,27 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
         this.items.removeEventListener("transitionend", this.onTransitionEnd);
         this.items.addEventListener("transitionend", this.onTransitionEnd);
 
-        if(this.EnableAutoPlay){
+        if (this.EnableAutoPlay) {
           this._interval = setInterval(() => this.slide(1), this.AutoPlayDurationBetweenSlides);
-          
-          this.destroy.onDestroy(()=>{
-            this.items?.removeEventListener("transitionend", this.onTransitionEnd);
-            clearInterval(this._interval);
-          });
         }
 
+        this.destroy.onDestroy(() => {
+
+          imageChangesSub.unsubscribe();
+          this.items?.removeEventListener("transitionend", this.onTransitionEnd);
+          
+          if (this._interval) {
+            clearInterval(this._interval);
+          }
+
+        });
+
         this.cdr.detectChanges();
+      }
+      else {
+        this.destroy.onDestroy(() => {
+          imageChangesSub.unsubscribe();
+        });
       }
   }
 

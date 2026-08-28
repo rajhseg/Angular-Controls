@@ -42,13 +42,16 @@ export class RCell {
                 for (let index = 0; index < props.length - 1; index++) {
                     const _p = props[index];
                     _fobj = _fobj[_p];
+
                     if (_fobj == undefined)
                         break;
 
                     _obj = _fobj;
                 }
 
-                _obj[props[props.length - 1]] = _validData;
+                if (_obj !== undefined && _obj !== null) {
+                    _obj[props[props.length - 1]] = _validData;
+                }
             }            
 
             if(!this.FromModel) {
@@ -80,13 +83,16 @@ export class RCell {
                 for (let index = 0; index < props.length - 1; index++) {
                     const _p = props[index];
                     _fobj = _fobj[_p];
+                    
                     if (_fobj == undefined)
                         break;
 
                     _obj = _fobj;
                 }
 
-                _obj[props[props.length - 1]] = data;
+                if (_obj !== undefined && _obj !== null) {
+                    _obj[props[props.length - 1]] = data;
+                }
 
             } else {                
                 _item[this.HeaderKey] = data;

@@ -179,7 +179,7 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
     if (obj < this.MinValue || obj > this.MaxValue) {
       this.SliderValue = 0;
       this.RangeValue = 0;
-      throw Error("Invalid Value between slider range");
+      console.log("Invalid Value between slider range");
       return;
     }
 
@@ -205,8 +205,6 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
     } else {
       this.RangeValue = parseInt(this.SliderValue.toString());
     }
-
-    this.valueChanged.emit(this.RangeValue);
   }
 
   

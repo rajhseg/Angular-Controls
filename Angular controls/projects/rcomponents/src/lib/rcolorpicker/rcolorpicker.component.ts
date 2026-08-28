@@ -1,5 +1,5 @@
 import { NgIf, NgStyle, UpperCasePipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, inject, Input, OnDestroy, Output, viewChild, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, inject, Input, OnDestroy, Output, viewChild, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RWindowHelper, WINDOWOBJECT } from '../rwindowObject';
 import { RectShape } from './rectShape';
 import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -114,6 +114,12 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   private mainStartY: number = 0;
 
   private isColorPickerSelected: boolean = false;
+
+  @HostListener('window:scroll')
+  @HostListener('window:resize')
+  onWindowScrollOrResize(): void {
+    this.GetOffset();
+  }
 
   @Input()
   public EnableShadowEffect: boolean = false;
@@ -845,8 +851,6 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
       await this.RenderCanvas();
 
       if (this.windowHelper.isExecuteInBrowser()) {
-        window.onscroll = this.GetOffset;
-        window.onresize = this.GetOffset;
 
         if (this.variations) {
           this.variations.nativeElement.onscroll = this.GetOffset.bind(this);
@@ -1213,8 +1217,6 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
     this.cls.RemoveInstance(this);
 
     if (this.windowHelper.isExecuteInBrowser()) {
-      window.onscroll = null;
-      window.onresize = null;
 
       if (this.variations) {
         this.variations.nativeElement.onscroll = null;

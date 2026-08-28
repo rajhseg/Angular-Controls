@@ -49,6 +49,7 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
   progressCanvas: ElementRef<HTMLCanvasElement> | undefined = undefined;
 
   private _items: RRenderDonutChartItem[] = [];
+  private _publicItems: RDonutChartItem[] = [];
 
   @Input()
   public Opacity: string = '1';
@@ -64,17 +65,19 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
   public set Items(val: RDonutChartItem[]) {
 
     this._items = [];
+    this._publicItems = [];
 
     if (val) {
       for (let index = 0; index < val.length; index++) {
         const element = val[index];
         let itm = new RRenderDonutChartItem(element.Value, element.Title, element.BackgroundColor, element.ForeColor);
         this._items.push(itm);
+        this._publicItems.push(itm.ConverToItem());
       }
     }
   }
   public get Items(): RDonutChartItem[] {
-    return this._items.map(x => x.ConverToItem());
+    return this._publicItems;
   }
   
   @Input()

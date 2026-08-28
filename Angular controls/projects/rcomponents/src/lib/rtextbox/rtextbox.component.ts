@@ -143,7 +143,6 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
 
   writeValue(obj: any): void {
     this._textboxValue = obj;
-    this.notifyToUI();
   }
 
   notifyToModel() {

@@ -20,6 +20,8 @@ import { RBaseComponent, RSplitterResult } from "../rmodels/RBaseComponent";
 export class RSplitterComponent extends RBaseComponent<RSplitterResult> implements AfterContentInit {
 
   RenderItems: IRSplitterInterface[] = [];
+  
+  prevUserSelect: any;
 
   RSType = RSplitterType;
 
@@ -208,6 +210,8 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
               nextStartSize = nextPanel.offsetHeight;
             }
 
+            this.prevUserSelect = document.body.style.userSelect || '';
+
             // Prevent text selection while dragging
             document.body.style.userSelect = 'none';
           };
@@ -250,7 +254,7 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
           const _mouseUp = () => {
             if (isDragging) {
               isDragging = false;
-              document.body.style.userSelect = '';
+              document.body.style.userSelect = this.prevUserSelect;
             }
           };
 
@@ -261,6 +265,10 @@ export class RSplitterComponent extends RBaseComponent<RSplitterResult> implemen
           document.addEventListener('mouseup', _mouseUp);
 
           this.destroy.onDestroy(()=>{
+
+              if (isDragging) {
+                document.body.style.userSelect = this.prevUserSelect;
+              }
 
               divider.removeEventListener('mousedown', _mouseDown);
 

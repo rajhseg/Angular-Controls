@@ -207,14 +207,14 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     if (obj.ToValue != undefined && (obj.ToValue < this.MinValue || obj.ToValue > this.MaxValue)) {
       this.MaxSliderValue = 0;
       this.Slider2Value = 0;
-      throw Error("Invalid Value between slider range");
+      console.log("Invalid Value between slider range");
       return;
     }
 
     if (obj.FromValue !=undefined && (obj.FromValue < this.MinValue || obj.FromValue > this.MaxValue)) {
       this.MinSliderValue = 0;
       this.Slider1Value = 0;
-      throw Error("Invalid Value between slider range");
+      console.log("Invalid Value between slider range");
       return;
     }
 
@@ -266,7 +266,6 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
     }
 
     this.Slider1MarginLeft = (this.currentDistance1 + marker - 2) + 'px';
-    this.valueChanged.emit(new RRangeSliderData(this.Slider1Value, this.Slider2Value));
   }
 
   

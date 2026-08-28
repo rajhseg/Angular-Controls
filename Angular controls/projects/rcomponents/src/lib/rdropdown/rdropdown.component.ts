@@ -424,6 +424,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
   // }
 
   ngOnDestroy(): void {
+    this.ddservice.RemoveInstance(this);
     this.cls.RemoveInstance(this);
   }
 

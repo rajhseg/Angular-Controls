@@ -241,8 +241,6 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
       if (this.DisplayColorRGB.trim() != "") {
         let args = new RColorPickerEventArgs(this.DisplayColorRGB, this.DisplayColorHex,
           this.DisplayColorR, this.DisplayColorG, this.DisplayColorB);
-        this.ColorSelected.emit(args);
-        this.valueChanged.emit(args);
       } else {
         
       }

@@ -657,7 +657,6 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
     try {
       this.IsReadOnly = false;
       this.Items = obj;
-      this.NotifyToUI();
     }
     catch {
 

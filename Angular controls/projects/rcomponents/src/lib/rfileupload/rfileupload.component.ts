@@ -144,9 +144,6 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
       this._files = obj;
 
       this.populateFilesList(this._files);
-      
-      this.filesSelected.emit(this._files);
-      this.valueChanged.emit(this._files);
       this.renderDisplayText();
     }
   }

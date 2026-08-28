@@ -179,8 +179,6 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
       this.IsChecked = checkValue;
       let args=new RadioEventArgs(undefined, this.IsChecked);
     
-      this.OnCheckChanged.emit(args);
-      this.valueChanged.emit(args);
     }
 
   }

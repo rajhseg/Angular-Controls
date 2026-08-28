@@ -88,11 +88,6 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
       sameValue = true;
 
     this.isChecked = val;
-
-    if(!sameValue) {
-      this.checked.emit(this.isChecked);
-      this.valueChanged.emit(this.isChecked);
-    }
     
   }
   

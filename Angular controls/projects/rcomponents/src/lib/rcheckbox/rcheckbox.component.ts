@@ -172,11 +172,6 @@ export class RCheckboxComponent extends RBaseComponent<CheckboxEventArgs> implem
       }
 
       this.IsChecked = checkValue;
-
-      let args=new CheckboxEventArgs(undefined, this.IsChecked);
-    
-      this.OnCheckChanged.emit(args);
-      this.valueChanged.emit(args);
     }
   }
 

@@ -203,8 +203,6 @@ export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizont
         this._currentActiveIndex = activeIndex;
         this.ResetValue(activeIndex);
       }
-
-      this.OnActiveValueChanged.emit(this._currentActiveItem);
     }
 
   }

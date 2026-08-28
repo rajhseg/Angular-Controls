@@ -158,11 +158,9 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
       if (this.SetCurrentTimeAsDefaultOnLoad) {
         this.setCurrentTime();
         this.SetDisplayText();
-        this.NotifyToModel();
       } else {
         this.outputValue = "";
         this.displayText = this.defaultText;
-        this.valueChanged.emit("");
       }
       return;
     }
@@ -214,7 +212,6 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
         });
         
         this.SetDisplayText();
-        this.valueChanged.emit(this.outputValue);
       }
     }
   }

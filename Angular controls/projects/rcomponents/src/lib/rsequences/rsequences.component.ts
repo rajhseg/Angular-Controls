@@ -212,8 +212,6 @@ export class RStateVerticalComponent extends RBaseComponent<RSequenceVerticalIte
         this._currentActiveIndex = activeIndex;
         this.ResetValue(activeIndex);
       }
-
-      this.OnActiveValueChanged.emit(this._currentActiveItem);
     }
 
   }

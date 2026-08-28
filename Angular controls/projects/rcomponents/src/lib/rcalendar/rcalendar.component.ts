@@ -538,7 +538,6 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     try {
       this.IsReadOnly = false;
       this.RenderUI(obj);
-      this.NotifyToUI();
     }
     catch {
 

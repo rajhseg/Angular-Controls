@@ -305,7 +305,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
           });
 
           this.loadSelectedItems();
-          this.NotifyToUI();
+          this.SearchItem = '';
 
           this.isSelectAllChecked = this.ComplexItems.every(x=>x.IsSelected);
         }
@@ -336,7 +336,7 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
             this.loadSelectedItems();
           }
 
-          this.NotifyToUI();
+          this.SearchItem = '';
         }
       }
     }

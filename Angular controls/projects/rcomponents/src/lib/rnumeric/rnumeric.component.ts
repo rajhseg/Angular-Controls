@@ -188,7 +188,7 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
       this.NotifyToModel();
     } else {
       if(val > this.MaxValue) {
-        this.setMaxValue();
+        this.setAboveMaxValue(val);
       } else {
         this.setBelowMinValue(val);
       }  
@@ -203,12 +203,16 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     super(winObj);
   }
 
-  private setMaxValue(){
-    this._value = this.MaxValue;
-    this.backupValue = this._value;
-    this.ErrorMessage = '';
-    this.BottomLineColor = this.backupColor;
-    this.NotifyToModel();
+  private setAboveMaxValue(val: number){
+    if(this.ErrorMessage == '') {
+      this.backupColor = this.BottomLineColor;
+      this.backupValue = this._value;
+    }
+
+    this._value = val;
+    
+    this.ErrorMessage = "Invalid max value";
+    this.BottomLineColor = this.ErrorIndicatorColor;  
   }
 
   private setMinValue(){

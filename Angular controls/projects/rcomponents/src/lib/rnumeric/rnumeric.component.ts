@@ -271,29 +271,29 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     this.validateNumValue(_num);
   }
 
-  private validateNumValue(_num: number){
-
-    if(_num == undefined ||  _num == null || _num.toString() == '') {
+  private validateNumValue(_num: number) {
+    if (_num === undefined || _num === null || Number.isNaN(_num)) {
       this.Value = this.MinValue;
+      return;
     }
 
-    if(_num >= this.MinValue && _num <= this.MaxValue) {
+    if (_num >= this.MinValue && _num <= this.MaxValue) {
       this.Value = _num;
-    }
-
-    if(_num < this.MinValue) {
+    } else if (_num < this.MinValue) {
       this.Value = this.MinValue;
-    } else if(_num > this.MaxValue) {
+    } else if (_num > this.MaxValue) {
       this.Value = this.MaxValue;
     }
-
   }
 
   writeValue(obj: any): void {
-    if(obj){
-      let _num = parseInt(obj);
-        
-      this.validateNumValue(_num);
+    if (obj !== null && obj !== undefined && obj !== '') {
+      const parsed = typeof obj === 'number' ? obj : parseFloat(String(obj));
+      if (!Number.isNaN(parsed)) {
+        this.validateNumValue(parsed);
+      } else {
+        this.Value = this.MinValue;
+      }
     }
   }
 
@@ -329,46 +329,79 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     this._formDisabled = isDisabled ? true : null;
   }
 
-  onBlur($event: Event){
-    let _num = this.ErrorMessage != '' ? parseInt(this.backupValue.toString()) : parseInt(this._value.toString());
-    this.validateNumValue(_num);
+  onBlur($event: Event) {
+    const rawVal = this.ErrorMessage !== '' ? this.backupValue : this._value;
+    const num = typeof rawVal === 'number' ? rawVal : parseFloat(String(rawVal));
+    this.validateNumValue(Number.isNaN(num) ? this.MinValue : num);
   }
 
-  keyPress($event: KeyboardEvent){
-    let evt = $event || window.event;
+  keyPress($event: KeyboardEvent): boolean {
+    const key = $event.key;
 
-    var regex = /[0-9]|\./;
-    if(!regex.test($event.key)){
-      return false;
+    // Allow modifier key combinations (Ctrl+A, Ctrl+C, Ctrl+V, etc.)
+    if ($event.ctrlKey || $event.metaKey || $event.altKey) {
+      return true;
     }
 
-    let newValue = this.Value.toString() + evt.key;
-    let _num = Number(newValue);
+    // Allow standard control/navigation keys
+    if (
+      key === 'Backspace' ||
+      key === 'Delete' ||
+      key === 'Tab' ||
+      key === 'Escape' ||
+      key === 'Enter' ||
+      key === 'ArrowLeft' ||
+      key === 'ArrowRight' ||
+      key === 'ArrowUp' ||
+      key === 'ArrowDown' ||
+      key === 'Home' ||
+      key === 'End'
+    ) {
+      return true;
+    }
 
-    if(_num > this.MaxValue) {
+    const isDigit = /^[0-9]$/.test(key);
+    const currentStr = String(this._value ?? '');
+    const alreadyHasDot = currentStr.includes('.');
+    const isDot = key === '.';
+    const isMinus = key === '-' && this.MinValue < 0 && !currentStr.includes('-');
+
+    if (!isDigit && !(isDot && !alreadyHasDot) && !isMinus) {
+      $event.preventDefault();
       return false;
     }
 
     return true;
   }
 
-  onPaste($event: ClipboardEvent){
-    let clip = $event.clipboardData;
-    let text = clip?.getData('text');
+  onPaste($event: ClipboardEvent): boolean {
+    const clip = $event.clipboardData;
+    const text = clip?.getData('text')?.trim();
     
-    if(text) {
-      var regex = /[0-9]|\./;
-      if(!regex.test(text)){
-        return false;
-      }
-    }
-
-    let _num = Number(text);
-
-    if(_num > this.MaxValue) {
+    if (!text) {
+      $event.preventDefault();
       return false;
     }
-    
+
+    // Strictly validate that the full pasted text is an anchored valid number
+    const strictNumericRegex = /^-?\d+(\.\d+)?$/;
+    if (!strictNumericRegex.test(text)) {
+      $event.preventDefault();
+      return false;
+    }
+
+    const num = parseFloat(text);
+    if (Number.isNaN(num)) {
+      $event.preventDefault();
+      return false;
+    }
+
+    if (num > this.MaxValue || num < this.MinValue) {
+      $event.preventDefault();
+      this.validateNumValue(num);
+      return false;
+    }
+
     return true;
   }
 }

@@ -112,6 +112,10 @@ export class RDonutChartComponent  extends RChartBaseComponent  implements After
     }
   }
 
+  protected override destroy(): void {
+    this.context = null;
+  }
+
   private GetXYForText(x: number, y: number, length: number, angle: number): { X: number, Y: number } {
     let x2 = x + length * Math.cos(angle);
     let y2 = y + length * Math.sin(angle);

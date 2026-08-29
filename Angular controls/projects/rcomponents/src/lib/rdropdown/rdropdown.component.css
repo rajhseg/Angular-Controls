@@ -11,19 +11,19 @@
     bottom: -3px;
   }
   
-  input[type=text]{
-    border:1px solid rgb(224, 218, 218);     
+  input.inpdrop {
+    border: 1px solid rgb(224, 218, 218);     
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-left: var(--pleft);
-    padding-right: var(--pright);   
+    padding-left: var(--pleft, 5px);
+    padding-right: var(--pright, 5px);   
     outline: none;
-    color: rgb(116 111 111);
+    color: rgb(116, 111, 111);
     text-align: start;
   }
 
-  input[type=text]:focus{
-    border:1px solid rgb(224, 218, 218);    
+  input.inpdrop:focus {
+    border: 1px solid rgb(224, 218, 218);    
   }
 
   .dropdownbtn:hover, .dropdownbtn:focus {
@@ -72,16 +72,16 @@
     display: block;
   }
 
-  ::-webkit-scrollbar {
-    width: 0.4em;;
-    height: 0.4em;;
+  .dropdown-content::-webkit-scrollbar {
+    width: 0.4em;
+    height: 0.4em;
   }
   
-  ::-webkit-scrollbar-track {
+  .dropdown-content::-webkit-scrollbar-track {
     background-color: #bdbbbb;
   }
   
-  ::-webkit-scrollbar-thumb {
+  .dropdown-content::-webkit-scrollbar-thumb {
     background-color: #5e5e5e;
     border-radius: 10px;
   } 

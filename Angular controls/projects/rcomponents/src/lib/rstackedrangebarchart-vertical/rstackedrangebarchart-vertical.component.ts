@@ -197,6 +197,12 @@ export class RStackedRangeBarChartVerticalComponent extends RChartPopupBaseCompo
     }
   }
 
+  protected override destroy(): void {
+    if (this.bar?.nativeElement) {
+      this.bar.nativeElement.onmousemove = null;
+    }
+    this.context = null;
+  }
 
   private MouseMove(event: MouseEvent) {
 

@@ -4,9 +4,9 @@ import { ChangeDetectorRef, Injectable, InjectionToken, PLATFORM_ID, inject } fr
 export const WINDOWOBJECT = new InjectionToken<Window>('global window object', {
     factory:()=> {
         if(typeof window !== 'undefined') {
-            return window
-          }
-           return null as unknown as Window;
+            return window;
+        }
+        return null as unknown as Window;
     }
 });
 

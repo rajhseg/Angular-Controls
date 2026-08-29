@@ -196,6 +196,13 @@ export class RStackedBarChartVerticalComponent extends RChartPopupBaseComponent 
     }
   }
 
+  protected override destroy(): void {
+    if (this.bar?.nativeElement) {
+      this.bar.nativeElement.onmousemove = null;
+    }
+    this.context = null;
+  }
+
   getWidthFromString(value: string): number {
     if (this.context) {
       let metrics = this.context.measureText(value);

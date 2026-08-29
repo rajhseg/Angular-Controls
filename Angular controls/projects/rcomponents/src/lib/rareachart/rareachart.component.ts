@@ -192,6 +192,13 @@ export class RAreaChartComponent extends RChartPopupBaseComponent implements Aft
     }
   }
 
+  protected override destroy(): void {
+    if (this.bar?.nativeElement) {
+      this.bar.nativeElement.onmousemove = null;
+    }
+    this.context = null;
+  }
+
   trackById(index: number, item: RAreaChartItem){
     return item.Id;
   }

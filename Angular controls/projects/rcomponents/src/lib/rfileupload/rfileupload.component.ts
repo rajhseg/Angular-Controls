@@ -152,13 +152,68 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     this.cls.RemoveInstance(this);
   }
 
+  private sanitizeFileName(name: string): string {
+    if (!name) return '';
+    return name
+      .replace(/\0/g, '')
+      .replace(/[\\\/]/g, '_')
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
+  }
+
+  private validateFile(file: File): { isValid: boolean; errorMessage?: string } {
+    const safeName = this.sanitizeFileName(file.name);
+
+    // 1. Validate Max File Size
+    const fileSizeMB = file.size / (1024 * 1024);
+    if (fileSizeMB > this.AllowedMaxFileSizeInMB) {
+      return {
+        isValid: false,
+        errorMessage: `${safeName}: exceeds max allowed size of ${this.AllowedMaxFileSizeInMB}MB (${this.formatSize(file.size)})`
+      };
+    }
+
+    // 2. Validate Accept Patterns (Extensions & MIME types)
+    if (this.Accept && this.Accept.trim() !== '') {
+      const acceptedPatterns = this.Accept.split(',')
+        .map(p => p.trim().toLowerCase())
+        .filter(p => p.length > 0);
+
+      const fileNameLower = file.name.toLowerCase();
+      const fileTypeLower = (file.type || '').toLowerCase();
+
+      const isAccepted = acceptedPatterns.some(pattern => {
+        if (pattern.startsWith('.')) {
+          // Extension pattern matching (e.g. .png, .pdf, .docx)
+          return fileNameLower.endsWith(pattern);
+        } else if (pattern.endsWith('/*')) {
+          // Wildcard MIME type matching (e.g. image/*, audio/*)
+          const baseType = pattern.slice(0, -2);
+          return fileTypeLower.startsWith(baseType + '/');
+        } else {
+          // Exact MIME type matching (e.g. application/pdf, text/csv)
+          return fileTypeLower === pattern;
+        }
+      });
+
+      if (!isAccepted) {
+        return {
+          isValid: false,
+          errorMessage: `${safeName}: invalid file type (allowed: ${this.Accept})`
+        };
+      }
+    }
+
+    return { isValid: true };
+  }
+
   private populateFilesList(files: FileList | undefined) {
     this._rFilesList = [];
     
-    if (this._files != undefined) {
-      for (let index = 0; index < this._files.length; index++) {
-        const element = this._files[index];
-        let eachFile = new RFile(element.name, element.size, element.type, element.lastModified);
+    if (files != undefined) {
+      for (let index = 0; index < files.length; index++) {
+        const element = files[index];
+        const safeName = this.sanitizeFileName(element.name);
+        let eachFile = new RFile(safeName, element.size, element.type, element.lastModified);
         this._rFilesList.push(eachFile);
       }
     }
@@ -179,8 +234,10 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
   clear($event: Event) {
     this._files = undefined;
     this._rFilesList = [];
-    this.showFiles =false;
-    this.rFile.nativeElement.value = "";
+    this.showFiles = false;
+    if (this.rFile?.nativeElement) {
+      this.rFile.nativeElement.value = "";
+    }
     this.DisplayText = "";
     this.ErrorMessages = [];
 
@@ -189,37 +246,42 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     this.filesSelected.emit(undefined);
     this.valueChanged.emit(undefined);
     this.filesCleared.emit($event);
+    this.cdr.detectChanges();
   }
   
 
   onFilesSelected($event: Event) {
-
     this.ErrorMessages = [];
     this.DisplayText = '';
 
-    this._files = ($event.target as any).files;
+    const inputEl = $event.target as HTMLInputElement;
+    this._files = inputEl?.files ?? undefined;
 
-    let max_files_size = "";
-    let exceed_size: boolean = false;
-    let error_no = 0;
+    let hasErrors = false;
 
-    if(this._files) {
+    if (this._files && this._files.length > 0) {
       for (let index = 0; index < this._files.length; index++) {
         const element = this._files[index];
-        const fileSize = element.size
-        const fileSizeMB = fileSize / (1024 * 1024); // Size in MB
-        if(fileSizeMB > this.AllowedMaxFileSizeInMB){
-          exceed_size = true;
-          error_no += 1;
-          max_files_size = max_files_size+ error_no+ "." + element.name + ";\n "
-          this.ErrorMessages.push(element.name);
+        const validation = this.validateFile(element);
+        if (!validation.isValid && validation.errorMessage) {
+          hasErrors = true;
+          this.ErrorMessages.push(validation.errorMessage);
         }
       }
 
-      if(exceed_size){
-        this._files = undefined; // clear files
+      if (hasErrors) {
+        this._files = undefined; // clear invalid files
         this._rFilesList = [];
         this.DisplayText = "Error";
+        this.showFiles = true;
+        if (inputEl) {
+          inputEl.value = "";
+        }
+        this.onChanged(undefined);
+        this.onTouched(undefined);
+        this.filesSelected.emit(undefined);
+        this.valueChanged.emit(undefined);
+        this.cdr.detectChanges();
         return;
       }
     }
@@ -230,7 +292,8 @@ export class RfileuploadComponent extends RBaseComponent<FileList> implements IR
     this.onTouched(this._files);
     this.filesSelected.emit(this._files);
     this.valueChanged.emit(this._files);
-    this.renderDisplayText();    
+    this.renderDisplayText();
+    this.cdr.detectChanges();
   }
 
   

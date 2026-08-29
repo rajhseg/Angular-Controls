@@ -199,6 +199,13 @@ export class RAllocatedBarChartComponent  extends RChartPopupBaseComponent imple
     }
   }
 
+  protected override destroy(): void {
+    if (this.bar?.nativeElement) {
+      this.bar.nativeElement.onmousemove = null;
+    }
+    this.context = null;
+  }
+
   private getWidthFromString(value: string): number {
     if (this.context) {
       let metrics = this.context.measureText(value);

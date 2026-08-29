@@ -351,7 +351,7 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
   }
 
   getMarkerHeight(date: string): string {
-    if (this.VerticalChannelsList[date] != undefined) {
+    if (this.VerticalChannelsList && this.VerticalChannelsList[date] != undefined) {
       let count = this.VerticalChannelsList[date].length;
       let height = (count * this.VerticalHeaderHeight) + count;
       return height + 'px';
@@ -684,13 +684,21 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
     this.HorizontalHeaders = _hdrs;
   }
 
+  private boundStartDrag = (e: MouseEvent) => this.startDrag(e);
+  private boundStopDrag = (e: Event) => this.stopDrag(e);
+  private boundDragging = (e: MouseEvent) => this.dragging(e);
+
   ngAfterViewInit(): void {
-    this._ele = (this.hScroll.nativeElement as HTMLElement);
-    this._vele = (this.vheader.nativeElement as HTMLElement);
-    this._ele.addEventListener('mousedown', this.startDrag.bind(this), false);
-    this._ele.addEventListener('mouseup', this.stopDrag.bind(this), false);
-    this._ele.addEventListener('mouseleave', this.stopDrag.bind(this), false);
-    this._ele.addEventListener('mousemove', this.dragging.bind(this), false);
+    if (this.hScroll?.nativeElement) {
+      this._ele = (this.hScroll.nativeElement as HTMLElement);
+      this._ele.addEventListener('mousedown', this.boundStartDrag, false);
+      this._ele.addEventListener('mouseup', this.boundStopDrag, false);
+      this._ele.addEventListener('mouseleave', this.boundStopDrag, false);
+      this._ele.addEventListener('mousemove', this.boundDragging, false);
+    }
+    if (this.vheader?.nativeElement) {
+      this._vele = (this.vheader.nativeElement as HTMLElement);
+    }
     this.RenderUI();
   }
 
@@ -727,15 +735,15 @@ export class REventsScheduleComponent  extends RBaseComponent<any>  implements A
   }
 
   ngOnDestroy(): void {
-    this._ele.removeEventListener('mousedown', this.startDrag.bind(this), false);
-    this._ele.removeEventListener('mouseup', this.stopDrag.bind(this), false);
-    this._ele.removeEventListener('mouseleave', this.stopDrag.bind(this), false);
-    this._ele.removeEventListener('mousemove', this.dragging.bind(this), false);
-
-    if (this.winObj.isExecuteInBrowser()) {
-      window.clearInterval(this.markerInterval);
-      window.clearInterval(this.pageInterval);
+    if (this._ele) {
+      this._ele.removeEventListener('mousedown', this.boundStartDrag, false);
+      this._ele.removeEventListener('mouseup', this.boundStopDrag, false);
+      this._ele.removeEventListener('mouseleave', this.boundStopDrag, false);
+      this._ele.removeEventListener('mousemove', this.boundDragging, false);
     }
+
+    this.clearMarker();
+    this.clearPage();
   }
 
   private stopDrag(e: Event) {

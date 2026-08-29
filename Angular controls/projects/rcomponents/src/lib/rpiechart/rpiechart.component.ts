@@ -115,6 +115,10 @@ export class RPieChartComponent  extends RChartBaseComponent implements AfterVie
     }
   }
 
+  protected override destroy(): void {
+    this.context = null;
+  }
+
  calculateTitleWidth(){
     var names = this.Items.map(x=>x.Title);
     var length = 0;

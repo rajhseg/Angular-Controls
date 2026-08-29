@@ -185,7 +185,13 @@ export class RSeriesChartComponent  extends RChartPopupBaseComponent implements 
     }
   }
 
-  
+  protected override destroy(): void {
+    if (this.bar?.nativeElement) {
+      this.bar.nativeElement.onmousemove = null;
+    }
+    this.context = null;
+  }
+
   private MouseMove(event: MouseEvent) {
     if (this.context && this.bar) {
 

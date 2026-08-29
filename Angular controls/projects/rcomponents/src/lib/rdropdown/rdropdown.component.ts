@@ -19,7 +19,7 @@ import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
   imports: [CommonModule, NgIf, FormsModule, RDropdownFilterPipe, RTextboxComponent, NgForOf, NgClass, RCheckboxComponent],
   templateUrl: './rdropdown.component.html',
   styleUrl: './rdropdown.component.css',
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -164,12 +164,16 @@ export abstract class RBaseComponent<T> implements AsyncValidator {
         }
 
         if ((all || pattern) && this.pattern && val != null) {
-            const regex = typeof this.pattern === 'string'
-                ? new RegExp(this.pattern)
-                : this.pattern;
+            try {
+                const regex = typeof this.pattern === 'string'
+                    ? new RegExp(this.pattern)
+                    : this.pattern;
 
-            if (!regex.test(val)) {
-                errors['pattern'] = true;
+                if (!regex.test(String(val))) {
+                    errors['pattern'] = { requiredPattern: regex.toString(), actualValue: val };
+                }
+            } catch (e) {
+                errors['pattern'] = { requiredPattern: String(this.pattern), actualValue: val };
             }
         }
 
@@ -266,6 +270,14 @@ export abstract class RChartBaseComponent {
     }
 
     public abstract Render(): void;
+
+    public ngOnDestroy(): void {
+        this.destroy();
+    }
+
+    protected destroy(): void {
+        // Derived chart classes can override to clean up listeners and context
+    }
 
     protected ResetCanvasContext(context: CanvasRenderingContext2D): void {
         if (!context) {

@@ -15,6 +15,7 @@
             [BottomLineColor]="BottomLineColor" [LabelText]="''" [FontSize]="FontSize"
             [LabelForeColor]="LabelTextForeColor" [TextBoxWidth]="TextBoxWidth_C" (focusout)="onBlur($event)"
             (keypress)="keyPress($event)" [PaddingLeft]="PaddingLeft" [PaddingRight]="PaddingRight"
+            (keydown)="onKeyDown($event)"
             (paste)="onPaste($event)"
             [(ngModel)]="Value">
         </rtextbox>    

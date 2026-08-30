@@ -449,6 +449,14 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     return true;
   }
 
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Backspace') {
+        if(this.required && this._value && this._value == 0) {
+          event.preventDefault();
+        }
+    }
+  }
+
   onPaste($event: ClipboardEvent): boolean {
     const clip = $event.clipboardData;
     const text = clip?.getData('text')?.trim();

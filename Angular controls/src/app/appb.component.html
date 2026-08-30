@@ -590,8 +590,10 @@
           <rnumeric
             LabelText="Quantity"
             [(ngModel)]="numericValue"
-            [MinValue]="11"
+            [MinValue]="-11"
+            [required]="true"
             [MaxValue]="3000"
+            [StepValue]="0.25"
             [BottomLineColor]="selectedTheme.Value"
             [PlusBackgroundColor]="selectedTheme.Value"
             [MinusBackgroundColor]="selectedTheme.Value"

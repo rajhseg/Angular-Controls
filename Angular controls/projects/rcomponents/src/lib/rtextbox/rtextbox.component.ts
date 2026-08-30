@@ -118,7 +118,7 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   InputId: string = this.winObj.GenerateUniqueId();
 
   public set TextboxValue(value: string) {
-    if(this._textboxValue != value && !this.IsReadOnly) {
+    if(!this.IsReadOnly) {
       this._textboxValue = value;
       this.notifyToModel();
     }

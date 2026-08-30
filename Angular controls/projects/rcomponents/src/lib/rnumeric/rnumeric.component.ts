@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { RTextboxComponent } from "../rtextbox/rtextbox.component";
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
@@ -85,11 +85,13 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     return this._textboxHeight;
   }
 
+  @Input()
+  public StepValue: number = 1;
 
   @Input()
   public EnableMarginTextBottom: boolean = false;
 
-  private _value: number = 0;
+  private _value: number | null = null;
 
   @Input()
   public EnableShadowEffect: boolean = false;
@@ -112,17 +114,21 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   @Input()
   public PlusForeColor: string = "white";
 
-  private _minValue: number = 0;
+  private _minValue: number = Number.MIN_SAFE_INTEGER;
   private _maxValue: number = Number.MAX_SAFE_INTEGER;
 
   @Input()
   public set MinValue(value: number){
 
-    if(value < 0 || value == undefined)
+    if(value == undefined)
     {
       value = 0;
     }
     
+    if(value < Number.MIN_SAFE_INTEGER){
+        value = Number.MIN_SAFE_INTEGER;
+    }
+
     if(value > this._maxValue){
       value = this._maxValue;
     }
@@ -148,8 +154,8 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
       value = this._minValue;
     }
 
-    if(value < 0) {
-      value = 0;
+    if(value < Number.MIN_SAFE_INTEGER) {
+      value = Number.MIN_SAFE_INTEGER;
     }
 
     this._maxValue = value;
@@ -163,7 +169,7 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
 
   ErrorMessage: string = "";
   backupColor: string =  this.BottomLineColor;
-  backupValue: number = this._value;
+  backupValue: number | null = this._value;
 
   public get ButtonHeight(): string {
     let value = this.cssUnitSer.ToPxValue(this.TextBoxHeight_C, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
@@ -176,34 +182,59 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   }
 
   @Input()
-  public set Value(val: number){  
+  public set Value(val: number | string | null | undefined){  
 
-    val = Number(val.toString());
+    const currentStr = String(val ?? '');
+    const haveDotFirst = currentStr=='.';
+    const haveMinusFirst = currentStr === '-';
+
+    if(currentStr == ''){
+      this.setValue(this.required ? 0 : null);
+      return;
+    } 
+
+    if(haveDotFirst || haveMinusFirst){
+      this.setDotOrMinusValueAtFirst(currentStr);
+      return;
+    }
+
+    const numericValue = Number(val);
+    if(Number.isNaN(numericValue)) {
+      this.setErrorValue(val as any);
+      return;
+    }
+
+    const safeValue = Number(numericValue);
     
-    if(val >= this.MinValue && val <= this.MaxValue) {   
-      this._value = val;
-      this.ErrorMessage = '';
-      this.backupValue = this._value;
-      this.BottomLineColor = this.backupColor;
-      this.NotifyToModel();
+    if(safeValue >= this.MinValue && safeValue <= this.MaxValue) {   
+      this.setValue(safeValue);
     } else {
-      if(val > this.MaxValue) {
-        this.setAboveMaxValue(val);
+      if(safeValue > this.MaxValue) {
+        this.setAboveMaxValue(safeValue);
       } else {
-        this.setBelowMinValue(val);
+        this.setBelowMinValue(safeValue);
       }  
     }
     
   }
-  public get Value(): number {
+  public get Value(): number | null {
     return this._value;
   }
 
-  constructor(winObj: RWindowHelper, private ele: ElementRef, private cssUnitSer: RCssUnitsService){
+  constructor(winObj: RWindowHelper, private ele: ElementRef, private cssUnitSer: RCssUnitsService, private cdr: ChangeDetectorRef){
     super(winObj);
   }
 
+  private setValue(val: number | null){
+    this._value = val;
+    this.ErrorMessage = '';
+    this.backupValue = this._value;
+    this.BottomLineColor = this.backupColor;
+    this.NotifyToModel();
+  }
+
   private setAboveMaxValue(val: number){
+
     if(this.ErrorMessage == '') {
       this.backupColor = this.BottomLineColor;
       this.backupValue = this._value;
@@ -236,20 +267,47 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     this.BottomLineColor = this.ErrorIndicatorColor;  
   }
 
+  private setErrorValue(val: number){
+    
+    if(this.ErrorMessage == '') {
+      this.backupColor = this.BottomLineColor;
+      this.backupValue = this._value;
+    }
+
+    this._value = val;
+    
+    this.ErrorMessage = "Invalid value";
+    this.BottomLineColor = this.ErrorIndicatorColor;  
+  }
+
+  private setDotOrMinusValueAtFirst(val: string){
+
+    if(this.ErrorMessage == '') {
+      this.backupColor = this.BottomLineColor;
+      this.backupValue = this._value;
+    }
+
+    this._value = val as  any;
+    
+    this.ErrorMessage = "Invalid Character";
+    this.BottomLineColor = this.ErrorIndicatorColor;  
+  }
+
   public Dec(){
     
     if(this.IsReadOnly || this.IsDisabled)
       return;
 
-    if(this._value==undefined)
+    if(this._value==undefined || this._value===null)
       this._value = 0;
 
     let _num;
 
     if(this.ErrorMessage != '') {
-      _num = Number.parseInt(this.backupValue.toString()) - 1;
+      const backupNumber = this.backupValue ?? 0;
+      _num = Number(backupNumber.toString()) - this.StepValue;
     } else {
-      _num = Number.parseInt(this._value.toString()) - 1;
+      _num = Number(this._value.toString()) - this.StepValue;
     }
 
     this.validateNumValue(_num);
@@ -260,51 +318,58 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
     if(this.IsReadOnly || this.IsDisabled)
       return;
     
-    if(this._value==undefined)
+    if(this._value==undefined || this._value===null)
       this._value = 0;
 
     let _num;
 
     if(this.ErrorMessage != '') {
-      _num = Number.parseInt(this.backupValue.toString()) + 1;
+      const backupNumber = this.backupValue ?? 0;
+      _num = Number(backupNumber.toString()) + this.StepValue;
     }
     else {
-      _num = Number.parseInt(this._value.toString()) + 1;
+      _num = Number(this._value.toString()) + this.StepValue;
     }
 
     this.validateNumValue(_num);
   }
 
-  private validateNumValue(_num: number) {
-    if (_num === undefined || _num === null || Number.isNaN(_num)) {
-      this.Value = this.MinValue;
+  private validateNumValue(_num: number | string | null | undefined) {
+    if (_num === undefined || _num === null || _num === '' || Number.isNaN(Number(_num))) {
+      this.Value = this.required ? 0 : '';
       return;
     }
 
-    if (_num >= this.MinValue && _num <= this.MaxValue) {
-      this.Value = _num;
-    } else if (_num < this.MinValue) {
+    const num = Number(_num);
+
+    if (num >= this.MinValue && num <= this.MaxValue) {
+      this.Value = num;
+    } else if (num < this.MinValue) {
       this.Value = this.MinValue;
-    } else if (_num > this.MaxValue) {
+    } else if (num > this.MaxValue) {
       this.Value = this.MaxValue;
     }
   }
 
   writeValue(obj: any): void {
-    if (obj !== null && obj !== undefined && obj !== '') {
-      const parsed = typeof obj === 'number' ? obj : parseFloat(String(obj));
-      if (!Number.isNaN(parsed)) {
-        this.validateNumValue(parsed);
-      } else {
-        this.Value = this.MinValue;
-      }
+    if (obj === null || obj === undefined || obj === '') {
+      this.Value = this.required ? 0 : '';
+      return;
+    }
+
+    const parsed = typeof obj === 'number' ? obj : parseFloat(String(obj));
+    if (!Number.isNaN(parsed)) {
+      this.validateNumValue(parsed);
+    } else {
+      this.Value = this.required ? 0 : '';
     }
   }
 
-  NotifyToModel(){
-    this.onChanged(this._value);
-    this.onTouched(this._value);
-    this.valueChanged.emit(this._value);
+  NotifyToModel() {
+    this.onChanged(this._value as number);
+    this.onTouched(this._value as number);
+    this.valueChanged.emit(this._value as number);
+    this.cdr.detectChanges();
   }
 
   protected override IsValidatorSupported(): boolean {
@@ -335,8 +400,14 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
 
   onBlur($event: Event) {
     const rawVal = this.ErrorMessage !== '' ? this.backupValue : this._value;
+
+    if (rawVal === null || rawVal === undefined) {
+      this.Value = this.required ? 0 : null;
+      return;
+    }
+
     const num = typeof rawVal === 'number' ? rawVal : parseFloat(String(rawVal));
-    this.validateNumValue(Number.isNaN(num) ? this.MinValue : num);
+    this.validateNumValue(Number.isNaN(num) ? (this.required ? 0 : null) : num);
   }
 
   keyPress($event: KeyboardEvent): boolean {

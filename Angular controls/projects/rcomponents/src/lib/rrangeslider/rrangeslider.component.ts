@@ -201,9 +201,19 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
   }
 
   writeValue(obj: RRangeSliderData): void {
-    if (obj == null || obj == undefined || obj.FromValue == undefined || obj.ToValue == undefined)
-      return;
+    
+    if (obj == null || obj == undefined) {
+      obj  = new RRangeSliderData(this.MinValue, this.MaxValue);
+    }
 
+    if(obj.FromValue == undefined) {
+      obj.FromValue = this.MinValue;
+    } 
+    
+    if(obj.ToValue == undefined) {
+      obj.ToValue = this.MaxValue;
+    }
+    
     if (obj.ToValue != undefined && (obj.ToValue < this.MinValue || obj.ToValue > this.MaxValue)) {
       this.MaxSliderValue = 0;
       this.Slider2Value = 0;

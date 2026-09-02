@@ -8,6 +8,9 @@
   
 </div>
 
+<form #dform="ngForm">
+<button (click)="ResetForm(dform)" type="submit">Reset Form</button>
+
 <div cdkDropListGroup class="showcase-root">
 
   <!-- Top navigation -->
@@ -25,16 +28,16 @@
       
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         
-        <rswitch [LabelForeColor]="'black'" [DisplayLabel]="'Enable Glassy Effect'" [(ngModel)]="enableGlassyEffect"></rswitch>  
+        <rswitch name="glassyEffect" [LabelForeColor]="'black'" [DisplayLabel]="'Enable Glassy Effect'" [(ngModel)]="enableGlassyEffect"></rswitch>  
 
-        <rcolorpicker [LabelTextForeColor]="'black'" style="margin-left:20px" [IsDisplayLabelText]="true" 
+        <rcolorpicker name="glassyColor" [LabelTextForeColor]="'black'" style="margin-left:20px" [IsDisplayLabelText]="true" 
                 [IsDisplayColorCode]="false" [LabelText]="'GlassyEffectColor'" [(ngModel)]="glassyColor"></rcolorpicker>
       </div>
       
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         <label style="font-size: 14px; margin-right: 15px;">Bar Gap :</label>
         
-          <rselectdropdown 
+          <rselectdropdown  
               [EnableFilterOption]="false"
               [IsReadOnly]="false"
               [Items]="Spaces"
@@ -50,7 +53,7 @@
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         <label style="font-size: 14px; margin-right: 15px;">Theme:</label>
         
-        <form #userForm="ngForm">
+        <!-- <form #userForm="ngForm"> -->
 
           <rselectdropdown 
               [EnableFilterOption]="true"
@@ -63,7 +66,7 @@
               [(ngModel)]="selectedTheme">
           </rselectdropdown>
 
-        </form>
+        <!-- </form> -->
 
       </div>
         
@@ -86,7 +89,7 @@
           <code class="card-selector">&lt;rallocated-barchart&gt;</code>
         </div>
         <div class="card-body center">
-          <rallocated-barchart
+          <rallocated-barchart name="allocatedBarChart"
             [Columns]="allocatedColumns"
             [xAxisItemNames]="allocatedMonths"
             [Width]="360"
@@ -116,7 +119,7 @@
           <code class="card-selector">&lt;rbarchart-vertical&gt;</code>
         </div>
         <div class="card-body center">
-          <rbarchart-vertical
+          <rbarchart-vertical name="barVerticalChart" 
             [Columns]="barVerticalColumns"
             [xAxisItemNames]="barVerticalMonths"
             [GapBetweenBars]="allocatedGap"
@@ -140,7 +143,7 @@
           <code class="card-selector">&lt;rbarchart-horizontal&gt;</code>
         </div>
         <div class="card-body center">
-          <rbarchart-horizontal
+          <rbarchart-horizontal name="barHorizontalChart"
             [Columns]="barHorizontalColumns"
             [yAxisItemNames]="barHorizontalItems"
             [GapBetweenBars]="allocatedGap"
@@ -165,7 +168,7 @@
           <code class="card-selector">&lt;rpiechart&gt;</code>
         </div>
         <div class="card-body center">
-          <rpiechart
+          <rpiechart name="pieChart"
             [Items]="pieItems"
             [ShadowBlur]="10"
             [ChartWidth]="280"
@@ -185,7 +188,7 @@
           <code class="card-selector">&lt;rdonutchart&gt;</code>
         </div>
         <div class="card-body center">
-          <rdonutchart
+          <rdonutchart name="donutChart"
             [Items]="donutItems"
             [ShadowBlur]="10"
             [ChartWidth]="280"
@@ -204,7 +207,7 @@
           <code class="card-selector">&lt;rlinechart-vertical&gt;</code>
         </div>
         <div class="card-body center">
-          <rlinechart-vertical
+          <rlinechart-vertical name="lineChartVertical"
             [Items]="lineItems"
             [PlotItemSize]="2"
             [xAxisItemNames]="lineMonths"
@@ -229,7 +232,7 @@
           <code class="card-selector">&lt;rscatterchart&gt;</code>
         </div>
         <div class="card-body center">
-          <rscatterchart
+          <rscatterchart name="scatterChart"  
             [Items]="scatterItems"
             [Width]="380"
             [Height]="240"
@@ -253,7 +256,7 @@
         </div>
         <div class="card-body center">
                    
-        <rareachart [xAxisItemNames]="arealineMonths" 
+        <rareachart [xAxisItemNames]="arealineMonths" name="areachart"
           [XAxisTitle]="'Month'" [YAxisTitle]="'Count'"
           [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
           [EnableBorder]="false" [EnablePlotOnPoints]="true"
@@ -275,7 +278,7 @@
           <div style="margin-bottom: 16px;">
             <label class="form-label">Value: {{ progressValue }}%</label>
 
-            <rslider [(ngModel)]="progressValue" [MinValue]="0" 
+            <rslider [(ngModel)]="progressValue" [MinValue]="0"  name="progressSlider"
                      [MaxValue]="100" 
                      [SliderBarWidth]="'330px'"
                      [IsDisplayValue]="false">
@@ -283,7 +286,7 @@
           </div>
           
         <rprogressbar style="margin-left: 100px;margin-top: 20px;" [FloatInCenter]="false" 
-           [EnableBackDrop]="false"
+           [EnableBackDrop]="false" name="prgressbar"
            [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
           [ProgressBarWidthInPx]="'150px'" [Percentage]="progressValue" [CircularLineWidthInPx]="'15px'"
           [FiniteCircularDisplayText]="'Progress '+progressValue+'%'" [Type]="progressBarType">
@@ -303,7 +306,7 @@
         </div>
         <div class="card-body center">
                   
-            <rserieschart [XAxisTitle]="'Disk'" 
+            <rserieschart [XAxisTitle]="'Disk'" name="seriesChart"
               [EnableBorder]="false" 
               [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"   
               [YAxisTitle]="'Speed'" [FillAreaColor]="false" [Width]="340"
@@ -323,7 +326,7 @@
         </div>
         <div class="card-body center">
                           
-            <rserieschart 
+            <rserieschart name="seriesChart1"
               [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
               [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
               [Width]="340" [Height]="240"
@@ -343,7 +346,7 @@
         </div>
         <div class="card-body center">
                   
-            <rserieschart 
+            <rserieschart name="seriesChart2"
               [XAxisTitle]="'Elements'" [YAxisTitle]="'Values'" 
               [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
               [Width]="340" [Height]="240"
@@ -364,7 +367,7 @@
         </div>
         <div class="card-body center">      
               
-          <rstackedbarchart-vertical [MarginX]="55" [Width]="340" [Height]="240" 
+          <rstackedbarchart-vertical name="stackedBarChartVertical" [MarginX]="55" [Width]="340" [Height]="240" 
             [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"   
             [XAxisTitle]="'Monthly Expenses'"
             [YAxisTitle]="'Amount Spent'"  [GapBetweenBars]="allocatedGap"
@@ -385,7 +388,7 @@
         <div class="card-body center">      
               
           
-        <rstackedbarchart-horizontal [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
+        <rstackedbarchart-horizontal name="stackedBarChartHorizontal" [YAxisTitle]="'Monthly Expenses'" [XAxisTitle]="'Amount Spent'" 
           [EnableBorder]="false" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"  
           [Width]="340" [Height]="240" [MarginX]="55" [GapBetweenBars]="allocatedGap"
           [MarginY]="50" [yAxisItemNames]="stackedbarChartXAxisItemNames1" [Columns]="stackedbarChartItems1">
@@ -405,7 +408,7 @@
         <div class="card-body center">      
               
           
-        <rstackedrangebarchart-vertical [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
+        <rstackedrangebarchart-vertical name="stackedRangeBarChartVertical" [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" 
           [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"     [EnableBorder]="false"
           [MarginX]="55" [GapBetweenBars]="allocatedGap"
           [Columns]="stackedrangebarChartItems1" [Width]="340" [Height]="240"
@@ -463,18 +466,19 @@
         </div>
         <div class="card-body">
           
-          <form [formGroup]="usernameForm">
+          <!-- <form [formGroup]="usernameForm"> -->
             
-            <rtextbox [email]="false"
+            <rtextbox [email]="false" name="username"
+              [(ngModel)]="username1"
               [PlaceholderText]="'Please enter full name'"
               [LabelText]="'Full Name'"
-              formControlName="username">
+              >
             </rtextbox>
           
-          </form>
+          <!-- </form> -->
 
         </div>
-        <div class="card-hint">Value: "{{ usernameForm.get('username')?.value }}"</div>
+        <!-- <div class="card-hint">Value: "{{ usernameForm.get('username')?.value }}"</div> -->
      
       </div>
 
@@ -489,7 +493,7 @@
           <rtextbox [IsPasswordBox]="true"
             [PlaceholderText]="'Please enter password'"
             [LabelText]="'Password'"
-            [(ngModel)]="password">
+            [(ngModel)]="password" name="password">
           </rtextbox>
         </div>
         <div class="card-hint">Value: "{{ password }}"</div>
@@ -505,11 +509,11 @@
         <div class="card-body" style="gap: 12px; display: flex; flex-direction: column;">
           <rcheckbox
             DisplayText="Enable notifications"
-            [(ngModel)]="checkboxValue">
+            [(ngModel)]="checkboxValue" name="checkbox1">
           </rcheckbox>
           <rcheckbox
             DisplayText="Accept terms and conditions"
-            [IsChecked]="true">
+            [IsChecked]="true" name="checkbox2">
           </rcheckbox>
         </div>
         <div class="card-hint">Value: <strong>{{ checkboxValue }}</strong>. Supports <code>ControlValueAccessor</code>.</div>
@@ -528,7 +532,7 @@
             [IsReadOnly]="false"
             [IsDisabled]="false"
             [(ngModel)]="calendarSelectedDate"
-            (valueChanged)="onCalendarChange($event)">
+            (valueChanged)="onCalendarChange($event)" name="calendar">
           </rcalendar>
         </div>
         <div class="card-hint">
@@ -548,7 +552,7 @@
             LabelText="Quantity"
             [(ngModel)]="numericValue"
             [MinValue]="11"
-            [MaxValue]="3000">
+            [MaxValue]="3000" name="numericInput">
           </rnumeric>
         </div>
         <div class="card-hint">Value: <strong>{{ numericValue }}</strong>. Spin buttons with min/max validation.</div>
@@ -566,7 +570,7 @@
           <rslider
             [IsReadOnly]="false" [MinValue]="0" [MaxValue]="100"
             [(ngModel)]="sliderValue" [IsDisplayValue]="true" [IsDisplayLabel]="true"
-            [SliderBarWidth]="'300px'">
+            [SliderBarWidth]="'300px'" name="slider">
           </rslider>
 
         </div>
@@ -586,13 +590,13 @@
           <rrangeslider [(ngModel)]="rrangeSliderData" 
               [IsReadOnly]="false"  [IsDisplayValue]="true" 
               [IsDisplayLabel]="true" [SliderBarWidth]="'300px'"
-              [MinValue]="25" [MaxValue]="75">
+              [MinValue]="25" [MaxValue]="75" name="rangeSlider">
           </rrangeslider>
 
         </div>
         <div class="card-hint">
-          From Value: <strong>{{ rrangeSliderData.FromValue }}</strong>.
-          To Value: <strong>{{ rrangeSliderData.ToValue }}</strong>.
+          From Value: <strong>{{ rrangeSliderData?.FromValue }}</strong>.
+          To Value: <strong>{{ rrangeSliderData?.ToValue }}</strong>.
           Drag-based range slider using Angular CDK.</div>
       </div>
       
@@ -604,13 +608,13 @@
           <code class="card-selector">&lt;rswitch&gt;</code>
         </div>
         <div class="card-body" style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-          <rswitch [IsDisabled]="false"
+          <rswitch [IsDisabled]="false" name="darkmode"
             DisplayLabel="Dark mode"
             [(ngModel)]="switchValue">
           </rswitch>
           <rswitch
             DisplayLabel="Notifications"
-            [ngModel]="true">
+            [ngModel]="true" name="notifications">
           </rswitch>
         </div>
         <div class="card-hint">Dark mode: <strong>{{ switchValue }}</strong>.</div>
@@ -625,7 +629,7 @@
         </div>
         <div class="card-body">
           <rstarrating [IsReadOnly]="false"
-            [noOfStars]="10"
+            [noOfStars]="10" name="starrating"
             [(ngModel)]="ratingValue"
             [starWidth]="28">
           </rstarrating>
@@ -641,20 +645,20 @@
           <code class="card-selector">&lt;rradiobutton&gt;</code>
         </div>
         <div class="card-body" style="display: flex; flex-direction: column; gap: 10px;">
-          <rradiobutton
+          <rradiobutton name="demogroup1"
             DisplayText="Option A"
             [GroupName]="'demo-group'"
             [(ngModel)]="optionA">
           </rradiobutton>
 
           <rradiobutton [IsReadOnly]="true"
-            DisplayText="Option B"
+            DisplayText="Option B" name="demogroup2"
             [GroupName]="'demo-group'"
             [(ngModel)]="optionB">
           </rradiobutton>
 
           <rradiobutton
-            DisplayText="Option C"
+            DisplayText="Option C" name="demogroup3"
             [GroupName]="'demo-group'"
             [(ngModel)]="optionC">
           </rradiobutton>
@@ -671,7 +675,7 @@
         </div>
         <div class="card-body">
 
-          <form #lform="ngForm">
+          <!-- <form #lform="ngForm"> -->
 
             <rdropdown 
               name="ldropdown"
@@ -685,7 +689,7 @@
               [(ngModel)]="dropdownSelected">
             </rdropdown>
 
-          </form>
+          <!-- </form> -->
 
         </div>
         <div class="card-hint">Selected: <strong>{{ dropdownSelected?.DisplayValue || 'none' }}</strong>.</div>
@@ -699,9 +703,10 @@
           <code class="card-selector">&lt;rselectdropdown&gt;</code>
         </div>
         <div class="card-body">
-          <rselectdropdown 
+          <rselectdropdown name="selectdropdown"
             [IsReadOnly]="false"
             [Items]="selectItems"
+            [(ngModel)]="selectedItemr"
             [DropDownContentWidth]="'310px'"
             [Width]="'280px'"
             [IsMulti]="true">
@@ -719,7 +724,7 @@
         </div>
         <div class="card-body" style="align-items: center; display: flex; gap: 16px;">
 
-          <rcolorpicker 
+          <rcolorpicker name="colorpicker"
             [IsDisplayLabelText]="true"
             [DisplayColorInHex]="true"
             [LabelText]="'Fore Color :'"
@@ -743,7 +748,8 @@
           <code class="card-selector">&lt;rfileupload&gt;</code>
         </div>
         <div class="card-body">
-          <rfileupload [EnableShadowEffect]="false" 
+          <rfileupload name="fileupload" [(ngModel)]="fileupload1"
+            [EnableShadowEffect]="false" 
             [ShowFilesAsDropdownContainer]="true"
             [EnableMaximumHeightForShowFiles]="true"
             [ShowFilesListMaximumHeightInPx]="'150px'"
@@ -763,9 +769,10 @@
           <code class="card-selector">&lt;rtimeselector&gt;</code>
         </div>
         <div class="card-body">
-          <rtimeselector
+          <rtimeselector [SetCurrentTimeAsDefaultOnLoad]="false"
             [(ngModel)]="selectedTime"
-            [IsReadOnly]="false">
+            [IsReadOnly]="false"
+            name="timeselector">
           </rtimeselector>
         </div>
         <div class="card-hint">Selected: <strong>{{ selectedTime }}</strong>. Hour/minute/AM-PM dropdowns.</div>
@@ -791,9 +798,9 @@
             [IsReadOnly]="false"
             [EnableShadowEffect]="false">
             <div style="display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0;">
-              <rtextbox [IsDisabled]="true" [ngModel]="'First'" PlaceholderText="First name" LabelText="First name"></rtextbox>
-              <rtextbox [IsReadOnly]="true" [ngModel]="'Last'"  PlaceholderText="Last name" LabelText="Last name"></rtextbox>
-              <rtextbox  PlaceholderText="Email" LabelText="Email"></rtextbox>
+              <rtextbox name="firstname" [IsDisabled]="true" [ngModel]="'First'" PlaceholderText="First name" LabelText="First name"></rtextbox>
+              <rtextbox name="lastname" [IsReadOnly]="true" [ngModel]="'Last'"  PlaceholderText="Last name" LabelText="Last name"></rtextbox>
+              <rtextbox name="email" PlaceholderText="Email" LabelText="Email"></rtextbox>
             </div>
           </rgroup-panel>
 
@@ -802,9 +809,9 @@
             [IsReadOnly]="false"
             [IsItemsArrangeHorizontal]="true"
             style="margin-top: 16px; display: block;">
-            <rswitch  DisplayLabel="Newsletter"></rswitch> &nbsp;&nbsp;
-            <rswitch DisplayLabel="SMS alerts"></rswitch> &nbsp;&nbsp;
-            <rswitch DisplayLabel="Push notifications"></rswitch>
+            <rswitch name="newsletter" DisplayLabel="Newsletter"></rswitch> &nbsp;&nbsp;
+            <rswitch name="smsalerts" DisplayLabel="SMS alerts"></rswitch> &nbsp;&nbsp;
+            <rswitch name="pushnotifications" DisplayLabel="Push notifications"></rswitch>
           </rgroup-panel>
         </div>
         <div class="card-hint">Groups content with a titled border. Supports horizontal and vertical layouts.</div>
@@ -1062,7 +1069,7 @@
           <code class="card-selector">&lt;rtree&gt;</code>
         </div>
         <div class="card-body">
-        <rtree [IsDisabled]="false"
+        <rtree [IsDisabled]="false" name="tree"
             [Items]="treeItems"
             (onExpandClicked)="onTreeExpand($event)"
             (onItemSelected)="onTreeExpand($event)">
@@ -1233,7 +1240,7 @@
           <code class="card-selector">&lt;rcalendar&gt;</code>
         </div>
         <div class="card-body center" style="margin-left:-100px">
-          <rcalendar
+          <rcalendar name="rcal1"
             [(ngModel)]="calendarSelectedDate"
             (valueChanged)="onCalendarChange($event)">
           </rcalendar>
@@ -1251,7 +1258,7 @@
           <code class="card-selector">&lt;rtimer&gt;</code>
         </div>
         <div class="card-body center" style="flex-direction: column; gap: 16px;">
-          <rtimer [IsDisabled]="false"
+          <rtimer [IsDisabled]="false" name="rtimer1"
             [DisplayType]="0"
             [CircularWidth]="100"
             #timerRef
@@ -1285,7 +1292,7 @@
         </div>
         <div class="card-body">
 
-          <rstate-vertical [IsDisabled]="false"
+          <rstate-vertical [IsDisabled]="false" name="rstate1" [(ngModel)]="stateVertical"
             [Items]="sequenceItems">
           </rstate-vertical>
 
@@ -1301,7 +1308,7 @@
           <code class="card-selector">&lt;rstate-horizontal&gt;</code>
         </div>
         <div class="card-body">
-          <rstate-horizontal [IsDisabled]="false"
+          <rstate-horizontal [IsDisabled]="false" name="rstateh" [(ngModel)]="stateHorizontal"
             [Items]="hsequenceItems">
           </rstate-horizontal>
         </div>
@@ -1321,7 +1328,7 @@
         </div>
         <div class="card-body">
         
-          <revents-schedule [IsDisabled]="false" [FontSize]="'12px'"
+          <revents-schedule [IsDisabled]="false" [FontSize]="'12px'" name="revents-schedule"
             [ShowMarker]="true" [ShowScrollBar]="false"
             [MinutesForEachCell]="30" [SelectedDate]="selectedDate" 
             [EnableMovePageToCurrentTime]="true"
@@ -1343,7 +1350,7 @@
         </div>
         <div class="card-body">
         
-            <revents-calender [FontSize]="'12px'" [IsPopupModalReadOnly]="false"
+            <revents-calender name="revents-calender" [FontSize]="'12px'" [IsPopupModalReadOnly]="false"
               (ChangeMonthEvent)="changeCalenderMonth($event)" [EachDayHeightInPx]="'50px'"
               [EachDayWidthInPx]="'120px'" [(ngModel)]="calenderEvents"></revents-calender>
                 
@@ -1367,7 +1374,7 @@
         <div class="card-body">
             <span>Header Theme:</span> &nbsp; &nbsp;
 
-            <rdropdown
+            <rdropdown name="dropdown1"
                 [Items]="colors"
                 PlaceholderText="Choose a Color"
                 [DropDownContentWidth]="'310px'"
@@ -1378,7 +1385,7 @@
             <br />
             <br />
             
-            <rgrid  [PageItems]="ditems" [Items]="gridItems1" 
+            <rgrid  [PageItems]="ditems" [Items]="gridItems1" name="rgrid1"
                     [IsDisabled]="true"
                     [RowHoverBackgroundOpacity] = "0.8"
                     [EnableAlternateRowColor]="true"
@@ -1407,7 +1414,7 @@
         </div>
         <div class="card-body">
             <span>Header Theme:</span> &nbsp; &nbsp;
-            <rdropdown
+            <rdropdown name="dropdown2"
                 [Items]="colors"
                 PlaceholderText="Choose a Color"
                 [DropDownContentWidth]="'310px'"
@@ -1417,8 +1424,8 @@
             <br />
             <br />
 
-            <rgrid [PageItems]="ditems" [Items]="gridItems1" 
-     
+            <rgrid [PageItems]="ditems" [Items]="gridItems1"
+                  name="grid2"
                   [EnableShadow]="false" 
                   [ShowGroupHeader]="true"
                   [RowHeightInPx]="'auto'" 
@@ -1506,3 +1513,5 @@
   </main>
 
 </div>
+
+</form>

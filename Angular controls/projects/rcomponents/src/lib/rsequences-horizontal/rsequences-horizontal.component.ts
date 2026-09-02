@@ -195,7 +195,25 @@ export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizont
     }
   }
 
+  private reset() {
+    if(this.Items.length >0) {
+
+      this._items.forEach(x=>{
+        x.IsCompleted = false;
+        x.IsPending = true;
+      });
+    }
+
+    this._currentActiveIndex = -1;
+    this._currentActiveItem = undefined;
+  }
+
   writeValue(obj: any): void {
+
+    if(obj == null) {
+      this.reset();
+      return;
+    }
 
     if (obj) {
       let activeIndex = this._items.findIndex(x => x.Value == obj.Value);

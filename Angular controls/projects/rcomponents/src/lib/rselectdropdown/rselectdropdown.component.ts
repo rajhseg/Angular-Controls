@@ -288,7 +288,25 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
     }
   }
 
+  private reset() {
+    this.SelectedIndex = -1; 
+    this.SelectedIndexes = [];
+    this.SelectedItem = undefined;
+    this.SelectedItems = [];
+    this.SelectedDisplay = '';
+    this.ComplexItems.forEach(x => x.IsSelected = false);
+    this.loadSelectedItems();  
+    this.SearchItem = '';
+    this.isSelectAllChecked = false;
+    this.cdr.detectChanges();
+  }
+
   writeValue(obj: DropdownModel | string | number | DropdownModel[] | string[] | number[]): void {
+
+    if(obj==null) {
+      this.reset();
+      return;
+    }
 
     if (obj != null && obj != undefined) {
       let indexOfObj = -1;

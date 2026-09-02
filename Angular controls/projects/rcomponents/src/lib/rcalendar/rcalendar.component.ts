@@ -532,10 +532,11 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   }
 
-  writeValue(obj: string | Date): void {
+  writeValue(obj: string | Date| null): void {
     let rd = this.IsReadOnly;
 
     try {
+      obj = obj ?? '';
       this.IsReadOnly = false;
       this.RenderUI(obj);
     }

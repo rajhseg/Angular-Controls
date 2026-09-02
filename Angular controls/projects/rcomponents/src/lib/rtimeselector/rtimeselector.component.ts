@@ -48,6 +48,10 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
 
   IsDropDownOpen: boolean = false;
 
+  defaultHourText: string = "   HH  ";
+  defaultMinText: string = "  MM";
+  defaultModeText:String = "AM";
+  
   defaultText: string = "   HH  :  MM";
 
   public displayText: string = "   HH  :  MM";
@@ -58,9 +62,9 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   minutes: DropDownItemModel[] = [];
   modes: DropDownItemModel[] = [];
 
-  selectedHour!: DropDownItemModel;
-  selectedMinute!: DropDownItemModel;
-  selectedMode!: DropDownItemModel;
+  selectedHour!: DropDownItemModel | undefined;
+  selectedMinute!: DropDownItemModel | undefined;
+  selectedMode!: DropDownItemModel | undefined;
 
   @Input()
   PaddingLeft: string = "7px";
@@ -139,6 +143,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   }
 
   writeValue(obj: any): void {
+    obj = obj ?? "";
     this.RenderUIFromModel(obj);   
   }
 
@@ -146,6 +151,25 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     this.cls.RemoveInstance(this);
   }
   
+  private reset() {
+    this.outputValue = "";
+    this.displayText = this.defaultText;
+    this.selectedHour = undefined;
+    this.selectedMinute = undefined;
+    this.selectedMode = undefined;
+    this.hours.forEach(x=>{
+      x.IsSelected = false;
+    });
+    
+    this.minutes.forEach(x=>{
+      x.IsSelected = false;
+    });
+    
+    this.modes.forEach(x=>{
+      x.IsSelected = false;
+    });
+  }
+
   private RenderUIFromModel(obj: any){
     if (obj == null || obj == undefined) {
       obj = "";
@@ -159,8 +183,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
         this.setCurrentTime();
         this.SetDisplayText();
       } else {
-        this.outputValue = "";
-        this.displayText = this.defaultText;
+        this.reset();
       }
       return;
     }
@@ -478,20 +501,36 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
     return this.IsDropDownOpen;
   }
 
+  private getHourDisplay() {
+    return this.selectedHour != undefined ? this.selectedHour.DisplayValue : this.defaultHourText;
+  }
+
+  private getMinDisplay() {
+    return this.selectedMinute != undefined ? this.selectedMinute.DisplayValue : this.defaultMinText;
+  }
+
+  private getModeDisplay() {
+
+    if(this.selectedMode==undefined) {
+      this.selectedMode = this.modes[0];
+      this.modes[0].IsSelected = true;
+    }
+
+    return this.selectedMode != undefined ? this.selectedMode.DisplayValue : this.defaultModeText;
+  }
+
   private SetDisplayText() {
-    if (this.selectedHour && this.selectedMinute && (this.Is24HourFormat || (!this.Is24HourFormat && this.selectedMode))) {
       if (this.Is24HourFormat) {
-        this.displayText = "  " + this.selectedHour.DisplayValue + "  :   " + this.selectedMinute.DisplayValue;
+        this.displayText = "  " + this.getHourDisplay() + "  :   " + this.getMinDisplay();
       } else {
-        this.displayText = "  " + this.selectedHour.DisplayValue + " : " + this.selectedMinute.DisplayValue + "  " + this.selectedMode.DisplayValue;
+        this.displayText = "  " + this.getHourDisplay() + " : " + this.getMinDisplay() + "  " + this.getModeDisplay();
       }
 
       if (this.Is24HourFormat) {
-        this.outputValue = this.selectedHour.DisplayValue + ":" + this.selectedMinute.DisplayValue;
+        this.outputValue = this.getHourDisplay() + ":" + this.getMinDisplay();
       }
       else {
-        this.outputValue = this.selectedHour.DisplayValue + ":" + this.selectedMinute.DisplayValue + " " + this.selectedMode.DisplayValue;
+        this.outputValue = this.getHourDisplay() + ":" + this.getMinDisplay() + " " + this.getModeDisplay();
       }
-    }
   }
 }

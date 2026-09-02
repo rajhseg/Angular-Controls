@@ -218,6 +218,9 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   writeValue(obj: any): void {
+    
+    obj = obj ?? '#fff';
+
     if (obj) {
 
       if (obj instanceof RColorPickerEventArgs) {        

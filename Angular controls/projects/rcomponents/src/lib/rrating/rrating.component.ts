@@ -212,7 +212,7 @@ export class RStarRatingComponent extends RBaseComponent<number> implements OnIn
   }
   
   writeValue(obj: any): void {
-    this.ratingValue = obj;    
+    this.ratingValue = obj ?? 0;    
   }
 
   registerOnChange(fn: any): void {

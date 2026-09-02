@@ -173,8 +173,8 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
   }
 
   writeValue(obj: any): void {
-    if (obj == null)
-      return;
+    
+    obj = obj ?? this.MinValue;
 
     if (obj < this.MinValue || obj > this.MaxValue) {
       this.SliderValue = 0;

@@ -277,7 +277,25 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     }
   }
 
-  writeValue(obj: DropdownModel | string | number | DropdownModel[] | string[] | number[]): void {
+  private reset() {
+    this.SelectedIndex = -1; 
+    this.SelectedIndexes = [];
+    this.SelectedItem = undefined;
+    this.SelectedItems = [];
+    this.SelectedDisplay = '';
+    this.ComplexItems.forEach(x => x.IsSelected = false);
+    this.loadSelectedItems(); 
+    this.SearchItem = '';
+    this.isSelectAllChecked = false;
+    this.cdr.detectChanges(); 
+  }
+
+  writeValue(obj: DropdownModel | string | number | DropdownModel[] | string[] | number[] | null): void {
+
+    if(obj == null) { 
+      this.reset();
+      return;          
+    }
 
     if (obj != null && obj != undefined) {
       let indexOfObj = -1;
@@ -413,15 +431,6 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
 
     }
   }
-
-  // private closeAllDropdowns(ins: DropdownComponent | null, onwindowClick: boolean = false) {
-
-
-  //   this.ddservice.GetAllInstance().forEach((x) => {
-  //     x.IsDropDownOpen = false;
-  //   });
-
-  // }
 
   ngOnDestroy(): void {
     this.ddservice.RemoveInstance(this);

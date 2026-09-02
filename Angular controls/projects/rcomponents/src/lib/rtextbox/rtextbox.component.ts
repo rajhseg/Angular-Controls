@@ -142,6 +142,7 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   public displayPlaceholder: boolean = true;
 
   writeValue(obj: any): void {
+    obj = obj ?? '';
     this._textboxValue = obj;
   }
 

@@ -145,8 +145,8 @@ export class RRadiobuttonComponent extends RBaseComponent<RadioEventArgs> implem
   }
 
   writeValue(obj: any): void {
-    if (obj == null)
-      return;
+    
+    obj = obj ?? false;
 
     let checkValue: boolean = false;
 

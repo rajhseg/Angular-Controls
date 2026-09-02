@@ -304,6 +304,12 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
   }
 
   writeValue(obj: RFilterApplyModel): void {
+    
+    if(obj==null){
+      this.reset();
+      return;
+    }
+
     if(obj != undefined && obj != null){
       this.ContainsList = obj.Contains;
       this.ColumnName = obj.ColumnName;
@@ -436,6 +442,15 @@ export class RFilterComponent extends RBaseComponent<RFilterApplyModel> implemen
 
   @Output()
   ApplyCallback = new EventEmitter<RFilterApplyModel>();
+
+  private reset() {
+    this.ContainsList = undefined;
+    this.LessThanNumber = undefined;
+    this.LessThanDate = undefined;
+    this.GreaterThanNumber = undefined;
+    this.GreaterThanDate = undefined;
+    this.IsFilteredApplied = false;
+  }
 
   Clear($evt: Event){
     $evt.stopPropagation();

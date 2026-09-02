@@ -69,6 +69,8 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
 
   writeValue(obj: any): void {
     
+    obj = obj ?? false;
+    
     let val = false;
     
     if(typeof obj === 'boolean'){

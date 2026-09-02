@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, ViewChild, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, ChangeDetectionStrategy, TemplateRef, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Form, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, ValidationErrors, AbstractControl, NgForm } from '@angular/forms';
 
 // Chart components
 import { RAllocatedBarChartComponent, RAreaChartComponent, RAreaChartItem, RDonutChartItem, RGraphSeriesChartItem, 
@@ -191,8 +191,10 @@ export class DefaultComponent {
   ];
 
   selectedTheme: DropdownModel = this.colorItems[0];
+  
+  username1: string ='';
 
-  rrangeSliderData: RRangeSliderData = new RRangeSliderData(40, 70);
+  rrangeSliderData: RRangeSliderData | null = new RRangeSliderData(40, 70);
 
   ItemsPerPage = new DropdownModel(10, "10");
 
@@ -344,6 +346,12 @@ export class DefaultComponent {
   // ─── Form: Radio Button ──────────────────────────────────────────────
   radioSelected = '';
 
+  selectedItemr: any;
+
+  fileupload1: any;
+
+  timeselector1:any;
+
   // ─── Form: Dropdown ──────────────────────────────────────────────────
   dropdownItems: DropDownItemModel[] = [
     new DropDownItemModel({ id: 1 }, 'Angular'),
@@ -455,6 +463,7 @@ export class DefaultComponent {
     return steps.map((text, i) => {
       const item = new RSequenceVerticalItem();
       item.StepNo = i + 1;
+      item.Value = i+1;
       item.DisplayText = text;
       if (i < 2) item.IsCompleted = true;
       else if (i === 2) item.IsActive = true;
@@ -468,6 +477,7 @@ export class DefaultComponent {
     return steps.map((text, i) => {
       const item = new RSequenceHorizontalItem();
       item.StepNo = i + 1;
+      item.Value = i+1;
       item.DisplayText = text;
       if (i < 2) item.IsCompleted = true;
       else if (i === 2) item.IsActive = true;
@@ -475,6 +485,10 @@ export class DefaultComponent {
       return item;
     });
   })();
+
+  stateVertical: RSequenceVerticalItem = this.sequenceItems[1];
+
+  stateHorizontal: RSequenceHorizontalItem = this.hsequenceItems[1];
 
   // ─── Data: Calendar ──────────────────────────────────────────────────
   calendarSelectedDate: Date | undefined = new Date();
@@ -531,9 +545,9 @@ export class DefaultComponent {
   }
 
   buildUserNameForm() {
-   this.usernameForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]]
-    });
+  //  this.usernameForm = this.fb.group({
+  //     username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]]
+  //   });
   }
 
   _text($event: any, ins: any){
@@ -666,6 +680,9 @@ export class DefaultComponent {
         
   }
 
+  ResetForm(form:NgForm){
+    form.reset();
+  }
 
   addCalenderEvents(){
     this.calenderEvents = new EventsCalenderModel();

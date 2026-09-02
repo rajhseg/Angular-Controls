@@ -451,7 +451,7 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
 
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Backspace') {
-        if(this.required && this._value && this._value == 0) {
+        if(this.required && this._value == 0) {
           event.preventDefault();
         }
     }

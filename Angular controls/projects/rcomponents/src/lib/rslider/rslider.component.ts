@@ -254,7 +254,7 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this._formDisabled = isDisabled ? true : null;
+    this._formDisabled = isDisabled ?? false;
   }
 
   dragStarted($event: CdkDragStart) {

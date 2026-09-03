@@ -616,7 +616,8 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this._formDisabled = isDisabled ? true : null;
+    this._formDisabled = isDisabled ?? false;
+    this.cdr.detectChanges();
   }
 
   NotifyToModel(cellInfo: RCell) {

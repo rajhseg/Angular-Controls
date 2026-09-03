@@ -38,12 +38,15 @@
       </div>
 
       <div style="align-self: center;margin-left:10px;cursor: pointer;">
-        <rbutton (ButtonClick)="UpdateForm()" type="submit">Update Form</rbutton>
+        <rbutton (ButtonClick)="UpdateForm(dform)" type="submit">Update Form</rbutton>
       </div>
 
+      <div style="align-self: center;margin-left:10px;cursor: pointer;">
+        <rbutton (ButtonClick)="enableDisable(dform)" type="submit">Enable/Disable</rbutton>
+      </div>
 
-      <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
-        <label style="font-size: 14px; margin-right: 15px;">Bar Gap :</label>
+      <div style="display: flex; justify-content: flex-end; width: fit-content; align-items: center;">
+        <label style="font-size: 14px; width: max-content; margin-right: 15px;">Bar Gap :</label>
         
           <rselectdropdown  
               [EnableFilterOption]="false"
@@ -1432,7 +1435,7 @@
             <br />
             <br />
 
-            <rgrid [PageItems]="ditems" [Items]="gridItems1"
+            <rgrid [PageItems]="ditems" [(ngModel)]="gridItems1"
                   name="grid2"
                   [EnableShadow]="false" 
                   [ShowGroupHeader]="true"
@@ -1454,7 +1457,7 @@
                     </ng-template>
                     <ng-template editviewtemplate let-Item let-rcell="CellInfo">
                       <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-                        [PaddingLeft]="'0px'"
+                        [PaddingLeft]="'0px'" [name]="'name_'+rcell.DisplayRow +'_'+rcell.DisplayColumn"
                         [TextBoxWidth]="'50px'" [(ngModel)]="rcell.Value" />
                     </ng-template>
                   </rcolumn>
@@ -1468,7 +1471,7 @@
                     </ng-template>
                     <ng-template editviewtemplate let-cell="CellInfo">
                       <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-                        [PaddingLeft]="'0px'"
+                        [PaddingLeft]="'0px'" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
                         [TextBoxWidth]="'140px'" [(ngModel)]="cell.Value" />
                     </ng-template>
                   </rcolumn>
@@ -1480,7 +1483,7 @@
                     <ng-template editviewtemplate let-cell="CellInfo">
                       
                       <rnumeric
-                        [PaddingLeft]="'0px'" 
+                        [PaddingLeft]="'0px'"  [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
                         [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="'120px'" [TextBoxHeight]="'15px'"></rnumeric>
                         
                     </ng-template>
@@ -1493,7 +1496,8 @@
                       <span>{{Item.Education.DisplayValue}}</span>
                     </ng-template>
                     <ng-template editviewtemplate let-cell="CellInfo">
-                      <rdropdown [Items]="degrees" [DropDownContentWidth]="'126px'" [Width]="'100px'" [(ngModel)]="cell.Value">
+                      <rdropdown [Items]="degrees" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn" 
+                                [DropDownContentWidth]="'126px'" [Width]="'100px'" [(ngModel)]="cell.Value">
                       </rdropdown>
                     </ng-template>
                   </rcolumn>
@@ -1504,7 +1508,7 @@
                     </ng-template>
                     <ng-template editviewtemplate let-cell="CellInfo">
                       <rtextbox [TextBoxHeight]="'12px'" [EnableMarginTextBottom]="false"
-                        [PaddingLeft]="'0px'"
+                        [PaddingLeft]="'0px'" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
                         [TextBoxWidth]="'40px'" [(ngModel)]="cell.Value" />s
                     </ng-template>
                   </rcolumn>

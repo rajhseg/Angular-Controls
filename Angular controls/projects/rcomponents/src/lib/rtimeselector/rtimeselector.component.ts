@@ -248,7 +248,7 @@ export class RTimeSelectorComponent extends RBaseComponent<string> implements IR
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this._formDisabled = isDisabled ? true : null;
+    this._formDisabled = isDisabled ?? false;
   }
 
   NotifyToModel() {

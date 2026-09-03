@@ -433,7 +433,7 @@ AfterContentInit, AfterContentChecked, OnDestroy, IRPopupCloseInterface {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this._formDisabled = isDisabled ? true : null;
+    this._formDisabled = isDisabled ?? false;
   }
 
   ngOnInit(): void {

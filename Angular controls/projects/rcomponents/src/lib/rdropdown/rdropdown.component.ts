@@ -422,8 +422,8 @@ export class RDropdownComponent extends RBaseComponent<DropdownModel | string | 
     this.onTouch = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    this._formDisabled = isDisabled ? true : null;
+  setDisabledState(isDisabled: boolean): void {
+    this._formDisabled = isDisabled ?? false;
   }
 
   ngOnInit(): void {

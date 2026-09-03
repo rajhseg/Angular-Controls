@@ -395,7 +395,7 @@ export class RNumericComponent extends RBaseComponent<number> implements Control
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this._formDisabled = isDisabled ? true : null;
+    this._formDisabled = isDisabled ?? false;
   }
 
   onBlur($event: Event) {

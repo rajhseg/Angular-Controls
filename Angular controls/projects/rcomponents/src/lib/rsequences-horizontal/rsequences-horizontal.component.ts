@@ -234,7 +234,7 @@ export class RStateHorizontalComponent  extends RBaseComponent<RSequenceHorizont
   }
 
   setDisabledState?(isDisabled: boolean): void {
-   this._formDisabled = isDisabled ?  true : null;
+   this._formDisabled = isDisabled ?? false;
   }
 
   public moveToNext() {

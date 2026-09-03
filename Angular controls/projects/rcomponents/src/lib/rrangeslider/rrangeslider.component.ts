@@ -369,7 +369,7 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this._formDisabled = isDisabled ? true : null;
+    this._formDisabled = isDisabled ?? false;
   }
 
   dragStarted1($event: CdkDragStart) {

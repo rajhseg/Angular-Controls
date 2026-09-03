@@ -175,6 +175,7 @@ export class DefaultComponent {
   optionA: boolean = true;
   optionB: boolean = false;
   optionC: boolean = false;
+  formEnable:boolean = true;
 
   imagesNames: number[] = [1,2,3];
 
@@ -684,7 +685,7 @@ export class DefaultComponent {
     form.reset();
   }
 
-    UpdateForm() {
+    UpdateForm(form: NgForm) {
     this.username1 = "updated";
     this.password = "updated";
     this.checkboxValue = true;
@@ -716,6 +717,14 @@ export class DefaultComponent {
     _list.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': new DropdownModel(3, "BE"),  'IsGrad': false });
   
     this.gridItems1 = [..._list];
+  }
+
+  enableDisable(form:NgForm){
+    this.formEnable = !this.formEnable;
+
+    Object.values(form.controls).forEach(control => {
+      this.formEnable ? control.enable() : control.disable();
+    });
   }
 
   addCalenderEvents(){

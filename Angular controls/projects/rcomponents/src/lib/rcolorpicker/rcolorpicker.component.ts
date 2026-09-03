@@ -77,7 +77,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   public SelectedColorRgb: string | undefined = undefined;
 
   public set SelectedColorHex(value: string) {
-    this._selectedColorHex = value;
+    this._selectedColorHex = this.NormalizeHexColor(value);
   }
   public get SelectedColorHex(): string | undefined {
     return this._selectedColorHex?.toUpperCase();
@@ -219,7 +219,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   writeValue(obj: any): void {
     
-    obj = obj ?? '#ffffff';
+    obj = obj ?? '#fff';
 
     if (obj) {
 
@@ -267,7 +267,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   private AssignColorsForInputColor(value: string) {
-    value = value.toString().toLowerCase();
+    value = this.NormalizeHexColor(value.toString());
     this.SelectedColorHex = value;
     this.SelectedColorRgb = this.HexToRgb(value);
 
@@ -942,7 +942,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   HexToRgb(hex: string) {
-    hex = hex.substring(1);
+    hex = this.NormalizeHexColor(hex).substring(1);
 
     var bigint = parseInt(hex, 16);
     var r = (bigint >> 16) & 255;
@@ -954,7 +954,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
 
   private HexToRgbInNumbers(hex: any) {
-    hex = hex.substring(1);
+    hex = this.NormalizeHexColor(hex).substring(1);
     let num = [];
     var bigint = parseInt(hex, 16);
     var r = (bigint >> 16) & 255;
@@ -975,6 +975,15 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   private RGBToHex(r: number, g: number, b: number) {
     return "#" + this.colorCodeToHex(r) + this.colorCodeToHex(g) + this.colorCodeToHex(b);
+  }
+
+  private NormalizeHexColor(value: string): string {
+    const color = value.toString();
+    if (/^#[\da-f]{3}$/i.test(color)) {
+      return '#' + color.slice(1).split('').map(channel => channel + channel).join('').toLowerCase();
+    }
+
+    return color.toLowerCase();
   }
 
   private LoadDefault() {
@@ -1065,6 +1074,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   private SetDisplayColorsUsingHex(colorInHex: string) {
+    colorInHex = this.NormalizeHexColor(colorInHex);
     this.DisplayColorHex = colorInHex;
     this.DisplayColorRGB = this.HexToRgb(colorInHex);
 

@@ -10,8 +10,6 @@
 
 <form #dform="ngForm">
   
-<rbutton (ButtonClick)="ResetForm(dform)" type="submit">Reset Form</rbutton>
-
 <div cdkDropListGroup class="showcase-root">
 
   <!-- Top navigation -->
@@ -35,6 +33,10 @@
                 [IsDisplayColorCode]="false" [LabelText]="'GlassyEffectColor'" [(ngModel)]="glassyColor"></rcolorpicker>
       </div>
       
+      <div style="align-self: center;margin-left:10px;cursor: pointer;">
+        <rbutton (ButtonClick)="ResetForm(dform)" type="submit">Reset Form</rbutton>
+      </div>
+
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         <label style="font-size: 14px; margin-right: 15px;">Bar Gap :</label>
         

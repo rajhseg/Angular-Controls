@@ -249,7 +249,8 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
       }
       
       this.LoadColorOnFirst = false;      
-      this.RenderOnToggle = false;           
+      this.RenderOnToggle = false;   
+      this.RenderCanvas();        
       this.cdr.detectChanges();
     }
   }

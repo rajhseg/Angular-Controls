@@ -219,7 +219,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   writeValue(obj: any): void {
     
-    obj = obj ?? '#fff';
+    obj = obj ?? '#ffffff';
 
     if (obj) {
 
@@ -676,7 +676,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
           }
         }
 
-        if(_varX){
+        if(_varX != undefined){
            res({x:_varX, y: _varY});
         } else {
           res(undefined);
@@ -883,26 +883,33 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   // based on https://stackoverflow.com/questions/39171824/calculate-x-y-pixel-position-on-gradient-based-on-hex-color-using-javascript
   private RGBToHSL(r: number, g: number, b: number) {
-    var r = r / 255;
-    var g = g / 255;
-    var b = b / 255;
-    var min = Math.min(r, g, b);
-    var max = Math.max(r, g, b);
-    var lum = (min + max) / 2;
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const min = Math.min(r, g, b);
+    const max = Math.max(r, g, b);
+    let lum = (min + max) / 2;
+    
+    let sat = 0;
+    let hue = 0;
+    const delta = max - min;
 
-    if (lum > 0.5) {
-      var sat = (max - min) / (max + min);
-    } else {
-      var sat = (max - min) / (2 - max - min);
-    }
-    if (r >= b && r >= g) {
-      var hue = (g - b) / (max - min);
-    } else
-      if (b >= b && b >= g) {
-        var hue = 4.0 + (r - g) / (max - min);
+    if(delta != 0) {
+      if (lum > 0.5) {
+        sat = (max - min) / (max + min);
       } else {
-        var hue = 2.0 + (b - r) / (max - min);
+        sat = (max - min) / (2 - max - min);
       }
+      if (r >= b && r >= g) {
+        hue = (g - b) / (max - min);
+      } else
+        if (b >= b && b >= g) {
+          hue = 4.0 + (r - g) / (max - min);
+        } else {
+          hue = 2.0 + (b - r) / (max - min);
+        }
+    }
+
     hue *= 60;
     if (hue < 0) hue += 360;
     hue = (hue / 360);
@@ -992,7 +999,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
       // Horizontal Rendering of Selected Color
       if (this.varContext) {
         let grad = this.varContext.createLinearGradient(0, 0, 250, 0);
-        grad.addColorStop(0, "white");
+        grad.addColorStop(0.1, "white");
 
         if (this.mainColorRgb)
           grad.addColorStop(1, this.mainColorRgb);

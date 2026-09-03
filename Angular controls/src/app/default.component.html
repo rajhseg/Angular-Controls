@@ -37,6 +37,11 @@
         <rbutton (ButtonClick)="ResetForm(dform)" type="submit">Reset Form</rbutton>
       </div>
 
+      <div style="align-self: center;margin-left:10px;cursor: pointer;">
+        <rbutton (ButtonClick)="UpdateForm()" type="submit">Update Form</rbutton>
+      </div>
+
+
       <div style="display: flex; justify-content: flex-end; width: 100%; align-items: center;">
         <label style="font-size: 14px; margin-right: 15px;">Bar Gap :</label>
         
@@ -481,7 +486,7 @@
           <!-- </form> -->
 
         </div>
-        <!-- <div class="card-hint">Value: "{{ usernameForm.get('username')?.value }}"</div> -->
+        <div class="card-hint">Value: "{{ username1 }}"</div> 
      
       </div>
 

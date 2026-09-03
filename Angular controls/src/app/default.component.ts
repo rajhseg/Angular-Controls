@@ -684,6 +684,40 @@ export class DefaultComponent {
     form.reset();
   }
 
+    UpdateForm() {
+    this.username1 = "updated";
+    this.password = "updated";
+    this.checkboxValue = true;
+    this.calendarSelectedDate = new Date();
+    this.numericValue = 50;
+    this.sliderValue = 50;
+    this.rrangeSliderData = new RRangeSliderData(50, 60);
+    this.switchValue = true;
+    this.ratingValue = 5;
+    this.optionB = true;
+    this.dropdownSelected = this.dropdownItems[2];
+    this.selectedItemr = this.selectItems[2];
+    this.pickedColor = "rgb(0,0,0)";
+    this.selectedTime = "06:24 PM";
+    this.stateVertical = this.sequenceItems[1];
+    this.stateHorizontal = this.hsequenceItems[1];
+    
+    
+    this.calenderEvents = new EventsCalenderModel();
+    let eachday = new EachDayEventsModel(new Date(Date.now()));
+    eachday.Events.push(new AddEventModel("1","Event Updated 1", "07:02 PM", "07:02 PM", "#2D37D0"));
+    eachday.Events.push(new AddEventModel("2","Event updated 2", "07:02 PM", "07:02 PM", "#2D37D0"));
+    this.calenderEvents.EachDay.push(eachday);
+
+    const _list = [];
+    _list.push({'Id':2, 'Name': 'BBB', 'Age': 25, 'Education': new DropdownModel(2, "BSC"), 'IsGrad': true });
+    _list.push({'Id':3, 'Name': 'CCC', 'Age': 25, 'Education': new DropdownModel(3, "BE"), 'IsGrad': false });
+    _list.push({'Id':4, 'Name': 'DDD', 'Age': 27, 'Education': new DropdownModel(1, "BCom"), 'IsGrad': true });
+    _list.push({'Id':5, 'Name': 'AAA', 'Age': 26, 'Education': new DropdownModel(3, "BE"),  'IsGrad': false });
+  
+    this.gridItems1 = [..._list];
+  }
+
   addCalenderEvents(){
     this.calenderEvents = new EventsCalenderModel();
     let eachday = new EachDayEventsModel(new Date(Date.now()));

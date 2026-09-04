@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragMove, CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
@@ -161,7 +161,7 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
   private onTouch: Function = (value: number) => { };
 
 
-  constructor(@Host() private ele: ElementRef, winObj: RWindowHelper, private cssunit: RCssUnitsService) {
+  constructor(@Host() private ele: ElementRef, winObj: RWindowHelper, private cdr: ChangeDetectorRef,private cssunit: RCssUnitsService) {
     super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
   }
@@ -255,6 +255,7 @@ export class RSliderComponent extends RBaseComponent<number> implements ControlV
 
   setDisabledState?(isDisabled: boolean): void {
     this._formDisabled = isDisabled ?? false;
+    this.cdr.detectChanges();
   }
 
   dragStarted($event: CdkDragStart) {

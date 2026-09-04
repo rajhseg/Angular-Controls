@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, EventEmitter, HostBinding, Input, Output, forwardRef, output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, Output, forwardRef, output } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { RBaseComponent, ValidatorValueType } from '../rmodels/RBaseComponent';
@@ -62,7 +62,7 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
   @Output()
   checked = new EventEmitter<boolean>(); // output<boolean>();
 
-  constructor(winObj: RWindowHelper){
+  constructor(winObj: RWindowHelper, private cdr: ChangeDetectorRef){
     super(winObj);
     this.FontSize = "13px";
   }
@@ -103,6 +103,7 @@ export class RSwitchComponent extends RBaseComponent<boolean> implements Control
 
   setDisabledState?(isDisabled: boolean): void {
     this._formDisabled = isDisabled ?? false;
+    this.cdr.detectChanges();
   }
   
   toggle() {

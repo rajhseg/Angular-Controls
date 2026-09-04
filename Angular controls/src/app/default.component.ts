@@ -172,9 +172,9 @@ export class DefaultComponent {
 
   dType:RFilterDataType = RFilterDataType.DateType;
 
-  optionA: boolean = true;
-  optionB: boolean = false;
-  optionC: boolean = false;
+  optionA!: boolean;
+  optionB!: boolean;
+  optionC!: boolean;
   formEnable:boolean = true;
 
   imagesNames: number[] = [1,2,3];
@@ -193,9 +193,9 @@ export class DefaultComponent {
 
   selectedTheme: DropdownModel = this.colorItems[0];
   
-  username1: string ='';
+  username1!: string;
 
-  rrangeSliderData: RRangeSliderData | null = new RRangeSliderData(40, 70);
+  rrangeSliderData!: RRangeSliderData | null;
 
   ItemsPerPage = new DropdownModel(10, "10");
 
@@ -327,27 +327,27 @@ export class DefaultComponent {
   onButtonClick() { this.buttonClickCount++; }
 
   // ─── Form: Checkbox ──────────────────────────────────────────────────
-  checkboxValue = true;
+  checkboxValue!: boolean;
 
   // ─── Form: Textbox ───────────────────────────────────────────────────
   textboxValue = '';
 
   // ─── Form: Numeric ───────────────────────────────────────────────────
-  numericValue = 42;
+  numericValue!: number;
 
   // ─── Form: Slider ────────────────────────────────────────────────────
-  sliderValue = 70;
+  sliderValue!: number;
 
   // ─── Form: Switch ────────────────────────────────────────────────────
-  switchValue = false;
+  switchValue!: boolean;
 
   // ─── Form: Star Rating ───────────────────────────────────────────────
-  ratingValue = 7;
+  ratingValue!: number;
 
   // ─── Form: Radio Button ──────────────────────────────────────────────
   radioSelected = '';
 
-  selectedItemr: any;
+  selectedItemr!: any;
 
   fileupload1: any;
 
@@ -361,7 +361,7 @@ export class DefaultComponent {
     new DropDownItemModel({ id: 4 }, 'Svelte'),
   ];
   
-  dropdownSelected: DropdownModel | undefined = this.dropdownItems[0];
+  dropdownSelected!: DropdownModel | undefined;
 
   colors: DropDownItemModel[] = [
     new DropDownItemModel({ header: 'rgb(30 23 107)', rowhover: '#ecebf5', rowhoverfore: 'black' , evenrow: '#534AB7' }, 'Violet'),
@@ -371,7 +371,7 @@ export class DefaultComponent {
     new DropDownItemModel({ header: '#083a38 ' , rowhover: '#0b8a80 ', rowhoverfore: 'white'  , evenrow: '#083a38'}, 'Teal')
   ]
 
-  password: string = '';
+  password!: string;
   
   selectedColor: DropdownModel = this.colors[0];
 
@@ -384,10 +384,10 @@ export class DefaultComponent {
   ];
 
   // ─── Form: Color Picker ──────────────────────────────────────────────
-  pickedColor = '#1E1198';
+  pickedColor!: string;
 
   // ─── Form: Time Selector ─────────────────────────────────────────────
-  selectedTime = '09:00 AM';
+  selectedTime!: string;
 
   // ─── Layout: Group Panel ─────────────────────────────────────────────
   // (no extra data needed — uses ng-content)
@@ -487,12 +487,12 @@ export class DefaultComponent {
     });
   })();
 
-  stateVertical: RSequenceVerticalItem = this.sequenceItems[1];
+  stateVertical!: RSequenceVerticalItem;
 
-  stateHorizontal: RSequenceHorizontalItem = this.hsequenceItems[1];
+  stateHorizontal!: RSequenceHorizontalItem;
 
   // ─── Data: Calendar ──────────────────────────────────────────────────
-  calendarSelectedDate: Date | undefined = new Date();
+  calendarSelectedDate!: Date | undefined;
   
   onCalendarChange(date: any) {
     this.calendarSelectedDate = date;
@@ -538,9 +538,9 @@ export class DefaultComponent {
   constructor(private cdr: ChangeDetectorRef, private cssUnitService: RCssUnitsService, private fb: FormBuilder) {
     this.DrawYSeriesChart();
     this.DrawBarChart();
-    this.addCalenderEvents();
+    // this.addCalenderEvents();
     this.createScheduleItems();
-    this.DrawGridItems();
+   // this.DrawGridItems();
     this.buildUserNameForm();
     console.log(this.Spaces);
   }

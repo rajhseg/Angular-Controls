@@ -675,6 +675,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
 
   setDisabledState?(isDisabled: boolean): void {
     this._formDisabled = isDisabled ?? false;
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {

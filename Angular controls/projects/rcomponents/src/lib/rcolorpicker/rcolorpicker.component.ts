@@ -265,6 +265,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   setDisabledState?(isDisabled: boolean): void {
     this._formDisabled = isDisabled ?? false;
+    this.cdr.detectChanges();
   }
 
   private AssignColorsForInputColor(value: string) {

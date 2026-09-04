@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragEnd, CdkDragMove, CdkDragRelease, CdkDragStart, DragDropModule } from '@angular/cdk/drag-drop';
 import { NgIf, NgStyle } from '@angular/common';
-import { Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Host, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { CssUnit, RCssUnitsService, RelativeUnitType } from '../rcss-units.service';
@@ -186,7 +186,8 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
 
   MiddleBarWidth: number = 0;
 
-  constructor(@Host() private ele: ElementRef, winObj: RWindowHelper, private cssunit: RCssUnitsService) {
+  constructor(@Host() private ele: ElementRef, winObj: RWindowHelper, private cssunit: RCssUnitsService,
+          private cdr: ChangeDetectorRef) {
     super(winObj);
     this.Id = this.winObj.GenerateUniqueId();
   }
@@ -370,6 +371,7 @@ export class RRangeSliderComponent extends RBaseComponent<RRangeSliderData> impl
 
   setDisabledState?(isDisabled: boolean): void {
     this._formDisabled = isDisabled ?? false;
+    this.cdr.detectChanges();
   }
 
   dragStarted1($event: CdkDragStart) {

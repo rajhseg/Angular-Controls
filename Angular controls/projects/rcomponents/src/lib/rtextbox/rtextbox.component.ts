@@ -1,5 +1,5 @@
 import { NgIf, NgStyle, NgClass } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Optional, Output, Self, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Optional, Output, Self, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { RWindowHelper } from '../rwindowObject';
 import { RCssUnitsService } from '../rcss-units.service';
@@ -131,6 +131,7 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
   constructor(winObj: RWindowHelper, 
       private ele: ElementRef, 
       private cssUnitServ: RCssUnitsService,
+      private cdr: ChangeDetectorRef
       ) {
       super(winObj);
   }
@@ -174,6 +175,7 @@ export class RTextboxComponent extends RBaseComponent<string> implements Control
 
   setDisabledState?(isDisabled: boolean): void {
     this._formDisabled = isDisabled ?? false;
+    this.cdr.detectChanges();
   }
 
 }

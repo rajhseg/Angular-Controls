@@ -8,7 +8,7 @@
             [EnableShadowEffect]="EnableShadowEffect">
         <div #startElement style="display: flex;">
             <div class="rcontainer" 
-                        [ngClass]="{ 'brdr': !EnableShadowEffect }"
+                        [ngClass]="{ 'brdr': !EnableShadowEffect, 'fileback': IsDisabled }"
                         [ngStyle]="{'border-bottom-color': IconForeColor, 
                                     'box-shadow': EnableShadowEffect ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : ''}">
                 <div class="displayText" [ngStyle]="{ 'color': TextForeColor }">{{DisplayText}}</div>

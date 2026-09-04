@@ -17,7 +17,7 @@
             [type]="IsPasswordBox ? 'password' : 'text'" 
             [(ngModel)]="TextboxValue" class="txtbox" 
         [required]="required" 
-        [ngClass]="{'brdr' : !EnableBoxShadow }"
+        [ngClass]="{'brdr' : !EnableBoxShadow, 'disback' : IsDisabled }"
         
        [ngStyle]="{ 'height': TextBoxHeight_C, 
                     'width': TextBoxWidth_C,

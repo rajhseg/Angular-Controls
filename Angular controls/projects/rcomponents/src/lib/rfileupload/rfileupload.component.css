@@ -16,6 +16,10 @@
     top: -6px;
 }
 
+.fileback {
+    background-color: #fafafa;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;

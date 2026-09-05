@@ -698,7 +698,7 @@ export class DefaultComponent {
     this.optionB = true;
     this.dropdownSelected = this.dropdownItems[2];
     this.selectedItemr = this.selectItems[2];
-    this.pickedColor = "rgb(0,0,0)";
+    this.pickedColor = "#7f3ead";
     this.selectedTime = "06:24 PM";
     this.stateVertical = this.sequenceItems[1];
     this.stateHorizontal = this.hsequenceItems[1];

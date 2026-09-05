@@ -218,8 +218,6 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   }
 
   writeValue(obj: any): void {
-    
-    obj = obj ?? '#fff';
 
     if (obj) {
 
@@ -250,9 +248,29 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
       
       this.LoadColorOnFirst = false;      
       this.RenderOnToggle = false;   
-      this.RenderCanvas();        
-      this.cdr.detectChanges();
+      this.RenderUI();
+
+      this.RenderCanvas().then(x=> {
+        this.cdr.detectChanges();
+      });        
+      
+    } else {
+      this.reset();
     }
+  }
+
+  reset() {
+    this.SelectedColorHex = '';
+    this.SelectedColorR = -1;
+    this.SelectedColorG = -1;
+    this.SelectedColorB = -1;
+    this.SelectedColorRgb = undefined;
+    this._selectedColorHex = undefined;
+    this.DisplayColorHex = '';
+    this.DisplayColorRGB = '';
+    this.DisplayColorR = -1;
+    this.DisplayColorG = -1;
+    this.DisplayColorB = -1
   }
 
   registerOnChange(fn: any): void {
@@ -561,12 +579,16 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
       return;
 
     this.IsColorPickerOpen = !this.IsColorPickerOpen;
+    
     if (this.IsColorPickerOpen) {
       this.cls.CloseAllPopups(this);
-      this.RenderOnToggle = true;            
+      this.RenderOnToggle = true;
+
+      this.RenderUI();
+      this.LoadColorOnFirst = false;
       await this.RenderCanvas();
+
       this.AttachDropdown();
-      this.LoadColorOnFirst = true;
       this.RenderOnToggle = false;
       this.cdr.detectChanges();
     }
@@ -651,7 +673,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
 
   private GetXYFromColorCode(from: number, to: number): Promise<{x:number|undefined, y: number|undefined} | undefined> {
     
-    var tol = 2;
+    var tol = 0;
     return new Promise((res, rej)=>{
       
       let _varX, _varY;
@@ -826,8 +848,9 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
   private async RenderCanvas() {
 
     if (!this.LoadColorOnFirst || !this.isColorPickerSelected) {
-      if (this.SelectedColorHex == undefined)
-        this.LoadDefault();
+      if (this.SelectedColorHex == undefined || this.SelectedColorHex.trim() == "") {
+        return;
+      }
       else                       
       {        
         if(!this.LoadColorOnFirst)
@@ -1023,7 +1046,7 @@ export class RColorPickerComponent extends RBaseComponent<RColorPickerEventArgs>
       if (this.varContext) {
         let grad = this.varContext.createLinearGradient(0, 0, 0, 150);
         grad.addColorStop(0, "rgba(0,0,0,0)"); // adding transperancy fourth parameter
-        grad.addColorStop(1, "black");
+        grad.addColorStop(0.9, "black");
         this.varContext.fillStyle = grad;
         this.varContext.fillRect(0, 0, 250, 150);
       }

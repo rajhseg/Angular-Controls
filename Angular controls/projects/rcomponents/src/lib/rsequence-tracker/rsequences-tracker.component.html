@@ -30,7 +30,7 @@
                             'height':GetContentHeight(item.Height_C), 
                             'width': GetContentWidth,  
                             'pointer-events': IsReadOnly ? 'none': ''}">
-            <ng-container *ngTemplateOutlet="item.templateRef">
+            <ng-container *ngTemplateOutlet="item.templateRef; context: item.InstanceContext">
 
             </ng-container>
         </div>

@@ -166,6 +166,8 @@ import { ɵEmptyOutletComponent } from "@angular/router";
 })
 export class AppRootComponent {
 
+  TemplateBinding: object = { Te: 'Te_a'};
+  
   optionA: boolean = true;
   optionB: boolean = false;
   optionC: boolean = false;

@@ -13,7 +13,19 @@ export class RTrackerContentDirective {
     private _height: string = '100px';
 
     Height_C: string = '100px';
+    
+    private _instanceContext: object = {};
 
+    public set InstanceContext(value: object) {
+        this._instanceContext = {
+            $implicit: value
+        };
+    }
+
+    public get InstanceContext(): object {
+        return this._instanceContext;
+    }
+    
     public set Height(value: string) {
         this._height = value;
         let htmlele = this.vcr.injector.get(RSequencesTrackerComponent);
@@ -35,15 +47,16 @@ export class RTrackerContentDirective {
         if (val) {
             this.StepNo = val.StepNo;
             this.Height = val.Height;
+            this.InstanceContext = val.instanceContext;
         }
     }
     get rtrackercontent(): RTrackerContext {
-        return new RTrackerContext(this.StepNo, this.Height);
+        return new RTrackerContext(this.StepNo, this.InstanceContext, this.Height);
     }
 }
 
 export class RTrackerContext {
-    constructor(public StepNo: number, public Height: string = '100px') {
+    constructor(public StepNo: number, public instanceContext: object, public Height: string = '100px') {
 
     }
 }

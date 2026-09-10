@@ -13,6 +13,7 @@ export interface IRSplitterInterface {
   Id: string;
   InitialWidth: string;
   InitialHeight: string;
+  InstanceContext: object;
 }
 
 @Directive({
@@ -45,7 +46,24 @@ export class RPageContentDirective implements IRSplitterInterface, OnInit {
   get InitialHeight(): string {
     return this._initialHeight;
   }
-  
+
+  private _instanceContext: object = {};
+
+  public set InstanceContext(value: object) {
+    this._instanceContext = {
+      $implicit: value
+    };
+  }
+
+  @Input('rpagecontentInstanceContext')
+  public set RPageContentInstanceContext(value: object) {
+    this.InstanceContext = value;
+  }
+
+  public get InstanceContext(): object {
+    return this._instanceContext;
+  }
+
   @Output()
   ValueChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
@@ -70,6 +88,8 @@ export class RSplitterObj implements IRSplitterInterface {
   InitialHeight: string = '';
 
   InitialWidth: string = '';
+
+  InstanceContext: object = {};
 
   constructor(public winObj: RWindowHelper, private type: RSplitterType, private obj: any) {
     this.Id = this.winObj.GenerateUniqueId();

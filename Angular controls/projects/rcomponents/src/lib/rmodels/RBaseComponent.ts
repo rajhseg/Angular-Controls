@@ -420,7 +420,20 @@ export class RContentDirective {
     public Height: string = '100px';
 
     public IsOpened: boolean = false;
-          
+
+    
+    private _instanceContext: object = {};
+
+    public set InstanceContext(value: object) {
+        this._instanceContext = {
+            $implicit: value
+        };
+    }
+
+    public get InstanceContext(): object {
+        return this._instanceContext;
+    }
+        
     constructor(public templateRef: TemplateRef<any>, public vcr: ViewContainerRef, public cdr: ChangeDetectorRef) {
     
     }
@@ -432,15 +445,16 @@ export class RContentDirective {
             this.Height = val.Height;
             this.Title = val.Title;
             this.IsOpened = val.IsOpened;
+            this.InstanceContext = val.instanceContext;
         }
     }
     get rtrackercontent(): RContentContext {
-        return new RContentContext(this.ContentId, this.Title, this.Height, this.IsOpened);
+        return new RContentContext(this.ContentId, this.Title, this.InstanceContext, this.Height, this.IsOpened);
     }
 }
 
 export class RContentContext {
-    constructor(public ContentId: number, public Title: string, public Height: string = '100px', public IsOpened: boolean = false) {
+    constructor(public ContentId: number, public Title: string, public instanceContext: object, public Height: string = '100px', public IsOpened: boolean = false) {
 
     }
 }

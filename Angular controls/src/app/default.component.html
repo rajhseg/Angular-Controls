@@ -730,12 +730,38 @@
       <div class="card">
         <div class="card-header">
           <span class="card-tag tag-form">Form</span>
-          <h2 class="card-title">Color Picker</h2>
+          <h2 class="card-title">Color Picker 1</h2>
           <code class="card-selector">&lt;rcolorpicker&gt;</code>
         </div>
         <div class="card-body" style="align-items: center; display: flex; gap: 16px;">
 
           <rcolorpicker name="colorpicker"
+            [IsDisplayLabelText]="true"
+            [DisplayColorInHex]="true"
+            [LabelText]="'Fore Color :'"
+            [IsReadOnly]="false"
+            [(ngModel)]="pickedColor">
+          </rcolorpicker>
+          
+          <div style="width: 40px; height: 40px; border-radius: 8px; border: 1px solid #ccc;"
+               [style.background]="pickedColor">
+          </div>
+
+        </div>
+        <div class="card-hint">Hex: <strong>{{ pickedColor }}</strong>. Canvas-based color picker.</div>
+      </div>
+
+      
+      <!-- Color Picker -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form</span>
+          <h2 class="card-title">Color Picker 2</h2>
+          <code class="card-selector">&lt;rcolorpicker&gt;</code>
+        </div>
+        <div class="card-body" style="align-items: center; display: flex; gap: 16px;">
+
+          <rcolorpicker #cpicker name="colorpicker1"
             [IsDisplayLabelText]="true"
             [DisplayColorInHex]="true"
             [LabelText]="'Fore Color :'"
@@ -839,10 +865,10 @@
 
           <rsplitter [IsReadOnly]="false" #splitcomp TotalWidth="1060px" TotalHeight="380px" (OnSizeChanged)="panelSizeChange($event)">
 
-            <rsplitpage *rpagecontent [InitialWidth]="'30%'">
+            <rsplitpage *rpagecontent="let Item; InstanceContext: TemplateBinding" [InitialWidth]="'30%'">
               
               <div style="padding: 12px; background: #f5f3ff; height: 93%; color: #534AB7; font-size: 14px;">
-                <strong>Left pane</strong>
+                <strong>Left pane: {{Item.Te}}</strong>
                 <p style="margin-top: 8px; color: #888; font-size: 13px;">Drag the divider to resize.</p>
 
                          <rallocated-barchart #leftChart
@@ -1100,22 +1126,22 @@
         <div class="card-body">
           <rstepper-vertical [IsDisabled]="false"
             [ShowStateVertical]="false">
-            <rstep [Title]="'Account'" [IsStepValid]="true">
-              <ng-template rstepview>
-               <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+            <rstep [Title]="'Account'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
+              <ng-template rstepview let-Item>
+               <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password. {{Item.Te}}</div>
               </ng-template>
             </rstep>
-            <rstep [Title]="'Profile'" [IsStepValid]="true">
+            <rstep [Title]="'Profile'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
               <ng-template rstepview>
                <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
               </ng-template>
             </rstep>
-            <rstep [Title]="'Preferences'" [IsStepValid]="true">
+            <rstep [Title]="'Preferences'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
               <ng-template rstepview>
                 <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
               </ng-template>  
             </rstep>
-            <rstep [Title]="'Confirm'" [IsStepValid]="true">
+            <rstep [Title]="'Confirm'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
               <ng-template rstepview>
                 <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
               </ng-template>
@@ -1148,22 +1174,22 @@
         </div>
         <div class="card-body">
           <rstepper-horizontal [IsDisabled]="false" [ShowStateHorizontal]="false">
-            <rstep [Title]="'Account'" [IsStepValid]="true">
-              <ng-template rstepview>
-                <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password.</div>
+            <rstep [Title]="'Account'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
+              <ng-template rstepview let-Item>
+                <div style="padding: 8px 0; font-size: 13px; color: #888;">Enter email and password. {{ Item.Te }}</div>
               </ng-template>
             </rstep>
-            <rstep [Title]="'Profile'" [IsStepValid]="true">
+            <rstep [Title]="'Profile'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
               <ng-template rstepview>
                 <div style="padding: 8px 0; font-size: 13px; color: #888;">Add your name and avatar.</div>
               </ng-template>
             </rstep>
-            <rstep [Title]="'Preferences'" [IsStepValid]="true">
+            <rstep [Title]="'Preferences'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
               <ng-template rstepview>
                 <div style="padding: 8px 0; font-size: 13px; color: #888;">Choose notification settings.</div>
               </ng-template>
             </rstep>
-            <rstep [Title]="'Confirm'" [IsStepValid]="true">
+            <rstep [Title]="'Confirm'" [IsStepValid]="true" [InstanceContext]="this.TemplateBinding">
               <ng-template rstepview>
                 <div style="padding: 8px 0; font-size: 13px; color: #888;">Review and submit.</div>
               </ng-template>
@@ -1183,18 +1209,18 @@
         </div>
         <div class="card-body">
           <rsequences-tracker [IsDisabled]="false" [ContentWidth]="'1000px'">
-            <rsequencetracker *rtrackercontent="{ 'StepNo': 1, 'Height': '200px'}">
+            <rsequencetracker *rtrackercontent="{ 'StepNo': 1, 'Height': '200px', 'instanceContext': this.TemplateBinding}; let Item">
               <div style="">
-                <div style="padding: 8px 0; font-size: 13px; color: gray;">Enter email and password.</div>
+                <div style="padding: 8px 0; font-size: 13px; color: gray;">Enter email and password. {{Item.Te}}</div>
               </div>
             </rsequencetracker>
-            <rsequencetracker *rtrackercontent="{ 'StepNo': 2, 'Height': '230px'}">
+            <rsequencetracker *rtrackercontent="{ 'StepNo': 2, 'Height': '230px', 'instanceContext': this.TemplateBinding}; let Item">
               <div style="">
                 <div style="padding: 8px 0; font-size: 13px; color: gray;">Add your Name and Avatar.</div>
               </div>
             </rsequencetracker>
             
-            <rsequencetracker *rtrackercontent="{ 'StepNo': 3, 'Height': '200px'}">
+            <rsequencetracker *rtrackercontent="{ 'StepNo': 3, 'Height': '200px', 'instanceContext': this.TemplateBinding}; let Item">
               <div style="">
                 <div style="padding: 8px 0; font-size: 13px; color: gray;">Messages info.</div>
               </div>
@@ -1214,17 +1240,17 @@
         </div>
         <div class="card-body">
           <raccordion [IsDisabled]="false" [GapBetweenContent]="'5px'" [ContentWidth]="'65%'">
-            <ng-container *rcontent="{ 'ContentId': 1, 'Title': 'Title 1', 'Height': '200px', 'IsOpened': false }">
-              <div style="height: 90%;border-radius: 5px; padding:5px">
-                <div style="padding: 8px 0; font-size: 13px; color: gray;">Enter email and password.</div>
-              </div>
+            <ng-container  *rcontent="{ 'ContentId': 1, 'Title': 'Title 1', 'Height': '200px', 'IsOpened': false, 'instanceContext': this.TemplateBinding}; let Item">
+                <div style="height: 90%;border-radius: 5px; padding:5px">
+                  <div style="padding: 8px 0; font-size: 13px; color: gray;">Enter email and password {{Item.Te}}.</div>
+                </div>
             </ng-container>
-            <ng-container *rcontent="{ 'ContentId': 2, 'Title': 'Title 2', 'Height': '200px', 'IsOpened': true }">
+            <ng-container *rcontent="{ 'ContentId': 2, 'Title': 'Title 2', 'Height': '200px', 'IsOpened': true, 'instanceContext': this.TemplateBinding}; let Item">
               <div style="height: 80%;border-radius: 5px; padding:5px">
                 <div style="padding: 8px 0; font-size: 13px; color: gray;">Add your Name and Avatar.</div>
               </div>
             </ng-container>
-            <ng-container *rcontent="{ 'ContentId': 3, 'Title': 'Title 3', 'Height': '200px', 'IsOpened': false }">
+            <ng-container *rcontent="{ 'ContentId': 3, 'Title': 'Title 3', 'Height': '200px', 'IsOpened': false, 'instanceContext': this.TemplateBinding}; let Item">
               <div style="height: 90%;border-radius: 5px; padding:5px">
                 <div style="padding: 8px 0; font-size: 13px; color: gray;">Messages info.</div>
               </div>

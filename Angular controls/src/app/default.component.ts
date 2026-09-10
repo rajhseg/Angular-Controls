@@ -170,6 +170,8 @@ export class DefaultComponent {
     new DropDownItemModel(4, 'BA')
   ];
 
+  TemplateBinding: object = { Te: 'Te_a' };
+
   dType:RFilterDataType = RFilterDataType.DateType;
 
   optionA!: boolean;
@@ -719,12 +721,16 @@ export class DefaultComponent {
     this.gridItems1 = [..._list];
   }
 
-  enableDisable(form:NgForm){
+  @ViewChild('cpicker',{ read: RColorPickerComponent})
+  cpicker!: RColorPickerComponent;
+
+  async enableDisable(form:NgForm){
     this.formEnable = !this.formEnable;
 
     Object.values(form.controls).forEach(control => {
       this.formEnable ? control.enable() : control.disable();
     });
+
   }
 
   addCalenderEvents(){

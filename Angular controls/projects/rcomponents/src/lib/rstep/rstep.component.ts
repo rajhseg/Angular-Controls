@@ -27,6 +27,19 @@ export class RStepComponent implements AfterContentInit {
   @Input()
   public dir!: RStepViewDirective;
 
+  private _instanceContext: object = {};
+
+  @Input()
+  public set InstanceContext(value: object) {
+    this._instanceContext = {
+      $implicit: value
+    };
+  }
+
+  public get InstanceContext(): object {
+    return this._instanceContext;
+  }
+
   @ContentChild(RStepViewDirective, {read: TemplateRef<any> }) Content!: TemplateRef<any>;
 
   constructor(){

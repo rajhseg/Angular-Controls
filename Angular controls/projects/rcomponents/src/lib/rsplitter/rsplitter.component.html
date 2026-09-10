@@ -23,7 +23,7 @@
                   <ng-content>
 
                   </ng-content>
-                  <ng-container *ngTemplateOutlet="item.TemplateRef">
+                  <ng-container *ngTemplateOutlet="item.TemplateRef; context:item.InstanceContext">
                         
                   </ng-container>
                 </div>

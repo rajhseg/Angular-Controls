@@ -1,0 +1,1234 @@
+<div cdkDropListGroup class="showcase-root">
+  <!-- Top Navigation Header & Interactive Controls -->
+  <header class="showcase-header">
+    <div class="header-top-row">
+      <div class="brand-wrap">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">rcomponents Showcase (Static Component)</h1>
+          <p class="brand-subtitle">50+ Native Angular Components with Direct Template Tags, Two-Way [(ngModel)] & Model
+            Bindings</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Interactive Options Bar (Theme, Glassy, Gap) -->
+    <div class="header-controls-row">
+      <div class="control-item">
+        <rswitch name="glassyEffect" [LabelForeColor]="headerSwitchLabelColor" [DisplayLabel]="headerSwitchLabel"
+          [(ngModel)]="enableGlassyEffect">
+        </rswitch>
+      </div>
+
+      <div class="control-item">
+        <rcolorpicker name="glassyColor" [LabelTextForeColor]="headerColorPickerLabelColor"
+          [IsDisplayLabelText]="headerColorPickerShowLabel" [IsDisplayColorCode]="headerColorPickerShowCode"
+          [LabelText]="headerColorPickerLabel" [(ngModel)]="glassyColor">
+        </rcolorpicker>
+      </div>
+
+      <div class="control-item">
+        <span class="control-label">Bar Gap:</span>
+        <rselectdropdown [EnableFilterOption]="spaceDropdownEnableFilter" [IsReadOnly]="spaceDropdownReadOnly"
+          [Items]="Spaces" name="spaceDropdown" [DropDownContentHeight]="spaceDropdownContentHeight"
+          (valueChanged)="spaceBarChanged($event)" [DropDownContentWidth]="spaceDropdownContentWidth"
+          [Width]="spaceDropdownWidth" [(ngModel)]="selectedSpace">
+        </rselectdropdown>
+      </div>
+    </div>
+
+    <!-- Category Filter Strip -->
+    <nav class="nav-tabs">
+      <button class="nav-tab" [class.active]="activeCategoryTab === 'all'" (click)="setCategory('all')">
+        All 50+ Components
+      </button>
+      <button class="nav-tab" [class.active]="activeCategoryTab === 'form-cva'" (click)="setCategory('form-cva')">
+        1. Cascading Dropdowns & Form CVAs (18)
+      </button>
+      <button class="nav-tab" [class.active]="activeCategoryTab === 'charts'" (click)="setCategory('charts')">
+        2. 12 Data Visualizations & Charts (12)
+      </button>
+      <button class="nav-tab" [class.active]="activeCategoryTab === 'steppers'" (click)="setCategory('steppers')">
+        3. Steppers, Trackers & Schedules (7)
+      </button>
+      <button class="nav-tab" [class.active]="activeCategoryTab === 'containers'" (click)="setCategory('containers')">
+        4. Grids, Trees & Containers (10)
+      </button>
+      <button class="nav-tab" [class.active]="activeCategoryTab === 'indicators'" (click)="setCategory('indicators')">
+        5. Indicators & Actions (4)
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Showcase Body -->
+  <main class="showcase-body">
+
+    <!-- ==================================================== -->
+    <!-- SECTION 1: CASCADING DROPDOWNS & FORM CVA CONTROLS   -->
+    <!-- ==================================================== -->
+    @if (activeCategoryTab === 'all' || activeCategoryTab === 'form-cva') {
+    <div class="section-banner">
+      <span class="section-badge">1</span>
+      <div>
+        <h2 class="section-title">Cascading Dropdowns & Form CVA Controls</h2>
+        <p class="section-desc">Static rcomponents with compact 260px widths, vibrant styling, and two-way [(ngModel)]
+          bindings</p>
+      </div>
+    </div>
+
+    <div class="section-grid">
+      <!-- 1. Country Cascading Dropdown -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">1. Country (Parent Dropdown)</h3>
+          <code class="card-selector">&lt;rdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rdropdown [Items]="countries" [(ngModel)]="selectedCountry" [Width]="dropdownWidth"
+            [DropDownContentWidth]="dropdownContentWidth" [EnableFilterOption]="dropdownFilterEnabled"
+            [SearchBoxBottomLineColor]="dropdownBottomLineColor" (valueChanged)="onCountryChange($event)">
+          </rdropdown>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ selectedCountry }}</code></div>
+      </div>
+
+      <!-- 2. State Cascading Dropdown -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">2. State / Province (Cascading Level 1)</h3>
+          <code class="card-selector">&lt;rdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rdropdown [Items]="currentStates" [(ngModel)]="selectedState" [Width]="dropdownWidth"
+            [DropDownContentWidth]="dropdownContentWidth" [EnableFilterOption]="dropdownFilterEnabled"
+            [SearchBoxBottomLineColor]="dropdownBottomLineColor" (valueChanged)="onStateChange($event)">
+          </rdropdown>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ selectedState }}</code></div>
+      </div>
+
+      <!-- 3. City Cascading Dropdown -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">3. City (Cascading Level 2)</h3>
+          <code class="card-selector">&lt;rdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rdropdown [Items]="currentCities" [(ngModel)]="selectedCity" [Width]="dropdownWidth"
+            [DropDownContentWidth]="dropdownContentWidth" [EnableFilterOption]="dropdownFilterEnabled"
+            [SearchBoxBottomLineColor]="dropdownBottomLineColor">
+          </rdropdown>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ selectedCity }}</code></div>
+      </div>
+
+      <!-- 4. Department Dropdown -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">4. Organization Department</h3>
+          <code class="card-selector">&lt;rdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rdropdown [Items]="departments" [(ngModel)]="selectedDepartment" [Width]="dropdownWidth"
+            [DropDownContentWidth]="dropdownContentWidth" [SearchBoxBottomLineColor]="deptDropdownBottomLineColor"
+            (valueChanged)="onDepartmentChange($event)">
+          </rdropdown>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ selectedDepartment }}</code></div>
+      </div>
+
+      <!-- 5. Job Role Dropdown -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">5. Job Role (Filtered)</h3>
+          <code class="card-selector">&lt;rdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rdropdown [Items]="currentRoles" [(ngModel)]="selectedRole" [Width]="dropdownWidth"
+            [DropDownContentWidth]="dropdownContentWidth" [SearchBoxBottomLineColor]="deptDropdownBottomLineColor">
+          </rdropdown>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ selectedRole }}</code></div>
+      </div>
+
+      <!-- 6. Select Dropdown with Filter -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">6. Select Dropdown (Multi-Select & Filter)</h3>
+          <code class="card-selector">&lt;rselectdropdown&gt;</code>
+        </div>
+        <div class="card-body">
+          <rselectdropdown [Items]="selectItems" [(ngModel)]="selectDropdownVal" [Width]="dropdownWidth"
+            [DropDownContentWidth]="dropdownContentWidth" [EnableFilterOption]="dropdownFilterEnabled"
+            [IsMulti]="selectDropdownMulti">
+          </rselectdropdown>
+        </div>
+        <div class="card-hint">Searchable multi-select dropdown with filter option</div>
+      </div>
+
+      <!-- 7. Full Name Textbox -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">7. Full Name (RTextboxComponent)</h3>
+          <code class="card-selector">&lt;rtextbox&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtextbox [(ngModel)]="textboxVal" [LabelText]="textboxLabel" [PlaceholderText]="textboxPlaceholder"
+            [TextBoxWidth]="textboxWidth" [TextBoxHeight]="textboxHeight" [BottomLineColor]="textboxBottomLineColor">
+          </rtextbox>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ textboxVal }}</code></div>
+      </div>
+
+      <!-- 8. Password Textbox -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">8. Password Box (RTextboxComponent)</h3>
+          <code class="card-selector">&lt;rtextbox [IsPasswordBox]="passwordIsPasswordBox"&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtextbox [(ngModel)]="passwordVal" [IsPasswordBox]="passwordIsPasswordBox" [LabelText]="passwordLabel"
+            [TextBoxWidth]="passwordWidth" [TextBoxHeight]="passwordHeight" [BottomLineColor]="passwordBottomLineColor">
+          </rtextbox>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ passwordVal }}</code></div>
+      </div>
+
+      <!-- 9. Numeric Stepper -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">9. Numeric Counter (RNumericComponent)</h3>
+          <code class="card-selector">&lt;rnumeric&gt;</code>
+        </div>
+        <div class="card-body">
+          <rnumeric [(ngModel)]="numericVal" [LabelText]="numericLabel" [StepValue]="numericStepValue"
+            [MinValue]="numericMinValue" [MaxValue]="numericMaxValue" [TextBoxWidth]="numericWidth"
+            [TextBoxHeight]="numericHeight" [BottomLineColor]="numericBottomLineColor"
+            [PlusBackgroundColor]="numericPlusBgColor" [MinusBackgroundColor]="numericMinusBgColor"
+            [PlusForeColor]="numericPlusForeColor" [MinusForeColor]="numericMinusForeColor">
+          </rnumeric>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ numericVal }}</code></div>
+      </div>
+
+      <!-- 10. Slider Component -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">10. Slider (RSliderComponent)</h3>
+          <code class="card-selector">&lt;rslider&gt;</code>
+        </div>
+        <div class="card-body">
+          <rslider [(ngModel)]="sliderVal" [MinValue]="sliderMinValue" [MaxValue]="sliderMaxValue"
+            [SliderBarWidth]="sliderWidth" [SliderColor]="sliderColor" [TrackColor]="sliderTrackColor"
+            [DisplayValueForeColor]="sliderDisplayValueColor" [IsDisplayValue]="sliderShowValue"
+            [IsDisplayLabel]="sliderShowLabel">
+          </rslider>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ sliderVal }}</code></div>
+      </div>
+
+      <!-- 11. Range Slider Component -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">11. Dual Range Slider (RRangeSliderComponent)</h3>
+          <code class="card-selector">&lt;rrangeslider&gt;</code>
+        </div>
+        <div class="card-body">
+          <rrangeslider [(ngModel)]="rrangeSliderData" [MinValue]="rangeSliderMinValue" [MaxValue]="rangeSliderMaxValue"
+            [SliderBarWidth]="rangeSliderWidth" [Slider1Color]="rangeSlider1Color" [Slider2Color]="rangeSlider2Color"
+            [TrackColor]="rangeSliderTrackColor" [IsDisplayValue]="rangeSliderShowValue"
+            [IsDisplayLabel]="rangeSliderShowLabel">
+          </rrangeslider>
+        </div>
+        <div class="card-hint">From: <code>{{ rrangeSliderData.FromValue }}</code> | To:
+          <code>{{ rrangeSliderData.ToValue }}</code>
+        </div>
+      </div>
+
+      <!-- 12. Color Picker -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">12. Color Picker (RColorPickerComponent)</h3>
+          <code class="card-selector">&lt;rcolorpicker&gt;</code>
+        </div>
+        <div class="card-body" style="display: flex; align-items: center; gap: 14px;">
+          <rcolorpicker [(ngModel)]="pickedColor" [LabelText]="colorPickerLabel"
+            [IsDisplayLabelText]="colorPickerShowLabel" [DisplayColorInHex]="colorPickerDisplayHex"
+            [IsDisplayColorCode]="colorPickerShowCode">
+          </rcolorpicker>
+          <div
+            style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.08);"
+            [style.background]="pickedColor"></div>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ pickedColor }}</code></div>
+      </div>
+
+      <!-- 13. Calendar Date Picker -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-data">Data Display</span>
+          <h3 class="card-title">13. Calendar (RCalendarComponent)</h3>
+          <code class="card-selector">&lt;rcalendar&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rcalendar [IsReadOnly]="calendarReadOnly" [SelectedItemBackGroundColor]="calendarSelectedBgColor"
+            [(ngModel)]="calendarSelectedDate" (valueChanged)="onCalendarChange($event)">
+          </rcalendar>
+        </div>
+        <div class="card-hint">Selected:
+          <code>{{ calendarSelectedDate ? (calendarSelectedDate | date:'mediumDate') : 'none' }}</code>
+        </div>
+      </div>
+
+      <!-- 14. Star Rating -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">14. Star Rating (RStarRatingComponent)</h3>
+          <code class="card-selector">&lt;rstarrating&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstarrating [(ngModel)]="starRatingVal" [noOfStars]="starRatingCount" [starWidth]="starRatingWidth"
+            [starColor]="starRatingColor">
+          </rstarrating>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ starRatingVal }} / 5 Stars</code></div>
+      </div>
+
+      <!-- 15. Time Selector -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">15. Time Selector (RTimeSelectorComponent)</h3>
+          <code class="card-selector">&lt;rtimeselector&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtimeselector [SetCurrentTimeAsDefaultOnLoad]="timeSetCurrentOnLoad" [(ngModel)]="selectedTime"
+            [ButtonBackgroundColor]="timeButtonBgColor" [ButtonForeColor]="timeButtonForeColor"
+            [IsReadOnly]="timeReadOnly">
+          </rtimeselector>
+        </div>
+        <div class="card-hint">Selected: <code>{{ selectedTime }}</code></div>
+      </div>
+
+      <!-- 16. Switch Component -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">16. Switch (RSwitchComponent)</h3>
+          <code class="card-selector">&lt;rswitch&gt;</code>
+        </div>
+        <div class="card-body" style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+          <rswitch [DisplayLabel]="switch1Label" [SwitchBackColor]="switch1BgColor" [LabelForeColor]="switchLabelColor"
+            [(ngModel)]="switchVal">
+          </rswitch>
+          <rswitch [DisplayLabel]="switch2Label" [SwitchBackColor]="switch2BgColor" [LabelForeColor]="switchLabelColor"
+            [ngModel]="true">
+          </rswitch>
+        </div>
+        <div class="card-hint">[(ngModel)]: <code>{{ switchVal }}</code></div>
+      </div>
+
+      <!-- 17. Checkbox & Radio Buttons -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form CVA</span>
+          <h3 class="card-title">17. Checkbox & Radio Buttons</h3>
+          <code class="card-selector">&lt;rcheckbox&gt; &lt;rradiobutton&gt;</code>
+        </div>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 10px;">
+          <rcheckbox [DisplayText]="checkbox1Text" [CheckedColor]="checkboxCheckedColor"
+            [LabelColor]="checkboxLabelColor" [(ngModel)]="checkboxVal">
+          </rcheckbox>
+          <rcheckbox [DisplayText]="checkbox2Text" [CheckedColor]="checkboxCheckedColor"
+            [LabelColor]="checkboxLabelColor" [(ngModel)]="checkboxVal2">
+          </rcheckbox>
+          <div style="display: flex; gap: 14px; margin-top: 4px;">
+            <rradiobutton [DisplayText]="radio1Text" [Color]="radioColor" [LabelColor]="radioLabelColor"
+              [GroupName]="radioGroupName" [(ngModel)]="optionA"></rradiobutton>
+            <rradiobutton [DisplayText]="radio2Text" [Color]="radioColor" [LabelColor]="radioLabelColor"
+              [GroupName]="radioGroupName" [(ngModel)]="optionB"></rradiobutton>
+            <rradiobutton [DisplayText]="radio3Text" [Color]="radioColor" [LabelColor]="radioLabelColor"
+              [GroupName]="radioGroupName" [(ngModel)]="optionC"></rradiobutton>
+          </div>
+        </div>
+        <div class="card-hint">Checkbox: <code>{{ checkboxVal }}</code> | Radio:
+          <code>{{ optionB ? 'Enterprise' : optionA ? 'Standard' : 'Custom' }}</code>
+        </div>
+      </div>
+
+      <!-- 18. File Upload & Column Filter -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-form">Form & Utility</span>
+          <h3 class="card-title">18. File Upload & Column Filter (RfileuploadComponent & RFilterComponent)</h3>
+          <code class="card-selector">&lt;rfileupload&gt; &lt;rfilter&gt;</code>
+        </div>
+        <div class="card-body" style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 260px;">
+            <rfileupload name="fileupload1" [(ngModel)]="fileupload1" [EnableShadowEffect]="fileUploadEnableShadow"
+              [ShowFilesAsDropdownContainer]="fileUploadShowDropdown"
+              [ShowFilesListMaximumHeightInPx]="fileUploadMaxHeight" [AllowedMaxFileSizeInMB]="fileUploadMaxSizeMB"
+              [IconForeColor]="fileUploadIconColor" [IsReadOnly]="fileUploadReadOnly"
+              [SelectMultipleFiles]="fileUploadMultiple">
+            </rfileupload>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 13px; font-weight: 600; color: #475569;">Column Filter:</span>
+            <rfilter [ColumnName]="filterColumnName" [Color]="filterColor"></rfilter>
+          </div>
+        </div>
+        <div class="card-hint">Multi-file upload with file list dropdown and column search filtering</div>
+      </div>
+    </div>
+    }
+
+    <!-- ==================================================== -->
+    <!-- SECTION 2: 12 DATA VISUALIZATIONS & CHARTS           -->
+    <!-- ==================================================== -->
+    @if (activeCategoryTab === 'all' || activeCategoryTab === 'charts') {
+    <div class="section-banner">
+      <span class="section-badge">2</span>
+      <div>
+        <h2 class="section-title">12 Data Visualizations & Analytics Charts</h2>
+        <p class="section-desc">HTML5 Canvas charts bound to live dataset properties with customizable glassy effects
+          and theme accents</p>
+      </div>
+    </div>
+
+    <div class="section-grid">
+      <!-- 1. Pie Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">1. Resource Breakdown (RPieChartComponent)</h3>
+          <code class="card-selector">&lt;rpiechart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rpiechart name="pieChart" [Items]="pieChartItems" [ChartWidth]="pieChartWidth"
+            [DataListHeight]="pieDataListHeight" [ShadowBlur]="pieShadowBlur" [ChartFontSize]="pieFontSize"
+            [EnableBorder]="pieEnableBorder">
+          </rpiechart>
+        </div>
+        <div class="card-hint">Browser and component resource allocation slice</div>
+      </div>
+
+      <!-- 2. Donut Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">2. Cloud Infrastructure (RDonutChartComponent)</h3>
+          <code class="card-selector">&lt;rdonutchart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rdonutchart name="donutChart" 
+           [MoveTextUpwardsFromCenterInPx]="40"
+           [Items]="donutChartItems" [ChartWidth]="donutChartWidth"
+            [DataListHeight]="donutDataListHeight" [ShadowBlur]="donutShadowBlur" [EnableBorder]="donutEnableBorder">
+          </rdonutchart>
+        </div>
+        <div class="card-hint">Compute, storage, network, and IAM breakdown</div>
+      </div>
+
+      <!-- 3. Vertical Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">3. Quarterly Revenue vs Expenses (RBarChartVerticalComponent)</h3>
+          <code class="card-selector">&lt;rbarchart-vertical&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rbarchart-vertical name="barVerticalChart" [Columns]="barVerticalColumns"
+            [xAxisItemNames]="barVerticalMonths" [GapBetweenBars]="allocatedGap" [Width]="chartWidth"
+            [Height]="chartHeight" [MarginX]="chartMarginX" [XAxisTitle]="barVerticalXTitle"
+            [YAxisTitle]="barVerticalYTitle" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"
+            [EnableBorder]="chartEnableBorder">
+          </rbarchart-vertical>
+        </div>
+        <div class="card-hint">Quarterly revenue and expense comparisons</div>
+      </div>
+
+      <!-- 4. Horizontal Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">4. Project Hours: Planned vs Actual (RBarChartHorizontalComponent)</h3>
+          <code class="card-selector">&lt;rbarchart-horizontal&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rbarchart-horizontal name="barHorizontalChart" [Columns]="barHorizontalColumns"
+            [yAxisItemNames]="barHorizontalItems" [GapBetweenBars]="allocatedGap" [Width]="chartWidth"
+            [Height]="chartHeight" [MarginX]="barHorizontalMarginX" [MarginBottom]="barHorizontalMarginBottom"
+            [XAxisTitle]="barHorizontalXTitle" [YAxisTitle]="barHorizontalYTitle" [GlassyEffect]="enableGlassyEffect"
+            [GlassyEffectColor]="glassyColor" [EnableBorder]="chartEnableBorder">
+          </rbarchart-horizontal>
+        </div>
+        <div class="card-hint">Planned vs actual hours per development phase</div>
+      </div>
+
+      <!-- 5. Horizontal Stacked Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">5. Phase Workload (RStackedBarChartHorizontalComponent)</h3>
+          <code class="card-selector">&lt;rstackedbarchart-horizontal&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rstackedbarchart-horizontal name="stackedHorizontalChart" [Columns]="barHorizontalColumns"
+            [yAxisItemNames]="barHorizontalItems" [Width]="chartWidth" [Height]="chartHeight" [MarginX]="chartMarginX"
+            [GapBetweenBars]="allocatedGap" [NoOfSplitInValueAxis]="stackedHorizSplits"
+            [XAxisTitle]="stackedHorizXTitle" [YAxisTitle]="stackedHorizYTitle" [EnableBorder]="chartEnableBorder">
+          </rstackedbarchart-horizontal>
+        </div>
+        <div class="card-hint">Horizontal stacked breakdown of development hours</div>
+      </div>
+
+      <!-- 6. Vertical Stacked Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">6. Expense Composition (RStackedBarChartVerticalComponent)</h3>
+          <code class="card-selector">&lt;rstackedbarchart-vertical&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rstackedbarchart-vertical name="stackedBarChart" [Columns]="stackedbarChartItems1"
+            [xAxisItemNames]="stackedbarChartXAxisItemNames1" [Width]="chartWidth" [Height]="chartHeight"
+            [MarginX]="chartMarginX" [GapBetweenBars]="allocatedGap" [NoOfSplitInValueAxis]="stackedVertSplits"
+            [XAxisTitle]="stackedVertXTitle" [YAxisTitle]="stackedVertYTitle" [EnableBorder]="chartEnableBorder">
+          </rstackedbarchart-vertical>
+        </div>
+        <div class="card-hint">Monthly cumulative infrastructure and compute costs</div>
+      </div>
+
+      <!-- 7. Stacked Range Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">7. Variance Range (RStackedRangeBarChartVerticalComponent)</h3>
+          <code class="card-selector">&lt;rstackedrangebarchart-vertical&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rstackedrangebarchart-vertical name="stackedRangeBarChart" [Columns]="stackedrangebarChartItems1"
+            [xAxisItemNames]="stackedrangebarChartXAxisItemNames1" [Width]="chartWidth" [Height]="chartHeight"
+            [MarginX]="chartMarginX" [GapBetweenBars]="allocatedGap" [NoOfSplitInValueAxis]="stackedRangeSplits"
+            [XAxisTitle]="stackedRangeXTitle" [YAxisTitle]="stackedRangeYTitle" [EnableBorder]="chartEnableBorder">
+          </rstackedrangebarchart-vertical>
+        </div>
+        <div class="card-hint">Positive and negative range bar variances</div>
+      </div>
+
+      <!-- 8. Area Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">8. Traffic Ingress/Egress (RAreaChartComponent)</h3>
+          <code class="card-selector">&lt;rareachart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rareachart [xAxisItemNames]="arealineMonths" name="areachart" [XAxisTitle]="areaXTitle"
+            [YAxisTitle]="areaYTitle" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"
+            [EnableBorder]="chartEnableBorder" [EnablePlotOnPoints]="areaEnablePlotOnPoints" [Items]="areaChartItems"
+            [Width]="chartWidth" [Height]="chartHeight">
+          </rareachart>
+        </div>
+        <div class="card-hint">Users and sessions filled area curves</div>
+      </div>
+
+      <!-- 9. Line Chart Vertical -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">9. Deployment Velocity (RLineChartVerticalComponent)</h3>
+          <code class="card-selector">&lt;rlinechart-vertical&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rlinechart-vertical name="lineChartVertical" [Items]="lineChartItems" [PlotItemSize]="linePlotItemSize"
+            [xAxisItemNames]="lineMonths" [MarginRight]="lineMarginRight" [Width]="chartWidth" [Height]="chartHeight"
+            [MarginX]="chartMarginX" [XAxisTitle]="lineXTitle" [YAxisTitle]="lineYTitle"
+            [EnableBorder]="chartEnableBorder" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor">
+          </rlinechart-vertical>
+        </div>
+        <div class="card-hint">Active users and sessions over 6 months</div>
+      </div>
+
+      <!-- 10. Scatter Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">10. Correlation Scatter (RScatterChartComponent)</h3>
+          <code class="card-selector">&lt;rscatterchart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rscatterchart name="scatterChart" [Items]="scatterChartItems" [Width]="chartWidth" [Height]="chartHeight"
+            [XAxisTitle]="scatterXTitle" [YAxisTitle]="scatterYTitle" [EnableBorder]="chartEnableBorder"
+            [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor">
+          </rscatterchart>
+        </div>
+        <div class="card-hint">Cluster correlation data points</div>
+      </div>
+
+      <!-- 11. Allocated Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">11. Capacity vs Target (RAllocatedBarChartComponent)</h3>
+          <code class="card-selector">&lt;rallocated-barchart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rallocated-barchart name="allocatedBarChart" [Columns]="allocatedBarItems" [xAxisItemNames]="allocatedMonths"
+            [Width]="chartWidth" [Height]="chartHeight" [MarginX]="chartMarginX" [GapBetweenBars]="allocatedGap"
+            [NoOfSplitInValueAxis]="allocatedSplits" [XAxisTitle]="allocatedXTitle" [YAxisTitle]="allocatedYTitle"
+            [EnableBorder]="chartEnableBorder" [GlassyEffect]="enableGlassyEffect" [GlassyEffectColor]="glassyColor"
+            [EnableBorderForPopup]="allocatedEnablePopupBorder" [PopupBackgroundOpacity]="allocatedPopupBgOpacity">
+          </rallocated-barchart>
+        </div>
+        <div class="card-hint">Spent vs Allocated sprint budgets</div>
+      </div>
+
+      <!-- 12. Series Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Chart</span>
+          <h3 class="card-title">12. Unified Series (RSeriesChartComponent)</h3>
+          <code class="card-selector">&lt;rserieschart&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rserieschart name="seriesChart" [XAxisTitle]="seriesXTitle" [YAxisTitle]="seriesYTitle"
+            [FillAreaColor]="seriesFillArea" [Width]="chartWidth" [Height]="chartHeight"
+            [PlotItemSize]="seriesPlotItemSize" [EnableBorder]="chartEnableBorder" [GlassyEffect]="enableGlassyEffect"
+            [GlassyEffectColor]="glassyColor" [Items]="seriesModel2">
+          </rserieschart>
+        </div>
+        <div class="card-hint">Disk throughput vs network speed series</div>
+      </div>
+    </div>
+    }
+
+    <!-- ==================================================== -->
+    <!-- SECTION 3: STEPPERS, TRACKERS & SCHEDULES            -->
+    <!-- ==================================================== -->
+    @if (activeCategoryTab === 'all' || activeCategoryTab === 'steppers') {
+    <div class="section-banner">
+      <span class="section-badge">3</span>
+      <div>
+        <h2 class="section-title">Steppers, Trackers & Workflow Pipelines</h2>
+        <p class="section-desc">Interactive process wizards with wide card views, compact sequence tracker (320px), and
+          events schedule</p>
+      </div>
+    </div>
+
+    <div class="section-grid">
+      <!-- 1. Horizontal State Progress -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Workflow</span>
+          <h3 class="card-title">1. Pipeline State Tracker (RStateHorizontalComponent)</h3>
+          <code class="card-selector">&lt;rstate-horizontal&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstate-horizontal [IsDisabled]="stateDisabled" name="rstateh" [(ngModel)]="stateHorizontal"
+            [Items]="hsequenceItems">
+          </rstate-horizontal>
+        </div>
+        <div class="card-hint">Pipeline order tracking: completed, active, and pending states</div>
+      </div>
+
+      <!-- 2. Vertical State Progress -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Workflow</span>
+          <h3 class="card-title">2. Milestone Workflow (RStateVerticalComponent)</h3>
+          <code class="card-selector">&lt;rstate-vertical&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstate-vertical [IsDisabled]="stateDisabled" name="rstate1" [(ngModel)]="stateVertical"
+            [Items]="sequenceItems">
+          </rstate-vertical>
+        </div>
+        <div class="card-hint">Vertical milestone progression pipeline</div>
+      </div>
+
+      <!-- 3. Sequence Tracker (Reduced Width to 320px) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Workflow</span>
+          <h3 class="card-title">3. Sequence Milestone Trackers (RSequencesTrackerComponent)</h3>
+          <code class="card-selector">&lt;rsequences-tracker&gt; &lt;rsequencetracker&gt;</code>
+        </div>
+        <div class="card-body">
+          <rsequences-tracker [IsDisabled]="sequencesTrackerDisabled" [ContentWidth]="sequencesTrackerContentWidth">
+            <rsequencetracker *rtrackercontent="seqStep1Config">
+              <div style="padding: 6px 0; font-size: 13px; color: #475569;">
+                <strong>Step 1:</strong> Project configuration initialized and validated.
+              </div>
+            </rsequencetracker>
+            <rsequencetracker *rtrackercontent="seqStep2Config">
+              <div style="padding: 6px 0; font-size: 13px; color: #475569;">
+                <strong>Step 2:</strong> Two-way CVA data models linked and verified.
+              </div>
+            </rsequencetracker>
+            <rsequencetracker *rtrackercontent="seqStep3Config">
+              <div style="padding: 6px 0; font-size: 13px; color: #475569;">
+                <strong>Step 3:</strong> Production telemetry operational.
+              </div>
+            </rsequencetracker>
+          </rsequences-tracker>
+        </div>
+        <div class="card-hint">Multi-stage sequence tracker with compact 320px content width</div>
+      </div>
+
+      <!-- 4. Guided Horizontal Stepper (Wide Card) -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Workflow</span>
+          <h3 class="card-title">4. Guided Horizontal Stepper (RStepperHorizontalComponent)</h3>
+          <code class="card-selector">&lt;rstepper-horizontal&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstepper-horizontal [IsDisabled]="stepperHorizDisabled" [ShowStateHorizontal]="stepperHorizShowState">
+            <rstep [Title]="stepperStep1Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 12px 0; font-size: 14px; color: #334155;">
+                  <strong>Step 1 — Account Setup:</strong> Configure account credentials, SSO authentication, and API
+                  access keys.
+                </div>
+              </ng-template>
+            </rstep>
+            <rstep [Title]="stepperStep2Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 12px 0; font-size: 14px; color: #334155;">
+                  <strong>Step 2 — Profile & Team:</strong> Add team role designations, access permissions, and
+                  notification channels.
+                </div>
+              </ng-template>
+            </rstep>
+            <rstep [Title]="stepperStep3Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 12px 0; font-size: 14px; color: #334155;">
+                  <strong>Step 3 — System Preferences:</strong> Configure telemetry logging levels, cluster replication
+                  regions, and cache TTL.
+                </div>
+              </ng-template>
+            </rstep>
+            <rstep [Title]="stepperStep4Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 12px 0; font-size: 14px; color: #334155;">
+                  <strong>Step 4 — Final Review:</strong> Validate configuration settings and deploy node cluster to
+                  production.
+                </div>
+              </ng-template>
+            </rstep>
+          </rstepper-horizontal>
+
+          <div style="display: flex; gap: 10px; margin-top: 16px; align-items: center;">
+            <rbutton [ButtonWidth]="stepperButtonWidth" (ButtonClick)="prevHorizontalStep()">
+              &larr; Previous
+            </rbutton>
+            <rbutton [ButtonWidth]="stepperButtonWidth" (ButtonClick)="nextHorizontalStep()">
+              Next &rarr;
+            </rbutton>
+            <span style="font-size: 13px; color: #64748b; margin-left: 8px;">
+              Active Step: <strong>{{ stepperHorizontalIndex + 1 }} / 4</strong>
+            </span>
+          </div>
+        </div>
+        <div class="card-hint">Multi-step horizontal wizard with expanded card width and step projection templates</div>
+      </div>
+
+      <!-- 5. Guided Vertical Stepper (Wide Card) -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Workflow</span>
+          <h3 class="card-title">5. Guided Vertical Stepper (RStepperVerticalComponent)</h3>
+          <code class="card-selector">&lt;rstepper-vertical&gt;</code>
+        </div>
+        <div class="card-body">
+          <rstepper-vertical [IsDisabled]="stepperVertDisabled" [ShowStateVertical]="stepperVertShowState">
+            <rstep [Title]="stepperVertStep1Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 10px 0; font-size: 14px; color: #334155;">
+                  <strong>Phase 1:</strong> Validating database schema models, two-way CVA bindings, and data
+                  constraints.
+                </div>
+              </ng-template>
+            </rstep>
+            <rstep [Title]="stepperVertStep2Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 10px 0; font-size: 14px; color: #334155;">
+                  <strong>Phase 2:</strong> Executing zero-downtime data migration on regional cluster nodes.
+                </div>
+              </ng-template>
+            </rstep>
+            <rstep [Title]="stepperVertStep3Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 10px 0; font-size: 14px; color: #334155;">
+                  <strong>Phase 3:</strong> Running end-to-end telemetry verification and integration test suites.
+                </div>
+              </ng-template>
+            </rstep>
+            <rstep [Title]="stepperVertStep4Title" [IsStepValid]="stepperStepValid">
+              <ng-template rstepview>
+                <div style="padding: 10px 0; font-size: 14px; color: #334155;">
+                  <strong>Phase 4:</strong> Traffic cutover completed successfully with 100% health check pass rate.
+                </div>
+              </ng-template>
+            </rstep>
+          </rstepper-vertical>
+
+          <div style="display: flex; gap: 10px; margin-top: 16px; align-items: center;">
+            <rbutton [ButtonWidth]="stepperButtonWidth" (ButtonClick)="prevVerticalStep()">
+              &larr; Previous
+            </rbutton>
+            <rbutton [ButtonWidth]="stepperButtonWidth" (ButtonClick)="nextVerticalStep()">
+              Next &rarr;
+            </rbutton>
+            <span style="font-size: 13px; color: #64748b; margin-left: 8px;">
+              Active Step: <strong>{{ stepperVerticalIndex + 1 }} / 4</strong>
+            </span>
+          </div>
+        </div>
+        <div class="card-hint">Vertical stepper with wide card layout and custom projected steps</div>
+      </div>
+
+      <!-- 6. Events Schedule Matrix -->
+      <div class="card card-wide" style="min-height: 480px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Events</span>
+          <h3 class="card-title">6. Multi-Channel Daily Schedule (REventsScheduleComponent)</h3>
+          <code class="card-selector">&lt;revents-schedule&gt;</code>
+        </div>
+        <div class="card-body">
+          <revents-schedule [IsDisabled]="eventsScheduleDisabled" [FontSize]="eventsScheduleFontSize"
+            name="revents-schedule" [ShowMarker]="eventsScheduleShowMarker"
+            [ShowScrollBar]="eventsScheduleShowScrollBar" [MinutesForEachCell]="eventsScheduleCellMinutes"
+            [SelectedDate]="selectedDate" [EnableMovePageToCurrentTime]="eventsScheduleMoveToCurrentTime"
+            [ScheduleItems]="scheduleItems">
+          </revents-schedule>
+        </div>
+        <div class="card-hint">Multi-channel day scheduler with timeline matrix</div>
+      </div>
+
+      <!-- 7. Events Calendar Component -->
+      <div class="card card-wide" style="min-height: 520px;">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Events</span>
+          <h3 class="card-title">7. Events Calendar (REventsCalenderComponent)</h3>
+          <code class="card-selector">&lt;revents-calender&gt;</code>
+        </div>
+        <div class="card-body">
+          <revents-calender name="revents-calender" [FontSize]="eventsCalendarFontSize"
+            [IsPopupModalReadOnly]="eventsCalendarModalReadOnly" (ChangeMonthEvent)="changeCalenderMonth($event)"
+            [EachDayHeightInPx]="eventsCalendarDayHeight" [EachDayWidthInPx]="eventsCalendarDayWidth"
+            [(ngModel)]="calenderEvents">
+          </revents-calender>
+        </div>
+        <div class="card-hint">Full-month calendar with event markers and popup dialog</div>
+      </div>
+    </div>
+    }
+
+    <!-- ==================================================== -->
+    <!-- SECTION 4: DATA GRIDS, TREES & CONTAINERS            -->
+    <!-- ==================================================== -->
+    @if (activeCategoryTab === 'all' || activeCategoryTab === 'containers') {
+    <div class="section-banner">
+      <span class="section-badge">4</span>
+      <div>
+        <h2 class="section-title">Data Grids, Trees & Navigation Containers</h2>
+        <p class="section-desc">Virtual scrolling data grids, hierarchical tree, simple/flat/draggable tabs, group
+          panels, dynamic carousel, and 3-pane splitter</p>
+      </div>
+    </div>
+
+    <div class="section-grid">
+      <!-- 1. Virtual Data Grid (Templated Columns) -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Grid</span>
+          <h3 class="card-title">1. Virtual Scrolling Data Grid (Custom Column Templates)</h3>
+          <code class="card-selector">&lt;rgrid [TableWidth]="gridTableWidth"&gt; &lt;rcolumn&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rgrid [PageItems]="ditems" [(ngModel)]="gridItems1" [Items]="gridItems1" name="staticGrid"
+            [EnableShadow]="gridEnableShadow" [ShowGroupHeader]="gridShowGroupHeader" [RowHeightInPx]="gridRowHeight"
+            [GroupHeaderRowHeightInPx]="gridGroupHeaderRowHeight" [ShowEditUpdate]="gridShowEditUpdate"
+            [EnableSelectColummn]="gridEnableSelectColumn" [ItemsPerPage]="ItemsPerPage"
+            [EnableAlternateRowColor]="gridEnableAlternateRowColor" [RowHoverBackgroundOpacity]="gridRowHoverOpacity"
+            [TableHeight]="gridTableHeight" [TableWidth]="gridTableWidth">
+            <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="gridCol1Header"
+              [Width]="gridCol1Width">
+              <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                <span>{{ cell.Value }}</span>
+              </ng-template>
+              <ng-template editviewtemplate let-Item let-rcell="CellInfo">
+                <rtextbox [TextBoxHeight]="gridInlineTextBoxHeight" [EnableMarginTextBottom]="false"
+                  [PaddingLeft]="'0px'" [name]="'name_'+rcell.DisplayRow +'_'+rcell.DisplayColumn"
+                  [TextBoxWidth]="gridInlineTextBoxWidth1" [(ngModel)]="rcell.Value" />
+              </ng-template>
+            </rcolumn>
+            <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="gridCol2Header"
+              [Width]="gridCol2Width">
+              <ng-template headertemplate let-Item>
+                {{ Item.HeaderText }}
+              </ng-template>
+              <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                <strong>{{ cell.Value }}</strong>
+              </ng-template>
+              <ng-template editviewtemplate let-cell="CellInfo">
+                <rtextbox [TextBoxHeight]="gridInlineTextBoxHeight" [EnableMarginTextBottom]="false"
+                  [PaddingLeft]="'0px'" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
+                  [TextBoxWidth]="gridInlineTextBoxWidth2" [(ngModel)]="cell.Value" />
+              </ng-template>
+            </rcolumn>
+            <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="gridCol3Header"
+              [Width]="gridCol3Width">
+              <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                <span>{{ cell.Value }}</span>
+              </ng-template>
+              <ng-template editviewtemplate let-cell="CellInfo">
+                <rnumeric [PaddingLeft]="'0px'" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
+                  [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="gridInlineNumericWidth"
+                  [TextBoxHeight]="gridInlineNumericHeight">
+                </rnumeric>
+              </ng-template>
+            </rcolumn>
+            <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education'" [HeaderText]="gridCol4Header"
+              [Width]="gridCol4Width">
+              <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                <span>{{ Item.Education?.DisplayValue || Item.Education }}</span>
+              </ng-template>
+              <ng-template editviewtemplate let-cell="CellInfo">
+                <rdropdown [Items]="degrees" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
+                  [DropDownContentWidth]="gridInlineDropdownContentWidth" [Width]="gridInlineDropdownWidth"
+                  [(ngModel)]="cell.Value">
+                </rdropdown>
+              </ng-template>
+            </rcolumn>
+          </rgrid>
+        </div>
+        <div class="card-hint">Virtual scrolling grid with templated column headers, cell rendering, and pagination (90%
+          width)
+        </div>
+      </div>
+
+      <!-- 2. Auto-Generated Column Grid -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Grid</span>
+          <h3 class="card-title">2. Default Auto-Column Data Grid (RGridComponent)</h3>
+          <code class="card-selector">&lt;rgrid [TableWidth]="gridTableWidth" [Items]="gridItemsAuto"&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rgrid [PageItems]="ditems" [Items]="gridItemsAuto" name="autoGrid" [EnableShadow]="gridEnableShadow"
+            [ShowGroupHeader]="gridShowGroupHeader" [RowHeightInPx]="gridRowHeight"
+            [GroupHeaderRowHeightInPx]="gridGroupHeaderRowHeight" [ShowEditUpdate]="gridShowEditUpdate"
+            [EnableSelectColummn]="gridEnableSelectColumn" [ItemsPerPage]="ItemsPerPage"
+            [EnableAlternateRowColor]="gridEnableAlternateRowColor" [RowHoverBackgroundOpacity]="gridRowHoverOpacity"
+            [TableHeight]="gridAutoTableHeight" [TableWidth]="gridTableWidth">
+          </rgrid>
+        </div>
+        <div class="card-hint">Automatic column generation directly from dataset objects with group header (90% width)
+        </div>
+      </div>
+
+      <!-- 3. Hierarchical Tree -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h3 class="card-title">3. Hierarchical Tree (RTreeComponent)</h3>
+          <code class="card-selector">&lt;rtree&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtree [IsDisabled]="treeDisabled" name="tree" [Items]="treeItems" (onExpandClicked)="onTreeExpand($event)"
+            (onItemSelected)="onTreeExpand($event)">
+          </rtree>
+        </div>
+        <div class="card-hint">Interactive hierarchical tree with branch expansion and selection events</div>
+      </div>
+
+      <!-- 4. Accordion (Wide Card with 80% Content Width) -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-layout">Layout</span>
+          <h3 class="card-title">4. Expandable Accordion (RAccordionComponent)</h3>
+          <code class="card-selector">&lt;raccordion [ContentWidth]="accordionContentWidth"&gt;</code>
+        </div>
+        <div class="card-body center">
+          <raccordion [IsDisabled]="accordionDisabled" [GapBetweenContent]="accordionGap"
+            [ContentWidth]="accordionContentWidth">
+            <ng-container *rcontent="accordionContent1">
+              <div style="padding: 10px; font-size: 13px; color: #475569;">
+                Primary nodes operational across 3 regions. Automatic failover enabled.
+              </div>
+            </ng-container>
+            <ng-container *rcontent="accordionContent2">
+              <div style="padding: 10px; font-size: 13px; color: #475569;">
+                mTLS encryption enforced. JWT tokens rotated every 60 minutes.
+              </div>
+            </ng-container>
+            <ng-container *rcontent="accordionContent3">
+              <div style="padding: 10px; font-size: 13px; color: #475569;">
+                99.99% uptime recorded over the last 90 calendar days.
+              </div>
+            </ng-container>
+          </raccordion>
+        </div>
+        <div class="card-hint">Expandable accordion with <code>*rcontent</code> directive (80% width)</div>
+      </div>
+
+      <!-- 5. Simple Tabs (Wide Card) -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h3 class="card-title">5. Simple Tabs (RSimpleTabsComponent)</h3>
+          <code class="card-selector">&lt;rsimpletabs&gt;</code>
+        </div>
+        <div class="card-body">
+          <rsimpletabs [SelectedTabId]="simpleTabSelectedId" [EnableBoxShadow]="simpleTabEnableShadow"
+            [TabWidth]="tabContainerWidth" [TabHeight]="tabContainerHeight">
+            <rtab *tabidfor="simpleTab1Config">
+              <div style="padding: 14px; font-size: 13px; color: #475569;">System overview pane content with live
+                operational telemetry.</div>
+            </rtab>
+            <rtab *tabidfor="simpleTab2Config">
+              <div style="padding: 14px; font-size: 13px; color: #475569;">Analytics dashboard metrics, response times,
+                and error rate KPIs.</div>
+            </rtab>
+            <rtab *tabidfor="simpleTab3Config">
+              <div style="padding: 14px; font-size: 13px; color: #475569;">Cluster health status: all 12 nodes reporting
+                100% availability.</div>
+            </rtab>
+          </rsimpletabs>
+        </div>
+        <div class="card-hint">Clean tabs with <code>*tabidfor</code> template directive in expanded wide card</div>
+      </div>
+
+      <!-- 6. Flat Tabs (RFlatTabsComponent) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h3 class="card-title">6. Flat Strip Tabs (RFlatTabsComponent)</h3>
+          <code class="card-selector">&lt;rflattabs&gt;</code>
+        </div>
+        <div class="card-body">
+          <rflattabs [TabWidth]="tabContainerWidth" [TabHeight]="tabContainerHeight">
+            <rtab *tabidfor="flatTab1Config">
+              <div style="padding: 14px; font-size: 13px; color: #475569;">Production environment active in US-West
+                (Oregon) cluster.</div>
+            </rtab>
+            <rtab *tabidfor="flatTab2Config">
+              <div style="padding: 14px; font-size: 13px; color: #475569;">Staging build 2.4.0 passing all automated
+                health checks.</div>
+            </rtab>
+          </rflattabs>
+        </div>
+        <div class="card-hint">Flat underline style tab navigation via <code>&lt;rflattabs&gt;</code></div>
+      </div>
+
+      <!-- 7. Drag Drop Tabs (RTabsComponent) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h3 class="card-title">7. Interactive Draggable Tabs (RTabsComponent)</h3>
+          <code class="card-selector">&lt;rtabs&gt;</code>
+        </div>
+        <div class="card-body">
+          <rtabs [TabWidth]="tabContainerWidth" [TabHeight]="tabContainerHeight">
+            <rtab *tabidfor="dragTab1Config">
+              <div style="padding: 14px; font-size: 13px; color: #475569;">Interactive Draggable Tab 1 — Node Cluster
+                Alpha.</div>
+            </rtab>
+            <rtab *tabidfor="dragTab2Config">
+              <div style="padding: 14px; font-size: 13px; color: #475569;">Interactive Draggable Tab 2 — Node Cluster
+                Beta.</div>
+            </rtab>
+          </rtabs>
+        </div>
+        <div class="card-hint">Draggable reorderable tabs container with CDK drag-drop support via
+          <code>&lt;rtabs&gt;</code>
+        </div>
+      </div>
+
+      <!-- 8. Group Panel -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-layout">Layout</span>
+          <h3 class="card-title">8. Group Panel (RGrouppanelComponent)</h3>
+          <code class="card-selector">&lt;rgroup-panel&gt;</code>
+        </div>
+        <div class="card-body">
+          <rgroup-panel [groupname]="groupPanelName" [EnableShadowEffect]="groupPanelEnableShadow">
+            <div style="padding: 12px; font-size: 13px; color: #475569;">
+              Encrypted TLS 1.3 tunnels active. Zero-trust token authentication enabled.
+            </div>
+          </rgroup-panel>
+        </div>
+        <div class="card-hint">Titled group panel container for organized fieldsets</div>
+      </div>
+
+      <!-- 9. Image Carousel (Compact Card) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-nav">Nav</span>
+          <h3 class="card-title">9. Image Carousel (RCarouselComponent)</h3>
+          <code class="card-selector">&lt;rcarousel&gt; img[rimage]</code>
+        </div>
+        <div class="card-body center" style="flex-direction: column; gap: 12px;">
+          <rcarousel [EnableAutoPlay]="carouselAutoPlay" [AutoPlayDurationBetweenSlides]="carouselDuration"
+            [Width]="carouselWidth" [Height]="carouselHeight">
+            <img rimage *ngFor="let img of carouselImages" [src]="img.src" [alt]="img.title" />
+          </rcarousel>
+          <rbutton [ButtonWidth]="carouselButtonWidth" (ButtonClick)="addCarouselSlide()">
+            + Add Slide
+          </rbutton>
+        </div>
+        <div class="card-hint">Compact slide transitions with <code>img[rimage]</code> and dynamic slide creation</div>
+      </div>
+
+      <!-- 10. Split Page & Splitter (Compact Card) -->
+      <div class="card card-wide">
+        <div class="card-header">
+          <span class="card-tag tag-layout">Layout</span>
+          <h3 class="card-title">10. Split Page & Splitter (RSplitterComponent)</h3>
+          <code class="card-selector">&lt;rsplitter&gt; [rpagecontent]</code>
+        </div>
+        <div class="card-body" style="min-height: 160px;">
+          <rsplitter [IsReadOnly]="splitterReadOnly" [TotalWidth]="splitterTotalWidth"
+            [TotalHeight]="splitterTotalHeight">
+            <ng-template rpagecontent [InitialWidth]="splitterPane1Width" [InitialHeight]="'90%'">
+              <div style="padding: 10px; background: #f8fafc; height: 80%; color: #1e293b; font-size: 12px;">
+                <strong>Primary</strong>
+                <p style="margin-top: 4px; color: #64748b; font-size: 11px;">Workspace pane.</p>
+              </div>
+            </ng-template>
+            <ng-template rpagecontent [InitialWidth]="splitterPane2Width">
+              <div style="padding: 10px; background: #f0fdf4; height: 80%; color: #065f46; font-size: 12px;">
+                <strong>Telemetry</strong>
+                <p style="margin-top: 4px; color: #047857; font-size: 11px;">Live telemetry.</p>
+              </div>
+            </ng-template>
+            <ng-template rpagecontent [InitialWidth]="splitterPane3Width">
+              <div style="padding: 10px; background: #f5f3ff; height: 80%; color: #5b21b6; font-size: 12px;">
+                <strong>Monitor</strong>
+                <p style="margin-top: 4px; color: #7c3aed; font-size: 11px;">Cluster metrics.</p>
+              </div>
+            </ng-template>
+          </rsplitter>
+        </div>
+        <div class="card-hint">Compact 3-pane resizable layout with draggable divider bars</div>
+      </div>
+    </div>
+    }
+
+    <!-- ==================================================== -->
+    <!-- SECTION 5: INDICATORS & ACTIONS                      -->
+    <!-- ==================================================== -->
+    @if (activeCategoryTab === 'all' || activeCategoryTab === 'indicators') {
+    <div class="section-banner">
+      <span class="section-badge">5</span>
+      <div>
+        <h2 class="section-title">Indicators, Progress & Actions</h2>
+        <p class="section-desc">Linear and circular progress gauges, live timer with callback triggers, and action
+          buttons</p>
+      </div>
+    </div>
+
+    <div class="section-grid">
+      <!-- 1. Linear Progress Bar -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Indicator</span>
+          <h3 class="card-title">1. Straight-Line Progress (RProgressbarComponent)</h3>
+          <code class="card-selector">&lt;rprogressbar [DisplayType]="progressDisplayLinear"&gt;</code>
+        </div>
+        <div class="card-body">
+          <div style="margin-bottom: 12px;">
+            <span class="form-label">Adjust Progress: {{ progressBarVal }}%</span>
+            <rslider [(ngModel)]="progressBarVal" [MinValue]="sliderMinValue" [MaxValue]="sliderMaxValue"
+              [SliderBarWidth]="sliderWidth" [SliderColor]="sliderColor" [TrackColor]="sliderTrackColor"
+              [IsDisplayValue]="false">
+            </rslider>
+          </div>
+          <rprogressbar [Percentage]="progressBarVal" [ProgressBarWidthInPx]="progressWidthFull"
+            [FloatInCenter]="progressFloatCenter" [StraightLineTrackHeightInPx]="progressStraightLineHeight"
+            [Type]="progressType0" [DisplayType]="progressDisplayLinear">
+          </rprogressbar>
+        </div>
+        <div class="card-hint">Linear track progress gauge: <code>{{ progressBarVal }}%</code></div>
+      </div>
+
+      <!-- 2. Circular Progress Bar -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-chart">Indicator</span>
+          <h3 class="card-title">2. Circular Progress Gauge (RProgressbarComponent)</h3>
+          <code class="card-selector">&lt;rprogressbar [DisplayType]="progressDisplayCircle"&gt;</code>
+        </div>
+        <div class="card-body center">
+          <rprogressbar [Percentage]="progressBarVal" [ProgressBarWidthInPx]="progressCircleWidth"
+            [FloatInCenter]="progressFloatCenter" [CircularLineWidthInPx]="progressCircleLineWidth"
+            [Type]="progressType0" [DisplayType]="progressDisplayCircle">
+          </rprogressbar>
+        </div>
+        <div class="card-hint">Circular percentage index: <code>{{ progressBarVal }}%</code></div>
+      </div>
+
+      <!-- 3. Timer Component -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-data">Data Display</span>
+          <h3 class="card-title">3. Live Timer (RTimerComponent)</h3>
+          <code class="card-selector">&lt;rtimer&gt;</code>
+        </div>
+        <div class="card-body center" style="flex-direction: column; gap: 14px;">
+          <rtimer #timerRef [IsDisabled]="timerDisabled" name="rtimer1" [DisplayType]="timerDisplayType"
+            [HoursForeColor]="'#3b82f6'" [MinuteForeColor]="'#10b981'" [SecondsForeColor]="'#f59e0b'"
+            [DisplayTextForeColor]="'#1e293b'"
+            [CircularWidth]="timerCircularWidth" [CallbackAfterCertainSeconds]="timerCallbackSeconds"
+            (CallbackTriggeredAfterCertainSeconds)="onTimerCallback($event)">
+          </rtimer>
+          <div style="display: flex; gap: 10px;">
+            <rbutton [ButtonWidth]="timerButtonWidth" (ButtonClick)="startTimer()">Start</rbutton>
+            <rbutton [ButtonWidth]="timerButtonWidth" [BackgroundColor]="'#64748b'" (ButtonClick)="stopTimer()">Stop</rbutton>
+          </div>
+        </div>
+        <div class="card-hint">Timer callback trigger: <code>{{ timerCallbackResult }}</code></div>
+      </div>
+
+      <!-- 4. Interactive Action Buttons -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-tag tag-form">Action</span>
+          <h3 class="card-title">4. Action Buttons (RButtonComponent)</h3>
+          <code class="card-selector">&lt;rbutton&gt;</code>
+        </div>
+        <div class="card-body" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <rbutton [ButtonWidth]="actionButtonWidth" (ButtonClick)="onButtonClick()">Primary Action</rbutton>
+          <rbutton [ButtonWidth]="actionButtonWidth" [BackgroundColor]="'#64748b'" (ButtonClick)="onButtonClick()">Secondary</rbutton>
+        </div>
+        <div class="card-hint">Status: <code>{{ lastButtonClickMsg }}</code></div>
+      </div>
+    </div>
+    }
+  </main>
+</div>

@@ -7,6 +7,7 @@ import { AppComponent } from './app/app.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { AppRootComponent } from './app/appb.component';
 import { RootComponent } from './app/root-component/root.component';
+import { LoadComponent } from './app/load/load.component';
 
-bootstrapApplication(RootComponent, appConfig)
+bootstrapApplication(LoadComponent, appConfig)
   .catch((err) => console.error(err));

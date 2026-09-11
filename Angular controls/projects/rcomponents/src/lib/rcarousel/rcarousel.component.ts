@@ -151,15 +151,16 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
 
     const imageChangesSub = this.Images.changes.subscribe((images: QueryList<RImageDirective>) => {
       
-      this.FirstElement = images.first.element.nativeElement;
-      this.LastElement = images.last.element.nativeElement;
-      this.ImagesList = images.toArray();
-      this.totalItems = images.length + 2;
+      this.FirstElement = images?.first?.element?.nativeElement;
+      this.LastElement = images?.last?.element?.nativeElement;
+      this.ImagesList = images?.toArray();
+      this.totalItems = images?.length + 2;
       
       this.cdr.detectChanges();
 
     });
 
+    if(this.winObj.isExecuteInBrowser()) {
     this.items = document.getElementById(this._slidesId);
     this.totalItems = this.Images.length + 2;
 
@@ -192,6 +193,7 @@ export class RCarouselComponent extends RBaseComponent<any> implements AfterCont
           imageChangesSub.unsubscribe();
         });
       }
+    }
   }
 
 

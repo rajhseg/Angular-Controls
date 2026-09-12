@@ -886,6 +886,53 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     });
   }
 
+  async groupHeader(_hdr: RGridHeader) {
+
+    this.EnableLoader = true;
+
+    setTimeout(async () => {
+
+      let _srt = undefined;
+
+      if (_hdr) {
+        let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
+
+        if (_col && (_col.IsComputationalColumn || _col.IsDummyPropToBind || _col.DisableGrouping)) {
+          this.EnableLoader = false;
+          this.cdr.detectChanges();
+          return;
+        }
+
+        let indx = this.GroupHeaders.findIndex(x => x.PropToBind == _hdr.PropToBind);
+        if (indx == -1) {
+          this.GroupHeaders.push(_hdr);
+          await this.createGroup();
+
+          /* Sort the column when group */
+          if (_hdr.sortType == RGridHeaderSortType.Ascending) {
+            _srt = undefined;
+          } else if (_hdr.sortType == RGridHeaderSortType.Descending) {
+            _srt = RGridHeaderSortType.Ascending;
+          }
+
+          _hdr.sortType = _srt;
+          this.sortColumn(_hdr);
+        }
+      }
+
+      this.EnableLoader = false;
+
+      this.OnColumnGrouped.emit(_hdr);
+
+      this.cdr.detectChanges();
+    });
+
+  }
+
+  async ungroupHeader(data: RGridHeader) {
+
+  }
+
   async groupDrop($event: CdkDragDrop<RGridHeader[]>) {
 
     this.EnableLoader = true;
@@ -963,6 +1010,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     } catch(e) {
       return index.toString();
     }
+  }
+
+  isGroupedColumn(item: RGridHeader): boolean {
+    return this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind) > -1;
   }
 
   async removeFromGroup(item: RGridHeader) {

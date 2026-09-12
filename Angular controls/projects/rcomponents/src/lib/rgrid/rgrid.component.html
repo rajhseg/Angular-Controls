@@ -2,17 +2,7 @@
          [ngStyle]="{ '--fontsize': FontSize }"
          [style.color]="FontColor"
          [style.font-family]="FontFamily" [style.color]="FontColor"  [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
-    <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
-        [ngStyle]="{ 'width': TableWidth_C }"
-        cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">
-        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" 
-            [ngStyle]="{ 'width': grpheader.Width,
-                'background-color':GroupHeaderBackColor, 'color': GroupHeaderForeColor
-            }">
-            {{grpheader.HeaderText}}
-            <span (click)="removeFromGroup(grpheader)" [ngStyle]="{'color': GroupHeaderForeColor}" class="rbtn">&#10006;</span>
-        </div>
-    </div>
+    
     <div #parentElement [ngStyle]="{'width': TableWidth_C, 'height': TableHeight_C }" style="overflow: visible;">   
         
         <table class="tblheader" [ngStyle]="{ 'width': '100%' }">
@@ -79,6 +69,26 @@
                                      style="float: left;" [Color]="FilterIconColor">
                             </rfilter>
 
+
+
+				  			<span *ngIf="!isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
+			                    title="Group by this column">
+			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
+			                        [attr.fill]="GroupByIconColor">
+			                        <path
+			                            d="M4 2h4v2H4v4H2V4a2 2 0 0 1 2-2zm16 0a2 2 0 0 1 2 2v4h-2V4h-4V2h4zM4 22a2 2 0 0 1-2-2v-4h2v4h4v2H4zm16 0h-4v-2h4v-4h2v4a2 2 0 0 1-2 2zM7 7h6v6H7V7zm4 4h6v6h-6v-6z" />
+			                    </svg>
+			                </span>
+				
+			                <span *ngIf="isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
+			                    title="Ungroup this column">
+			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
+			                        [attr.fill]="GroupByIconColor">
+			                        <path
+			                            d="M2 2h5v2H4v3H2V2zm17 0h3v5h-2V4h-3V2zM2 17h2v3h3v2H2v-5zm20 0v5h-5v-2h3v-3h2zM5 5h6v6H5V5zm8 8h6v6h-6v-6z" />
+			                    </svg>
+			                </span>
+				
                             <div *cdkDragPreview class="preview" [ngStyle]="{'color': GroupHeaderForeColor, 'background-color':GroupHeaderBackColor }">
                                 {{header.HeaderText}}
                             </div>
@@ -130,6 +140,24 @@
                                      [Color]="FilterIconColor">
                             </rfilter>
 
+
+				  			<span *ngIf="!isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
+			                    title="Group by this column">
+			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
+			                        [attr.fill]="GroupByIconColor">
+			                        <path
+			                            d="M4 2h4v2H4v4H2V4a2 2 0 0 1 2-2zm16 0a2 2 0 0 1 2 2v4h-2V4h-4V2h4zM4 22a2 2 0 0 1-2-2v-4h2v4h4v2H4zm16 0h-4v-2h4v-4h2v4a2 2 0 0 1-2 2zM7 7h6v6H7V7zm4 4h6v6h-6v-6z" />
+			                    </svg>
+			                </span>
+				
+			                <span *ngIf="isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
+			                    title="Ungroup this column">
+			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
+			                        [attr.fill]="GroupByIconColor">
+			                        <path
+			                            d="M2 2h5v2H4v3H2V2zm17 0h3v5h-2V4h-3V2zM2 17h2v3h3v2H2v-5zm20 0v5h-5v-2h3v-3h2zM5 5h6v6H5V5zm8 8h6v6h-6v-6z" />
+			                    </svg>
+			                </span>
                             <div *cdkDragPreview class="preview" [ngStyle]="{ 'color' : GroupHeaderForeColor, 'background-color' : GroupHeaderBackColor }">
                                 {{header.HeaderText}}
                             </div>

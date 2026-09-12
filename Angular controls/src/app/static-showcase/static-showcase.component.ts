@@ -324,10 +324,10 @@ export class StaticShowcaseComponent {
   public gridEnableSelectColumn: boolean = true;
   public gridEnableAlternateRowColor: boolean = true;
   public gridRowHoverOpacity: number = 1;
-  public gridCol1Width: string = '200px';
+  public gridCol1Width: string = '250px';
   public gridCol2Width: string = '300px';
-  public gridCol3Width: string = '240px';
-  public gridCol4Width: string = '260px';
+  public gridCol3Width: string = '290px';
+  public gridCol4Width: string = '310px';
   public gridCol5Width: string = '260px';
   public gridCol1Header: string = 'Member ID';
   public gridCol2Header: string = 'Engineer Profile';

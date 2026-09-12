@@ -290,7 +290,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* overflow-x: auto; */
+  overflow-x: auto;
+  width: 100%;
   min-height: 250px;
   box-sizing: border-box;
 }
@@ -345,3 +346,270 @@
   font-weight: 600;
   margin-bottom: 6px;
 }
+
+/* =====================================================================
+   ADVANCED STYLISH RGRID CUSTOM COLUMN TEMPLATES
+   ===================================================================== */
+.grid-col-hdr,
+::ng-deep .grid-col-hdr {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+
+.grid-col-hdr .hdr-glyph,
+::ng-deep .grid-col-hdr .hdr-glyph {
+  font-size: 1rem;
+  color: #ffffff !important;
+  display: inline-flex;
+  align-items: center;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.grid-col-hdr .hdr-txt,
+::ng-deep .grid-col-hdr .hdr-txt {
+  white-space: nowrap;
+  color: #ffffff !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* 1. Member ID Pill */
+.grid-id-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #2563eb;
+  background: #eff6ff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #bfdbfe;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.06);
+}
+
+/* 2. User Profile (Avatar + Name + Role + Email) */
+.grid-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 0;
+}
+
+.grid-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  border: 1.5px solid #ffffff;
+}
+
+.grid-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.grid-user-name-line {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.grid-name-text {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.grid-verified-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.grid-user-role {
+  font-size: 0.7125rem;
+  color: #475569;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.grid-user-email {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: nowrap;
+}
+
+/* 3. Department Chip */
+.grid-dept-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.grid-dept-chip .dept-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.dept-eng {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+.dept-eng .dept-dot { background: #2563eb; }
+
+.dept-prod {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+.dept-prod .dept-dot { background: #7c3aed; }
+
+.dept-des {
+  background: #fdf2f8;
+  color: #be185d;
+  border: 1px solid #fbcfe8;
+}
+.dept-des .dept-dot { background: #db2777; }
+
+.dept-sales {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.dept-sales .dept-dot { background: #d97706; }
+
+/* 4. Performance SLA Card */
+.grid-perf-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding-right: 8px;
+}
+
+.grid-perf-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid-perf-val {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.grid-tier-tag {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+}
+
+.tier-elite {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.tier-high {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.grid-perf-track {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.grid-perf-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.fill-emerald {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.fill-blue {
+  background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+/* 5. Degree & Academic Credentials */
+.grid-degree-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.grid-degree-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7875rem;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+}
+
+.degree-icon {
+  font-size: 0.875rem;
+}
+
+.degree-honors-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  padding: 1px 6px;
+  border-radius: 4px;
+  width: fit-content;
+}
+

@@ -1665,12 +1665,15 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return val+CssUnit.Px.toString();
   }
 
+  @Input()
+  public EditColumnWidth: string = '60px';
+
   get GetSelectColumnWidth() {
     return "26px";
   }
 
   get GetEditColumnWidth() {
-    return "80px";
+    return this.EditColumnWidth || "60px";
   }
 
   
@@ -1679,7 +1682,8 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   get GetEditColumnTotalSize() {
-    return 100;
+    let k = this.GetEditColumnWidth.split("px");
+    return parseFloat(k[0]) + 20;
   }
 
   private async PopulateData(): Promise<RGridItems> {

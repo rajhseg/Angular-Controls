@@ -312,25 +312,28 @@ export class StaticShowcaseComponent {
   public eventsCalendarDayWidth: string = '110px';
 
   // Section 4: Data Grids, Trees & Containers Inputs
-  public gridTableWidth: string = '90%';
-  public gridTableHeight: string = '260px';
+  public gridTableWidth: string = '95%';
+  public gridTableHeight: string = '360px';
   public gridAutoTableHeight: string = '240px';
   public gridEnableShadow: boolean = false;
   public gridShowGroupHeader: boolean = true;
-  public gridRowHeight: string = 'auto';
-  public gridGroupHeaderRowHeight: string = '36px';
+  public gridRowHeight: string = '64px';
+  public gridGroupHeaderRowHeight: string = '48px';
   public gridShowEditUpdate: boolean = true;
+  public gridEnableSelectColummn: boolean = true;
   public gridEnableSelectColumn: boolean = true;
   public gridEnableAlternateRowColor: boolean = true;
   public gridRowHoverOpacity: number = 1;
-  public gridCol1Width: string = '170px';
-  public gridCol2Width: string = '200px';
-  public gridCol3Width: string = '180px';
-  public gridCol4Width: string = '220px';
-  public gridCol1Header: string = 'ID';
-  public gridCol2Header: string = 'Engineer Name';
-  public gridCol3Header: string = 'Age';
-  public gridCol4Header: string = 'Degree';
+  public gridCol1Width: string = '200px';
+  public gridCol2Width: string = '300px';
+  public gridCol3Width: string = '240px';
+  public gridCol4Width: string = '260px';
+  public gridCol5Width: string = '260px';
+  public gridCol1Header: string = 'Member ID';
+  public gridCol2Header: string = 'Engineer Profile';
+  public gridCol3Header: string = 'Department';
+  public gridCol4Header: string = 'Performance SLA';
+  public gridCol5Header: string = 'Credentials';
   public gridInlineTextBoxHeight: string = '12px';
   public gridInlineTextBoxWidth1: string = '70px';
   public gridInlineTextBoxWidth2: string = '140px';
@@ -802,12 +805,102 @@ export class StaticShowcaseComponent {
   ];
 
   public gridItems1: any[] = [
-    { Id: 1, Name: 'Alex Chen', Age: 28, Education: new DropdownModel(1, 'B.Tech / CS'), IsGrad: true },
-    { Id: 2, Name: 'Priya Sharma', Age: 26, Education: new DropdownModel(2, 'M.S. in AI'), IsGrad: true },
-    { Id: 3, Name: 'Marcus Weber', Age: 31, Education: new DropdownModel(3, 'Ph.D. in CE'), IsGrad: true },
-    { Id: 4, Name: 'Yuki Tanaka', Age: 29, Education: new DropdownModel(1, 'B.Tech / CS'), IsGrad: true },
-    { Id: 5, Name: 'Sarah Jenkins', Age: 27, Education: new DropdownModel(4, 'B.S. in Systems'), IsGrad: false },
-    { Id: 6, Name: 'David Miller', Age: 34, Education: new DropdownModel(2, 'M.S. in AI'), IsGrad: true },
+    {
+      Id: 101,
+      Avatar: 'AC',
+      AvatarBg: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+      Name: 'Alex Chen',
+      Email: 'alex.chen@enterprise.io',
+      Role: 'Staff Cloud Architect',
+      Department: new DropdownModel('eng', 'Engineering & AI'),
+      Score: 98,
+      ScoreTier: 'Exceptional (98%)',
+      Age: 28,
+      Education: new DropdownModel(2, 'M.S. in AI & Cloud'),
+      DegreeType: 'Master of Science',
+      Status: 'Active',
+      IsGrad: true
+    },
+    {
+      Id: 102,
+      Avatar: 'PS',
+      AvatarBg: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+      Name: 'Priya Sharma',
+      Email: 'priya.s@enterprise.io',
+      Role: 'Lead ML / AI Scientist',
+      Department: new DropdownModel('eng', 'Engineering & AI'),
+      Score: 95,
+      ScoreTier: 'Exceptional (95%)',
+      Age: 26,
+      Education: new DropdownModel(3, 'Ph.D. in Machine Learning'),
+      DegreeType: 'Doctorate',
+      Status: 'Active',
+      IsGrad: true
+    },
+    {
+      Id: 103,
+      Avatar: 'MW',
+      AvatarBg: 'linear-gradient(135deg, #06b6d4, #0891b2)',
+      Name: 'Marcus Weber',
+      Email: 'm.weber@enterprise.io',
+      Role: 'Director of Product',
+      Department: new DropdownModel('prod', 'Product Strategy'),
+      Score: 92,
+      ScoreTier: 'Exceeding (92%)',
+      Age: 31,
+      Education: new DropdownModel(1, 'B.Tech in Computer Science'),
+      DegreeType: 'Bachelor of Tech',
+      Status: 'Active',
+      IsGrad: true
+    },
+    {
+      Id: 104,
+      Avatar: 'YT',
+      AvatarBg: 'linear-gradient(135deg, #ec4899, #be185d)',
+      Name: 'Yuki Tanaka',
+      Email: 'yuki.t@enterprise.io',
+      Role: 'Design Systems Lead',
+      Department: new DropdownModel('des', 'Experience Design'),
+      Score: 89,
+      ScoreTier: 'Exceeding (89%)',
+      Age: 29,
+      Education: new DropdownModel(2, 'M.S. in HCI & Design'),
+      DegreeType: 'Master of Science',
+      Status: 'In Review',
+      IsGrad: true
+    },
+    {
+      Id: 105,
+      Avatar: 'SJ',
+      AvatarBg: 'linear-gradient(135deg, #f59e0b, #d97706)',
+      Name: 'Sarah Jenkins',
+      Email: 'sarah.j@enterprise.io',
+      Role: 'Enterprise Solutions Exec',
+      Department: new DropdownModel('sales', 'Global Enterprise Sales'),
+      Score: 86,
+      ScoreTier: 'Achieving (86%)',
+      Age: 27,
+      Education: new DropdownModel(4, 'B.S. in Systems Engineering'),
+      DegreeType: 'Bachelor of Science',
+      Status: 'On Standby',
+      IsGrad: false
+    },
+    {
+      Id: 106,
+      Avatar: 'DM',
+      AvatarBg: 'linear-gradient(135deg, #10b981, #047857)',
+      Name: 'David Miller',
+      Email: 'david.m@enterprise.io',
+      Role: 'Kernel & CVA Architect',
+      Department: new DropdownModel('eng', 'Engineering & AI'),
+      Score: 94,
+      ScoreTier: 'Exceptional (94%)',
+      Age: 34,
+      Education: new DropdownModel(3, 'Ph.D. in Computer Engineering'),
+      DegreeType: 'Doctorate',
+      Status: 'Active',
+      IsGrad: true
+    }
   ];
 
   public ditems: DropdownModel[] = [

@@ -861,73 +861,154 @@
     </div>
 
     <div class="section-grid">
-      <!-- 1. Virtual Data Grid (Templated Columns) -->
+      <!-- 1. Virtual Data Grid (Advanced Templated Columns) -->
       <div class="card card-wide">
         <div class="card-header">
           <span class="card-tag tag-nav">Grid</span>
-          <h3 class="card-title">1. Virtual Scrolling Data Grid (Custom Column Templates)</h3>
+          <h3 class="card-title">1. Virtual Scrolling Data Grid (Advanced Column Templates)</h3>
           <code class="card-selector">&lt;rgrid [TableWidth]="gridTableWidth"&gt; &lt;rcolumn&gt;</code>
         </div>
         <div class="card-body center">
           <rgrid [PageItems]="ditems" [(ngModel)]="gridItems1" [Items]="gridItems1" name="staticGrid"
             [EnableShadow]="gridEnableShadow" [ShowGroupHeader]="gridShowGroupHeader" [RowHeightInPx]="gridRowHeight"
             [GroupHeaderRowHeightInPx]="gridGroupHeaderRowHeight" [ShowEditUpdate]="gridShowEditUpdate"
-            [EnableSelectColummn]="gridEnableSelectColumn" [ItemsPerPage]="ItemsPerPage"
+            [EnableSelectColummn]="gridEnableSelectColumn" [ItemsPerPage]="ItemsPerPage" [RowHoverBackColor]="'white'" 
+            [RowHoverForeColor]="'black'"
             [EnableAlternateRowColor]="gridEnableAlternateRowColor" [RowHoverBackgroundOpacity]="gridRowHoverOpacity"
             [TableHeight]="gridTableHeight" [TableWidth]="gridTableWidth">
+
+            <!-- Column 1: Member ID -->
             <rcolumn [Name]="'column1'" [PropToBindToCellInfo]="'Id'" [HeaderText]="gridCol1Header"
               [Width]="gridCol1Width">
+              <ng-template headertemplate let-Item>
+                <div class="grid-col-hdr">
+                  <span class="hdr-glyph">#</span>
+                  <span class="hdr-txt">{{ Item.HeaderText }}</span>
+                </div>
+              </ng-template>
               <ng-template readviewtemplate let-Item let-cell="CellInfo">
-                <span>{{ cell.Value }}</span>
+                <span class="grid-id-pill">#EMP-{{ Item.Id || cell.Value }}</span>
               </ng-template>
               <ng-template editviewtemplate let-Item let-rcell="CellInfo">
                 <rtextbox [TextBoxHeight]="gridInlineTextBoxHeight" [EnableMarginTextBottom]="false"
-                  [PaddingLeft]="'0px'" [name]="'name_'+rcell.DisplayRow +'_'+rcell.DisplayColumn"
-                  [TextBoxWidth]="gridInlineTextBoxWidth1" [(ngModel)]="rcell.Value" />
+                  [PaddingLeft]="'0px'" [name]="'id_'+rcell.DisplayRow" [TextBoxWidth]="'75px'"
+                  [(ngModel)]="rcell.Value" />
               </ng-template>
             </rcolumn>
+
+            <!-- Column 2: Engineer Profile (Avatar + Name + Role + Email) -->
             <rcolumn [Name]="'column2'" [PropToBindToCellInfo]="'Name'" [HeaderText]="gridCol2Header"
               [Width]="gridCol2Width">
               <ng-template headertemplate let-Item>
-                {{ Item.HeaderText }}
+                <div class="grid-col-hdr">
+                  <span class="hdr-glyph">👤</span>
+                  <span class="hdr-txt">{{ Item.HeaderText }}</span>
+                </div>
               </ng-template>
               <ng-template readviewtemplate let-Item let-cell="CellInfo">
-                <strong>{{ cell.Value }}</strong>
+                <div class="grid-user-cell">
+                  <div class="grid-avatar" [style.background]="Item.AvatarBg || 'linear-gradient(135deg, #3b82f6, #1d4ed8)'">
+                    {{ Item.Avatar || (Item.Name ? Item.Name.substring(0,2).toUpperCase() : 'UI') }}
+                  </div>
+                  <div class="grid-user-info">
+                    <div class="grid-user-name-line">
+                      <strong class="grid-name-text">{{ Item.Name || cell.Value }}</strong>
+                      <span class="grid-verified-check" title="Verified Specialist">✓</span>
+                    </div>
+                    <span class="grid-user-role">{{ Item.Role || 'Staff Cloud Architect' }}</span>
+                    <span class="grid-user-email">{{ Item.Email || (Item.Name ? Item.Name.toLowerCase().replace(' ', '.') + '@enterprise.io' : '') }}</span>
+                  </div>
+                </div>
               </ng-template>
               <ng-template editviewtemplate let-cell="CellInfo">
                 <rtextbox [TextBoxHeight]="gridInlineTextBoxHeight" [EnableMarginTextBottom]="false"
-                  [PaddingLeft]="'0px'" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
-                  [TextBoxWidth]="gridInlineTextBoxWidth2" [(ngModel)]="cell.Value" />
+                  [PaddingLeft]="'0px'" [name]="'name_'+cell.DisplayRow" [TextBoxWidth]="'180px'"
+                  [(ngModel)]="cell.Value" />
               </ng-template>
             </rcolumn>
-            <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Age'" [HeaderText]="gridCol3Header"
+
+            <!-- Column 3: Department -->
+            <rcolumn [Name]="'column3'" [PropToBindToCellInfo]="'Department'" [HeaderText]="gridCol3Header"
               [Width]="gridCol3Width">
+              <ng-template headertemplate let-Item>
+                <div class="grid-col-hdr">
+                  <span class="hdr-glyph">🏛️</span>
+                  <span class="hdr-txt">{{ Item.HeaderText }}</span>
+                </div>
+              </ng-template>
               <ng-template readviewtemplate let-Item let-cell="CellInfo">
-                <span>{{ cell.Value }}</span>
+                <span class="grid-dept-chip" [ngClass]="'dept-' + (Item.Department?.Value || 'eng')">
+                  <span class="dept-dot"></span>
+                  <span class="dept-name">{{ Item.Department?.DisplayValue || Item.Department || cell.Value }}</span>
+                </span>
               </ng-template>
               <ng-template editviewtemplate let-cell="CellInfo">
-                <rnumeric [PaddingLeft]="'0px'" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
-                  [(ngModel)]="cell.Value" [LabelText]="''" [TextBoxWidth]="gridInlineNumericWidth"
-                  [TextBoxHeight]="gridInlineNumericHeight">
+                <rdropdown [Items]="departments" [name]="'dept_'+cell.DisplayRow"
+                  [DropDownContentWidth]="'180px'" [Width]="'150px'" [(ngModel)]="cell.Value">
+                </rdropdown>
+              </ng-template>
+            </rcolumn>
+
+            <!-- Column 4: Performance SLA -->
+            <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Score'" [HeaderText]="gridCol4Header"
+              [Width]="gridCol4Width">
+              <ng-template headertemplate let-Item>
+                <div class="grid-col-hdr">
+                  <span class="hdr-glyph">⚡</span>
+                  <span class="hdr-txt">{{ Item.HeaderText }}</span>
+                </div>
+              </ng-template>
+              <ng-template readviewtemplate let-Item let-cell="CellInfo">
+                <div class="grid-perf-cell">
+                  <div class="grid-perf-top">
+                    <strong class="grid-perf-val">{{ Item.Score || cell.Value || 90 }}%</strong>
+                    <span class="grid-tier-tag" [ngClass]="{'tier-elite': (Item.Score || cell.Value) >= 94, 'tier-high': (Item.Score || cell.Value) < 94}">
+                      {{ (Item.Score || cell.Value) >= 94 ? 'Elite' : 'High SLA' }}
+                    </span>
+                  </div>
+                  <div class="grid-perf-track">
+                    <div class="grid-perf-fill" [style.width.%]="Item.Score || cell.Value || 90"
+                      [ngClass]="{'fill-emerald': (Item.Score || cell.Value) >= 94, 'fill-blue': (Item.Score || cell.Value) < 94}">
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template editviewtemplate let-cell="CellInfo">
+                <rnumeric [PaddingLeft]="'0px'" [name]="'score_'+cell.DisplayRow" [(ngModel)]="cell.Value"
+                  [LabelText]="''" [TextBoxWidth]="gridInlineNumericWidth" [TextBoxHeight]="gridInlineNumericHeight">
                 </rnumeric>
               </ng-template>
             </rcolumn>
-            <rcolumn [Name]="'column4'" [PropToBindToCellInfo]="'Education'" [HeaderText]="gridCol4Header"
-              [Width]="gridCol4Width">
+
+            <!-- Column 5: Academic Credentials & Degree -->
+            <rcolumn [Name]="'column5'" [PropToBindToCellInfo]="'Education'" [HeaderText]="gridCol5Header"
+              [Width]="gridCol5Width">
+              <ng-template headertemplate let-Item>
+                <div class="grid-col-hdr">
+                  <span class="hdr-glyph">🎓</span>
+                  <span class="hdr-txt">{{ Item.HeaderText }}</span>
+                </div>
+              </ng-template>
               <ng-template readviewtemplate let-Item let-cell="CellInfo">
-                <span>{{ Item.Education?.DisplayValue || Item.Education }}</span>
+                <div class="grid-degree-cell">
+                  <div class="grid-degree-title">
+                    <span class="degree-icon">🎓</span>
+                    <span>{{ Item.Education?.DisplayValue || Item.Education || cell.Value }}</span>
+                  </div>
+                  <span *ngIf="Item.IsGrad" class="degree-honors-pill">★ Honors</span>
+                </div>
               </ng-template>
               <ng-template editviewtemplate let-cell="CellInfo">
-                <rdropdown [Items]="degrees" [name]="'name_'+cell.DisplayRow +'_'+cell.DisplayColumn"
+                <rdropdown [Items]="degrees" [name]="'deg_'+cell.DisplayRow"
                   [DropDownContentWidth]="gridInlineDropdownContentWidth" [Width]="gridInlineDropdownWidth"
                   [(ngModel)]="cell.Value">
                 </rdropdown>
               </ng-template>
             </rcolumn>
+
           </rgrid>
         </div>
-        <div class="card-hint">Virtual scrolling grid with templated column headers, cell rendering, and pagination (90%
-          width)
+        <div class="card-hint">Advanced virtual scrolling grid with rich multi-line engineer avatars, SLA score progress gauges, frosted department chips, and honors degree badges (95% width)
         </div>
       </div>
 
@@ -947,7 +1028,7 @@
             [TableHeight]="gridAutoTableHeight" [TableWidth]="gridTableWidth">
           </rgrid>
         </div>
-        <div class="card-hint">Automatic column generation directly from dataset objects with group header (90% width)
+        <div class="card-hint">Automatic column generation directly from dataset objects with group header (95% width)
         </div>
       </div>
 

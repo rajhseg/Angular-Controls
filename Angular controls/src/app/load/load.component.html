@@ -1,72 +1,69 @@
+<header class="top-navbar">
 
-     <header class="top-navbar">
-            
-    <!-- Navigation Route Links -->
-    <nav class="nav-routes-container" aria-label="Main Navigation">
-      
-      <a routerLink="/" routerLinkActive="active-nav-link" class="nav-route-link"
-        [routerLinkActiveOptions]="{ exact: true }"
-        id="nav-link-static-showcase">
-        <span class="route-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-            <polyline points="2 17 12 22 22 17"></polyline>
-            <polyline points="2 12 12 17 22 12"></polyline>
-          </svg>
-        </span>
-        <div class="route-info">
-          <span class="route-name">Static Showcase</span>
-          <span class="route-path-tag">/</span>
-        </div>
-        <span class="route-badge showcase-badge">All UI</span>
-      </a>
+  <!-- Navigation Route Links -->
+  <nav class="nav-routes-container" aria-label="Main Navigation">
 
-      <a routerLink="/root" routerLinkActive="active-nav-link" class="nav-route-link"
-        id="nav-link-dynamic-form">
-        <span class="route-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2">
-            <path d="M12 20h9"></path>
-            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-          </svg>
-        </span>
-        <div class="route-info">
-          <span class="route-name">Values Filled Form</span>
-          <span class="route-path-tag">/root</span>
-        </div>
-        <span class="route-badge dynamic-badge">50+ CVAs</span>
-      </a>
-
-      <a routerLink="/default" routerLinkActive="active-nav-link" class="nav-route-link" id="nav-link-default">
-        <span class="route-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"></rect>
-            <rect x="14" y="3" width="7" height="7"></rect>
-            <rect x="14" y="14" width="7" height="7"></rect>
-            <rect x="3" y="14" width="7" height="7"></rect>
-          </svg>
-        </span>
-        <div class="route-info">
-          <span class="route-name">Default Component</span>
-          <span class="route-path-tag">/default</span>
-        </div>
-      </a>
-
-    </nav>
-
-    <!-- Header Status Indicator -->
-    <div class="header-badges-group">
-      <div class="route-indicator-pill">
-        <span class="pulse-dot"></span>
-        <span class="route-indicator-label">Route:</span>
-        <code class="route-indicator-val">{{ currentUrl() }}</code>
+    <a routerLink="/" routerLinkActive="active-nav-link" class="nav-route-link"
+      [routerLinkActiveOptions]="{ exact: true }" id="nav-link-static-showcase">
+      <span class="route-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </span>
+      <div class="route-info">
+        <span class="route-name">Static Showcase</span>
+        <span class="route-path-tag">/</span>
       </div>
-    </div>
-  </header>
+      <span class="route-badge showcase-badge">All UI</span>
+    </a>
 
-  <!-- Router Outlet Main Container -->
-  <main class="main-router-viewport">
-    <router-outlet></router-outlet>
-  </main>
+    <a routerLink="/root" routerLinkActive="active-nav-link" class="nav-route-link" id="nav-link-dynamic-form">
+      <span class="route-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+      </span>
+      <div class="route-info">
+        <span class="route-name">Values Filled Form</span>
+        <span class="route-path-tag">/root</span>
+      </div>
+      <span class="route-badge dynamic-badge">50+ CVAs</span>
+    </a>
+
+    <a routerLink="/default" routerLinkActive="active-nav-link" class="nav-route-link" id="nav-link-default">
+      <span class="route-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+      </span>
+      <div class="route-info">
+        <span class="route-name">Default Component</span>
+        <span class="route-path-tag">/default</span>
+      </div>
+    </a>
+
+  </nav>
+
+  <!-- Header Status Indicator -->
+  <div class="header-badges-group">
+    <div class="route-indicator-pill">
+      <span class="pulse-dot"></span>
+      <span class="route-indicator-label">Route:</span>
+      <code class="route-indicator-val">{{ currentUrl() }}</code>
+    </div>
+  </div>
+</header>
+
+<!-- Router Outlet Main Container -->
+<main class="main-router-viewport">
+  <router-outlet></router-outlet>
+</main>

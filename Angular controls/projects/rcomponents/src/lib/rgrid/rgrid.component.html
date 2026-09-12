@@ -1,29 +1,43 @@
-<div [ngClass]="{ 'root': EnableShadow, 'rootNormal': !EnableShadow }" [ngStyle]="{ '--fontsize': FontSize }"
-    [style.color]="FontColor" [style.font-family]="FontFamily" [style.color]="FontColor" [id]="Id" cdkDropListGroup
-    *ngIf="Headers.length > 0">
-    <div #parentElement [ngStyle]="{'width': TableWidth_C, 'height': TableHeight_C }" style="overflow: visible;">
-
+<div  [ngClass]="{ 'root': EnableShadow, 'rootNormal': !EnableShadow }"
+         [ngStyle]="{ '--fontsize': FontSize }"
+         [style.color]="FontColor"
+         [style.font-family]="FontFamily" [style.color]="FontColor"  [id]="Id" cdkDropListGroup *ngIf="Headers.length > 0">
+    <div *ngIf="ShowGroupHeader" class="groupheader" style="display: flex;" cdkDropList [cdkDropListData]="Headers"
+        [ngStyle]="{ 'width': TableWidth_C }"
+        cdkDropListOrientation="horizontal" (cdkDropListDropped)="groupDrop($event)">
+        <div class="grpheaderItem" *ngFor="let grpheader of GroupHeaders" 
+            [ngStyle]="{ 'width': grpheader.Width,
+                'background-color':GroupHeaderBackColor, 'color': GroupHeaderForeColor
+            }">
+            {{grpheader.HeaderText}}
+            <span (click)="removeFromGroup(grpheader)" [ngStyle]="{'color': GroupHeaderForeColor}" class="rbtn">&#10006;</span>
+        </div>
+    </div>
+    <div #parentElement [ngStyle]="{'width': TableWidth_C, 'height': TableHeight_C }" style="overflow: visible;">   
+        
         <table class="tblheader" [ngStyle]="{ 'width': '100%' }">
             <thead>
                 <tr [ngStyle]="{'background': 'linear-gradient(135deg, ' + HeaderBackgroundColor + ' 0%, ' + HeaderBackgroundColor + ' 100%)',
                                 'color': HeaderForeColor,
                                 'height' : HeaderHeightInPx,
-                                'align-content' : 'center' }" cdkDropList [cdkDropListData]="Headers"
-                    cdkDropListOrientation="horizontal" (cdkDropListDropped)="draggeddropForPopup($event)">
+                                'align-content' : 'center' }"
+                    cdkDropList [cdkDropListData]="Headers" cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="draggeddropForPopup($event)">
 
                     <ng-container *ngIf="EnableSelectColummn">
                         <th style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
 
                             <rcheckbox [(ngModel)]="IsSelectedAll" [CheckSize]="SelectCheckBoxSize"
-                                [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
-                                (OnCheckChanged)="SelectAll($event)"></rcheckbox>
+                                       [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
+                                       (OnCheckChanged)="SelectAll($event)"></rcheckbox>
                         </th>
                     </ng-container>
 
                     <ng-container *ngIf="!ColumnsNotDefined">
                         <th [ngStyle]="{ 
                         'width': EditModeEnabled ?  GetColumnsWidth(header) : GetColumnsWidth(header),
-                        'height':'20px'} " class="header headerbox" cdkDrag [cdkDragData]="header"
+                        'height':'20px'} " class="header headerbox" cdkDrag
+                            [cdkDragData]="header"
                             (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
                             *ngFor="let header of Headers">
 
@@ -37,62 +51,35 @@
                                 </ng-container>
                             </span>
 
-                            <span (click)="sortColumn(header)"
-                                *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==1"
-                                class="srt">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px"
-                                    [attr.fill]="SortIconColor">
+                            <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==1" class="srt">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px" [attr.fill]="SortIconColor">
                                     <path d="M5 12V0H3v12H.5L4 15.5 7.5 12H5z" />
                                     <path d="M7 9h9v2H7V9zM7 6h7v2H7V6zM7 3h5v2H7V3zM7 0h3v2H7V0z" />
                                 </svg>
                             </span>
-                            <span (click)="sortColumn(header)"
-                                *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==-1"
-                                class="srt">
-                                <svg viewBox="0 0 1195 1195" xmlns="http://www.w3.org/2000/svg" width="15px"
-                                    height="15px" [attr.fill]="SortIconColor">
-                                    <path
-                                        d="M405.333 832V64h-128v768h-160l224 224 224-224h-160zm128-768h576v128h-576V64zm0 192h448v128h-448V256zm0 192h320v128h-320V448zm0 192h192v128h-192V640z" />
+                            <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==-1" class="srt">
+                                <svg viewBox="0 0 1195 1195" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" [attr.fill]="SortIconColor">
+                                    <path d="M405.333 832V64h-128v768h-160l224 224 224-224h-160zm128-768h576v128h-576V64zm0 192h448v128h-448V256zm0 192h320v128h-320V448zm0 192h192v128h-192V640z" />
                                 </svg>
                             </span>
-                            <span (click)="sortColumn(header)"
-                                *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==undefined"
-                                class="srt">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px"
-                                    [attr.fill]="SortIconColor">
-                                    <path
-                                        d="M13 9.25a.603.603 0 0 1-.186.439l-4.375 4.375A.6.6 0 0 1 8 14.25a.596.596 0 0 1-.439-.186L3.186 9.689A.6.6 0 0 1 3 9.25a.6.6 0 0 1 .186-.439.596.596 0 0 1 .439-.186h8.75a.6.6 0 0 1 .439.186.603.603 0 0 1 .186.439zM13 6a.603.603 0 0 1-.186.439.6.6 0 0 1-.439.186h-8.75a.596.596 0 0 1-.439-.186A.6.6 0 0 1 3 6a.6.6 0 0 1 .186-.439l4.375-4.375A.6.6 0 0 1 8 1c.168 0 .314.062.439.186l4.375 4.375A.603.603 0 0 1 13 6z" />
+                            <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==undefined"
+                                  class="srt">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px" [attr.fill]="SortIconColor">
+                                    <path d="M13 9.25a.603.603 0 0 1-.186.439l-4.375 4.375A.6.6 0 0 1 8 14.25a.596.596 0 0 1-.439-.186L3.186 9.689A.6.6 0 0 1 3 9.25a.6.6 0 0 1 .186-.439.596.596 0 0 1 .439-.186h8.75a.6.6 0 0 1 .439.186.603.603 0 0 1 .186.439zM13 6a.603.603 0 0 1-.186.439.6.6 0 0 1-.439.186h-8.75a.596.596 0 0 1-.439-.186A.6.6 0 0 1 3 6a.6.6 0 0 1 .186-.439l4.375-4.375A.6.6 0 0 1 8 1c.168 0 .314.062.439.186l4.375 4.375A.603.603 0 0 1 13 6z" />
                                 </svg>
                             </span>
 
                             <rfilter *ngIf="!header.disableFilter && !header.IsComputationColumn"
-                                [DateFormat]="FilterDateFormat" [ItemModel]="BackupItems"
-                                [ColumnName]="header.PropToBind"
-                                [DataType]="GetDataType(header, filterModel[header.PropToBind])"
-                                (ApplyCallback)="ApplyFilter($event)" [(ngModel)]="filterModel[header.PropToBind]"
-                                style="float: left;" [Color]="FilterIconColor">
+                                     [DateFormat]="FilterDateFormat"
+                                     [ItemModel]="BackupItems"
+                                     [ColumnName]="header.PropToBind"
+                                     [DataType]="GetDataType(header, filterModel[header.PropToBind])"
+                                     (ApplyCallback)="ApplyFilter($event)"
+                                     [(ngModel)]="filterModel[header.PropToBind]"
+                                     style="float: left;" [Color]="FilterIconColor">
                             </rfilter>
 
-                            <span *ngIf="!isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
-                                title="Group by this column">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
-                                    [attr.fill]="GroupByIconColor">
-                                    <path
-                                        d="M4 2h4v2H4v4H2V4a2 2 0 0 1 2-2zm16 0a2 2 0 0 1 2 2v4h-2V4h-4V2h4zM4 22a2 2 0 0 1-2-2v-4h2v4h4v2H4zm16 0h-4v-2h4v-4h2v4a2 2 0 0 1-2 2zM7 7h6v6H7V7zm4 4h6v6h-6v-6z" />
-                                </svg>
-                            </span>
-
-                            <span *ngIf="isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
-                                title="Ungroup this column">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
-                                    [attr.fill]="GroupByIconColor">
-                                    <path
-                                        d="M2 2h5v2H4v3H2V2zm17 0h3v5h-2V4h-3V2zM2 17h2v3h3v2H2v-5zm20 0v5h-5v-2h3v-3h2zM5 5h6v6H5V5zm8 8h6v6h-6v-6z" />
-                                </svg>
-                            </span>
-
-                            <div *cdkDragPreview class="preview"
-                                [ngStyle]="{'color': GroupHeaderForeColor, 'background-color':GroupHeaderBackColor }">
+                            <div *cdkDragPreview class="preview" [ngStyle]="{'color': GroupHeaderForeColor, 'background-color':GroupHeaderBackColor }">
                                 {{header.HeaderText}}
                             </div>
 
@@ -100,9 +87,12 @@
                     </ng-container>
 
                     <ng-container *ngIf="ColumnsNotDefined">
-                        <th style="cursor: pointer;min-height: 20px;" [ngStyle]="{
+                        <th style="cursor: pointer;min-height: 20px;"
+                            [ngStyle]="{
                                             'width': EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header)
-                                        }" class="header headerbox" cdkDrag [cdkDragData]="header"
+                                        }"
+                            class="header headerbox" cdkDrag
+                            [cdkDragData]="header"
                             (cdkDragStarted)="headerDragStart($event)" (cdkDragEnded)="headerDragEnd($event)"
                             *ngFor="let header of Headers">
 
@@ -111,61 +101,36 @@
                                 {{header.HeaderText}}
                             </span>
 
-                            <span (click)="sortColumn(header)"
-                                *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==1"
-                                class="srt">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px"
-                                    [attr.fill]="SortIconColor">
+                            <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==1" class="srt">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px" [attr.fill]="SortIconColor">
                                     <path d="M5 12V0H3v12H.5L4 15.5 7.5 12H5z" />
                                     <path d="M7 9h9v2H7V9zM7 6h7v2H7V6zM7 3h5v2H7V3zM7 0h3v2H7V0z" />
                                 </svg>
                             </span>
-                            <span (click)="sortColumn(header)"
-                                *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==-1"
-                                class="srt">
-                                <svg viewBox="0 0 1195 1195" width="15px" height="15px" [attr.fill]="SortIconColor"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M405.333 832V64h-128v768h-160l224 224 224-224h-160zm128-768h576v128h-576V64zm0 192h448v128h-448V256zm0 192h320v128h-320V448zm0 192h192v128h-192V640z" />
+                            <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==-1" class="srt">
+                                <svg viewBox="0 0 1195 1195" width="15px" height="15px" [attr.fill]="SortIconColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M405.333 832V64h-128v768h-160l224 224 224-224h-160zm128-768h576v128h-576V64zm0 192h448v128h-448V256zm0 192h320v128h-320V448zm0 192h192v128h-192V640z" />
                                 </svg>
                             </span>
-                            <span (click)="sortColumn(header)"
-                                *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==undefined"
-                                class="srt">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px"
-                                    [attr.fill]="SortIconColor">
-                                    <path
-                                        d="M13 9.25a.603.603 0 0 1-.186.439l-4.375 4.375A.6.6 0 0 1 8 14.25a.596.596 0 0 1-.439-.186L3.186 9.689A.6.6 0 0 1 3 9.25a.6.6 0 0 1 .186-.439.596.596 0 0 1 .439-.186h8.75a.6.6 0 0 1 .439.186.603.603 0 0 1 .186.439zM13 6a.603.603 0 0 1-.186.439.6.6 0 0 1-.439.186h-8.75a.596.596 0 0 1-.439-.186A.6.6 0 0 1 3 6a.6.6 0 0 1 .186-.439l4.375-4.375A.6.6 0 0 1 8 1c.168 0 .314.062.439.186l4.375 4.375A.603.603 0 0 1 13 6z" />
+                            <span (click)="sortColumn(header)" *ngIf="!header.disableSort && !header.IsComputationColumn && header.sortType==undefined"
+                                  class="srt">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="15px" height="15px" [attr.fill]="SortIconColor">
+                                    <path d="M13 9.25a.603.603 0 0 1-.186.439l-4.375 4.375A.6.6 0 0 1 8 14.25a.596.596 0 0 1-.439-.186L3.186 9.689A.6.6 0 0 1 3 9.25a.6.6 0 0 1 .186-.439.596.596 0 0 1 .439-.186h8.75a.6.6 0 0 1 .439.186.603.603 0 0 1 .186.439zM13 6a.603.603 0 0 1-.186.439.6.6 0 0 1-.439.186h-8.75a.596.596 0 0 1-.439-.186A.6.6 0 0 1 3 6a.6.6 0 0 1 .186-.439l4.375-4.375A.6.6 0 0 1 8 1c.168 0 .314.062.439.186l4.375 4.375A.603.603 0 0 1 13 6z" />
                                 </svg>
                             </span>
 
-                            <rfilter style="float: left;" *ngIf="!header.IsComputationColumn && !header.disableFilter"
-                                [DateFormat]="FilterDateFormat" [ColumnName]="header.PropToBind"
-                                [DataType]="GetDataType(header, filterModel[header.PropToBind])"
-                                [ItemModel]="BackupItems" (ApplyCallback)="ApplyFilter($event)"
-                                [(ngModel)]="filterModel[header.PropToBind]" [Color]="FilterIconColor">
+                            <rfilter style="float: left;"
+                                     *ngIf="!header.IsComputationColumn && !header.disableFilter"
+                                     [DateFormat]="FilterDateFormat"
+                                     [ColumnName]="header.PropToBind"
+                                     [DataType]="GetDataType(header, filterModel[header.PropToBind])"
+                                     [ItemModel]="BackupItems"
+                                     (ApplyCallback)="ApplyFilter($event)"
+                                     [(ngModel)]="filterModel[header.PropToBind]"
+                                     [Color]="FilterIconColor">
                             </rfilter>
 
-                            <span *ngIf="!isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
-                                title="Group by this column">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
-                                    [attr.fill]="GroupByIconColor">
-                                    <path
-                                        d="M4 2h4v2H4v4H2V4a2 2 0 0 1 2-2zm16 0a2 2 0 0 1 2 2v4h-2V4h-4V2h4zM4 22a2 2 0 0 1-2-2v-4h2v4h4v2H4zm16 0h-4v-2h4v-4h2v4a2 2 0 0 1-2 2zM7 7h6v6H7V7zm4 4h6v6h-6v-6z" />
-                                </svg>
-                            </span>
-
-                            <span *ngIf="isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
-                                title="Ungroup this column">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
-                                    [attr.fill]="GroupByIconColor">
-                                    <path
-                                        d="M2 2h5v2H4v3H2V2zm17 0h3v5h-2V4h-3V2zM2 17h2v3h3v2H2v-5zm20 0v5h-5v-2h3v-3h2zM5 5h6v6H5V5zm8 8h6v6h-6v-6z" />
-                                </svg>
-                            </span>
-
-                            <div *cdkDragPreview class="preview"
-                                [ngStyle]="{ 'color' : GroupHeaderForeColor, 'background-color' : GroupHeaderBackColor }">
+                            <div *cdkDragPreview class="preview" [ngStyle]="{ 'color' : GroupHeaderForeColor, 'background-color' : GroupHeaderBackColor }">
                                 {{header.HeaderText}}
                             </div>
 
@@ -176,113 +141,114 @@
                         [ngStyle]="{ 'width': (EditModeEnabled && !ColumnsNotDefined) ? GetEditColumnWidth : GetEditColumnWidth }">
                         Action
                     </th>
-
+                    
                 </tr>
             </thead>
         </table>
 
-        <cdk-virtual-scroll-viewport itemSize="40" [ngStyle]="{'height': GetContentHeight }" class="grid-viewport"
-            [attr.key]="ShowItems?.Rows?.length">
-            <table class="tbl tabcontent" [ngStyle]="{ 'width': '100%' }">
-                <tbody [ngStyle]="{ 'width': '100%' }">
+    <cdk-virtual-scroll-viewport itemSize="40" [ngStyle]="{'height': GetContentHeight }" class="grid-viewport" [attr.key]="ShowItems?.Rows?.length">
+        <table class="tbl tabcontent" [ngStyle]="{ 'width': '100%' }">
+            <tbody  [ngStyle]="{ 'width': '100%' }">
 
-                    <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
-
-                        <tr class="hgh" *ngFor="let item of ShowItems.Rows; let i = index; trackBy:cdkVirtualTrackBy"
-                            [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
+                <ng-container *ngIf="ShowItems && ShowItems.Rows && !IsGroupHaveColumns">
+                    
+                    <tr class="hgh" *ngFor="let item of ShowItems.Rows; let i = index; trackBy:cdkVirtualTrackBy" 
+                    [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
                         'width': '100%', 'height':  RowHeightInPx, 'align-content' : 'center', 'overflow': 'visible',
                         '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
                         '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity,
                         'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
                         'user-select': IsDisabled ? 'none': 'auto'  }">
+    
+                        <ng-container *ngIf="EnableSelectColummn">
+                            <td style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
+                                <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [CheckSize]="SelectCheckBoxSize"
+                                    [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
+                                (OnCheckChanged)="ItemSelect($event, item)"></rcheckbox>
+                            </td>
+                        </ng-container>
 
-                            <ng-container *ngIf="EnableSelectColummn">
-                                <td style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
-                                    <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [CheckSize]="SelectCheckBoxSize"
-                                        [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
-                                        (OnCheckChanged)="ItemSelect($event, item)"></rcheckbox>
-                                </td>
-                            </ng-container>
-
-                            <ng-container *ngIf="!ColumnsNotDefined">
-                                <td *ngFor="let header of Headers" style="cursor: pointer;"
-                                    (click)="onTDClick(item[header.PropToBind])" [ngStyle]="{ 'width': EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header),
+                        <ng-container *ngIf="!ColumnsNotDefined">
+                            <td *ngFor="let header of Headers" style="cursor: pointer;"
+                                (click)="onTDClick(item[header.PropToBind])"
+                                [ngStyle]="{ 'width': EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header),
                                 'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : ''
                                 }">
 
-                                    <ng-container
-                                        *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
-                                        <div>
-                                            <ng-container
-                                                *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
+                                <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
+                                    <div>
+                                        <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
                                             item[header.PropToBind].columnDirective.EditView  || em1 :
                                             item[header.PropToBind].columnDirective.ReadView || em1;
                                         context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
-                                            </ng-container>
-                                            <!-- <ng-content></ng-content> -->
-                                            <ng-template #em1>No Content</ng-template>
-                                        </div>
-                                    </ng-container>
+                                        </ng-container>
+                                        <!-- <ng-content></ng-content> -->
+                                        <ng-template #em1>No Content</ng-template>
+                                    </div>
+                                </ng-container>
 
-                                </td>
-                            </ng-container>
+                            </td>
+                        </ng-container>
 
-                            <ng-container *ngIf="ColumnsNotDefined">
-                                <td *ngFor="let header of Headers" (click)="onTDClick(item[header.PropToBind])"
-                                    [ngStyle]="{ 'width':  EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header), 
+                        <ng-container *ngIf="ColumnsNotDefined">
+                            <td *ngFor="let header of Headers"
+                                (click)="onTDClick(item[header.PropToBind])"
+                                [ngStyle]="{ 'width':  EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header), 
                                     'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : ''
-                                    }" style="cursor: pointer;">
+                                    }"
+                                style="cursor: pointer;">
 
-                                    <ng-container
-                                        *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
+                                <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
                                         defaultEditView || em2 :
                                         defaultReadView || em2;
                                     context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
-                                    </ng-container>
-                                    <!-- <ng-content></ng-content> -->
-                                    <ng-template #em2>No Content</ng-template>
-                                </td>
-                            </ng-container>
-
-                            <td *ngIf="ShowEditUpdate" style="text-align: center;"
-                                [ngStyle]="{'width': ColumnsNotDefined ? GetEditColumnWidth : GetEditColumnWidth }">
-                                <div>
-                                    <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
-                                        (click)="ShowEdit($event, item, false)">Edit</a>
-                                    <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
-                                        (click)="ShowEdit($event, item, true)">Close</a>
-                                </div>
+                                </ng-container>
+                                <!-- <ng-content></ng-content> -->
+                                <ng-template #em2>No Content</ng-template>
                             </td>
+                        </ng-container>
 
-                        </tr>
+                        <td *ngIf="ShowEditUpdate" style="text-align: center;"
+                            [ngStyle]="{'width': ColumnsNotDefined ? GetEditColumnWidth : GetEditColumnWidth }">
+                            <div>
+                                <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
+                                    (click)="ShowEdit($event, item, false)">Edit</a>
+                                <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
+                                    (click)="ShowEdit($event, item, true)">Close</a>
+                            </div>
+                        </td>
 
-                    </ng-container>
+                    </tr>
 
-                    <ng-container *ngIf="IsGroupHaveColumns && DisplayGroupItems">
+                </ng-container>
 
-                        <ng-container *ngFor="let grpitem of DisplayGroupItems; trackBy: cdkVirtualGroupTrackBy">
+                <ng-container *ngIf="IsGroupHaveColumns && DisplayGroupItems">
 
-                            <tr [ngStyle]="{ 'width': '100%', 'overflow': 'visible', 
+                    <ng-container *ngFor="let grpitem of DisplayGroupItems; trackBy: cdkVirtualGroupTrackBy">
+
+                        <tr [ngStyle]="{ 'width': '100%', 'overflow': 'visible', 
                                          'border-top': '1px solid '+ GroupHeaderRowBorderColor,
                                          'border-bottom': '1px solid '+ GroupHeaderRowBorderColor,
                                          'height': GroupHeaderRowHeightInPx, 'align-content' : 'center' , 
                                          'background-color': GroupHeaderRowBackColor }">
 
-                                <td style="" colspan="2">
-                                    <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"
-                                        [ngStyle]="{'--groupbyiconcolor': GroupByIconColor}"
-                                        (click)="expandGroup($event, grpitem)">
-                                    </span>
-                                    <span style="text-overflow: ellipsis;" [ngStyle]="{ 'color': GroupHeaderRowForeColor,  
+                            <td style="" colspan="2">
+                                <span class="symbol" [ngClass]="{'symbol-down': grpitem.IsExpanded}"
+                                    [ngStyle]="{'--groupbyiconcolor': GroupByIconColor}"
+                                    (click)="expandGroup($event, grpitem)">
+                                </span>
+                                <span style="text-overflow: ellipsis;" 
+                                 [ngStyle]="{ 'color': GroupHeaderRowForeColor,  
                                               'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
                                               'user-select': IsDisabled ? 'none': 'auto'}">
-                                        {{getGroupHeaderAsString(grpitem)}}
-                                    </span>
-                                </td>
-                            </tr>
+                                    {{getGroupHeaderAsString(grpitem)}}
+                                </span>
+                            </td>
+                        </tr>
 
-                            <ng-container *ngIf="grpitem.IsExpanded">
-                                <tr class="hgh" *ngFor="let item of grpitem.Values; let i = index;" [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
+                        <ng-container *ngIf="grpitem.IsExpanded">
+                            <tr class="hgh"  *ngFor="let item of grpitem.Values; let i = index;" 
+                                    [ngStyle]="{ 'background': EnableAlternateRowColor ? i%2 == 0 ? OddRowBackColor : EvenRowBackColor : RowBackColor, 
                                         'width': '100%', 'height': RowHeightInPx, 
                                         'align-content' : 'center', 'overflow': 'visible',
                                         'pointer-events': (IsReadOnly || IsDisabled) ? 'none': '', 
@@ -290,91 +256,88 @@
                                         '--rowhoverbackcolor': RowHoverBackColor, '--rowhoverforecolor': RowHoverForeColor, 
                                         '--rowhoverbackgroundopacity': RowHoverBackgroundOpacity }">
 
-                                    <ng-container *ngIf="EnableSelectColummn">
-                                        <td style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
-                                            <rcheckbox [(ngModel)]="item['rgrid_select'].Value"
-                                                [CheckSize]="SelectCheckBoxSize" [IsReadOnly]="IsReadOnly"
-                                                [IsDisabled]="IsDisabled" (OnCheckChanged)="ItemSelect($event, item)">
-                                            </rcheckbox>
-                                        </td>
-                                    </ng-container>
+                                <ng-container *ngIf="EnableSelectColummn">
+                                    <td style="text-align: center;" [ngStyle]="{ 'width': GetSelectColumnWidth }">
+                                        <rcheckbox [(ngModel)]="item['rgrid_select'].Value" [CheckSize]="SelectCheckBoxSize"
+                                                   [IsReadOnly]="IsReadOnly" [IsDisabled]="IsDisabled"
+                                        (OnCheckChanged)="ItemSelect($event, item)"></rcheckbox>
+                                    </td>
+                                </ng-container>
 
-                                    <ng-container *ngIf="!ColumnsNotDefined">
-                                        <td *ngFor="let header of Headers" style="cursor: pointer;"
-                                            (click)="onTDClick(item[header.PropToBind])" [ngStyle]="{ 'width': EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header),
+                                <ng-container *ngIf="!ColumnsNotDefined">
+                                    <td *ngFor="let header of Headers" style="cursor: pointer;"
+                                        (click)="onTDClick(item[header.PropToBind])"
+                                        [ngStyle]="{ 'width': EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header),
                                                      'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind]!=undefined) ? item[header.PropToBind].Height : ''
                                                     }">
 
-                                            <ng-container
-                                                *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
-                                                <div>
-                                                    <ng-container
-                                                        *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
+                                        <ng-container *ngIf="item[header.PropToBind] && item[header.PropToBind].columnDirective">
+                                            <div>
+                                                <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
                                                     item[header.PropToBind].columnDirective.EditView  || em3 :
                                                     item[header.PropToBind].columnDirective.ReadView || em3;
                                                 context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
-                                                    </ng-container>
-                                                    <!-- <ng-content></ng-content> -->
-                                                    <ng-template #em3>No Content</ng-template>
-                                                </div>
-                                            </ng-container>
+                                                </ng-container>
+                                                <!-- <ng-content></ng-content> -->
+                                                <ng-template #em3>No Content</ng-template>
+                                            </div>
+                                        </ng-container>
 
-                                        </td>
-                                    </ng-container>
+                                    </td>
+                                </ng-container>
 
-                                    <ng-container *ngIf="ColumnsNotDefined">
-                                        <td *ngFor="let header of Headers" (click)="onTDClick(item[header.PropToBind])"
-                                            [ngStyle]="{  'width':  EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header),
+                                <ng-container *ngIf="ColumnsNotDefined">
+                                    <td *ngFor="let header of Headers"
+                                        (click)="onTDClick(item[header.PropToBind])"
+                                        [ngStyle]="{  'width':  EditModeEnabled ? GetColumnsWidth(header) : GetColumnsWidth(header),
                                                      'height': EditModeEnabled ? header.ColumnHeight : (item[header.PropToBind] != undefined) ? item[header.PropToBind].Height : ''
-                                                    }" style="cursor: pointer;">
+                                                    }"
+                                        style="cursor: pointer;">
 
-                                            <ng-container
-                                                *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
+                                        <ng-container *ngTemplateOutlet="item[header.PropToBind].IsEditMode ?
                                                 defaultEditView || em4 :
                                                 defaultReadView || em4;
                                             context:{$implicit: item[header.PropToBind].Item, Header:header, CellInfo: item[header.PropToBind]}">
-                                            </ng-container>
-                                            <!-- <ng-content></ng-content> -->
-                                            <ng-template #em4>No Content</ng-template>
-                                        </td>
-                                    </ng-container>
-
-
-                                    <td *ngIf="ShowEditUpdate" style="text-align: center;"
-                                        [ngStyle]="{ 'width': GetEditColumnWidth }">
-                                        <div>
-                                            <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
-                                                (click)="ShowEdit($event, item, false)">Edit</a>
-                                            <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
-                                                (click)="ShowEdit($event, item, true)">Close</a>
-                                        </div>
+                                        </ng-container>
+                                        <!-- <ng-content></ng-content> -->
+                                        <ng-template #em4>No Content</ng-template>
                                     </td>
+                                </ng-container>
 
+                              
+                                <td *ngIf="ShowEditUpdate" style="text-align: center;" [ngStyle]="{ 'width': GetEditColumnWidth }">
+                                    <div>
+                                        <a class="atagedit" *ngIf="item && !item[Headers[0].PropToBind].IsEditMode"
+                                            (click)="ShowEdit($event, item, false)">Edit</a>
+                                        <a class="atagedit" *ngIf="item && item[Headers[0].PropToBind].IsEditMode"
+                                            (click)="ShowEdit($event, item, true)">Close</a>
+                                    </div>
+                                </td>
+                             
 
-                                </tr>
-                            </ng-container>
+                            </tr>
                         </ng-container>
-
                     </ng-container>
-                </tbody>
-            </table>
-        </cdk-virtual-scroll-viewport>
+
+                </ng-container>
+            </tbody>
+        </table>
+    </cdk-virtual-scroll-viewport>
     </div>
     <div [ngStyle]="{ 'width': TableWidth_C }">
         <div>
             <table [ngStyle]="{ 'width': TableWidth_C }">
                 <tbody [ngStyle]="{ 'width': TableWidth_C }">
-                    <tr style="border-top: 1px solid lightgray;border-right: 1px solid lightgray"
-                        [ngStyle]="{ 'width': FooterWidth }">
+                    <tr style="border-top: 1px solid lightgray;border-right: 1px solid lightgray" [ngStyle]="{ 'width': FooterWidth }">
                         <td style="padding-top:0px; padding-bottom: 0px;" [ngStyle]="{ 'width': TableWidth_C }">
                             <div class="page">
                                 <div [ngStyle]="{ 'font-size': FontSize }" style="display: block;color:grey">
                                     <div class="pageItem" (click)="FirstPage()">&#171;</div>
                                     <div class="pageItem" (click)="PreviousPage()">&#8249;</div>
                                     <div class="pageItemDropdown">
-                                        <rdropdown [DropDownContentHeight]="'100px'" [Items]="PageItems"
-                                            [EnableFilterOption]="false" (valueChanged)="ItemsShownPerPage($event)"
-                                            [(ngModel)]="ItemsPerPage">
+                                        <rdropdown [DropDownContentHeight]="'100px'" [Items]="PageItems"                                     
+                                            [EnableFilterOption]="false"
+                                            (valueChanged)="ItemsShownPerPage($event)" [(ngModel)]="ItemsPerPage">
                                         </rdropdown>
                                     </div>
                                     <div class="pageItem" (click)="NextPage()">&#8250;</div>
@@ -385,11 +348,11 @@
                                     <div class="pageItemSmallFont">
                                         <span>Total Pages: {{TotalPagesInGrid}}</span>
                                     </div>
-
+                                    
                                     <div class="pageItemSmallFont">
                                         <span>Total Rows: {{TotalRows}}</span>
                                     </div>
-
+                                    
                                     <div class="pageItemSmallFont">
                                         <span>Rows in Current Page: {{RowsInCurrentPage}}</span>
                                     </div>
@@ -397,9 +360,8 @@
                             </div>
                         </td>
                         <td style="align-items: end;">
-                            <rprogressbar *ngIf="EnableLoader" [ForeColor]="LoaderForeColor"
-                                [TrackColor]="LoaderTrackColor" [EnableBackDrop]="false" [FloatInCenter]="false"
-                                [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
+                            <rprogressbar *ngIf="EnableLoader" [ForeColor]="LoaderForeColor" [TrackColor]="LoaderTrackColor" [EnableBackDrop]="false"
+                                [FloatInCenter]="false" [DisplayType]="progressDisplayType" [StraightLineTrackHeightInPx]="'16px'"
                                 [ProgressBarWidthInPx]="'17px'" [CircularLineWidthInPx]="'3px'"
                                 [FiniteCircularDisplayText]="''" [Type]="progressType">
                             </rprogressbar>
@@ -412,14 +374,20 @@
 </div>
 
 <ng-template #viewmode let-cell="CellInfo" let-header="Header">
-    <div style="text-overflow: ellipsis; overflow: hidden;text-wrap: wrap;"
-        [ngStyle]="{'width': GetColumnsWidth(header) }">{{cell.Value}}</div>
+    <div style="text-overflow: ellipsis; overflow: hidden;text-wrap: wrap;" [ngStyle]="{'width': GetColumnsWidth(header) }">{{cell.Value}}</div>
 </ng-template>
 
-<ng-template #editmode let-cell="CellInfo" let-header="Header">
+<ng-template #editmode let-cell="CellInfo" let-header="Header">     
 
-    <rtextbox [BottomLineColor]="HeaderBackgroundColor" [TextBoxWidth]="GetTxtWidth(header)" [PaddingLeft]="'0px'"
-        [PaddingRight]="'0px'" [EnableMarginTextBottom]="false" [TextBoxHeight]="'12px'" [(ngModel)]="cell.Value">
+    <rtextbox   [BottomLineColor]="HeaderBackgroundColor" 
+                [TextBoxWidth]="GetTxtWidth(header)" 
+                [PaddingLeft]="'0px'"
+                [PaddingRight]="'0px'"
+                [EnableMarginTextBottom]="false" 
+                [TextBoxHeight]="'12px'" 
+                [(ngModel)]="cell.Value">
     </rtextbox>
-
+    
 </ng-template>
+
+                                                     

@@ -1,7 +1,9 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDragPreview, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, DatePipe, JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, input, Input,
-         NgZone, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import {
+  AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, DoCheck, ElementRef, EventEmitter, forwardRef, HostBinding, input, Input,
+  NgZone, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild
+} from '@angular/core';
 import { RColumnComponent } from './rcolumn/rcolumn.component';
 import { RCell, RCellInfo, RColumnComponentInfo, RGridEditRowInfo, RGridHeaderSort, RGridHeaderSortType, RGridItems, RGridPaginationValue, RGridRow, RGridRowInfo } from './rcell';
 import { RButtonComponent } from "../rbutton/rbutton.component";
@@ -27,7 +29,7 @@ export class RGridHeader {
     public sortType: RGridHeaderSortType | undefined = undefined,
     public Width: string = 'auto', public Height: string = 'auto',
     public ColumnWidth: string = 'auto', public ColumnHeight: string = 'auto',
-    public readView: TemplateRef<any> | null = null, 
+    public readView: TemplateRef<any> | null = null,
     public editView: TemplateRef<any> | null = null,
     public headerTemplate: TemplateRef<any> | null = null,
     public disableSort: boolean = false,
@@ -39,10 +41,10 @@ export class RGridHeader {
 
 export class RGridGroupData {
 
-  public Key: string; 
-  
+  public Key: string;
+
   public Values: RGridRow[];
-  
+
   public IsExpanded: boolean;
 
   constructor(_key: string, _values: RGridRow[], _isExpanded: boolean = false) {
@@ -71,17 +73,17 @@ export class RGridGroupData {
       multi: true
     },
     {
-       provide: NG_VALIDATORS,
-       useFactory: (instance: RGridComponent) => {
-         return {
-           validate: (control: AbstractControl) =>{
-             return instance.getSyncErrors(control);
-           }
-         }
-       },
-       multi: true,
-       deps:[forwardRef(()=> RGridComponent)]
-     },
+      provide: NG_VALIDATORS,
+      useFactory: (instance: RGridComponent) => {
+        return {
+          validate: (control: AbstractControl) => {
+            return instance.getSyncErrors(control);
+          }
+        }
+      },
+      multi: true,
+      deps: [forwardRef(() => RGridComponent)]
+    },
     {
       provide: NG_ASYNC_VALIDATORS,
       useExisting: forwardRef(() => RGridComponent),
@@ -139,17 +141,16 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   IsSelectedAll: boolean = false;
 
   @Output()
-  SelectAllClicked: EventEmitter<{isSelectedAll: boolean, event: Event|undefined}> = new EventEmitter<{isSelectedAll: boolean, event: Event|undefined}>();
+  SelectAllClicked: EventEmitter<{ isSelectedAll: boolean, event: Event | undefined }> = new EventEmitter<{ isSelectedAll: boolean, event: Event | undefined }>();
 
   @Output()
-  ItemSelectClick: EventEmitter<{isSelected: boolean, item:any, event: Event|undefined}> = new EventEmitter<{isSelected: boolean, item:any, event: Event|undefined}>();
-  
-  private _rheaders: RGridHeader [] =[];
+  ItemSelectClick: EventEmitter<{ isSelected: boolean, item: any, event: Event | undefined }> = new EventEmitter<{ isSelected: boolean, item: any, event: Event | undefined }>();
+
+  private _rheaders: RGridHeader[] = [];
   private _rgroupheaders: RGridHeader[] = [];
   private _sortHeaders: RGridHeaderSort[] = [];
 
-  private set Headers(value: RGridHeader[])
-  {
+  private set Headers(value: RGridHeader[]) {
     this._rheaders = value;
   }
   public get Headers(): RGridHeader[] {
@@ -166,7 +167,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   @Input()
   PageItems: DropdownModel[] = []
 
-  currentPage: number = 1;  
+  currentPage: number = 1;
 
   @Input()
   GroupByIconColor: string = "white";
@@ -215,7 +216,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   @Input()
   RowHeightInPx: string = 'auto';
-  
+
   @Input()
   HeaderHeightInPx: string = '50px';
 
@@ -224,7 +225,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   @Input()
   SelectCheckBoxSize: string = "12px";
-  
+
   @Input()
   ItemsPerPage!: DropdownModel;
 
@@ -247,27 +248,26 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   private HeaderWidth: string = "100%";
 
   private _fitColumns: boolean = false;
-  
+
   private ContentInit: boolean = false;
 
-  set FitColumnsToContent(val: boolean)
-  {
+  set FitColumnsToContent(val: boolean) {
     this._fitColumns = val;
-    if(this.ContentInit && this.winObj.isExecuteInBrowser()){
+    if (this.ContentInit && this.winObj.isExecuteInBrowser()) {
       this.ngAfterContentInit();
     }
   }
   get FitColumnsToContent(): boolean {
     return this._fitColumns;
   }
-  
+
   TableHeight_C: string = '200px';
   TableWidth_C: string = '99%';
 
   @Input()
-  set TableHeight(val: string){
+  set TableHeight(val: string) {
     this._tableHeight = val;
-    if(this.winObj.isExecuteInBrowser()) {
+    if (this.winObj.isExecuteInBrowser()) {
       let _val = val;
       let _height = this.cssUnit.ToPxString(_val, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
       this.TableHeight_C = _height;
@@ -285,9 +285,9 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   private _tableWidth: string = '99%';
 
   @Input()
-  set TableWidth(val: string){
+  set TableWidth(val: string) {
     this._tableWidth = val;
-    if(this.winObj.isExecuteInBrowser()) {
+    if (this.winObj.isExecuteInBrowser()) {
       let _val = val;
       let _width = this.cssUnit.ToPxString(_val, this.ele.nativeElement.parentElement, RelativeUnitType.Width);
       this.TableWidth_C = _width;
@@ -320,10 +320,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   @Output()
   PreviousPageClicked = new EventEmitter<RGridPaginationValue>();
-  
+
   @Output()
   FirstPageClicked = new EventEmitter<RGridPaginationValue>();
-  
+
   @Output()
   LastPageClicked = new EventEmitter<RGridPaginationValue>();
 
@@ -332,13 +332,13 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   @Input()
   GroupHeaderRowBorderColor: string = '#0d2e55';
-  
+
   @Input()
   GroupHeaderRowBackColor: string = '#0d2e55';
-  
+
   @Input()
   GroupHeaderRowForeColor: string = 'white';
-  
+
   EditModeEnabled: boolean = false;
 
   DataItems!: RGridItems;
@@ -368,7 +368,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   @ViewChild('editmode', { read: TemplateRef<any> }) defaultEditView!: TemplateRef<any>;
 
-  @ViewChild('parentElement', {read: ElementRef }) private parentEle!: ElementRef;
+  @ViewChild('parentElement', { read: ElementRef }) private parentEle!: ElementRef;
 
   private onChanged: Function = () => { };
   private onTouched: Function = () => { };
@@ -377,23 +377,22 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   private IsFilteredApplied: boolean = false;
   private IsUpdateFromFilter: boolean = false;
-  
+
   @Input()
   public set Items(value: any[]) {
-  
+
     let scannedValue = value;
 
     this.RenderUI(scannedValue);
-    
-    if(!this.IsUpdateFromFilter)
-    {
-      if(scannedValue!= undefined && scannedValue!=null)
+
+    if (!this.IsUpdateFromFilter) {
+      if (scannedValue != undefined && scannedValue != null)
         this.BackupItems = scannedValue.slice();
       else
         this.BackupItems = [];
     }
 
-    this.IsUpdateFromFilter = false;    
+    this.IsUpdateFromFilter = false;
   }
   public get Items(): any[] {
     return this._items;
@@ -414,41 +413,41 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   public get RowsInCurrentPage(): number {
-    if(this.IsGroupHaveColumns){
-        if(this.DisplayGroupItems){
-          let _totalLen = 0;
+    if (this.IsGroupHaveColumns) {
+      if (this.DisplayGroupItems) {
+        let _totalLen = 0;
 
-          for (const group in this.DisplayGroupItems) {
-            _totalLen += this.DisplayGroupItems[group].Values.length;
-          }
-          
-          return _totalLen;
+        for (const group in this.DisplayGroupItems) {
+          _totalLen += this.DisplayGroupItems[group].Values.length;
         }
-    } else{
 
-      if(this.ShowItems && this.ShowItems.Rows)
+        return _totalLen;
+      }
+    } else {
+
+      if (this.ShowItems && this.ShowItems.Rows)
         return this.ShowItems.Rows.length;
     }
     return 0;
   }
 
   public get TotalPagesInGrid(): number {
-    
-    if(this.DataItems) {
+
+    if (this.DataItems) {
       let tot = this.DataItems.Rows.length;
       let div = tot / this.ItemsPerPage.Value;
       div = Math.ceil(div);
       return div;
     }
-      
+
     return 0;
   }
 
   public get GetContentHeight(): string {
-    if(this.TableHeight_C != undefined && this.TableHeight_C != null) {
+    if (this.TableHeight_C != undefined && this.TableHeight_C != null) {
       let _height = this.cssUnit.ToPxValue(this.TableHeight_C, this.ele.nativeElement.parentElement, RelativeUnitType.Height);
-      let contentHeight =  _height - 40;
-      let contentHeightPercent = (contentHeight/_height) * 100;
+      let contentHeight = _height - 40;
+      let contentHeightPercent = (contentHeight / _height) * 100;
       return contentHeightPercent + CssUnit.Percentage;
     } else {
       return '100%';
@@ -467,20 +466,20 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
     this.ItemsPerPage = new DropdownModel(10, "10");
 
-    this.ColValues.push(new DropdownModel(1,"1"));
-    this.ColValues.push(new DropdownModel(2,"2"));
-    this.ColValues.push(new DropdownModel(3,"3"));
-    this.ColValues.push(new DropdownModel(4,"4"));
-    this.ColValues.push(new DropdownModel(5,"5"));      
+    this.ColValues.push(new DropdownModel(1, "1"));
+    this.ColValues.push(new DropdownModel(2, "2"));
+    this.ColValues.push(new DropdownModel(3, "3"));
+    this.ColValues.push(new DropdownModel(4, "4"));
+    this.ColValues.push(new DropdownModel(5, "5"));
   }
 
   SelectAll(evt: CheckboxEventArgs) {
     this.EnableLoader = true;
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
       this.IsSelectedAll = evt.isChecked;
-      
+
       for (let index = 0; index < this.DataItems.Rows.length; index++) {
         const element = this.DataItems.Rows[index];
         element[this.selectKey].FromModel = true;
@@ -488,21 +487,21 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
         element[this.selectKey].FromModel = false;
       }
 
-      this.SelectAllClicked.emit({isSelectedAll: evt.isChecked, event:evt.event});
-    
+      this.SelectAllClicked.emit({ isSelectedAll: evt.isChecked, event: evt.event });
+
       this.EnableLoader = false;
       this.cdr.detectChanges();
     });
   }
 
-  ItemSelect(evt:CheckboxEventArgs, item: any){ 
+  ItemSelect(evt: CheckboxEventArgs, item: any) {
 
-    if(evt==undefined || evt.event == undefined)
+    if (evt == undefined || evt.event == undefined)
       return;
 
     let valueUpd = item[this.selectKey].IsValueUpdated;
 
-    let notifyDataItems = this.Items.slice();   
+    let notifyDataItems = this.Items.slice();
     item[this.selectKey].FromModel = true;
     item[this.selectKey].Value = evt.isChecked as any;
     item[this.selectKey].FromModel = false;
@@ -510,18 +509,18 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     let _rownum = item[this.indxKey as string].Row;
     let _row = (notifyDataItems as [])[_rownum as any];
 
-    if(valueUpd) {
-      this.ItemSelectClick.emit({isSelected: evt.isChecked, event: evt.event, item: _row});
+    if (valueUpd) {
+      this.ItemSelectClick.emit({ isSelected: evt.isChecked, event: evt.event, item: _row });
       item[this.selectKey].IsValueUpdated = false;
     }
   }
 
-  ngOnInit(): void {    
-    
+  ngOnInit(): void {
+
   }
 
   ngDoCheck(): void {
-  
+
   }
 
   onTDClick(info: RCell) {
@@ -545,7 +544,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     evtArgs.Height = info.Height;
     evtArgs.IsEditMode = info.IsEditMode;
     evtArgs.Item = info.Item;
-    
+
     evtArgs.Value = info.Value;
     evtArgs.Width = info.Width;
     evtArgs.DisplayRow = info.DisplayRow;
@@ -591,7 +590,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   protected override IsValidatorSupported(): boolean {
     return true;
   }
-  
+
   protected override GetValidatorValueType(): ValidatorValueType {
     return ValidatorValueType.Grid;
   }
@@ -634,9 +633,9 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
     let fulllist = this.BackupItems.length > 0 ? this.BackupItems.slice() : this.Items.slice();
 
-    if(fulllist.length > 0)
-        this.BackupItems = fulllist;
-      
+    if (fulllist.length > 0)
+      this.BackupItems = fulllist;
+
     this.onChanged(fulllist);
     this.onTouched(fulllist);
 
@@ -647,8 +646,8 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.cdr.detectChanges();
   }
 
- async sortColumn(hdr: RGridHeader) {
-    
+  async sortColumn(hdr: RGridHeader) {
+
     this.EnableLoader = true;
 
     setTimeout(async () => {
@@ -879,11 +878,58 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     });
   }
 
- public HideLoader() {
+  public HideLoader() {
     setTimeout(() => {
       this.EnableLoader = false;
       this.cdr.detectChanges();
     });
+  }
+
+  async groupHeader(_hdr: RGridHeader) {
+
+    this.EnableLoader = true;
+
+    setTimeout(async () => {
+
+      let _srt = undefined;
+
+      if (_hdr) {
+        let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
+
+        if (_col && (_col.IsComputationalColumn || _col.IsDummyPropToBind || _col.DisableGrouping)) {
+          this.EnableLoader = false;
+          this.cdr.detectChanges();
+          return;
+        }
+
+        let indx = this.GroupHeaders.findIndex(x => x.PropToBind == _hdr.PropToBind);
+        if (indx == -1) {
+          this.GroupHeaders.push(_hdr);
+          await this.createGroup();
+
+          /* Sort the column when group */
+          if (_hdr.sortType == RGridHeaderSortType.Ascending) {
+            _srt = undefined;
+          } else if (_hdr.sortType == RGridHeaderSortType.Descending) {
+            _srt = RGridHeaderSortType.Ascending;
+          }
+
+          _hdr.sortType = _srt;
+          this.sortColumn(_hdr);
+        }
+      }
+
+      this.EnableLoader = false;
+
+      this.OnColumnGrouped.emit(_hdr);
+
+      this.cdr.detectChanges();
+    });
+
+  }
+
+  async ungroupHeader(data: RGridHeader) {
+
   }
 
   async groupDrop($event: CdkDragDrop<RGridHeader[]>) {
@@ -933,15 +979,15 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   cdkVirtualTrackBy(index: number, item: any): number {
     try {
-      if (!item) 
+      if (!item)
         return index;
-      
+
       const key = this.indxKey;
 
       if (item[key] && item[key].Value !== undefined && item[key].Value !== null) {
         return item[key].Value as number;
       }
-      
+
       return index;
     } catch (e) {
       return index;
@@ -949,20 +995,24 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   cdkVirtualGroupTrackBy(index: number, item: any): string {
-    try{
-      if(!item) 
+    try {
+      if (!item)
         return index.toString();
 
       let _d = item as RGridGroupData;
 
-      if(_d)
+      if (_d)
         return _d.Key;
       else
         return index.toString();
 
-    } catch(e) {
+    } catch (e) {
       return index.toString();
     }
+  }
+
+  isGroupedColumn(item: RGridHeader): boolean {
+    return this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind) > -1;
   }
 
   async removeFromGroup(item: RGridHeader) {
@@ -1017,7 +1067,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
           }, 500);
 
-        });        
+        });
 
       } else {
         this.ColumnsNotDefined = true;
@@ -1089,20 +1139,20 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   }
 
-  private OrderColumnAndRow(){
+  private OrderColumnAndRow() {
     let _row = 0;
     let _col = 0;
 
-    if(this.ShowItems?.Rows && !this.IsGroupHaveColumns) {
+    if (this.ShowItems?.Rows && !this.IsGroupHaveColumns) {
       for (let index = 0; index < this.ShowItems.Rows.length; index++) {
         _row++;
         _col = 0;
 
         let data = this.ShowItems.Rows[index] as RGridRow;
-        
-        for(const key in data){
 
-          if(!this.EnableSelectColummn && key.toLowerCase() == 'rgrid_select')
+        for (const key in data) {
+
+          if (!this.EnableSelectColummn && key.toLowerCase() == 'rgrid_select')
             continue;
 
           _col++;
@@ -1110,9 +1160,9 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
 
           let _hkey = data[key].HeaderKey.toLowerCase();
-          let _hdt = this.Headers.filter(x=>x.PropToBind.toLowerCase() == _hkey);
+          let _hdt = this.Headers.filter(x => x.PropToBind.toLowerCase() == _hkey);
 
-          if(_hdt != undefined && _hdt.length > 0) {
+          if (_hdt != undefined && _hdt.length > 0) {
             data[key].HeaderIndex = _hdt[0].Index;
           }
 
@@ -1125,24 +1175,24 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
         for (let index = 0; index < element.Values.length; index++) {
           _row++;
           _col = 0;
-          
+
           const rowData = element.Values[index];
 
-          for(const key in rowData){
+          for (const key in rowData) {
 
-            if(!this.EnableSelectColummn && key.toLowerCase() == 'rgrid_select')
-            continue;
-          
+            if (!this.EnableSelectColummn && key.toLowerCase() == 'rgrid_select')
+              continue;
+
             _col++;
             rowData[key].DisplayRow = _row;
-            
-            let _hkey = rowData[key].HeaderKey.toLowerCase();
-            let _hdt = this.Headers.filter(x=>x.PropToBind.toLowerCase() == _hkey);
 
-            if(_hdt!=undefined && _hdt.length > 0) {
+            let _hkey = rowData[key].HeaderKey.toLowerCase();
+            let _hdt = this.Headers.filter(x => x.PropToBind.toLowerCase() == _hkey);
+
+            if (_hdt != undefined && _hdt.length > 0) {
               rowData[key].HeaderIndex = _hdt[0].Index;
             }
-           
+
             rowData[key].DisplayColumn = rowData[key].HeaderIndex + 1;
           }
         }
@@ -1216,10 +1266,10 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   }
 
   async NextPage() {
-    
+
     this.EnableLoader = true;
 
-    setTimeout(async ()=> {
+    setTimeout(async () => {
       this.currentPage++;
       this.adjustPageValue();
       if (this.IsGroupHaveColumns) {
@@ -1237,7 +1287,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   async PreviousPage() {
     this.EnableLoader = true;
 
-    setTimeout(async ()=>{
+    setTimeout(async () => {
       this.currentPage--;
       this.adjustPageValue();
       if (this.IsGroupHaveColumns) {
@@ -1256,7 +1306,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
     this.EnableLoader = true;
 
-    setTimeout(async ()=> {
+    setTimeout(async () => {
 
       let noofPage = parseInt((this.DataItems.Rows.length / this.ItemsPerPage.Value).toString());
       let rem = this.DataItems.Rows.length % this.ItemsPerPage.Value;
@@ -1311,14 +1361,14 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   }
 
-  GetDataType(header : RGridHeader, filter: any){
+  GetDataType(header: RGridHeader, filter: any) {
 
-    if(this.Items.length > 0){
+    if (this.Items.length > 0) {
 
       let val = undefined;
 
       let props = header.PropToBind.split(".");
-      
+
       if (props.length > 1) {
         let _obj = undefined;
         let _fobj = this.Items[0];
@@ -1338,24 +1388,24 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
       } else {
         val = this.Items[0][header.PropToBind];
       }
-      
-      let ty = typeof(val);
 
-      if(ty=='number'){
+      let ty = typeof (val);
+
+      if (ty == 'number') {
         return RFilterDataType.NumberType;
       }
-      else if(ty == 'string'){
+      else if (ty == 'string') {
         return RFilterDataType.StringType;
-      } else if(ty=='object'){
-        if(val instanceof Date){
+      } else if (ty == 'object') {
+        if (val instanceof Date) {
           return RFilterDataType.DateType;
         }
       }
     }
 
-    if(filter){
+    if (filter) {
       let g = filter as RFilterApplyModel;
-      if(g  && g.Type){
+      if (g && g.Type) {
         return g.Type;
       }
     }
@@ -1367,32 +1417,32 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     let values: any[] = [];
     let dValues: DropdownModel[] = [];
 
-    if(this.Items.length > 0){
+    if (this.Items.length > 0) {
       for (let index = 0; index < this.Items.length; index++) {
         const element = this.Items[index];
         let val = element[header.PropToBind];
-        
-        if(values.find(x=>x==val) == undefined) {
-          if(this.GetDataType(header, this.filterModel[header.ColumnName]) == RFilterDataType.NumberType) {
-            values.push(Number.parseInt(val));            
+
+        if (values.find(x => x == val) == undefined) {
+          if (this.GetDataType(header, this.filterModel[header.ColumnName]) == RFilterDataType.NumberType) {
+            values.push(Number.parseInt(val));
           } else {
-            values.push(val);            
+            values.push(val);
           }
-        }        
+        }
       }
     }
 
-    if(this.GetDataType(header, this.filterModel[header.ColumnName]) == RFilterDataType.NumberType)
-      values = values.sort((a,b)=> a - b);
+    if (this.GetDataType(header, this.filterModel[header.ColumnName]) == RFilterDataType.NumberType)
+      values = values.sort((a, b) => a - b);
     else
       values = values.sort();
 
-      for (let index = 0; index < values.length; index++) {
-        const element = values[index];
-        dValues.push(new DropdownModel(element, element));
-      }
+    for (let index = 0; index < values.length; index++) {
+      const element = values[index];
+      dValues.push(new DropdownModel(element, element));
+    }
 
-      return dValues;
+    return dValues;
   }
 
   async ApplyFilter(filter: RFilterApplyModel) {
@@ -1455,151 +1505,151 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     this.AfterApplyingFilter.emit(filter);
   }
 
-  private async ApplyFilterOnClick(){
+  private async ApplyFilterOnClick() {
 
     this.EnableLoader = true;
 
-      let newIndexes = [];
+    let newIndexes = [];
 
-      var filteredIndexes: number[] = [];
+    var filteredIndexes: number[] = [];
 
-      for (let index = 0; index < this.BackupItems.length; index++) {
-        newIndexes.push(index);
-      }
+    for (let index = 0; index < this.BackupItems.length; index++) {
+      newIndexes.push(index);
+    }
 
-      /* apply filter */
-      let keys = Object.keys(this.filterModel);
+    /* apply filter */
+    let keys = Object.keys(this.filterModel);
 
-      for (let index = 0; index < keys.length; index++) {
-        const keyname = keys[index];
-        let filter = this.filterModel[keyname] as RFilterApplyModel;
+    for (let index = 0; index < keys.length; index++) {
+      const keyname = keys[index];
+      let filter = this.filterModel[keyname] as RFilterApplyModel;
 
-        if (!filter.IsCleared) {
+      if (!filter.IsCleared) {
 
-          filteredIndexes = newIndexes.slice();
-          newIndexes = [];
+        filteredIndexes = newIndexes.slice();
+        newIndexes = [];
 
-          let filterLesser: any = undefined;
-          let filterGreater: any = undefined;
+        let filterLesser: any = undefined;
+        let filterGreater: any = undefined;
 
-          if (filter.Type == RFilterDataType.NumberType) {
+        if (filter.Type == RFilterDataType.NumberType) {
 
-            if (filter.LesserThan != undefined) {
-              if (filter.LesserThan.toString().split(".").length > 1) {
-                filterLesser = parseFloat(filter.LesserThan?.toString());
-              } else {
-                filterLesser = parseInt(filter.LesserThan?.toString());
-              }
-            }
-
-            if (filter.GreaterThan != undefined) {
-              if (filter.GreaterThan.toString().split(".").length > 1) {
-                filterGreater = parseFloat(filter.GreaterThan?.toString());
-              } else {
-                filterGreater = parseInt(filter.GreaterThan?.toString());
-              }
-            }
-          }
-
-
-          if (filter.Type == RFilterDataType.DateType) {
-
-            if (filter.LesserThan != undefined) {
-              let nospaceObj = filter.LesserThan.toString().replace(/\s/g, '');
-              let nospaceFormat = this.FilterDateFormat.replace(/\s/g, '');
-
-              let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
-
-              if (dstr)
-                filterLesser = new Date(Date.parse(dstr));
-            }
-
-            if (filter.GreaterThan != undefined) {
-
-              let nospaceObj = filter.GreaterThan.toString().replace(/\s/g, '');
-              let nospaceFormat = this.FilterDateFormat.replace(/\s/g, '');
-
-              let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
-
-              if (dstr)
-                filterGreater = new Date(Date.parse(dstr));
-            }
-
-          }
-
-          if ((filter.Contains == undefined || filter.Contains.length == 0) && (filter.LesserThan == undefined || filter.LesserThan == '')
-            && (filter.GreaterThan == undefined || filter.GreaterThan == '')) {
-            newIndexes = filteredIndexes.slice();
-            continue;
-          }
-
-          for (let index = 0; index < filteredIndexes.length; index++) {
-            const ind = filteredIndexes[index];
-
-            let val = this.BackupItems[ind][keyname];
-
-            let props = keyname.split(".");
-
-            if (props.length > 1) {
-              let _obj = undefined;
-              let _fobj = this.BackupItems[ind];
-
-              for (let index = 0; index < props.length; index++) {
-                const _p = props[index];
-                _fobj = _fobj[_p];
-
-                if (_fobj == undefined)
-                  break;
-
-                _obj = _fobj;
-              }
-
-              val = _obj;
-
+          if (filter.LesserThan != undefined) {
+            if (filter.LesserThan.toString().split(".").length > 1) {
+              filterLesser = parseFloat(filter.LesserThan?.toString());
             } else {
-              val = this.BackupItems[ind][keyname];
+              filterLesser = parseInt(filter.LesserThan?.toString());
             }
+          }
 
-            if (filter.Contains?.map(x => x.Value).find(x => x.toString() == val.toString()) != undefined) {
-              newIndexes.push(ind);
+          if (filter.GreaterThan != undefined) {
+            if (filter.GreaterThan.toString().split(".").length > 1) {
+              filterGreater = parseFloat(filter.GreaterThan?.toString());
+            } else {
+              filterGreater = parseInt(filter.GreaterThan?.toString());
             }
-
-            if (filter.GreaterThan != undefined && filter.LesserThan != undefined
-              && val > filterGreater && val < filterLesser) {
-              if (newIndexes.find(x => x == index) == undefined) {
-                newIndexes.push(ind);
-              }
-            }
-
-
-            if (filter.GreaterThan != undefined && filter.LesserThan == undefined
-              && val > filterGreater) {
-              if (newIndexes.find(x => x == index) == undefined) {
-                newIndexes.push(ind);
-              }
-            }
-
-
-            if (filter.GreaterThan == undefined && filter.LesserThan != undefined
-              && val < filterLesser) {
-              if (newIndexes.find(x => x == index) == undefined) {
-                newIndexes.push(ind);
-              }
-            }
-
           }
         }
+
+
+        if (filter.Type == RFilterDataType.DateType) {
+
+          if (filter.LesserThan != undefined) {
+            let nospaceObj = filter.LesserThan.toString().replace(/\s/g, '');
+            let nospaceFormat = this.FilterDateFormat.replace(/\s/g, '');
+
+            let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+
+            if (dstr)
+              filterLesser = new Date(Date.parse(dstr));
+          }
+
+          if (filter.GreaterThan != undefined) {
+
+            let nospaceObj = filter.GreaterThan.toString().replace(/\s/g, '');
+            let nospaceFormat = this.FilterDateFormat.replace(/\s/g, '');
+
+            let dstr = this.datePipe.transform(nospaceObj, nospaceFormat);
+
+            if (dstr)
+              filterGreater = new Date(Date.parse(dstr));
+          }
+
+        }
+
+        if ((filter.Contains == undefined || filter.Contains.length == 0) && (filter.LesserThan == undefined || filter.LesserThan == '')
+          && (filter.GreaterThan == undefined || filter.GreaterThan == '')) {
+          newIndexes = filteredIndexes.slice();
+          continue;
+        }
+
+        for (let index = 0; index < filteredIndexes.length; index++) {
+          const ind = filteredIndexes[index];
+
+          let val = this.BackupItems[ind][keyname];
+
+          let props = keyname.split(".");
+
+          if (props.length > 1) {
+            let _obj = undefined;
+            let _fobj = this.BackupItems[ind];
+
+            for (let index = 0; index < props.length; index++) {
+              const _p = props[index];
+              _fobj = _fobj[_p];
+
+              if (_fobj == undefined)
+                break;
+
+              _obj = _fobj;
+            }
+
+            val = _obj;
+
+          } else {
+            val = this.BackupItems[ind][keyname];
+          }
+
+          if (filter.Contains?.map(x => x.Value).find(x => x.toString() == val.toString()) != undefined) {
+            newIndexes.push(ind);
+          }
+
+          if (filter.GreaterThan != undefined && filter.LesserThan != undefined
+            && val > filterGreater && val < filterLesser) {
+            if (newIndexes.find(x => x == index) == undefined) {
+              newIndexes.push(ind);
+            }
+          }
+
+
+          if (filter.GreaterThan != undefined && filter.LesserThan == undefined
+            && val > filterGreater) {
+            if (newIndexes.find(x => x == index) == undefined) {
+              newIndexes.push(ind);
+            }
+          }
+
+
+          if (filter.GreaterThan == undefined && filter.LesserThan != undefined
+            && val < filterLesser) {
+            if (newIndexes.find(x => x == index) == undefined) {
+              newIndexes.push(ind);
+            }
+          }
+
+        }
       }
+    }
 
-      var filteredValues = [];
+    var filteredValues = [];
 
-      for (let index = 0; index < newIndexes.length; index++) {
-        const element = newIndexes[index];
-        let eachValue = this.BackupItems[element];
-        filteredValues.push(eachValue);
-      }
+    for (let index = 0; index < newIndexes.length; index++) {
+      const element = newIndexes[index];
+      let eachValue = this.BackupItems[element];
+      filteredValues.push(eachValue);
+    }
 
-      this.Items = filteredValues.slice();
+    this.Items = filteredValues.slice();
 
   }
 
@@ -1627,23 +1677,23 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     if (this.Columns.length > 0) {
 
       let _wth = this.cssUnit.ToPxValue(this.TableWidth_C, null, null);
-      
-      if(this.ShowEditUpdate)
+
+      if (this.ShowEditUpdate)
         _wth = _wth - this.GetEditColumnTotalSize;
 
-      if(this.EnableSelectColummn)
+      if (this.EnableSelectColummn)
         _wth = _wth - this.GetSelectColumnTotalSize;
 
-      let twth = _wth+CssUnit.Px.toString();
+      let twth = _wth + CssUnit.Px.toString();
 
       let _arr = this.Columns.toArray();
       for (let index = 0; index < _arr.length; index++) {
         const element = _arr[index];
 
         this.Headers.push(new RGridHeader(index.toString(), element.PropToBindToCellInfo, element.Name, index,
-          element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(twth), 
+          element.HeaderText, element.IsComputationalColumn, undefined, element.GetRelativeWidth(twth),
           element.Height, element.GetRelativeWidth(twth), element.Height,
-          element.ReadView, element.EditView, element.HeaderTemplate, 
+          element.ReadView, element.EditView, element.HeaderTemplate,
           element.DisableSort, element.DisableFilter));
 
       }
@@ -1656,13 +1706,13 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   GetTxtWidth(header: RGridHeader): string {
     let k = header.ColumnWidth.split("px");
     let val = parseFloat(k[0]) - 15 - 20;
-    return val+CssUnit.Px.toString();
+    return val + CssUnit.Px.toString();
   }
 
-  GetColumnsWidth(header: RGridHeader){
+  GetColumnsWidth(header: RGridHeader) {
     let k = header.ColumnWidth.split("px");
     let val = parseFloat(k[0]) - 20;
-    return val+CssUnit.Px.toString();
+    return val + CssUnit.Px.toString();
   }
 
   @Input()
@@ -1676,7 +1726,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return this.EditColumnWidth || "60px";
   }
 
-  
+
   get GetSelectColumnTotalSize() {
     return 46;
   }
@@ -1737,16 +1787,16 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
         if (dirs && dirs.length > 0) {
 
-          let _wth = this.cssUnit.ToPxValue(this.TableWidth_C, null, null);              
-          
-          if(this.ShowEditUpdate)
+          let _wth = this.cssUnit.ToPxValue(this.TableWidth_C, null, null);
+
+          if (this.ShowEditUpdate)
             _wth = _wth - this.GetEditColumnTotalSize;
 
-          if(this.EnableSelectColummn)
+          if (this.EnableSelectColummn)
             _wth = _wth - this.GetSelectColumnTotalSize;
 
-          let twth = _wth+CssUnit.Px.toString();
-    
+          let twth = _wth + CssUnit.Px.toString();
+
           _cell.columnDirective = dirs[0];
           _cell.Width = dirs[0].GetRelativeWidth(twth);
           _cell.Height = dirs[0].Height;
@@ -1765,7 +1815,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
       _cell.FromModel = false;
       _row[this.indxKey] = _cell;
 
-      
+
       /* Adding select column for each row */
       let _cell1 = new RCell();
       c++;
@@ -1779,28 +1829,28 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
       _dataItems.Rows.push(_row);
     }
 
-    let _wth = this.cssUnit.ToPxValue(this.TableWidth_C, null, null);          
-    
-    if(this.ShowEditUpdate)
+    let _wth = this.cssUnit.ToPxValue(this.TableWidth_C, null, null);
+
+    if (this.ShowEditUpdate)
       _wth = _wth - this.GetEditColumnTotalSize;
 
-    if(this.EnableSelectColummn)
+    if (this.EnableSelectColummn)
       _wth = _wth - this.GetSelectColumnTotalSize;
 
-    let twth = _wth+CssUnit.Px.toString();
+    let twth = _wth + CssUnit.Px.toString();
 
     let totalW = 0;
 
     for (let index = 0; index < cols.length; index++) {
       const element = cols[index];
       let w = element.GetRelativeWidth(twth);
-       totalW = totalW + parseFloat(w.split("px")[0]);
+      totalW = totalW + parseFloat(w.split("px")[0]);
     }
-    
-    if(this.ShowEditUpdate)
+
+    if (this.ShowEditUpdate)
       totalW += this.GetEditColumnTotalSize;
 
-    if(this.EnableSelectColummn)
+    if (this.EnableSelectColummn)
       totalW += this.GetSelectColumnTotalSize;
 
     this.ActualWidth = (totalW - 6) + CssUnit.Px.toString();
@@ -1847,29 +1897,29 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
         dir.HeaderText = _hdr.HeaderText;
         dir.Name = _hdr.PropToBind;
         dir.PropToBindToCellInfo = _hdr.PropToBind;
-        dir.Height = "fit-content";  
-        
-        if(this.FitColumnsToContent){
+        dir.Height = "fit-content";
+
+        if (this.FitColumnsToContent) {
           dir.Width = "fit-content";
         } else {
-          dir.Width = (100/totCols)+"%"; 
+          dir.Width = (100 / totCols) + "%";
         }
 
-        let _wth = this.cssUnit.ToPxValue(this.TableWidth_C, null, null);              
-        
-        if(this.ShowEditUpdate)
+        let _wth = this.cssUnit.ToPxValue(this.TableWidth_C, null, null);
+
+        if (this.ShowEditUpdate)
           _wth = _wth - this.GetEditColumnTotalSize;
-  
-        if(this.EnableSelectColummn)
+
+        if (this.EnableSelectColummn)
           _wth = _wth - this.GetSelectColumnTotalSize;
 
-        let twth = _wth+CssUnit.Px.toString();
-  
-        if(!this.FitColumnsToContent)
-            _hdr.ColumnWidth = dir.GetRelativeWidth(twth);
+        let twth = _wth + CssUnit.Px.toString();
+
+        if (!this.FitColumnsToContent)
+          _hdr.ColumnWidth = dir.GetRelativeWidth(twth);
         else
           _hdr.ColumnWidth = dir.Width;
-        
+
         if (dir) {
           _cell.columnDirective = dir;
           _cell.Width = _hdr.ColumnWidth;
@@ -1908,12 +1958,12 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
       const element = this.Headers[index];
       let w = parseFloat(element.ColumnWidth.split("px")[0]);
       TotalW = TotalW + w;
-    }    
-    
-    if(this.ShowEditUpdate)
+    }
+
+    if (this.ShowEditUpdate)
       TotalW = TotalW + this.GetEditColumnTotalSize;
 
-    if(this.EnableSelectColummn)
+    if (this.EnableSelectColummn)
       TotalW = TotalW + this.GetSelectColumnTotalSize;
 
     this.ActualWidth = (TotalW - 6) + CssUnit.Px.toString();
@@ -1925,9 +1975,9 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
   async ShowEdit($event: Event, item: RGridRow, isUpdate: boolean) {
 
-    if(this.IsReadOnly || this.IsDisabled)
+    if (this.IsReadOnly || this.IsDisabled)
       return;
-    
+
     let keys = Object.keys(item)
     for (let index = 0; index < keys.length; index++) {
       const element = item[keys[index]];
@@ -1966,8 +2016,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
     if (isUpdate) {
 
-      if(isRowUpdated)
-      {
+      if (isRowUpdated) {
         this.NotifyToModelOnUpdate(item);
         this.SetRowUpdateToFalse(item);
       }
@@ -1994,18 +2043,18 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return _row;
   }
 
-  private SetRowUpdateToFalse(itemrow: RGridRow){
-    for(const key in itemrow){
+  private SetRowUpdateToFalse(itemrow: RGridRow) {
+    for (const key in itemrow) {
       itemrow[key].IsValueUpdated = false;
     }
   }
 
-  private isRowUpdated(itemrow: RGridRow){
+  private isRowUpdated(itemrow: RGridRow) {
     let isUpdated = false;
 
-    for(const key in itemrow){
+    for (const key in itemrow) {
       let val = itemrow[key].IsValueUpdated;
-      if(val){
+      if (val) {
         isUpdated = true;
         break;
       }
@@ -2036,8 +2085,8 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
 
           for (let _keys = 0; _keys < keys.length; _keys++) {
             const _hdrKey = keys[_keys];
-            if(!this.Columns.find(c=>c.PropToBindToCellInfo==_hdrKey)?.IsComputationalColumn)
-               rowItem[_hdrKey].IsEditMode = true;
+            if (!this.Columns.find(c => c.PropToBindToCellInfo == _hdrKey)?.IsComputationalColumn)
+              rowItem[_hdrKey].IsEditMode = true;
           }
         }
       }
@@ -2110,13 +2159,13 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     }
 
     this.Headers.sort(this.headersSort);
-    
+
     this.EnableLoader = true;
 
-    setTimeout(()=>{
-        this.OrderColumnAndRow();
-        this.EnableLoader = false;
-        this.cdr.detectChanges();
+    setTimeout(() => {
+      this.OrderColumnAndRow();
+      this.EnableLoader = false;
+      this.cdr.detectChanges();
     });
   }
 

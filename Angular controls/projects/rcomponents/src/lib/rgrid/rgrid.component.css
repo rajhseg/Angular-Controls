@@ -67,7 +67,7 @@
 }
 
 .srt {
-  padding-left: 15px;
+  padding-left: 5px;
   padding-right: 2px;
   float: inline-start;
 }
@@ -82,25 +82,19 @@
   align-items: center;
 }
 
-/* 
+ 
 .headerbox {
-  box-sizing:content-box;
-} */
+  
+} 
 
 .header {    
     cursor: pointer;
     font-size: var(--fontsize);
     font-weight: 700;  
-/* 
-    padding-top: 10px;    
-    padding-bottom: 10px; 
-    padding-left: 8px;
-    padding-right: 8px;     */
 }
 
 .headerpadding {
-  /* padding-top: 2px;
-  padding-bottom: 2px; */
+  
 }
 
 .symbol {

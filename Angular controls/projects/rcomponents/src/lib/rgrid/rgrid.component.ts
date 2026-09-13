@@ -217,7 +217,7 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
   RowHeightInPx: string = 'auto';
   
   @Input()
-  HeaderHeightInPx: string = '50px';
+  HeaderHeightInPx: string = '60px';
 
   @Input()
   GroupHeaderRowHeightInPx: string = '50px';

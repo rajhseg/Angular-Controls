@@ -135,6 +135,15 @@
     height: 100%;    
 }
 
+  .grid-footer {
+    clear: both;
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    border-top: 1px solid lightgray;
+    margin-top: 20px;
+  }
+
 .root{
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
 }

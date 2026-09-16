@@ -1016,6 +1016,15 @@ export class RGridComponent extends RBaseComponent<any> implements OnInit, DoChe
     return this.GroupHeaders.findIndex(x => x.PropToBind == item.PropToBind) > -1;
   }
 
+  canEnableGroupOrUnGroupIcon(_hdr: RGridHeader): boolean {
+    
+    if(this.ColumnsNotDefined)
+      return true;
+
+    let _col = this.Columns.find(x => x.Name.toLowerCase() == _hdr.ColumnName.toLowerCase());
+    return (_col != undefined && !_col.IsComputationalColumn && !_col.IsDummyPropToBind && !_col.DisableGrouping);
+  }
+
   async removeFromGroup(item: RGridHeader) {
     this.EnableLoader = true;
 

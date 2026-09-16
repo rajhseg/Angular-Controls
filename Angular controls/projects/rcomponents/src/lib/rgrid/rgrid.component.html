@@ -71,7 +71,7 @@
 
 
 
-				  			<span *ngIf="!isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
+				  			<span *ngIf="canEnableGroupOrUnGroupIcon(header) && !isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
 			                    title="Group by this column">
 			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
 			                        [attr.fill]="GroupByIconColor">
@@ -80,7 +80,7 @@
 			                    </svg>
 			                </span>
 				
-			                <span *ngIf="isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
+			                <span *ngIf="canEnableGroupOrUnGroupIcon(header) && isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
 			                    title="Ungroup this column">
 			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
 			                        [attr.fill]="GroupByIconColor">
@@ -141,7 +141,7 @@
                             </rfilter>
 
 
-				  			<span *ngIf="!isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
+				  			<span *ngIf="canEnableGroupOrUnGroupIcon(header) && !isGroupedColumn(header)" class="groupicon" (click)="groupHeader(header)"
 			                    title="Group by this column">
 			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
 			                        [attr.fill]="GroupByIconColor">
@@ -150,7 +150,7 @@
 			                    </svg>
 			                </span>
 				
-			                <span *ngIf="isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
+			                <span *ngIf="canEnableGroupOrUnGroupIcon(header) && isGroupedColumn(header)" class="ungroupicon" (click)="removeFromGroup(header)"
 			                    title="Ungroup this column">
 			                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"
 			                        [attr.fill]="GroupByIconColor">

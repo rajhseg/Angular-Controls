@@ -142,7 +142,7 @@ export class REventsCalenderComponent  extends RBaseComponent<any> implements IR
   @Input()
   IsChildOfAnotherControl: boolean = false;
 
-  _eachDayWdh: string = '100px';
+  _eachDayWdh: string = '130px';
 
   @Input()
   set EachDayWidthInPx(val: string)

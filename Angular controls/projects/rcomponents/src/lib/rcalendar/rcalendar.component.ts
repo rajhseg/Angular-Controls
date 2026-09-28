@@ -66,6 +66,8 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
 
   private changemonthisCalled: boolean = false;
 
+  private inputValue: string | Date | undefined | null = undefined;
+
   private injector = inject(Injector);
 
   private _value: string = '';
@@ -437,9 +439,9 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
       this.RenderUI(this.selectedDate);
   }
 
-  private RenderUI(obj: string | Date) {
+  private RenderUI(obj: string | Date | undefined | null) {
     try {
-      if (obj != undefined && obj != '') {
+      if (obj != undefined && obj != '' && obj != null) {
         if (typeof (obj) === 'string') {
 
           let nospaceObj = obj.replace(/\s/g, '');
@@ -538,6 +540,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     try {
       obj = obj ?? '';
       this.IsReadOnly = false;
+      this.inputValue = obj;
       this.RenderUI(obj);
     }
     catch {
@@ -620,7 +623,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
     this.IsYearDropdownOpen = false;
 
     if (this.IsCalenderOpen) {
-      this.RenderUI(this.Value);
+      this.RenderUI(this.inputValue);
       this.cls.CloseAllPopups(this);
       this.AttachDropdown();
     }
@@ -799,6 +802,7 @@ export class RCalendarComponent extends RBaseComponent<Date> implements IRDropDo
         }
 
         this.IsCalenderOpen = false;
+        this.inputValue = this.selectedDate
       }
     }
   }
